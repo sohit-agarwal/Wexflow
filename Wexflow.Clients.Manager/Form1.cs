@@ -17,6 +17,10 @@ using System.Diagnostics;
 
 namespace Wexflow.Clients.Manager
 {
+    
+    // TODO FTP command option: list, download, delete
+    // TODO HTTP download task
+
     // TODO Wexflow Editor
     // TODO WebApp
     // TODO FilesRenamer?, YouTube?
@@ -25,7 +29,7 @@ namespace Wexflow.Clients.Manager
     {     
         private const string COLUMN_ID = "Id";
         private const string COLUMN_ENABLED = "Enabled";
-        private const int TIMER_INTERVAL = 100; // ms
+        private const int TIMER_INTERVAL = 300; // ms
 
         private WexflowServiceClient _wexflowServiceClient;
         private WorkflowInfo[] _workflows;
@@ -110,8 +114,8 @@ namespace Wexflow.Clients.Manager
                 if (this._windowsServiceWasStopped)
                 {
                     this._wexflowServiceClient = new WexflowServiceClient();
-                    this.backgroundWorker1.RunWorkerAsync();
                     this._windowsServiceWasStopped = false;
+                    this.backgroundWorker1.RunWorkerAsync();
                 }
                 return this._wexflowServiceClient.GetWorkflow(id);
             }

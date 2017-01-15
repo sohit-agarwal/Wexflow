@@ -124,6 +124,10 @@
       <Project>{272AB358-72D6-446A-B339-E9A579A63B76}</Project>
       <Name>Wexflow.Tasks.FilesSender</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.ImagesTransformer\Wexflow.Tasks.ImagesTransformer.csproj">
+      <Project>{D2BA9820-D5C7-4053-8E36-AC94C162C9B0}</Project>
+      <Name>Wexflow.Tasks.ImagesTransformer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.ListEntities\Wexflow.Tasks.ListEntities.csproj">
       <Project>{D03EB1F0-5DAB-4E93-8B29-783C4135AB55}</Project>
       <Name>Wexflow.Tasks.ListEntities</Name>
@@ -175,6 +179,10 @@
     <ProjectReference Include="..\Wexflow.Tasks.Twitter\Wexflow.Tasks.Twitter.csproj">
       <Project>{D1B9E2BA-E783-4C26-89E8-28E13AE3220C}</Project>
       <Name>Wexflow.Tasks.Twitter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.Wmi\Wexflow.Tasks.Wmi.csproj">
+      <Project>{0BEF411F-039F-4C4F-A0FF-8DEFCFE1C019}</Project>
+      <Name>Wexflow.Tasks.Wmi</Name>
     </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.XmlToCsv\Wexflow.Tasks.XmlToCsv.csproj">
       <Project>{39D75060-94B3-4164-9213-908AE208799C}</Project>

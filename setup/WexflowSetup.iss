@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Wexflow"
-#define MyAppVersion "1.0"
+#define MyAppVersion "1.0.1"
 #define MyAppPublisher "Akram EL ASSAS"
 #define MyAppExeName "Wexflow.Clients.Manager.exe"
 
@@ -78,6 +78,8 @@ Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.Zip.dll"; Des
 Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.Tar.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.Tgz.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.Sql.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.Wmi.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.ImagesTransformer.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 Source: "Documentation\*"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 
