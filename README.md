@@ -1,4 +1,6 @@
 
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/Wexflow/Lobby)
+
 ![alt text](https://aelassas.github.io/wf_logo.png "Wexflow")
 
 # Wexflow
