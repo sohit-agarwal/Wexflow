@@ -1,6 +1,7 @@
 
 [![Build Status](https://travis-ci.org/aelassas/Wexflow.svg?branch=master)](https://travis-ci.org/aelassas/Wexflow)
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/Wexflow/Lobby)
+[![Twitter](https://aelassas.github.io/twitter_icon.png)](https://twitter.com/wexflow86)
 
 ![alt text](https://aelassas.github.io/wf_logo.png "Wexflow")
 
