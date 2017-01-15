@@ -285,7 +285,7 @@ Finally if you finished coding your custom task, compile the class library proje
 That's it. That's all the things you need to know to start coding your own custom tasks.
 
 # More informations
-More informrmations about Wexflow can be found on [CodeProject](https://www.codeproject.com/Articles/1164009/Wexflow-Open-source-workflow-engine-in-Csharp).
+More informations about Wexflow can be found on [CodeProject](https://www.codeproject.com/Articles/1164009/Wexflow-Open-source-workflow-engine-in-Csharp).
 
 # License
 MIT.
