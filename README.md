@@ -1,3 +1,6 @@
+
+![alt text](https://aelassas.github.io/wf_logo.png "Wexflow")
+
 # Wexflow
 Open source workflow engine written in pure C#.
 
