@@ -1,9 +1,6 @@
 
 [![Build Status](https://travis-ci.org/aelassas/Wexflow.svg?branch=master)](https://travis-ci.org/aelassas/Wexflow)
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/Wexflow/Lobby)
-[![Twitter](https://aelassas.github.io/twitter_icon.png)](https://twitter.com/wexflow86)
-
-![alt text](https://aelassas.github.io/wf_logo.png "Wexflow")
 
 # Wexflow
 Open source workflow engine written in pure C#.
@@ -24,6 +21,8 @@ Compression tasks: These tasks allow to create a zip, a tar or a tar.gz from a c
 - **Twitter task:** This task allows to send a collection of tweets.
 - **Process task:** This task allows to launch any process on the computer.
 - **Script tasks:** These tasks allows execute custom tasks written in C# or VB.
+
+Follow Wexflow on [Twitter](https://twitter.com/wexflow86) to get the lastest news.
 
 # How to use Wexflow
 After installing Wexflow, the folders C:\Wexflow\ and C:\WexflowTesting\ are created. The folder C:\Wexflow\ contains the following elements:
