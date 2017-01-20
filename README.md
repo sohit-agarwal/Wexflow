@@ -5,7 +5,7 @@
 [![Twitter](https://img.shields.io/badge/twitter-@wexflow86-55acee.svg?style=flat-square)](https://twitter.com/wexflow86)
 
 # Wexflow
-Open source workflow engine written in pure C#.
+Wexflow is an open source multithreaded workflow engine written in pure C# from scratch. Wexflow aims to make automations, workflow processes and interactions between systems, applications and folks easy, straitforward and clean.
 
 Wexflow provides the following tasks:
 
