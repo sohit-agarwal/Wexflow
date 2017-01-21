@@ -1,8 +1,13 @@
-
-[![Build Status](https://travis-ci.org/aelassas/Wexflow.svg?branch=master)](https://travis-ci.org/aelassas/Wexflow)
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/Wexflow/Lobby)
 [![License](http://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://github.com/aelassas/Wexflow/blob/master/LICENSE)
 [![Twitter](https://img.shields.io/badge/twitter-@wexflow86-55acee.svg?style=flat-square)](https://twitter.com/wexflow86)
+
+# Build status
+
+|         | Status |
+----------|--------|
+| Travis  |[![Build Status](https://travis-ci.org/aelassas/Wexflow.svg?branch=master)](https://travis-ci.org/aelassas/Wexflow)|
+| AppVeyor|[![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow)|
 
 # Wexflow
 Wexflow is an open source multithreaded workflow engine written in pure C# from scratch. Wexflow aims to make automations, workflow processes, long-running processes and interactions between systems, applications and folks easy, straitforward and clean.
