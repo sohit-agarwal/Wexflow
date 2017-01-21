@@ -12,11 +12,13 @@ namespace Wexflow.Tasks.FilesMover
     public class FilesMover:Task
     {
         public string DestFolder { get; private set; }
+        public bool Overwrite { get; private set; }
 
         public FilesMover(XElement xe, Workflow wf)
             : base(xe, wf)
         {
             this.DestFolder = this.GetSetting("destFolder");
+            this.Overwrite = bool.Parse(this.GetSetting("overwrite", "false"));
         }
 
         public override void Run()
@@ -33,16 +35,22 @@ namespace Wexflow.Tasks.FilesMover
                 {
                     if (File.Exists(destFilePath))
                     {
-                        this.ErrorFormat("Destination file {0} already exists.", destFilePath);
+                        if (this.Overwrite)
+                        {
+                            File.Delete(destFilePath);
+                        }
+                        else
+                        {
+                            this.ErrorFormat("Destination file {0} already exists.", destFilePath);
+                            continue;
+                        }
                     }
-                    else
-                    {
-                        File.Move(file.Path, destFilePath);
-                        FileInf fi = new FileInf(destFilePath, this.Id);
-                        this.Files.Add(fi);
-                        this.Workflow.FilesPerTask[file.TaskId].Remove(file);
-                        this.InfoFormat("File moved: {0} -> {1}", file.Path, destFilePath);
-                    }
+
+                    File.Move(file.Path, destFilePath);
+                    FileInf fi = new FileInf(destFilePath, this.Id);
+                    this.Files.Add(fi);
+                    this.Workflow.FilesPerTask[file.TaskId].Remove(file);
+                    this.InfoFormat("File moved: {0} -> {1}", file.Path, destFilePath);
                 }
                 catch (ThreadAbortException)
                 {

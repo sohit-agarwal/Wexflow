@@ -14,19 +14,32 @@ using System.IO;
 using Wexflow.Core.Service.Contracts;
 using System.Windows.Threading;
 using System.Diagnostics;
+using System.ServiceModel.Security;
 
 namespace Wexflow.Clients.Manager
 {
-    
-    // TODO FTP command option: list, download, delete
-    // TODO HTTP download task
+    // TODO Test installer on Windows 7 (Sync + Ftp_uploed_rename + Ftp_download_tag + Sftp_upload_rename)
+    // TODO git pull
+    // TODO git push
+    // TODO git release
+    // TODO git update README content + pics
 
+    // v1.0.4
+    // TODO XSD http://stackoverflow.com/questions/751511/validating-an-xml-against-referenced-xsd-in-c-sharp
+    // https://msdn.microsoft.com/en-us/library/system.xml.schema.xmlschemaset(v=vs.110).aspx
+
+    // TODO Wexflow Manager wf status live + row background color
+    
+    // TODO Test and fix ftps
+    // TODO FluentFtpHelper (after FTPS fix)
+
+    // TODO YouTube?
     // TODO Wexflow Editor
-    // TODO WebApp
-    // TODO FilesRenamer?, YouTube?
+    // TODO Wexflow Designer
+    // TODO Wexflow Web Manager
 
     public partial class Form1 : Form
-    {     
+    {
         private const string COLUMN_ID = "Id";
         private const string COLUMN_ENABLED = "Enabled";
         private const int TIMER_INTERVAL = 300; // ms
@@ -80,13 +93,13 @@ namespace Wexflow.Clients.Manager
             this.dataGridViewWorkflows.DataSource = workflows;
 
             this.dataGridViewWorkflows.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.dataGridViewWorkflows.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.dataGridViewWorkflows.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridViewWorkflows.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.dataGridViewWorkflows.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.dataGridViewWorkflows.Columns[3].Name = COLUMN_ENABLED;
             this.dataGridViewWorkflows.Columns[3].HeaderText = COLUMN_ENABLED;
             this.dataGridViewWorkflows.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            
+
             this.dataGridViewWorkflows.Sort(this.dataGridViewWorkflows.Columns[0], ListSortDirection.Ascending);
         }
 
@@ -310,6 +323,15 @@ namespace Wexflow.Clients.Manager
         private void WriteEventLogError(string msg)
         {
             this.WriteEventLog(msg, EventLogEntryType.Error);
+        }
+
+        private void dataGridViewWorkflows_ColumnDividerDoubleClick(object sender, DataGridViewColumnDividerDoubleClickEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                this.dataGridViewWorkflows.AutoResizeColumn(e.ColumnIndex, DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader);
+            }
+            e.Handled = true;
         }
     }
 }

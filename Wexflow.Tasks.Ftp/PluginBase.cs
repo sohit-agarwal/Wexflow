@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Wexflow.Core;
 
-namespace Wexflow.Tasks.FilesSender
+namespace Wexflow.Tasks.Ftp
 {
     public enum Protocol
     { 
@@ -32,6 +32,9 @@ namespace Wexflow.Tasks.FilesSender
             this.Path = path;
         }
 
-        public abstract void send(FileInf[] files);
+        public abstract FileInf[] List();
+        public abstract void Upload(FileInf file);
+        public abstract void Download(FileInf file);
+        public abstract void Delete(FileInf file);
     }
 }

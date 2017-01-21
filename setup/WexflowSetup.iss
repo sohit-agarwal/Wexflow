@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Wexflow"
-#define MyAppVersion "1.0.1"
+#define MyAppVersion "1.0.3"
 #define MyAppPublisher "Akram EL ASSAS"
 #define MyAppExeName "Wexflow.Clients.Manager.exe"
 
@@ -28,7 +28,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
-Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
+;Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 
 [Files]
 Source: "..\Wexflow.Clients.Manager\bin\Debug\Wexflow.Clients.Manager.exe"; DestDir: "{app}\Manager"; Flags: ignoreversion
@@ -41,14 +41,13 @@ Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Clients.WindowsServ
 Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Core.Service.Contracts.dll"; DestDir: "{app}"; Flags: ignoreversion
 
-Source: "..\Wexflow.Clients.WindowsService\bin\Debug\FluentFTP.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Hammock.ClientProfile.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Wexflow.Clients.WindowsService\bin\Debug\ICSharpCode.SharpZipLib.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Wexflow.Clients.WindowsService\bin\Debug\log4net.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Renci.SshNet.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Wexflow.Clients.WindowsService\bin\Debug\TweetSharp.dll"; DestDir: "{app}"; Flags: ignoreversion
-
+Source: "..\libs\FluentFTP.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\libs\Hammock.ClientProfile.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\libs\ICSharpCode.SharpZipLib.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\libs\log4net.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\libs\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\libs\Renci.SshNet.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\libs\TweetSharp.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Mono.Security.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Npgsql.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Oracle.DataAccess.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -56,13 +55,21 @@ Source: "..\libs\MySql.Data.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\System.Data.SQLite.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Teradata.Client.Provider.dll"; DestDir: "{app}"; Flags: ignoreversion
 
+Source: "..\libs\saxon9he.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\libs\saxon9he-api.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\libs\IKVM.OpenJDK.Charsets.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\libs\IKVM.OpenJDK.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\libs\IKVM.OpenJDK.Text.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\libs\IKVM.OpenJDK.Util.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\libs\IKVM.OpenJDK.XML.API.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\libs\IKVM.Runtime.dll"; DestDir: "{app}"; Flags: ignoreversion
+
 
 Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.CsvToXml.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.FilesCopier.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.FilesLoader.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.FilesMover.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.FilesRemover.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.FilesSender.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.ListEntities.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.ListFiles.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.MailsSender.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -80,6 +87,12 @@ Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.Tgz.dll"; Des
 Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.Sql.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.Wmi.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.ImagesTransformer.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.Http.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.Sync.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.Ftp.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.FilesRenamer.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.Wait.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.FilesExist.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 Source: "Documentation\*"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 
@@ -102,7 +115,7 @@ Name: "{commonprograms}\{#MyAppName}\Logs"; Filename: "{app}\Wexflow.log";
 Name: "{commonprograms}\{#MyAppName}\Uninstall"; Filename: "{uninstallexe}";
 
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\Manager\{#MyAppExeName}"; Tasks: desktopicon
-Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\{#MyAppName}"; Filename: "{app}\Manager\{#MyAppExeName}"; Tasks: quicklaunchicon
+;Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\{#MyAppName}"; Filename: "{app}\Manager\{#MyAppExeName}"; Tasks: quicklaunchicon
 
 [Run]
 ; Filename: "{app}\Manager\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
@@ -113,4 +126,5 @@ Filename: "{sys}\sc.exe"; Parameters: "start Wexflow"; Flags: runhidden  waitunt
 [UninstallRun]
 Filename: "taskkill"; Parameters: "/im ""{#MyAppExeName}"" /f"; Flags: runhidden waituntilterminated
 Filename: "{sys}\sc.exe"; Parameters: "stop Wexflow"; Flags: runhidden waituntilterminated
+Filename: "taskkill"; Parameters: "/im ""Wexflow.Clients.WindowsService.exe"" /f"; Flags: runhidden waituntilterminated
 Filename: "{sys}\sc.exe"; Parameters: "delete Wexflow"; Flags: runhidden waituntilterminated

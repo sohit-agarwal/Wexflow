@@ -10,6 +10,7 @@
 		<Task id="2" name="FilesMover" description="Moving files to FilesMover folder" enabled="true">
 			<Setting name="selectFiles" value="1" />
 			<Setting name="destFolder" value="C:\WexflowTesting\FilesMover\" />
+			<Setting name="overwrite" value="true" />
 		</Task>
 		<Task id="3" name="ListFiles" description="Listing files" enabled="true">
 		</Task>

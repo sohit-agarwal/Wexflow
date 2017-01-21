@@ -90,6 +90,8 @@ namespace Wexflow.Core
 
         public void Start()
         {
+            if (this.IsRunning) return;
+
             Thread thread = new Thread(new ThreadStart(() =>
                 {
                     try

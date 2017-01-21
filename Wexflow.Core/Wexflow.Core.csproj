@@ -46,6 +46,7 @@
     <Compile Include="Entity.cs" />
     <Compile Include="FileInf.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="Tag.cs" />
     <Compile Include="Task.cs" />
     <Compile Include="WexflowEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

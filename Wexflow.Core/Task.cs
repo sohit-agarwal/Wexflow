@@ -67,15 +67,67 @@ namespace Wexflow.Core
             return settings.ToArray();
         }
 
+        public XElement[] GetXSettings(string name)
+        {
+            return this._xElement.XPathSelectElements(string.Format("Setting[@name='{0}']", name)).ToArray();
+        }
+
         public FileInf[] SelectFiles() 
         {
             List<FileInf> files = new List<FileInf>();
-            foreach (string id in this.GetSettings("selectFiles"))
+            foreach (var xSelectFile in this.GetXSettings("selectFiles"))
             {
-                int taskId = int.Parse(id);
-                files.AddRange(this.Workflow.FilesPerTask[taskId]);
+                XAttribute xTaskId = xSelectFile.Attribute("value");
+                if (xTaskId != null)
+                {
+                    int taskId = int.Parse(xTaskId.Value);
+
+                    FileInf[] qf = QueryFiles(this.Workflow.FilesPerTask[taskId], xSelectFile).ToArray();
+                        
+                    files.AddRange(qf);
+                }
+                else
+                {
+                    FileInf[] qf = (from lf in this.Workflow.FilesPerTask.Values
+                                    from f in QueryFiles(lf, xSelectFile)
+                                    select f).Distinct().ToArray();
+                    
+                    files.AddRange(qf);
+                }
             }
             return files.ToArray();
+        }
+
+        private IEnumerable<FileInf> QueryFiles(IEnumerable<FileInf> files, XElement xSelectFile)
+        {
+            List<FileInf> fl = new List<FileInf>();
+
+            if (xSelectFile.Attributes().Where(t => t.Name != "value").Count() == 1)
+            {
+                return files;
+            }
+            else
+            {
+                foreach (var file in files)
+                {
+                    // Check file tags
+                    bool ok = true;
+                    foreach (var xa in xSelectFile.Attributes())
+                    { 
+                        if(xa.Name != "name" && xa.Name != "value")
+                        {
+                            ok &= file.Tags.Any(tag => tag.Key == xa.Name && tag.Value == xa.Value);
+                        }
+                    }
+
+                    if (ok)
+                    {
+                        fl.Add(file);
+                    }
+                }
+            }
+
+            return fl;
         }
 
         public Entity[] SelectEntities()

@@ -6,8 +6,9 @@ using Wexflow.Core;
 using Renci.SshNet;
 using System.IO;
 using System.Threading;
+using Renci.SshNet.Sftp;
 
-namespace Wexflow.Tasks.FilesSender
+namespace Wexflow.Tasks.Ftp
 {
     public class PluginSFTP:PluginBase
     {
@@ -21,17 +22,15 @@ namespace Wexflow.Tasks.FilesSender
             this.Passphrase = passphrase;
         }
 
-        public override void send(FileInf[] files)
+        private ConnectionInfo GetConnectionInfo()
         {
-            try
-            {
-                // Setup Credentials and Server Information
-                ConnectionInfo connInfo;
+            // Setup Credentials and Server Information
+            ConnectionInfo connInfo = null;
 
-                if (!string.IsNullOrEmpty(this.PrivateKeyPath) && !string.IsNullOrEmpty(this.Passphrase))
-                {
-                    connInfo = new ConnectionInfo(this.Server, this.Port, this.User,
-                        new AuthenticationMethod[]{
+            if (!string.IsNullOrEmpty(this.PrivateKeyPath) && !string.IsNullOrEmpty(this.Passphrase))
+            {
+                connInfo = new ConnectionInfo(this.Server, this.Port, this.User,
+                    new AuthenticationMethod[]{
 
                         // Pasword based Authentication
                         new PasswordAuthenticationMethod(this.User, this.Password),
@@ -41,52 +40,92 @@ namespace Wexflow.Tasks.FilesSender
                             new PrivateKeyFile(this.PrivateKeyPath, this.Passphrase)
                         })
                 });
-                }
-                else
+            }
+            else
+            {
+                connInfo = new ConnectionInfo(this.Server, this.Port, this.User,
+                       new AuthenticationMethod[]{
+
+                               // Pasword based Authentication
+                               new PasswordAuthenticationMethod(this.User, this.Password)
+                           });
+            }
+
+            return connInfo;
+        }
+
+        public override FileInf[] List()
+        {
+            List<FileInf> files = new List<FileInf>();
+
+            using (SftpClient client = new SftpClient(this.GetConnectionInfo()))
+            {
+                client.Connect();
+                client.ChangeDirectory(this.Path);
+
+                IEnumerable<SftpFile> sftpFiles = client.ListDirectory(".");
+                foreach (SftpFile file in sftpFiles)
                 {
-                    connInfo = new ConnectionInfo(this.Server, this.Port, this.User,
-                           new AuthenticationMethod[]{
-
-                        // Pasword based Authentication
-                        new PasswordAuthenticationMethod(this.User, this.Password)
-                });
-                }
-
-                using (SftpClient sftpClient = new SftpClient(connInfo))
-                {
-                    sftpClient.Connect();
-                    sftpClient.ChangeDirectory(this.Path);
-
-                    foreach (FileInf file in files)
+                    if (file.IsRegularFile)
                     {
-                        try
-                        {
-                            using (FileStream fileStream = File.OpenRead(file.Path))
-                            {
-                                sftpClient.UploadFile(fileStream, file.FileName, true);
-                            }
-                            this.Task.InfoFormat("[PluginSFTP] file {0} sent to {1}.", file.Path, this.Server);
-                        }
-                        catch (ThreadAbortException)
-                        {
-                            throw;
-                        }
-                        catch (Exception e)
-                        {
-                            this.Task.ErrorFormat("[PluginSFTP] An error occured while sending the file {0} to {1}. Error message: {2}", file.Path, this.Server, e.Message);
-                        }
+                        files.Add(new FileInf(file.FullName, this.Task.Id));
+                        this.Task.InfoFormat("[PluginSFTP] file {0} found on {1}.", file.FullName, this.Server);
                     }
-
-                    sftpClient.Disconnect();
                 }
+
+                client.Disconnect();
             }
-            catch (ThreadAbortException)
+
+            return files.ToArray();
+        }
+
+        public override void Upload(FileInf file)
+        {
+            using (SftpClient client = new SftpClient(this.GetConnectionInfo()))
             {
-                throw;
+                client.Connect();
+                client.ChangeDirectory(this.Path);
+
+                using (FileStream fileStream = File.OpenRead(file.Path))
+                {
+                    client.UploadFile(fileStream, file.RenameToOrName, true);
+                }
+                this.Task.InfoFormat("[PluginSFTP] file {0} sent to {1}.", file.Path, this.Server);
+
+                client.Disconnect();
             }
-            catch (Exception e)
+        }
+
+        public override void Download(FileInf file)
+        {
+            using (SftpClient client = new SftpClient(this.GetConnectionInfo()))
             {
-                this.Task.ErrorFormat("[PluginSFTP] An error occured while sending files.", e);
+                client.Connect();
+                client.ChangeDirectory(this.Path);
+
+                string destFileName = System.IO.Path.Combine(this.Task.Workflow.WorkflowTempFolder, file.FileName);
+                using (FileStream ostream = File.Create(destFileName))
+                {
+                    client.DownloadFile(file.Path, ostream);
+                    this.Task.Files.Add(new FileInf(destFileName, this.Task.Id));
+                }
+                this.Task.InfoFormat("[PluginSFTP] file {0} downloaded from {1}.", file.Path, this.Server);
+
+                client.Disconnect();
+            }
+        }
+
+        public override void Delete(FileInf file)
+        {
+            using (SftpClient client = new SftpClient(this.GetConnectionInfo()))
+            {
+                client.Connect();
+                client.ChangeDirectory(this.Path);
+
+                client.DeleteFile(file.Path);
+                this.Task.InfoFormat("[PluginSFTP] file {0} deleted from {1}.", file.Path, this.Server);
+
+                client.Disconnect();
             }
         }
 

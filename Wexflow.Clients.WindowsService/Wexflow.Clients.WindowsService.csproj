@@ -108,6 +108,10 @@
       <Project>{4F396126-2220-45AE-A90F-D655A3AB585F}</Project>
       <Name>Wexflow.Tasks.FilesCopier</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.FilesExist\Wexflow.Tasks.FilesExist.csproj">
+      <Project>{EDA6A4D5-5814-4920-B2DA-DD414894CBF5}</Project>
+      <Name>Wexflow.Tasks.FilesExist</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.FilesLoader\Wexflow.Tasks.FilesLoader.csproj">
       <Project>{D9DD665A-A147-462C-BCEE-3008559728B5}</Project>
       <Name>Wexflow.Tasks.FilesLoader</Name>
@@ -120,9 +124,17 @@
       <Project>{1DCFF39A-5B91-49CE-B975-F47DFF537A4B}</Project>
       <Name>Wexflow.Tasks.FilesRemover</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Wexflow.Tasks.Ftp\Wexflow.Tasks.FilesSender.csproj">
+    <ProjectReference Include="..\Wexflow.Tasks.FilesRenamer\Wexflow.Tasks.FilesRenamer.csproj">
+      <Project>{98A6156E-9784-4D83-8D39-C01976A32155}</Project>
+      <Name>Wexflow.Tasks.FilesRenamer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.Ftp\Wexflow.Tasks.Ftp.csproj">
       <Project>{272AB358-72D6-446A-B339-E9A579A63B76}</Project>
-      <Name>Wexflow.Tasks.FilesSender</Name>
+      <Name>Wexflow.Tasks.Ftp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.Http\Wexflow.Tasks.Http.csproj">
+      <Project>{C249B3EA-E3A3-4975-B3BA-51BC9D7E5816}</Project>
+      <Name>Wexflow.Tasks.Http</Name>
     </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.ImagesTransformer\Wexflow.Tasks.ImagesTransformer.csproj">
       <Project>{D2BA9820-D5C7-4053-8E36-AC94C162C9B0}</Project>
@@ -160,6 +172,10 @@
       <Project>{EF416670-6443-4C98-8D26-27D3741B8FB0}</Project>
       <Name>Wexflow.Tasks.Sql</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.Sync\Wexflow.Tasks.Sync.csproj">
+      <Project>{5784B8A2-51C4-4B1A-8EC2-322A4AB168C1}</Project>
+      <Name>Wexflow.Tasks.Sync</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.Tar\Wexflow.Tasks.Tar.csproj">
       <Project>{D737B1BB-8A6D-4015-9B2C-3D6760EEE6AF}</Project>
       <Name>Wexflow.Tasks.Tar</Name>
@@ -179,6 +195,10 @@
     <ProjectReference Include="..\Wexflow.Tasks.Twitter\Wexflow.Tasks.Twitter.csproj">
       <Project>{D1B9E2BA-E783-4C26-89E8-28E13AE3220C}</Project>
       <Name>Wexflow.Tasks.Twitter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.Wait\Wexflow.Tasks.Wait.csproj">
+      <Project>{81C8DA3E-32CB-4084-84DA-C531522318C3}</Project>
+      <Name>Wexflow.Tasks.Wait</Name>
     </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.Wmi\Wexflow.Tasks.Wmi.csproj">
       <Project>{0BEF411F-039F-4C4F-A0FF-8DEFCFE1C019}</Project>
