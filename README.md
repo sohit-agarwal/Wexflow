@@ -69,15 +69,15 @@ To install Wexflow, proceed as follows:
 
 ![alt tag](https://aelassas.github.io/Wexflow/setup-1.PNG)
 
-5. You can choose to create a desktop shortcut:
+You can choose to create a desktop shortcut:
 
 ![alt tag](https://aelassas.github.io/Wexflow/setup-2.PNG)
 
-6. Click on install to perform the installation:
+Click on install to perform the installation:
 
 ![alt tag](https://aelassas.github.io/Wexflow/setup-3.PNG)
 
-7. Finally, click on finish to finish the installation:
+Finally, click on finish to finish the installation:
 
 ![alt tag](https://aelassas.github.io/Wexflow/setup-4.PNG)
 
@@ -543,6 +543,28 @@ Finally if you finished coding your custom task, compile the class library proje
 ```
 
 That's it. That's all the things you need to know to start coding your own custom tasks.
+
+# How to debug Wexflow
+
+How to debug Wexflow
+To debug Wexflow, proceed as follows:
+
+- Install Microsoft .NET Framework 4.0 or higher.
+- Install Microsoft Sync Framework 2.1 SDK. You can download it from [here](https://www.microsoft.com/en-us/download/details.aspx?id=23217).
+- Install Visual Studio 2010 or higher.
+- Copy the folders "Wexflow" and "WexflowTesting" in C:\. You can download them from [here](https://aelassas.github.io/Wexflow/Wexflow.zip).
+
+## Wexflow Windows Service
+
+To debug Wexflow Windows Service (Wexflow.Clients.WindowsService project), add "debug" command line argument in "Propject settings > Debug > Startup options":
+
+![alt tag](https://aelassas.github.io/Wexflow/wwsd.png)
+
+## Wexflow Manager
+
+To debug Wexflow Manager (Wexflow.Clients.Manager project), add "debug" command line argument in "Propject settings > Debug > Startup options":
+
+![alt tag](https://aelassas.github.io/Wexflow/wmd.png)
 
 # Libraries used by Wexflow
 
