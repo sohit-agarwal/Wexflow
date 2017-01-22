@@ -36,7 +36,7 @@ Wexflow provides the following tasks:**
 - **Wait task:** This task allows to wait for a specified duration of time.
 - **Script tasks:** These tasks allows execute custom tasks written in C# or VB.
 
-At this time, Wexflow only supports linear execution of tasks but more complex scenarios like DoWhile, DoIf, parallel tasks execution and so on are in the todo list and are comming soon.
+At this time, Wexflow only supports sequential execution of tasks but more complex scenarios like DoWhile, DoIf, parallel tasks execution and so on are in the todo list and are comming soon.
 
 # Prerequisites
 
