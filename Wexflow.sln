@@ -1,79 +1,79 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Core", "Wexflow.Core\Wexflow.Core.csproj", "{46257949-80B5-48F2-9B83-29354C339869}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Core", "src\Wexflow.Core\Wexflow.Core.csproj", "{46257949-80B5-48F2-9B83-29354C339869}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wexflow.Tasks", "Wexflow.Tasks", "{E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wexflow.Tasks", "src\Wexflow.Tasks", "{E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wexflow.Clients", "Wexflow.Clients", "{67871E52-CB11-4EDF-B036-15F359EF6B66}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wexflow.Clients", "src\Wexflow.Clients", "{67871E52-CB11-4EDF-B036-15F359EF6B66}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wexflow.Core", "Wexflow.Core", "{6AF980AE-0A8F-4F6F-A387-2C3C21A30710}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wexflow.Core", "src\Wexflow.Core", "{6AF980AE-0A8F-4F6F-A387-2C3C21A30710}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.FilesLoader", "Wexflow.Tasks.FilesLoader\Wexflow.Tasks.FilesLoader.csproj", "{D9DD665A-A147-462C-BCEE-3008559728B5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.FilesLoader", "src\Wexflow.Tasks.FilesLoader\Wexflow.Tasks.FilesLoader.csproj", "{D9DD665A-A147-462C-BCEE-3008559728B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Ftp", "Wexflow.Tasks.Ftp\Wexflow.Tasks.Ftp.csproj", "{272AB358-72D6-446A-B339-E9A579A63B76}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Ftp", "src\Wexflow.Tasks.Ftp\Wexflow.Tasks.Ftp.csproj", "{272AB358-72D6-446A-B339-E9A579A63B76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.FilesMover", "Wexflow.Tasks.FilesMover\Wexflow.Tasks.FilesMover.csproj", "{3ABEE317-3146-46A5-A59B-232177A0AB76}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.FilesMover", "src\Wexflow.Tasks.FilesMover\Wexflow.Tasks.FilesMover.csproj", "{3ABEE317-3146-46A5-A59B-232177A0AB76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.FilesRemover", "Wexflow.Tasks.FilesRemover\Wexflow.Tasks.FilesRemover.csproj", "{1DCFF39A-5B91-49CE-B975-F47DFF537A4B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.FilesRemover", "src\Wexflow.Tasks.FilesRemover\Wexflow.Tasks.FilesRemover.csproj", "{1DCFF39A-5B91-49CE-B975-F47DFF537A4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.MailsSender", "Wexflow.Tasks.MailsSender\Wexflow.Tasks.MailsSender.csproj", "{C12433E2-FB3D-472A-9C52-E2D8E60C0AB5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.MailsSender", "src\Wexflow.Tasks.MailsSender\Wexflow.Tasks.MailsSender.csproj", "{C12433E2-FB3D-472A-9C52-E2D8E60C0AB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Xslt", "Wexflow.Tasks.Xslt\Wexflow.Tasks.Xslt.csproj", "{68AE707E-1BC5-4AF0-8B90-8EF0D2040359}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Xslt", "src\Wexflow.Tasks.Xslt\Wexflow.Tasks.Xslt.csproj", "{68AE707E-1BC5-4AF0-8B90-8EF0D2040359}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Zip", "Wexflow.Tasks.Zip\Wexflow.Tasks.Zip.csproj", "{67F62B85-9457-429F-857D-7F9D41F5C8F3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Zip", "src\Wexflow.Tasks.Zip\Wexflow.Tasks.Zip.csproj", "{67F62B85-9457-429F-857D-7F9D41F5C8F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.ProcessLauncher", "Wexflow.Tasks.ProcessLauncher\Wexflow.Tasks.ProcessLauncher.csproj", "{22F4B18B-89BC-443A-AE3E-8863C2459D34}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.ProcessLauncher", "src\Wexflow.Tasks.ProcessLauncher\Wexflow.Tasks.ProcessLauncher.csproj", "{22F4B18B-89BC-443A-AE3E-8863C2459D34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Md5", "Wexflow.Tasks.Md5\Wexflow.Tasks.Md5.csproj", "{73F4E657-2D76-4FFF-970A-788C8272D6A3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Md5", "src\Wexflow.Tasks.Md5\Wexflow.Tasks.Md5.csproj", "{73F4E657-2D76-4FFF-970A-788C8272D6A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Mkdir", "Wexflow.Tasks.Mkdir\Wexflow.Tasks.Mkdir.csproj", "{FF5A22B8-B594-4D2B-A3FE-10BD28038005}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Mkdir", "src\Wexflow.Tasks.Mkdir\Wexflow.Tasks.Mkdir.csproj", "{FF5A22B8-B594-4D2B-A3FE-10BD28038005}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Rmdir", "Wexflow.Tasks.Rmdir\Wexflow.Tasks.Rmdir.csproj", "{F3F7276B-AC03-4DB2-A1D8-28738434C72E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Rmdir", "src\Wexflow.Tasks.Rmdir\Wexflow.Tasks.Rmdir.csproj", "{F3F7276B-AC03-4DB2-A1D8-28738434C72E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Touch", "Wexflow.Tasks.Touch\Wexflow.Tasks.Touch.csproj", "{701D8879-706F-4CF0-9783-41076E560124}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Touch", "src\Wexflow.Tasks.Touch\Wexflow.Tasks.Touch.csproj", "{701D8879-706F-4CF0-9783-41076E560124}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.FilesCopier", "Wexflow.Tasks.FilesCopier\Wexflow.Tasks.FilesCopier.csproj", "{4F396126-2220-45AE-A90F-D655A3AB585F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.FilesCopier", "src\Wexflow.Tasks.FilesCopier\Wexflow.Tasks.FilesCopier.csproj", "{4F396126-2220-45AE-A90F-D655A3AB585F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.XmlToCsv", "Wexflow.Tasks.XmlToCsv\Wexflow.Tasks.XmlToCsv.csproj", "{39D75060-94B3-4164-9213-908AE208799C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.XmlToCsv", "src\Wexflow.Tasks.XmlToCsv\Wexflow.Tasks.XmlToCsv.csproj", "{39D75060-94B3-4164-9213-908AE208799C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.CsvToXml", "Wexflow.Tasks.CsvToXml\Wexflow.Tasks.CsvToXml.csproj", "{40664177-8903-4C7B-AD0E-7B98BED6A3C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.CsvToXml", "src\Wexflow.Tasks.CsvToXml\Wexflow.Tasks.CsvToXml.csproj", "{40664177-8903-4C7B-AD0E-7B98BED6A3C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.ListFiles", "Wexflow.Tasks.ListFiles\Wexflow.Tasks.ListFiles.csproj", "{8016D7D3-223B-484F-A78D-DFCDF8677607}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.ListFiles", "src\Wexflow.Tasks.ListFiles\Wexflow.Tasks.ListFiles.csproj", "{8016D7D3-223B-484F-A78D-DFCDF8677607}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.ListEntities", "Wexflow.Tasks.ListEntities\Wexflow.Tasks.ListEntities.csproj", "{D03EB1F0-5DAB-4E93-8B29-783C4135AB55}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.ListEntities", "src\Wexflow.Tasks.ListEntities\Wexflow.Tasks.ListEntities.csproj", "{D03EB1F0-5DAB-4E93-8B29-783C4135AB55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Twitter", "Wexflow.Tasks.Twitter\Wexflow.Tasks.Twitter.csproj", "{D1B9E2BA-E783-4C26-89E8-28E13AE3220C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Twitter", "src\Wexflow.Tasks.Twitter\Wexflow.Tasks.Twitter.csproj", "{D1B9E2BA-E783-4C26-89E8-28E13AE3220C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Template", "Wexflow.Tasks.Template\Wexflow.Tasks.Template.csproj", "{AD401C5B-85FE-4C93-8E31-029C090E9B01}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Template", "src\Wexflow.Tasks.Template\Wexflow.Tasks.Template.csproj", "{AD401C5B-85FE-4C93-8E31-029C090E9B01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Clients.Manager", "Wexflow.Clients.Manager\Wexflow.Clients.Manager.csproj", "{81032249-78D9-4B89-8E22-A3C32562EA69}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Clients.Manager", "src\Wexflow.Clients.Manager\Wexflow.Clients.Manager.csproj", "{81032249-78D9-4B89-8E22-A3C32562EA69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Tar", "Wexflow.Tasks.Tar\Wexflow.Tasks.Tar.csproj", "{D737B1BB-8A6D-4015-9B2C-3D6760EEE6AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Tar", "src\Wexflow.Tasks.Tar\Wexflow.Tasks.Tar.csproj", "{D737B1BB-8A6D-4015-9B2C-3D6760EEE6AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Tgz", "Wexflow.Tasks.Tgz\Wexflow.Tasks.Tgz.csproj", "{F7184C59-67D4-4BF5-ABD0-D6EA9C50B6B7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Tgz", "src\Wexflow.Tasks.Tgz\Wexflow.Tasks.Tgz.csproj", "{F7184C59-67D4-4BF5-ABD0-D6EA9C50B6B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Clients.WindowsService", "Wexflow.Clients.WindowsService\Wexflow.Clients.WindowsService.csproj", "{D559C35B-BFF5-49C2-9490-818314C88A76}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Clients.WindowsService", "src\Wexflow.Clients.WindowsService\Wexflow.Clients.WindowsService.csproj", "{D559C35B-BFF5-49C2-9490-818314C88A76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Core.Service.Client", "Wexflow.Core.Service.Client\Wexflow.Core.Service.Client.csproj", "{3CFA5F19-D8E1-4AF8-9B6A-DCB959C035DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Core.Service.Client", "src\Wexflow.Core.Service.Client\Wexflow.Core.Service.Client.csproj", "{3CFA5F19-D8E1-4AF8-9B6A-DCB959C035DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Core.Service.Contracts", "Wexflow.Core.Service.Contracts\Wexflow.Core.Service.Contracts.csproj", "{7DEBD0D9-EA9B-445C-9B6D-F426908CE736}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Core.Service.Contracts", "src\Wexflow.Core.Service.Contracts\Wexflow.Core.Service.Contracts.csproj", "{7DEBD0D9-EA9B-445C-9B6D-F426908CE736}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Sql", "Wexflow.Tasks.Sql\Wexflow.Tasks.Sql.csproj", "{EF416670-6443-4C98-8D26-27D3741B8FB0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Sql", "src\Wexflow.Tasks.Sql\Wexflow.Tasks.Sql.csproj", "{EF416670-6443-4C98-8D26-27D3741B8FB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Wmi", "Wexflow.Tasks.Wmi\Wexflow.Tasks.Wmi.csproj", "{0BEF411F-039F-4C4F-A0FF-8DEFCFE1C019}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Wmi", "src\Wexflow.Tasks.Wmi\Wexflow.Tasks.Wmi.csproj", "{0BEF411F-039F-4C4F-A0FF-8DEFCFE1C019}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.ImagesTransformer", "Wexflow.Tasks.ImagesTransformer\Wexflow.Tasks.ImagesTransformer.csproj", "{D2BA9820-D5C7-4053-8E36-AC94C162C9B0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.ImagesTransformer", "src\Wexflow.Tasks.ImagesTransformer\Wexflow.Tasks.ImagesTransformer.csproj", "{D2BA9820-D5C7-4053-8E36-AC94C162C9B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Http", "Wexflow.Tasks.Http\Wexflow.Tasks.Http.csproj", "{C249B3EA-E3A3-4975-B3BA-51BC9D7E5816}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Http", "src\Wexflow.Tasks.Http\Wexflow.Tasks.Http.csproj", "{C249B3EA-E3A3-4975-B3BA-51BC9D7E5816}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Sync", "Wexflow.Tasks.Sync\Wexflow.Tasks.Sync.csproj", "{5784B8A2-51C4-4B1A-8EC2-322A4AB168C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Sync", "src\Wexflow.Tasks.Sync\Wexflow.Tasks.Sync.csproj", "{5784B8A2-51C4-4B1A-8EC2-322A4AB168C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.FilesRenamer", "Wexflow.Tasks.FilesRenamer\Wexflow.Tasks.FilesRenamer.csproj", "{98A6156E-9784-4D83-8D39-C01976A32155}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.FilesRenamer", "src\Wexflow.Tasks.FilesRenamer\Wexflow.Tasks.FilesRenamer.csproj", "{98A6156E-9784-4D83-8D39-C01976A32155}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Wait", "Wexflow.Tasks.Wait\Wexflow.Tasks.Wait.csproj", "{81C8DA3E-32CB-4084-84DA-C531522318C3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Wait", "src\Wexflow.Tasks.Wait\Wexflow.Tasks.Wait.csproj", "{81C8DA3E-32CB-4084-84DA-C531522318C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.FilesExist", "Wexflow.Tasks.FilesExist\Wexflow.Tasks.FilesExist.csproj", "{EDA6A4D5-5814-4920-B2DA-DD414894CBF5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.FilesExist", "src\Wexflow.Tasks.FilesExist\Wexflow.Tasks.FilesExist.csproj", "{EDA6A4D5-5814-4920-B2DA-DD414894CBF5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
