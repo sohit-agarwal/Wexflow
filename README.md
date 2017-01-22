@@ -198,7 +198,7 @@ To learn how to make your own workflows, you can check out the workflow samples 
 
 If a new workflow is created in C:\Wexflow\Workflows\ or if an existing workflow is deleted or modified, you have to restart Wexflow Windows Service so that these modifications take effect.
 
-To disable a workflow, you can set the enabled settings option of the workflow to false. If you want to make a workflow disappears from the list of workflows loaded by Wexflow engine, you can create a directory named disabled within C:\Wexflow\Workflows\ and move that workflow to that directory then restart Wexflow Windows service.
+To disable a workflow, you can set the enabled settings option of the workflow to false. If you want to make a workflow disappears from the list of the workflows loaded by Wexflow engine, you can create a directory named disabled within C:\Wexflow\Workflows\ and move that workflow to that directory then restart Wexflow Windows service.
 
 # Workflow samples
 
