@@ -2,5 +2,4 @@ language: csharp
 sudo: required
 os:
   - linux
-  - osx
 solution: Wexflow.sln
