@@ -69,15 +69,15 @@ To install Wexflow, proceed as follows:
 
 ![alt tag](https://aelassas.github.io/Wexflow/setup-1.PNG)
 
-5. You can choose to create a desktop shortcut:
+You can choose to create a desktop shortcut:
 
 ![alt tag](https://aelassas.github.io/Wexflow/setup-2.PNG)
 
-6. Click on install to perform the installation:
+Click on install to perform the installation:
 
 ![alt tag](https://aelassas.github.io/Wexflow/setup-3.PNG)
 
-7. Finally, click on finish to finish the installation:
+Finally, click on finish to finish the installation:
 
 ![alt tag](https://aelassas.github.io/Wexflow/setup-4.PNG)
 
