@@ -588,7 +588,7 @@ Here is the list of the libraries used by Wexflow:
 
 # Todo list
 - **Wexflow Engine:** Add XSD validation of the workflow files before loading them.
-- **Tasks execution graph:** Improve the tasks execution graph by allowing parallel execution of tasks, by provinding the ability to alter the execution flow of the tasks and by providing the ability to add DoIf and DoWhile in the execution graph.
+- **Tasks execution graph:** Improve the tasks execution graph by allowing parallel execution of tasks, by provinding the ability to alter the execution flow of the tasks and by providing the ability to add DoIf, DoWhile, OnSuccess, OnWarning and OnError in the execution graph.
 - **Linux:** Update Wexflow to work on Linux (Mono) and create a setup project for Linux.
 - **Wexflow Manager:** Make the workflow status of the visible workflows live and highlight the workflows who are running in green.
 - **Workflow jobs:** Allow parallel execution of the jobs of a workflow.
