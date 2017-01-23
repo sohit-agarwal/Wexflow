@@ -134,7 +134,7 @@ Below the configuration file of a workflow:
         - A period which is necessary for the periodic launchType. It is 
           a timeSpan in this format dd.hh:mm:ss. For example the period
           00.00:02:00 will launch the workflow every 2 minutes.
-        - The enable option which allows to enable or disable a workflow.
+        - The enabled option which allows to enable or disable a workflow.
           The possible values are true or false.
       - A Tasks section which contains the tasks that will be executed by
         the workflow one after the other.
@@ -248,7 +248,7 @@ This workflow uploads invoices to an SFTP server, then waits for 2 days and then
             <Setting name="path" value="/" />
             <Setting name="selectFiles" value="1" />
         </Task>
-        <Task id="3" name="Wait" description="Wait 2 days" enabled="true">
+        <Task id="3" name="Wait" description="Waiting for 2 days" enabled="true">
             <Setting name="duration" value="2.00:00:00" />
         </Task>
         <Task id="4" name="FilesLoader" description="Loading emails" enabled="true">
@@ -404,7 +404,7 @@ This workflow downloads specific files from an FTP server. This workflow starts 
         <Setting name="enabled" value="true" /> <!-- true|false -->
     </Settings>
     <Tasks>
-        <Task id="1" name="Ftp" description="Listing files" enabled="true">
+        <Task id="1" name="Ftp" description="Listing files (FTP)" enabled="true">
             <Setting name="command" value="list" />
             <Setting name="protocol" value="ftp" /> <!-- ftp|ftps|sftp -->
             <Setting name="server" value="127.0.1" />
@@ -415,7 +415,7 @@ This workflow downloads specific files from an FTP server. This workflow starts 
         </Task>
         <Task id="2" name="ListFiles" description="Listing files" enabled="true">
         </Task>
-        <Task id="3" name="Xslt" description="Renaming files and adding tags" enabled="true">
+        <Task id="3" name="Xslt" description="Renaming and tagging files" enabled="true">
             <Setting name="selectFiles" value="2" />
             <Setting name="xsltPath" value="C:\Wexflow\Xslt\ListFiles.xslt" />
             <Setting name="version" value="2.0" /> <!-- 1.0|2.0 -->
