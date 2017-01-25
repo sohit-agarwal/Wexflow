@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    The Touch task creates a collection of empty files.
+    Touch is a sequential task that creates a collection of empty files.
     The files created are loaded by this task so that other tasks can
     use them through the selectFiles option.
   -->

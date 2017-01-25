@@ -19,9 +19,13 @@ namespace Wexflow.Tasks.Touch
             this.TFiles = this.GetSettings("file");
         }
 
-        public override void Run()
+        public override TaskStatus Run()
         {
             this.Info("Touching files...");
+
+            bool success = true;
+            bool atLeastOneSucceed = false;
+
             foreach (string file in this.TFiles)
             {
                 try
@@ -29,6 +33,8 @@ namespace Wexflow.Tasks.Touch
                     TouchFile(file);
                     this.InfoFormat("File {0} created.", file);
                     this.Files.Add(new FileInf(file, this.Id));
+                    success &= true;
+                    if (!atLeastOneSucceed) atLeastOneSucceed = true;
                 }
                 catch (ThreadAbortException)
                 {
@@ -37,9 +43,23 @@ namespace Wexflow.Tasks.Touch
                 catch (Exception e)
                 {
                     this.ErrorFormat("An error occured while creating the file {0}", e, file);
+                    success &= false;
                 }
             }
+
+            Status status = Status.Success;
+
+            if (!success && atLeastOneSucceed)
+            {
+                status = Status.Warning;
+            }
+            else if (!success)
+            {
+                status = Status.Error;
+            }
+
             this.Info("Task finished.");
+            return new TaskStatus(status, false);
         }
 
         private void TouchFile(string file)

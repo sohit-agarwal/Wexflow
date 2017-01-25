@@ -1,4 +1,4 @@
-<Workflow id="17" name="Workflow_XmlToCsv" description="Workflow_XmlToCsv">
+<Workflow xmlns="urn:wexflow-schema" id="17" name="Workflow_XmlToCsv" description="Workflow_XmlToCsv">
 	<Settings>
 		<Setting name="launchType" value="trigger" /> <!-- startup|trigger|periodic -->
 		<Setting name="enabled" value="true" /> <!-- true|false -->

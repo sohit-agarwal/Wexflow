@@ -21,10 +21,13 @@ namespace Wexflow.Tasks.FilesMover
             this.Overwrite = bool.Parse(this.GetSetting("overwrite", "false"));
         }
 
-        public override void Run()
+        public override TaskStatus Run()
         {
             this.Info("Moving files...");
-            
+
+            bool success = true;
+            bool atLeastOneSucceed = false;
+
             FileInf[] files = this.SelectFiles();
             for (int i = files.Length - 1; i > -1 ; i--) 
             {
@@ -42,6 +45,7 @@ namespace Wexflow.Tasks.FilesMover
                         else
                         {
                             this.ErrorFormat("Destination file {0} already exists.", destFilePath);
+                            success &= false;
                             continue;
                         }
                     }
@@ -51,6 +55,8 @@ namespace Wexflow.Tasks.FilesMover
                     this.Files.Add(fi);
                     this.Workflow.FilesPerTask[file.TaskId].Remove(file);
                     this.InfoFormat("File moved: {0} -> {1}", file.Path, destFilePath);
+                    success &= true;
+                    if (!atLeastOneSucceed) atLeastOneSucceed = true;
                 }
                 catch (ThreadAbortException)
                 {
@@ -59,10 +65,23 @@ namespace Wexflow.Tasks.FilesMover
                 catch (Exception e)
                 { 
                     this.ErrorFormat("An error occured while moving the file {0} to {1}", e, file.Path, destFilePath);
+                    success &= false;
                 }
             }
 
+            Status status = Status.Success;
+
+            if (!success && atLeastOneSucceed)
+            {
+                status = Status.Warning;
+            }
+            else if (!success)
+            {
+                status = Status.Error;
+            }
+
             this.Info("Task finished.");
+            return new TaskStatus(status, false);
         }
     }
 }

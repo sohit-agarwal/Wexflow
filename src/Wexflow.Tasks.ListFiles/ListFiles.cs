@@ -15,10 +15,12 @@ namespace Wexflow.Tasks.ListFiles
             : base(xe, wf)
         {}
 
-        public override void Run()
+        public override TaskStatus Run()
         {
             this.Info("Listing files...");
             //System.Threading.Thread.Sleep(10 * 1000);
+
+            bool success = true;
 
             try
             {
@@ -49,6 +51,7 @@ namespace Wexflow.Tasks.ListFiles
                 FileInf xmlFile = new FileInf(xmlPath, this.Id);
                 this.Files.Add(xmlFile);
                 this.Info(xmlFile.ToString());
+                success &= true;
             }
             catch (ThreadAbortException)
             {
@@ -57,9 +60,18 @@ namespace Wexflow.Tasks.ListFiles
             catch (Exception e)
             {
                 this.ErrorFormat("An error occured while listing files. Error: {0}", e.Message);
+                success &= false;
+            }
+
+            Status status = Status.Success;
+
+            if (!success)
+            {
+                status = Status.Error;
             }
 
             this.Info("Task finished.");
+            return new TaskStatus(status, false);
         }
     }
 }

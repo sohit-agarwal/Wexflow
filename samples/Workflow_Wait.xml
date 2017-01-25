@@ -1,4 +1,4 @@
-<Workflow id="41" name="Workflow_Wait" description="Workflow_Wait">
+<Workflow xmlns="urn:wexflow-schema" id="41" name="Workflow_Wait" description="Workflow_Wait">
 	<Settings>
 		<Setting name="launchType" value="trigger" /> <!-- startup|trigger|periodic -->
 		<Setting name="enabled" value="true" /> <!-- true|false -->

@@ -20,9 +20,13 @@ namespace Wexflow.Tasks.Http
             this.Urls = this.GetSettings("url");
         }
 
-        public override void Run()
+        public override TaskStatus Run()
         {
             this.Info("Downloading files...");
+
+            bool success = true;
+            bool atLeastOneSucceed = false;
+
             WebClient webClient = new WebClient();
 
             foreach (string url in this.Urls)
@@ -33,6 +37,8 @@ namespace Wexflow.Tasks.Http
                     webClient.DownloadFile(url, destPath);
                     this.InfoFormat("File {0} downlaoded as {1}", url, destPath);
                     this.Files.Add(new FileInf(destPath, this.Id));
+                    success &= true;
+                    if (!atLeastOneSucceed) atLeastOneSucceed = true;
                 }
                 catch (ThreadAbortException)
                 {
@@ -41,9 +47,23 @@ namespace Wexflow.Tasks.Http
                 catch (Exception e)
                 {
                     this.ErrorFormat("An error occured while downloading the file: {0}. Error: {1}", url, e.Message);
+                    success &= false;
                 }
             }
+
+            Status status = Status.Success;
+
+            if (!success && atLeastOneSucceed)
+            {
+                status = Status.Warning;
+            }
+            else if (!success)
+            {
+                status = Status.Error;
+            }
+
             this.Info("Task finished.");
+            return new TaskStatus(status, false);
         }
     }
 }

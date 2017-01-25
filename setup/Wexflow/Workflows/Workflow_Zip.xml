@@ -1,4 +1,4 @@
-<Workflow id="19" name="Workflow_Zip" description="Workflow_Zip">
+<Workflow xmlns="urn:wexflow-schema" id="19" name="Workflow_Zip" description="Workflow_Zip">
 	<Settings>
 		<Setting name="launchType" value="trigger" /> <!-- startup|trigger|periodic -->
 		<Setting name="enabled" value="true" /> <!-- true|false -->

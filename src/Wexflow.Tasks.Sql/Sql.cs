@@ -43,9 +43,12 @@ namespace Wexflow.Tasks.Sql
             this.SqlScript = this.GetSetting("sql", string.Empty);
         }
 
-        public override void Run()
+        public override TaskStatus Run()
         {
             this.Info("Executing SQL scripts...");
+
+            bool success = true;
+            bool atLeastOneSucceed = false;
 
             // Execute this.SqlScript if necessary
             try
@@ -54,6 +57,7 @@ namespace Wexflow.Tasks.Sql
                 {
                     ExecuteSql(this.SqlScript);
                     this.Info("The script has been executed through the sql option of the task.");
+                    success &= true;
                 }
             }
             catch (ThreadAbortException)
@@ -63,6 +67,7 @@ namespace Wexflow.Tasks.Sql
             catch (Exception e)
             {
                 this.ErrorFormat("An error occured while executing sql script. Error: {0}", e.Message);
+                success &= false;
             }
 
             // Execute SQL files scripts
@@ -73,6 +78,8 @@ namespace Wexflow.Tasks.Sql
                     string sql = File.ReadAllText(file.Path);
                     ExecuteSql(sql);
                     this.InfoFormat("The script {0} has been executed.", file.Path);
+                    success &= true;
+                    if (!atLeastOneSucceed) atLeastOneSucceed = true;
                 }
                 catch (ThreadAbortException)
                 {
@@ -81,10 +88,23 @@ namespace Wexflow.Tasks.Sql
                 catch (Exception e)
                 {
                     this.ErrorFormat("An error occured while executing sql script {0}. Error: {1}", file.Path, e.Message);
+                    success &= false;
                 }
             }
 
+            Status status = Status.Success;
+
+            if (!success && atLeastOneSucceed)
+            {
+                status = Status.Warning;
+            }
+            else if (!success)
+            {
+                status = Status.Error;
+            }
+
             this.Info("Task finished.");
+            return new TaskStatus(status, false);
         }
 
         private void ExecuteSql(string sql)

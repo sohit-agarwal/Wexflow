@@ -32,19 +32,22 @@ namespace Wexflow.Tasks.ProcessLauncher
             this.GeneratesFiles = bool.Parse(this.GetSetting("generatesFiles"));
         }
 
-        public override void Run()
+        public override TaskStatus Run()
         {
             this.Info("Launching process...");
 
             if (this.GeneratesFiles && !(this.ProcessCmd.Contains(VAR_FILE_NAME) && (this.ProcessCmd.Contains(VAR_OUTPUT) && (this.ProcessCmd.Contains(VAR_FILE_NAME) || this.ProcessCmd.Contains(VAR_FILE_NAME_WITHOUT_EXTENSION)))))
             {
                 this.Error("Error in process command. Please read the documentation.");
-                return;
+                return new TaskStatus(Status.Error, false);
             }
+
+            bool success = true;
+            bool atLeastOneSucceed = false;
 
             if (!GeneratesFiles)
             {
-                StartProcess(this.ProcessPath, this.ProcessCmd, this.HideGui);
+                return StartProcess(this.ProcessPath, this.ProcessCmd, this.HideGui);
             }
             else
             {
@@ -81,7 +84,7 @@ namespace Wexflow.Tasks.ProcessLauncher
                         else
                         {
                             this.Error("Error in process command. Please read the documentation.");
-                            return;
+                            return new TaskStatus(Status.Error, false);
                         }
                     }
                     catch (ThreadAbortException)
@@ -90,21 +93,39 @@ namespace Wexflow.Tasks.ProcessLauncher
                     }
                     catch (Exception e)
                     {
-                        this.ErrorFormat("Error in process command. Please read the documentation.", e);
-                        return;
+                        this.ErrorFormat("Error in process command. Please read the documentation. Error: {0}", e.Message);
+                        return new TaskStatus(Status.Error, false);
                     }
 
-                    if (StartProcess(this.ProcessPath, cmd, this.HideGui))
+                    if (StartProcess(this.ProcessPath, cmd, this.HideGui).Status == Status.Success)
                     {
                         this.Files.Add(new FileInf(outputFilePath, this.Id));
+                        success &= true;
+                        if (!atLeastOneSucceed) atLeastOneSucceed = true;
+                    }
+                    else
+                    {
+                        success &= false;
                     }
                 }
             }
 
+            Status status = Status.Success;
+
+            if (!success && atLeastOneSucceed)
+            {
+                status = Status.Warning;
+            }
+            else if (!success)
+            {
+                status = Status.Error;
+            }
+
             this.Info("Task finished.");
+            return new TaskStatus(status, false);
         }
 
-        private bool StartProcess(string processPath, string processCmd, bool hideGui)
+        private TaskStatus StartProcess(string processPath, string processCmd, bool hideGui)
         {
             try
             {
@@ -122,7 +143,7 @@ namespace Wexflow.Tasks.ProcessLauncher
                 process.BeginOutputReadLine();
                 process.BeginErrorReadLine();
                 process.WaitForExit();
-                return true;
+                return new TaskStatus(Status.Success, false);
             }
             catch (ThreadAbortException)
             {
@@ -131,7 +152,7 @@ namespace Wexflow.Tasks.ProcessLauncher
             catch (Exception e)
             {
                 this.ErrorFormat("An error occured while launching the process {0}", e, processPath);
-                return false;
+                return new TaskStatus(Status.Error, false);
             }
         }
 

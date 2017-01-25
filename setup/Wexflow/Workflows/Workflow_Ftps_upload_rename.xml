@@ -1,4 +1,4 @@
-<Workflow id="38" name="Workflow_Ftps_upload_rename" description="Workflow_Ftps_upload_rename">
+<Workflow xmlns="urn:wexflow-schema" id="38" name="Workflow_Ftps_upload_rename" description="Workflow_Ftps_upload_rename">
 	<Settings>
 		<Setting name="launchType" value="trigger" /> <!-- startup|trigger|periodic -->
 		<Setting name="enabled" value="true" /> <!-- true|false -->

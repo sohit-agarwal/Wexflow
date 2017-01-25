@@ -1,4 +1,4 @@
-<Workflow id="32" name="Workflow_Ftps_delete" description="Workflow_Ftps_delete">
+<Workflow xmlns="urn:wexflow-schema" id="32" name="Workflow_Ftps_delete" description="Workflow_Ftps_delete">
 	<Settings>
 		<Setting name="launchType" value="trigger" /> <!-- startup|trigger|periodic -->
 		<Setting name="enabled" value="true" /> <!-- true|false -->

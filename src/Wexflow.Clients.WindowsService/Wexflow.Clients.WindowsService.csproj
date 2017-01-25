@@ -64,6 +64,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Wexflow.Tasks.FileExists\Wexflow.Tasks.FileExists.csproj">
+      <Project>{8ED85A48-A8E3-4565-A874-3562F081D14C}</Project>
+      <Name>Wexflow.Tasks.FileExists</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Clients.Manager\Wexflow.Clients.Manager.csproj">
       <Project>{81032249-78D9-4B89-8E22-A3C32562EA69}</Project>
       <Name>Wexflow.Clients.Manager</Name>

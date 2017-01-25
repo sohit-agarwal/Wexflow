@@ -1,4 +1,4 @@
-<Workflow id="10" name="Workflow_Md5" description="Workflow_Md5">
+<Workflow xmlns="urn:wexflow-schema" id="10" name="Workflow_Md5" description="Workflow_Md5">
 	<Settings>
 		<Setting name="launchType" value="trigger" /> <!-- startup|trigger|periodic -->
 		<Setting name="enabled" value="true" /> <!-- true|false -->

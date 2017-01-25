@@ -1,4 +1,4 @@
-<Workflow id="12" name="Workflow_ffmpeg" description="Workflow_ffmpeg">
+<Workflow xmlns="urn:wexflow-schema" id="12" name="Workflow_ffmpeg" description="Workflow_ffmpeg">
 	<Settings>
 		<Setting name="launchType" value="trigger" /> <!-- startup|trigger|periodic -->
 		<Setting name="enabled" value="true" /> <!-- true|false -->

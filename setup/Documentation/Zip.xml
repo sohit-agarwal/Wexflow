@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    The Zip task creates a Zip file from a collection of files.
+    Zip is a sequential task that creates a .zip from a collection of files.
     
     The Zip file generated will be loaded by this task so that other
     tasks can select it through the selectFiles option.

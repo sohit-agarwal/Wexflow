@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    The ListFiles task lists all the files loaded by the workflow tasks in the logs.
+    ListFiles is a sequential task that lists all the files loaded by the workflow tasks in the logs.
     This task is useful for resolving issues.
     
     The ListFiles task outputs an XML file in this format:

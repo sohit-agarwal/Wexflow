@@ -21,9 +21,13 @@ namespace Wexflow.Tasks.FilesCopier
             this.Overwrite = bool.Parse(this.GetSetting("overwrite"));
         }
 
-        public override void Run()
+        public override TaskStatus Run()
         {
             this.Info("Copying files...");
+
+            bool success = true;
+            bool atLeastOneSucceed = false;
+
             foreach (FileInf file in this.SelectFiles())
             {
                 string destPath = Path.Combine(this.DestFolder, file.FileName);
@@ -32,6 +36,8 @@ namespace Wexflow.Tasks.FilesCopier
                     File.Copy(file.Path, destPath, this.Overwrite);
                     this.Files.Add(new FileInf(destPath, this.Id));
                     this.InfoFormat("File copied: {0} -> {1}", file.Path, destPath);
+                    success &= true;
+                    if (!atLeastOneSucceed) atLeastOneSucceed = true;
                 }
                 catch (ThreadAbortException)
                 {
@@ -40,9 +46,23 @@ namespace Wexflow.Tasks.FilesCopier
                 catch (Exception e)
                 {
                     this.ErrorFormat("An error occured while copying the file {0} to {1}.", e, file.Path, destPath);
+                    success &= false;
                 }
             }
+            
+            Status status = Status.Success;
+
+            if (!success && atLeastOneSucceed)
+            {
+                status = Status.Warning;
+            }
+            else if (!success)
+            {
+                status = Status.Error;
+            }
+
             this.Info("Task finished.");
+            return new TaskStatus(status, false);
         }
     }
 }

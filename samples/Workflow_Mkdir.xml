@@ -1,4 +1,4 @@
-<Workflow id="11" name="Workflow_Mkdir" description="Workflow_Mkdir">
+<Workflow xmlns="urn:wexflow-schema" id="11" name="Workflow_Mkdir" description="Workflow_Mkdir">
 	<Settings>
 		<Setting name="launchType" value="trigger" /> <!-- startup|trigger|periodic -->
 		<Setting name="enabled" value="true" /> <!-- true|false -->

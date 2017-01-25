@@ -1,4 +1,4 @@
-<Workflow id="5" name="Workflow_FilesRemover" description="Workflow_FilesRemover">
+<Workflow xmlns="urn:wexflow-schema" id="5" name="Workflow_FilesRemover" description="Workflow_FilesRemover">
 	<Settings>
 		<Setting name="launchType" value="trigger" /> <!-- startup|trigger|periodic -->
 		<Setting name="enabled" value="true" /> <!-- true|false -->

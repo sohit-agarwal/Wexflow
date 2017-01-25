@@ -1,4 +1,4 @@
-<Workflow id="22" name="Workflow_Sql" description="Workflow_Sql">
+<Workflow xmlns="urn:wexflow-schema" id="22" name="Workflow_Sql" description="Workflow_Sql">
 	<Settings>
 		<Setting name="launchType" value="trigger" /> <!-- startup|trigger|periodic -->
 		<Setting name="enabled" value="true" /> <!-- true|false -->

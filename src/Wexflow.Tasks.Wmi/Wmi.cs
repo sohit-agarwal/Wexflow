@@ -20,9 +20,11 @@ namespace Wexflow.Tasks.Wmi
             this.Query = this.GetSetting("query");
         }
 
-        public override void Run()
+        public override TaskStatus Run()
         {
             this.Info("Running WMI query...");
+
+            bool success = true;
 
             try
             {
@@ -45,6 +47,7 @@ namespace Wexflow.Tasks.Wmi
                 xdoc.Save(xmlPath);
                 this.Files.Add(new FileInf(xmlPath, this.Id));
                 this.InfoFormat("The query {0} has been executed.", this.Query);
+                success &= true;
             }
             catch (ThreadAbortException)
             {
@@ -53,9 +56,18 @@ namespace Wexflow.Tasks.Wmi
             catch (Exception e)
             {
                 this.ErrorFormat("An error occured while executing the query {0}. Error: {1}", this.Query, e.Message);
+                success &= false;
+            }
+
+            Status status = Status.Success;
+
+            if (!success)
+            {
+                status = Status.Error;
             }
 
             this.Info("Task finished.");
+            return new TaskStatus(status, false);
         }
     }
 }

@@ -1,4 +1,4 @@
-<Workflow id="42" name="Workflow_FilesExist" description="Workflow_FilesExist">
+<Workflow xmlns="urn:wexflow-schema" id="42" name="Workflow_FilesExist" description="Workflow_FilesExist">
 	<Settings>
 		<Setting name="launchType" value="trigger" /> <!-- startup|trigger|periodic -->
 		<Setting name="enabled" value="true" /> <!-- true|false -->

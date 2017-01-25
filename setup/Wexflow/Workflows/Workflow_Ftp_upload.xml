@@ -1,4 +1,4 @@
-<Workflow id="27" name="Workflow_Ftp_upload" description="Workflow_Ftp_upload">
+<Workflow xmlns="urn:wexflow-schema" id="27" name="Workflow_Ftp_upload" description="Workflow_Ftp_upload">
 	<Settings>
 		<Setting name="launchType" value="trigger" /> <!-- startup|trigger|periodic -->
 		<Setting name="enabled" value="true" /> <!-- true|false -->

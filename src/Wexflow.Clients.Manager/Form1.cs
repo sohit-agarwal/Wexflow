@@ -18,18 +18,13 @@ using System.ServiceModel.Security;
 
 namespace Wexflow.Clients.Manager
 {
-    // TODO Test installer on Windows 7 (Sync + Ftp_uploed_rename + Ftp_download_tag + Sftp_upload_rename)
-    // TODO git pull
-    // TODO git push
-    // TODO git release
-    // TODO git update README content + pics
-
     // v1.0.4
-    // TODO XSD http://stackoverflow.com/questions/751511/validating-an-xml-against-referenced-xsd-in-c-sharp
-    // https://msdn.microsoft.com/en-us/library/system.xml.schema.xmlschemaset(v=vs.110).aspx
+    // TODO Update CodeProject article
 
+    // TODO Wexflow Web Manager
+    // TODO Linux (.NET Core or Mono ??)
+    // TODO Android Manager??
     // TODO Wexflow Manager wf status live + row background color
-    
     // TODO Test and fix ftps
     // TODO FluentFtpHelper (after FTPS fix)
 

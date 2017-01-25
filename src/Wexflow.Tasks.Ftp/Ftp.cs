@@ -57,9 +57,12 @@ namespace Wexflow.Tasks.Ftp
             this._retryTimeout = int.Parse(this.GetSetting("retryTimeout", "1500"));
         }
 
-        public override void Run()
+        public override TaskStatus Run()
         {
             this.Info("Processing files...");
+            
+            bool success = true;
+            bool atLeastOneSucceed = false;
 
             if (this._cmd == FtpCommad.List)
             {
@@ -70,6 +73,8 @@ namespace Wexflow.Tasks.Ftp
                     {
                         FileInf[] files = this._plugin.List();
                         this.Files.AddRange(files);
+                        success &= true;
+                        if (!atLeastOneSucceed) atLeastOneSucceed = true;
                         break;
                     }
                     catch (ThreadAbortException)
@@ -83,6 +88,7 @@ namespace Wexflow.Tasks.Ftp
                         if (r > this._retryCount)
                         {
                             this.ErrorFormat("An error occured while listing files. Error: {0}", e.Message);
+                            success &= false;
                         }
                         else
                         {
@@ -118,6 +124,9 @@ namespace Wexflow.Tasks.Ftp
                                     this.Workflow.FilesPerTask[file.TaskId].Remove(file);
                                     break;
                             }
+
+                            success &= true;
+                            if (!atLeastOneSucceed) atLeastOneSucceed = true;
                             break;
                         }
                         catch (ThreadAbortException)
@@ -131,6 +140,7 @@ namespace Wexflow.Tasks.Ftp
                             if (r > this._retryCount)
                             {
                                 this.ErrorFormat("An error occured while processing the file {0}. Error: {1}", file.Path, e.Message);
+                                success &= false;
                             }
                             else
                             {
@@ -143,7 +153,19 @@ namespace Wexflow.Tasks.Ftp
                 }
             }
 
+            Status status = Status.Success;
+
+            if (!success && atLeastOneSucceed)
+            {
+                status = Status.Warning;
+            }
+            else if(!success)
+            {
+                status = Status.Error;
+            }
+
             this.Info("Task finished.");
+            return new TaskStatus(status, false);
         }
     }
 }

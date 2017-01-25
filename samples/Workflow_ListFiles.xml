@@ -1,4 +1,4 @@
-<Workflow id="8" name="Workflow_ListFiles" description="Workflow_ListFiles">
+<Workflow xmlns="urn:wexflow-schema" id="8" name="Workflow_ListFiles" description="Workflow_ListFiles">
 	<Settings>
 		<Setting name="launchType" value="trigger" /> <!-- startup|trigger|periodic -->
 		<!--<Setting name="period" value="00.00:00:20" />-->

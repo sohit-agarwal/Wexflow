@@ -20,9 +20,11 @@ namespace Wexflow.Tasks.Tar
             this.TarFileName = this.GetSetting("tarFileName");
         }
 
-        public override void Run()
+        public override TaskStatus Run()
         {
             this.Info("Creating tar archive...");
+
+            bool success = true;
 
             FileInf[] files = this.SelectFiles();
             if (files.Length > 0)
@@ -79,6 +81,7 @@ namespace Wexflow.Tasks.Tar
 
                         this.InfoFormat("Tar {0} created.", tarPath);
                         this.Files.Add(new FileInf(tarPath, this.Id));
+                        success &= true;
                     }
                 }
                 catch (ThreadAbortException)
@@ -88,10 +91,19 @@ namespace Wexflow.Tasks.Tar
                 catch (Exception e)
                 {
                     this.ErrorFormat("An error occured while creating the Tar {0}", e, tarPath);
+                    success &= false;
                 }
             }
 
+            Status status = Status.Success;
+
+            if (!success)
+            {
+                status = Status.Error;
+            }
+
             this.Info("Task finished.");
+            return new TaskStatus(status, false);
         }
     }
 }

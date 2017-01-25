@@ -1,4 +1,4 @@
-<Workflow id="15" name="Workflow_Touch" description="Workflow_Touch">
+<Workflow xmlns="urn:wexflow-schema" id="15" name="Workflow_Touch" description="Workflow_Touch">
 	<Settings>
 		<Setting name="launchType" value="trigger" /> <!-- startup|trigger|periodic -->
 		<Setting name="enabled" value="true" /> <!-- true|false -->

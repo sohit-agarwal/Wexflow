@@ -1,4 +1,4 @@
-<Workflow id="24" name="Workflow_ImagesTransformer" description="Workflow_ImagesTransformer">
+<Workflow xmlns="urn:wexflow-schema" id="24" name="Workflow_ImagesTransformer" description="Workflow_ImagesTransformer">
 	<Settings>
 		<Setting name="launchType" value="trigger" /> <!-- startup|trigger|periodic -->
 		<Setting name="enabled" value="true" /> <!-- true|false -->

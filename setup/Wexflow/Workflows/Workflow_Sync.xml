@@ -1,4 +1,4 @@
-<Workflow id="26" name="Workflow_Sync" description="Workflow_Sync">
+<Workflow xmlns="urn:wexflow-schema" id="26" name="Workflow_Sync" description="Workflow_Sync">
 	<Settings>
 		<Setting name="launchType" value="trigger" /> <!-- startup|trigger|periodic -->
 		<Setting name="enabled" value="true" /> <!-- true|false -->

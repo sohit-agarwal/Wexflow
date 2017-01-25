@@ -19,15 +19,21 @@ namespace Wexflow.Tasks.Rmdir
             this.Folders = this.GetSettings("folder");
         }
 
-        public override void Run()
+        public override TaskStatus Run()
         {
             this.Info("Removing folders...");
+            
+            bool success = true;
+            bool atLeastOneSucceed = false;
+
             foreach (string folder in this.Folders)
             {
                 try
                 {
                     RmdirRec(folder);
                     this.InfoFormat("Folder {0} deleted.", folder);
+                    success &= true;
+                    if (!atLeastOneSucceed) atLeastOneSucceed = true;
                 }
                 catch (ThreadAbortException)
                 {
@@ -36,9 +42,23 @@ namespace Wexflow.Tasks.Rmdir
                 catch (Exception e)
                 {
                     this.ErrorFormat("An error occured while deleting the folder {0}", e, folder);
+                    success &= false;
                 }
             }
+
+            Status status = Status.Success;
+
+            if (!success && atLeastOneSucceed)
+            {
+                status = Status.Warning;
+            }
+            else if (!success)
+            {
+                status = Status.Error;
+            }
+
             this.Info("Task finished.");
+            return new TaskStatus(status, false);
         }
 
         private void RmdirRec(string folder)

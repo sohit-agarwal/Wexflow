@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    The Http task downbloads a collection of files over HTTP or HTTPS. 
+    Http is a sequential task that downbloads a collection of files over HTTP or HTTPS. 
     
     The files downloaded are loaded by this task so that other
     tasks can select them through the selectFiles option.

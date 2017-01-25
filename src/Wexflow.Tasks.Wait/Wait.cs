@@ -18,11 +18,36 @@ namespace Wexflow.Tasks.Wait
             this.Duration = TimeSpan.Parse(this.GetSetting("duration"));
         }
 
-        public override void Run()
+        public override TaskStatus Run()
         {
-            this.Info("Waiting...");
-            Thread.Sleep(this.Duration);
+            this.InfoFormat("Waiting for {0} ...", this.Duration);
+
+            bool success = true;
+
+            try
+            {
+                Thread.Sleep(this.Duration);
+                success &= true;
+            }
+            catch (ThreadAbortException)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                this.ErrorFormat("An error occured while waiting. Error: {0}", e.Message);
+                success &= false;
+            }
+
+            Status status = Status.Success;
+
+            if (!success)
+            {
+                status = Status.Error;
+            }
+
             this.Info("Task finished.");
+            return new TaskStatus(status, false);
         }
     }
 }

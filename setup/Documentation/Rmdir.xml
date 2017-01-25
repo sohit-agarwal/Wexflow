@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    The Rmdir task deletes a collection of folders.
+    Rmdir is a sequential task that deletes a collection of folders.
   -->
   <Task id="$int" name="Rmdir" description="$string" enabled="true|false">
     <!-- The path of the folder to delete. Example: C:\MyFolder\-->

@@ -21,9 +21,12 @@ namespace Wexflow.Tasks.FilesExist
             this.Folders = this.GetSettings("folder");
         }
 
-        public override void Run()
+        public override TaskStatus Run()
         {
             this.Info("Checking...");
+
+            bool success = true;
+
             try
             {
                 string xmlPath = Path.Combine(this.Workflow.WorkflowTempFolder,
@@ -53,6 +56,7 @@ namespace Wexflow.Tasks.FilesExist
                 xdoc.Save(xmlPath);
                 this.Files.Add(new FileInf(xmlPath, this.Id));
                 this.InfoFormat("The result has been written in: {0}", xmlPath);
+                success &= true;
             }
             catch (ThreadAbortException)
             {
@@ -61,8 +65,18 @@ namespace Wexflow.Tasks.FilesExist
             catch (Exception e)
             {
                 this.ErrorFormat("An error occured while checking files and folders. Error: {0}", e.Message);
+                success &= false;
             }
+
+            Status status = Status.Success;
+
+            if (!success)
+            {
+                status = Status.Error;
+            }
+
             this.Info("Task finished.");
+            return new TaskStatus(status, false);
         }
     }
 }

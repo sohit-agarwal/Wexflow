@@ -20,9 +20,11 @@ namespace Wexflow.Tasks.Zip
             this.ZipFileName = this.GetSetting("zipFileName");
         }
 
-        public override void Run()
+        public override TaskStatus Run()
         {
             this.Info("Zipping files...");
+
+            bool success = true;
 
             FileInf[] files = this.SelectFiles();
             if(files.Length > 0)
@@ -77,6 +79,7 @@ namespace Wexflow.Tasks.Zip
 
                         this.InfoFormat("Zip {0} created.", zipPath);
                         this.Files.Add(new FileInf(zipPath, this.Id));
+                        success &= true;
                     }
                 }
                 catch (ThreadAbortException)
@@ -86,10 +89,19 @@ namespace Wexflow.Tasks.Zip
                 catch (Exception e)
                 {
                     this.ErrorFormat("An error occured while creating the Zip {0}", e, zipPath);
+                    success &= false;
                 }
             }
 
+            Status status = Status.Success;
+
+            if (!success)
+            {
+                status = Status.Error;
+            }
+
             this.Info("Task finished.");
+            return new TaskStatus(status, false);
         }
     }
 }

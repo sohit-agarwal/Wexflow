@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    The FilesLoader task loads a collection of files located in folders or through the file option. 
+    FilesLoader is a sequential task that loads a collection of files located in folders or through the file option. 
   -->
   <Task id="$int" name="FilesLoader" description="$string" enabled="true|false">
     <!-- The files located the the folder option will be loaded. For example, if the option 

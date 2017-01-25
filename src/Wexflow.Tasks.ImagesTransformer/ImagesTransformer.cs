@@ -36,10 +36,13 @@ namespace Wexflow.Tasks.ImagesTransformer
             this.OutputFormat = (ImgFormat)Enum.Parse(typeof(ImgFormat), this.GetSetting("outputFormat"), true);
         }
 
-        public override void Run()
+        public override TaskStatus Run()
         {
             this.Info("Transforming images...");
-           
+
+            bool success = true;
+            bool atLeastOneSucceed = false;
+
             foreach (FileInf file in this.SelectFiles())
             {
                 try
@@ -82,6 +85,8 @@ namespace Wexflow.Tasks.ImagesTransformer
                     }
                     this.Files.Add(new FileInf(destFilePath, this.Id));
                     this.InfoFormat("Image {0} transformed to {1}", file.Path, destFilePath);
+                    success &= true;
+                    if (!atLeastOneSucceed) atLeastOneSucceed = true;
                 }
                 catch (ThreadAbortException)
                 {
@@ -90,10 +95,23 @@ namespace Wexflow.Tasks.ImagesTransformer
                 catch (Exception e)
                 {
                     this.ErrorFormat("An error occured while transforming the image {0}. Error: {1}", file.Path, e.Message);
+                    success &= false;
                 }
             }
-            
+
+            Status status = Status.Success;
+
+            if (!success && atLeastOneSucceed)
+            {
+                status = Status.Warning;
+            }
+            else if (!success)
+            {
+                status = Status.Error;
+            }
+
             this.Info("Task finished.");
+            return new TaskStatus(status, false);
         }
     }
 }

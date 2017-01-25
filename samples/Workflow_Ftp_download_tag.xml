@@ -1,4 +1,4 @@
-<Workflow id="40" name="Workflow_Ftp_download_tag" description="Workflow_Ftp_download_tag">
+<Workflow xmlns="urn:wexflow-schema" id="40" name="Workflow_Ftp_download_tag" description="Workflow_Ftp_download_tag">
 	<Settings>
 		<Setting name="launchType" value="trigger" /> <!-- startup|trigger|periodic -->
 		<Setting name="enabled" value="true" /> <!-- true|false -->

@@ -20,9 +20,11 @@ namespace Wexflow.Tasks.FilesLoader
             this.FLFiles = this.GetSettings("file");
         }
 
-        public override void Run()
+        public override TaskStatus Run()
         {
             this.Info("Loading files...");
+
+            bool success = true;
 
             try
             {
@@ -33,6 +35,7 @@ namespace Wexflow.Tasks.FilesLoader
                         FileInf fi = new FileInf(file, this.Id);
                         this.Files.Add(fi);
                         this.InfoFormat("File loaded: {0}", file);
+                        success &= true;
                     }
                 }
 
@@ -42,10 +45,12 @@ namespace Wexflow.Tasks.FilesLoader
                     {
                         this.Files.Add(new FileInf(file, this.Id));
                         this.InfoFormat("File loaded: {0}", file);
+                        success &= true;
                     }
                     else
                     {
                         this.ErrorFormat("File not found: {0}", file);
+                        success &= false;
                     }
                 }
             }
@@ -56,9 +61,18 @@ namespace Wexflow.Tasks.FilesLoader
             catch (Exception e)
             {
                 this.ErrorFormat("An error occured while loading files.", e);
+                success &= false;
+            }
+
+            Status status = Status.Success;
+
+            if (!success)
+            {
+                status = Status.Error;
             }
 
             this.Info("Task finished.");
+            return new TaskStatus(status, false);
 
         }
     }

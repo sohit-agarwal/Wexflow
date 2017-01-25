@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    The FilesExist task checks whether a collection of files and/or directories exists.
+    FilesExist is a sequential task that checks whether a collection of files and/or directories exists.
     
     The result is written in XML file in this format:
     

@@ -17,9 +17,12 @@ namespace Wexflow.Tasks.Md5
         {
         }
 
-        public override void Run()
+        public override TaskStatus Run()
         {
             this.Info("Generating MD5 sums...");
+
+            bool success = true;
+            bool atLeastOneSucceed = false;
 
             FileInf[] files = this.SelectFiles();
 
@@ -39,6 +42,8 @@ namespace Wexflow.Tasks.Md5
                             new XAttribute("name", file.FileName),
                             new XAttribute("md5", md5)));
                         this.InfoFormat("Md5 of the file {0} is {1}", file.Path, md5);
+                        success &= true;
+                        if (!atLeastOneSucceed) atLeastOneSucceed = true;
                     }
                     catch (ThreadAbortException)
                     {
@@ -47,13 +52,26 @@ namespace Wexflow.Tasks.Md5
                     catch (Exception e)
                     {
                         this.ErrorFormat("An error occured while generating the md5 of the file {0}", e, file.Path);
+                        success &= false;
                     }
                 }
                 xdoc.Save(md5Path);
                 this.Files.Add(new FileInf(md5Path, this.Id));
             }
 
+            Status status = Status.Success;
+
+            if (!success && atLeastOneSucceed)
+            {
+                status = Status.Warning;
+            }
+            else if (!success)
+            {
+                status = Status.Error;
+            }
+
             this.Info("Task finished.");
+            return new TaskStatus(status, false);
         }
 
         private string GetMd5(string filePath)

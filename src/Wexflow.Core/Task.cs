@@ -43,16 +43,16 @@ namespace Wexflow.Core
             this.Workflow.EntitiesPerTask.Add(this.Id, new List<Entity>());
         }
 
-        public abstract void Run();
+        public abstract TaskStatus Run();
 
         public string GetSetting(string name)
         {
-            return this._xElement.XPathSelectElement(string.Format("Setting[@name='{0}']", name)).Attribute("value").Value;
+            return this._xElement.XPathSelectElement(string.Format("wf:Setting[@name='{0}']", name), this.Workflow.XmlNamespaceManager).Attribute("value").Value;
         }
 
         public string GetSetting(string name, string defaultValue)
         {
-            XElement xe = this._xElement.XPathSelectElement(string.Format("Setting[@name='{0}']", name));
+            XElement xe = this._xElement.XPathSelectElement(string.Format("wf:Setting[@name='{0}']", name), this.Workflow.XmlNamespaceManager);
             if (xe == null) return defaultValue;
             return xe.Attribute("value").Value;
         }
@@ -60,7 +60,7 @@ namespace Wexflow.Core
         public string[] GetSettings(string name)
         {
             List<string> settings = new List<string>();
-            foreach (XElement xe in this._xElement.XPathSelectElements(string.Format("Setting[@name='{0}']", name)))
+            foreach (XElement xe in this._xElement.XPathSelectElements(string.Format("wf:Setting[@name='{0}']", name), this.Workflow.XmlNamespaceManager))
             {
                 settings.Add(xe.Attribute("value").Value);
             }
@@ -69,7 +69,7 @@ namespace Wexflow.Core
 
         public XElement[] GetXSettings(string name)
         {
-            return this._xElement.XPathSelectElements(string.Format("Setting[@name='{0}']", name)).ToArray();
+            return this._xElement.XPathSelectElements(string.Format("wf:Setting[@name='{0}']", name), this.Workflow.XmlNamespaceManager).ToArray();
         }
 
         public FileInf[] SelectFiles() 

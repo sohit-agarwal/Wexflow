@@ -27,9 +27,12 @@ namespace Wexflow.Tasks.Twitter
             this.AccessTokenSecret = this.GetSetting("accessTokenSecret");
         }
 
-        public override void Run()
+        public override TaskStatus Run()
         {
             this.Info("Sending tweets...");
+
+            bool success = true;
+            bool atLeastOneSucceed = false;
 
             FileInf[] files = this.SelectFiles();
 
@@ -49,7 +52,7 @@ namespace Wexflow.Tasks.Twitter
                 catch (Exception e)
                 {
                     this.ErrorFormat("Authentication failed.", e);
-                    return;
+                    return new TaskStatus(Status.Error, false);
                 }
 
                 foreach (FileInf file in files)
@@ -63,6 +66,8 @@ namespace Wexflow.Tasks.Twitter
                             TwitterStatus tweet = service.SendTweet(new SendTweetOptions() { Status = status });
                             this.InfoFormat("Tweet '{0}' sent. id: {1}", status, tweet.Id);
                         }
+                        success &= true;
+                        if (!atLeastOneSucceed) atLeastOneSucceed = true;
                     }
                     catch (ThreadAbortException)
                     {
@@ -71,11 +76,24 @@ namespace Wexflow.Tasks.Twitter
                     catch (Exception e)
                     {
                         this.ErrorFormat("An error occured while sending the tweets of the file {0}.", e, file.Path);
+                        success &= false;
                     }
                 }
             }
 
+            Status tstatus = Status.Success;
+
+            if (!success && atLeastOneSucceed)
+            {
+                tstatus = Status.Warning;
+            }
+            else if (!success)
+            {
+                tstatus = Status.Error;
+            }
+
             this.Info("Task finished.");
+            return new TaskStatus(tstatus, false);
         }
 
     }

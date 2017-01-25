@@ -1,4 +1,4 @@
-<Workflow id="18" name="Workflow_Xslt" description="Workflow_Xslt">
+<Workflow xmlns="urn:wexflow-schema" id="18" name="Workflow_Xslt" description="Workflow_Xslt">
 	<Settings>
 		<Setting name="launchType" value="trigger" /> <!-- startup|trigger|periodic -->
 		<Setting name="enabled" value="true" /> <!-- true|false -->

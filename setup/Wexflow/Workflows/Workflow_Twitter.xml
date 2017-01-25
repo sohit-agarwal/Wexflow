@@ -1,4 +1,4 @@
-<Workflow id="16" name="Workflow_Twitter" description="Workflow_Twitter">
+<Workflow xmlns="urn:wexflow-schema" id="16" name="Workflow_Twitter" description="Workflow_Twitter">
 	<Settings>
 		<Setting name="launchType" value="trigger" /> <!-- startup|trigger|periodic -->
 		<Setting name="enabled" value="true" /> <!-- true|false -->

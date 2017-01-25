@@ -26,9 +26,12 @@ namespace Wexflow.Tasks.Xslt
             this.RemoveWexflowProcessingNodes = bool.Parse(this.GetSetting("removeWexflowProcessingNodes", "true"));
         }
 
-        public override void Run()
+        public override TaskStatus Run()
         {
             this.Info("Transforming files...");
+
+            bool success = true;
+            bool atLeastOneSucceed = false;
 
             foreach (FileInf file in this.SelectFiles())
             {
@@ -71,7 +74,7 @@ namespace Wexflow.Tasks.Xslt
                             break;
                         default:
                             this.Error("Error in version option. Available options: 1.0 or 2.0");
-                            break;
+                            return new TaskStatus(Status.Error, false);
                     }
 
                     // Set renameTo and tags from /*//<WexflowProcessing>//<File> nodes
@@ -125,6 +128,8 @@ namespace Wexflow.Tasks.Xslt
                         xWexflowProcessings.Remove();
                         xdoc.Save(destPath);
                     }
+                    success &= true;
+                    if (!atLeastOneSucceed) atLeastOneSucceed = true;
                 }
                 catch (ThreadAbortException)
                 {
@@ -133,10 +138,23 @@ namespace Wexflow.Tasks.Xslt
                 catch (Exception e)
                 {
                     this.ErrorFormat("An error occured while transforming the file {0}", e, file.Path);
+                    success &= false;
                 }
             }
 
+            Status status = Status.Success;
+
+            if (!success && atLeastOneSucceed)
+            {
+                status = Status.Warning;
+            }
+            else if (!success)
+            {
+                status = Status.Error;
+            }
+
             this.Info("Task finished.");
+            return new TaskStatus(status, false);
         }
     }
 }

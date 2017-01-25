@@ -14,6 +14,7 @@ namespace Wexflow.Core
         public string SettingsFile { get; private set; }
         public string WorkflowsFolder { get; private set; }
         public string TempFolder { get; private set; }
+        public string XsdPath { get; private set; }
         public Workflow[] Workflows { get; private set; }
 
         public WexflowEngine(string settingsFile) 
@@ -28,6 +29,7 @@ namespace Wexflow.Core
             XDocument xdoc = XDocument.Load(this.SettingsFile);
             this.WorkflowsFolder = GetWexflowSetting(xdoc, "workflowsFolder");
             this.TempFolder = GetWexflowSetting(xdoc, "tempFolder");
+            this.XsdPath = GetWexflowSetting(xdoc, "xsd");
         }
 
         private string GetWexflowSetting(XDocument xdoc, string name)
@@ -42,13 +44,13 @@ namespace Wexflow.Core
             {
                 try
                 {
-                    Workflow workflow = new Workflow(file, this.TempFolder);
+                    Workflow workflow = new Workflow(file, this.TempFolder, this.XsdPath);
                     workflows.Add(workflow);
                     Logger.InfoFormat("Workflow loaded: {0}", workflow);
                 }
                 catch (Exception e)
                 {
-                    Logger.ErrorFormat("An error occured while loading the workflow : {0} Please check the workflow configuration.", file);
+                    Logger.ErrorFormat("An error occured while loading the workflow : {0} Please check the workflow configuration. Error: {1}", file, e.Message);
                 }
             }
             this.Workflows = workflows.ToArray();

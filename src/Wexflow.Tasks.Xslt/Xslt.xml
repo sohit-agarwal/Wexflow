@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    The Xslt task transforms an XML file. 
+    Xslt is a sequential task that transforms an XML file. 
     
     The files generated will be loaded by this task so that other
     tasks can select them through the selectFiles option.

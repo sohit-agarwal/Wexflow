@@ -1,4 +1,4 @@
-<Workflow id="23" name="Workflow_Wmi" description="Workflow_Wmi">
+<Workflow xmlns="urn:wexflow-schema" id="23" name="Workflow_Wmi" description="Workflow_Wmi">
 	<Settings>
 		<Setting name="launchType" value="trigger" /> <!-- startup|trigger|periodic -->
 		<Setting name="enabled" value="true" /> <!-- true|false -->

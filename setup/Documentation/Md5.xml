@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    The Md5 task generates MD5 sums of a collection of files. The results are written
+    Md5 is a sequential task that generates MD5 sums of a collection of files. The results are written
     to an XML file as follows:
     <Files>
       <File path="$filePath" name="$fileName" md5="a3de1332a4235e9a559cfacd9a74a835" />

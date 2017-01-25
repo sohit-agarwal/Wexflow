@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    The Tgz task creates a tar.gz file from a collection of files.
+    Tgz is a sequential task that creates a tar.gz from a collection of files.
     
     The tar.gz file generated will be loaded by this task so that other
     tasks can select it through the selectFiles option.

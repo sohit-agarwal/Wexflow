@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Core", "src\Wexflow.Core\Wexflow.Core.csproj", "{46257949-80B5-48F2-9B83-29354C339869}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wexflow.Tasks", "src\Wexflow.Tasks", "{E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wexflow.Tasks", "Wexflow.Tasks", "{E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wexflow.Clients", "src\Wexflow.Clients", "{67871E52-CB11-4EDF-B036-15F359EF6B66}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wexflow.Clients", "Wexflow.Clients", "{67871E52-CB11-4EDF-B036-15F359EF6B66}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wexflow.Core", "src\Wexflow.Core", "{6AF980AE-0A8F-4F6F-A387-2C3C21A30710}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wexflow.Core", "Wexflow.Core", "{6AF980AE-0A8F-4F6F-A387-2C3C21A30710}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.FilesLoader", "src\Wexflow.Tasks.FilesLoader\Wexflow.Tasks.FilesLoader.csproj", "{D9DD665A-A147-462C-BCEE-3008559728B5}"
 EndProject
@@ -74,6 +74,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Wait", "src\Wexflow.Tasks.Wait\Wexflow.Tasks.Wait.csproj", "{81C8DA3E-32CB-4084-84DA-C531522318C3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.FilesExist", "src\Wexflow.Tasks.FilesExist\Wexflow.Tasks.FilesExist.csproj", "{EDA6A4D5-5814-4920-B2DA-DD414894CBF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.FileExists", "Wexflow.Tasks.FileExists\Wexflow.Tasks.FileExists.csproj", "{8ED85A48-A8E3-4565-A874-3562F081D14C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -425,6 +427,16 @@ Global
 		{EDA6A4D5-5814-4920-B2DA-DD414894CBF5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{EDA6A4D5-5814-4920-B2DA-DD414894CBF5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{EDA6A4D5-5814-4920-B2DA-DD414894CBF5}.Release|x86.ActiveCfg = Release|Any CPU
+		{8ED85A48-A8E3-4565-A874-3562F081D14C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ED85A48-A8E3-4565-A874-3562F081D14C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ED85A48-A8E3-4565-A874-3562F081D14C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{8ED85A48-A8E3-4565-A874-3562F081D14C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{8ED85A48-A8E3-4565-A874-3562F081D14C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8ED85A48-A8E3-4565-A874-3562F081D14C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ED85A48-A8E3-4565-A874-3562F081D14C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ED85A48-A8E3-4565-A874-3562F081D14C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{8ED85A48-A8E3-4565-A874-3562F081D14C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{8ED85A48-A8E3-4565-A874-3562F081D14C}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -462,6 +474,7 @@ Global
 		{98A6156E-9784-4D83-8D39-C01976A32155} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{81C8DA3E-32CB-4084-84DA-C531522318C3} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{EDA6A4D5-5814-4920-B2DA-DD414894CBF5} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
+		{8ED85A48-A8E3-4565-A874-3562F081D14C} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{81032249-78D9-4B89-8E22-A3C32562EA69} = {67871E52-CB11-4EDF-B036-15F359EF6B66}
 		{D559C35B-BFF5-49C2-9490-818314C88A76} = {67871E52-CB11-4EDF-B036-15F359EF6B66}
 	EndGlobalSection

@@ -1,4 +1,4 @@
-<Workflow id="25" name="Workflow_Http" description="Workflow_Http">
+<Workflow xmlns="urn:wexflow-schema" id="25" name="Workflow_Http" description="Workflow_Http">
 	<Settings>
 		<Setting name="launchType" value="trigger" /> <!-- startup|trigger|periodic -->
 		<Setting name="enabled" value="true" /> <!-- true|false -->

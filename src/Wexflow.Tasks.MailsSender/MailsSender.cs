@@ -27,9 +27,12 @@ namespace Wexflow.Tasks.MailsSender
             this.Password = this.GetSetting("password");
         }
 
-        public override void Run()
+        public override TaskStatus Run()
         {
             this.Info("Sending mails...");
+
+            bool success = true;
+            bool atLeastOneSucceed = false;
 
             try
             {
@@ -53,6 +56,7 @@ namespace Wexflow.Tasks.MailsSender
                         catch (Exception e)
                         {
                             this.ErrorFormat("An error occured while parsing the mail {0}. Please check the XML configuration according to the documentation.", count);
+                            success &= false;
                             count++;
                             continue;
                         }
@@ -62,6 +66,8 @@ namespace Wexflow.Tasks.MailsSender
                             mail.Send(this.Host, this.Port, this.EnableSsl, this.User, this.Password);
                             this.InfoFormat("Mail {0} sent.", count);
                             count++;
+                            success &= true;
+                            if (!atLeastOneSucceed) atLeastOneSucceed = true;
                         }
                         catch (ThreadAbortException)
                         {
@@ -70,6 +76,7 @@ namespace Wexflow.Tasks.MailsSender
                         catch (Exception e)
                         {
                             this.ErrorFormat("An error occured while sending the mail {0}. Error message: {1}", count, e.Message);
+                            success &= false;
                         }
                     }
 
@@ -82,9 +89,22 @@ namespace Wexflow.Tasks.MailsSender
             catch (Exception e)
             {
                 this.ErrorFormat("An error occured while sending mails.", e);
+                success &= false;
+            }
+
+            Status status = Status.Success;
+
+            if (!success && atLeastOneSucceed)
+            {
+                status = Status.Warning;
+            }
+            else if (!success)
+            {
+                status = Status.Error;
             }
 
             this.Info("Task finished.");
+            return new TaskStatus(status, false);
         }
     }
 }

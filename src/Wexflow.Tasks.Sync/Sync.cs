@@ -23,9 +23,12 @@ namespace Wexflow.Tasks.Sync
             this.destFolder = this.GetSetting("destFolder");
         }
 
-        public override void Run()
+        public override TaskStatus Run()
         {
             this.Info("Synchronising folders...");
+
+            bool success = true;
+
             try
             {
                 string idFileName = "filesync.id";
@@ -47,6 +50,7 @@ namespace Wexflow.Tasks.Sync
 
                 // Sync source to destination
                 SyncFileSystemReplicasOneWay(replica1Id, replica2Id, this.SrcFolder, this.destFolder, filter, options);
+                success &= true;
             }
             catch (ThreadAbortException)
             {
@@ -55,8 +59,18 @@ namespace Wexflow.Tasks.Sync
             catch (Exception e)
             {
                 Logger.ErrorFormat("Error from File Sync Provider: {0}\n", e.Message);
+                success &= false;
             }
+
+            Status status = Status.Success;
+
+            if (!success)
+            {
+                status = Status.Error;
+            }
+
             this.Info("Task finished.");
+            return new TaskStatus(status, false);
         }
 
         public void DetectChangesOnFileSystemReplica(

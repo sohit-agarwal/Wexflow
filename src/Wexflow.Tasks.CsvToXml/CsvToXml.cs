@@ -16,9 +16,13 @@ namespace Wexflow.Tasks.CsvToXml
         {
         }
 
-        public override void Run()
+        public override TaskStatus Run()
         {
             this.Info("Creating XML files...");
+
+            bool success = true;
+            bool atLeastOneSucceed = false;
+
             foreach (FileInf file in this.SelectFiles())
             {
                 try
@@ -28,6 +32,8 @@ namespace Wexflow.Tasks.CsvToXml
                     CreateXml(file.Path, xmlPath);
                     this.Files.Add(new FileInf(xmlPath, this.Id));
                     this.InfoFormat("XML file {0} created from {1}", xmlPath, file.Path);
+                    success &= true;
+                    if (!atLeastOneSucceed) atLeastOneSucceed = true;
                 }
                 catch (ThreadAbortException)
                 {
@@ -35,10 +41,24 @@ namespace Wexflow.Tasks.CsvToXml
                 }
                 catch (Exception e)
                 {
-                    this.ErrorFormat("An error occured while creating the XML from {0} Please check this XML file according to the documentation of the task.", file.Path);
+                    this.ErrorFormat("An error occured while creating the XML from {0} Please check this XML file according to the documentation of the task. Error: {1}", file.Path, e.Message);
+                    success &= false;
                 }
             }
+
+            Status status = Status.Success;
+
+            if (!success && atLeastOneSucceed)
+            {
+                status = Status.Warning;
+            }
+            else if (!success)
+            {
+                status = Status.Error;
+            }
+
             this.Info("Task finished.");
+            return new TaskStatus(status, false);
         }
 
         private void CreateXml(string csvPath, string xmlPath)

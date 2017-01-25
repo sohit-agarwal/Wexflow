@@ -1,4 +1,4 @@
-<Workflow id="21" name="Workflow_Tgz" description="Workflow_Tgz">
+<Workflow xmlns="urn:wexflow-schema" id="21" name="Workflow_Tgz" description="Workflow_Tgz">
 	<Settings>
 		<Setting name="launchType" value="trigger" /> <!-- startup|trigger|periodic -->
 		<Setting name="enabled" value="true" /> <!-- true|false -->

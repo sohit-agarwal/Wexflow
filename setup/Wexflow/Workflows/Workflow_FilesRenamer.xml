@@ -1,4 +1,4 @@
-<Workflow id="36" name="Workflow_FilesRenamer" description="Workflow_FilesRenamer">
+<Workflow xmlns="urn:wexflow-schema" id="36" name="Workflow_FilesRenamer" description="Workflow_FilesRenamer">
 	<Settings>
 		<Setting name="launchType" value="trigger" /> <!-- startup|trigger|periodic -->
 		<!--<Setting name="period" value="00.00:00:20" />-->

@@ -1,4 +1,4 @@
-<Workflow id="7" name="Workflow_ListEntities" description="Workflow_ListEntities">
+<Workflow xmlns="urn:wexflow-schema" id="7" name="Workflow_ListEntities" description="Workflow_ListEntities">
 	<Settings>
 		<Setting name="launchType" value="trigger" /> <!-- startup|trigger|periodic -->
 		<Setting name="enabled" value="true" /> <!-- true|false -->

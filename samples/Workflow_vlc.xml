@@ -1,4 +1,4 @@
-<Workflow id="13" name="Workflow_vlc" description="Workflow_vlc">
+<Workflow xmlns="urn:wexflow-schema" id="13" name="Workflow_vlc" description="Workflow_vlc">
 	<Settings>
 		<Setting name="launchType" value="trigger" /> <!-- startup|trigger|periodic -->
 		<Setting name="enabled" value="true" /> <!-- true|false -->

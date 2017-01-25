@@ -16,11 +16,13 @@ namespace Wexflow.Tasks.Template
             // Task settings goes here
         }
 
-        public override void Run()
+        public override TaskStatus Run()
         {
             try
             {
                 // Task logic goes here
+
+                return new TaskStatus(Status.Success, false);
             }
             catch (ThreadAbortException)
             {

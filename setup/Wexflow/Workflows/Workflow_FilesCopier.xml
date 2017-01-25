@@ -1,4 +1,4 @@
-<Workflow id="2" name="Workflow_FilesCopier" description="Workflow_FilesCopier">
+<Workflow xmlns="urn:wexflow-schema" id="2" name="Workflow_FilesCopier" description="Workflow_FilesCopier">
 	<Settings>
 		<Setting name="launchType" value="trigger" /> <!-- startup|trigger|periodic -->
 		<Setting name="enabled" value="true" /> <!-- true|false -->

@@ -21,9 +21,11 @@ namespace Wexflow.Tasks.Tgz
             this.TgzFileName = this.GetSetting("tgzFileName");
         }
 
-        public override void Run()
+        public override TaskStatus Run()
         {
             this.Info("Creating tgz archive...");
+
+            bool success = true;
 
             FileInf[] files = this.SelectFiles();
             if (files.Length > 0)
@@ -81,6 +83,7 @@ namespace Wexflow.Tasks.Tgz
 
                         this.InfoFormat("Tgz {0} created.", tgzPath);
                         this.Files.Add(new FileInf(tgzPath, this.Id));
+                        success &= true;
                     }
                 }
                 catch (ThreadAbortException)
@@ -90,10 +93,19 @@ namespace Wexflow.Tasks.Tgz
                 catch (Exception e)
                 {
                     this.ErrorFormat("An error occured while creating the Tar {0}", e, tgzPath);
+                    success &= false;
                 }
             }
 
+            Status status = Status.Success;
+
+            if (!success)
+            {
+                status = Status.Error;
+            }
+
             this.Info("Task finished.");
+            return new TaskStatus(status, false);
         }
     }
 }

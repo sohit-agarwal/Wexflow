@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    The FilesRemover task deletes a collection of files.
+    FilesRemover is a sequential task that deletes a collection of files.
     
     The files deleted will be removed from their tasks so that other
     tasks cannot select them through the selectFiles option.

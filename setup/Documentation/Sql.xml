@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    The Sql task executes a collection of SQL script files. 
+    Sql is a sequential task that executes a collection of SQL script files. 
     This task supports Microsoft SQL Server, Microsoft Access, Oracle, MySQL, SQLite, PostgreSQL and Teradata.
   -->
   <Task id="$int" name="Sql" description="$string" enabled="true|false">

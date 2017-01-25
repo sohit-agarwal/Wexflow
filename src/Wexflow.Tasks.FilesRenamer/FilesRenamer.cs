@@ -19,9 +19,12 @@ namespace Wexflow.Tasks.FilesRenamer
             this.Overwrite = bool.Parse(this.GetSetting("overwrite", "false"));
         }
 
-        public override void Run()
+        public override TaskStatus Run()
         {
             this.Info("Renaming files...");
+
+            bool success = true;
+            bool atLeastOneSucceed = false;
 
             foreach (var file in this.SelectFiles())
             {
@@ -48,6 +51,7 @@ namespace Wexflow.Tasks.FilesRenamer
                             else
                             {
                                 this.ErrorFormat("The destination file {0} already exists.", destPath);
+                                success &= false;
                                 continue;
                             }
                         }
@@ -56,6 +60,8 @@ namespace Wexflow.Tasks.FilesRenamer
                         this.InfoFormat("File {0} renamed to {1}", file.Path, file.RenameTo);
                         file.Path = destPath;
                         file.RenameTo = string.Empty;
+                        success &= true;
+                        if (!atLeastOneSucceed) atLeastOneSucceed = true;
                     }
                 }
                 catch (ThreadAbortException)
@@ -65,10 +71,23 @@ namespace Wexflow.Tasks.FilesRenamer
                 catch (Exception e)
                 {
                     this.ErrorFormat("An error occured while renaming the file {0} to {1}. Error: {2}", file.Path, file.RenameTo, e.Message);
+                    success &= false;
                 }
             }
 
+            Status status = Status.Success;
+
+            if (!success && atLeastOneSucceed)
+            {
+                status = Status.Warning;
+            }
+            else if (!success)
+            {
+                status = Status.Error;
+            }
+
             this.Info("Task finished.");
+            return new TaskStatus(status, false);
         }
     }
 }

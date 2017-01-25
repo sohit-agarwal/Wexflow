@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    The Mkdir task creates a collection of folders.
+    Mkdir is a sequential task that creates a collection of folders.
   -->
   <Task id="$int" name="Mkdir" description="$string" enabled="true|false">
     <!-- The path of the folder to create. Example: C:\MyFolder\-->

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    The ProcessLauncher task launches a process. If this process generates a file as output
+    ProcessLauncher is a sequential task that launches a process. If this process generates a file as output
     It is possible to pass a collection of files to the task so that for each file an output
     file will be generated through the process.
     
