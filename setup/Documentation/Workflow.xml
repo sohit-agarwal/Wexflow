@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <!--
-    This is the configuration file of a Workflow. 
+    This is the configuration file of a workflow. 
     A workflow is composed of:
       - An id which is an integer that must be unique.
       - A name which is a string that must be unique.
@@ -13,7 +13,7 @@
         - A period which is necessary for the periodic launchType. It is 
           a timeSpan in this format dd.hh:mm:ss. For example the period
           00.00:02:00 will launch the workflow every 2 minutes.
-        - The enable option which allows to enable or disable a workflow.
+        - The enabled option which allows to enable or disable a workflow.
           The possible values are true or false.
       - A Tasks section which contains the tasks that will be executed by
         the workflow one after the other.
@@ -24,6 +24,8 @@
           - The enable option which allows to enable or disable a task. The possible 
             values are true or false.
           - A collection of settings.
+        - An ExecutionGraph section which contains the execution graph of the workflow.
+          This section is optional and described in the samples section (https://github.com/aelassas/Wexflow).
 -->
 <Workflow id="$int" name="$string" description="$string">
   <Settings>
@@ -43,4 +45,6 @@
     </Task>
     <!-- You can add as many tasks as you want. -->
   </Tasks>
+  <!-- This node is optional and described in the samples section (https://github.com/aelassas/Wexflow). -->
+  <ExecutionGraph />
 </Workflow>
