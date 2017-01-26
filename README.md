@@ -16,7 +16,13 @@ Wexflow is an open source multithreaded workflow engine written in pure C# from 
 
 A workflow is a series of distinct steps or phases (like in the diagram above). Each step is modeled in Wexflow as a Task. Tasks can be assembled visually into workflows using XML. Assembling tasks in Design mode will be possible through Wexflow Designer. This feature is in the todo list and is comming soon.
 
-Wexflow provides the following tasks:**
+Wexflow provides the following features:
+
+- **Sequential workflows:** A sequential workflow executes a set of tasks in order, one by one. Tasks are executed in a sequential manner until the last task finishes. The order of the execution of the tasks can be altered by modifying the execution graph of the workflow.
+- **Flowchart workflows:** A flowchart workflow is a workflow that contains at least one flowchart node (DoIf/DoWhile) in its execution graph. A flow chart node takes as input a flowchart task (A task that returns either true or false after performing its job) and a set of tasks to execute in order, one by one. The order of the execution of the tasks can be altered by modifying the execution graph of the flowchart node.
+- **Workflow events:** After a workflow finishes its job, its final result is either success, or warning or error. If its final result is success, the OnSuccess event is triggered. If its final result is warning, the OnWarning event is triggered. If its final result is error, the OnError event is triggered. An event contains a set of tasks and/or flowchart nodes to execute in order, one by one. The order of the execution of the tasks and/or flowchart nodes can be altered by modifying the execution graph of the event.
+
+In addition, Wexflow provides the following built-in tasks:
 
 - **File system tasks:** These tasks allow to create, copy, move, rename or delete files and directories on a file system. These tasks allow also to check whether a collection of remote or local files and/or directories exists.
 - **Sync task:** This task allows to synchronise the content of a local or a remote source directory to a local or a remote destination directory. This task makes use of Microsoft Sync Framework 2.1.
@@ -37,6 +43,27 @@ Wexflow provides the following tasks:**
 - **Script tasks:** These tasks allows execute custom tasks written in C# or VB.
 
 At this time, Wexflow only supports sequential execution of tasks but more complex scenarios like DoWhile, DoIf, parallel tasks execution and so on are in the todo list and are comming soon.
+
+# Is Wexflow an ETL system?
+
+You may think that Wexflow is rather an ETL system than a workflow engine. Well, the answer is that you can do ETL with Wexflow and even more. The spirit of Wexflow is to offer generic functionalities in a way that you can do pretty much whatever you want. With Wexflow, you can do ETL and even more through custom tasks and sequential/flowchart workflows.
+
+# Why not Workflow Foundation?
+
+WF (Windows Workflow Foundation) is a Microsoft technology for defining, executing and managing workflows.
+
+WF is a proprietary solution and comes with a limited number of built-in activities.
+
+What I want to do is to bring an open source alternative with a bunch of built-in tasks that can be used within a workflow.
+
+Here are the strengths of Wexflow vs WF:
+
+- Open source.
+- Comes with 29 built-in tasks.
+- Worklow events (OnSuccess, OnWarning and OnError).
+- Will be possible to add DoIf in DoIf, DoIf in DoWhile, DoWhile in DoIf and DoWhile in DoWhile.
+- Will work under Linux and Android (.NET Core/Mono).
+- Will be possible to manage workflows in any website through Wexflow Web Manager.
 
 # Prerequisites
 
@@ -128,6 +155,15 @@ Below the configuration file of a workflow:
       - A description wich is a string.
       - A settings section which is composed of the following elements:
         - A launchType which is one of the following options:
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    This is the configuration file of a workflow. 
+    A workflow is composed of:
+      - An id which is an integer that must be unique.
+      - A name which is a string that must be unique.
+      - A description wich is a string.
+      - A settings section which is composed of the following elements:
+        - A launchType which is one of the following options:
           - startup: The workflow is launched when Wexflow engine starts.
           - trigger: The workflow is launched manually from the Wexflow manager.
           - periodic: The workflow is lauched periodically.
@@ -145,8 +181,10 @@ Below the configuration file of a workflow:
           - The enable option which allows to enable or disable a task. The possible 
             values are true or false.
           - A collection of settings.
+        - An ExecutionGraph section which contains the execution graph of the workflow.
+          This section is optional and described in the samples section.
 -->
-<Workflow id="$int" name="$string" description="$string">
+<Workflow xmlns="urn:wexflow-schema" id="$int" name="$string" description="$string">
   <Settings>
     <Setting name="launchType" value="startup|trigger|periodic" />
     <Setting name="period" value="dd.hh:mm:ss" />
@@ -164,6 +202,8 @@ Below the configuration file of a workflow:
     </Task>
     <!-- You can add as many tasks as you want. -->
   </Tasks>
+  <!-- This node is optional and described in the samples section. -->
+  <ExecutionGraph />
 </Workflow>
 ```
 
@@ -196,6 +236,7 @@ The name option of a Task must be one of the followings:
 - **FilesRenamer:** This task allows to rename a collection of files on a file system. The Xslt task can be used along with the ListFiles task to create new file names. Check out the documentation of these tasks and the workflow sample Workflow_FilesRenamer.xml to see how this can be done.
 - **Wait:** This task waits for a specified duration of time.
 - **FilesExist:** This task checks whether a collection of files and/or directories exists.
+- **FileExists:** This is a flowchart task that checks whether a given file exists on a file system or not.
 
 To learn how to make your own workflows, you can check out the workflow samples availabe in C:\Wexflow\Workflows\ and read the tasks documentations available in the documentation folder C:\Program Files\Wexflow\Documentation.
 
@@ -222,14 +263,16 @@ To see what's going on in Wexflow, open the log file C:\Program Files\Wexflow\We
 
 In this section, few workflow samples will be presented in order to make the end user familiar with Wexflow workflows synthax.
 
-## Workflow 1
+## Sequential workflows
+
+### Workflow 1
 
 ![alt tag](https://aelassas.github.io/Wexflow/Workflow_Invoices.png)
 
 This workflow uploads invoices to an SFTP server, then waits for 2 days and then notifies the customers.
 
 ```xml
-<Workflow id="99" name="Workflow_Invoices" description="Workflow_Invoices">
+<Workflow xmlns="urn:wexflow-schema" id="99" name="Workflow_Invoices" description="Workflow_Invoices">
     <Settings>
         <Setting name="launchType" value="trigger" />
         <Setting name="enabled" value="true" />
@@ -272,14 +315,14 @@ This workflow uploads invoices to an SFTP server, then waits for 2 days and then
 
 First of all, the FilesLoader task loads all the invoices located in the folder C:\WexflowTesting\Invoices\, then the Ftp task uploads them to the SFTP server, then the Wait task waits for 2 days, then the FilesLoader task loads the emails in XML format and then the MailsSender task sends the emails. Finally, the FilesMover task moves the invoices to the folder C:\WexflowTesting\Invoices_sent\.
 
-## Workflow 2
+### Workflow 2
 
 ![alt tag](https://aelassas.github.io/Wexflow/Workflow_FilesSender.png)
 
 This workflow waits for files to arrive in C:\WexflowTesting\Watchfolder1\ and C:\WexflowTesting\Watchfolder2\ then uploads them to an FTP server then moves them to C:\WexflowTesting\Sent\ folder. This workflow starts every 2 minutes.
 
 ```xml
-<Workflow id="6" name="Workflow_FilesSender" description="Workflow_FilesSender">
+<Workflow xmlns="urn:wexflow-schema" id="6" name="Workflow_FilesSender" description="Workflow_FilesSender">
     <Settings>
         <Setting name="launchType" value="periodic" />
         <Setting name="period" value="00.00:02:00.00" />
@@ -310,14 +353,14 @@ This workflow waits for files to arrive in C:\WexflowTesting\Watchfolder1\ and C
 
 First of all, the FilesLoader task loads all the files located in the folders C:\WexflowTesting\Watchfolder1\ and C:\WexflowTesting\Watchfolder2\ then the Ftp task loads the files and uploads them to the FTP server. Finally, the FilesMover task moves the files to the folder C:\WexflowTesting\Sent\.
 
-## Workflow 3
+### Workflow 3
 
 ![alt tag](https://aelassas.github.io/Wexflow/Workflow_ffmpeg.png)
 
 This workflow transcodes the WAV files located in C:\WexflowTesting\WAV\ to MP3 format through FFMPEG and moves the transcoded files to C:\WexflowTesting\MP3\.
 
 ```xml
-<Workflow id="12" name="Workflow_ffmpeg" description="Workflow_ffmpeg">
+<Workflow xmlns="urn:wexflow-schema" id="12" name="Workflow_ffmpeg" description="Workflow_ffmpeg">
     <Settings>
         <Setting name="launchType" value="trigger" />
         <Setting name="enabled" value="true" />
@@ -345,14 +388,14 @@ This workflow transcodes the WAV files located in C:\WexflowTesting\WAV\ to MP3 
 
 First of all, the FilesLoader task loads all the files located in the folder C:\WexflowTesting\WAV\ then the ProcessLauncher task launches FFMPEG process on every file by specifying the right command in order to create the MP3 file. Finally, the FilesMover task moves the MP3 files to the folder C:\WexflowTesting\MP3\.
 
-## Workflow 4
+### Workflow 4
 
 ![alt tag](https://aelassas.github.io/Wexflow/Workflow_vlc.png)
 
 This workflow waits for WAV files to arrive in C:\WexflowTesting\WAV\ then transcodes them to MP3 files through VLC then uploads the MP3 files to an FTP server then moves the WAV files to C:\WexflowTesting\WAV_processed\. This workflow starts every 2 minutes.
 
 ```xml
-<Workflow id="13" name="Workflow_vlc" description="Workflow_vlc">
+<Workflow xmlns="urn:wexflow-schema" id="13" name="Workflow_vlc" description="Workflow_vlc">
     <Settings>
         <Setting name="launchType" value="periodic" />
         <Setting name="period" value="00.00:02:00.00" />
@@ -391,14 +434,14 @@ This workflow waits for WAV files to arrive in C:\WexflowTesting\WAV\ then trans
 
 First of all, the FilesLoader task loads all the files located in the folder C:\WexflowTesting\WAV\ then the ProcessLauncher task launches VLC process on every file by specifying the right command in order to create the MP3 file. Then, the Ftp task loads the MP3 files generated by the ProcessLauncher task and then uploads them to the FTP server. Finally, the FilesMover task moves the processed WAV files to the folder C:\WexflowTesting\WAV_processed\.
 
-## Workflow 5
+### Workflow 5
 
 ![alt tag](https://aelassas.github.io/Wexflow/Workflow_Ftp_download_tag.png)
 
 This workflow downloads specific files from an FTP server. This workflow starts by listing all the files located at the root folder of the server, then the specific files that will be downloaded are tagged through an XSLT (LisFiles.xslt), then the files are downloaded by the Ftp task through todo="toDownload" and from="app4" tags, then the downloaded files are moved to the folder C:\WexflowTesting\Ftp_download\.
 
 ```xml
-<Workflow id="40" name="Workflow_Ftp_download_tag" description="Workflow_Ftp_download_tag">
+<Workflow xmlns="urn:wexflow-schema" id="40" name="Workflow_Ftp_download_tag" description="Workflow_Ftp_download_tag">
     <Settings>
         <Setting name="launchType" value="trigger" /> <!-- startup|trigger|periodic -->
         <Setting name="enabled" value="true" /> <!-- true|false -->
@@ -484,6 +527,300 @@ Below is the XSLT ListFiles.xslt used for tagging files:
 </xsl:stylesheet>
 ```
 
+## Execution graph
+
+![alt tag](https://aelassas.github.io/Wexflow/Workflow_FilesSender.png)
+
+This workflow loads the file C:\WexflowTesting\file1.txt then uploads it to an FTP server then moves it to C:\WexflowTesting\Sent\ folder.
+
+```xml
+<Workflow xmlns="urn:wexflow-schema" id="6" name="Workflow_Ftp_upload" description="Workflow_Ftp_upload">
+    <Settings>
+        <Setting name="launchType" value="trigger" />
+        <Setting name="enabled" value="true" />
+    </Settings>
+    <Tasks>
+        <Task id="1" name="FilesLoader" description="Loading files" enabled="true">
+            <Setting name="file" value="C:\WexflowTesting\file1.txt" />
+        </Task>
+        <Task id="2" name="Ftp" description="Uploading files" enabled="true">
+            <Setting name="protocol" value="ftp" />
+            <Setting name="command" value="upload" />
+            <Setting name="server" value="127.0.1" />
+            <Setting name="port" value="21" />
+            <Setting name="user" value="user" />
+            <Setting name="password" value="password" />
+            <Setting name="path" value="/" />
+            <Setting name="selectFiles" value="1" />
+        </Task>
+        <Task id="3" name="FilesMover" description="Moving files to Sent folder" enabled="true">
+            <Setting name="selectFiles" value="1" />
+            <Setting name="destFolder" value="C:\WexflowTesting\Sent\" />
+        </Task>
+    </Tasks>
+    <ExecutionGraph>
+      <Task id="1"><Parent id="-1" /></Task>
+      <Task id="2"><Parent id="1"  /></Task>
+      <Task id="3"><Parent id="2"  /></Task>
+    </ExecutionGraph>
+</Workflow>
+```
+
+First of all, the FilesLoader task loads the file C:\WexflowTesting\file1.txt then the Ftp task loads that file and uploads it to the FTP server. Finally, the FilesMover task moves that file to the folder C:\WexflowTesting\Sent\.
+
+By convention, the parent task id of first task to be executed must always be -1. The execution graph of this workflow will execute the tasks in the following order:
+
+![alt tag](https://aelassas.github.io/Wexflow/Workflow_ExecutionGraph_upload_1.png)
+
+However, if the execution graph is modified as follows:
+
+```xml
+<ExecutionGraph>
+  <Task id="1"><Parent id="-1" /></Task>
+  <Task id="3"><Parent id="1"  /></Task>
+  <Task id="2"><Parent id="3"  /></Task>
+</ExecutionGraph>
+```
+
+The tasks will be executed as follows:
+
+![alt tag](https://aelassas.github.io/Wexflow/Workflow_ExecutionGraph_upload_2.png)
+
+If the execution graph is modified as follows:
+
+```xml
+<ExecutionGraph>
+  <Task id="3"><Parent id="-1" /></Task>
+  <Task id="2"><Parent id="3"  /></Task>
+  <Task id="1"><Parent id="2"  /></Task>
+</ExecutionGraph>
+```
+
+The tasks will be executed as follows:
+
+![alt tag](https://aelassas.github.io/Wexflow/Workflow_ExecutionGraph_upload_3.png)
+
+Two things are forbidden in the execution graph:
+
+- Infinite loops.
+- Parallel tasks.
+
+Here is an example of an infinite loop:
+
+![alt tag](https://aelassas.github.io/Wexflow/Workflow_ExecutionGraph_infinite_loop_2.png)
+
+```xml
+<ExecutionGraph>
+  <Task id="1"><Parent id="-1" /></Task>
+  <Task id="2"><Parent id="1"  /></Task>
+  <Task id="1"><Parent id="2"  /></Task>
+</ExecutionGraph>
+```
+
+Here is an example of parallel tasks:
+
+![alt tag](https://aelassas.github.io/Wexflow/Workflow_ExecutionGraph_parallel_tasks.png)
+
+```xml
+<ExecutionGraph>
+  <Task id="1"><Parent id="-1" /></Task>
+  <Task id="2"><Parent id="1"  /></Task>
+  <Task id="3"><Parent id="1"  /></Task>
+</ExecutionGraph>
+```
+
+## Flowchart workflows
+
+### DoIf
+
+![alt tag](https://aelassas.github.io/Wexflow/Workflow_DoIf.png)
+
+The following workflow is a flowchart workflow that is triggered by the file file.trigger. If the file file.trigger is found on the file system then this workflow will upload the file file1.txt to an FTP server then it will notify customers that the upload was successful. Otherwise, if the trigger file.trigger is not found on the file system then the workflow will notify customers that the upload failed.
+
+```xml
+<Workflow xmlns="urn:wexflow-schema" id="7" name="Workflow_DoIf" description="Workflow_DoIf">
+    <Settings>
+        <Setting name="launchType" value="trigger" />
+        <Setting name="enabled" value="true" />
+    </Settings>
+    <Tasks>
+        <Task id="1" name="FilesLoader" description="Loading files" enabled="true">
+            <Setting name="file" value="C:\WexflowTesting\file1.txt" />
+        </Task>
+        <Task id="2" name="Ftp" description="Uploading files" enabled="true">
+            <Setting name="protocol" value="ftp" />
+            <Setting name="command" value="upload" />
+            <Setting name="server" value="127.0.1" />
+            <Setting name="port" value="21" />
+            <Setting name="user" value="user" />
+            <Setting name="password" value="password" />
+            <Setting name="path" value="/" />
+            <Setting name="selectFiles" value="1" />
+        </Task>
+        <Task id="3" name="FilesLoader" description="Loading emails (OK)" enabled="true">
+            <Setting name="file" value="C:\WexflowTesting\Emails\Emails.xml" />
+        </Task>
+       <Task id="4" name="MailsSender" description="Notifying customers (OK)" enabled="true">
+            <Setting name="selectFiles" value="3" />
+            <Setting name="host" value="127.0.0.1" />
+            <Setting name="port" value="587" />
+            <Setting name="enableSsl" value="true" />
+            <Setting name="user" value="user" />
+            <Setting name="password" value="password" />
+        </Task>
+        <Task id="5" name="FilesLoader" description="Loading emails (KO)" enabled="true">
+            <Setting name="file" value="C:\WexflowTesting\Emails\Emails.xml" />
+        </Task>
+       <Task id="6" name="MailsSender" description="Notifying customers (KO)" enabled="true">
+            <Setting name="selectFiles" value="5" />
+            <Setting name="host" value="127.0.0.1" />
+            <Setting name="port" value="587" />
+            <Setting name="enableSsl" value="true" />
+            <Setting name="user" value="user" />
+            <Setting name="password" value="password" />
+        </Task>
+        <Task id="99" name="FileExists" description="Checking trigger file" enabled="true">
+            <Setting name="file" value="C:\WexflowTesting\file.trigger" />
+        </Task>
+    </Tasks>
+    <ExecutionGraph>
+      <DoIf id="100" if="99">
+        <Parent id="-1" />
+         <Do>
+            <Task id="1"><Parent id="-1" /></Task>
+            <Task id="2"><Parent id="1"  /></Task>
+            <Task id="3"><Parent id="2"  /></Task>
+            <Task id="4"><Parent id="3"  /></Task>
+         </Do>
+         <Otherwise>
+            <Task id="5"><Parent id="-1" /></Task>
+            <Task id="6"><Parent id="5"  /></Task>
+         </Otherwise>
+      </DoIf>
+    </ExecutionGraph>
+</Workflow>
+```
+
+By convention, the parent task id of the first task in Do and Otherwise nodes must always be -1.
+
+You can add DoIf flowchart nodes pretty much wherever you want in the execution graph. Also, you can add as mush as you want. You can also add them in the event nodes OnSuccess, OnWarning and OnError. The only restrictions is that you cannot add a DoIf inside a DoIf and a DoIf inside a DoWhile.
+
+### DoWhile
+
+![alt tag](https://aelassas.github.io/Wexflow/Workflow_DoWhile2.png)
+
+This workflow is triggered by the file file.trigger. While the file file.trigger exists, this workflow will upload the file file1.txt to an FTP server then it will notify customers then it will wait for 2 days then it will start again.
+
+```xml
+<Workflow xmlns="urn:wexflow-schema" id="8" name="Workflow_DoWhile" description="Workflow_DoWhile">
+    <Settings>
+        <Setting name="launchType" value="trigger" />
+        <Setting name="enabled" value="true" />
+    </Settings>
+    <Tasks>
+        <Task id="1" name="FilesLoader" description="Loading files" enabled="true">
+            <Setting name="file" value="C:\WexflowTesting\file1.txt" />
+        </Task>
+        <Task id="2" name="Ftp" description="Uploading files" enabled="true">
+            <Setting name="protocol" value="ftp" />
+            <Setting name="command" value="upload" />
+            <Setting name="server" value="127.0.1" />
+            <Setting name="port" value="21" />
+            <Setting name="user" value="user" />
+            <Setting name="password" value="password" />
+            <Setting name="path" value="/" />
+            <Setting name="selectFiles" value="1" />
+        </Task>
+        <Task id="3" name="FilesLoader" description="Loading emails" enabled="true">
+            <Setting name="file" value="C:\WexflowTesting\Emails\Emails.xml" />
+        </Task>
+       <Task id="4" name="MailsSender" description="Notifying customers" enabled="true">
+            <Setting name="selectFiles" value="3" />
+            <Setting name="host" value="127.0.0.1" />
+            <Setting name="port" value="587" />
+            <Setting name="enableSsl" value="true" />
+            <Setting name="user" value="user" />
+            <Setting name="password" value="password" />
+        </Task>
+        <Task id="5" name="Wait" description="Waiting for 2 days..." enabled="true">
+            <Setting name="duration" value="02.00:00:00" />
+        </Task>
+        <Task id="99" name="FileExists" description="Checking trigger file" enabled="true">
+            <Setting name="file" value="C:\WexflowTesting\file.trigger" />
+        </Task>
+    </Tasks>
+    <ExecutionGraph>
+      <DoWhile id="100" if="99">
+        <Parent id="-1" />
+         <Do>
+            <Task id="1"><Parent id="-1" /></Task>
+            <Task id="2"><Parent id="1"  /></Task>
+            <Task id="3"><Parent id="2"  /></Task>
+            <Task id="4"><Parent id="3"  /></Task>
+            <Task id="5"><Parent id="4"  /></Task>
+         </Do>
+      </DoWhile>
+    </ExecutionGraph>
+</Workflow>
+```
+
+By convention, the parent task id of the first task in the Do node must always be -1.
+
+You can add DoWhile flowchart nodes pretty much wherever you want in the execution graph. Also, you can add as mush as you want. You can also add them in the event nodes OnSuccess, OnWarning and OnError. The only restrictions is that you cannot add a DoWhile inside a DoWhile and a DoWhile inside a DoIf.
+
+## Workflow events
+
+![alt tag](https://aelassas.github.io/Wexflow/Workflow_Events.png)
+
+This workflow uploads the file1.txt to an FTP server then notifies customers in case of success.
+
+```xml
+<Workflow xmlns="urn:wexflow-schema" id="9" name="Workflow_Events" description="Workflow_Events">
+    <Settings>
+        <Setting name="launchType" value="trigger" />
+        <Setting name="enabled" value="true" />
+    </Settings>
+    <Tasks>
+        <Task id="1" name="FilesLoader" description="Loading files" enabled="true">
+            <Setting name="file" value="C:\WexflowTesting\file1.txt" />
+        </Task>
+        <Task id="2" name="Ftp" description="Uploading files" enabled="true">
+            <Setting name="protocol" value="ftp" />
+            <Setting name="command" value="upload" />
+            <Setting name="server" value="127.0.1" />
+            <Setting name="port" value="21" />
+            <Setting name="user" value="user" />
+            <Setting name="password" value="password" />
+            <Setting name="path" value="/" />
+            <Setting name="selectFiles" value="1" />
+        </Task>
+       <Task id="3" name="FilesLoader" description="Loading emails" enabled="true">
+            <Setting name="file" value="C:\WexflowTesting\Emails\Emails.xml" />
+        </Task>
+       <Task id="4" name="MailsSender" description="Notifying customers" enabled="true">
+            <Setting name="selectFiles" value="3" />
+            <Setting name="host" value="127.0.0.1" />
+            <Setting name="port" value="587" />
+            <Setting name="enableSsl" value="true" />
+            <Setting name="user" value="user" />
+            <Setting name="password" value="password" />
+        </Task>
+    </Tasks>
+    <ExecutionGraph>
+      <Task id="1"><Parent id="-1" /></Task>
+      <Task id="2"><Parent id="1"  /></Task>
+      <OnSuccess>
+        <Task id="3"><Parent id="-1" /></Task>
+        <Task id="4"><Parent id="3"  /></Task>
+      </OnSuccess>
+    </ExecutionGraph>
+</Workflow>
+```
+
+The flowchart event nodes OnWarning and OnError can be used in the same way. You can put DoIf and DoWhile flowchart nodes in event nodes.
+
+These are simple and basic workflows to give an idea on how to make your own workflows. However, if you have multiple systems, applications and automations involved in a workflow, the workflow could be very interesting.
+
 These are simple and basic workflows to give an idea on how to make your own workflows. However, if you have multiple systems, applications and automations involved in a workflow, the workflow could be very interesting.
 
 # How to create a custom task
@@ -509,6 +846,8 @@ public class MyTask : Wexflow.Core.Task
         try
         {
             // Task logic goes here
+
+            return new TaskStatus(Status.Success, false);
         }
         catch (ThreadAbortException)
         {
@@ -517,6 +856,30 @@ public class MyTask : Wexflow.Core.Task
     }
 }
 ```
+
+Each task returns a TaskStatus object when it finished performing its job. TaskStatus is composed of the following elements:
+
+```cs
+public Status Status { get; set; }
+public bool Condition { get; set; }
+```
+
+The Status can be one of the followings:
+
+```cs
+public enum Status
+{
+  Success,
+  Warning,
+  Error
+}
+```
+
+For example, if a task performs an opetation on a collection of files and if this operation succeeds for all the files then its Status should be Success. Otherwise if this operation succeeds for some files and fails for others then its Status should be Warning. Otherwise if this operation fails for all the files then its Status should be Error.
+
+The Condition property is designed for flowchart tasks. In addition to the Status of the task, a flowchart task returns either true or false after performing its operation.
+
+The Condition property should always be set to false for sequential tasks.
 
 To retrieve settings, you can use the following methods:
 
@@ -605,8 +968,11 @@ Here is the list of the libraries used by Wexflow:
 - [.NET Data Provider for Teradata](http://downloads.teradata.com/download/connectivity/net-data-provider-for-teradata): An ADO.NET provider for Teradata.
 
 # Todo list
-- **Wexflow Engine:** Add XSD validation of the workflow files before loading them.
-- **Tasks execution graph:** Improve the tasks execution graph by allowing parallel execution of tasks, by provinding the ability to alter the execution flow of the tasks and by providing the ability to add DoIf, DoWhile, OnSuccess, OnWarning and OnError in the execution graph.
+- ~~**Wexflow Engine:** Add XSD validation of the workflow files before loading them.~~
+- ~~**Tasks execution graph:** Improve the tasks execution graph by provinding the ability to alter the execution flow of the tasks and by providing the ability to add DoIf, DoWhile, OnSuccess, OnWarning and OnError in the execution graph.~~
+- **Wexflow Web Manager (light version):** Create a JavaScript library that provides a control that allows to view all the workflows and manage them (start a workflow, stop a workflow, suspend a workflow and resume a workflow).
+- **Execution graph:** Allow to add DoIf in DoIf, DoIf in DoWhile, DoWhile in DoIf and DoWhile in DoWhile. Create Switch/Case flowchard node.
+- **Wexflow Manager:** Upgrade from Windows Forms to Eto.Forms.
 - **Linux:** Update Wexflow to work on Linux (Mono) and create a setup project for Linux.
 - **Wexflow Manager:** Make the workflow status of the visible workflows live and highlight the workflows who are running in green.
 - **Workflow jobs:** Allow parallel execution of the jobs of a workflow.
@@ -641,6 +1007,14 @@ Here is the list of the libraries used by Wexflow:
   - Fixed some bugs.
   - Updated setup file.
   - Updated README.md.
+- 26 Jan 2017:
+  - [Released version 1.0.4](https://github.com/aelassas/Wexflow/releases/tag/v1.0.4).
+  - Created XSD validation of worklfow files before loading them.
+  - Created tasks execution graph.
+  - Created flowchart workflows (DoIf and DoWhile).
+  - Created workflow events (OnSuccess, OnWarning and OnError).
+  - Created FileExists flowchart task.
+  - Updated setup.
 
 # More informations
 More informations about Wexflow can be found on [CodeProject](https://www.codeproject.com/Articles/1164009/Wexflow-Open-source-workflow-engine-in-Csharp).
