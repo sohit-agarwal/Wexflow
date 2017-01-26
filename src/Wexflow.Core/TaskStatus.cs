@@ -9,9 +9,8 @@ namespace Wexflow.Core
     {
         Success,
         Warning,
-        Error,
+        Error
     }
-
 
     public class TaskStatus
     {
