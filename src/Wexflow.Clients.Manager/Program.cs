@@ -9,7 +9,7 @@ namespace Wexflow.Clients.Manager
 {
     public static class Program
     {
-        public static string WEXFLOW_SERVICE_NAME = ConfigurationManager.AppSettings["WEXFLOW_SERVICE_NAME"];
+        public static string WEXFLOW_SERVICE_NAME = ConfigurationManager.AppSettings["WexflowServiceName"];
         public static bool DEBUG_MODE = false;
 
         /// <summary>

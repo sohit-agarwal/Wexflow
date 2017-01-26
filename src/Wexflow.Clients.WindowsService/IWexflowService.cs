@@ -8,28 +8,25 @@ using Wexflow.Core.Service.Contracts;
 
 namespace Wexflow.Clients.WindowsService
 {
-    [ServiceContract(Namespace = "http://WexflowService/")]
+    [ServiceContract(Namespace = "http://wexflow/")]
     public interface IWexflowService
     {
-        [OperationContract]
-        string Hello();
-
         [OperationContract]
         WorkflowInfo[] GetWorkflows();
 
         [OperationContract]
-        void StartWorkflow(int workflowId);
+        void StartWorkflow(string id);
 
         [OperationContract]
-        void StopWorkflow(int workflowId);
+        void StopWorkflow(string id);
 
         [OperationContract]
-        void SuspendWorkflow(int workflowId);
+        void SuspendWorkflow(string id);
 
         [OperationContract]
-        void ResumeWorkflow(int workflowId);
+        void ResumeWorkflow(string id);
 
         [OperationContract]
-        WorkflowInfo GetWorkflow(int workflowId);
+        WorkflowInfo GetWorkflow(string id);
     }
 }

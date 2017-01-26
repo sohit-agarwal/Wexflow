@@ -15,14 +15,15 @@ using Wexflow.Core.Service.Contracts;
 using System.Windows.Threading;
 using System.Diagnostics;
 using System.ServiceModel.Security;
+using Wexflow.Core.Service.Client;
 
 namespace Wexflow.Clients.Manager
 {
-    // v1.0.4
-    // TODO Update CodeProject article
+    // v1.0.5
+    // TODO Wexflow Web Manager (light)
+    // TODO Linux (Eto.Forms, .NET Core or Mono ??)
+    // TODO DoIf, DoWhile, Switch/Case
 
-    // TODO Wexflow Web Manager
-    // TODO Linux (.NET Core or Mono ??)
     // TODO Android Manager??
     // TODO Wexflow Manager wf status live + row background color
     // TODO Test and fix ftps
@@ -35,6 +36,8 @@ namespace Wexflow.Clients.Manager
 
     public partial class Form1 : Form
     {
+        public static string WexflowWebServiceUri = ConfigurationManager.AppSettings["WexflowWebServiceUri"];
+
         private const string COLUMN_ID = "Id";
         private const string COLUMN_ENABLED = "Enabled";
         private const int TIMER_INTERVAL = 300; // ms
@@ -63,7 +66,7 @@ namespace Wexflow.Clients.Manager
         {
             if (Program.DEBUG_MODE || Program.IsWexflowWindowsServiceRunning())
             {
-                this._wexflowServiceClient = new WexflowServiceClient();
+                this._wexflowServiceClient = new WexflowServiceClient(WexflowWebServiceUri);
                 this._workflows = _wexflowServiceClient.GetWorkflows();
             }
             else 
@@ -121,7 +124,7 @@ namespace Wexflow.Clients.Manager
             {
                 if (this._windowsServiceWasStopped)
                 {
-                    this._wexflowServiceClient = new WexflowServiceClient();
+                    this._wexflowServiceClient = new WexflowServiceClient(WexflowWebServiceUri);
                     this._windowsServiceWasStopped = false;
                     this.backgroundWorker1.RunWorkerAsync();
                 }

@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\libs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -46,14 +49,10 @@
     <Compile Include="WexflowServiceClient.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Wexflow.Core\Wexflow.Core.csproj">
-      <Project>{46257949-80B5-48F2-9B83-29354C339869}</Project>
-      <Name>Wexflow.Core %28Wexflow.Core\Wexflow.Core%29</Name>
+    <ProjectReference Include="..\Wexflow.Core.Service.Contracts\Wexflow.Core.Service.Contracts.csproj">
+      <Project>{7DEBD0D9-EA9B-445C-9B6D-F426908CE736}</Project>
+      <Name>Wexflow.Core.Service.Contracts</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="Proxy.bat" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

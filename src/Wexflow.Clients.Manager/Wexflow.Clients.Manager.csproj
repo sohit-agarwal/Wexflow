@@ -94,6 +94,10 @@
       <Project>{3CFA5F19-D8E1-4AF8-9B6A-DCB959C035DB}</Project>
       <Name>Wexflow.Core.Service.Client</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Core.Service.Contracts\Wexflow.Core.Service.Contracts.csproj">
+      <Project>{7DEBD0D9-EA9B-445C-9B6D-F426908CE736}</Project>
+      <Name>Wexflow.Core.Service.Contracts</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Wexflow.ico" />

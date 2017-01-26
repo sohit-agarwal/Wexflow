@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Wexflow.Core;
 using System.Runtime.Serialization;
+using Wexflow.Core.Service.Contracts;
 
 namespace Wexflow.Clients.Manager
 {

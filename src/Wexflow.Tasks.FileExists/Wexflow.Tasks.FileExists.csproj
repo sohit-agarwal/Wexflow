@@ -44,7 +44,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\Wexflow.Core\Wexflow.Core.csproj">
+    <ProjectReference Include="..\Wexflow.Core\Wexflow.Core.csproj">
       <Project>{46257949-80B5-48F2-9B83-29354C339869}</Project>
       <Name>Wexflow.Core %28Wexflow.Core\Wexflow.Core%29</Name>
     </ProjectReference>

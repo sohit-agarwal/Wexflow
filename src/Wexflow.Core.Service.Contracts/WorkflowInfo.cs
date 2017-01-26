@@ -7,6 +7,13 @@ using System.Runtime.Serialization;
 
 namespace Wexflow.Core.Service.Contracts
 {
+    public enum LaunchType
+    {
+        Startup,
+        Trigger,
+        Periodic
+    }
+
     [DataContractAttribute]
     public class WorkflowInfo:IComparable
     {

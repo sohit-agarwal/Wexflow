@@ -43,6 +43,7 @@
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -64,7 +65,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Wexflow.Tasks.FileExists\Wexflow.Tasks.FileExists.csproj">
+    <ProjectReference Include="..\Wexflow.Tasks.FileExists\Wexflow.Tasks.FileExists.csproj">
       <Project>{8ED85A48-A8E3-4565-A874-3562F081D14C}</Project>
       <Name>Wexflow.Tasks.FileExists</Name>
     </ProjectReference>
