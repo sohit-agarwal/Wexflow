@@ -27,7 +27,7 @@
         - An ExecutionGraph section which contains the execution graph of the workflow.
           This section is optional and described in the samples section (https://github.com/aelassas/Wexflow).
 -->
-<Workflow id="$int" name="$string" description="$string">
+<Workflow xmlns="urn:wexflow-schema" id="$int" name="$string" description="$string">
   <Settings>
     <Setting name="launchType" value="startup|trigger|periodic" />
     <Setting name="period" value="dd.hh:mm:ss" />
