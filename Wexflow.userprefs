@@ -1,14 +1,11 @@
-﻿<Properties StartupConfiguration="{DB79A70C-22B2-4E98-9196-FBCA360EE0A3}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="src/Wexflow.Clients.Cmd/App.config">
+﻿<Properties StartupConfiguration="{120B41DA-F306-4B3C-A6C3-D99E8142B47F}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="src/Wexflow.Clients.Eto.Manager/Form1.cs">
     <Files>
-      <File FileName="src/Wexflow.Clients.Manager/Form1.cs" Line="1" Column="1" />
-      <File FileName="src/Wexflow.Clients.Eto.Manager/Form1.cs" Line="1" Column="1" />
-      <File FileName="src/Wexflow.Clients.Cmd/Program.cs" Line="26" Column="4" />
-      <File FileName="src/Wexflow.Clients.Cmd/App.config" Line="46" Column="49" />
+      <File FileName="src/Wexflow.Clients.Manager/Form1.cs" Line="27" Column="2" />
+      <File FileName="src/Wexflow.Clients.Eto.Manager/Form1.cs" Line="182" Column="18" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Wexflow.Clients.Wexflow.Clients.Cmd PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

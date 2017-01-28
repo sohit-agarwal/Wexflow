@@ -28,9 +28,9 @@ namespace Wexflow.Core.Service.Contracts
         [DataMemberAttribute]
         public string Description { get; private set; }
         [DataMemberAttribute]
-        public bool IsRunning { get; private set; }
+        public bool IsRunning { get; set; }
         [DataMemberAttribute]
-        public bool IsPaused { get; private set; }
+        public bool IsPaused { get; set; }
 
         public WorkflowInfo(int id, string name, LaunchType launchType, bool isEnabled, string desc, bool isRunning, bool isPaused)
         {
