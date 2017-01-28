@@ -53,6 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomHeaderMessageInspector.cs" />
+    <Compile Include="EnableCrossOriginResourceSharingBehavior.cs" />
     <Compile Include="IWexflowService.cs" />
     <Compile Include="WexflowService.cs" />
     <Compile Include="WexflowWindowsService.cs">

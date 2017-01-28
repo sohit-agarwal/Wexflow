@@ -20,10 +20,11 @@ using Wexflow.Core.Service.Client;
 namespace Wexflow.Clients.Manager
 {
     // v1.0.5
-    // TODO Wexflow Web Manager (light)
-    // TODO Linux (Eto.Forms, .NET Core or Mono ??)
-    // TODO DoIf, DoWhile, Switch/Case
+    // TODO Eto.Forms
+    // TODO Wexflow.Clients.Cmd
+    // TODO Linux test ((start.sh/kill.sh)) + setup
 
+    // TODO DoIf, DoWhile, Switch/Case
     // TODO Android Manager??
     // TODO Wexflow Manager wf status live + row background color
     // TODO Test and fix ftps
