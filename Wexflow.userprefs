@@ -1,9 +1,17 @@
-﻿<Properties StartupConfiguration="{81032249-78D9-4B89-8E22-A3C32562EA69}|Default">
-  <MonoDevelop.Ide.Workbench />
+﻿<Properties StartupConfiguration="{DB79A70C-22B2-4E98-9196-FBCA360EE0A3}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="src/Wexflow.Clients.Cmd/Program.cs">
+    <Files>
+      <File FileName="src/Wexflow.Clients.Manager/Form1.cs" Line="1" Column="1" />
+      <File FileName="src/Wexflow.Clients.Eto.Manager/Form1.cs" Line="1" Column="1" />
+      <File FileName="src/Wexflow.Clients.Cmd/Program.cs" Line="10" Column="22" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Wexflow.Clients.Wexflow.Clients.Cmd PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.Wexflow.Clients.Wexflow.Clients.Eto.Manager PreferredExecutionTarget="MonoDevelop.Default" />
   <MultiItemStartupConfigurations />
 </Properties>

@@ -37,7 +37,6 @@ namespace Wexflow.Tasks.Tgz
                     using (GZipOutputStream gz = new GZipOutputStream(File.Create(tgzPath)))
                     using (TarOutputStream tar = new TarOutputStream(gz))
                     {
-                        byte[] buffer = new byte[4096];
 
                         foreach (FileInf file in files)
                         {

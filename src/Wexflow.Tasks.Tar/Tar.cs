@@ -35,7 +35,6 @@ namespace Wexflow.Tasks.Tar
                 {
                     using (TarOutputStream tar = new TarOutputStream(File.Create(tarPath)))
                     {
-                        byte[] buffer = new byte[4096];
 
                         foreach (FileInf file in files)
                         {

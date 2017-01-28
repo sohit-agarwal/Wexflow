@@ -16,6 +16,7 @@ using System.Windows.Threading;
 using System.Diagnostics;
 using System.ServiceModel.Security;
 using Wexflow.Core.Service.Client;
+using Wexflow.Clients.Manager.Core;
 
 namespace Wexflow.Clients.Manager
 {

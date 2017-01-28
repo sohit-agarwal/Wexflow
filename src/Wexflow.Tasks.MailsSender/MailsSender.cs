@@ -55,7 +55,7 @@ namespace Wexflow.Tasks.MailsSender
                         }
                         catch (Exception e)
                         {
-                            this.ErrorFormat("An error occured while parsing the mail {0}. Please check the XML configuration according to the documentation.", count);
+							this.ErrorFormat("An error occured while parsing the mail {0}. Please check the XML configuration according to the documentation. Error: {1}", count, e.Message);
                             success &= false;
                             count++;
                             continue;
