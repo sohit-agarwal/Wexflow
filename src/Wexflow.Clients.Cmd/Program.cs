@@ -3,18 +3,26 @@ using System.Threading;
 using Wexflow.Core;
 using System.Configuration;
 using System.ServiceModel;
-using System.ServiceModel.Description;
 
 namespace Wexflow.Clients.Cmd
 {
 	public class Program
 	{
-		public static string SETTINGS_FILE = ConfigurationManager.AppSettings["WexflowSettingsFile"];
-		public static WexflowEngine WEXFLOW_ENGINE = new WexflowEngine(SETTINGS_FILE);
+		public static bool IsLinux
+		{
+			get
+			{
+				int p = (int)Environment.OSVersion.Platform;
+				return p == 4 || p == 6 || p == 128;
+			}
+		}
+
+		public static string SettingsFile = IsLinux ? ConfigurationManager.AppSettings["WexflowSettingsFileLinux"] : ConfigurationManager.AppSettings["WexflowSettingsFileWindows"];
+		public static WexflowEngine WexflowEngine = new WexflowEngine(SettingsFile);
 
 		public static void Main(string[] args)
 		{
-			WEXFLOW_ENGINE.Run();
+			WexflowEngine.Run();
 
 			// Create a ServiceHost for the WexflowService type and 
 			// provide the base address.

@@ -53,8 +53,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomHeaderMessageInspector.cs" />
-    <Compile Include="EnableCrossOriginResourceSharingBehavior.cs" />
     <Compile Include="IWexflowService.cs" />
     <Compile Include="WexflowService.cs" />
     <Compile Include="WexflowWindowsService.cs">
@@ -70,10 +68,6 @@
     <ProjectReference Include="..\Wexflow.Tasks.FileExists\Wexflow.Tasks.FileExists.csproj">
       <Project>{8ED85A48-A8E3-4565-A874-3562F081D14C}</Project>
       <Name>Wexflow.Tasks.FileExists</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Wexflow.Clients.Manager\Wexflow.Clients.Manager.csproj">
-      <Project>{81032249-78D9-4B89-8E22-A3C32562EA69}</Project>
-      <Name>Wexflow.Clients.Manager</Name>
     </ProjectReference>
     <ProjectReference Include="..\Wexflow.Core.Service.Contracts\Wexflow.Core.Service.Contracts.csproj">
       <Project>{7DEBD0D9-EA9B-445C-9B6D-F426908CE736}</Project>
@@ -198,6 +192,10 @@
     <ProjectReference Include="..\Wexflow.Tasks.Zip\Wexflow.Tasks.Zip.csproj">
       <Project>{67F62B85-9457-429F-857D-7F9D41F5C8F3}</Project>
       <Name>Wexflow.Tasks.Zip</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Core.Service.Cross\Wexflow.Core.Service.Cross.csproj">
+      <Project>{391DE15B-D5A2-462C-8E40-9DB3CE5CB83D}</Project>
+      <Name>Wexflow.Core.Service.Cross</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
