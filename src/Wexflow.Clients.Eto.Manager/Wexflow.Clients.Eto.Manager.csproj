@@ -37,21 +37,24 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Wexflow.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Eto">
-      <HintPath>..\libs\Eto.dll</HintPath>
+      <HintPath>..\..\libs\Eto.dll</HintPath>
     </Reference>
     <Reference Include="Eto.Gtk3">
-      <HintPath>..\libs\Eto.Gtk3.dll</HintPath>
+      <HintPath>..\..\libs\Eto.Gtk3.dll</HintPath>
     </Reference>
     <Reference Include="Eto.Mac">
-      <HintPath>..\libs\Eto.Mac.dll</HintPath>
+      <HintPath>..\..\libs\Eto.Mac.dll</HintPath>
     </Reference>
     <Reference Include="Eto.Wpf">
-      <HintPath>..\libs\Eto.Wpf.dll</HintPath>
+      <HintPath>..\..\libs\Eto.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="MonoMac">
-      <HintPath>..\libs\MonoMac.dll</HintPath>
+      <HintPath>..\..\libs\MonoMac.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -62,12 +65,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Eto.Forms</SubType>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Wexflow.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
