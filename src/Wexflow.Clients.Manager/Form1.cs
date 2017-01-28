@@ -21,13 +21,12 @@ using Wexflow.Clients.Manager.Core;
 namespace Wexflow.Clients.Manager
 {
     // v1.0.5
+
 	// TODO Refactor WorkflowDataInfo
 	// TODO Manager use one timer and update WorkflowStatusChanged
-	// TODO js isEnabled in selectionChanged event (timer)
-
-    // TODO Eto.Forms
-    // TODO Wexflow.Clients.Cmd
-    // TODO Linux test ((start.sh/kill.sh)) + setup
+    // TODO move buttons to left
+	// TODO js isEnabled in selectionChanged event (timer) + test
+    // TODO Linux test + setup.sh
 
     // TODO DoIf, DoWhile, Switch/Case
     // TODO Android Manager??

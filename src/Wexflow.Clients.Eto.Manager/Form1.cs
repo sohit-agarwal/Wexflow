@@ -25,7 +25,7 @@ namespace Wexflow.Clients.Eto.Manager
 		GridView gvWorkflows;
 		WexflowServiceClient wexflowServiceClient;
 		Dictionary<int, WorkflowInfo> workflowsPerId;
-		Timer timer = new Timer(500);
+        UITimer timer = new UITimer() { Interval = 0.5 };
 
         public Form1()
         {
@@ -35,7 +35,7 @@ namespace Wexflow.Clients.Eto.Manager
 			startButton = new Button(StartClick) { Text = "Start", Width = 75, Enabled = false };
 			suspendButton = new Button(SuspendClick) { Text = "Suspend", Width = 75, Enabled = false };
 			resumeButton = new Button(ResumeClick) { Text = "Resume", Width = 75, Enabled = false };
-			stopButton = new Button(StopClick) { Text = "Stop", Width = 75, Enabled = false };
+			stopButton = new Button(StopClick) { Text = "Stop", Width = 100, Enabled = false };
 
 			buttonsLayout = new DynamicLayout { Padding = new Padding(10) };
 			buttonsLayout.BeginVertical();
