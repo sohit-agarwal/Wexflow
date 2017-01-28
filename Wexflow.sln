@@ -79,7 +79,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.FileExists", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Clients.WebManager", "src\Wexflow.Clients.WebManager\Wexflow.Clients.WebManager.csproj", "{59410829-C439-4683-818E-AC99F94D1EBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Clients.Eto.Manager", "Wexflow.Clients.Eto.Manager\Wexflow.Clients.Eto.Manager.csproj", "{120B41DA-F306-4B3C-A6C3-D99E8142B47F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Clients.Eto.Manager", "src\Wexflow.Clients.Eto.Manager\Wexflow.Clients.Eto.Manager.csproj", "{120B41DA-F306-4B3C-A6C3-D99E8142B47F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -461,6 +461,7 @@ Global
 		{120B41DA-F306-4B3C-A6C3-D99E8142B47F}.Release|Mixed Platforms.Build.0 = Release|x86
 		{120B41DA-F306-4B3C-A6C3-D99E8142B47F}.Release|x86.ActiveCfg = Release|x86
 		{120B41DA-F306-4B3C-A6C3-D99E8142B47F}.Release|x86.Build.0 = Release|x86
+		{120B41DA-F306-4B3C-A6C3-D99E8142B47F}.Debug|Any CPU.Build.0 = Debug|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
