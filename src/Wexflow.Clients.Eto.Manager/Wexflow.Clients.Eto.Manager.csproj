@@ -50,8 +50,8 @@
     <Reference Include="Eto.Mac">
       <HintPath>..\..\libs\Eto.Mac.dll</HintPath>
     </Reference>
-    <Reference Include="Eto.Wpf">
-      <HintPath>..\..\libs\Eto.Wpf.dll</HintPath>
+    <Reference Include="Eto.WinForms">
+      <HintPath>..\..\libs\Eto.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="MonoMac">
       <HintPath>..\..\libs\MonoMac.dll</HintPath>
