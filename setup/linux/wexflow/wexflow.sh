@@ -1,3 +1,3 @@
 #!/bin/sh
 
-mono ./Wexflow.Clients.Eto.Manager.exe
+/opt/wexflow/Wexflow.Clients.Eto.Manager.exe
