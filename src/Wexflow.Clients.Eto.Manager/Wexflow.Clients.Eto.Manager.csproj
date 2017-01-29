@@ -44,9 +44,6 @@
     <Reference Include="Eto">
       <HintPath>..\..\libs\Eto.dll</HintPath>
     </Reference>
-    <Reference Include="Eto.Gtk3">
-      <HintPath>..\..\libs\Eto.Gtk3.dll</HintPath>
-    </Reference>
     <Reference Include="Eto.Mac">
       <HintPath>..\..\libs\Eto.Mac.dll</HintPath>
     </Reference>
@@ -64,6 +61,12 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
+    <Reference Include="Eto.Gtk2">
+      <HintPath>..\..\libs\Eto.Gtk2.dll</HintPath>
+    </Reference>
+    <Reference Include="Eto.Gtk3">
+      <HintPath>..\..\libs\Eto.Gtk3.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Form1.cs">
