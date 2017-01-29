@@ -8,8 +8,8 @@
     <ProjectGuid>{3CFA5F19-D8E1-4AF8-9B6A-DCB959C035DB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Wexflow.Core.WexflowServiceClient</RootNamespace>
-    <AssemblyName>Wexflow.Core.WexflowServiceClient</AssemblyName>
+    <RootNamespace>Wexflow.Core.Service.Client</RootNamespace>
+    <AssemblyName>Wexflow.Core.Service.Client</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

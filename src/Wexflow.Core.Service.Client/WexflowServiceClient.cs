@@ -31,7 +31,7 @@ namespace Wexflow.Core.Service.Client
 
         public void StopWorkflow(int id)
         {
-            string uri = this.Uri + "/strop/" + id;
+            string uri = this.Uri + "/stop/" + id;
             WebClient webClient = new WebClient();
             webClient.UploadString(uri, string.Empty);
         }
