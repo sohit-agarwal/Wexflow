@@ -16,16 +16,12 @@ using System.Windows.Threading;
 using System.Diagnostics;
 using System.ServiceModel.Security;
 using Wexflow.Core.Service.Client;
-using Wexflow.Clients.Manager.Core;
 
 namespace Wexflow.Clients.Manager
 {
     // v1.0.5
 
-	// TODO Refactor WorkflowDataInfo
-	// TODO Manager use one timer and update WorkflowStatusChanged
-    // TODO move buttons to left
-	// TODO js isEnabled in selectionChanged event (timer) + test
+    // TODO Linux Rest
     // TODO Linux test + setup.sh
 
     // TODO DoIf, DoWhile, Switch/Case
@@ -41,28 +37,22 @@ namespace Wexflow.Clients.Manager
 
     public partial class Form1 : Form
     {
-        public static string WexflowWebServiceUri = ConfigurationManager.AppSettings["WexflowWebServiceUri"];
+        static string WexflowWebServiceUri = ConfigurationManager.AppSettings["WexflowWebServiceUri"];
 
-        private const string COLUMN_ID = "Id";
-        private const string COLUMN_ENABLED = "Enabled";
-        private const int TIMER_INTERVAL = 300; // ms
+        const string ColumnId = "Id";
+        const string ColumnEnabled = "Enabled";
 
-        private WexflowServiceClient _wexflowServiceClient;
-        private WorkflowInfo[] _workflows;
-        private Dictionary<int, Timer> _timers;
-        private Dictionary<int, bool> _previousIsRunning;
-        private Dictionary<int, bool> _previousIsPaused;
-        private bool _windowsServiceWasStopped;
+        WexflowServiceClient wexflowServiceClient;
+        WorkflowInfo[] workflows;
+        Dictionary<int, WorkflowInfo> workflowsPerId;
+        bool windowsServiceWasStopped;
+        Timer timer = new Timer() { Interval = 500 };
 
         public Form1()
         {
             InitializeComponent();
 
             this.textBoxInfo.Text = "Loading workflows...";
-
-            this._timers = new Dictionary<int, Timer>();
-            this._previousIsRunning = new Dictionary<int, bool>();
-            this._previousIsPaused = new Dictionary<int, bool>();
 
             this.backgroundWorker1.RunWorkerAsync();
         }
@@ -71,12 +61,12 @@ namespace Wexflow.Clients.Manager
         {
             if (Program.DEBUG_MODE || Program.IsWexflowWindowsServiceRunning())
             {
-                this._wexflowServiceClient = new WexflowServiceClient(WexflowWebServiceUri);
-                this._workflows = _wexflowServiceClient.GetWorkflows();
+                this.wexflowServiceClient = new WexflowServiceClient(WexflowWebServiceUri);
+                this.workflows = wexflowServiceClient.GetWorkflows();
             }
             else 
             {
-                this._workflows = new WorkflowInfo[] { };
+                this.workflows = new WorkflowInfo[] { };
                 this.textBoxInfo.Text = "";
             }
         }
@@ -89,9 +79,11 @@ namespace Wexflow.Clients.Manager
         private void BindDataGridView()
         {
             SortableBindingList<WorkflowDataInfo> workflows = new SortableBindingList<WorkflowDataInfo>();
-            foreach (WorkflowInfo workflow in this._workflows)
+            workflowsPerId = new Dictionary<int, WorkflowInfo>();
+            foreach (WorkflowInfo workflow in this.workflows)
             {
                 workflows.Add(new WorkflowDataInfo(workflow.Id, workflow.Name, workflow.LaunchType, workflow.IsEnabled, workflow.Description));
+                workflowsPerId.Add(workflow.Id, workflow);
             }
             this.dataGridViewWorkflows.DataSource = workflows;
 
@@ -99,8 +91,8 @@ namespace Wexflow.Clients.Manager
             this.dataGridViewWorkflows.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             this.dataGridViewWorkflows.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.dataGridViewWorkflows.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.dataGridViewWorkflows.Columns[3].Name = COLUMN_ENABLED;
-            this.dataGridViewWorkflows.Columns[3].HeaderText = COLUMN_ENABLED;
+            this.dataGridViewWorkflows.Columns[3].Name = ColumnEnabled;
+            this.dataGridViewWorkflows.Columns[3].HeaderText = ColumnEnabled;
             this.dataGridViewWorkflows.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             this.dataGridViewWorkflows.Sort(this.dataGridViewWorkflows.Columns[0], ListSortDirection.Ascending);
@@ -113,7 +105,7 @@ namespace Wexflow.Clients.Manager
             {
                 if(Program.DEBUG_MODE || Program.IsWexflowWindowsServiceRunning())
                 {
-                    wfId = int.Parse(dataGridViewWorkflows.SelectedRows[0].Cells[COLUMN_ID].Value.ToString());
+                    wfId = int.Parse(dataGridViewWorkflows.SelectedRows[0].Cells[ColumnId].Value.ToString());
                 }
                 else
                 {
@@ -127,17 +119,17 @@ namespace Wexflow.Clients.Manager
         {
             if (Program.DEBUG_MODE || Program.IsWexflowWindowsServiceRunning())
             {
-                if (this._windowsServiceWasStopped)
+                if (this.windowsServiceWasStopped)
                 {
-                    this._wexflowServiceClient = new WexflowServiceClient(WexflowWebServiceUri);
-                    this._windowsServiceWasStopped = false;
+                    this.wexflowServiceClient = new WexflowServiceClient(WexflowWebServiceUri);
+                    this.windowsServiceWasStopped = false;
                     this.backgroundWorker1.RunWorkerAsync();
                 }
-                return this._wexflowServiceClient.GetWorkflow(id);
+                return this.wexflowServiceClient.GetWorkflow(id);
             }
             else
             {
-                this._windowsServiceWasStopped = true;
+                this.windowsServiceWasStopped = true;
                 HandleNonRunningWindowsService();
             }
 
@@ -155,7 +147,7 @@ namespace Wexflow.Clients.Manager
             int wfId = GetSlectedWorkflowId();
             if (wfId > -1)
             {
-                this._wexflowServiceClient.StartWorkflow(wfId);
+                this.wexflowServiceClient.StartWorkflow(wfId);
             }
         }
 
@@ -164,7 +156,7 @@ namespace Wexflow.Clients.Manager
             int wfId = GetSlectedWorkflowId();
             if (wfId > -1)
             {
-                this._wexflowServiceClient.SuspendWorkflow(wfId);
+                this.wexflowServiceClient.SuspendWorkflow(wfId);
                 this.UpdateButtons(wfId, true);
             }
         }
@@ -174,7 +166,7 @@ namespace Wexflow.Clients.Manager
             int wfId = GetSlectedWorkflowId();
             if (wfId > -1)
             {
-                this._wexflowServiceClient.ResumeWorkflow(wfId);
+                this.wexflowServiceClient.ResumeWorkflow(wfId);
             }
         }
 
@@ -183,7 +175,7 @@ namespace Wexflow.Clients.Manager
             int wfId = GetSlectedWorkflowId();
             if (wfId > -1)
             {
-                this._wexflowServiceClient.StopWorkflow(wfId);
+                this.wexflowServiceClient.StopWorkflow(wfId);
                 this.UpdateButtons(wfId, true);
             }
         }
@@ -196,23 +188,16 @@ namespace Wexflow.Clients.Manager
             {
                 WorkflowInfo workflow = this.GetWorkflow(wfId);
 
-                foreach (Timer timer in this._timers.Values) timer.Stop();
-
                 if (workflow.IsEnabled)
                 {
-                    if (!this._timers.ContainsKey(wfId))
+                    timer.Stop();
+                    timer.Tick += new EventHandler((o, ea) =>
                     {
-                        Timer timer = new Timer();
-                        timer.Interval = TIMER_INTERVAL;
-                        timer.Tick += new EventHandler((o, ea) =>
-                            {
-                                this.UpdateButtons(wfId, false);
-                            });
-                        this._timers.Add(wfId, timer);
-                    }
+                        this.UpdateButtons(wfId, false);
+                    });
+                    timer.Start();
 
                     this.UpdateButtons(wfId, true);
-                    this._timers[wfId].Start();
                 }
                 else
                 {
@@ -223,35 +208,10 @@ namespace Wexflow.Clients.Manager
 
         private bool WorkflowStatusChanged(WorkflowInfo workflow)
         {
-            bool changed = false;
-            if (!this._previousIsRunning.ContainsKey(workflow.Id))
-            {
-                this._previousIsRunning.Add(workflow.Id, workflow.IsRunning);
-                changed = true;
-            }
-            if (!this._previousIsPaused.ContainsKey(workflow.Id))
-            {
-                this._previousIsPaused.Add(workflow.Id, workflow.IsPaused);
-                changed = true;
-            }
-            if (changed)
-            {
-                return true;
-            }
-            else
-            {
-                if (this._previousIsRunning[workflow.Id] != workflow.IsRunning)
-                {
-                    changed = true;
-                }
-                if (this._previousIsPaused[workflow.Id] != workflow.IsPaused)
-                {
-                    changed = true;
-                }
-                this._previousIsRunning[workflow.Id] = workflow.IsRunning;
-                this._previousIsPaused[workflow.Id] = workflow.IsPaused;
-                return changed;
-            }
+            bool changed = this.workflowsPerId[workflow.Id].IsRunning != workflow.IsRunning || this.workflowsPerId[workflow.Id].IsPaused != workflow.IsPaused;
+            this.workflowsPerId[workflow.Id].IsRunning = workflow.IsRunning;
+            this.workflowsPerId[workflow.Id].IsPaused = workflow.IsPaused;
+            return changed;
         }
 
         private void UpdateButtons(int wfId, bool force)
@@ -282,7 +242,7 @@ namespace Wexflow.Clients.Manager
                         }
                         else if (workflow.IsPaused)
                         {
-                            this.textBoxInfo.Text = "This workflow is paused.";
+                            this.textBoxInfo.Text = "This workflow is suspended.";
                         }
                         else
                         {

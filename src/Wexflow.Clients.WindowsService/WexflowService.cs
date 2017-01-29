@@ -19,7 +19,7 @@ namespace Wexflow.Clients.WindowsService
         public WorkflowInfo[] GetWorkflows()
         {
             List<WorkflowInfo> wfis = new List<WorkflowInfo>();
-            foreach (Workflow wf in WexflowWindowsService.WEXFLOW_ENGINE.Workflows)
+            foreach (Workflow wf in WexflowWindowsService.WexflowEngine.Workflows)
             {
                 wfis.Add(new WorkflowInfo(wf.Id, wf.Name, GetLaunchType(wf.LaunchType), wf.IsEnabled, wf.Description, wf.IsRunning, wf.IsPaused));
             }
@@ -31,7 +31,7 @@ namespace Wexflow.Clients.WindowsService
             UriTemplate = "start/{id}")]
         public void StartWorkflow(string id)
         {
-            WexflowWindowsService.WEXFLOW_ENGINE.StartWorkflow(int.Parse(id));
+            WexflowWindowsService.WexflowEngine.StartWorkflow(int.Parse(id));
         }
 
         [WebInvoke(Method = "POST",
@@ -39,7 +39,7 @@ namespace Wexflow.Clients.WindowsService
             UriTemplate = "stop/{id}")]
         public void StopWorkflow(string id)
         {
-            WexflowWindowsService.WEXFLOW_ENGINE.StopWorkflow(int.Parse(id));
+            WexflowWindowsService.WexflowEngine.StopWorkflow(int.Parse(id));
         }
 
         [WebInvoke(Method = "POST",
@@ -47,7 +47,7 @@ namespace Wexflow.Clients.WindowsService
             UriTemplate = "suspend/{id}")]
         public void SuspendWorkflow(string id)
         {
-            WexflowWindowsService.WEXFLOW_ENGINE.PauseWorkflow(int.Parse(id));
+            WexflowWindowsService.WexflowEngine.PauseWorkflow(int.Parse(id));
         }
 
         [WebInvoke(Method = "POST",
@@ -55,7 +55,7 @@ namespace Wexflow.Clients.WindowsService
             UriTemplate = "resume/{id}")]
         public void ResumeWorkflow(string id)
         {
-            WexflowWindowsService.WEXFLOW_ENGINE.ResumeWorkflow(int.Parse(id));
+            WexflowWindowsService.WexflowEngine.ResumeWorkflow(int.Parse(id));
         }
 
         [WebInvoke(Method = "GET",
@@ -63,7 +63,7 @@ namespace Wexflow.Clients.WindowsService
             UriTemplate = "workflow/{id}")]
         public WorkflowInfo GetWorkflow(string id)
         {
-            Workflow wf = WexflowWindowsService.WEXFLOW_ENGINE.GetWorkflow(int.Parse(id));
+            Workflow wf = WexflowWindowsService.WexflowEngine.GetWorkflow(int.Parse(id));
             return new WorkflowInfo(wf.Id, wf.Name, GetLaunchType(wf.LaunchType), wf.IsEnabled, wf.Description, wf.IsRunning, wf.IsPaused);
         }
 

@@ -15,16 +15,16 @@ namespace Wexflow.Clients.WindowsService
 {
     public partial class WexflowWindowsService : ServiceBase
     {
-        public static string SETTINGS_FILE = ConfigurationManager.AppSettings["WexflowSettingsFile"];
-        public static WexflowEngine WEXFLOW_ENGINE = new WexflowEngine(SETTINGS_FILE);
+        public static string SettingsFile = ConfigurationManager.AppSettings["WexflowSettingsFile"];
+        public static WexflowEngine WexflowEngine = new WexflowEngine(SettingsFile);
 
-        private ServiceHost _serviceHost = null;
+        private ServiceHost serviceHost = null;
         
         public WexflowWindowsService()
         {
             InitializeComponent();
             this.ServiceName = "Wexflow";
-            WEXFLOW_ENGINE.Run();
+            WexflowEngine.Run();
         }
 
         public void OnDebug()
@@ -34,26 +34,26 @@ namespace Wexflow.Clients.WindowsService
 
         protected override void OnStart(string[] args)
         {
-            if (this._serviceHost != null)
+            if (this.serviceHost != null)
             {
-                this._serviceHost.Close();
+                this.serviceHost.Close();
             }
 
             // Create a ServiceHost for the WexflowService type and 
             // provide the base address.
-            this._serviceHost = new ServiceHost(typeof(WexflowService));
+            this.serviceHost = new ServiceHost(typeof(WexflowService));
                 
             // Open the ServiceHostBase to create listeners and start 
             // listening for messages.
-            this._serviceHost.Open();
+            this.serviceHost.Open();
         }
 
         protected override void OnStop()
         {
-            if (this._serviceHost != null)
+            if (this.serviceHost != null)
             {
-                this._serviceHost.Close();
-                this._serviceHost = null;
+                this.serviceHost.Close();
+                this.serviceHost = null;
             }
         }
     }

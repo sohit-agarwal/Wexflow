@@ -146,12 +146,11 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.buttonStart);
             this.panel1.Controls.Add(this.buttonPause);
             this.panel1.Controls.Add(this.buttonStop);
             this.panel1.Controls.Add(this.buttonResume);
-            this.panel1.Location = new System.Drawing.Point(454, 12);
+            this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(326, 27);
             this.panel1.TabIndex = 6;

@@ -137,15 +137,7 @@
         }
 
         function workflowStatusChanged(workflow) {
-            var changed = false;
-
-            if (workflows[workflow.Id].IsRunning !== workflow.IsRunning) {
-                changed = true;
-            }
-            if (workflows[workflow.Id].IsPaused !== workflow.IsPaused) {
-                changed = true;
-            }
-
+            var changed = workflows[workflow.Id].IsRunning !== workflow.IsRunning || workflows[workflow.Id].IsPaused !== workflow.IsPaused;
             workflows[workflow.Id].IsRunning = workflow.IsRunning;
             workflows[workflow.Id].IsPaused = workflow.IsPaused;
 
@@ -164,12 +156,16 @@
 
                 this.className += "selected";
 
-                clearInterval(timer);
-                timer = setInterval(function () {
-                    updateButtons(selectedId, false);
-                }, timerInterval);
+                if (workflows[selectedId].IsEnabled === true) {
+                    clearInterval(timer);
+                    timer = setInterval(function () {
+                        updateButtons(selectedId, false);
+                    }, timerInterval);
 
-                updateButtons(selectedId, true);
+                    updateButtons(selectedId, true);
+                } else {
+                    updateButtons(selectedId, true);
+                }
             };
         }
 
@@ -195,7 +191,7 @@
         disableButton(resumeButton, true);
         resumeButton.onclick = function () {
             var resumeUri = uri + "/resume/" + selectedId;
-            post(resumeUri, function (data) { 
+            post(resumeUri, function (data) {
             });
         };
 
@@ -225,7 +221,6 @@
     function post(uri, callback) {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
-            console.log("onreadystatechange: " + this.readyState + ", " + this.status);
             if (this.readyState == 4 && this.status == 200) {
                 callback();
             }
