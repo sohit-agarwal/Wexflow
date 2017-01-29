@@ -6,8 +6,8 @@
 
 |         | Status |
 ----------|--------|
-| Travis  |[![Build Status](https://travis-ci.org/aelassas/Wexflow.svg?branch=master)](https://travis-ci.org/aelassas/Wexflow)|
-| AppVeyor|[![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow)|
+| Travis (Mono) |[![Build Status](https://travis-ci.org/aelassas/Wexflow.svg?branch=master)](https://travis-ci.org/aelassas/Wexflow)|
+| AppVeyor (.NET) |[![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow)|
 
 # Wexflow
 Wexflow is an open source multithreaded workflow engine written in pure C# from scratch. Wexflow aims to make automations, workflow processes, long-running processes and interactions between systems, applications and folks easy, straitforward and clean.
@@ -21,6 +21,8 @@ Wexflow provides the following features:
 - **Sequential workflows:** A sequential workflow executes a set of tasks in order, one by one. Tasks are executed in a sequential manner until the last task finishes. The order of the execution of the tasks can be altered by modifying the execution graph of the workflow.
 - **Flowchart workflows:** A flowchart workflow is a workflow that contains at least one flowchart node (DoIf/DoWhile) in its execution graph. A flow chart node takes as input a flowchart task (A task that returns either true or false after performing its job) and a set of tasks to execute in order, one by one. The order of the execution of the tasks can be altered by modifying the execution graph of the flowchart node.
 - **Workflow events:** After a workflow finishes its job, its final result is either success, or warning or error. If its final result is success, the OnSuccess event is triggered. If its final result is warning, the OnWarning event is triggered. If its final result is error, the OnError event is triggered. An event contains a set of tasks and/or flowchart nodes to execute in order, one by one. The order of the execution of the tasks and/or flowchart nodes can be altered by modifying the execution graph of the event.
+- **Wexflow Web Manager:** Wexflow can be hosted on any website through its lightweight JavaScript API (~6Kb). Wexflow can be hosted on ASP.NET, ASP.NET MVC, PHP, Ruby On Rails, Python websites and so on.
+- **Wexflow Manager:** Wexflow provides a GUI for managing workflows that works on both Windows and Linux.
 
 In addition, Wexflow provides the following built-in tasks:
 
@@ -54,16 +56,14 @@ WF (Windows Workflow Foundation) is a Microsoft technology for defining, executi
 
 WF is a proprietary solution and comes with a limited number of built-in activities.
 
-What I want to do is to bring an open source alternative with a bunch of built-in tasks that can be used within a workflow.
-
 Here are the strengths of Wexflow vs WF:
 
 - Open source.
 - Comes with 29 built-in tasks.
 - Worklow events (OnSuccess, OnWarning and OnError).
+- Provides a GUI for managing workflows that works on both Windows and Linux.
+- Provides a lightweight JavaScript API that allows to manage workflows in any website.
 - Will be possible to add DoIf in DoIf, DoIf in DoWhile, DoWhile in DoIf and DoWhile in DoWhile.
-- Will work under Linux and Android (.NET Core/Mono).
-- Will be possible to manage workflows in any website through Wexflow Web Manager.
 
 # Prerequisites
 
@@ -81,6 +81,8 @@ To create a custom task, you'll need basic skills in:
 At this time, Wexflow only supports creating and editing workflows in XML. However, creating and editing workflows in design mode are in the todo list and are comming soon. Wexflow Designer aims to allow folks who are not familiar with XML to work with Wexflow so they can create and edit their workflows easily.
 
 # How to install Wexflow
+
+## Windows
 
 Wexflow can be installed on Windows XP, Windows server 2003 and higher. Wexflow supports .NET Framework 4.0 and higher.
 
@@ -110,15 +112,57 @@ Finally, click on finish to finish the installation:
 
 The following menus are added in the start menu:
 
-![alt tag](https://aelassas.github.io/Wexflow/wsm.png)
+![alt tag](https://aelassas.github.io/Wexflow/wsp2.png)
 
 After Wexflow is installed a Windows Service named Wexflow is installed and starts automatically. To start Wexflow Manager, this Windows Service must be running. However, If you want to stop it you can do it from Windows Services console:
 
 ![alt tag](https://aelassas.github.io/Wexflow/ws.PNG)
 
-The "Documentation" menu opens the documentation folder of Wexflow. The "Configuration" menu opens the configuration folder of Wexflow. The "Logs" menu opens the log file of the day.
+The "Manager" menu opens Wexflow Manager GUI. The "Web Manager" menu opens Wexflow Web Manager. The "Documentation" menu opens the documentation folder of Wexflow. The "Configuration" menu opens the configuration folder of Wexflow. The "Logs" menu opens the log file of the day.
+
+## Linux
+
+To run Wexflow on Linux, Wexflow Windows Service must be installed on a Windows machine. Wexflow Windows Service provides a self hosted web service that allows to query Wexflow Engine.
+
+After Wexflow Windows Service is installed on a Windows Machine, proceed as follows to install Wexflow Manager on Linux:
+
+- Download wexflow.tar.gz
+- Install mono-complete:
+
+```
+sudo apt install mono-complete
+```
+
+- Install Wexflow Manager:
+
+```
+sudo mv wexflow.tar.gz /opt/
+cd /opt/
+sudo tar -zxvf wexflow.tar.gz
+sudo chmod +x /opt/wexflow/wexflow.sh
+sudo ln -s /opt/wexflow/wexflow.sh /usr/local/bin/wexflow
+```
+
+- Configure Wexflow web service uri by modifying the settings option WexflowWebServiceUri in Wexflow Manager configuration file:
+
+```
+sudo vim /opt/wexflow/Wexflow.Clients.Eto.Manager.exe.config 
+```
+
+Run Wexflow Manager:
+
+```
+wexflow
+```
+
+The following window will appear:
+
+![alt tag](https://aelassas.github.io/Wexflow/wml.png)
 
 # How to uninstall Wexflow
+
+## Windows
+
 To uninstall Wexflow, simply click on "Uninstall" menu from "Windows Start menu > Wexflow".
 
 Or go to "Configuration Panel > Add/remove programs" then select "Wexflow version 1.0.1" and click on uninstall:
@@ -128,6 +172,15 @@ Or go to "Configuration Panel > Add/remove programs" then select "Wexflow versio
 After Wexflow is uninstalled, the folders C:\Wexflow\ and C:\WexflowTesting\ are not deleted to prevent user defined workflows and testing scenarios from being deleted. However, If you do not need them you can delete them manually.
 
 The log file C:\Program Files\Wexflow\Wexflow.log is also not deleted to keep track of the last operations done by Wexflow. However, If you do not need the logs you can delete the log files.
+
+## Linux
+
+To uninstall Wexflow Manager from a Linux machine, proceed as follows:
+
+```
+sudo rm /usr/local/bin/wexflow
+sudo rm -rf /opt/wexflow
+```
 
 # How to use Wexflow
 
@@ -249,6 +302,49 @@ Wexflow Manager is a simple application that allows the user to do the following
 - Resume a workflow.
 
 To see what's going on in Wexflow, open the log file C:\Program Files\Wexflow\Wexflow.log in a text editor like [Notepad++](https://notepad-plus-plus.org/download/v7.3.1.html). Notepad ++ will update the log file as it fills up.
+
+## Wexflow Web Manager
+
+![alt tag](https://aelassas.github.io/Wexflow/wwm.png)
+
+Wexflow provides a lightweight JavaScript API (~6Kb) that allows Wexflow Manager to be hosted on any website.
+
+Wexflow Web Manager allows the user to do the following things:
+
+- See all the workflows loaded by Wexflow Engine.
+- See the status of the selected workflow (running, suspended or disabled).
+- Start a workflow.
+- Stop a workflow.
+- Suspend a workflow.
+- Resume a workflow.
+
+To host Wexflow Web Manager in a website, simply proceed as follows:
+
+1. Reference wexflow.min.css and wexflow.min.js
+2. Create an instance of wexflow.
+
+The HTML source code should look like as follows:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wexflow</title>
+
+    <link rel="stylesheet" type="text/css" href="css/wexflow.min.css" />
+    <script type="text/javascript" src="js/wexflow.min.js"></script>
+
+    <script type="text/javascript">
+        window.onload = function () {
+            new wexflow("wexflow", "http://localhost:8000/wexflow/");
+        };
+    </script>
+</head>
+<body>
+    <div id="wexflow" style="position: absolute; top:0; right:0; bottom:0; left:0;"></div>
+</body>
+</html>
+```
 
 # Workflow samples
 
@@ -957,21 +1053,7 @@ Here is the list of the libraries used by Wexflow:
 - [System.Data.SQLite](https://system.data.sqlite.org/): An ADO.NET provider for SQLite.
 - [Npgsql](http://www.npgsql.org/): An open source ADO.NET Data Provider for PostgreSQL written in C# and under the PostgreSQL License, a liberal OSI-approved open source license.
 - [.NET Data Provider for Teradata](http://downloads.teradata.com/download/connectivity/net-data-provider-for-teradata): An ADO.NET provider for Teradata.
-
-# Todo list
-- ~~**Wexflow Engine:** Add XSD validation of the workflow files before loading them.~~
-- ~~**Tasks execution graph:** Improve the tasks execution graph by provinding the ability to alter the execution flow of the tasks and by providing the ability to add DoIf, DoWhile, OnSuccess, OnWarning and OnError in the execution graph.~~
-- **Wexflow Web Manager (light version):** Create a JavaScript library that provides a control that allows to view all the workflows and manage them (start a workflow, stop a workflow, suspend a workflow and resume a workflow).
-- **Execution graph:** Allow to add DoIf in DoIf, DoIf in DoWhile, DoWhile in DoIf and DoWhile in DoWhile. Create Switch/Case flowchard node.
-- **Wexflow Manager:** Upgrade from Windows Forms to Eto.Forms.
-- **Linux:** Update Wexflow to work on Linux (Mono) and create a setup project for Linux.
-- **Wexflow Manager:** Make the workflow status of the visible workflows live and highlight the workflows who are running in green.
-- **Workflow jobs:** Allow parallel execution of the jobs of a workflow.
-- **Wexflow Editor:** Add a tab in Wexflow Manager from wich the end user can view all the workflow files and from wich a workflow file can be edited, created or deleted. Wexflow Editor should handle XML synthax highlighting (FastColoredTextBox shoud do the job), opening multiple XML files in tabs like in Notepad++ and saving multiple XML files at the same time.
-- **Wexflow Designer:** Add a tab in Wexflow Manager from wich the end user can view all the workflows and from wich a workflow can be edited, created or deleted in design mode through a user friendly UI that allows to view workflow tasks in boxes, to view and edit task settings in a panel located in the left and to create or delete a task. Wexflow Designer should handle Drag and Drop if possible. Wexflow Designer should allow users who are not familiar with XML to work with Wexflow.
-- **Wexflow Web Manager:** Create a JavaScript library that provides HTML5 controls that allow to view the workflows by highlighting the workflows who are running, manage workflows (start a workflow, stop a workflow, suspend a workflow and resume a workflow), edit workflows (create a workflow, modify a workflow and delete a workflow). This library should provide user friendly functionalities such as Drag and Drop. The JavaScript library aims to allow Wexflow to be integrated in ASP.NET, PHP, Ruby on Rails, Python, HTML5 websites and so on. This library should allow users who do not know XML to work with Wexflow. Also, create a Web Manager in HTML5/CSS3 that makes use of this JavaScript library.
-- **Wexflow Android Manager:** Create a Wexflow Manager for Android.
-- **YouTube task:** Create a task that allows to upload, edit and delete videos on YouTube. This task should use YouTube Data API client library for .NET.
+- [Eto.Forms](https://github.com/picoe/Eto): A cross platform GUI framework for desktop and mobile applications in .NET.
 
 # History
 
@@ -1006,6 +1088,13 @@ Here is the list of the libraries used by Wexflow:
   - Created workflow events (OnSuccess, OnWarning and OnError).
   - Created FileExists flowchart task.
   - Updated setup.
+- 30 Jan 2017:
+  - [Released version 1.0.5](https://github.com/aelassas/Wexflow/releases/tag/v1.0.5).
+  - Created Wexflow Web Manager: a lightweight JavaScript API (~6Kb) for managing workflows.
+  - Created Wexflow Manager GUI for Linux.
+  - Updated Wexflow Manager for Windows.
+  - Updated setup for Windows.
+  - Created a setup for Linux.
 
 # More informations
 More informations about Wexflow can be found on [CodeProject](https://www.codeproject.com/Articles/1164009/Wexflow-Open-source-workflow-engine-in-Csharp).
