@@ -19,11 +19,8 @@ using Wexflow.Core.Service.Client;
 
 namespace Wexflow.Clients.Manager
 {
-    // v1.0.5
-
-    // TODO Linux Rest
-    // TODO Linux test + setup.sh
-
+    // v1.0.6
+    // TODO refactor (monodevelop)
     // TODO DoIf, DoWhile, Switch/Case
     // TODO Android Manager??
     // TODO Wexflow Manager wf status live + row background color

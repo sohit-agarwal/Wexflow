@@ -30,13 +30,16 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 [Files]
 Source: "..\..\src\Wexflow.Clients.Manager\bin\Debug\Wexflow.Clients.Manager.exe"; DestDir: "{app}\Manager"; Flags: ignoreversion
 Source: "..\..\src\Wexflow.Clients.Manager\bin\Debug\Wexflow.Clients.Manager.exe.config"; DestDir: "{app}\Manager"; Flags: ignoreversion
-Source: "..\..\src\Wexflow.Clients.Manager\bin\Debug\Wexflow.Core.WexflowServiceClient.dll"; DestDir: "{app}\Manager"; Flags: ignoreversion
+Source: "..\..\src\Wexflow.Clients.Manager\bin\Debug\Wexflow.Core.Service.Client.dll"; DestDir: "{app}\Manager"; Flags: ignoreversion
+Source: "..\..\src\Wexflow.Clients.Manager\bin\Debug\Newtonsoft.Json.dll"; DestDir: "{app}\Manager"; Flags: ignoreversion
+Source: "..\..\src\Wexflow.Clients.Manager\bin\Debug\Wexflow.Core.Service.Contracts.dll"; DestDir: "{app}\Manager"; Flags: ignoreversion
 
 Source: "..\..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Clients.WindowsService.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Clients.WindowsService.exe.config"; DestDir: "{app}"; Flags: ignoreversion
 
 Source: "..\..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Core.Service.Contracts.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Core.Service.Cross.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 Source: "..\..\libs\FluentFTP.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\libs\Hammock.ClientProfile.dll"; DestDir: "{app}"; Flags: ignoreversion
