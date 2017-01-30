@@ -1,4 +1,4 @@
-﻿using System;;
+﻿using System;
 using Wexflow.Core;
 using System.Threading;
 using System.Xml.Linq;

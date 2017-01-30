@@ -1,4 +1,4 @@
-﻿using System;t;
+﻿using System;
 using Wexflow.Core;
 using System.Xml.Linq;
 using System.Xml.XPath;

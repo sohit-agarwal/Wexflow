@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace Wexflow.Core.Service.Contracts
 {
@@ -9,14 +10,22 @@ namespace Wexflow.Core.Service.Contracts
         Periodic
     }
 
+    [DataContract]
     public class WorkflowInfo:IComparable
     {
+        [DataMember]
         public int Id { get; private set; }
+        [DataMember]
         public string Name { get; private set; }
+        [DataMember]
         public LaunchType LaunchType { get; private set; }
+        [DataMember]
         public bool IsEnabled { get; private set; }
+        [DataMember]
         public string Description { get; private set; }
+        [DataMember]
         public bool IsRunning { get; set; }
+        [DataMember]
         public bool IsPaused { get; set; }
 
         public WorkflowInfo(int id, string name, LaunchType launchType, bool isEnabled, string desc, bool isRunning, bool isPaused)
