@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.ServiceModel;
-using Wexflow.Core;
+﻿using System.ServiceModel;
 using Wexflow.Core.Service.Contracts;
 
 namespace Wexflow.Clients.WindowsService

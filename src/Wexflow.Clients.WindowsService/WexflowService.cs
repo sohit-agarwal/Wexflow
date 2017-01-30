@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Wexflow.Core;
-using System.Configuration;
 using System.ServiceModel;
 using Wexflow.Core.Service.Contracts;
 using System.ServiceModel.Web;
@@ -18,10 +14,10 @@ namespace Wexflow.Clients.WindowsService
             UriTemplate = "workflows")]
         public WorkflowInfo[] GetWorkflows()
         {
-            List<WorkflowInfo> wfis = new List<WorkflowInfo>();
+            var wfis = new List<WorkflowInfo>();
             foreach (Workflow wf in WexflowWindowsService.WexflowEngine.Workflows)
             {
-                wfis.Add(new WorkflowInfo(wf.Id, wf.Name, GetLaunchType(wf.LaunchType), wf.IsEnabled, wf.Description, wf.IsRunning, wf.IsPaused));
+				wfis.Add(new WorkflowInfo(wf.Id, wf.Name, (Core.Service.Contracts.LaunchType)wf.LaunchType, wf.IsEnabled, wf.Description, wf.IsRunning, wf.IsPaused));
             }
             return wfis.ToArray();
         }
@@ -63,28 +59,8 @@ namespace Wexflow.Clients.WindowsService
             UriTemplate = "workflow/{id}")]
         public WorkflowInfo GetWorkflow(string id)
         {
-            Workflow wf = WexflowWindowsService.WexflowEngine.GetWorkflow(int.Parse(id));
-            return new WorkflowInfo(wf.Id, wf.Name, GetLaunchType(wf.LaunchType), wf.IsEnabled, wf.Description, wf.IsRunning, wf.IsPaused);
-        }
-
-        private Core.Service.Contracts.LaunchType GetLaunchType(Core.LaunchType launchType)
-        {
-            Core.Service.Contracts.LaunchType lt = Core.Service.Contracts.LaunchType.Trigger;
-
-            switch (launchType)
-            {
-                case Core.LaunchType.Periodic:
-                    lt = Core.Service.Contracts.LaunchType.Periodic;
-                    break;
-                case Core.LaunchType.Startup:
-                    lt = Core.Service.Contracts.LaunchType.Startup;
-                    break;
-                case Core.LaunchType.Trigger:
-                    lt = Core.Service.Contracts.LaunchType.Trigger;
-                    break;
-            }
-
-            return lt;
+            var wf = WexflowWindowsService.WexflowEngine.GetWorkflow(int.Parse(id));
+			return new WorkflowInfo(wf.Id, wf.Name, (Core.Service.Contracts.LaunchType)wf.LaunchType, wf.IsEnabled, wf.Description, wf.IsRunning, wf.IsPaused);
         }
     }
 }

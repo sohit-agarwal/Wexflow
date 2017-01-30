@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Wexflow.Core;
 using System.Xml.Linq;
 using System.Threading;
@@ -17,37 +14,36 @@ namespace Wexflow.Tasks.Wmi
         public Wmi(XElement xe, Workflow wf)
             : base(xe, wf)
         {
-            this.Query = this.GetSetting("query");
+            Query = GetSetting("query");
         }
 
         public override TaskStatus Run()
         {
-            this.Info("Running WMI query...");
+            Info("Running WMI query...");
 
             bool success = true;
 
             try
             {
-                string xmlPath = Path.Combine(this.Workflow.WorkflowTempFolder, string.Format("WMI_{0:yyyy-MM-dd-HH-mm-ss-fff}.xml", DateTime.Now));
+                var xmlPath = Path.Combine(Workflow.WorkflowTempFolder, string.Format("WMI_{0:yyyy-MM-dd-HH-mm-ss-fff}.xml", DateTime.Now));
 
-                XDocument xdoc = new XDocument(new XElement("Objects"));
-                ManagementObjectSearcher searcher = new ManagementObjectSearcher(this.Query);
-                ManagementObjectCollection collection = searcher.Get();
+                var xdoc = new XDocument(new XElement("Objects"));
+                var searcher = new ManagementObjectSearcher(Query);
+                var collection = searcher.Get();
 
                 foreach (ManagementObject obj in collection)
                 {
-                    XElement xObj = new XElement("Object");
+                    var xObj = new XElement("Object");
                     foreach (PropertyData prop in obj.Properties)
                     {
-                        XElement xProp = new XElement("Property", new XAttribute("name", prop.Name), new XAttribute("value", prop.Value ?? string.Empty));
+                        var xProp = new XElement("Property", new XAttribute("name", prop.Name), new XAttribute("value", prop.Value ?? string.Empty));
                         xObj.Add(xProp);
                     }
                     xdoc.Root.Add(xObj);
                 }
                 xdoc.Save(xmlPath);
-                this.Files.Add(new FileInf(xmlPath, this.Id));
-                this.InfoFormat("The query {0} has been executed.", this.Query);
-                success &= true;
+                Files.Add(new FileInf(xmlPath, Id));
+                InfoFormat("The query {0} has been executed.", Query);
             }
             catch (ThreadAbortException)
             {
@@ -55,8 +51,8 @@ namespace Wexflow.Tasks.Wmi
             }
             catch (Exception e)
             {
-                this.ErrorFormat("An error occured while executing the query {0}. Error: {1}", this.Query, e.Message);
-                success &= false;
+                ErrorFormat("An error occured while executing the query {0}. Error: {1}", Query, e.Message);
+                success = false;
             }
 
             Status status = Status.Success;
@@ -66,7 +62,7 @@ namespace Wexflow.Tasks.Wmi
                 status = Status.Error;
             }
 
-            this.Info("Task finished.");
+            Info("Task finished.");
             return new TaskStatus(status, false);
         }
     }

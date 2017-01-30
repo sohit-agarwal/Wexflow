@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Wexflow.Core;
 using System.Xml.Linq;
 using System.IO;
@@ -16,23 +13,23 @@ namespace Wexflow.Tasks.Mkdir
         public Mkdir(XElement xe, Workflow wf)
             : base(xe, wf)
         {
-            this.Folders = this.GetSettings("folder");
+            Folders = GetSettings("folder");
         }
 
         public override TaskStatus Run()
         {
-            this.Info("Creating folders...");
+            Info("Creating folders...");
             
             bool success = true;
             bool atLeastOneSucceed = false;
 
-            foreach (string folder in this.Folders)
+            foreach (string folder in Folders)
             {
                 try
                 {
                     if (!Directory.Exists(folder)) Directory.CreateDirectory(folder);
-                    this.InfoFormat("Folder {0} created.", folder);
-                    success &= true;
+                    InfoFormat("Folder {0} created.", folder);
+                    
                     if (!atLeastOneSucceed) atLeastOneSucceed = true;
                 }
                 catch (ThreadAbortException)
@@ -41,8 +38,8 @@ namespace Wexflow.Tasks.Mkdir
                 }
                 catch (Exception e)
                 {
-                    this.ErrorFormat("An error occured while creating the folder {0}", e, folder);
-                    success &= false;
+                    ErrorFormat("An error occured while creating the folder {0}", e, folder);
+                    success = false;
                 }
             }
 
@@ -57,7 +54,7 @@ namespace Wexflow.Tasks.Mkdir
                 status = Status.Error;
             }
 
-            this.Info("Task finished.");
+            Info("Task finished.");
             return new TaskStatus(status, false);
         }
     }

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Wexflow.Core;
 using System.Xml.Linq;
 using System.IO;
@@ -18,21 +15,20 @@ namespace Wexflow.Tasks.CsvToXml
 
         public override TaskStatus Run()
         {
-            this.Info("Creating XML files...");
+            Info("Creating XML files...");
 
             bool success = true;
             bool atLeastOneSucceed = false;
 
-            foreach (FileInf file in this.SelectFiles())
+            foreach (FileInf file in SelectFiles())
             {
                 try
                 {
-                    string xmlPath = Path.Combine(this.Workflow.WorkflowTempFolder,
+                    var xmlPath = Path.Combine(Workflow.WorkflowTempFolder,
                         string.Format("{0}_{1:yyyy-MM-dd-HH-mm-ss-fff}.xml", Path.GetFileNameWithoutExtension(file.FileName), DateTime.Now));
                     CreateXml(file.Path, xmlPath);
-                    this.Files.Add(new FileInf(xmlPath, this.Id));
-                    this.InfoFormat("XML file {0} created from {1}", xmlPath, file.Path);
-                    success &= true;
+                    Files.Add(new FileInf(xmlPath, Id));
+                    InfoFormat("XML file {0} created from {1}", xmlPath, file.Path);
                     if (!atLeastOneSucceed) atLeastOneSucceed = true;
                 }
                 catch (ThreadAbortException)
@@ -41,8 +37,8 @@ namespace Wexflow.Tasks.CsvToXml
                 }
                 catch (Exception e)
                 {
-                    this.ErrorFormat("An error occured while creating the XML from {0} Please check this XML file according to the documentation of the task. Error: {1}", file.Path, e.Message);
-                    success &= false;
+                    ErrorFormat("An error occured while creating the XML from {0} Please check this XML file according to the documentation of the task. Error: {1}", file.Path, e.Message);
+                    success = false;
                 }
             }
 
@@ -57,17 +53,17 @@ namespace Wexflow.Tasks.CsvToXml
                 status = Status.Error;
             }
 
-            this.Info("Task finished.");
+            Info("Task finished.");
             return new TaskStatus(status, false);
         }
 
-        private void CreateXml(string csvPath, string xmlPath)
+        void CreateXml(string csvPath, string xmlPath)
         {
-            XDocument xdoc = new XDocument(new XElement("Lines"));
+            var xdoc = new XDocument(new XElement("Lines"));
 
             foreach (string line in File.ReadAllLines(csvPath))
             {
-                XElement xLine = new XElement("Line");
+                var xLine = new XElement("Line");
                 foreach (string col in line.Split(';'))
                 {
                     if(!string.IsNullOrEmpty(col)) xLine.Add(new XElement("Column", col));

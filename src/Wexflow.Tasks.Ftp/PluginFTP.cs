@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Wexflow.Core;
 using FluentFTP;
 using System.Net;
 using System.IO;
-using System.Threading;
 
 namespace Wexflow.Tasks.Ftp
 {
@@ -21,21 +17,21 @@ namespace Wexflow.Tasks.Ftp
 
         public override FileInf[] List()
         {
-            List<FileInf> files = new List<FileInf>();
+            var files = new List<FileInf>();
 
-            FtpClient client = new FtpClient();
-            client.Host = this.Server;
-            client.Port = this.Port;
-            client.Credentials = new NetworkCredential(this.User, this.Password);
+            var client = new FtpClient();
+            client.Host = Server;
+            client.Port = Port;
+            client.Credentials = new NetworkCredential(User, Password);
 
             client.Connect();
-            client.SetWorkingDirectory(this.Path);
+            client.SetWorkingDirectory(Path);
 
-            FileInf[] ftpFiles = ListFiles(client, this.Task.Id);
+            var ftpFiles = ListFiles(client, Task.Id);
             files.AddRange(ftpFiles);
 
             foreach(var file in files)
-                this.Task.InfoFormat("[PluginFTP] file {0} found on {1}.", file.Path, this.Server);
+                Task.InfoFormat("[PluginFTP] file {0} found on {1}.", file.Path, Server);
 
             client.Disconnect();
 
@@ -44,9 +40,9 @@ namespace Wexflow.Tasks.Ftp
 
         public static FileInf[] ListFiles(FtpClient client, int taskId)
         {
-            List<FileInf> files = new List<FileInf>();
+            var files = new List<FileInf>();
 
-            FtpListItem[] ftpListItems = client.GetListing();
+            var ftpListItems = client.GetListing();
 
             foreach (FtpListItem item in ftpListItems)
             {
@@ -61,16 +57,16 @@ namespace Wexflow.Tasks.Ftp
 
         public override void Upload(FileInf file)
         {
-            FtpClient client = new FtpClient();
-            client.Host = this.Server;
-            client.Port = this.Port;
-            client.Credentials = new NetworkCredential(this.User, this.Password);
+            var client = new FtpClient();
+            client.Host = Server;
+            client.Port = Port;
+            client.Credentials = new NetworkCredential(User, Password);
 
             client.Connect();
-            client.SetWorkingDirectory(this.Path);
+            client.SetWorkingDirectory(Path);
 
             UploadFile(client, file);
-            this.Task.InfoFormat("[PluginFTP] file {0} sent to {1}.", file.Path, this.Server);
+            Task.InfoFormat("[PluginFTP] file {0} sent to {1}.", file.Path, Server);
 
             client.Disconnect();
         }
@@ -92,23 +88,23 @@ namespace Wexflow.Tasks.Ftp
 
         public override void Download(FileInf file)
         {
-            FtpClient client = new FtpClient();
-            client.Host = this.Server;
-            client.Port = this.Port;
-            client.Credentials = new NetworkCredential(this.User, this.Password);
+            var client = new FtpClient();
+            client.Host = Server;
+            client.Port = Port;
+            client.Credentials = new NetworkCredential(User, Password);
 
             client.Connect();
-            client.SetWorkingDirectory(this.Path);
+            client.SetWorkingDirectory(Path);
 
-            DownloadFile(client, file, this.Task);
-            this.Task.InfoFormat("[PluginFTP] file {0} downloaded from {1}.", file.Path, this.Server);
+            DownloadFile(client, file, Task);
+            Task.InfoFormat("[PluginFTP] file {0} downloaded from {1}.", file.Path, Server);
 
             client.Disconnect();
         }
 
         public static void DownloadFile(FtpClient client, FileInf file, Task task)
         {
-            string destFileName = System.IO.Path.Combine(task.Workflow.WorkflowTempFolder, file.FileName);
+            var destFileName = System.IO.Path.Combine(task.Workflow.WorkflowTempFolder, file.FileName);
             using (Stream istream = client.OpenRead(file.Path))
             using (Stream ostream = File.Create(destFileName))
             {
@@ -132,16 +128,16 @@ namespace Wexflow.Tasks.Ftp
 
         public override void Delete(FileInf file)
         {
-            FtpClient client = new FtpClient();
-            client.Host = this.Server;
-            client.Port = this.Port;
-            client.Credentials = new NetworkCredential(this.User, this.Password);
+            var client = new FtpClient();
+            client.Host = Server;
+            client.Port = Port;
+            client.Credentials = new NetworkCredential(User, Password);
 
             client.Connect();
-            client.SetWorkingDirectory(this.Path);
+            client.SetWorkingDirectory(Path);
 
             client.DeleteFile(file.Path);
-            this.Task.InfoFormat("[PluginFTP] file {0} deleted on {1}.", file.Path, this.Server);
+            Task.InfoFormat("[PluginFTP] file {0} deleted on {1}.", file.Path, Server);
 
             client.Disconnect();
         }

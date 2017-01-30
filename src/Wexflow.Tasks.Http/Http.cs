@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Wexflow.Core;
 using System.Xml.Linq;
 using System.IO;
@@ -17,27 +14,27 @@ namespace Wexflow.Tasks.Http
         public Http(XElement xe, Workflow wf)
             : base(xe, wf)
         {
-            this.Urls = this.GetSettings("url");
+            Urls = GetSettings("url");
         }
 
         public override TaskStatus Run()
         {
-            this.Info("Downloading files...");
+            Info("Downloading files...");
 
             bool success = true;
             bool atLeastOneSucceed = false;
 
-            WebClient webClient = new WebClient();
+            var webClient = new WebClient();
 
-            foreach (string url in this.Urls)
+            foreach (string url in Urls)
             {
                 try
                 {
-                    string destPath = Path.Combine(this.Workflow.WorkflowTempFolder, Path.GetFileName(url));
+                    var destPath = Path.Combine(Workflow.WorkflowTempFolder, Path.GetFileName(url));
                     webClient.DownloadFile(url, destPath);
-                    this.InfoFormat("File {0} downlaoded as {1}", url, destPath);
-                    this.Files.Add(new FileInf(destPath, this.Id));
-                    success &= true;
+                    InfoFormat("File {0} downlaoded as {1}", url, destPath);
+                    Files.Add(new FileInf(destPath, Id));
+                    
                     if (!atLeastOneSucceed) atLeastOneSucceed = true;
                 }
                 catch (ThreadAbortException)
@@ -46,8 +43,8 @@ namespace Wexflow.Tasks.Http
                 }
                 catch (Exception e)
                 {
-                    this.ErrorFormat("An error occured while downloading the file: {0}. Error: {1}", url, e.Message);
-                    success &= false;
+                    ErrorFormat("An error occured while downloading the file: {0}. Error: {1}", url, e.Message);
+                    success = false;
                 }
             }
 
@@ -62,7 +59,7 @@ namespace Wexflow.Tasks.Http
                 status = Status.Error;
             }
 
-            this.Info("Task finished.");
+            Info("Task finished.");
             return new TaskStatus(status, false);
         }
     }

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Wexflow.Core;
 using System.Xml.Linq;
 using System.Threading;
@@ -15,19 +12,18 @@ namespace Wexflow.Tasks.Wait
         public Wait(XElement xe, Workflow wf)
             : base(xe, wf)
         {
-            this.Duration = TimeSpan.Parse(this.GetSetting("duration"));
+            Duration = TimeSpan.Parse(GetSetting("duration"));
         }
 
         public override TaskStatus Run()
         {
-            this.InfoFormat("Waiting for {0} ...", this.Duration);
+            InfoFormat("Waiting for {0} ...", Duration);
 
             bool success = true;
 
             try
             {
-                Thread.Sleep(this.Duration);
-                success &= true;
+                Thread.Sleep(Duration);
             }
             catch (ThreadAbortException)
             {
@@ -35,8 +31,8 @@ namespace Wexflow.Tasks.Wait
             }
             catch (Exception e)
             {
-                this.ErrorFormat("An error occured while waiting. Error: {0}", e.Message);
-                success &= false;
+                ErrorFormat("An error occured while waiting. Error: {0}", e.Message);
+                success = false;
             }
 
             Status status = Status.Success;
@@ -46,7 +42,7 @@ namespace Wexflow.Tasks.Wait
                 status = Status.Error;
             }
 
-            this.Info("Task finished.");
+            Info("Task finished.");
             return new TaskStatus(status, false);
         }
     }

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.ComponentModel;
 
 namespace Wexflow.Clients.Manager
@@ -14,9 +12,9 @@ namespace Wexflow.Clients.Manager
     /// <typeparam name="T">The type of elements in the list.</typeparam>
     public class SortableBindingList<T> : BindingList<T> where T : class
     {
-        private bool _isSorted;
-        private ListSortDirection _sortDirection = ListSortDirection.Ascending;
-        private PropertyDescriptor _sortProperty;
+        bool _isSorted;
+        ListSortDirection _sortDirection = ListSortDirection.Ascending;
+        PropertyDescriptor _sortProperty;
  
         /// <summary>
         /// Initializes a new instance of the <see cref="SortableBindingList{T}"/> class.
@@ -86,7 +84,7 @@ namespace Wexflow.Clients.Manager
             _sortProperty = prop;
             _sortDirection = direction;
  
-            List<T> list = Items as List<T>;
+            var list = Items as List<T>;
             if (list == null) return;
  
             list.Sort(Compare);
@@ -97,7 +95,7 @@ namespace Wexflow.Clients.Manager
         }
  
  
-        private int Compare(T lhs, T rhs)
+        int Compare(T lhs, T rhs)
         {
             var result = OnComparison(lhs, rhs);
             //invert if descending
@@ -106,7 +104,7 @@ namespace Wexflow.Clients.Manager
             return result;
         }
  
-        private int OnComparison(T lhs, T rhs)
+        int OnComparison(T lhs, T rhs)
         {
             object lhsValue = lhs == null ? null : _sortProperty.GetValue(lhs);
             object rhsValue = rhs == null ? null : _sortProperty.GetValue(rhs);
@@ -127,7 +125,7 @@ namespace Wexflow.Clients.Manager
                 return 0; //both are the same
             }
             //not comparable, compare ToString
-            return lhsValue.ToString().CompareTo(rhsValue.ToString());
+			return string.CompareOrdinal(lhsValue.ToString(), rhsValue.ToString());
         }
     }
 

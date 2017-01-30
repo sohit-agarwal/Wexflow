@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Wexflow.Core;
 using System.Xml.Linq;
 using System.IO;
@@ -18,19 +15,19 @@ namespace Wexflow.Tasks.Tgz
         public Tgz(XElement xe, Workflow wf)
             : base(xe, wf)
         {
-            this.TgzFileName = this.GetSetting("tgzFileName");
+            TgzFileName = GetSetting("tgzFileName");
         }
 
         public override TaskStatus Run()
         {
-            this.Info("Creating tgz archive...");
+            Info("Creating tgz archive...");
 
             bool success = true;
 
-            FileInf[] files = this.SelectFiles();
+            var files = SelectFiles();
             if (files.Length > 0)
             {
-                string tgzPath = Path.Combine(this.Workflow.WorkflowTempFolder, this.TgzFileName);
+                var tgzPath = Path.Combine(Workflow.WorkflowTempFolder, TgzFileName);
 
                 try
                 {
@@ -48,7 +45,7 @@ namespace Wexflow.Tasks.Tgz
 
                                 // Create a tar entry named as appropriate. You can set the name to anything,
                                 // but avoid names starting with drive or UNC.
-                                TarEntry entry = TarEntry.CreateTarEntry(tarName);
+                                var entry = TarEntry.CreateTarEntry(tarName);
 
                                 // Must set size, otherwise TarOutputStream will fail when output exceeds.
                                 entry.Size = fileSize;
@@ -59,7 +56,7 @@ namespace Wexflow.Tasks.Tgz
                                 byte[] localBuffer = new byte[32 * 1024];
                                 while (true)
                                 {
-                                    int numRead = inputStream.Read(localBuffer, 0, localBuffer.Length);
+                                    var numRead = inputStream.Read(localBuffer, 0, localBuffer.Length);
                                     if (numRead <= 0)
                                     {
                                         break;
@@ -80,9 +77,8 @@ namespace Wexflow.Tasks.Tgz
                         // Close is important to wrap things up and unlock the file.
                         gz.Close();
 
-                        this.InfoFormat("Tgz {0} created.", tgzPath);
-                        this.Files.Add(new FileInf(tgzPath, this.Id));
-                        success &= true;
+                        InfoFormat("Tgz {0} created.", tgzPath);
+                        Files.Add(new FileInf(tgzPath, Id));
                     }
                 }
                 catch (ThreadAbortException)
@@ -91,8 +87,8 @@ namespace Wexflow.Tasks.Tgz
                 }
                 catch (Exception e)
                 {
-                    this.ErrorFormat("An error occured while creating the Tar {0}", e, tgzPath);
-                    success &= false;
+                    ErrorFormat("An error occured while creating the Tar {0}", e, tgzPath);
+                    success = false;
                 }
             }
 
@@ -103,7 +99,7 @@ namespace Wexflow.Tasks.Tgz
                 status = Status.Error;
             }
 
-            this.Info("Task finished.");
+            Info("Task finished.");
             return new TaskStatus(status, false);
         }
     }

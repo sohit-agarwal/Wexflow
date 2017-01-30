@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Wexflow.Core;
 using System.Threading;
 using System.Xml.Linq;
@@ -32,27 +29,27 @@ namespace Wexflow.Tasks.ImagesTransformer
         public ImagesTransformer(XElement xe, Workflow wf)
             : base(xe, wf)
         {
-            this.OutputFilePattern = this.GetSetting("outputFilePattern");
-            this.OutputFormat = (ImgFormat)Enum.Parse(typeof(ImgFormat), this.GetSetting("outputFormat"), true);
+            OutputFilePattern = GetSetting("outputFilePattern");
+            OutputFormat = (ImgFormat)Enum.Parse(typeof(ImgFormat), GetSetting("outputFormat"), true);
         }
 
         public override TaskStatus Run()
         {
-            this.Info("Transforming images...");
+            Info("Transforming images...");
 
             bool success = true;
             bool atLeastOneSucceed = false;
 
-            foreach (FileInf file in this.SelectFiles())
+            foreach (FileInf file in SelectFiles())
             {
                 try
                 {
-                    string destFilePath = Path.Combine(this.Workflow.WorkflowTempFolder,
-                        this.OutputFilePattern.Replace("$fileNameWithoutExtension", Path.GetFileNameWithoutExtension(file.FileName)).Replace("$fileName", file.FileName));
+                    var destFilePath = Path.Combine(Workflow.WorkflowTempFolder,
+                        OutputFilePattern.Replace("$fileNameWithoutExtension", Path.GetFileNameWithoutExtension(file.FileName)).Replace("$fileName", file.FileName));
 
                     using (Image img = Image.FromFile(file.Path))
                     {
-                        switch (this.OutputFormat)
+                        switch (OutputFormat)
                         {
                             case ImgFormat.Bmp:
                                 img.Save(destFilePath, ImageFormat.Bmp);
@@ -83,9 +80,9 @@ namespace Wexflow.Tasks.ImagesTransformer
                                 break;
                         }
                     }
-                    this.Files.Add(new FileInf(destFilePath, this.Id));
-                    this.InfoFormat("Image {0} transformed to {1}", file.Path, destFilePath);
-                    success &= true;
+                    Files.Add(new FileInf(destFilePath, Id));
+                    InfoFormat("Image {0} transformed to {1}", file.Path, destFilePath);
+                    
                     if (!atLeastOneSucceed) atLeastOneSucceed = true;
                 }
                 catch (ThreadAbortException)
@@ -94,8 +91,8 @@ namespace Wexflow.Tasks.ImagesTransformer
                 }
                 catch (Exception e)
                 {
-                    this.ErrorFormat("An error occured while transforming the image {0}. Error: {1}", file.Path, e.Message);
-                    success &= false;
+                    ErrorFormat("An error occured while transforming the image {0}. Error: {1}", file.Path, e.Message);
+                    success = false;
                 }
             }
 
@@ -110,7 +107,7 @@ namespace Wexflow.Tasks.ImagesTransformer
                 status = Status.Error;
             }
 
-            this.Info("Task finished.");
+            Info("Task finished.");
             return new TaskStatus(status, false);
         }
     }

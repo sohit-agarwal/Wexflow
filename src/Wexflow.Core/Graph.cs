@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Wexflow.Core
 {
@@ -17,10 +15,10 @@ namespace Wexflow.Core
             GraphEvent onWarning, 
             GraphEvent onError)
         {
-            if(nodes != null) this.Nodes = nodes.ToArray();
-            this.OnSuccess = onSuccess;
-            this.OnWarning = onWarning;
-            this.OnError = onError;
+            if(nodes != null) Nodes = nodes.ToArray();
+            OnSuccess = onSuccess;
+            OnWarning = onWarning;
+            OnError = onError;
         }
     }
 }

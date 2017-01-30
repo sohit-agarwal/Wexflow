@@ -50,7 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AsyncCallbackState.cs" />
     <Compile Include="Ftp.cs" />
     <Compile Include="PluginBase.cs" />
     <Compile Include="PluginFTP.cs" />

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Wexflow.Core
 {
@@ -12,8 +10,8 @@ namespace Wexflow.Core
 
         public DoWhile(int id, int parentId, int whileId, IEnumerable<Node> doNodes):base(id, parentId)
         {
-            this.While = whileId;
-            if (doNodes != null) this.DoNodes = doNodes.ToArray();
+            While = whileId;
+            if (doNodes != null) DoNodes = doNodes.ToArray();
         }
     }
 }

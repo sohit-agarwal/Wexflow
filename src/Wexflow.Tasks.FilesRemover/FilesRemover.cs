@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Wexflow.Core;
 using System.Xml.Linq;
 using System.IO;
@@ -18,22 +15,21 @@ namespace Wexflow.Tasks.FilesRemover
 
         public override TaskStatus Run()
         {
-            this.Info("Removing files...");
+            Info("Removing files...");
             
             bool success = true;
             bool atLeastOneSucceed = false;
 
-            FileInf[] files = this.SelectFiles();
+            var files = SelectFiles();
             for (int i = files.Length - 1; i > -1; i--)
             {
-                FileInf file = files[i];
+                var file = files[i];
 
                 try
                 {
                     File.Delete(file.Path);
-                    this.Workflow.FilesPerTask[file.TaskId].Remove(file);
-                    this.InfoFormat("File removed: {0}", file.Path);
-                    success &= true;
+                    Workflow.FilesPerTask[file.TaskId].Remove(file);
+                    InfoFormat("File removed: {0}", file.Path);
                     if (!atLeastOneSucceed) atLeastOneSucceed = true;
                 }
                 catch (ThreadAbortException)
@@ -42,8 +38,8 @@ namespace Wexflow.Tasks.FilesRemover
                 }
                 catch (Exception e)
                 {
-                    this.ErrorFormat("An error occured while deleting the file {0}", e, file.Path);
-                    success &= false;
+                    ErrorFormat("An error occured while deleting the file {0}", e, file.Path);
+                    success = false;
                 }
             }
 
@@ -58,7 +54,7 @@ namespace Wexflow.Tasks.FilesRemover
                 status = Status.Error;
             }
 
-            this.Info("Task finished.");
+            Info("Task finished.");
             return new TaskStatus(status, false);
         }
     }

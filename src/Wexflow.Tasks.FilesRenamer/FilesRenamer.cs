@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Wexflow.Core;
 using System.Xml.Linq;
 using System.Threading;
@@ -16,27 +13,27 @@ namespace Wexflow.Tasks.FilesRenamer
         public FilesRenamer(XElement xe, Workflow wf)
             : base(xe, wf)
         {
-            this.Overwrite = bool.Parse(this.GetSetting("overwrite", "false"));
+            Overwrite = bool.Parse(GetSetting("overwrite", "false"));
         }
 
         public override TaskStatus Run()
         {
-            this.Info("Renaming files...");
+            Info("Renaming files...");
 
             bool success = true;
             bool atLeastOneSucceed = false;
 
-            foreach (var file in this.SelectFiles())
+            foreach (var file in SelectFiles())
             {
                 try
                 {
                     if (!string.IsNullOrEmpty(file.RenameTo))
                     {
-                        string destPath = Path.Combine(Path.GetDirectoryName(file.Path), file.RenameTo);
+                        var destPath = Path.Combine(Path.GetDirectoryName(file.Path), file.RenameTo);
 
                         if (File.Exists(destPath))
                         {
-                            if (this.Overwrite)
+                            if (Overwrite)
                             {
                                 if (file.Path != destPath)
                                 {
@@ -44,23 +41,22 @@ namespace Wexflow.Tasks.FilesRenamer
                                 }
                                 else
                                 {
-                                    this.InfoFormat("The file {0} and its new name {1} are the same.", file.Path, file.RenameTo);
+                                    InfoFormat("The file {0} and its new name {1} are the same.", file.Path, file.RenameTo);
                                     continue;
                                 }
                             }
                             else
                             {
-                                this.ErrorFormat("The destination file {0} already exists.", destPath);
-                                success &= false;
+                                ErrorFormat("The destination file {0} already exists.", destPath);
+                                success = false;
                                 continue;
                             }
                         }
 
                         File.Move(file.Path, destPath);
-                        this.InfoFormat("File {0} renamed to {1}", file.Path, file.RenameTo);
+                        InfoFormat("File {0} renamed to {1}", file.Path, file.RenameTo);
                         file.Path = destPath;
                         file.RenameTo = string.Empty;
-                        success &= true;
                         if (!atLeastOneSucceed) atLeastOneSucceed = true;
                     }
                 }
@@ -70,8 +66,8 @@ namespace Wexflow.Tasks.FilesRenamer
                 }
                 catch (Exception e)
                 {
-                    this.ErrorFormat("An error occured while renaming the file {0} to {1}. Error: {2}", file.Path, file.RenameTo, e.Message);
-                    success &= false;
+                    ErrorFormat("An error occured while renaming the file {0} to {1}. Error: {2}", file.Path, file.RenameTo, e.Message);
+                    success = false;
                 }
             }
 
@@ -86,7 +82,7 @@ namespace Wexflow.Tasks.FilesRenamer
                 status = Status.Error;
             }
 
-            this.Info("Task finished.");
+            Info("Task finished.");
             return new TaskStatus(status, false);
         }
     }

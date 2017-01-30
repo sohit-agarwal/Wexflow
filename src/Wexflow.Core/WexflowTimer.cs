@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Diagnostics;
 
@@ -9,31 +6,35 @@ namespace Wexflow.Core
 {
     public class WexflowTimer
     {
-        public TimerCallback TimerCallback { get; private set; }
-        public object State { get; private set; }
-        public TimeSpan Period { get; private set; }
+        public TimerCallback TimerCallback { get; set; }
+        public object State { get; set; }
+        public TimeSpan Period { get; set; }
+
+		bool doWork;
 
         public WexflowTimer(TimerCallback timerCallback, object state, TimeSpan period)
         {
-            this.TimerCallback = timerCallback;
-            this.State = state;
-            this.Period = period;
+            TimerCallback = timerCallback;
+            State = state;
+            Period = period;
         }
 
         public void Start()
         {
-            Thread thread = new Thread(new ThreadStart(() =>
+			doWork = true;
+
+            var thread = new Thread(new ThreadStart(() =>
             {
-                Stopwatch stopwatch = new Stopwatch();
+                var stopwatch = new Stopwatch();
                 stopwatch.Start();
 
-                for(;;)
+				while(doWork)
                 {
-                    if (stopwatch.ElapsedMilliseconds >= this.Period.TotalMilliseconds)
+                    if (stopwatch.ElapsedMilliseconds >= Period.TotalMilliseconds)
                     {
                         stopwatch.Reset();
                         stopwatch.Start();
-                        this.TimerCallback.Invoke(this.State);
+                        TimerCallback.Invoke(State);
                     }
                     Thread.Sleep(100);
                 }
@@ -41,5 +42,10 @@ namespace Wexflow.Core
 
             thread.Start();
         }
+
+		public void Stop()
+		{
+			doWork = false;
+		}
     }
 }

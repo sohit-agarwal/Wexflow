@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Linq;
-using System.ServiceProcess;
-using System.Text;
+﻿using System.ServiceProcess;
 using Wexflow.Core;
 using System.Configuration;
 using System.ServiceModel;
-using System.ServiceModel.Description;
 
 namespace Wexflow.Clients.WindowsService
 {
@@ -18,42 +10,42 @@ namespace Wexflow.Clients.WindowsService
         public static string SettingsFile = ConfigurationManager.AppSettings["WexflowSettingsFile"];
         public static WexflowEngine WexflowEngine = new WexflowEngine(SettingsFile);
 
-        private ServiceHost serviceHost = null;
+        ServiceHost serviceHost;
         
         public WexflowWindowsService()
         {
             InitializeComponent();
-            this.ServiceName = "Wexflow";
+            ServiceName = "Wexflow";
             WexflowEngine.Run();
         }
 
         public void OnDebug()
         {
-            this.OnStart(null);
+            OnStart(null);
         }
 
         protected override void OnStart(string[] args)
         {
-            if (this.serviceHost != null)
+            if (serviceHost != null)
             {
-                this.serviceHost.Close();
+                serviceHost.Close();
             }
 
             // Create a ServiceHost for the WexflowService type and 
             // provide the base address.
-            this.serviceHost = new ServiceHost(typeof(WexflowService));
+            serviceHost = new ServiceHost(typeof(WexflowService));
                 
             // Open the ServiceHostBase to create listeners and start 
             // listening for messages.
-            this.serviceHost.Open();
+            serviceHost.Open();
         }
 
         protected override void OnStop()
         {
-            if (this.serviceHost != null)
+            if (serviceHost != null)
             {
-                this.serviceHost.Close();
-                this.serviceHost = null;
+                serviceHost.Close();
+                serviceHost = null;
             }
         }
     }

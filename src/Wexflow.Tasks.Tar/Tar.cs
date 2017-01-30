@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Wexflow.Core;
 using System.Xml.Linq;
 using System.Threading;
@@ -17,19 +14,19 @@ namespace Wexflow.Tasks.Tar
         public Tar(XElement xe, Workflow wf)
             : base(xe, wf)
         {
-            this.TarFileName = this.GetSetting("tarFileName");
+            TarFileName = GetSetting("tarFileName");
         }
 
         public override TaskStatus Run()
         {
-            this.Info("Creating tar archive...");
+            Info("Creating tar archive...");
 
             bool success = true;
 
-            FileInf[] files = this.SelectFiles();
+            var files = SelectFiles();
             if (files.Length > 0)
             {
-                string tarPath = Path.Combine(this.Workflow.WorkflowTempFolder, this.TarFileName);
+                var tarPath = Path.Combine(Workflow.WorkflowTempFolder, TarFileName);
 
                 try
                 {
@@ -46,7 +43,7 @@ namespace Wexflow.Tasks.Tar
 
                                 // Create a tar entry named as appropriate. You can set the name to anything,
                                 // but avoid names starting with drive or UNC.
-                                TarEntry entry = TarEntry.CreateTarEntry(tarName);
+                                var entry = TarEntry.CreateTarEntry(tarName);
 
                                 // Must set size, otherwise TarOutputStream will fail when output exceeds.
                                 entry.Size = fileSize;
@@ -57,7 +54,7 @@ namespace Wexflow.Tasks.Tar
                                 byte[] localBuffer = new byte[32 * 1024];
                                 while (true)
                                 {
-                                    int numRead = inputStream.Read(localBuffer, 0, localBuffer.Length);
+                                    var numRead = inputStream.Read(localBuffer, 0, localBuffer.Length);
                                     if (numRead <= 0)
                                     {
                                         break;
@@ -78,9 +75,8 @@ namespace Wexflow.Tasks.Tar
                         // Close is important to wrap things up and unlock the file.
                         tar.Close();
 
-                        this.InfoFormat("Tar {0} created.", tarPath);
-                        this.Files.Add(new FileInf(tarPath, this.Id));
-                        success &= true;
+                        InfoFormat("Tar {0} created.", tarPath);
+                        Files.Add(new FileInf(tarPath, Id));
                     }
                 }
                 catch (ThreadAbortException)
@@ -89,8 +85,8 @@ namespace Wexflow.Tasks.Tar
                 }
                 catch (Exception e)
                 {
-                    this.ErrorFormat("An error occured while creating the Tar {0}", e, tarPath);
-                    success &= false;
+                    ErrorFormat("An error occured while creating the Tar {0}", e, tarPath);
+                    success = false;
                 }
             }
 
@@ -101,7 +97,7 @@ namespace Wexflow.Tasks.Tar
                 status = Status.Error;
             }
 
-            this.Info("Task finished.");
+            Info("Task finished.");
             return new TaskStatus(status, false);
         }
     }

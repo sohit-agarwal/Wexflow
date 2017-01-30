@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Wexflow.Core;
 using System.Xml.Linq;
 using System.IO;
@@ -16,23 +13,23 @@ namespace Wexflow.Tasks.Rmdir
         public Rmdir(XElement xe, Workflow wf)
             : base(xe, wf)
         {
-            this.Folders = this.GetSettings("folder");
+            Folders = GetSettings("folder");
         }
 
         public override TaskStatus Run()
         {
-            this.Info("Removing folders...");
+            Info("Removing folders...");
             
             bool success = true;
             bool atLeastOneSucceed = false;
 
-            foreach (string folder in this.Folders)
+            foreach (string folder in Folders)
             {
                 try
                 {
                     RmdirRec(folder);
-                    this.InfoFormat("Folder {0} deleted.", folder);
-                    success &= true;
+                    InfoFormat("Folder {0} deleted.", folder);
+                    
                     if (!atLeastOneSucceed) atLeastOneSucceed = true;
                 }
                 catch (ThreadAbortException)
@@ -41,8 +38,8 @@ namespace Wexflow.Tasks.Rmdir
                 }
                 catch (Exception e)
                 {
-                    this.ErrorFormat("An error occured while deleting the folder {0}", e, folder);
-                    success &= false;
+                    ErrorFormat("An error occured while deleting the folder {0}", e, folder);
+                    success = false;
                 }
             }
 
@@ -57,11 +54,11 @@ namespace Wexflow.Tasks.Rmdir
                 status = Status.Error;
             }
 
-            this.Info("Task finished.");
+            Info("Task finished.");
             return new TaskStatus(status, false);
         }
 
-        private void RmdirRec(string folder)
+        void RmdirRec(string folder)
         {
             foreach (string file in Directory.GetFiles(folder)) File.Delete(file);
             foreach (string dir in Directory.GetDirectories(folder)) RmdirRec(dir);

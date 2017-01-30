@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Wexflow.Core;
 using System.Xml.Linq;
 using ICSharpCode.SharpZipLib.Zip;
@@ -17,19 +14,19 @@ namespace Wexflow.Tasks.Zip
         public Zip(XElement xe, Workflow wf)
             : base(xe, wf)
         {
-            this.ZipFileName = this.GetSetting("zipFileName");
+            ZipFileName = GetSetting("zipFileName");
         }
 
         public override TaskStatus Run()
         {
-            this.Info("Zipping files...");
+            Info("Zipping files...");
 
             bool success = true;
 
-            FileInf[] files = this.SelectFiles();
+            var files = SelectFiles();
             if(files.Length > 0)
             {
-                string zipPath = Path.Combine(this.Workflow.WorkflowTempFolder, this.ZipFileName);
+                var zipPath = Path.Combine(Workflow.WorkflowTempFolder, ZipFileName);
 
                 try
                 {
@@ -43,7 +40,7 @@ namespace Wexflow.Tasks.Zip
                         {
                             // Using GetFileName makes the result compatible with XP
                             // as the resulting path is not absolute.
-                            ZipEntry entry = new ZipEntry(Path.GetFileName(file.Path));
+                            var entry = new ZipEntry(Path.GetFileName(file.Path));
 
                             // Setup the entry data as required.
 
@@ -77,9 +74,8 @@ namespace Wexflow.Tasks.Zip
                         // Close is important to wrap things up and unlock the file.
                         s.Close();
 
-                        this.InfoFormat("Zip {0} created.", zipPath);
-                        this.Files.Add(new FileInf(zipPath, this.Id));
-                        success &= true;
+                        InfoFormat("Zip {0} created.", zipPath);
+                        Files.Add(new FileInf(zipPath, Id));
                     }
                 }
                 catch (ThreadAbortException)
@@ -88,8 +84,8 @@ namespace Wexflow.Tasks.Zip
                 }
                 catch (Exception e)
                 {
-                    this.ErrorFormat("An error occured while creating the Zip {0}", e, zipPath);
-                    success &= false;
+                    ErrorFormat("An error occured while creating the Zip {0}", e, zipPath);
+                    success = false;
                 }
             }
 
@@ -100,7 +96,7 @@ namespace Wexflow.Tasks.Zip
                 status = Status.Error;
             }
 
-            this.Info("Task finished.");
+            Info("Task finished.");
             return new TaskStatus(status, false);
         }
     }

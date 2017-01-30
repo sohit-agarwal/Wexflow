@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Wexflow.Core;
 using System.Xml.Linq;
 using System.IO;
@@ -16,24 +13,24 @@ namespace Wexflow.Tasks.Touch
         public Touch(XElement xe, Workflow wf)
             : base(xe, wf)
         {
-            this.TFiles = this.GetSettings("file");
+            TFiles = GetSettings("file");
         }
 
         public override TaskStatus Run()
         {
-            this.Info("Touching files...");
+            Info("Touching files...");
 
             bool success = true;
             bool atLeastOneSucceed = false;
 
-            foreach (string file in this.TFiles)
+            foreach (string file in TFiles)
             {
                 try
                 {
                     TouchFile(file);
-                    this.InfoFormat("File {0} created.", file);
-                    this.Files.Add(new FileInf(file, this.Id));
-                    success &= true;
+                    InfoFormat("File {0} created.", file);
+                    Files.Add(new FileInf(file, Id));
+                    
                     if (!atLeastOneSucceed) atLeastOneSucceed = true;
                 }
                 catch (ThreadAbortException)
@@ -42,8 +39,8 @@ namespace Wexflow.Tasks.Touch
                 }
                 catch (Exception e)
                 {
-                    this.ErrorFormat("An error occured while creating the file {0}", e, file);
-                    success &= false;
+                    ErrorFormat("An error occured while creating the file {0}", e, file);
+                    success = false;
                 }
             }
 
@@ -58,11 +55,11 @@ namespace Wexflow.Tasks.Touch
                 status = Status.Error;
             }
 
-            this.Info("Task finished.");
+            Info("Task finished.");
             return new TaskStatus(status, false);
         }
 
-        private void TouchFile(string file)
+        void TouchFile(string file)
         {
             using (File.Create(file)) { }
         }

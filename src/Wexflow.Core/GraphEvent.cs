@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Wexflow.Core
 {
@@ -11,7 +9,7 @@ namespace Wexflow.Core
 
         public GraphEvent(IEnumerable<Node> doNodes)
         {
-            if (doNodes != null) this.DoNodes = doNodes.ToArray();
+            if (doNodes != null) DoNodes = doNodes.ToArray();
         }
     }
 }

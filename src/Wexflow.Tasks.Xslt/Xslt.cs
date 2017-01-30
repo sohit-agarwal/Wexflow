@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Wexflow.Core;
 using System.Xml.Linq;
 using System.IO;
 using System.Xml.Xsl;
-using System.Xml.XPath;
 using Saxon.Api;
 using System.Threading;
 
@@ -21,66 +18,66 @@ namespace Wexflow.Tasks.Xslt
         public Xslt(XElement xe, Workflow wf)
             : base(xe, wf)
         {
-            this.XsltPath = this.GetSetting("xsltPath");
-            this.Version = this.GetSetting("version");
-            this.RemoveWexflowProcessingNodes = bool.Parse(this.GetSetting("removeWexflowProcessingNodes", "true"));
+            XsltPath = GetSetting("xsltPath");
+            Version = GetSetting("version");
+            RemoveWexflowProcessingNodes = bool.Parse(GetSetting("removeWexflowProcessingNodes", "true"));
         }
 
         public override TaskStatus Run()
         {
-            this.Info("Transforming files...");
+            Info("Transforming files...");
 
             bool success = true;
             bool atLeastOneSucceed = false;
 
-            foreach (FileInf file in this.SelectFiles())
+            foreach (FileInf file in SelectFiles())
             {
-                string destPath = Path.Combine(this.Workflow.WorkflowTempFolder,
+                var destPath = Path.Combine(Workflow.WorkflowTempFolder,
                     string.Format("{0}_{1:yyyy-MM-dd-HH-mm-ss-fff}.xml", Path.GetFileNameWithoutExtension(file.FileName), DateTime.Now));
 
                 try
                 {
-                    switch (this.Version)
+                    switch (Version)
                     {
                         case "1.0":
-                            XslCompiledTransform xslt = new XslCompiledTransform();
-                            xslt.Load(this.XsltPath);
+                            var xslt = new XslCompiledTransform();
+                            xslt.Load(XsltPath);
                             xslt.Transform(file.Path, destPath);
-                            this.InfoFormat("File transformed: {0} -> {1}", file.Path, destPath);
-                            this.Files.Add(new FileInf(destPath, this.Id));
+                            InfoFormat("File transformed: {0} -> {1}", file.Path, destPath);
+                            Files.Add(new FileInf(destPath, Id));
                             break;
                         case "2.0":
                             // Create a Processor instance.
-                            Processor processor = new Processor();
+                            var processor = new Processor();
 
                             // Load the source document.
-                            XdmNode input = processor.NewDocumentBuilder().Build(new Uri(file.Path));
+                            var input = processor.NewDocumentBuilder().Build(new Uri(file.Path));
 
                             // Create a transformer for the stylesheet.
-                            XsltTransformer transformer = processor.NewXsltCompiler().Compile(new Uri(this.XsltPath)).Load();
+                            var transformer = processor.NewXsltCompiler().Compile(new Uri(XsltPath)).Load();
 
                             // Set the root node of the source document to be the initial context node.
                             transformer.InitialContextNode = input;
 
                             // Create a serializer.
-                            Serializer serializer = new Serializer();
+                            var serializer = new Serializer();
                             serializer.SetOutputFile(destPath);
 
                             // Transform the source XML to System.out.
                             transformer.Run(serializer);
-                            this.InfoFormat("File transformed: {0} -> {1}", file.Path, destPath);
+                            InfoFormat("File transformed: {0} -> {1}", file.Path, destPath);
 
-                            this.Files.Add(new FileInf(destPath, this.Id));
+                            Files.Add(new FileInf(destPath, Id));
                             break;
                         default:
-                            this.Error("Error in version option. Available options: 1.0 or 2.0");
+                            Error("Error in version option. Available options: 1.0 or 2.0");
                             return new TaskStatus(Status.Error, false);
                     }
 
                     // Set renameTo and tags from /*//<WexflowProcessing>//<File> nodes
                     // Remove /*//<WexflowProcessing> nodes if necessary
 
-                    XDocument xdoc = XDocument.Load(destPath);
+                    var xdoc = XDocument.Load(destPath);
                     var xWexflowProcessings = xdoc.Descendants("WexflowProcessing");
                     foreach (var xWexflowProcessing in xWexflowProcessings)
                     {
@@ -89,15 +86,15 @@ namespace Wexflow.Tasks.Xslt
                         {
                             try
                             {
-                                int taskId = int.Parse(xFile.Attribute("taskId").Value);
+                                var taskId = int.Parse(xFile.Attribute("taskId").Value);
                                 string fileName = xFile.Attribute("name").Value;
-                                XAttribute xRenameTo = xFile.Attribute("renameTo");
+                                var xRenameTo = xFile.Attribute("renameTo");
                                 string renameTo = xRenameTo != null ? xRenameTo.Value : string.Empty;
-                                List<Tag> tags = (from xTag in xFile.Attributes()
+                                var tags = (from xTag in xFile.Attributes()
                                                   where xTag.Name != "taskId" && xTag.Name != "name" && xTag.Name != "renameTo" && xTag.Name != "path" && xTag.Name != "renameToOrName"
                                                   select new Tag(xTag.Name.ToString(), xTag.Value)).ToList();
 
-                                FileInf fileToEdit = (from f in this.Workflow.FilesPerTask[taskId]
+                                var fileToEdit = (from f in Workflow.FilesPerTask[taskId]
                                                       where f.FileName.Equals(fileName)
                                                       select f).FirstOrDefault();
 
@@ -105,11 +102,11 @@ namespace Wexflow.Tasks.Xslt
                                 {
                                     fileToEdit.RenameTo = renameTo;
                                     fileToEdit.Tags.AddRange(tags);
-                                    this.InfoFormat("File edited: {0}", fileToEdit.ToString());
+                                    InfoFormat("File edited: {0}", fileToEdit.ToString());
                                 }
                                 else
                                 {
-                                    this.ErrorFormat("Cannot find the File: {{fileName: {0}, taskId:{1}}}", fileName, taskId);
+                                    ErrorFormat("Cannot find the File: {{fileName: {0}, taskId:{1}}}", fileName, taskId);
                                 }
                             }
                             catch (ThreadAbortException)
@@ -118,17 +115,17 @@ namespace Wexflow.Tasks.Xslt
                             }
                             catch (Exception e)
                             {
-                                this.ErrorFormat("An error occured while editing the file: {0}. Error: {1}", xFile.ToString(), e.Message);
+                                ErrorFormat("An error occured while editing the file: {0}. Error: {1}", xFile.ToString(), e.Message);
                             }
                         }
                     }
 
-                    if (this.RemoveWexflowProcessingNodes)
+                    if (RemoveWexflowProcessingNodes)
                     {
                         xWexflowProcessings.Remove();
                         xdoc.Save(destPath);
                     }
-                    success &= true;
+                    
                     if (!atLeastOneSucceed) atLeastOneSucceed = true;
                 }
                 catch (ThreadAbortException)
@@ -137,8 +134,8 @@ namespace Wexflow.Tasks.Xslt
                 }
                 catch (Exception e)
                 {
-                    this.ErrorFormat("An error occured while transforming the file {0}", e, file.Path);
-                    success &= false;
+                    ErrorFormat("An error occured while transforming the file {0}", e, file.Path);
+                    success = false;
                 }
             }
 
@@ -153,7 +150,7 @@ namespace Wexflow.Tasks.Xslt
                 status = Status.Error;
             }
 
-            this.Info("Task finished.");
+            Info("Task finished.");
             return new TaskStatus(status, false);
         }
     }

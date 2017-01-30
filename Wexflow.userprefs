@@ -1,14 +1,11 @@
 ﻿<Properties StartupConfiguration="{81032249-78D9-4B89-8E22-A3C32562EA69}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="src/Wexflow.Clients.Eto.Manager/App.config">
-    <Files>
-      <File FileName="src/Wexflow.Clients.Manager/Form1.cs" Line="27" Column="2" />
-      <File FileName="src/Wexflow.Clients.Eto.Manager/App.config" Line="4" Column="51" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.ItemProperties.Wexflow.Clients.Wexflow.Clients.Cmd PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/home/aelassas/dev/Wexflow/src/Wexflow.Clients.Manager/SortableBindingList.cs" relfile="src/Wexflow.Clients.Manager/SortableBindingList.cs" line="127" column="20" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.Wexflow.Clients.Wexflow.Clients.Eto.Manager PreferredExecutionTarget="MonoDevelop.Default" />

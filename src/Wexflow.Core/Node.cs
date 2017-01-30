@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace Wexflow.Core
 {
     public class Node
@@ -12,8 +8,8 @@ namespace Wexflow.Core
 
         public Node(int id, int parentId)
         {
-            this.Id = id;
-            this.ParentId = parentId;
+            Id = id;
+            ParentId = parentId;
         }
     }
 }

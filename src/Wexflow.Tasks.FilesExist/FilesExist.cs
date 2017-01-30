@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Wexflow.Core;
 using System.Xml.Linq;
 using System.Threading;
@@ -17,25 +14,25 @@ namespace Wexflow.Tasks.FilesExist
         public FilesExist(XElement xe, Workflow wf)
             : base(xe, wf)
         {
-            this.FFiles = this.GetSettings("file");
-            this.Folders = this.GetSettings("folder");
+            FFiles = GetSettings("file");
+            Folders = GetSettings("folder");
         }
 
         public override TaskStatus Run()
         {
-            this.Info("Checking...");
+            Info("Checking...");
 
             bool success = true;
 
             try
             {
-                string xmlPath = Path.Combine(this.Workflow.WorkflowTempFolder,
+                var xmlPath = Path.Combine(Workflow.WorkflowTempFolder,
                        string.Format("FilesExist_{0:yyyy-MM-dd-HH-mm-ss-fff}.xml", DateTime.Now));
-                XDocument xdoc = new XDocument(new XElement("Root"));
-                XElement xFiles = new XElement("Files");
-                XElement xFolders = new XElement("Folders");
+                var xdoc = new XDocument(new XElement("Root"));
+                var xFiles = new XElement("Files");
+                var xFolders = new XElement("Folders");
 
-                foreach (var file in this.FFiles)
+                foreach (var file in FFiles)
                 {
                     xFiles.Add(new XElement("File",
                         new XAttribute("path", file),
@@ -43,7 +40,7 @@ namespace Wexflow.Tasks.FilesExist
                         new XAttribute("exists", File.Exists(file))));
                 }
 
-                foreach (var folder in this.Folders)
+                foreach (var folder in Folders)
                 {
                     xFolders.Add(new XElement("Folder",
                         new XAttribute("path", folder),
@@ -54,9 +51,8 @@ namespace Wexflow.Tasks.FilesExist
                 xdoc.Root.Add(xFiles);
                 xdoc.Root.Add(xFolders);
                 xdoc.Save(xmlPath);
-                this.Files.Add(new FileInf(xmlPath, this.Id));
-                this.InfoFormat("The result has been written in: {0}", xmlPath);
-                success &= true;
+                Files.Add(new FileInf(xmlPath, Id));
+                InfoFormat("The result has been written in: {0}", xmlPath);
             }
             catch (ThreadAbortException)
             {
@@ -64,8 +60,8 @@ namespace Wexflow.Tasks.FilesExist
             }
             catch (Exception e)
             {
-                this.ErrorFormat("An error occured while checking files and folders. Error: {0}", e.Message);
-                success &= false;
+                ErrorFormat("An error occured while checking files and folders. Error: {0}", e.Message);
+                success = false;
             }
 
             Status status = Status.Success;
@@ -75,7 +71,7 @@ namespace Wexflow.Tasks.FilesExist
                 status = Status.Error;
             }
 
-            this.Info("Task finished.");
+            Info("Task finished.");
             return new TaskStatus(status, false);
         }
     }

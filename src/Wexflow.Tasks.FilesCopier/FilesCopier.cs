@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Wexflow.Core;
 using System.Xml.Linq;
 using System.IO;
@@ -17,26 +14,25 @@ namespace Wexflow.Tasks.FilesCopier
         public FilesCopier(XElement xe, Workflow wf)
             : base(xe, wf)
         {
-            this.DestFolder = this.GetSetting("destFolder");
-            this.Overwrite = bool.Parse(this.GetSetting("overwrite"));
+            DestFolder = GetSetting("destFolder");
+            Overwrite = bool.Parse(GetSetting("overwrite"));
         }
 
         public override TaskStatus Run()
         {
-            this.Info("Copying files...");
+            Info("Copying files...");
 
             bool success = true;
             bool atLeastOneSucceed = false;
 
-            foreach (FileInf file in this.SelectFiles())
+            foreach (FileInf file in SelectFiles())
             {
-                string destPath = Path.Combine(this.DestFolder, file.FileName);
+                var destPath = Path.Combine(DestFolder, file.FileName);
                 try
                 {
-                    File.Copy(file.Path, destPath, this.Overwrite);
-                    this.Files.Add(new FileInf(destPath, this.Id));
-                    this.InfoFormat("File copied: {0} -> {1}", file.Path, destPath);
-                    success &= true;
+                    File.Copy(file.Path, destPath, Overwrite);
+                    Files.Add(new FileInf(destPath, Id));
+                    InfoFormat("File copied: {0} -> {1}", file.Path, destPath);
                     if (!atLeastOneSucceed) atLeastOneSucceed = true;
                 }
                 catch (ThreadAbortException)
@@ -45,8 +41,8 @@ namespace Wexflow.Tasks.FilesCopier
                 }
                 catch (Exception e)
                 {
-                    this.ErrorFormat("An error occured while copying the file {0} to {1}.", e, file.Path, destPath);
-                    success &= false;
+                    ErrorFormat("An error occured while copying the file {0} to {1}.", e, file.Path, destPath);
+                    success = false;
                 }
             }
             
@@ -61,7 +57,7 @@ namespace Wexflow.Tasks.FilesCopier
                 status = Status.Error;
             }
 
-            this.Info("Task finished.");
+            Info("Task finished.");
             return new TaskStatus(status, false);
         }
     }

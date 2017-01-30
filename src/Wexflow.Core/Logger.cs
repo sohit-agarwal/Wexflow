@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using log4net;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
@@ -10,7 +7,7 @@ namespace Wexflow.Core
 {
     public static class Logger
     {
-        private static readonly ILog logger = LogManager.GetLogger(typeof(Logger));
+        static readonly ILog logger = LogManager.GetLogger(typeof(Logger));
 
         public static void Info(string msg)
         {

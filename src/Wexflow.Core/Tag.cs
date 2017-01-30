@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace Wexflow.Core
 {
     public class Tag
@@ -12,8 +8,8 @@ namespace Wexflow.Core
 
         public Tag(string key, string value)
         {
-            this.Key = key;
-            this.Value = value;
+            Key = key;
+            Value = value;
         }
     }
 }

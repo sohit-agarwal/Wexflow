@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Wexflow.Core;
 using System.Xml.Linq;
 
@@ -16,17 +13,17 @@ namespace Wexflow.Tasks.ListEntities
 
         public override TaskStatus Run()
         {
-            this.Info("Listing entities...");
+            Info("Listing entities...");
             
-            foreach (List<Entity> entities in this.Workflow.EntitiesPerTask.Values)
+            foreach (List<Entity> entities in Workflow.EntitiesPerTask.Values)
             {
                 foreach (Entity entity in entities)
                 {
-                    this.InfoFormat("{{taskId: {0}, entity: {1}}}", entity.TaskId, entity);
+                    InfoFormat("{{taskId: {0}, entity: {1}}}", entity.TaskId, entity);
                 }
             }
 
-            this.Info("Task finished.");
+            Info("Task finished.");
             return new TaskStatus(Status.Success, false);
         }
     }

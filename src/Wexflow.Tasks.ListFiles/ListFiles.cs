@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Wexflow.Core;
 using System.Xml.Linq;
 using System.IO;
@@ -13,34 +11,35 @@ namespace Wexflow.Tasks.ListFiles
     {
         public ListFiles(XElement xe, Workflow wf)
             : base(xe, wf)
-        {}
+        {
+		}
 
         public override TaskStatus Run()
         {
-            this.Info("Listing files...");
+            Info("Listing files...");
             //System.Threading.Thread.Sleep(10 * 1000);
 
             bool success = true;
 
             try
             {
-                string xmlPath = Path.Combine(this.Workflow.WorkflowTempFolder,
+                var xmlPath = Path.Combine(Workflow.WorkflowTempFolder,
                     string.Format("ListFiles_{0:yyyy-MM-dd-HH-mm-ss-fff}.xml", DateTime.Now));
 
-                XDocument xdoc = new XDocument(new XElement("WexflowProcessing"));
+                var xdoc = new XDocument(new XElement("WexflowProcessing"));
 
-                XElement xWorkflow = new XElement("Workflow",
-                    new XAttribute("id", this.Workflow.Id),
-                    new XAttribute("name", this.Workflow.Name),
-                    new XAttribute("description", this.Workflow.Description));
+                var xWorkflow = new XElement("Workflow",
+                    new XAttribute("id", Workflow.Id),
+                    new XAttribute("name", Workflow.Name),
+                    new XAttribute("description", Workflow.Description));
 
-                XElement xFiles = new XElement("Files");
-                foreach (List<FileInf> files in this.Workflow.FilesPerTask.Values)
+                var xFiles = new XElement("Files");
+                foreach (List<FileInf> files in Workflow.FilesPerTask.Values)
                 {
                     foreach (FileInf file in files)
                     {
                         xFiles.Add(file.ToXElement());
-                        this.Info(file.ToString());
+                        Info(file.ToString());
                     }
                 }
 
@@ -48,10 +47,9 @@ namespace Wexflow.Tasks.ListFiles
                 xdoc.Root.Add(xWorkflow);
                 xdoc.Save(xmlPath);
 
-                FileInf xmlFile = new FileInf(xmlPath, this.Id);
-                this.Files.Add(xmlFile);
-                this.Info(xmlFile.ToString());
-                success &= true;
+                var xmlFile = new FileInf(xmlPath, Id);
+                Files.Add(xmlFile);
+                Info(xmlFile.ToString());
             }
             catch (ThreadAbortException)
             {
@@ -59,8 +57,8 @@ namespace Wexflow.Tasks.ListFiles
             }
             catch (Exception e)
             {
-                this.ErrorFormat("An error occured while listing files. Error: {0}", e.Message);
-                success &= false;
+                ErrorFormat("An error occured while listing files. Error: {0}", e.Message);
+                success = false;
             }
 
             Status status = Status.Success;
@@ -70,7 +68,7 @@ namespace Wexflow.Tasks.ListFiles
                 status = Status.Error;
             }
 
-            this.Info("Task finished.");
+            Info("Task finished.");
             return new TaskStatus(status, false);
         }
     }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using System.ServiceProcess;
 using System.Configuration;
@@ -10,7 +8,7 @@ namespace Wexflow.Clients.Manager
     public static class Program
     {
         public static string WEXFLOW_SERVICE_NAME = ConfigurationManager.AppSettings["WexflowServiceName"];
-        public static bool DEBUG_MODE = false;
+        public static bool DEBUG_MODE;
 
         /// <summary>
         /// Point d'entrée principal de l'application.
@@ -45,7 +43,7 @@ namespace Wexflow.Clients.Manager
 
         public static bool IsWexflowWindowsServiceRunning()
         {
-            ServiceController sc = new ServiceController(WEXFLOW_SERVICE_NAME);
+            var sc = new ServiceController(WEXFLOW_SERVICE_NAME);
             return sc.Status == ServiceControllerStatus.Running;
         }
     }

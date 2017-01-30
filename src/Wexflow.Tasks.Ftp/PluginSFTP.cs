@@ -1,53 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Wexflow.Core;
 using Renci.SshNet;
 using System.IO;
-using System.Threading;
 using Renci.SshNet.Sftp;
 
 namespace Wexflow.Tasks.Ftp
 {
     public class PluginSFTP:PluginBase
     {
-        public string PrivateKeyPath { get; private set; }
-        public string Passphrase { get; private set; }
+        public string PrivateKeyPath { get; set; }
+        public string Passphrase { get; set; }
 
         public PluginSFTP(Task task, string server, int port, string user, string password, string path, string privateKeyPath, string passphrase)
             :base(task, server, port, user, password, path)
         {
-            this.PrivateKeyPath = privateKeyPath;
-            this.Passphrase = passphrase;
+            PrivateKeyPath = privateKeyPath;
+            Passphrase = passphrase;
         }
 
-        private ConnectionInfo GetConnectionInfo()
+        ConnectionInfo GetConnectionInfo()
         {
             // Setup Credentials and Server Information
             ConnectionInfo connInfo = null;
 
-            if (!string.IsNullOrEmpty(this.PrivateKeyPath) && !string.IsNullOrEmpty(this.Passphrase))
+            if (!string.IsNullOrEmpty(PrivateKeyPath) && !string.IsNullOrEmpty(Passphrase))
             {
-                connInfo = new ConnectionInfo(this.Server, this.Port, this.User,
+                connInfo = new ConnectionInfo(Server, Port, User,
                     new AuthenticationMethod[]{
 
                         // Pasword based Authentication
-                        new PasswordAuthenticationMethod(this.User, this.Password),
+                        new PasswordAuthenticationMethod(User, Password),
 
                         // Key Based Authentication (using keys in OpenSSH Format)
-                        new PrivateKeyAuthenticationMethod(this.User,new PrivateKeyFile[]{ 
-                            new PrivateKeyFile(this.PrivateKeyPath, this.Passphrase)
+                        new PrivateKeyAuthenticationMethod(User,new PrivateKeyFile[]{ 
+                            new PrivateKeyFile(PrivateKeyPath, Passphrase)
                         })
                 });
             }
             else
             {
-                connInfo = new ConnectionInfo(this.Server, this.Port, this.User,
+                connInfo = new ConnectionInfo(Server, Port, User,
                        new AuthenticationMethod[]{
 
                                // Pasword based Authentication
-                               new PasswordAuthenticationMethod(this.User, this.Password)
+                               new PasswordAuthenticationMethod(User, Password)
                            });
             }
 
@@ -56,20 +52,20 @@ namespace Wexflow.Tasks.Ftp
 
         public override FileInf[] List()
         {
-            List<FileInf> files = new List<FileInf>();
+            var files = new List<FileInf>();
 
-            using (SftpClient client = new SftpClient(this.GetConnectionInfo()))
+            using (SftpClient client = new SftpClient(GetConnectionInfo()))
             {
                 client.Connect();
-                client.ChangeDirectory(this.Path);
+                client.ChangeDirectory(Path);
 
-                IEnumerable<SftpFile> sftpFiles = client.ListDirectory(".");
+                var sftpFiles = client.ListDirectory(".");
                 foreach (SftpFile file in sftpFiles)
                 {
                     if (file.IsRegularFile)
                     {
-                        files.Add(new FileInf(file.FullName, this.Task.Id));
-                        this.Task.InfoFormat("[PluginSFTP] file {0} found on {1}.", file.FullName, this.Server);
+                        files.Add(new FileInf(file.FullName, Task.Id));
+                        Task.InfoFormat("[PluginSFTP] file {0} found on {1}.", file.FullName, Server);
                     }
                 }
 
@@ -81,16 +77,16 @@ namespace Wexflow.Tasks.Ftp
 
         public override void Upload(FileInf file)
         {
-            using (SftpClient client = new SftpClient(this.GetConnectionInfo()))
+            using (SftpClient client = new SftpClient(GetConnectionInfo()))
             {
                 client.Connect();
-                client.ChangeDirectory(this.Path);
+                client.ChangeDirectory(Path);
 
                 using (FileStream fileStream = File.OpenRead(file.Path))
                 {
                     client.UploadFile(fileStream, file.RenameToOrName, true);
                 }
-                this.Task.InfoFormat("[PluginSFTP] file {0} sent to {1}.", file.Path, this.Server);
+                Task.InfoFormat("[PluginSFTP] file {0} sent to {1}.", file.Path, Server);
 
                 client.Disconnect();
             }
@@ -98,18 +94,18 @@ namespace Wexflow.Tasks.Ftp
 
         public override void Download(FileInf file)
         {
-            using (SftpClient client = new SftpClient(this.GetConnectionInfo()))
+            using (SftpClient client = new SftpClient(GetConnectionInfo()))
             {
                 client.Connect();
-                client.ChangeDirectory(this.Path);
+                client.ChangeDirectory(Path);
 
-                string destFileName = System.IO.Path.Combine(this.Task.Workflow.WorkflowTempFolder, file.FileName);
+                var destFileName = System.IO.Path.Combine(Task.Workflow.WorkflowTempFolder, file.FileName);
                 using (FileStream ostream = File.Create(destFileName))
                 {
                     client.DownloadFile(file.Path, ostream);
-                    this.Task.Files.Add(new FileInf(destFileName, this.Task.Id));
+                    Task.Files.Add(new FileInf(destFileName, Task.Id));
                 }
-                this.Task.InfoFormat("[PluginSFTP] file {0} downloaded from {1}.", file.Path, this.Server);
+                Task.InfoFormat("[PluginSFTP] file {0} downloaded from {1}.", file.Path, Server);
 
                 client.Disconnect();
             }
@@ -117,13 +113,13 @@ namespace Wexflow.Tasks.Ftp
 
         public override void Delete(FileInf file)
         {
-            using (SftpClient client = new SftpClient(this.GetConnectionInfo()))
+            using (SftpClient client = new SftpClient(GetConnectionInfo()))
             {
                 client.Connect();
-                client.ChangeDirectory(this.Path);
+                client.ChangeDirectory(Path);
 
                 client.DeleteFile(file.Path);
-                this.Task.InfoFormat("[PluginSFTP] file {0} deleted from {1}.", file.Path, this.Server);
+                Task.InfoFormat("[PluginSFTP] file {0} deleted from {1}.", file.Path, Server);
 
                 client.Disconnect();
             }

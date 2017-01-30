@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;;
 using Wexflow.Core;
 using System.Threading;
 using System.Xml.Linq;
@@ -31,33 +28,32 @@ namespace Wexflow.Tasks.Sql
 
     public class Sql:Task
     {
-        public Type DbType {get; private set;}
-        public string ConnectionString { get; private set; }
-        public string SqlScript { get; private set; }
+        public Type DbType {get; set;}
+        public string ConnectionString { get; set; }
+        public string SqlScript { get; set; }
 
         public Sql(XElement xe, Workflow wf)
             : base(xe, wf)
         {
-            this.DbType = (Type)Enum.Parse(typeof(Type), this.GetSetting("type"), true);
-            this.ConnectionString = this.GetSetting("connectionString");
-            this.SqlScript = this.GetSetting("sql", string.Empty);
+            DbType = (Type)Enum.Parse(typeof(Type), GetSetting("type"), true);
+            ConnectionString = GetSetting("connectionString");
+            SqlScript = GetSetting("sql", string.Empty);
         }
 
         public override TaskStatus Run()
         {
-            this.Info("Executing SQL scripts...");
+            Info("Executing SQL scripts...");
 
             bool success = true;
             bool atLeastOneSucceed = false;
 
-            // Execute this.SqlScript if necessary
+            // Execute SqlScript if necessary
             try
             {
-                if (!string.IsNullOrEmpty(this.SqlScript))
+                if (!string.IsNullOrEmpty(SqlScript))
                 {
-                    ExecuteSql(this.SqlScript);
-                    this.Info("The script has been executed through the sql option of the task.");
-                    success &= true;
+                    ExecuteSql(SqlScript);
+                    Info("The script has been executed through the sql option of the task.");
                 }
             }
             catch (ThreadAbortException)
@@ -66,19 +62,19 @@ namespace Wexflow.Tasks.Sql
             }
             catch (Exception e)
             {
-                this.ErrorFormat("An error occured while executing sql script. Error: {0}", e.Message);
-                success &= false;
+                ErrorFormat("An error occured while executing sql script. Error: {0}", e.Message);
+                success = false;
             }
 
             // Execute SQL files scripts
-            foreach (FileInf file in this.SelectFiles())
+            foreach (FileInf file in SelectFiles())
             {
                 try
                 {
-                    string sql = File.ReadAllText(file.Path);
+                    var sql = File.ReadAllText(file.Path);
                     ExecuteSql(sql);
-                    this.InfoFormat("The script {0} has been executed.", file.Path);
-                    success &= true;
+                    InfoFormat("The script {0} has been executed.", file.Path);
+
                     if (!atLeastOneSucceed) atLeastOneSucceed = true;
                 }
                 catch (ThreadAbortException)
@@ -87,8 +83,8 @@ namespace Wexflow.Tasks.Sql
                 }
                 catch (Exception e)
                 {
-                    this.ErrorFormat("An error occured while executing sql script {0}. Error: {1}", file.Path, e.Message);
-                    success &= false;
+                    ErrorFormat("An error occured while executing sql script {0}. Error: {1}", file.Path, e.Message);
+                    success = false;
                 }
             }
 
@@ -103,66 +99,66 @@ namespace Wexflow.Tasks.Sql
                 status = Status.Error;
             }
 
-            this.Info("Task finished.");
+            Info("Task finished.");
             return new TaskStatus(status, false);
         }
 
-        private void ExecuteSql(string sql)
+        void ExecuteSql(string sql)
         {
-            switch (this.DbType)
+            switch (DbType)
             {
                 case Type.SqlServer:
-                    using (SqlConnection conn = new SqlConnection(this.ConnectionString))
+                    using (SqlConnection conn = new SqlConnection(ConnectionString))
                     {
-                        SqlCommand comm = new SqlCommand(sql, conn);
+                        var comm = new SqlCommand(sql, conn);
                         conn.Open();
                         comm.ExecuteNonQuery();
                     }
                     break;
                 case Type.Access:
-                    using (OleDbConnection conn = new OleDbConnection(this.ConnectionString))
+                    using (OleDbConnection conn = new OleDbConnection(ConnectionString))
                     {
-                        OleDbCommand comm = new OleDbCommand(sql, conn);
+                        var comm = new OleDbCommand(sql, conn);
                         conn.Open();
                         comm.ExecuteNonQuery();
                     }
                     break;
                 case Type.Oracle:
-                    using (OracleConnection conn = new OracleConnection(this.ConnectionString))
+                    using (OracleConnection conn = new OracleConnection(ConnectionString))
                     {
-                        OracleCommand comm = new OracleCommand(sql, conn);
+                        var comm = new OracleCommand(sql, conn);
                         conn.Open();
                         comm.ExecuteNonQuery();
                     }
                     break;
                 case Type.MySql:
-                    using (MySqlConnection conn = new MySqlConnection(this.ConnectionString))
+                    using (MySqlConnection conn = new MySqlConnection(ConnectionString))
                     {
-                        MySqlCommand comm = new MySqlCommand(sql, conn);
+                        var comm = new MySqlCommand(sql, conn);
                         conn.Open();
                         comm.ExecuteNonQuery();
                     }
                     break;
                 case Type.Sqlite:
-                    using (SQLiteConnection conn = new SQLiteConnection(this.ConnectionString))
+                    using (SQLiteConnection conn = new SQLiteConnection(ConnectionString))
                     {
-                        SQLiteCommand comm = new SQLiteCommand(sql, conn);
+                        var comm = new SQLiteCommand(sql, conn);
                         conn.Open();
                         comm.ExecuteNonQuery();
                     }
                     break;
                 case Type.PostGreSql:
-                    using (NpgsqlConnection conn = new NpgsqlConnection(this.ConnectionString))
+                    using (NpgsqlConnection conn = new NpgsqlConnection(ConnectionString))
                     {
-                        NpgsqlCommand comm = new NpgsqlCommand(sql, conn);
+                        var comm = new NpgsqlCommand(sql, conn);
                         conn.Open();
                         comm.ExecuteNonQuery();
                     }
                     break;
                 case Type.Teradata:
-                    using (TdConnection conn = new TdConnection(this.ConnectionString))
+                    using (TdConnection conn = new TdConnection(ConnectionString))
                     {
-                        TdCommand comm = new TdCommand(sql, conn);
+                        var comm = new TdCommand(sql, conn);
                         conn.Open();
                         comm.ExecuteNonQuery();
                     }

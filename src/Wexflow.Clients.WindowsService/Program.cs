@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ServiceProcess;
-using System.Text;
-using System.Reflection;
+﻿using System.ServiceProcess;
 using System.Threading;
 
 namespace Wexflow.Clients.WindowsService
@@ -14,13 +9,13 @@ namespace Wexflow.Clients.WindowsService
         {
             if (args.Length > 0 && args[0].Equals("debug"))
             {
-                WexflowWindowsService service = new WexflowWindowsService();
+                var service = new WexflowWindowsService();
                 service.OnDebug();
                 Thread.Sleep(Timeout.Infinite);
             }
             else
             {
-                ServiceBase[] servicesToRun = new ServiceBase[] { new WexflowWindowsService() };
+                var servicesToRun = new [] { new WexflowWindowsService() };
                 ServiceBase.Run(servicesToRun);
             }
         }

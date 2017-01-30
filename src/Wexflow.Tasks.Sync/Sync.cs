@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Wexflow.Core;
 using System.Xml.Linq;
 using Microsoft.Synchronization;
@@ -19,13 +16,13 @@ namespace Wexflow.Tasks.Sync
         public Sync(XElement xe, Workflow wf)
             : base(xe, wf)
         {
-            this.SrcFolder = this.GetSetting("srcFolder");
-            this.destFolder = this.GetSetting("destFolder");
+            SrcFolder = GetSetting("srcFolder");
+            destFolder = GetSetting("destFolder");
         }
 
         public override TaskStatus Run()
         {
-            this.Info("Synchronising folders...");
+            Info("Synchronising folders...");
 
             bool success = true;
 
@@ -33,24 +30,23 @@ namespace Wexflow.Tasks.Sync
             {
                 string idFileName = "filesync.id";
 
-                Guid replica1Id = GetReplicaId(Path.Combine(this.SrcFolder, idFileName));
-                Guid replica2Id = GetReplicaId(Path.Combine(this.destFolder, idFileName));
+                var replica1Id = GetReplicaId(Path.Combine(SrcFolder, idFileName));
+                var replica2Id = GetReplicaId(Path.Combine(destFolder, idFileName));
 
                 // Set options for the sync operation
                 FileSyncOptions options = FileSyncOptions.ExplicitDetectChanges |
                          FileSyncOptions.RecycleDeletedFiles | FileSyncOptions.RecyclePreviousFileOnUpdates | FileSyncOptions.RecycleConflictLoserFiles;
 
-                FileSyncScopeFilter filter = new FileSyncScopeFilter();
+                var filter = new FileSyncScopeFilter();
                 filter.FileNameExcludes.Add(idFileName); // Exclude the id file
 
                 // Explicitly detect changes on both replicas upfront, to avoid two change 
                 // detection passes for the two-way sync
-                DetectChangesOnFileSystemReplica(replica1Id, this.SrcFolder, filter, options);
-                DetectChangesOnFileSystemReplica(replica2Id, this.destFolder, filter, options);
+                DetectChangesOnFileSystemReplica(replica1Id, SrcFolder, filter, options);
+                DetectChangesOnFileSystemReplica(replica2Id, destFolder, filter, options);
 
                 // Sync source to destination
-                SyncFileSystemReplicasOneWay(replica1Id, replica2Id, this.SrcFolder, this.destFolder, filter, options);
-                success &= true;
+                SyncFileSystemReplicasOneWay(replica1Id, replica2Id, SrcFolder, destFolder, filter, options);
             }
             catch (ThreadAbortException)
             {
@@ -59,7 +55,7 @@ namespace Wexflow.Tasks.Sync
             catch (Exception e)
             {
                 Logger.ErrorFormat("Error from File Sync Provider: {0}\n", e.Message);
-                success &= false;
+                success = false;
             }
 
             Status status = Status.Success;
@@ -69,7 +65,7 @@ namespace Wexflow.Tasks.Sync
                 status = Status.Error;
             }
 
-            this.Info("Task finished.");
+            Info("Task finished.");
             return new TaskStatus(status, false);
         }
 
@@ -107,17 +103,15 @@ namespace Wexflow.Tasks.Sync
                 destinationProvider = new FileSyncProvider(
                     destinationReplicaId, destinationReplicaRootPath, filter, options);
 
-                destinationProvider.AppliedChange +=
-                    new EventHandler<AppliedChangeEventArgs>(OnAppliedChange);
-                destinationProvider.SkippedChange +=
-                    new EventHandler<SkippedChangeEventArgs>(OnSkippedChange);
+                destinationProvider.AppliedChange += OnAppliedChange;
+                destinationProvider.SkippedChange += OnSkippedChange;
 
-                SyncOrchestrator agent = new SyncOrchestrator();
+                var agent = new SyncOrchestrator();
                 agent.LocalProvider = sourceProvider;
                 agent.RemoteProvider = destinationProvider;
                 agent.Direction = SyncDirectionOrder.Upload; // Sync source to destination
 
-                this.InfoFormat("Synchronizing changes to replica: {0}" , destinationProvider.RootDirectoryPath);
+                InfoFormat("Synchronizing changes to replica: {0}" , destinationProvider.RootDirectoryPath);
                 agent.Synchronize();
             }
             finally
@@ -133,27 +127,27 @@ namespace Wexflow.Tasks.Sync
             switch (args.ChangeType)
             {
                 case ChangeType.Create:
-                    this.InfoFormat("Applied CREATE for file {0}", args.NewFilePath);
+                    InfoFormat("Applied CREATE for file {0}", args.NewFilePath);
                     break;
                 case ChangeType.Delete:
-                    this.InfoFormat("Applied DELETE for file {0}", args.OldFilePath);
+                    InfoFormat("Applied DELETE for file {0}", args.OldFilePath);
                     break;
                 case ChangeType.Update:
-                    this.InfoFormat("Applied OVERWRITE for file {0}", args.OldFilePath);
+                    InfoFormat("Applied OVERWRITE for file {0}", args.OldFilePath);
                     break;
                 case ChangeType.Rename:
-                    this.InfoFormat("Applied RENAME for file {0} as {1}", args.OldFilePath, args.NewFilePath);
+                    InfoFormat("Applied RENAME for file {0} as {1}", args.OldFilePath, args.NewFilePath);
                     break;
             }
         }
 
         public void OnSkippedChange(object sender, SkippedChangeEventArgs args)
         {
-            this.ErrorFormat("Skipped applying {0} for {1} due to error.", args.ChangeType.ToString().ToUpper(),
+            ErrorFormat("Skipped applying {0} for {1} due to error.", args.ChangeType.ToString().ToUpper(),
                   (!string.IsNullOrEmpty(args.CurrentFilePath) ? args.CurrentFilePath : args.NewFilePath));
 
             if (args.Exception != null)
-                this.ErrorFormat("Error: {0}", args.Exception.Message);
+                ErrorFormat("Error: {0}", args.Exception.Message);
         }
 
         public Guid GetReplicaId(string idFilePath)
@@ -164,7 +158,7 @@ namespace Wexflow.Tasks.Sync
             {
                 using (StreamReader sr = File.OpenText(idFilePath))
                 {
-                    string strGuid = sr.ReadLine();
+                    var strGuid = sr.ReadLine();
                     if (!string.IsNullOrEmpty(strGuid))
                         replicaId = new Guid(strGuid);
                 }

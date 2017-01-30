@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using Wexflow.Core;
 using System.Xml.Linq;
@@ -19,21 +18,21 @@ namespace Wexflow.Tasks.XmlToCsv
 
         public override TaskStatus Run()
         {
-            this.Info("Creating csv files...");
+            Info("Creating csv files...");
 
             bool success = true;
             bool atLeastOneSucceed = false;
 
-            foreach (FileInf file in this.SelectFiles())
+            foreach (FileInf file in SelectFiles())
             {
                 try
                 {
-                    string csvPath = Path.Combine(this.Workflow.WorkflowTempFolder,
+                    var csvPath = Path.Combine(Workflow.WorkflowTempFolder,
                         string.Format("{0}_{1:yyyy-MM-dd-HH-mm-ss-fff}.csv", Path.GetFileNameWithoutExtension(file.FileName), DateTime.Now));
                     CreateCsv(file.Path, csvPath);
-                    this.InfoFormat("Csv file {0} created from {1}", csvPath, file.Path);
-                    this.Files.Add(new FileInf(csvPath, this.Id));
-                    success &= true;
+                    InfoFormat("Csv file {0} created from {1}", csvPath, file.Path);
+                    Files.Add(new FileInf(csvPath, Id));
+                    
                     if (!atLeastOneSucceed) atLeastOneSucceed = true;
                 }
                 catch (ThreadAbortException)
@@ -42,8 +41,8 @@ namespace Wexflow.Tasks.XmlToCsv
                 }
                 catch (Exception e)
                 {
-                    this.ErrorFormat("An error occured while creating the Csv from the file {0}.", e, file.Path);
-                    success &= false;
+                    ErrorFormat("An error occured while creating the Csv from the file {0}.", e, file.Path);
+                    success = false;
                 }
             }
 
@@ -58,18 +57,18 @@ namespace Wexflow.Tasks.XmlToCsv
                 status = Status.Error;
             }
 
-            this.Info("Task finished.");
+            Info("Task finished.");
             return new TaskStatus(status, false);
         }
 
-        private void CreateCsv(string xmlPath, string csvPath)
+        void CreateCsv(string xmlPath, string csvPath)
         {
-            XDocument xdoc = XDocument.Load(xmlPath);
+            var xdoc = XDocument.Load(xmlPath);
 
-            List<string> lines = new List<string>();
+            var lines = new List<string>();
             foreach (XElement xLine in xdoc.XPathSelectElements("Lines/Line"))
             {
-                StringBuilder sb = new StringBuilder();
+                var sb = new StringBuilder();
                 foreach (XElement xColumn in xLine.XPathSelectElements("Column"))
                 {
                     sb.Append(xColumn.Value).Append(";");

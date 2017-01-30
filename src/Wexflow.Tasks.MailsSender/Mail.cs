@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net.Mail;
+﻿using System.Net.Mail;
 using System.Net;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -19,16 +15,16 @@ namespace Wexflow.Tasks.MailsSender
 
         public Mail(string from, string[] to, string[] cc, string subject, string body)
         {
-            this.From = from;
-            this.To = to;
-            this.Cc = cc;
-            this.Subject = subject;
-            this.Body = body;
+            From = from;
+            To = to;
+            Cc = cc;
+            Subject = subject;
+            Body = body;
         }
 
         public void Send(string host, int port, bool enableSsl, string user, string password)
         {
-            SmtpClient smtp = new SmtpClient
+            var smtp = new SmtpClient
             {
                 Host = host,
                 Port = port,
@@ -40,11 +36,11 @@ namespace Wexflow.Tasks.MailsSender
 
             using (MailMessage msg = new MailMessage())
             {
-                msg.From = new MailAddress(this.From);
-                foreach (string to in this.To) msg.To.Add(new MailAddress(to));
-                foreach (string cc in this.Cc) msg.CC.Add(new MailAddress(cc));
-                msg.Subject = this.Subject;
-                msg.Body = this.Body;
+                msg.From = new MailAddress(From);
+                foreach (string to in To) msg.To.Add(new MailAddress(to));
+                foreach (string cc in Cc) msg.CC.Add(new MailAddress(cc));
+                msg.Subject = Subject;
+                msg.Body = Body;
 
                 smtp.Send(msg);
             }
@@ -53,8 +49,8 @@ namespace Wexflow.Tasks.MailsSender
         public static Mail Parse(XElement xe)
         {
             string from = xe.XPathSelectElement("From").Value;
-            string[] to = xe.XPathSelectElement("To").Value.Split(',');
-            string[] cc = xe.XPathSelectElement("Cc").Value.Split(',');
+            var to = xe.XPathSelectElement("To").Value.Split(',');
+            var cc = xe.XPathSelectElement("Cc").Value.Split(',');
             string subject = xe.XPathSelectElement("Subject").Value;
             string body = xe.XPathSelectElement("Body").Value;
 

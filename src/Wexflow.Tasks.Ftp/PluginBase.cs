@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Wexflow.Core;
+﻿using Wexflow.Core;
 
 namespace Wexflow.Tasks.Ftp
 {
@@ -22,14 +18,14 @@ namespace Wexflow.Tasks.Ftp
         public string Path { get; private set; }
         public Task Task { get; private set; }
 
-        public PluginBase(Task task, string server, int port, string user, string password, string path)
+		protected PluginBase(Task task, string server, int port, string user, string password, string path)
         {
-            this.Task = task;
-            this.Server = server;
-            this.Port = port;
-            this.User = user;
-            this.Password = password;
-            this.Path = path;
+            Task = task;
+            Server = server;
+            Port = port;
+            User = user;
+            Password = password;
+            Path = path;
         }
 
         public abstract FileInf[] List();

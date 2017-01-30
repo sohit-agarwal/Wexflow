@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;t;
 using Wexflow.Core;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -21,20 +18,20 @@ namespace Wexflow.Tasks.Twitter
         public Twitter(XElement xe, Workflow wf)
             : base(xe, wf)
         {
-            this.ConsumerKey = this.GetSetting("consumerKey");
-            this.ConsumerSecret = this.GetSetting("consumerSecret");
-            this.AccessToken = this.GetSetting("accessToken");
-            this.AccessTokenSecret = this.GetSetting("accessTokenSecret");
+            ConsumerKey = GetSetting("consumerKey");
+            ConsumerSecret = GetSetting("consumerSecret");
+            AccessToken = GetSetting("accessToken");
+            AccessTokenSecret = GetSetting("accessTokenSecret");
         }
 
         public override TaskStatus Run()
         {
-            this.Info("Sending tweets...");
+            Info("Sending tweets...");
 
             bool success = true;
             bool atLeastOneSucceed = false;
 
-            FileInf[] files = this.SelectFiles();
+            var files = SelectFiles();
 
             if (files.Length > 0)
             {
@@ -42,8 +39,8 @@ namespace Wexflow.Tasks.Twitter
                 try
                 {
                     service = new TwitterService();
-                    service.AuthenticateWith(this.ConsumerKey, this.ConsumerSecret, this.AccessToken, this.AccessTokenSecret);
-                    this.Info("Authentication succeeded.");
+                    service.AuthenticateWith(ConsumerKey, ConsumerSecret, AccessToken, AccessTokenSecret);
+                    Info("Authentication succeeded.");
                 }
                 catch (ThreadAbortException)
                 {
@@ -51,7 +48,7 @@ namespace Wexflow.Tasks.Twitter
                 }
                 catch (Exception e)
                 {
-                    this.ErrorFormat("Authentication failed.", e);
+                    ErrorFormat("Authentication failed.", e);
                     return new TaskStatus(Status.Error, false);
                 }
 
@@ -59,14 +56,14 @@ namespace Wexflow.Tasks.Twitter
                 {
                     try
                     {
-                        XDocument xdoc = XDocument.Load(file.Path);
+                        var xdoc = XDocument.Load(file.Path);
                         foreach (XElement xTweet in xdoc.XPathSelectElements("Tweets/Tweet"))
                         {
-                            String status = xTweet.Value;
-                            TwitterStatus tweet = service.SendTweet(new SendTweetOptions() { Status = status });
-                            this.InfoFormat("Tweet '{0}' sent. id: {1}", status, tweet.Id);
+                            var status = xTweet.Value;
+                            var tweet = service.SendTweet(new SendTweetOptions { Status = status });
+                            InfoFormat("Tweet '{0}' sent. id: {1}", status, tweet.Id);
                         }
-                        success &= true;
+                        
                         if (!atLeastOneSucceed) atLeastOneSucceed = true;
                     }
                     catch (ThreadAbortException)
@@ -75,8 +72,8 @@ namespace Wexflow.Tasks.Twitter
                     }
                     catch (Exception e)
                     {
-                        this.ErrorFormat("An error occured while sending the tweets of the file {0}.", e, file.Path);
-                        success &= false;
+                        ErrorFormat("An error occured while sending the tweets of the file {0}.", e, file.Path);
+                        success = false;
                     }
                 }
             }
@@ -92,7 +89,7 @@ namespace Wexflow.Tasks.Twitter
                 tstatus = Status.Error;
             }
 
-            this.Info("Task finished.");
+            Info("Task finished.");
             return new TaskStatus(tstatus, false);
         }
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using System.IO;
@@ -11,40 +10,40 @@ namespace Wexflow.Core
 {
     public class WexflowEngine
     {
-        public string SettingsFile { get; private set; }
-        public string WorkflowsFolder { get; private set; }
-        public string TempFolder { get; private set; }
-        public string XsdPath { get; private set; }
-        public Workflow[] Workflows { get; private set; }
+        public string SettingsFile { get; set; }
+        public string WorkflowsFolder { get; set; }
+        public string TempFolder { get; set; }
+        public string XsdPath { get; set; }
+        public Workflow[] Workflows { get; set; }
 
         public WexflowEngine(string settingsFile) 
         {
-            this.SettingsFile = settingsFile;
+            SettingsFile = settingsFile;
             LoadSettings();
             LoadWorkflows();
         }
 
-        private void LoadSettings()
+        void LoadSettings()
         {
-            XDocument xdoc = XDocument.Load(this.SettingsFile);
-            this.WorkflowsFolder = GetWexflowSetting(xdoc, "workflowsFolder");
-            this.TempFolder = GetWexflowSetting(xdoc, "tempFolder");
-            this.XsdPath = GetWexflowSetting(xdoc, "xsd");
+            var xdoc = XDocument.Load(SettingsFile);
+            WorkflowsFolder = GetWexflowSetting(xdoc, "workflowsFolder");
+            TempFolder = GetWexflowSetting(xdoc, "tempFolder");
+            XsdPath = GetWexflowSetting(xdoc, "xsd");
         }
 
-        private string GetWexflowSetting(XDocument xdoc, string name)
+        string GetWexflowSetting(XDocument xdoc, string name)
         {
             return xdoc.XPathSelectElement(string.Format("/Wexflow/Setting[@name='{0}']", name)).Attribute("value").Value;    
         }
 
-        private void LoadWorkflows()
+        void LoadWorkflows()
         { 
-            List<Workflow> workflows = new List<Workflow>();
-            foreach (string file in Directory.GetFiles(this.WorkflowsFolder))
+            var workflows = new List<Workflow>();
+            foreach (string file in Directory.GetFiles(WorkflowsFolder))
             {
                 try
                 {
-                    Workflow workflow = new Workflow(file, this.TempFolder, this.XsdPath);
+                    var workflow = new Workflow(file, TempFolder, XsdPath);
                     workflows.Add(workflow);
                     Logger.InfoFormat("Workflow loaded: {0}", workflow);
                 }
@@ -53,12 +52,12 @@ namespace Wexflow.Core
                     Logger.ErrorFormat("An error occured while loading the workflow : {0} Please check the workflow configuration. Error: {1}", file, e.Message);
                 }
             }
-            this.Workflows = workflows.ToArray();
+            Workflows = workflows.ToArray();
         }
 
         public void Run()
         {
-            foreach (Workflow workflow in this.Workflows)
+            foreach (Workflow workflow in Workflows)
             {
                 if (workflow.IsEnabled)
                 {
@@ -70,11 +69,11 @@ namespace Wexflow.Core
                     {
                         Action<object> callback = o =>
                         {
-                            Workflow wf = (Workflow)o;
+                            var wf = (Workflow)o;
                             if (!wf.IsRunning) wf.Start();
                         };
                         
-                        WexflowTimer timer = new WexflowTimer(new TimerCallback(callback), workflow, workflow.Period);
+                        var timer = new WexflowTimer(new TimerCallback(callback), workflow, workflow.Period);
                         timer.Start();
                     }
                 }
@@ -83,12 +82,12 @@ namespace Wexflow.Core
 
         public Workflow GetWorkflow(int workflowId)
         {
-            return this.Workflows.FirstOrDefault(wf => wf.Id == workflowId);
+            return Workflows.FirstOrDefault(wf => wf.Id == workflowId);
         }
 
         public void StartWorkflow(int workflowId)
         {
-            Workflow wf = GetWorkflow(workflowId);
+            var wf = GetWorkflow(workflowId);
 
             if (wf == null)
             {
@@ -102,7 +101,7 @@ namespace Wexflow.Core
 
         public void StopWorkflow(int workflowId)
         {
-            Workflow wf = GetWorkflow(workflowId);
+            var wf = GetWorkflow(workflowId);
 
             if (wf == null)
             {
@@ -116,7 +115,7 @@ namespace Wexflow.Core
 
         public void PauseWorkflow(int workflowId)
         {
-            Workflow wf = GetWorkflow(workflowId);
+            var wf = GetWorkflow(workflowId);
 
             if (wf == null)
             {
@@ -130,7 +129,7 @@ namespace Wexflow.Core
 
         public void ResumeWorkflow(int workflowId)
         {
-            Workflow wf = GetWorkflow(workflowId);
+            var wf = GetWorkflow(workflowId);
 
             if (wf == null)
             {

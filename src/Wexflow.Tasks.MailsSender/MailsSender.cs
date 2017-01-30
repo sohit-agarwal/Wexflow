@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Wexflow.Core;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -20,26 +17,26 @@ namespace Wexflow.Tasks.MailsSender
         public MailsSender(XElement xe, Workflow wf)
             : base(xe, wf)
         {
-            this.Host = this.GetSetting("host");
-            this.Port = int.Parse(this.GetSetting("port"));
-            this.EnableSsl = bool.Parse(this.GetSetting("enableSsl"));
-            this.User = this.GetSetting("user");
-            this.Password = this.GetSetting("password");
+            Host = GetSetting("host");
+            Port = int.Parse(GetSetting("port"));
+            EnableSsl = bool.Parse(GetSetting("enableSsl"));
+            User = GetSetting("user");
+            Password = GetSetting("password");
         }
 
         public override TaskStatus Run()
         {
-            this.Info("Sending mails...");
+            Info("Sending mails...");
 
             bool success = true;
             bool atLeastOneSucceed = false;
 
             try
             {
-                foreach (FileInf mailFile in this.SelectFiles())
+                foreach (FileInf mailFile in SelectFiles())
                 {
-                    XDocument xdoc = XDocument.Load(mailFile.Path);
-                    IEnumerable<XElement> xMails = xdoc.XPathSelectElements("Mails/Mail");
+                    var xdoc = XDocument.Load(mailFile.Path);
+                    var xMails = xdoc.XPathSelectElements("Mails/Mail");
 
                     int count = 1;
                     foreach (XElement xMail in xMails)
@@ -55,18 +52,18 @@ namespace Wexflow.Tasks.MailsSender
                         }
                         catch (Exception e)
                         {
-							this.ErrorFormat("An error occured while parsing the mail {0}. Please check the XML configuration according to the documentation. Error: {1}", count, e.Message);
-                            success &= false;
+							ErrorFormat("An error occured while parsing the mail {0}. Please check the XML configuration according to the documentation. Error: {1}", count, e.Message);
+                            success = false;
                             count++;
                             continue;
                         }
 
                         try
                         {
-                            mail.Send(this.Host, this.Port, this.EnableSsl, this.User, this.Password);
-                            this.InfoFormat("Mail {0} sent.", count);
+                            mail.Send(Host, Port, EnableSsl, User, Password);
+                            InfoFormat("Mail {0} sent.", count);
                             count++;
-                            success &= true;
+                            
                             if (!atLeastOneSucceed) atLeastOneSucceed = true;
                         }
                         catch (ThreadAbortException)
@@ -75,8 +72,8 @@ namespace Wexflow.Tasks.MailsSender
                         }
                         catch (Exception e)
                         {
-                            this.ErrorFormat("An error occured while sending the mail {0}. Error message: {1}", count, e.Message);
-                            success &= false;
+                            ErrorFormat("An error occured while sending the mail {0}. Error message: {1}", count, e.Message);
+                            success = false;
                         }
                     }
 
@@ -88,8 +85,8 @@ namespace Wexflow.Tasks.MailsSender
             }
             catch (Exception e)
             {
-                this.ErrorFormat("An error occured while sending mails.", e);
-                success &= false;
+                ErrorFormat("An error occured while sending mails.", e);
+                success = false;
             }
 
             Status status = Status.Success;
@@ -103,7 +100,7 @@ namespace Wexflow.Tasks.MailsSender
                 status = Status.Error;
             }
 
-            this.Info("Task finished.");
+            Info("Task finished.");
             return new TaskStatus(status, false);
         }
     }

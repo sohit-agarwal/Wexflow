@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Wexflow.Core;
 using System.Xml.Linq;
 using System.IO;
@@ -17,45 +14,44 @@ namespace Wexflow.Tasks.FilesMover
         public FilesMover(XElement xe, Workflow wf)
             : base(xe, wf)
         {
-            this.DestFolder = this.GetSetting("destFolder");
-            this.Overwrite = bool.Parse(this.GetSetting("overwrite", "false"));
+            DestFolder = GetSetting("destFolder");
+            Overwrite = bool.Parse(GetSetting("overwrite", "false"));
         }
 
         public override TaskStatus Run()
         {
-            this.Info("Moving files...");
+            Info("Moving files...");
 
             bool success = true;
             bool atLeastOneSucceed = false;
 
-            FileInf[] files = this.SelectFiles();
+            var files = SelectFiles();
             for (int i = files.Length - 1; i > -1 ; i--) 
             {
-                FileInf file = files[i];
-                string destFilePath = Path.Combine(this.DestFolder, Path.GetFileName(file.Path));
+                var file = files[i];
+                var destFilePath = Path.Combine(DestFolder, Path.GetFileName(file.Path));
 
                 try
                 {
                     if (File.Exists(destFilePath))
                     {
-                        if (this.Overwrite)
+                        if (Overwrite)
                         {
                             File.Delete(destFilePath);
                         }
                         else
                         {
-                            this.ErrorFormat("Destination file {0} already exists.", destFilePath);
-                            success &= false;
+                            ErrorFormat("Destination file {0} already exists.", destFilePath);
+                            success = false;
                             continue;
                         }
                     }
 
                     File.Move(file.Path, destFilePath);
-                    FileInf fi = new FileInf(destFilePath, this.Id);
-                    this.Files.Add(fi);
-                    this.Workflow.FilesPerTask[file.TaskId].Remove(file);
-                    this.InfoFormat("File moved: {0} -> {1}", file.Path, destFilePath);
-                    success &= true;
+                    var fi = new FileInf(destFilePath, Id);
+                    Files.Add(fi);
+                    Workflow.FilesPerTask[file.TaskId].Remove(file);
+                    InfoFormat("File moved: {0} -> {1}", file.Path, destFilePath);
                     if (!atLeastOneSucceed) atLeastOneSucceed = true;
                 }
                 catch (ThreadAbortException)
@@ -64,8 +60,8 @@ namespace Wexflow.Tasks.FilesMover
                 }
                 catch (Exception e)
                 { 
-                    this.ErrorFormat("An error occured while moving the file {0} to {1}", e, file.Path, destFilePath);
-                    success &= false;
+                    ErrorFormat("An error occured while moving the file {0} to {1}", e, file.Path, destFilePath);
+                    success = false;
                 }
             }
 
@@ -80,7 +76,7 @@ namespace Wexflow.Tasks.FilesMover
                 status = Status.Error;
             }
 
-            this.Info("Task finished.");
+            Info("Task finished.");
             return new TaskStatus(status, false);
         }
     }

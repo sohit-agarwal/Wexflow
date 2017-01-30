@@ -7,7 +7,6 @@ using System.Configuration;
 using Wexflow.Core.Service.Client;
 using Wexflow.Core.Service.Contracts;
 using System.Collections.ObjectModel;
-using System.Timers;
 
 namespace Wexflow.Clients.Eto.Manager
 {
@@ -25,7 +24,7 @@ namespace Wexflow.Clients.Eto.Manager
 		GridView gvWorkflows;
 		WexflowServiceClient wexflowServiceClient;
 		Dictionary<int, WorkflowInfo> workflowsPerId;
-        UITimer timer = new UITimer() { Interval = 0.5 };
+        UITimer timer = new UITimer { Interval = 0.5 };
 
         public Form1()
         {

@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Wexflow.Core;
-using System.Runtime.Serialization;
 using Wexflow.Core.Service.Contracts;
 
 namespace Wexflow.Clients.Manager
@@ -18,17 +13,17 @@ namespace Wexflow.Clients.Manager
 
         public WorkflowDataInfo(int id, string name, LaunchType launchType, bool isEnabled, string desc)
         {
-            this.Id = id;
-            this.Name = name;
-            this.LaunchType = launchType;
-            this.IsEnabled = isEnabled;
-            this.Description = desc;
+            Id = id;
+            Name = name;
+            LaunchType = launchType;
+            IsEnabled = isEnabled;
+            Description = desc;
         }
 
         public int CompareTo(object obj)
         {
-            WorkflowDataInfo wf = (WorkflowDataInfo)obj;
-            return wf.Id.CompareTo(this.Id);
+            var wf = (WorkflowDataInfo)obj;
+            return wf.Id.CompareTo(Id);
         }
     }
 }

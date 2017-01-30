@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace Wexflow.Core
 {
     public enum Status
@@ -22,12 +18,12 @@ namespace Wexflow.Core
 
         public TaskStatus(Status status)
         {
-            this.Status = status;
+            Status = status;
         }
 
         public TaskStatus(Status status, bool condition) : this(status)
         {
-            this.Condition = condition;
+            Condition = condition;
         }
     }
 }
