@@ -88,7 +88,7 @@ namespace Wexflow.Tasks.Sql
                 }
             }
 
-            Status status = Status.Success;
+            var status = Status.Success;
 
             if (!success && atLeastOneSucceed)
             {
@@ -108,7 +108,7 @@ namespace Wexflow.Tasks.Sql
             switch (DbType)
             {
                 case Type.SqlServer:
-                    using (SqlConnection conn = new SqlConnection(ConnectionString))
+                    using (var conn = new SqlConnection(ConnectionString))
                     {
                         var comm = new SqlCommand(sql, conn);
                         conn.Open();
@@ -116,7 +116,7 @@ namespace Wexflow.Tasks.Sql
                     }
                     break;
                 case Type.Access:
-                    using (OleDbConnection conn = new OleDbConnection(ConnectionString))
+                    using (var conn = new OleDbConnection(ConnectionString))
                     {
                         var comm = new OleDbCommand(sql, conn);
                         conn.Open();
@@ -124,7 +124,7 @@ namespace Wexflow.Tasks.Sql
                     }
                     break;
                 case Type.Oracle:
-                    using (OracleConnection conn = new OracleConnection(ConnectionString))
+                    using (var conn = new OracleConnection(ConnectionString))
                     {
                         var comm = new OracleCommand(sql, conn);
                         conn.Open();
@@ -132,7 +132,7 @@ namespace Wexflow.Tasks.Sql
                     }
                     break;
                 case Type.MySql:
-                    using (MySqlConnection conn = new MySqlConnection(ConnectionString))
+                    using (var conn = new MySqlConnection(ConnectionString))
                     {
                         var comm = new MySqlCommand(sql, conn);
                         conn.Open();
@@ -140,7 +140,7 @@ namespace Wexflow.Tasks.Sql
                     }
                     break;
                 case Type.Sqlite:
-                    using (SQLiteConnection conn = new SQLiteConnection(ConnectionString))
+                    using (var conn = new SQLiteConnection(ConnectionString))
                     {
                         var comm = new SQLiteCommand(sql, conn);
                         conn.Open();
@@ -148,7 +148,7 @@ namespace Wexflow.Tasks.Sql
                     }
                     break;
                 case Type.PostGreSql:
-                    using (NpgsqlConnection conn = new NpgsqlConnection(ConnectionString))
+                    using (var conn = new NpgsqlConnection(ConnectionString))
                     {
                         var comm = new NpgsqlCommand(sql, conn);
                         conn.Open();
@@ -156,7 +156,7 @@ namespace Wexflow.Tasks.Sql
                     }
                     break;
                 case Type.Teradata:
-                    using (TdConnection conn = new TdConnection(ConnectionString))
+                    using (var conn = new TdConnection(ConnectionString))
                     {
                         var comm = new TdCommand(sql, conn);
                         conn.Open();

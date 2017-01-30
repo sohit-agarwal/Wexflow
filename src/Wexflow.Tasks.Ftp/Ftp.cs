@@ -36,17 +36,17 @@ namespace Wexflow.Tasks.Ftp
             var protocol = (Protocol)Enum.Parse(typeof(Protocol), GetSetting("protocol"), true);
             switch (protocol)
             { 
-                case Protocol.FTP:
-                    _plugin = new PluginFTP(this, server, port, user, password, path);
+                case Protocol.Ftp:
+                    _plugin = new PluginFtp(this, server, port, user, password, path);
                     break;
-                case Protocol.FTPS:
+                case Protocol.Ftps:
                     var encryptionMode = (EncryptionMode)Enum.Parse(typeof(EncryptionMode), GetSetting("encryption"), true);
-                    _plugin = new PluginFTPS(this, server, port, user, password, path, encryptionMode);
+                    _plugin = new PluginFtps(this, server, port, user, password, path, encryptionMode);
                     break;
-                case Protocol.SFTP:
+                case Protocol.Sftp:
                     var privateKeyPath = GetSetting("privateKeyPath", string.Empty);
                     var passphrase = GetSetting("passphrase", string.Empty);
-                    _plugin = new PluginSFTP(this, server, port, user, password, path, privateKeyPath, passphrase);
+                    _plugin = new PluginSftp(this, server, port, user, password, path, privateKeyPath, passphrase);
                     break;
             }
             _cmd = (FtpCommad)Enum.Parse(typeof(FtpCommad), GetSetting("command"), true);
@@ -148,7 +148,7 @@ namespace Wexflow.Tasks.Ftp
                 }
             }
 
-            Status status = Status.Success;
+            var status = Status.Success;
 
             if (!success && atLeastOneSucceed)
             {

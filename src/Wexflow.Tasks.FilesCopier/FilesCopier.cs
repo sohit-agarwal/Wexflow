@@ -46,7 +46,7 @@ namespace Wexflow.Tasks.FilesCopier
                 }
             }
             
-            Status status = Status.Success;
+            var status = Status.Success;
 
             if (!success && atLeastOneSucceed)
             {

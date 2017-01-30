@@ -6,11 +6,11 @@ using System.IO;
 
 namespace Wexflow.Tasks.Ftp
 {
-    public class PluginFTP : PluginBase
+    public class PluginFtp : PluginBase
     {
-        const int BUFFER_SIZE = 8192;
+        const int BufferSize = 8192;
 
-        public PluginFTP(Task task, string server, int port, string user, string password, string path)
+        public PluginFtp(Task task, string server, int port, string user, string password, string path)
             :base(task, server, port, user, password, path)
         {
         }
@@ -19,10 +19,7 @@ namespace Wexflow.Tasks.Ftp
         {
             var files = new List<FileInf>();
 
-            var client = new FtpClient();
-            client.Host = Server;
-            client.Port = Port;
-            client.Credentials = new NetworkCredential(User, Password);
+            var client = new FtpClient {Host = Server, Port = Port, Credentials = new NetworkCredential(User, Password)};
 
             client.Connect();
             client.SetWorkingDirectory(Path);
@@ -57,10 +54,7 @@ namespace Wexflow.Tasks.Ftp
 
         public override void Upload(FileInf file)
         {
-            var client = new FtpClient();
-            client.Host = Server;
-            client.Port = Port;
-            client.Credentials = new NetworkCredential(User, Password);
+            var client = new FtpClient {Host = Server, Port = Port, Credentials = new NetworkCredential(User, Password)};
 
             client.Connect();
             client.SetWorkingDirectory(Path);
@@ -76,10 +70,10 @@ namespace Wexflow.Tasks.Ftp
             using (Stream istream = File.Open(file.Path, FileMode.Open, FileAccess.Read))
             using (Stream ostream = client.OpenWrite(file.RenameToOrName, FtpDataType.Binary))
             {
-                byte[] buffer = new byte[BUFFER_SIZE];
+                var buffer = new byte[BufferSize];
                 int r;
 
-                while ((r = istream.Read(buffer, 0, BUFFER_SIZE)) > 0)
+                while ((r = istream.Read(buffer, 0, BufferSize)) > 0)
                 {
                     ostream.Write(buffer, 0, r);
                 }
@@ -88,10 +82,7 @@ namespace Wexflow.Tasks.Ftp
 
         public override void Download(FileInf file)
         {
-            var client = new FtpClient();
-            client.Host = Server;
-            client.Port = Port;
-            client.Credentials = new NetworkCredential(User, Password);
+            var client = new FtpClient {Host = Server, Port = Port, Credentials = new NetworkCredential(User, Password)};
 
             client.Connect();
             client.SetWorkingDirectory(Path);
@@ -114,8 +105,8 @@ namespace Wexflow.Tasks.Ftp
                 // modes and some servers won't even give a file size for ASCII files! It is
                 // recommended that you stick with Binary and worry about character encodings
                 // on your end of the connection.
-                int bufferSize = 8192;
-                byte[] buffer = new byte[bufferSize];
+                const int bufferSize = 8192;
+                var buffer = new byte[bufferSize];
                 int r;
 
                 while ((r = istream.Read(buffer, 0, bufferSize)) > 0)
@@ -128,10 +119,7 @@ namespace Wexflow.Tasks.Ftp
 
         public override void Delete(FileInf file)
         {
-            var client = new FtpClient();
-            client.Host = Server;
-            client.Port = Port;
-            client.Credentials = new NetworkCredential(User, Password);
+            var client = new FtpClient {Host = Server, Port = Port, Credentials = new NetworkCredential(User, Password)};
 
             client.Connect();
             client.SetWorkingDirectory(Path);

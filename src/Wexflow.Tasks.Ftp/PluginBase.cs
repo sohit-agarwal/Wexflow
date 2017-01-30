@@ -4,9 +4,9 @@ namespace Wexflow.Tasks.Ftp
 {
     public enum Protocol
     { 
-        FTP,
-        FTPS,
-        SFTP
+        Ftp,
+        Ftps,
+        Sftp
     }
 
     public abstract class PluginBase

@@ -30,7 +30,7 @@ namespace Wexflow.Tasks.Tar
 
                 try
                 {
-                    using (TarOutputStream tar = new TarOutputStream(File.Create(tarPath)))
+                    using (var tar = new TarOutputStream(File.Create(tarPath)))
                     {
 
                         foreach (FileInf file in files)
@@ -51,7 +51,7 @@ namespace Wexflow.Tasks.Tar
                                 // Add the entry to the tar stream, before writing the data.
                                 tar.PutNextEntry(entry);
 
-                                byte[] localBuffer = new byte[32 * 1024];
+                                var localBuffer = new byte[32 * 1024];
                                 while (true)
                                 {
                                     var numRead = inputStream.Read(localBuffer, 0, localBuffer.Length);
@@ -90,7 +90,7 @@ namespace Wexflow.Tasks.Tar
                 }
             }
 
-            Status status = Status.Success;
+            var status = Status.Success;
 
             if (!success)
             {

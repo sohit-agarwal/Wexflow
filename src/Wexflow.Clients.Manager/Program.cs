@@ -7,8 +7,8 @@ namespace Wexflow.Clients.Manager
 {
     public static class Program
     {
-        public static string WEXFLOW_SERVICE_NAME = ConfigurationManager.AppSettings["WexflowServiceName"];
-        public static bool DEBUG_MODE;
+        public static string WexflowServiceName = ConfigurationManager.AppSettings["WexflowServiceName"];
+        public static bool DebugMode;
 
         /// <summary>
         /// Point d'entrée principal de l'application.
@@ -18,7 +18,7 @@ namespace Wexflow.Clients.Manager
         {
             if (args.Length > 0 && args[0].Equals("debug"))
             {
-                DEBUG_MODE = true;
+                DebugMode = true;
                 RunForm1();
             }
             else
@@ -43,7 +43,7 @@ namespace Wexflow.Clients.Manager
 
         public static bool IsWexflowWindowsServiceRunning()
         {
-            var sc = new ServiceController(WEXFLOW_SERVICE_NAME);
+            var sc = new ServiceController(WexflowServiceName);
             return sc.Status == ServiceControllerStatus.Running;
         }
     }

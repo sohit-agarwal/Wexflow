@@ -10,7 +10,7 @@ namespace Wexflow.Core
         public object State { get; set; }
         public TimeSpan Period { get; set; }
 
-		bool doWork;
+		bool _doWork;
 
         public WexflowTimer(TimerCallback timerCallback, object state, TimeSpan period)
         {
@@ -21,31 +21,31 @@ namespace Wexflow.Core
 
         public void Start()
         {
-			doWork = true;
+			_doWork = true;
 
-            var thread = new Thread(new ThreadStart(() =>
-            {
-                var stopwatch = new Stopwatch();
-                stopwatch.Start();
-
-				while(doWork)
+            var thread = new Thread(() =>
                 {
-                    if (stopwatch.ElapsedMilliseconds >= Period.TotalMilliseconds)
+                    var stopwatch = new Stopwatch();
+                    stopwatch.Start();
+
+                    while(_doWork)
                     {
-                        stopwatch.Reset();
-                        stopwatch.Start();
-                        TimerCallback.Invoke(State);
+                        if (stopwatch.ElapsedMilliseconds >= Period.TotalMilliseconds)
+                        {
+                            stopwatch.Reset();
+                            stopwatch.Start();
+                            TimerCallback.Invoke(State);
+                        }
+                        Thread.Sleep(100);
                     }
-                    Thread.Sleep(100);
-                }
-            }));
+                });
 
             thread.Start();
         }
 
 		public void Stop()
 		{
-			doWork = false;
+			_doWork = false;
 		}
     }
 }

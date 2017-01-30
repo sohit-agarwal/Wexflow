@@ -43,7 +43,7 @@ namespace Wexflow.Tasks.FilesRemover
                 }
             }
 
-            Status status = Status.Success;
+            var status = Status.Success;
 
             if (!success && atLeastOneSucceed)
             {

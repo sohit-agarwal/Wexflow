@@ -71,7 +71,7 @@ namespace Wexflow.Tasks.FilesRenamer
                 }
             }
 
-            Status status = Status.Success;
+            var status = Status.Success;
 
             if (!success && atLeastOneSucceed)
             {

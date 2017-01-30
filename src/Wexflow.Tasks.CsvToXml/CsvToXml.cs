@@ -42,7 +42,7 @@ namespace Wexflow.Tasks.CsvToXml
                 }
             }
 
-            Status status = Status.Success;
+            var status = Status.Success;
 
             if (!success && atLeastOneSucceed)
             {

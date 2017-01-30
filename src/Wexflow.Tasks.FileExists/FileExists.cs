@@ -19,7 +19,7 @@ namespace Wexflow.Tasks.FileExists
         {
             Info("Checking file...");
             
-            bool success = false;
+            bool success;
 
             try
             {

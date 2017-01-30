@@ -5,11 +5,11 @@ using System.Net;
 
 namespace Wexflow.Tasks.Ftp
 {
-    public class PluginFTPS: PluginBase
+    public class PluginFtps: PluginBase
     {
 		readonly FtpEncryptionMode _encryptionMode;
 
-        public PluginFTPS(Task task, string server, int port, string user, string password, string path, EncryptionMode encryptionMode)
+        public PluginFtps(Task task, string server, int port, string user, string password, string path, EncryptionMode encryptionMode)
             :base(task, server, port, user, password, path)
         {
             switch (encryptionMode)
@@ -27,17 +27,19 @@ namespace Wexflow.Tasks.Ftp
         {
             var files = new List<FileInf>();
 
-            var client = new FtpClient();
-            client.Host = Server;
-            client.Port = Port;
-            client.Credentials = new NetworkCredential(User, Password);
-            client.DataConnectionType = FtpDataConnectionType.PASV;
-            client.EncryptionMode = _encryptionMode;
+            var client = new FtpClient
+                {
+                    Host = Server,
+                    Port = Port,
+                    Credentials = new NetworkCredential(User, Password),
+                    DataConnectionType = FtpDataConnectionType.PASV,
+                    EncryptionMode = _encryptionMode
+                };
 
             client.Connect();
             client.SetWorkingDirectory(Path);
 
-            var ftpFiles = PluginFTP.ListFiles(client, Task.Id);
+            var ftpFiles = PluginFtp.ListFiles(client, Task.Id);
             files.AddRange(ftpFiles);
 
             foreach (var file in files)
@@ -51,10 +53,7 @@ namespace Wexflow.Tasks.Ftp
 
         public override void Upload(FileInf file)
         {
-            var client = new FtpClient();
-            client.Host = Server;
-            client.Port = Port;
-            client.Credentials = new NetworkCredential(User, Password);
+            var client = new FtpClient {Host = Server, Port = Port, Credentials = new NetworkCredential(User, Password)};
             client.ValidateCertificate += OnValidateCertificate;
             client.DataConnectionType = FtpDataConnectionType.PASV;
             client.EncryptionMode = _encryptionMode;
@@ -62,7 +61,7 @@ namespace Wexflow.Tasks.Ftp
             client.Connect();
             client.SetWorkingDirectory(Path);
 
-            PluginFTP.UploadFile(client, file);
+            PluginFtp.UploadFile(client, file);
             Task.InfoFormat("[PluginFTPS] file {0} sent to {1}.", file.Path, Server);
 
             client.Disconnect();
@@ -75,16 +74,18 @@ namespace Wexflow.Tasks.Ftp
 
         public override void Download(FileInf file)
         {
-            var client = new FtpClient();
-            client.Host = Server;
-            client.Port = Port;
-            client.Credentials = new NetworkCredential(User, Password);
-            client.EncryptionMode = _encryptionMode;
+            var client = new FtpClient
+                {
+                    Host = Server,
+                    Port = Port,
+                    Credentials = new NetworkCredential(User, Password),
+                    EncryptionMode = _encryptionMode
+                };
 
             client.Connect();
             client.SetWorkingDirectory(Path);
 
-            PluginFTP.DownloadFile(client, file, Task);
+            PluginFtp.DownloadFile(client, file, Task);
             Task.InfoFormat("[PluginFTPS] file {0} downloaded from {1}.", file.Path, Server);
 
             client.Disconnect();
@@ -92,11 +93,13 @@ namespace Wexflow.Tasks.Ftp
 
         public override void Delete(FileInf file)
         {
-            var client = new FtpClient();
-            client.Host = Server;
-            client.Port = Port;
-            client.Credentials = new NetworkCredential(User, Password);
-            client.EncryptionMode = _encryptionMode;
+            var client = new FtpClient
+                {
+                    Host = Server,
+                    Port = Port,
+                    Credentials = new NetworkCredential(User, Password),
+                    EncryptionMode = _encryptionMode
+                };
 
             client.Connect();
             client.SetWorkingDirectory(Path);

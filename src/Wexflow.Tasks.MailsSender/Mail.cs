@@ -34,7 +34,7 @@ namespace Wexflow.Tasks.MailsSender
                 Credentials = new NetworkCredential(user, password)
             };
 
-            using (MailMessage msg = new MailMessage())
+            using (var msg = new MailMessage())
             {
                 msg.From = new MailAddress(From);
                 foreach (string to in To) msg.To.Add(new MailAddress(to));

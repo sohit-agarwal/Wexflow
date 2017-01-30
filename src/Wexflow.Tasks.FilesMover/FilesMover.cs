@@ -65,7 +65,7 @@ namespace Wexflow.Tasks.FilesMover
                 }
             }
 
-            Status status = Status.Success;
+            var status = Status.Success;
 
             if (!success && atLeastOneSucceed)
             {

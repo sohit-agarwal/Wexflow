@@ -9,12 +9,12 @@ namespace Wexflow.Tasks.FilesLoader
     public class FilesLoader : Task
     {
         public string[] Folders { get; private set; }
-        public string[] FLFiles { get; private set; }
+        public string[] FlFiles { get; private set; }
 
         public FilesLoader(XElement xe, Workflow wf): base(xe, wf)
         {
             Folders = GetSettings("folder");
-            FLFiles = GetSettings("file");
+            FlFiles = GetSettings("file");
         }
 
         public override TaskStatus Run()
@@ -35,7 +35,7 @@ namespace Wexflow.Tasks.FilesLoader
                     }
                 }
 
-                foreach (string file in FLFiles)
+                foreach (string file in FlFiles)
                 {
                     if (File.Exists(file))
                     {
@@ -59,7 +59,7 @@ namespace Wexflow.Tasks.FilesLoader
                 success = false;
             }
 
-            Status status = Status.Success;
+            var status = Status.Success;
 
             if (!success)
             {

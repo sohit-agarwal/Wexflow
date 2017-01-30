@@ -30,17 +30,17 @@ namespace Wexflow.Tasks.Zip
 
                 try
                 {
-                    using (ZipOutputStream s = new ZipOutputStream(File.Create(zipPath)))
+                    using (var s = new ZipOutputStream(File.Create(zipPath)))
                     {
                         s.SetLevel(9); // 0 - store only to 9 - means best compression
 
-                        byte[] buffer = new byte[4096];
+                        var buffer = new byte[4096];
 
                         foreach (FileInf file in files)
                         {
                             // Using GetFileName makes the result compatible with XP
                             // as the resulting path is not absolute.
-                            var entry = new ZipEntry(Path.GetFileName(file.Path));
+                            var entry = new ZipEntry(Path.GetFileName(file.Path)) {DateTime = DateTime.Now};
 
                             // Setup the entry data as required.
 
@@ -48,7 +48,6 @@ namespace Wexflow.Tasks.Zip
                             // so no need to do them here.
 
                             // Could also use the last write time or similar for the file.
-                            entry.DateTime = DateTime.Now;
                             s.PutNextEntry(entry);
 
                             using (FileStream fs = File.OpenRead(file.Path))
@@ -89,7 +88,7 @@ namespace Wexflow.Tasks.Zip
                 }
             }
 
-            Status status = Status.Success;
+            var status = Status.Success;
 
             if (!success)
             {

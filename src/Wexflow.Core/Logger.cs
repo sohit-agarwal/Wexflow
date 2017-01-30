@@ -7,46 +7,46 @@ namespace Wexflow.Core
 {
     public static class Logger
     {
-        static readonly ILog logger = LogManager.GetLogger(typeof(Logger));
+        static readonly ILog Ilogger = LogManager.GetLogger(typeof(Logger));
 
         public static void Info(string msg)
         {
-            logger.Info(msg);
+            Ilogger.Info(msg);
         }
 
         public static void InfoFormat(string msg, params object[] args)
         {
-            logger.InfoFormat(msg, args);
+            Ilogger.InfoFormat(msg, args);
         }
 
         public static void Debug(string msg)
         {
-            logger.Debug(msg);
+            Ilogger.Debug(msg);
         }
 
         public static void DebugFormat(string msg, params object[] args)
         {
-            logger.DebugFormat(msg, args);
+            Ilogger.DebugFormat(msg, args);
         }
 
         public static void Error(string msg)
         {
-            logger.Error(msg);
+            Ilogger.Error(msg);
         }
 
         public static void ErrorFormat(string msg, params object[] args)
         {
-            logger.ErrorFormat(msg, args);
+            Ilogger.ErrorFormat(msg, args);
         }
 
         public static void Error(string msg, Exception e)
         {
-            logger.Error(msg, e);
+            Ilogger.Error(msg, e);
         }
 
         public static void ErrorFormat(string msg, Exception e, params object[] args)
         {
-            logger.Error(string.Format(msg, args), e);
+            Ilogger.Error(string.Format(msg, args), e);
         }
     }
 }

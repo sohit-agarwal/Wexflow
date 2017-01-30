@@ -48,7 +48,7 @@ namespace Wexflow.Tasks.Http
                 }
             }
 
-            Status status = Status.Success;
+            var status = Status.Success;
 
             if (!success && atLeastOneSucceed)
             {

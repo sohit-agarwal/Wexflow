@@ -28,7 +28,7 @@ namespace Wexflow.Core
             }
         }
 
-        XElement _xElement;
+        readonly XElement _xElement;
 
 		protected Task(XElement xe, Workflow wf) 
         {
@@ -58,12 +58,7 @@ namespace Wexflow.Core
 
         public string[] GetSettings(string name)
         {
-            var settings = new List<string>();
-            foreach (XElement xe in _xElement.XPathSelectElements(string.Format("wf:Setting[@name='{0}']", name), Workflow.XmlNamespaceManager))
-            {
-                settings.Add(xe.Attribute("value").Value);
-            }
-            return settings.ToArray();
+            return _xElement.XPathSelectElements(string.Format("wf:Setting[@name='{0}']", name), Workflow.XmlNamespaceManager).Select(xe => xe.Attribute("value").Value).ToArray();
         }
 
         public XElement[] GetXSettings(string name)

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Wexflow.Core;
+﻿using System.Linq;
 using System.ServiceModel;
 using Wexflow.Core.Service.Contracts;
 using System.ServiceModel.Web;
@@ -14,12 +13,7 @@ namespace Wexflow.Clients.WindowsService
             UriTemplate = "workflows")]
         public WorkflowInfo[] GetWorkflows()
         {
-            var wfis = new List<WorkflowInfo>();
-            foreach (Workflow wf in WexflowWindowsService.WexflowEngine.Workflows)
-            {
-				wfis.Add(new WorkflowInfo(wf.Id, wf.Name, (Core.Service.Contracts.LaunchType)wf.LaunchType, wf.IsEnabled, wf.Description, wf.IsRunning, wf.IsPaused));
-            }
-            return wfis.ToArray();
+            return WexflowWindowsService.WexflowEngine.Workflows.Select(wf => new WorkflowInfo(wf.Id, wf.Name, (LaunchType) wf.LaunchType, wf.IsEnabled, wf.Description, wf.IsRunning, wf.IsPaused)).ToArray();
         }
 
         [WebInvoke(Method = "POST",
@@ -60,7 +54,7 @@ namespace Wexflow.Clients.WindowsService
         public WorkflowInfo GetWorkflow(string id)
         {
             var wf = WexflowWindowsService.WexflowEngine.GetWorkflow(int.Parse(id));
-			return new WorkflowInfo(wf.Id, wf.Name, (Core.Service.Contracts.LaunchType)wf.LaunchType, wf.IsEnabled, wf.Description, wf.IsRunning, wf.IsPaused);
+			return new WorkflowInfo(wf.Id, wf.Name, (LaunchType)wf.LaunchType, wf.IsEnabled, wf.Description, wf.IsRunning, wf.IsPaused);
         }
     }
 }

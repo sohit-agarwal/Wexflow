@@ -7,60 +7,61 @@ using System.Configuration;
 using Wexflow.Core.Service.Client;
 using Wexflow.Core.Service.Contracts;
 using System.Collections.ObjectModel;
+using System.Globalization;
 
 namespace Wexflow.Clients.Eto.Manager
 {
     public class Form1 : Form
     {
-		static string WexflowWebServiceUri = ConfigurationManager.AppSettings["WexflowWebServiceUri"];
+		static readonly string WexflowWebServiceUri = ConfigurationManager.AppSettings["WexflowWebServiceUri"];
 
-		Button startButton;
-		Button suspendButton;
-		Button resumeButton;
-		Button stopButton;
-		DynamicLayout buttonsLayout;
-		PixelLayout buttonsPixelLayout;
-		TextBox txtInfo;
-		GridView gvWorkflows;
-		WexflowServiceClient wexflowServiceClient;
-		Dictionary<int, WorkflowInfo> workflowsPerId;
-        UITimer timer = new UITimer { Interval = 0.5 };
+        readonly Button _startButton;
+        readonly Button _suspendButton;
+        readonly Button _resumeButton;
+        readonly Button _stopButton;
+        readonly DynamicLayout _buttonsLayout;
+        readonly PixelLayout _buttonsPixelLayout;
+        readonly TextBox _txtInfo;
+        readonly GridView _gvWorkflows;
+        readonly WexflowServiceClient _wexflowServiceClient;
+		Dictionary<int, WorkflowInfo> _workflowsPerId;
+        readonly UITimer _timer = new UITimer { Interval = 0.5 };
 
         public Form1()
         {
             ClientSize = new Size(792, 566);
             Title = "Wexflow";
 
-			startButton = new Button(StartClick) { Text = "Start", Width = 75, Enabled = false };
-			suspendButton = new Button(SuspendClick) { Text = "Suspend", Width = 75, Enabled = false };
-			resumeButton = new Button(ResumeClick) { Text = "Resume", Width = 75, Enabled = false };
-			stopButton = new Button(StopClick) { Text = "Stop", Width = 100, Enabled = false };
+			_startButton = new Button(StartClick) { Text = "Start", Width = 75, Enabled = false };
+			_suspendButton = new Button(SuspendClick) { Text = "Suspend", Width = 75, Enabled = false };
+			_resumeButton = new Button(ResumeClick) { Text = "Resume", Width = 75, Enabled = false };
+			_stopButton = new Button(StopClick) { Text = "Stop", Width = 100, Enabled = false };
 
-			buttonsLayout = new DynamicLayout { Padding = new Padding(10) };
-			buttonsLayout.BeginVertical();
-			buttonsLayout.BeginHorizontal();
-			buttonsLayout.Add(startButton);
-			buttonsLayout.Add(suspendButton);
-			buttonsLayout.Add(resumeButton);
-			buttonsLayout.Add(stopButton);
-			buttonsLayout.EndHorizontal();
-			buttonsLayout.EndVertical();
+			_buttonsLayout = new DynamicLayout { Padding = new Padding(10) };
+			_buttonsLayout.BeginVertical();
+			_buttonsLayout.BeginHorizontal();
+			_buttonsLayout.Add(_startButton);
+			_buttonsLayout.Add(_suspendButton);
+			_buttonsLayout.Add(_resumeButton);
+			_buttonsLayout.Add(_stopButton);
+			_buttonsLayout.EndHorizontal();
+			_buttonsLayout.EndVertical();
 
-			buttonsPixelLayout = new PixelLayout();
-			buttonsPixelLayout.Add(buttonsLayout, 0, 0);
+			_buttonsPixelLayout = new PixelLayout();
+			_buttonsPixelLayout.Add(_buttonsLayout, 0, 0);
 
 			var layout = new DynamicLayout();
 			layout.BeginVertical();
 			layout.BeginHorizontal();
-			layout.Add(buttonsPixelLayout);
+			layout.Add(_buttonsPixelLayout);
 			layout.EndHorizontal();
 			layout.BeginHorizontal();
 
-			txtInfo = new TextBox { ReadOnly = true };
+			_txtInfo = new TextBox { ReadOnly = true };
 			var txtInfoLayout = new DynamicLayout { Padding = new Padding(10, 0, 10, 10) };
 			txtInfoLayout.BeginVertical();
 			txtInfoLayout.BeginHorizontal();
-			txtInfoLayout.Add(txtInfo);
+			txtInfoLayout.Add(_txtInfo);
 			txtInfoLayout.EndHorizontal();
 			txtInfoLayout.EndVertical();
 
@@ -68,14 +69,14 @@ namespace Wexflow.Clients.Eto.Manager
 			layout.EndHorizontal();
 			layout.BeginHorizontal();
 
-			gvWorkflows = new GridView();
-			gvWorkflows.SelectionChanged += GvSelectionChanged;
-			gvWorkflows.CellDoubleClick += GvCellDoubleClick;
+			_gvWorkflows = new GridView();
+			_gvWorkflows.SelectionChanged += GvSelectionChanged;
+			_gvWorkflows.CellDoubleClick += GvCellDoubleClick;
 
 			var gvWorkflowsLayout = new DynamicLayout { Padding = new Padding(10, 0, 10, 10) };
 			gvWorkflowsLayout.BeginVertical();
 			gvWorkflowsLayout.BeginHorizontal();
-			gvWorkflowsLayout.Add(gvWorkflows);
+			gvWorkflowsLayout.Add(_gvWorkflows);
 			gvWorkflowsLayout.EndHorizontal();
 			gvWorkflowsLayout.EndVertical();
 
@@ -84,49 +85,49 @@ namespace Wexflow.Clients.Eto.Manager
 
 			Content = layout;
 
-			wexflowServiceClient = new WexflowServiceClient(WexflowWebServiceUri);
+			_wexflowServiceClient = new WexflowServiceClient(WexflowWebServiceUri);
 			BindGridView();
         }
 
 		void BindGridView() 
 		{
 			var workflows = new List<WorkflowDataInfo>();
-			var wfs = wexflowServiceClient.GetWorkflows();
-			workflowsPerId = new Dictionary<int, WorkflowInfo>();
+			var wfs = _wexflowServiceClient.GetWorkflows();
+			_workflowsPerId = new Dictionary<int, WorkflowInfo>();
 			foreach (var w in wfs)
 			{
-				workflows.Add(new WorkflowDataInfo(w.Id.ToString(), w.Name, w.LaunchType.ToString(), w.IsEnabled, w.Description));
-				workflowsPerId.Add(w.Id, w);
+                workflows.Add(new WorkflowDataInfo(w.Id.ToString(CultureInfo.CurrentCulture), w.Name, w.LaunchType.ToString(), w.IsEnabled, w.Description));
+				_workflowsPerId.Add(w.Id, w);
 			}
 			var collection = new ObservableCollection<WorkflowDataInfo>(workflows.OrderBy(w => int.Parse(w.Id)));
-			gvWorkflows.DataStore = collection;
+			_gvWorkflows.DataStore = collection;
 
 
-			gvWorkflows.Columns.Add(new GridColumn
+			_gvWorkflows.Columns.Add(new GridColumn
 			{
 				DataCell = new TextBoxCell { Binding = Binding.Property<WorkflowDataInfo, string>(w =>  w.Id) },
 				HeaderText = "Id"
 			});
 
-			gvWorkflows.Columns.Add(new GridColumn
+			_gvWorkflows.Columns.Add(new GridColumn
 			{
 				DataCell = new TextBoxCell { Binding = Binding.Property<WorkflowDataInfo, string>(w => w.Name) },
 				HeaderText = "Name"
 			});
 
-			gvWorkflows.Columns.Add(new GridColumn
+			_gvWorkflows.Columns.Add(new GridColumn
 			{
 				DataCell = new TextBoxCell { Binding = Binding.Property<WorkflowDataInfo, string>(w => w.LaunchType) },
 				HeaderText = "LaunchType"
 			});
 
-			gvWorkflows.Columns.Add(new GridColumn
+			_gvWorkflows.Columns.Add(new GridColumn
 			{
 				DataCell = new CheckBoxCell { Binding = Binding.Property<WorkflowDataInfo, bool?>(w => w.IsEnabled) },
 				HeaderText = "Enabled"
 			});
 
-			gvWorkflows.Columns.Add(new GridColumn
+			_gvWorkflows.Columns.Add(new GridColumn
 			{
 				DataCell = new TextBoxCell { Binding = Binding.Property<WorkflowDataInfo, string>(w => w.Description) },
 				HeaderText = "Description"
@@ -136,7 +137,7 @@ namespace Wexflow.Clients.Eto.Manager
 
 		int GetSlectedWorkflowId()
 		{ 
-			var wf = gvWorkflows.SelectedItem as WorkflowDataInfo;
+			var wf = _gvWorkflows.SelectedItem as WorkflowDataInfo;
 			if (wf != null)
 			{
 				return int.Parse(wf.Id);
@@ -151,9 +152,9 @@ namespace Wexflow.Clients.Eto.Manager
 
 			if (wf.IsEnabled)
 			{
-				timer.Stop();
-				timer.Elapsed += (s, ea) => { UpdateButtons(id, false); };
-				timer.Start();
+				_timer.Stop();
+				_timer.Elapsed += (s, ea) => UpdateButtons(id, false);
+				_timer.Start();
 
 				UpdateButtons(id, true);
 			}
@@ -165,14 +166,14 @@ namespace Wexflow.Clients.Eto.Manager
 
 		WorkflowInfo GetWorkflow(int id)
 		{ 
-			return wexflowServiceClient.GetWorkflow(id);
+			return _wexflowServiceClient.GetWorkflow(id);
 		}
 
 		bool WorkflowStatusChanged(WorkflowInfo workflow)
 		{
-			bool changed = workflowsPerId[workflow.Id].IsRunning != workflow.IsRunning || workflowsPerId[workflow.Id].IsPaused != workflow.IsPaused;
-			workflowsPerId[workflow.Id].IsRunning = workflow.IsRunning;
-			workflowsPerId[workflow.Id].IsPaused = workflow.IsPaused;
+			bool changed = _workflowsPerId[workflow.Id].IsRunning != workflow.IsRunning || _workflowsPerId[workflow.Id].IsPaused != workflow.IsPaused;
+			_workflowsPerId[workflow.Id].IsRunning = workflow.IsRunning;
+			_workflowsPerId[workflow.Id].IsPaused = workflow.IsPaused;
 			return changed;
 		}
 
@@ -186,29 +187,29 @@ namespace Wexflow.Clients.Eto.Manager
 				{
 					if (!workflow.IsEnabled)
 					{
-						txtInfo.Text = "This workflow is disabled.";
-						startButton.Enabled = suspendButton.Enabled = resumeButton.Enabled = stopButton.Enabled = false;
+						_txtInfo.Text = "This workflow is disabled.";
+						_startButton.Enabled = _suspendButton.Enabled = _resumeButton.Enabled = _stopButton.Enabled = false;
 					}
 					else
 					{
 						if (!force && !WorkflowStatusChanged(workflow)) return;
 
-						startButton.Enabled = !workflow.IsRunning;
-						stopButton.Enabled = workflow.IsRunning && !workflow.IsPaused;
-						suspendButton.Enabled = workflow.IsRunning && !workflow.IsPaused;
-						resumeButton.Enabled = workflow.IsPaused;
+						_startButton.Enabled = !workflow.IsRunning;
+						_stopButton.Enabled = workflow.IsRunning && !workflow.IsPaused;
+						_suspendButton.Enabled = workflow.IsRunning && !workflow.IsPaused;
+						_resumeButton.Enabled = workflow.IsPaused;
 
 						if (workflow.IsRunning && !workflow.IsPaused)
 						{
-							txtInfo.Text = "This workflow is running...";
+							_txtInfo.Text = "This workflow is running...";
 						}
 						else if (workflow.IsPaused)
 						{
-							txtInfo.Text = "This workflow is suspended.";
+							_txtInfo.Text = "This workflow is suspended.";
 						}
 						else
 						{
-							txtInfo.Text = "";
+							_txtInfo.Text = "";
 						}
 					}
 				}
@@ -220,7 +221,7 @@ namespace Wexflow.Clients.Eto.Manager
 			var wfId = GetSlectedWorkflowId();
 			if (wfId > -1)
 			{
-				wexflowServiceClient.StartWorkflow(wfId);
+				_wexflowServiceClient.StartWorkflow(wfId);
 			}
 		}
 
@@ -229,7 +230,7 @@ namespace Wexflow.Clients.Eto.Manager
 			var wfId = GetSlectedWorkflowId();
 			if (wfId > -1)
 			{
-				wexflowServiceClient.SuspendWorkflow(wfId);
+				_wexflowServiceClient.SuspendWorkflow(wfId);
 				UpdateButtons(wfId, true);
 			}
 		}
@@ -239,7 +240,7 @@ namespace Wexflow.Clients.Eto.Manager
 			var wfId = GetSlectedWorkflowId();
 			if (wfId > -1)
 			{
-				wexflowServiceClient.ResumeWorkflow(wfId);
+				_wexflowServiceClient.ResumeWorkflow(wfId);
 			}
 		}
 
@@ -248,7 +249,7 @@ namespace Wexflow.Clients.Eto.Manager
 			var wfId = GetSlectedWorkflowId();
 			if (wfId > -1)
 			{
-				wexflowServiceClient.StopWorkflow(wfId);
+				_wexflowServiceClient.StopWorkflow(wfId);
 				UpdateButtons(wfId, true);
 			}
 		}

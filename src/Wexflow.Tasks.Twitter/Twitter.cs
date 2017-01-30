@@ -35,7 +35,7 @@ namespace Wexflow.Tasks.Twitter
 
             if (files.Length > 0)
             {
-                TwitterService service = null;
+                TwitterService service;
                 try
                 {
                     service = new TwitterService();
@@ -78,7 +78,7 @@ namespace Wexflow.Tasks.Twitter
                 }
             }
 
-            Status tstatus = Status.Success;
+            var tstatus = Status.Success;
 
             if (!success && atLeastOneSucceed)
             {

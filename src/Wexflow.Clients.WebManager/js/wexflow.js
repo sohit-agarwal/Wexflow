@@ -1,4 +1,4 @@
-﻿function wexflow(id, uri) {
+﻿function Wexflow(id, uri) {
 
     uri = trimEnd(uri, "/");
     var selectedId = -1;
@@ -47,13 +47,15 @@
                 return "Trigger";
             case 2:
                 return "Periodic";
+            default:
+                return "";
         }
     }
 
     get(uri + "/workflows", function (data) {
         data.sort(compareById);
         var items = [];
-
+        var i;
         for (i = 0; i < data.length; i++) {
             var val = data[i];
             workflows[val.Id] = val;
@@ -66,7 +68,7 @@
                           + "<td class='wf-d' title='" + val.Description + "'>" + val.Description + "</td>"
                          + "</tr>");
 
-        };
+        }
 
         var table = "<table id='wf-workflows-table' class='table table-striped'>"
                         + "<thead>"
@@ -91,9 +93,9 @@
             descriptions[i].style.width = workflowsTable.offsetWidth - (45 + 200 + 100 + 75 + 16 * 5 + 17) + "px";
         }
 
-        function getWorkflow(id, func) {
-            get(uri + "/workflow/" + id, function (data) {
-                func(data);
+        function getWorkflow(wid, func) {
+            get(uri + "/workflow/" + wid, function (d) {
+                func(d);
             });
         }
 
@@ -106,8 +108,8 @@
         var resumeButton = document.getElementById("wf-resume");
         var stopButton = document.getElementById("wf-stop");
 
-        function updateButtons(id, force) {
-            getWorkflow(id, function (workflow) {
+        function updateButtons(wid, force) {
+            getWorkflow(wid, function (workflow) {
                 if (workflow.IsEnabled === false) {
                     notify("This workflow is disabled.");
                     disableButton(startButton, true);
@@ -176,14 +178,13 @@
         disableButton(startButton, true);
         startButton.onclick = function () {
             var startUri = uri + "/start/" + selectedId;
-            post(startUri, function (data) {
-            });
+            post(startUri);
         };
 
         disableButton(suspendButton, true);
         suspendButton.onclick = function () {
             var suspendUri = uri + "/suspend/" + selectedId;
-            post(suspendUri, function (data) {
+            post(suspendUri, function () {
                 updateButtons(selectedId, true);
             });
         };
@@ -191,14 +192,14 @@
         disableButton(resumeButton, true);
         resumeButton.onclick = function () {
             var resumeUri = uri + "/resume/" + selectedId;
-            post(resumeUri, function (data) {
+            post(resumeUri, function () {
             });
         };
 
         disableButton(stopButton, true);
         stopButton.onclick = function () {
             var stopUri = uri + "/stop/" + selectedId;
-            post(stopUri, function (data) {
+            post(stopUri, function () {
                 updateButtons(selectedId, true);
             });
         };
@@ -206,7 +207,7 @@
         // End of get workflows
     });
 
-    function get(uri, callback) {
+    function get(url, callback) {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
@@ -214,18 +215,18 @@
                 callback(data);
             }
         };
-        xmlhttp.open("GET", uri, true);
+        xmlhttp.open("GET", url, true);
         xmlhttp.send();
     }
 
-    function post(uri, callback) {
+    function post(url, callback) {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 callback();
             }
         };
-        xmlhttp.open("POST", uri, true);
+        xmlhttp.open("POST", url, true);
         xmlhttp.send();
     }
 

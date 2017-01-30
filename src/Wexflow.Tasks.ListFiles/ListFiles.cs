@@ -61,7 +61,7 @@ namespace Wexflow.Tasks.ListFiles
                 success = false;
             }
 
-            Status status = Status.Success;
+            var status = Status.Success;
 
             if (!success)
             {

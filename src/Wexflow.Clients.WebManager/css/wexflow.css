@@ -38,7 +38,7 @@
 {
     position: absolute;
     top: 85px;
-    bottom: 0px;
+    bottom: 0;
     right: 10px;
     left: 10px;
     overflow: auto;
@@ -115,9 +115,9 @@
     overflow-x: auto;
     position: absolute;
     top: 37px;
-    bottom: 0px;
-    right: 0px;
-    left: 0px;
+    bottom: 0;
+    right: 0;
+    left: 0;
 }
 
 #wf-workflows #wf-workflows-table thead, tbody, tr, th, td { display: block; }

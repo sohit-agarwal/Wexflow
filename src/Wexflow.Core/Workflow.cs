@@ -7,6 +7,7 @@ using System.IO;
 using System.Threading;
 using System.Xml.Schema;
 using System.Xml;
+using System.Globalization;
 
 namespace Wexflow.Core
 {
@@ -19,7 +20,7 @@ namespace Wexflow.Core
 
     public class Workflow
     {
-        public const int START_ID = -1;
+        public const int StartId = -1;
 
         public string WorkflowFilePath { get; set; }
         public string WexflowTempFolder { get; set; }
@@ -244,7 +245,7 @@ namespace Wexflow.Core
 
         void CheckInfiniteLoop(IEnumerable<Node> taskNodes, string errorMsg)
         {
-            var startNode = taskNodes.FirstOrDefault(n => n.ParentId == START_ID);
+            var startNode = taskNodes.FirstOrDefault(n => n.ParentId == StartId);
 
             if (startNode != null)
             {
@@ -294,7 +295,7 @@ namespace Wexflow.Core
         {
             if (IsRunning) return;
 
-            var thread = new Thread(new ThreadStart(() =>
+            var thread = new Thread(() =>
                 {
                     try
                     {
@@ -363,7 +364,7 @@ namespace Wexflow.Core
                         Logger.InfoFormat("{0} Workflow finished.", LogTag);
                         JobId++;
                     }
-                }));
+                });
 
             _thread = thread;
             thread.Start();
@@ -377,13 +378,13 @@ namespace Wexflow.Core
             {
                 if (node is DoIf)
                 {
-                    var DoTasks = NodesToTasks(((DoIf)node).DoNodes);
-                    var OtherwiseTasks = NodesToTasks(((DoIf)node).OtherwiseNodes);
+                    var doTasks = NodesToTasks(((DoIf)node).DoNodes);
+                    var otherwiseTasks = NodesToTasks(((DoIf)node).OtherwiseNodes);
 
-                    var ifTasks = new List<Task>(DoTasks);
-                    foreach (var task in OtherwiseTasks)
+                    var ifTasks = new List<Task>(doTasks);
+                    foreach (var task in otherwiseTasks)
                     { 
-                        if(!ifTasks.Any(t => t.Id == task.Id))
+                        if(ifTasks.All(t => t.Id != task.Id))
                         {
                             ifTasks.Add(task);
                         }
@@ -401,7 +402,7 @@ namespace Wexflow.Core
 
                     if (task != null)
                     {
-                        if (!tasks.Any(t => t.Id == task.Id))
+                        if (tasks.All(t => t.Id != task.Id))
                         {
                             tasks.Add(task);
                         }
@@ -422,7 +423,7 @@ namespace Wexflow.Core
             bool warning = false;
             bool atLeastOneSucceed = false;
 
-            if (nodes.Count() > 0)
+            if (nodes.Any())
             {
                 var startNode = nodes.ElementAt(0);
 
@@ -438,7 +439,7 @@ namespace Wexflow.Core
                 }
                 else
                 {
-                    if (startNode.ParentId == START_ID)
+                    if (startNode.ParentId == StartId)
                     {
                         RunTasks(tasks, nodes, startNode, ref success, ref warning, ref atLeastOneSucceed);
                     }
@@ -566,7 +567,7 @@ namespace Wexflow.Core
                     warning |= status.Status == Status.Warning;
                     if (!atLeastOneSucceed && status.Status == Status.Success) atLeastOneSucceed = true;
 
-                    if (status.Condition == true)
+                    if (status.Condition)
                     {
                         if (doIf.DoNodes.Length > 0)
                         {
@@ -576,7 +577,7 @@ namespace Wexflow.Core
                             // Run Tasks
                             Node doIfStartNode = doIf.DoNodes[0];
 
-                            if (doIfStartNode.ParentId == START_ID)
+                            if (doIfStartNode.ParentId == StartId)
                             {
                                 RunTasks(doIfTasks, doIf.DoNodes, doIfStartNode, ref success, ref warning, ref atLeastOneSucceed);
                             }
@@ -592,7 +593,7 @@ namespace Wexflow.Core
                             // Run Tasks
                             Node otherwiseStartNode = doIf.OtherwiseNodes[0];
 
-                            if (otherwiseStartNode.ParentId == START_ID)
+                            if (otherwiseStartNode.ParentId == StartId)
                             {
                                 RunTasks(otherwiseTasks, doIf.OtherwiseNodes, otherwiseStartNode, ref success, ref warning, ref atLeastOneSucceed);
                             }
@@ -630,7 +631,7 @@ namespace Wexflow.Core
                         warning |= status.Status == Status.Warning;
                         if (!atLeastOneSucceed && status.Status == Status.Success) atLeastOneSucceed = true;
 
-                        if (status.Condition == true)
+                        if (status.Condition)
                         {
                             if (doWhile.DoNodes.Length > 0)
                             {
@@ -640,7 +641,7 @@ namespace Wexflow.Core
                                 // Run Tasks
                                 Node doWhileStartNode = doWhile.DoNodes[0];
 
-                                if (doWhileStartNode.ParentId == START_ID)
+                                if (doWhileStartNode.ParentId == StartId)
                                 {
                                     RunTasks(doWhileTasks, doWhile.DoNodes, doWhileStartNode, ref success, ref warning, ref atLeastOneSucceed);
                                 }
@@ -727,7 +728,7 @@ namespace Wexflow.Core
         void CreateTempFolder()
         { 
             // WorkflowId/dd-MM-yyyy/HH-mm-ss-fff
-            var wfTempFolder = Path.Combine(WexflowTempFolder, Id.ToString());
+            var wfTempFolder = Path.Combine(WexflowTempFolder, Id.ToString(CultureInfo.CurrentCulture));
             if (!Directory.Exists(wfTempFolder)) Directory.CreateDirectory(wfTempFolder);
             
             var wfDayTempFolder = Path.Combine(wfTempFolder, string.Format("{0:yyyy-MM-dd}", DateTime.Now));

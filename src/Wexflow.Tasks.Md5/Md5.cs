@@ -57,7 +57,7 @@ namespace Wexflow.Tasks.Md5
                 Files.Add(new FileInf(md5Path, Id));
             }
 
-            Status status = Status.Success;
+            var status = Status.Success;
 
             if (!success && atLeastOneSucceed)
             {

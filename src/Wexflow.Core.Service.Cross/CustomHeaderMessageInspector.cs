@@ -6,11 +6,11 @@ namespace Wexflow.Core.Service.Cross
 {
     public class CustomHeaderMessageInspector : IDispatchMessageInspector
     {
-		readonly Dictionary<string, string> requiredHeaders;
+		readonly Dictionary<string, string> _requiredHeaders;
 
         public CustomHeaderMessageInspector(Dictionary<string, string> headers)
         {
-            requiredHeaders = headers ?? new Dictionary<string, string>();
+            _requiredHeaders = headers ?? new Dictionary<string, string>();
         }
 
         public object AfterReceiveRequest(ref Message request, System.ServiceModel.IClientChannel channel, System.ServiceModel.InstanceContext instanceContext)
@@ -21,7 +21,7 @@ namespace Wexflow.Core.Service.Cross
         public void BeforeSendReply(ref Message reply, object correlationState)
         {
             var httpHeader = reply.Properties["httpResponse"] as HttpResponseMessageProperty;
-            foreach (var item in requiredHeaders)
+            foreach (var item in _requiredHeaders)
             {
                 httpHeader.Headers.Add(item.Key, item.Value);
             }

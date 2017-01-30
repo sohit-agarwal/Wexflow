@@ -41,7 +41,7 @@ namespace Wexflow.Tasks.MailsSender
                     int count = 1;
                     foreach (XElement xMail in xMails)
                     {
-                        Mail mail = null;
+                        Mail mail;
                         try
                         {
                             mail = Mail.Parse(xMail);
@@ -89,7 +89,7 @@ namespace Wexflow.Tasks.MailsSender
                 success = false;
             }
 
-            Status status = Status.Success;
+            var status = Status.Success;
 
             if (!success && atLeastOneSucceed)
             {

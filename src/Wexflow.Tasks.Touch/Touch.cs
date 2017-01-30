@@ -8,12 +8,12 @@ namespace Wexflow.Tasks.Touch
 {
     public class Touch:Task
     {
-        public string[] TFiles { get; private set; }
+        public string[] Tfiles { get; private set; }
 
         public Touch(XElement xe, Workflow wf)
             : base(xe, wf)
         {
-            TFiles = GetSettings("file");
+            Tfiles = GetSettings("file");
         }
 
         public override TaskStatus Run()
@@ -23,7 +23,7 @@ namespace Wexflow.Tasks.Touch
             bool success = true;
             bool atLeastOneSucceed = false;
 
-            foreach (string file in TFiles)
+            foreach (string file in Tfiles)
             {
                 try
                 {
@@ -44,7 +44,7 @@ namespace Wexflow.Tasks.Touch
                 }
             }
 
-            Status status = Status.Success;
+            var status = Status.Success;
 
             if (!success && atLeastOneSucceed)
             {

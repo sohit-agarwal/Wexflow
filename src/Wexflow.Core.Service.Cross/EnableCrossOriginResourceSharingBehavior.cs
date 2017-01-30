@@ -19,11 +19,12 @@ namespace Wexflow.Core.Service.Cross
 
         public void ApplyDispatchBehavior(ServiceEndpoint endpoint, System.ServiceModel.Dispatcher.EndpointDispatcher endpointDispatcher)
         {
-            var requiredHeaders = new Dictionary<string, string>();
-
-            requiredHeaders.Add("Access-Control-Allow-Origin", "*");
-            requiredHeaders.Add("Access-Control-Request-Method", "POST,GET,PUT,DELETE,OPTIONS");
-            requiredHeaders.Add("Access-Control-Allow-Headers", "X-Requested-With,Content-Type");
+            var requiredHeaders = new Dictionary<string, string>
+                {
+                    {"Access-Control-Allow-Origin", "*"},
+                    {"Access-Control-Request-Method", "POST,GET,PUT,DELETE,OPTIONS"},
+                    {"Access-Control-Allow-Headers", "X-Requested-With,Content-Type"}
+                };
 
             endpointDispatcher.DispatchRuntime.MessageInspectors.Add(new CustomHeaderMessageInspector(requiredHeaders));
         }

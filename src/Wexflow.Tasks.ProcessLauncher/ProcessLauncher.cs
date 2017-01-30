@@ -15,10 +15,10 @@ namespace Wexflow.Tasks.ProcessLauncher
         public bool HideGui { get; set; }
         public bool GeneratesFiles { get; set; }
 
-        const string VAR_FILE_PATH = "$filePath";
-        const string VAR_FILE_NAME = "$fileName";
-        const string VAR_FILE_NAME_WITHOUT_EXTENSION = "$fileNameWithoutExtension";
-        const string VAR_OUTPUT = "$output";
+        const string VarFilePath = "$filePath";
+        const string VarFileName = "$fileName";
+        const string VarFileNameWithoutExtension = "$fileNameWithoutExtension";
+        const string VarOutput = "$output";
 
         public ProcessLauncher(XElement xe, Workflow wf)
             : base(xe, wf)
@@ -33,7 +33,7 @@ namespace Wexflow.Tasks.ProcessLauncher
         {
             Info("Launching process...");
 
-            if (GeneratesFiles && !(ProcessCmd.Contains(VAR_FILE_NAME) && (ProcessCmd.Contains(VAR_OUTPUT) && (ProcessCmd.Contains(VAR_FILE_NAME) || ProcessCmd.Contains(VAR_FILE_NAME_WITHOUT_EXTENSION)))))
+            if (GeneratesFiles && !(ProcessCmd.Contains(VarFileName) && (ProcessCmd.Contains(VarOutput) && (ProcessCmd.Contains(VarFileName) || ProcessCmd.Contains(VarFileNameWithoutExtension)))))
             {
                 Error("Error in process command. Please read the documentation.");
                 return new TaskStatus(Status.Error, false);
@@ -49,14 +49,14 @@ namespace Wexflow.Tasks.ProcessLauncher
             
 			foreach (FileInf file in SelectFiles())
 			{
-				string cmd = string.Empty;
-				string outputFilePath = string.Empty;
+				string cmd;
+				string outputFilePath;
 
 				try
 				{
-					cmd = ProcessCmd.Replace(string.Format("{{{0}}}", VAR_FILE_PATH), string.Format("\"{0}\"", file.Path));
+					cmd = ProcessCmd.Replace(string.Format("{{{0}}}", VarFilePath), string.Format("\"{0}\"", file.Path));
 
-					string outputRegexPattern = @"{\$output:(?:\$fileNameWithoutExtension|\$fileName)(?:[a-zA-Z0-9._-]*})";
+					const string outputRegexPattern = @"{\$output:(?:\$fileNameWithoutExtension|\$fileName)(?:[a-zA-Z0-9._-]*})";
 					var outputRegex = new Regex(outputRegexPattern);
 					var m = outputRegex.Match(cmd);
 
@@ -64,15 +64,15 @@ namespace Wexflow.Tasks.ProcessLauncher
 					{
 						string val = m.Value;
 						outputFilePath = val;
-						if (outputFilePath.Contains(VAR_FILE_NAME_WITHOUT_EXTENSION))
+						if (outputFilePath.Contains(VarFileNameWithoutExtension))
 						{
-							outputFilePath = outputFilePath.Replace(VAR_FILE_NAME_WITHOUT_EXTENSION, Path.GetFileNameWithoutExtension(file.FileName));
+							outputFilePath = outputFilePath.Replace(VarFileNameWithoutExtension, Path.GetFileNameWithoutExtension(file.FileName));
 						}
-						else if (outputFilePath.Contains(VAR_FILE_NAME))
+						else if (outputFilePath.Contains(VarFileName))
 						{
-							outputFilePath = outputFilePath.Replace(VAR_FILE_NAME, file.FileName);
+							outputFilePath = outputFilePath.Replace(VarFileName, file.FileName);
 						}
-						outputFilePath = outputFilePath.Replace("{" + VAR_OUTPUT + ":", Workflow.WorkflowTempFolder.Trim('\\') + "\\");
+						outputFilePath = outputFilePath.Replace("{" + VarOutput + ":", Workflow.WorkflowTempFolder.Trim('\\') + "\\");
 						outputFilePath = outputFilePath.Trim('}');
 
 						cmd = cmd.Replace(val, "\"" + outputFilePath + "\"");
@@ -105,7 +105,7 @@ namespace Wexflow.Tasks.ProcessLauncher
 				}
 			}
 
-            Status status = Status.Success;
+            var status = Status.Success;
 
             if (!success && atLeastOneSucceed)
             {
@@ -124,14 +124,15 @@ namespace Wexflow.Tasks.ProcessLauncher
         {
             try
             {
-                var startInfo = new ProcessStartInfo(ProcessPath, processCmd);
-                startInfo.CreateNoWindow = hideGui;
-                startInfo.UseShellExecute = false;
-                startInfo.RedirectStandardOutput = true;
-                startInfo.RedirectStandardError = true;
+                var startInfo = new ProcessStartInfo(ProcessPath, processCmd)
+                    {
+                        CreateNoWindow = hideGui,
+                        UseShellExecute = false,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true
+                    };
 
-                var process = new Process();
-                process.StartInfo = startInfo;
+                var process = new Process {StartInfo = startInfo};
                 process.OutputDataReceived += OutputHandler;
                 process.ErrorDataReceived += ErrorHandler;
                 process.Start();

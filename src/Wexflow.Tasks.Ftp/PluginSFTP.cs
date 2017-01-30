@@ -6,12 +6,12 @@ using Renci.SshNet.Sftp;
 
 namespace Wexflow.Tasks.Ftp
 {
-    public class PluginSFTP:PluginBase
+    public class PluginSftp:PluginBase
     {
         public string PrivateKeyPath { get; set; }
         public string Passphrase { get; set; }
 
-        public PluginSFTP(Task task, string server, int port, string user, string password, string path, string privateKeyPath, string passphrase)
+        public PluginSftp(Task task, string server, int port, string user, string password, string path, string privateKeyPath, string passphrase)
             :base(task, server, port, user, password, path)
         {
             PrivateKeyPath = privateKeyPath;
@@ -21,7 +21,7 @@ namespace Wexflow.Tasks.Ftp
         ConnectionInfo GetConnectionInfo()
         {
             // Setup Credentials and Server Information
-            ConnectionInfo connInfo = null;
+            ConnectionInfo connInfo;
 
             if (!string.IsNullOrEmpty(PrivateKeyPath) && !string.IsNullOrEmpty(Passphrase))
             {
@@ -32,7 +32,7 @@ namespace Wexflow.Tasks.Ftp
                         new PasswordAuthenticationMethod(User, Password),
 
                         // Key Based Authentication (using keys in OpenSSH Format)
-                        new PrivateKeyAuthenticationMethod(User,new PrivateKeyFile[]{ 
+                        new PrivateKeyAuthenticationMethod(User,new[]{ 
                             new PrivateKeyFile(PrivateKeyPath, Passphrase)
                         })
                 });
@@ -54,7 +54,7 @@ namespace Wexflow.Tasks.Ftp
         {
             var files = new List<FileInf>();
 
-            using (SftpClient client = new SftpClient(GetConnectionInfo()))
+            using (var client = new SftpClient(GetConnectionInfo()))
             {
                 client.Connect();
                 client.ChangeDirectory(Path);
@@ -77,7 +77,7 @@ namespace Wexflow.Tasks.Ftp
 
         public override void Upload(FileInf file)
         {
-            using (SftpClient client = new SftpClient(GetConnectionInfo()))
+            using (var client = new SftpClient(GetConnectionInfo()))
             {
                 client.Connect();
                 client.ChangeDirectory(Path);
@@ -94,7 +94,7 @@ namespace Wexflow.Tasks.Ftp
 
         public override void Download(FileInf file)
         {
-            using (SftpClient client = new SftpClient(GetConnectionInfo()))
+            using (var client = new SftpClient(GetConnectionInfo()))
             {
                 client.Connect();
                 client.ChangeDirectory(Path);
@@ -113,7 +113,7 @@ namespace Wexflow.Tasks.Ftp
 
         public override void Delete(FileInf file)
         {
-            using (SftpClient client = new SftpClient(GetConnectionInfo()))
+            using (var client = new SftpClient(GetConnectionInfo()))
             {
                 client.Connect();
                 client.ChangeDirectory(Path);

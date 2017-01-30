@@ -31,8 +31,8 @@ namespace Wexflow.Tasks.Tgz
 
                 try
                 {
-                    using (GZipOutputStream gz = new GZipOutputStream(File.Create(tgzPath)))
-                    using (TarOutputStream tar = new TarOutputStream(gz))
+                    using (var gz = new GZipOutputStream(File.Create(tgzPath)))
+                    using (var tar = new TarOutputStream(gz))
                     {
 
                         foreach (FileInf file in files)
@@ -53,7 +53,7 @@ namespace Wexflow.Tasks.Tgz
                                 // Add the entry to the tar stream, before writing the data.
                                 tar.PutNextEntry(entry);
 
-                                byte[] localBuffer = new byte[32 * 1024];
+                                var localBuffer = new byte[32 * 1024];
                                 while (true)
                                 {
                                     var numRead = inputStream.Read(localBuffer, 0, localBuffer.Length);
@@ -92,7 +92,7 @@ namespace Wexflow.Tasks.Tgz
                 }
             }
 
-            Status status = Status.Success;
+            var status = Status.Success;
 
             if (!success)
             {
