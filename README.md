@@ -918,7 +918,7 @@ To create a custom task MyTask for example you will need to proceed as follows:
 
 Wexflow.Tasks.MyTask code should look like as follows:
 
-```cs
+```csharp
 public class MyTask : Wexflow.Core.Task
 {
     public MyTask(XElement xe, Workflow wf) : base(xe, wf)
@@ -944,14 +944,14 @@ public class MyTask : Wexflow.Core.Task
 
 Each task returns a TaskStatus object when it finished performing its job. TaskStatus is composed of the following elements:
 
-```cs
+```csharp
 public Status Status { get; set; }
 public bool Condition { get; set; }
 ```
 
 The Status can be one of the followings:
 
-```cs
+```csharp
 public enum Status
 {
   Success,
@@ -968,7 +968,7 @@ The Condition property should always be set to false for sequential tasks.
 
 To retrieve settings, you can use the following methods:
 
-```cs
+```csharp
 string settingValue = this.GetSetting("settingName");
 string settingValue = this.GetSetting("settingName", defaultValue);
 string[] settingValues = this.GetSettings("settingName");
@@ -976,13 +976,13 @@ string[] settingValues = this.GetSettings("settingName");
 
 To select the files loaded by the running instance of a workflow through the selectFiles settings option, you can do it as follows:
 
-```cs
+```csharp
 FileInf[] files = this.SelectFiles();
 ```
 
 To select entities loaded by the running instance of a workflow through the selectEntities settings option, you can do it as follows:
 
-```cs
+```csharp
 Entity[] entities = this.SelectEntities();
 ```
 
@@ -990,13 +990,13 @@ The Entity class could be very useful when working with custom tasks that manipu
 
 To load a file within a task, you can do it as follows:
 
-```cs
+```csharp
 this.Files.Add(new FileInf(path, this.Id));
 ```
 
 To load an entity within a task, you can do it as follows:
 
-```cs
+```csharp
 this.Entities.Add(myEntity);
 ```
 
