@@ -1,5 +1,4 @@
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/Wexflow/Lobby)
-[![License](http://img.shields.io/badge/license-mit-blue.svg?style=flat-square)](https://github.com/aelassas/Wexflow/blob/master/LICENSE)
 [![Twitter](https://img.shields.io/badge/twitter-@wexflow86-55acee.svg?style=flat-square)](https://twitter.com/wexflow86)
 
 # Build status
