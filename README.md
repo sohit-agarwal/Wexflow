@@ -63,7 +63,6 @@ Here are the strengths of Wexflow vs WF:
 - Worklow events (OnSuccess, OnWarning and OnError).
 - Provides a GUI for managing workflows that works on both Windows and Linux.
 - Provides a lightweight JavaScript API that allows to manage workflows in any website.
-- Will be possible to add DoIf in DoIf, DoIf in DoWhile, DoWhile in DoIf and DoWhile in DoWhile.
 
 # Prerequisites
 
