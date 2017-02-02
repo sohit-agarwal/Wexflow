@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         this.workflows = new SparseArray<>();
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        this.uri = sharedPref.getString(SettingsActivity.KEY_PREF_WEXFLOW_URI, "");
+        this.uri = sharedPref.getString(SettingsActivity.KEY_PREF_WEXFLOW_URI, this.getResources().getString(R.string.pref_wexflow_defualt_value));
 
         final MainActivity activity = this;
         this.btnStart = (ImageButton) findViewById(R.id.btnStart);
