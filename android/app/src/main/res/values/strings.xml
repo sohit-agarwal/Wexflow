@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Wexflow</string>
+    <string name="menu_settings">Settings</string>
+    <string name="pref_wexflow_uri">Wexflow Web Service URI</string>
+    <string name="pref_wexflow_defualt_value">http://winxp:8000/wexflow/</string>
+    <string name="btnStart">Start</string>
+    <string name="btnSuspend">Suspend</string>
+    <string name="btnResume">Resume</string>
+    <string name="btnStop">Stop</string>
+    <string name="workflow_disabled">This workflow is disabled.</string>
+    <string name="workflow_running">This workflow is running&#8230;</string>
+    <string name="workflow_suspended">This workflow is suspended.</string>
+    <string name="workflows_error">An error occurred while retrieving workflows. Check Wexflow Web Service Uri in the settings.</string>
+</resources>

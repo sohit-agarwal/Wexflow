@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="list_vertical_margin">7dp</dimen>
+    <dimen name="txtInfo_margin">5dp</dimen>
+</resources>
