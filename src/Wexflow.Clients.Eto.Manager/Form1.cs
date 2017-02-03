@@ -11,7 +11,6 @@ using System.Globalization;
 
 namespace Wexflow.Clients.Eto.Manager
 {
-	// alert("An error occured while retrieving workflows. Check Wexflow Web Service Uri and check that Wexflow Windows Service is running correctly.");
     public class Form1 : Form
     {
 		static readonly string WexflowWebServiceUri = ConfigurationManager.AppSettings["WexflowWebServiceUri"];
@@ -92,47 +91,54 @@ namespace Wexflow.Clients.Eto.Manager
 
 		void BindGridView() 
 		{
-			var workflows = new List<WorkflowDataInfo>();
-			var wfs = _wexflowServiceClient.GetWorkflows();
-			_workflowsPerId = new Dictionary<int, WorkflowInfo>();
-			foreach (var w in wfs)
+			try
 			{
-                workflows.Add(new WorkflowDataInfo(w.Id.ToString(CultureInfo.CurrentCulture), w.Name, w.LaunchType.ToString(), w.IsEnabled, w.Description));
-				_workflowsPerId.Add(w.Id, w);
+				var workflows = new List<WorkflowDataInfo>();
+				var wfs = _wexflowServiceClient.GetWorkflows();
+				_workflowsPerId = new Dictionary<int, WorkflowInfo>();
+				foreach (var w in wfs)
+				{
+					workflows.Add(new WorkflowDataInfo(w.Id.ToString(CultureInfo.CurrentCulture), w.Name, w.LaunchType.ToString(), w.IsEnabled, w.Description));
+					_workflowsPerId.Add(w.Id, w);
+				}
+				var collection = new ObservableCollection<WorkflowDataInfo>(workflows.OrderBy(w => int.Parse(w.Id)));
+				_gvWorkflows.DataStore = collection;
+
+
+				_gvWorkflows.Columns.Add(new GridColumn
+				{
+					DataCell = new TextBoxCell { Binding = Binding.Property<WorkflowDataInfo, string>(w => w.Id) },
+					HeaderText = "Id"
+				});
+
+				_gvWorkflows.Columns.Add(new GridColumn
+				{
+					DataCell = new TextBoxCell { Binding = Binding.Property<WorkflowDataInfo, string>(w => w.Name) },
+					HeaderText = "Name"
+				});
+
+				_gvWorkflows.Columns.Add(new GridColumn
+				{
+					DataCell = new TextBoxCell { Binding = Binding.Property<WorkflowDataInfo, string>(w => w.LaunchType) },
+					HeaderText = "LaunchType"
+				});
+
+				_gvWorkflows.Columns.Add(new GridColumn
+				{
+					DataCell = new CheckBoxCell { Binding = Binding.Property<WorkflowDataInfo, bool?>(w => w.IsEnabled) },
+					HeaderText = "Enabled"
+				});
+
+				_gvWorkflows.Columns.Add(new GridColumn
+				{
+					DataCell = new TextBoxCell { Binding = Binding.Property<WorkflowDataInfo, string>(w => w.Description) },
+					HeaderText = "Description"
+				});
 			}
-			var collection = new ObservableCollection<WorkflowDataInfo>(workflows.OrderBy(w => int.Parse(w.Id)));
-			_gvWorkflows.DataStore = collection;
-
-
-			_gvWorkflows.Columns.Add(new GridColumn
+			catch (Exception) 
 			{
-				DataCell = new TextBoxCell { Binding = Binding.Property<WorkflowDataInfo, string>(w =>  w.Id) },
-				HeaderText = "Id"
-			});
-
-			_gvWorkflows.Columns.Add(new GridColumn
-			{
-				DataCell = new TextBoxCell { Binding = Binding.Property<WorkflowDataInfo, string>(w => w.Name) },
-				HeaderText = "Name"
-			});
-
-			_gvWorkflows.Columns.Add(new GridColumn
-			{
-				DataCell = new TextBoxCell { Binding = Binding.Property<WorkflowDataInfo, string>(w => w.LaunchType) },
-				HeaderText = "LaunchType"
-			});
-
-			_gvWorkflows.Columns.Add(new GridColumn
-			{
-				DataCell = new CheckBoxCell { Binding = Binding.Property<WorkflowDataInfo, bool?>(w => w.IsEnabled) },
-				HeaderText = "Enabled"
-			});
-
-			_gvWorkflows.Columns.Add(new GridColumn
-			{
-				DataCell = new TextBoxCell { Binding = Binding.Property<WorkflowDataInfo, string>(w => w.Description) },
-				HeaderText = "Description"
-			});
+				MessageBox.Show("An error occured while retrieving workflows. Check Wexflow Web Service Uri and check that Wexflow Windows Service is running correctly.", MessageBoxType.Error);
+			}
 		}
 
 
