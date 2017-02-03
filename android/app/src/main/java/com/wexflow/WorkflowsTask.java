@@ -1,7 +1,8 @@
 package com.wexflow;
 
-
-import android.os.AsyncTask;
+import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,7 +19,7 @@ import static com.wexflow.Constants.COL_ID;
 import static com.wexflow.Constants.COL_LAUNCHTYPE;
 import static com.wexflow.Constants.COL_NAME;
 
-class WorkflowsTask extends AsyncTask<String, Void, List<Workflow>> {
+class WorkflowsTask {
 
     private final MainActivity activity;
     private final WexflowServiceClient client;
@@ -30,8 +31,7 @@ class WorkflowsTask extends AsyncTask<String, Void, List<Workflow>> {
         this.client = new WexflowServiceClient(activity.getUri());
     }
 
-    @Override
-    protected List<Workflow> doInBackground(String... params) {
+    private List<Workflow> doInBackground() {
         try {
             return this.client.getWorkflows();
         } catch (Exception e) {
@@ -40,7 +40,7 @@ class WorkflowsTask extends AsyncTask<String, Void, List<Workflow>> {
         }
     }
 
-    protected void onPostExecute(List<Workflow> workflows) {
+    private void onPostExecute(List<Workflow> workflows) {
         if (this.exception != null) {
             Log.e("Wexflow", exception.toString());
             Toast.makeText(this.activity.getBaseContext(), R.string.workflows_error, Toast.LENGTH_LONG).show();
@@ -68,27 +68,44 @@ class WorkflowsTask extends AsyncTask<String, Void, List<Workflow>> {
 
                     if (timer != null) {
                         timer.cancel();
-                        timer.purge();
                     }
 
                     if (activity.getWorkflows().get((int) id).getEnabled()) {
                         timer = new Timer();
+                        final Handler handler = new Handler();
                         timer.schedule(new TimerTask() {
                             @Override
                             public void run() {
                                 UpdateButtonsTask updateButtonsTask = new UpdateButtonsTask(activity);
-                                updateButtonsTask.execute(false);
+                                updateButtonsTask.execute(false, handler);
                             }
                         }, 0, 500);
                         UpdateButtonsTask updateButtonsTask = new UpdateButtonsTask(activity);
-                        updateButtonsTask.execute(true);
+                        updateButtonsTask.executeAsync(true);
                     } else {
                         UpdateButtonsTask updateButtonsTask = new UpdateButtonsTask(activity);
-                        updateButtonsTask.execute(true);
+                        updateButtonsTask.executeAsync(true);
                     }
 
                 }
             });
         }
+    }
+
+    void execute(){
+        final Handler handler = new Handler();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final List<Workflow> workflows = doInBackground();
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        onPostExecute(workflows);
+                    }
+                });
+            }
+        });
+        thread.start();
     }
 }

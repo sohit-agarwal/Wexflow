@@ -1,10 +1,10 @@
 package com.wexflow;
 
-import android.os.AsyncTask;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
-class ActionTask extends AsyncTask<ActionType, Void, String> {
+class ActionTask {
 
     private final MainActivity activity;
     private final WexflowServiceClient client;
@@ -16,10 +16,9 @@ class ActionTask extends AsyncTask<ActionType, Void, String> {
         this.client = new WexflowServiceClient(activity.getUri());
     }
 
-    @Override
-    protected String doInBackground(ActionType... params) {
+    private void doInBackground(ActionType actionType) {
         try {
-            this.actionType = params[0];
+            this.actionType = actionType;
             switch (this.actionType) {
                 case Start:
                     this.client.start(this.activity.getWorkflowId());
@@ -34,21 +33,19 @@ class ActionTask extends AsyncTask<ActionType, Void, String> {
                     this.client.stop(this.activity.getWorkflowId());
                     break;
             }
-            return null;
         } catch (Exception e) {
             this.exception = e;
-            return null;
         }
     }
 
-    protected void onPostExecute(String str) {
+    private void onPostExecute() {
         if (this.exception != null) {
-            // TODO
             Log.e("Wexflow", this.exception.toString());
+            Toast.makeText(this.activity.getBaseContext(), "An error occured: " + this.exception.toString(), Toast.LENGTH_LONG).show();
         } else {
             if (this.actionType == ActionType.Suspend || this.actionType == ActionType.Stop) {
                 UpdateButtonsTask updateButtonsTask = new UpdateButtonsTask(this.activity);
-                updateButtonsTask.execute(true);
+                updateButtonsTask.executeAsync(true);
             }
 
             StringBuilder stringBuilder = new StringBuilder();
@@ -73,4 +70,21 @@ class ActionTask extends AsyncTask<ActionType, Void, String> {
         }
     }
 
+    void execute(final ActionType at){
+        final Handler handler = new Handler();
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                doInBackground(at);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        onPostExecute();
+                    }
+                });
+            }
+        });
+        thread.start();
+    }
 }

@@ -1,10 +1,11 @@
 package com.wexflow;
 
 
-import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
-class UpdateButtonsTask extends AsyncTask<Boolean, Void, Workflow> {
+class UpdateButtonsTask {
 
     private final MainActivity activity;
     private final WexflowServiceClient client;
@@ -16,11 +17,9 @@ class UpdateButtonsTask extends AsyncTask<Boolean, Void, Workflow> {
         this.client = new WexflowServiceClient(activity.getUri());
     }
 
-
-    @Override
-    protected Workflow doInBackground(Boolean... params) {
+    private Workflow doInBackground(Boolean force) {
         try {
-            this.force = params[0];
+            this.force = force;
             return this.client.getWorkflow(this.activity.getWorkflowId());
         } catch (Exception e) {
             this.exception = e;
@@ -29,10 +28,9 @@ class UpdateButtonsTask extends AsyncTask<Boolean, Void, Workflow> {
     }
 
 
-    protected void onPostExecute(Workflow workflow) {
+    private void onPostExecute(Workflow workflow) {
         if (this.exception != null) {
             Log.e("Wexflow", this.exception.toString());
-            // TODO
         } else {
             if (!workflow.getEnabled()) {
                 this.activity.getTxtInfo().setText(R.string.workflow_disabled);
@@ -57,5 +55,32 @@ class UpdateButtonsTask extends AsyncTask<Boolean, Void, Workflow> {
                 }
             }
         }
+    }
+
+    void executeAsync(final Boolean f){
+        final Handler handler = new Handler();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final Workflow workflow = doInBackground(f);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        onPostExecute(workflow);
+                    }
+                });
+            }
+        });
+        thread.start();
+    }
+
+    void execute(final Boolean f, Handler handler){
+        final Workflow workflow = doInBackground(f);
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                onPostExecute(workflow);
+            }
+        });
     }
 }
