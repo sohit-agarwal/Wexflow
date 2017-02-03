@@ -68,6 +68,7 @@ class WorkflowsTask {
 
                     if (timer != null) {
                         timer.cancel();
+                        timer.purge();
                     }
 
                     if (activity.getWorkflows().get((int) id).getEnabled()) {
