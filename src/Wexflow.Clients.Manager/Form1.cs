@@ -10,7 +10,6 @@ namespace Wexflow.Clients.Manager
 {
     // v1.0.6
     // TODO Switch/Case
-    // TODO Android Manager
 
     // TODO Wexflow Manager wf status live + row background color
     // TODO Test and fix ftps
@@ -32,6 +31,7 @@ namespace Wexflow.Clients.Manager
         Dictionary<int, WorkflowInfo> _workflowsPerId;
         bool _windowsServiceWasStopped;
         readonly Timer _timer = new Timer { Interval = 500 };
+        Exception _exception;
 
         public Form1()
         {
@@ -46,8 +46,15 @@ namespace Wexflow.Clients.Manager
         {
             if (Program.DebugMode || Program.IsWexflowWindowsServiceRunning())
             {
-                _wexflowServiceClient = new WexflowServiceClient(WexflowWebServiceUri);
-                _workflows = _wexflowServiceClient.GetWorkflows();
+                try
+                {
+                    _wexflowServiceClient = new WexflowServiceClient(WexflowWebServiceUri);
+                    _workflows = _wexflowServiceClient.GetWorkflows();
+                }
+                catch (Exception ex)
+                {
+                    _exception = ex;
+                }
             }
             else 
             {
@@ -63,6 +70,15 @@ namespace Wexflow.Clients.Manager
 
         void BindDataGridView()
         {
+            if (_exception != null)
+            {
+                MessageBox.Show(
+                    "An error occured while retrieving workflows. Check Wexflow Web Service Uri and check that Wexflow Windows Service is running correctly.",
+                    "Wexflow", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                textBoxInfo.Text = "";
+                return;
+            }
+
             var sworkflows = new SortableBindingList<WorkflowDataInfo>();
             _workflowsPerId = new Dictionary<int, WorkflowInfo>();
             foreach (WorkflowInfo workflow in _workflows)

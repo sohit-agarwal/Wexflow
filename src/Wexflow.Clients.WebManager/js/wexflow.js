@@ -22,6 +22,20 @@
 
     document.getElementById(id).innerHTML = html;
 
+    var startButton = document.getElementById("wf-start");
+    var suspendButton = document.getElementById("wf-pause");
+    var resumeButton = document.getElementById("wf-resume");
+    var stopButton = document.getElementById("wf-stop");
+
+    function disableButton(button, disabled) {
+        button.disabled = disabled;
+    }
+
+    disableButton(startButton, true);
+    disableButton(suspendButton, true);
+    disableButton(resumeButton, true);
+    disableButton(stopButton, true);
+    
     function trimEnd(string, charToRemove) {
         while (string.charAt(string.length - 1) == charToRemove) {
             string = string.substring(0, string.length - 1);
@@ -103,11 +117,6 @@
             document.getElementById("wf-notifier-text").value = msg;
         }
 
-        var startButton = document.getElementById("wf-start");
-        var suspendButton = document.getElementById("wf-pause");
-        var resumeButton = document.getElementById("wf-resume");
-        var stopButton = document.getElementById("wf-stop");
-
         function updateButtons(wid, force) {
             getWorkflow(wid, function (workflow) {
                 if (workflow.IsEnabled === false) {
@@ -129,7 +138,7 @@
                         notify("This workflow is running...");
                     }
                     else if (workflow.IsPaused === true) {
-                        notify("This workflow is paused.");
+                        notify("This workflow is suspended.");
                     }
                     else {
                         notify("");
@@ -142,7 +151,6 @@
             var changed = workflows[workflow.Id].IsRunning !== workflow.IsRunning || workflows[workflow.Id].IsPaused !== workflow.IsPaused;
             workflows[workflow.Id].IsRunning = workflow.IsRunning;
             workflows[workflow.Id].IsPaused = workflow.IsPaused;
-
             return changed;
         }
 
@@ -170,18 +178,12 @@
                 }
             };
         }
-
-        function disableButton(button, disabled) {
-            button.disabled = disabled;
-        }
-
-        disableButton(startButton, true);
+        
         startButton.onclick = function () {
             var startUri = uri + "/start/" + selectedId;
             post(startUri);
         };
 
-        disableButton(suspendButton, true);
         suspendButton.onclick = function () {
             var suspendUri = uri + "/suspend/" + selectedId;
             post(suspendUri, function () {
@@ -189,14 +191,11 @@
             });
         };
 
-        disableButton(resumeButton, true);
         resumeButton.onclick = function () {
             var resumeUri = uri + "/resume/" + selectedId;
-            post(resumeUri, function () {
-            });
+            post(resumeUri);
         };
 
-        disableButton(stopButton, true);
         stopButton.onclick = function () {
             var stopUri = uri + "/stop/" + selectedId;
             post(stopUri, function () {
@@ -205,15 +204,20 @@
         };
 
         // End of get workflows
+    }, function () {
+        alert("An error occured while retrieving workflows. Check Wexflow Web Service Uri and check that Wexflow Windows Service is running correctly.");
     });
 
-    function get(url, callback) {
+    function get(url, callback, errorCallback) {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
-            if (this.readyState == 4 || this.status == 200) {
+            if (this.readyState == 4 && this.status == 200) {
                 var data = JSON.parse(this.responseText);
                 callback(data);
             }
+        };
+        xmlhttp.onerror = function () {
+            errorCallback();
         };
         xmlhttp.open("GET", url, true);
         xmlhttp.send();
@@ -223,7 +227,7 @@
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-                callback();
+                if(callback) callback();
             }
         };
         xmlhttp.open("POST", url, true);

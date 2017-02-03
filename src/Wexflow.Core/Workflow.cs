@@ -671,7 +671,7 @@ namespace Wexflow.Core
 
         public void Stop()
         {
-            if (_thread != null && IsRunning && !IsPaused)
+            if (IsRunning)
             {
                 try
                 {
@@ -692,7 +692,7 @@ namespace Wexflow.Core
 
         public void Pause()
         {
-            if (_thread != null)
+            if (IsRunning)
             {
                 try
                 {
@@ -708,7 +708,7 @@ namespace Wexflow.Core
 
         public void Resume()
         {
-            if (_thread != null && IsPaused)
+            if (IsPaused)
             {
                 try
                 {

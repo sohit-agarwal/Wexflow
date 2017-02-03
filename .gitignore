@@ -3,6 +3,7 @@ Thumbs.db
 *.tar.gz
 *.obj
 *.exe
+*.exe.config
 *.pdb
 *.user
 *.aps
@@ -29,3 +30,4 @@ _ReSharper*/
 [Tt]est[Rr]esult*
 *.vssscc
 $tf*/
+setup/linux/wexflow/*.dll
