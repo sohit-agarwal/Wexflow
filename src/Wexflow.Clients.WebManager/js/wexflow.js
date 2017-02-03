@@ -64,7 +64,7 @@
                           + "<td class='wf-id' title='" + val.Id + "'>" + val.Id + "</td>"
                           + "<td class='wf-n' title='" + val.Name + "'>" + val.Name + "</td>"
                           + "<td class='wf-lt'>" + lt + "</td>"
-                          + "<td class='wf-e'>" + val.IsEnabled + "</td>"
+                          + "<td class='wf-e'><input type='checkbox' readonly disabled " + (val.IsEnabled ? "checked" : "") + "></input></td>"
                           + "<td class='wf-d' title='" + val.Description + "'>" + val.Description + "</td>"
                          + "</tr>");
 
@@ -210,7 +210,7 @@
     function get(url, callback) {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
+            if (this.readyState == 4 || this.status == 200) {
                 var data = JSON.parse(this.responseText);
                 callback(data);
             }

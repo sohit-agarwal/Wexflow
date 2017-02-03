@@ -11,6 +11,7 @@ using System.Globalization;
 
 namespace Wexflow.Clients.Eto.Manager
 {
+	// alert("An error occured while retrieving workflows. Check Wexflow Web Service Uri and check that Wexflow Windows Service is running correctly.");
     public class Form1 : Form
     {
 		static readonly string WexflowWebServiceUri = ConfigurationManager.AppSettings["WexflowWebServiceUri"];
