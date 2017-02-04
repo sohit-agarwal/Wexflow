@@ -9,11 +9,12 @@
 | AppVeyor (.NET) |[![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow)|
 
 # Wexflow
+
+![alt tag](https://aelassas.github.io/Wexflow/logo.png)
+
 Wexflow is an open source multithreaded workflow engine written in pure C# from scratch. Wexflow aims to make automations, workflow processes, long-running processes and interactions between systems, applications and folks easy, straitforward and clean.
 
-![alt tag](https://aelassas.github.io/Wexflow/wa.png)
-
-A workflow is a series of distinct steps or phases (like in the diagram above). Each step is modeled in Wexflow as a Task. Tasks can be assembled visually into workflows using XML. Assembling tasks in Design mode will be possible through Wexflow Designer. This feature is in the todo list and is comming soon.
+A workflow is a series of distinct steps or phases. Each step is modeled in Wexflow as a Task. Tasks can be assembled visually into workflows using XML.
 
 Wexflow provides the following features:
 
