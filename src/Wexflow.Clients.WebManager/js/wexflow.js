@@ -211,13 +211,13 @@
     function get(url, callback, errorCallback) {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
+            if (this.readyState == 4 && this.status == 200 && callback) {
                 var data = JSON.parse(this.responseText);
                 callback(data);
             }
         };
         xmlhttp.onerror = function () {
-            errorCallback();
+            if (errorCallback) errorCallback();
         };
         xmlhttp.open("GET", url, true);
         xmlhttp.send();
