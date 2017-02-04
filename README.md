@@ -1078,6 +1078,16 @@ To debug Wexflow Manager (Wexflow.Clients.Manager project), add "debug" command 
 
 ![alt tag](https://aelassas.github.io/Wexflow/wmd.png)
 
+# Bugs and features
+
+If you found any issues with Wexflow, please submit a bug report at the [Issue Tracker](http://github.com/enyim/EnyimMemcached/issues). Please include the following:
+
+- The version of Wexflow you are using.
+- How to reproduce the issue (either a step-by-step description or a small test application).
+- Expected result.
+
+If you'd like to add a feature request please add some details how it is supposed to work.
+
 # Libraries used by Wexflow
 
 Here is the list of the libraries used by Wexflow:
