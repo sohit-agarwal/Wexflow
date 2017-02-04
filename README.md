@@ -351,7 +351,7 @@ Wexflow Web Manager allows the user to do the following things:
 To host Wexflow Web Manager in a website, simply proceed as follows:
 
 1. Reference wexflow.min.css and wexflow.min.js
-2. Create an instance of wexflow.
+2. Create an instance of Wexflow.
 
 The HTML source code should look like as follows:
 
@@ -366,7 +366,7 @@ The HTML source code should look like as follows:
 
     <script type="text/javascript">
         window.onload = function () {
-            new wexflow("wexflow", "http://localhost:8000/wexflow/");
+            new Wexflow("wexflow", "http://localhost:8000/wexflow/");
         };
     </script>
 </head>
