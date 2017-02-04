@@ -21,6 +21,7 @@ Wexflow provides the following features:
 - **Flowchart workflows:** A flowchart workflow is a workflow that contains at least one flowchart node (DoIf/DoWhile) in its execution graph. A flow chart node takes as input a flowchart task (A task that returns either true or false after performing its job) and a set of tasks to execute in order, one by one. The order of the execution of the tasks can be altered by modifying the execution graph of the flowchart node.
 - **Workflow events:** After a workflow finishes its job, its final result is either success, or warning or error. If its final result is success, the OnSuccess event is triggered. If its final result is warning, the OnWarning event is triggered. If its final result is error, the OnError event is triggered. An event contains a set of tasks and/or flowchart nodes to execute in order, one by one. The order of the execution of the tasks and/or flowchart nodes can be altered by modifying the execution graph of the event.
 - **Wexflow Web Manager:** Wexflow can be hosted on any website through its lightweight JavaScript API (~6Kb). Wexflow can be hosted on ASP.NET, ASP.NET MVC, PHP, Ruby On Rails, Python websites and so on.
+- **Wexflow Andriod Manager:** Wexflow provides an Android application for managing workflows.
 - **Wexflow Manager:** Wexflow provides a GUI for managing workflows that works on both Windows and Linux.
 
 In addition, Wexflow provides the following built-in tasks:
@@ -157,6 +158,32 @@ The following window will appear:
 
 ![alt tag](https://aelassas.github.io/Wexflow/wml.png)
 
+## Android
+
+Wexflow provides a GUI for managing workflows that can be installed on an Android device.
+
+To run Wexflow on Andoird, Wexflow Windows Service must be installed on a Windows machine. Wexflow Windows Service provides a self hosted web service that allows to query Wexflow Engine.
+
+After Wexflow Windows Service is installed on a Windows Machine, proceed as follows to install Wexflow Manager on an Android device:
+
+- Download wexflow.apk
+
+- Copy wexflow.apk into the Android device
+
+- Install wexflow.apk
+
+- Launch Wexflow application and open the application settings through the settings menu:
+
+![alt tag](https://aelassas.github.io/Wexflow/android-1.png)
+
+-  Configure Wexflow Web Service Uri:
+
+![alt tag](https://aelassas.github.io/Wexflow/android-2.png)
+
+That's it. Wexflow application is ready for work: 
+
+![alt tag](https://aelassas.github.io/Wexflow/android-3.png)
+
 # How to uninstall Wexflow
 
 ## Windows
@@ -179,6 +206,10 @@ To uninstall Wexflow Manager from a Linux machine, proceed as follows:
 sudo rm /usr/local/bin/wexflow
 sudo rm -rf /opt/wexflow
 ```
+
+## Android
+
+To uninstall Wexflow from an Android device, simply open Settings>Applications>Wexflow then uninstall it.
 
 # How to use Wexflow
 
@@ -303,7 +334,7 @@ To see what's going on in Wexflow, open the log file C:\Program Files\Wexflow\We
 
 ## Wexflow Web Manager
 
-![alt tag](https://aelassas.github.io/Wexflow/wwm.png)
+![alt tag](https://aelassas.github.io/Wexflow/wwm2.png)
 
 Wexflow provides a lightweight JavaScript API (~6Kb) that allows Wexflow Manager to be hosted on any website.
 
@@ -343,6 +374,21 @@ The HTML source code should look like as follows:
 </body>
 </html>
 ```
+
+## Wexflow Android Manager
+
+![alt tag](https://aelassas.github.io/Wexflow/android-3.png)
+
+Wexflow provides an Android application for managing workflows.
+
+Wexflow Android Manager allows the user to do the following things:
+
+- See all the workflows loaded by Wexflow Engine.
+- See the status of the selected workflow (running, suspended or disabled).
+- Start a workflow.
+- Stop a workflow.
+- Suspend a workflow.
+- Resume a workflow.
 
 # Workflow samples
 
@@ -1093,6 +1139,13 @@ Here is the list of the libraries used by Wexflow:
   - Updated Wexflow Manager for Windows.
   - Updated setup for Windows.
   - Created a setup for Linux.
+- 06 Feb 2017:
+  - [Released version 1.0.6](https://github.com/aelassas/Wexflow/releases/tag/v1.0.6).
+  - Created Wexflow Android Manager: an Android application for managing workflows.
+  - Updated Wexflow Web Manager.
+  - Updated Wexflow Manager (Windows and Linux).
+  - Updated Wexflow Engine.
+  
 
 # More informations
 More informations about Wexflow can be found on [CodeProject](https://www.codeproject.com/Articles/1164009/Wexflow-Open-source-workflow-engine-in-Csharp).
