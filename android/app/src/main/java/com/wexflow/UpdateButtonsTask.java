@@ -2,7 +2,6 @@ package com.wexflow;
 
 
 import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 
 class UpdateButtonsTask {
