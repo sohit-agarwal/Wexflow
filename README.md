@@ -98,11 +98,11 @@ To install Wexflow, proceed as follows:
 
 1. Install Microsoft .NET Framework 4.0 or higher.
 
-2. Install Microsoft Sync Framework 2.1 Synchronization Redistributables (Synchronization-v2.1-x86-ENU.msi available in Wexflow_setup.zip).
+2. Install Microsoft Sync Framework 2.1 Synchronization Redistributables (Synchronization-v2.1-x86-ENU.msi available in Wexflow_setup_windows.zip).
 
-3. Install Microsoft Sync Framework 2.1 Provider Services Redistributables (ProviderServices-v2.1-x86-ENU.msi available in Wexflow_setup.zip)
+3. Install Microsoft Sync Framework 2.1 Provider Services Redistributables (ProviderServices-v2.1-x86-ENU.msi available in Wexflow_setup_windows.zip)
 
-4. Install WexflowSetup.exe (available in Wexflow_setup.zip):
+4. Install WexflowSetup.exe (available in Wexflow_setup_windows.zip):
 
 ![alt tag](https://aelassas.github.io/Wexflow/setup-1.PNG)
 
