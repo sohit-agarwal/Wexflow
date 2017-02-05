@@ -1,6 +1,11 @@
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/Wexflow/Lobby)
 [![Twitter](https://img.shields.io/badge/twitter-@wexflow86-55acee.svg?style=flat-square)](https://twitter.com/wexflow86)
 
+<p align="center">
+<img src="https://aelassas.github.io/Wexflow/logo.png" alt="Wexflow" />
+<h4 align="center">Workflows made easy.</h4>
+</p>
+
 # Build status
 
 |         | Status |
@@ -9,8 +14,6 @@
 | AppVeyor (.NET) |[![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow)|
 
 # Wexflow
-
-![alt tag](https://aelassas.github.io/Wexflow/logo.png)
 
 Wexflow is an open source multithreaded workflow engine written in pure C# from scratch. Wexflow aims to make automations, workflow processes, long-running processes and interactions between systems, applications and folks easy, straitforward and clean.
 
