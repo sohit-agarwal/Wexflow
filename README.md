@@ -1,6 +1,6 @@
 <p align="center">
   <img src="https://aelassas.github.io/Wexflow/logo.png" alt="Wexflow" />
-  <h4 align="center">Workflows made easy.</h4>
+  <h4 align="center">Workflows Made Easy</h4>
 </p>
 
 # Continuous integration
