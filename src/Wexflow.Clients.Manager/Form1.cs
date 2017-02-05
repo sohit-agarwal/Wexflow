@@ -187,9 +187,10 @@ namespace Wexflow.Clients.Manager
             {
                 var workflow = GetWorkflow(wfId);
 
+				_timer.Stop();
+
                 if (workflow.IsEnabled)
                 {
-                    _timer.Stop();
                     _timer.Tick += (o, ea) => UpdateButtons(wfId, false);
                     _timer.Start();
 

@@ -166,8 +166,9 @@
 
                 this.className += "selected";
 
+                clearInterval(timer);
+
                 if (workflows[selectedId].IsEnabled === true) {
-                    clearInterval(timer);
                     timer = setInterval(function () {
                         updateButtons(selectedId, false);
                     }, timerInterval);

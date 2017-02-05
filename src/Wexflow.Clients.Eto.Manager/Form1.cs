@@ -157,9 +157,10 @@ namespace Wexflow.Clients.Eto.Manager
 			var id = GetSlectedWorkflowId();
 			var wf = GetWorkflow(id);
 
+			_timer.Stop();
+
 			if (wf.IsEnabled)
 			{
-				_timer.Stop();
 				_timer.Elapsed += (s, ea) => UpdateButtons(id, false);
 				_timer.Start();
 
