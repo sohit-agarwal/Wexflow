@@ -9,7 +9,6 @@
 ----------|--------|----------|
 | AppVeyor (.NET) | Windows |[![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow)|
 | Travis (Mono) | Linux |[![Build Status](https://travis-ci.org/aelassas/Wexflow.svg?branch=master)](https://travis-ci.org/aelassas/Wexflow)|
-|Gitlab (Mono) | Linux |[![build status](https://gitlab.com/aelassas/Wexflow/badges/master/build.svg)](https://gitlab.com/aelassas/Wexflow/commits/master)|
 | Bitrise (Android)| Linux|[![Build Status](https://www.bitrise.io/app/63a806486aa95f7d.svg?token=iO5-oRJcLJ9JVF_Q1n1UPQ)](https://www.bitrise.io/app/63a806486aa95f7d)|
 
 # Wexflow
