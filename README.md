@@ -351,7 +351,7 @@ Wexflow Web Manager allows the user to do the following things:
 
 To host Wexflow Web Manager in a website, simply proceed as follows:
 
-1. Reference wexflow.min.css and wexflow.min.js
+1. Reference wexflow.min.css and wexflow.min.js: These files are located in C:\Program Files\Wexfow\Web Manager\
 2. Create an instance of Wexflow.
 
 The HTML source code should look like as follows:
