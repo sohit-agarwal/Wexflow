@@ -63,6 +63,7 @@ Here are the strengths of Wexflow vs WF:
 - Comes with 29 built-in tasks.
 - Worklow events (OnSuccess, OnWarning and OnError).
 - Provides a GUI for managing workflows that works on both Windows and Linux.
+- Provides an Android application for managing workflows.
 - Provides a lightweight JavaScript API that allows to manage workflows in any website.
 
 # Prerequisites
