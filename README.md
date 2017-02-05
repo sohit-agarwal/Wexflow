@@ -989,7 +989,7 @@ public class MyTask : Wexflow.Core.Task
 }
 ```
 
-Each task returns a TaskStatus object when it finished performing its job. TaskStatus is composed of the following elements:
+Each task returns a TaskStatus object when it finishes performing its job. TaskStatus is composed of the following elements:
 
 ```csharp
 public Status Status { get; set; }
