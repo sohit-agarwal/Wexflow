@@ -1,9 +1,6 @@
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/Wexflow/Lobby)
-[![Twitter](https://img.shields.io/badge/twitter-@wexflow86-55acee.svg?style=flat-square)](https://twitter.com/wexflow86)
-
 <p align="center">
-<img src="https://aelassas.github.io/Wexflow/logo.png" alt="Wexflow" />
-<h4 align="center">Workflows made easy.</h4>
+  <img src="https://aelassas.github.io/Wexflow/logo.png" alt="Wexflow" />
+  <h4 align="center">Workflows made easy.</h4>
 </p>
 
 # Build status
@@ -14,6 +11,8 @@
 | AppVeyor (.NET) |[![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow)|
 
 # Wexflow
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/Wexflow/Lobby)
+[![Twitter](https://img.shields.io/badge/twitter-@wexflow86-55acee.svg?style=flat-square)](https://twitter.com/wexflow86)
 
 Wexflow is an open source multithreaded workflow engine written in pure C# from scratch. Wexflow aims to make automations, workflow processes, long-running processes and interactions between systems, applications and folks easy, straitforward and clean.
 
@@ -24,6 +23,7 @@ Wexflow provides the following features:
 - **Sequential workflows:** A sequential workflow executes a set of tasks in order, one by one. Tasks are executed in a sequential manner until the last task finishes. The order of the execution of the tasks can be altered by modifying the execution graph of the workflow.
 - **Flowchart workflows:** A flowchart workflow is a workflow that contains at least one flowchart node (DoIf/DoWhile) in its execution graph. A flow chart node takes as input a flowchart task (A task that returns either true or false after performing its job) and a set of tasks to execute in order, one by one. The order of the execution of the tasks can be altered by modifying the execution graph of the flowchart node.
 - **Workflow events:** After a workflow finishes its job, its final result is either success, or warning or error. If its final result is success, the OnSuccess event is triggered. If its final result is warning, the OnWarning event is triggered. If its final result is error, the OnError event is triggered. An event contains a set of tasks and/or flowchart nodes to execute in order, one by one. The order of the execution of the tasks and/or flowchart nodes can be altered by modifying the execution graph of the event.
+- **Launch types:** Workflows can either be launched when Wexflow engine starts or triggered manually or launched periodically.
 - **Wexflow Web Manager:** Wexflow can be hosted on any website through its lightweight JavaScript API (~6Kb). Wexflow can be hosted on ASP.NET, ASP.NET MVC, PHP, Ruby On Rails, Python websites and so on.
 - **Wexflow Andriod Manager:** Wexflow provides an Android application for managing workflows.
 - **Wexflow Manager:** Wexflow provides a GUI for managing workflows that works on both Windows and Linux.
