@@ -134,7 +134,7 @@ To run Wexflow on Linux, Wexflow Windows Service must be installed on a Windows 
 
 After Wexflow Windows Service is installed on a Windows Machine, proceed as follows to install Wexflow Manager on Linux:
 
-- Download wexflow.tar.gz
+- Download wexflow.tar.gz (available in Wexflow_setup_linux.zip)
 - Install mono-complete:
 
 ```
@@ -175,7 +175,7 @@ To run Wexflow on Andoird, Wexflow Windows Service must be installed on a Window
 
 After Wexflow Windows Service is installed on a Windows Machine, proceed as follows to install Wexflow Manager on an Android device:
 
-- Download wexflow.apk
+- Download wexflow.apk (available in Wexflow_setup_android.zip)
 
 - Copy wexflow.apk into the Android device
 
