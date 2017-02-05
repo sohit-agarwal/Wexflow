@@ -28,6 +28,7 @@ Wexflow provides the following features:
 - **Wexflow Manager:** Wexflow provides a GUI for managing workflows that works on both Windows and Linux.
 - **Wexflow Web Manager:** Wexflow can be hosted on any website through its lightweight JavaScript API (~6Kb). Wexflow can be hosted on ASP.NET, ASP.NET MVC, PHP, Ruby On Rails, Python websites and so on.
 - **Wexflow Andriod Manager:** Wexflow provides an Android application for managing workflows.
+- **Monitoring:** Everything that happens in Wexflow is traced in the log files.
 
 In addition, Wexflow provides the following built-in tasks:
 
@@ -66,9 +67,11 @@ Here are the strengths of Wexflow vs WF:
 - Open source.
 - Comes with 29 built-in tasks.
 - Worklow events (OnSuccess, OnWarning and OnError).
+- Workflows can either be launched when Wexflow engine starts or triggered manually or launched periodically.
 - Provides a GUI for managing workflows that works on both Windows and Linux.
 - Provides an Android application for managing workflows.
 - Provides a lightweight JavaScript API that allows to manage workflows in any website.
+- Everything that happens in Wexflow is traced in the log files.
 
 # Prerequisites
 
