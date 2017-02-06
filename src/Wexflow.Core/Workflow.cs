@@ -22,25 +22,25 @@ namespace Wexflow.Core
     {
         public const int StartId = -1;
 
-        public string WorkflowFilePath { get; set; }
-        public string WexflowTempFolder { get; set; }
-        public string WorkflowTempFolder { get; set; }
-        public string XsdPath { get; set; }
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public LaunchType LaunchType { get; set; }
-        public TimeSpan Period { get; set; }
-        public bool IsEnabled { get; set; }
-        public bool IsRunning { get; set; }
-        public bool IsPaused { get; set; }
-        public Task[] Taks { get; set; }
-        public Dictionary<int, List<FileInf>> FilesPerTask { get; set; }
-        public Dictionary<int, List<Entity>> EntitiesPerTask { get; set; }
-        public int JobId { get; set; }
+        public string WorkflowFilePath { get; private set; }
+        public string WexflowTempFolder { get; private set; }
+        public string WorkflowTempFolder { get; private set; }
+        public string XsdPath { get; private set; }
+        public int Id { get; private set; }
+        public string Name { get; private set; }
+        public string Description { get; private set; }
+        public LaunchType LaunchType { get; private set; }
+        public TimeSpan Period { get; private set; }
+        public bool IsEnabled { get; private set; }
+        public bool IsRunning { get; private set; }
+        public bool IsPaused { get; private set; }
+        public Task[] Taks { get; private set; }
+        public Dictionary<int, List<FileInf>> FilesPerTask { get; private set; }
+        public Dictionary<int, List<Entity>> EntitiesPerTask { get; private set; }
+        public int JobId { get; private set; }
         public string LogTag { get { return string.Format("[{0} / {1}]", Name, JobId); } }
-        public XmlNamespaceManager XmlNamespaceManager { get; set; }
-        public Graph ExecutionGraph { get; set; }
+        public XmlNamespaceManager XmlNamespaceManager { get; private set; }
+        public Graph ExecutionGraph { get; private set; }
 
         Thread _thread;
 

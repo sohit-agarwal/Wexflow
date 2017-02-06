@@ -10,11 +10,11 @@ namespace Wexflow.Core
 {
     public class WexflowEngine
     {
-        public string SettingsFile { get; set; }
-        public string WorkflowsFolder { get; set; }
-        public string TempFolder { get; set; }
-        public string XsdPath { get; set; }
-        public Workflow[] Workflows { get; set; }
+        public string SettingsFile { get; private set; }
+        public string WorkflowsFolder { get; private set; }
+        public string TempFolder { get; private set; }
+        public string XsdPath { get; private set; }
+        public Workflow[] Workflows { get; private set; }
 
         public WexflowEngine(string settingsFile) 
         {

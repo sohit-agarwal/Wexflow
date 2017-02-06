@@ -20,8 +20,8 @@ namespace Wexflow.Core
                 FileName = System.IO.Path.GetFileName(value);
             } 
         }
-        public string FileName { get; set; }
-        public int TaskId { get; set; }
+        public string FileName { get; private set; }
+        public int TaskId { get; private set; }
         public string RenameTo {
             get
             {
@@ -35,8 +35,8 @@ namespace Wexflow.Core
                     RenameToOrName = value;
             }
         }
-        public string RenameToOrName { get; set; }
-        public List<Tag> Tags { get; set; }
+        public string RenameToOrName { get; private set; }
+        public List<Tag> Tags { get; private set; }
 
         public FileInf(string path, int taskId)
         {

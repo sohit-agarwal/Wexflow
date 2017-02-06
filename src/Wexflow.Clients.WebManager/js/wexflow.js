@@ -1,4 +1,5 @@
 ﻿function Wexflow(id, uri) {
+    "use strict";
 
     uri = trimEnd(uri, "/");
     var selectedId = -1;
