@@ -115,7 +115,8 @@ namespace Wexflow.Core
             {
                 var taskNodes = GetTaskNodes(xExectionGraph);
 
-                // Check parallel tasks and infinite loops
+                // Check startup node, parallel tasks and infinite loops
+                CheckStartupNode(taskNodes, "Startup node with parentId=-1 not found in ExecutionGraph execution graph.");
                 CheckParallelTasks(taskNodes, "Parallel tasks execution detected in ExecutionGraph execution graph.");
                 CheckInfiniteLoop(taskNodes, "Infinite loop detected in ExecutionGraph execution graph.");
 
@@ -125,6 +126,7 @@ namespace Wexflow.Core
                 if (xOnSuccess != null)
                 {
                     var onSuccessNodes = GetTaskNodes(xOnSuccess);
+                    CheckStartupNode(onSuccessNodes, "Startup node with parentId=-1 not found in OnSuccess execution graph.");
                     CheckParallelTasks(onSuccessNodes, "Parallel tasks execution detected in OnSuccess execution graph.");
                     CheckInfiniteLoop(onSuccessNodes, "Infinite loop detected in OnSuccess execution graph.");
                     onSuccess = new GraphEvent(onSuccessNodes);
@@ -136,6 +138,7 @@ namespace Wexflow.Core
                 if (xOnWarning != null)
                 {
                     var onWarningNodes = GetTaskNodes(xOnWarning);
+                    CheckStartupNode(onWarningNodes, "Startup node with parentId=-1 not found in OnWarning execution graph.");
                     CheckParallelTasks(onWarningNodes, "Parallel tasks execution detected in OnWarning execution graph.");
                     CheckInfiniteLoop(onWarningNodes, "Infinite loop detected in OnWarning execution graph.");
                     onWarning = new GraphEvent(onWarningNodes);
@@ -147,6 +150,7 @@ namespace Wexflow.Core
                 if (xOnError != null)
                 {
                     var onErrorNodes = GetTaskNodes(xOnError);
+                    CheckStartupNode(onErrorNodes, "Startup node with parentId=-1 not found in OnError execution graph.");
                     CheckParallelTasks(onErrorNodes, "Parallel tasks execution detected in OnError execution graph.");
                     CheckInfiniteLoop(onErrorNodes, "Infinite loop detected in OnError execution graph.");
                     onError = new GraphEvent(onErrorNodes);
@@ -174,6 +178,7 @@ namespace Wexflow.Core
                         var parentId = int.Parse(xTask.XPathSelectElement("wf:Parent", XmlNamespaceManager).Attribute("id").Value);
 
                         var doIfNodes = XTasksToNodes(xTask.XPathSelectElements("wf:Do/wf:Task", XmlNamespaceManager));
+                        CheckStartupNode(doIfNodes, "Startup node with parentId=-1 not found in DoIf>Do execution graph.");
                         CheckParallelTasks(doIfNodes, "Parallel tasks execution detected in DoIf>Do execution graph.");
                         CheckInfiniteLoop(doIfNodes, "Infinite loop detected in DoIf>Do execution graph.");
 
@@ -183,6 +188,7 @@ namespace Wexflow.Core
                         {
                             var otherwiseNodesArray = XTasksToNodes(xOtherwise.XPathSelectElements("wf:Task", XmlNamespaceManager));
                             otherwiseNodes.AddRange(otherwiseNodesArray);
+                            CheckStartupNode(otherwiseNodesArray, "Startup node with parentId=-1 not found in DoIf>Otherwise execution graph.");
                             CheckParallelTasks(otherwiseNodes, "Parallel tasks execution detected in DoIf>Otherwise execution graph.");
                             CheckInfiniteLoop(otherwiseNodes, "Infinite loop detected in DoIf>Otherwise execution graph.");
                         }
@@ -195,6 +201,7 @@ namespace Wexflow.Core
                         var doWhileParentId = int.Parse(xTask.XPathSelectElement("wf:Parent", XmlNamespaceManager).Attribute("id").Value);
 
                         var doWhileNodes = XTasksToNodes(xTask.XPathSelectElements("wf:Do/wf:Task", XmlNamespaceManager));
+                        CheckStartupNode(doWhileNodes, "Startup node with parentId=-1 not found in DoWhile>Do execution graph.");
                         CheckParallelTasks(doWhileNodes, "Parallel tasks execution detected in DoWhile>Do execution graph.");
                         CheckInfiniteLoop(doWhileNodes, "Infinite loop detected in DoWhile>Do execution graph.");
 
@@ -223,6 +230,14 @@ namespace Wexflow.Core
                 taskNodes.Add(node);
             }
             return taskNodes.ToArray();
+        }
+
+        void CheckStartupNode(IEnumerable<Node> nodes, string errorMsg) 
+        {
+            if (!nodes.Any(n => n.ParentId == StartId))
+            {
+                throw new Exception(errorMsg);
+            }
         }
 
         void CheckParallelTasks(IEnumerable<Node> taskNodes, string errorMsg)
@@ -425,7 +440,7 @@ namespace Wexflow.Core
 
             if (nodes.Any())
             {
-                var startNode = nodes.ElementAt(0);
+                var startNode = GetStartupNode(nodes);
 
                 if (startNode is DoIf)
                 {
@@ -575,7 +590,7 @@ namespace Wexflow.Core
                             var doIfTasks = NodesToTasks(doIf.DoNodes);
 
                             // Run Tasks
-                            Node doIfStartNode = doIf.DoNodes[0];
+                            Node doIfStartNode = GetStartupNode(doIf.DoNodes);
 
                             if (doIfStartNode.ParentId == StartId)
                             {
@@ -591,7 +606,7 @@ namespace Wexflow.Core
                             var otherwiseTasks = NodesToTasks(doIf.OtherwiseNodes);
 
                             // Run Tasks
-                            Node otherwiseStartNode = doIf.OtherwiseNodes[0];
+                            Node otherwiseStartNode = GetStartupNode(doIf.OtherwiseNodes);
 
                             if (otherwiseStartNode.ParentId == StartId)
                             {
@@ -639,7 +654,7 @@ namespace Wexflow.Core
                                 var doWhileTasks = NodesToTasks(doWhile.DoNodes);
 
                                 // Run Tasks
-                                Node doWhileStartNode = doWhile.DoNodes[0];
+                                Node doWhileStartNode = GetStartupNode(doWhile.DoNodes);
 
                                 if (doWhileStartNode.ParentId == StartId)
                                 {
@@ -738,6 +753,11 @@ namespace Wexflow.Core
             if (!Directory.Exists(wfJobTempFolder)) Directory.CreateDirectory(wfJobTempFolder);
 
             WorkflowTempFolder = wfJobTempFolder;
+        }
+
+        Node GetStartupNode(IEnumerable<Node> nodes)
+        {
+            return nodes.First(n => n.ParentId == StartId);
         }
 
         Task GetTask(int id)
