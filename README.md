@@ -50,6 +50,12 @@ If you found any issues with Wexflow, please submit a bug report at the [Issue T
 
 If you'd like to add a feature request please add some details how it is supposed to work.
 
+# More informations
+More informations about Wexflow can be found on [CodeProject](https://www.codeproject.com/Articles/1164009/Wexflow-Open-source-workflow-engine-in-Csharp).
+
+# License
+Wexflow is licensed under the [MIT License](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt).
+
 # Libraries used by Wexflow
 
 Here is the list of the libraries used by Wexflow:
@@ -117,10 +123,3 @@ Here is the list of the libraries used by Wexflow:
   - Updated Wexflow Web Manager.
   - Updated Wexflow Manager (Windows and Linux).
   - Updated Wexflow Engine.
-  
-
-# More informations
-More informations about Wexflow can be found on [CodeProject](https://www.codeproject.com/Articles/1164009/Wexflow-Open-source-workflow-engine-in-Csharp).
-
-# License
-Wexflow is licensed under the [MIT License](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt).
