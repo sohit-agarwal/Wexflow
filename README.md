@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://aelassas.github.io/Wexflow/logo.png" alt="Wexflow" />
+  <img src="https://aelassas.github.io/wexflow/images/logo.png" alt="Wexflow" />
   <h4 align="center">Workflows Made Easy</h4>
 </p>
 
@@ -106,27 +106,27 @@ To install Wexflow, proceed as follows:
 
 4. Install WexflowSetup.exe (available in Wexflow_setup_windows.zip):
 
-![alt tag](https://aelassas.github.io/Wexflow/setup-1.PNG)
+![alt tag](https://aelassas.github.io/wexflow/images/setup-1.PNG)
 
 You can choose to create a desktop shortcut:
 
-![alt tag](https://aelassas.github.io/Wexflow/setup-2.PNG)
+![alt tag](https://aelassas.github.io/wexflow/images/setup-2.PNG)
 
 Click on install to perform the installation:
 
-![alt tag](https://aelassas.github.io/Wexflow/setup-3.PNG)
+![alt tag](https://aelassas.github.io/wexflow/images/setup-3.PNG)
 
 Finally, click on finish to finish the installation:
 
-![alt tag](https://aelassas.github.io/Wexflow/setup-4.PNG)
+![alt tag](https://aelassas.github.io/wexflow/images/setup-4.PNG)
 
 The following menus are added in the start menu:
 
-![alt tag](https://aelassas.github.io/Wexflow/wsp2.png)
+![alt tag](https://aelassas.github.io/wexflow/images/wsp2.png)
 
 After Wexflow is installed a Windows Service named Wexflow is installed and starts automatically. To start Wexflow Manager, this Windows Service must be running. However, If you want to stop it you can do it from Windows Services console:
 
-![alt tag](https://aelassas.github.io/Wexflow/ws.PNG)
+![alt tag](https://aelassas.github.io/wexflow/images/ws.PNG)
 
 The "Manager" menu opens Wexflow Manager GUI. The "Web Manager" menu opens Wexflow Web Manager. The "Documentation" menu opens the documentation folder of Wexflow. The "Configuration" menu opens the configuration folder of Wexflow. The "Logs" menu opens the log file of the day.
 
@@ -167,7 +167,7 @@ wexflow
 
 The following window will appear:
 
-![alt tag](https://aelassas.github.io/Wexflow/wml.png)
+![alt tag](https://aelassas.github.io/wexflow/images/wml.png)
 
 ## Android
 
@@ -185,15 +185,15 @@ After Wexflow Windows Service is installed on a Windows Machine, proceed as foll
 
 - Launch Wexflow application and open the application settings through the settings menu:
 
-![alt tag](https://aelassas.github.io/Wexflow/android-1.png)
+![alt tag](https://aelassas.github.io/wexflow/images/android-1.png)
 
 -  Configure Wexflow Web Service Uri:
 
-![alt tag](https://aelassas.github.io/Wexflow/android-2.png)
+![alt tag](https://aelassas.github.io/wexflow/images/android-2.png)
 
 That's it. Wexflow application is ready for work: 
 
-![alt tag](https://aelassas.github.io/Wexflow/android-3.png)
+![alt tag](https://aelassas.github.io/wexflow/images/android-3.png)
 
 # How to uninstall Wexflow
 
@@ -203,7 +203,7 @@ To uninstall Wexflow, simply click on "Uninstall" menu from "Windows Start menu 
 
 Or go to "Configuration Panel > Add/remove programs" then select "Wexflow version 1.0.1" and click on uninstall:
 
-![alt tag](https://aelassas.github.io/Wexflow/wu.PNG)
+![alt tag](https://aelassas.github.io/wexflow/images/wu.PNG)
 
 After Wexflow is uninstalled, the folders C:\Wexflow\ and C:\WexflowTesting\ are not deleted to prevent user defined workflows and testing scenarios from being deleted. However, If you do not need them you can delete them manually.
 
@@ -330,7 +330,7 @@ To disable a workflow, you can set the enabled settings option of the workflow t
 
 ## Wexflow Manager
 
-![alt tag](https://aelassas.github.io/Wexflow/wm.PNG)
+![alt tag](https://aelassas.github.io/wexflow/images/wm.PNG)
 
 Wexflow Manager is a simple application that allows the user to do the following things:
 
@@ -345,7 +345,7 @@ To see what's going on in Wexflow, open the log file C:\Program Files\Wexflow\We
 
 ## Wexflow Web Manager
 
-![alt tag](https://aelassas.github.io/Wexflow/wwm2.png)
+![alt tag](https://aelassas.github.io/wexflow/images/wwm2.png)
 
 Wexflow provides a lightweight JavaScript API (~6Kb) that allows Wexflow Manager to be hosted on any website.
 
@@ -388,7 +388,7 @@ The HTML source code should look like as follows:
 
 ## Wexflow Android Manager
 
-![alt tag](https://aelassas.github.io/Wexflow/android-3.png)
+![alt tag](https://aelassas.github.io/wexflow/images/android-3.png)
 
 Wexflow provides an Android application for managing workflows.
 
@@ -409,7 +409,7 @@ In this section, few workflow samples will be presented in order to make the end
 
 ### Workflow 1
 
-![alt tag](https://aelassas.github.io/Wexflow/Workflow_Invoices.png)
+![alt tag](https://aelassas.github.io/wexflow/images/Workflow_Invoices.png)
 
 This workflow uploads invoices to an SFTP server, then waits for 2 days and then notifies the customers.
 
@@ -459,7 +459,7 @@ First of all, the FilesLoader task loads all the invoices located in the folder 
 
 ### Workflow 2
 
-![alt tag](https://aelassas.github.io/Wexflow/Workflow_FilesSender.png)
+![alt tag](https://aelassas.github.io/wexflow/images/Workflow_FilesSender.png)
 
 This workflow waits for files to arrive in C:\WexflowTesting\Watchfolder1\ and C:\WexflowTesting\Watchfolder2\ then uploads them to an FTP server then moves them to C:\WexflowTesting\Sent\ folder. This workflow starts every 2 minutes.
 
@@ -497,7 +497,7 @@ First of all, the FilesLoader task loads all the files located in the folders C:
 
 ### Workflow 3
 
-![alt tag](https://aelassas.github.io/Wexflow/Workflow_ffmpeg.png)
+![alt tag](https://aelassas.github.io/wexflow/images/Workflow_ffmpeg.png)
 
 This workflow transcodes the WAV files located in C:\WexflowTesting\WAV\ to MP3 format through FFMPEG and moves the transcoded files to C:\WexflowTesting\MP3\.
 
@@ -532,7 +532,7 @@ First of all, the FilesLoader task loads all the files located in the folder C:\
 
 ### Workflow 4
 
-![alt tag](https://aelassas.github.io/Wexflow/Workflow_vlc.png)
+![alt tag](https://aelassas.github.io/wexflow/images/Workflow_vlc.png)
 
 This workflow waits for WAV files to arrive in C:\WexflowTesting\WAV\ then transcodes them to MP3 files through VLC then uploads the MP3 files to an FTP server then moves the WAV files to C:\WexflowTesting\WAV_processed\. This workflow starts every 2 minutes.
 
@@ -578,7 +578,7 @@ First of all, the FilesLoader task loads all the files located in the folder C:\
 
 ### Workflow 5
 
-![alt tag](https://aelassas.github.io/Wexflow/Workflow_Ftp_download_tag.png)
+![alt tag](https://aelassas.github.io/wexflow/images/Workflow_Ftp_download_tag.png)
 
 This workflow downloads specific files from an FTP server. This workflow starts by listing all the files located at the root folder of the server, then the specific files that will be downloaded are tagged through an XSLT (LisFiles.xslt), then the files are downloaded by the Ftp task through todo="toDownload" and from="app4" tags, then the downloaded files are moved to the folder C:\WexflowTesting\Ftp_download\.
 
@@ -671,7 +671,7 @@ Below is the XSLT ListFiles.xslt used for tagging files:
 
 ## Execution graph
 
-![alt tag](https://aelassas.github.io/Wexflow/Workflow_FilesSender.png)
+![alt tag](https://aelassas.github.io/wexflow/images/Workflow_FilesSender.png)
 
 This workflow loads the file C:\WexflowTesting\file1.txt then uploads it to an FTP server then moves it to C:\WexflowTesting\Sent\ folder.
 
@@ -712,7 +712,7 @@ First of all, the FilesLoader task loads the file C:\WexflowTesting\file1.txt th
 
 By convention, the parent task id of first task to be executed must always be -1. The execution graph of this workflow will execute the tasks in the following order:
 
-![alt tag](https://aelassas.github.io/Wexflow/Workflow_ExecutionGraph_upload_1.png)
+![alt tag](https://aelassas.github.io/wexflow/images/Workflow_ExecutionGraph_upload_1.png)
 
 However, if the execution graph is modified as follows:
 
@@ -726,7 +726,7 @@ However, if the execution graph is modified as follows:
 
 The tasks will be executed as follows:
 
-![alt tag](https://aelassas.github.io/Wexflow/Workflow_ExecutionGraph_upload_2.png)
+![alt tag](https://aelassas.github.io/wexflow/images/Workflow_ExecutionGraph_upload_2.png)
 
 If the execution graph is modified as follows:
 
@@ -740,7 +740,7 @@ If the execution graph is modified as follows:
 
 The tasks will be executed as follows:
 
-![alt tag](https://aelassas.github.io/Wexflow/Workflow_ExecutionGraph_upload_3.png)
+![alt tag](https://aelassas.github.io/wexflow/images/Workflow_ExecutionGraph_upload_3.png)
 
 Two things are forbidden in the execution graph:
 
@@ -749,7 +749,7 @@ Two things are forbidden in the execution graph:
 
 Here is an example of an infinite loop:
 
-![alt tag](https://aelassas.github.io/Wexflow/Workflow_ExecutionGraph_infinite_loop_2.png)
+![alt tag](https://aelassas.github.io/wexflow/images/Workflow_ExecutionGraph_infinite_loop_2.png)
 
 ```xml
 <ExecutionGraph>
@@ -761,7 +761,7 @@ Here is an example of an infinite loop:
 
 Here is an example of parallel tasks:
 
-![alt tag](https://aelassas.github.io/Wexflow/Workflow_ExecutionGraph_parallel_tasks.png)
+![alt tag](https://aelassas.github.io/wexflow/images/Workflow_ExecutionGraph_parallel_tasks.png)
 
 ```xml
 <ExecutionGraph>
@@ -775,7 +775,7 @@ Here is an example of parallel tasks:
 
 ### DoIf
 
-![alt tag](https://aelassas.github.io/Wexflow/Workflow_DoIf.png)
+![alt tag](https://aelassas.github.io/wexflow/images/Workflow_DoIf.png)
 
 The following workflow is a flowchart workflow that is triggered by the file file.trigger. If the file file.trigger is found on the file system then this workflow will upload the file file1.txt to an FTP server then it will notify customers that the upload was successful. Otherwise, if the trigger file.trigger is not found on the file system then the workflow will notify customers that the upload failed.
 
@@ -849,7 +849,7 @@ You can add DoIf flowchart nodes pretty much wherever you want in the execution 
 
 ### DoWhile
 
-![alt tag](https://aelassas.github.io/Wexflow/Workflow_DoWhile2.png)
+![alt tag](https://aelassas.github.io/wexflow/images/Workflow_DoWhile2.png)
 
 This workflow is triggered by the file file.trigger. While the file file.trigger exists, this workflow will upload the file file1.txt to an FTP server then it will notify customers then it will wait for 2 days then it will start again.
 
@@ -912,7 +912,7 @@ You can add DoWhile flowchart nodes pretty much wherever you want in the executi
 
 ## Workflow events
 
-![alt tag](https://aelassas.github.io/Wexflow/Workflow_Events.png)
+![alt tag](https://aelassas.github.io/wexflow/images/Workflow_Events.png)
 
 This workflow uploads the file1.txt to an FTP server then notifies customers in case of success.
 
@@ -1075,19 +1075,19 @@ To debug Wexflow, proceed as follows:
 - Install Microsoft .NET Framework 4.0 or higher.
 - Install Microsoft Sync Framework 2.1 SDK. You can download it from [here](https://www.microsoft.com/en-us/download/details.aspx?id=23217).
 - Install Visual Studio 2010 or higher.
-- Copy the folders "Wexflow" and "WexflowTesting" in C:\. You can download them from [here](https://aelassas.github.io/Wexflow/Wexflow.zip).
+- Copy the folders "Wexflow" and "WexflowTesting" in C:\. You can download them from [here](https://aelassas.github.io/wexflow/images/Wexflow.zip).
 
 ## Wexflow Windows Service
 
 To debug Wexflow Windows Service (Wexflow.Clients.WindowsService project), add "debug" command line argument in "Propject settings > Debug > Startup options":
 
-![alt tag](https://aelassas.github.io/Wexflow/wwsd.png)
+![alt tag](https://aelassas.github.io/wexflow/images/wwsd.png)
 
 ## Wexflow Manager
 
 To debug Wexflow Manager (Wexflow.Clients.Manager project), add "debug" command line argument in "Propject settings > Debug > Startup options":
 
-![alt tag](https://aelassas.github.io/Wexflow/wmd.png)
+![alt tag](https://aelassas.github.io/wexflow/images/wmd.png)
 
 # Bugs and features
 
