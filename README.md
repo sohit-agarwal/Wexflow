@@ -17,7 +17,7 @@ Wexflow is an open source workflow engine. Wexflow aims to make automations, wor
 
 # Get started
 
-Browse [Wexflow wiki](https://github.com/aelassas/Wexflow/wiki/Wexflow-wiki) to get started.
+Browse [Wexflow wiki](https://github.com/aelassas/Wexflow/wiki) to get started.
 
 # Is Wexflow an ETL system?
 
