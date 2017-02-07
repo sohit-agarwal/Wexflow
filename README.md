@@ -892,7 +892,7 @@ This workflow is triggered by the file file.trigger. While the file file.trigger
         </Task>
     </Tasks>
     <ExecutionGraph>
-      <DoWhile id="100" if="99">
+      <DoWhile id="100" while="99">
         <Parent id="-1" />
          <Do>
             <Task id="1"><Parent id="-1" /></Task>
