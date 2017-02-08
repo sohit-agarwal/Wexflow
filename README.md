@@ -15,7 +15,7 @@
 
 Wexflow is an open source workflow engine. Wexflow aims to make automations, workflow processes, long-running processes and interactions between systems, applications and folks easy, straitforward and clean.
 
-# Get started
+# Getting started
 
 Browse [Wexflow wiki](https://github.com/aelassas/Wexflow/wiki) to get started.
 
