@@ -8,7 +8,8 @@
 | Bitrise (Android)| Linux|[![Build Status](https://www.bitrise.io/app/63a806486aa95f7d.svg?token=iO5-oRJcLJ9JVF_Q1n1UPQ)](https://www.bitrise.io/app/63a806486aa95f7d)|
 
 # Wexflow
-<!--[![Release](http://img.shields.io/badge/release-v1.0.6-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/tag/v1.0.6)-->
+[![Release](http://img.shields.io/badge/release-v1.0.6-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/tag/v1.0.6)
+[![wiki](https://img.shields.io/badge/browse-the%20wiki-orange.svg)](https://github.com/aelassas/Wexflow/wiki)
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/Wexflow/Lobby)
 [![Twitter](https://img.shields.io/badge/twitter-@wexflow86-55acee.svg?style=flat-square)](https://twitter.com/wexflow86)
@@ -18,10 +19,6 @@ Wexflow is an open source workflow engine. Wexflow aims to make automations, wor
 # Get started
 
 Browse [Wexflow wiki](https://github.com/aelassas/Wexflow/wiki) to get started.
-
-# Is Wexflow an ETL system?
-
-You may think that Wexflow is rather an ETL system than a workflow engine. Well, the answer is that you can do ETL with Wexflow and even more. The spirit of Wexflow is to offer generic functionalities in a way that you can do pretty much whatever you want. With Wexflow, you can do ETL and even more through custom tasks and sequential/flowchart workflows.
 
 # Why not Workflow Foundation?
 
