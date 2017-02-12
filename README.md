@@ -12,7 +12,7 @@
 [![wiki](https://img.shields.io/badge/browse-the%20wiki-orange.svg)](https://github.com/aelassas/Wexflow/wiki)
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/Wexflow/Lobby)
-[![Twitter](https://img.shields.io/badge/twitter-@wexflow86-55acee.svg?style=flat-square)](https://twitter.com/wexflow86)
+[![Twitter](https://img.shields.io/badge/twitter-@wexflow86-55acee.svg)](https://twitter.com/wexflow86)
 
 Wexflow is an open source workflow engine. Wexflow aims to make automations, workflow processes, long-running processes and interactions between systems, applications and folks easy, straitforward and clean.
 
