@@ -65,6 +65,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Wexflow.Tasks.Movedir\Wexflow.Tasks.Movedir.csproj">
+      <Project>{BBCA7CF8-635A-4ABE-B3C5-81C584DB0D46}</Project>
+      <Name>Wexflow.Tasks.Movedir</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.FileExists\Wexflow.Tasks.FileExists.csproj">
       <Project>{8ED85A48-A8E3-4565-A874-3562F081D14C}</Project>
       <Name>Wexflow.Tasks.FileExists</Name>

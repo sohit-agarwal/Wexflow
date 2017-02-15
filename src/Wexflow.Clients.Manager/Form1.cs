@@ -8,8 +8,12 @@ using Wexflow.Core.Service.Client;
 
 namespace Wexflow.Clients.Manager
 {
-    // v1.0.6
+    // v1.0.7
     // TODO Switch/Case
+    // TODO update xsd
+    // TODO Now task
+    // TODO load
+    // TODO run
 
     // TODO Wexflow Manager wf status live + row background color
     // TODO Test and fix ftps
