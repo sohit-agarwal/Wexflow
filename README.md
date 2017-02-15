@@ -5,7 +5,7 @@
 ----------|--------|----------|
 | AppVeyor (.NET) | Windows |[![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow)|
 | Travis (Mono) | Linux |[![Build Status](https://travis-ci.org/aelassas/Wexflow.svg?branch=master)](https://travis-ci.org/aelassas/Wexflow)|
-| Bitrise (Android)| Linux|[![Build Status](https://www.bitrise.io/app/63a806486aa95f7d.svg?token=iO5-oRJcLJ9JVF_Q1n1UPQ)](https://www.bitrise.io/app/63a806486aa95f7d)|
+| Bitrise (Android)| Linux|[![Build Status](https://www.bitrise.io/app/55915da1dc7572b3.svg?token=xIjHVgLQu_DktBPbJEPTOA)](https://www.bitrise.io/app/55915da1dc7572b3)|
 
 # Wexflow
 [![Release](http://img.shields.io/badge/release-v1.0.6-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/tag/v1.0.6)
