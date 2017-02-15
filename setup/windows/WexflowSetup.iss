@@ -104,6 +104,9 @@ Source: "..\..\src\Wexflow.Clients.WebManager\css\wexflow.min.css"; DestDir: "{a
 
 Source: "..\..\doc\*"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 
+Source: "..\..\LICENSE.txt"; DestDir: "{app}\"; Flags: ignoreversion recursesubdirs
+Source: "..\..\VERSION.txt"; DestDir: "{app}\"; Flags: ignoreversion recursesubdirs
+
 Source: "Wexflow.ico"; DestDir: "{app}"; Flags: ignoreversion
 
 Source: "Wexflow.log"; DestDir: "{app}"; Flags: ignoreversion onlyifdoesntexist uninsneveruninstall
