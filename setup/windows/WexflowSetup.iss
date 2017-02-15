@@ -96,12 +96,13 @@ Source: "..\..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.FilesR
 Source: "..\..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.Wait.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.FilesExist.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.FileExists.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.Movedir.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 Source: "..\..\src\Wexflow.Clients.WebManager\index.html"; DestDir: "{app}\Web Manager"; Flags: ignoreversion
 Source: "..\..\src\Wexflow.Clients.WebManager\js\wexflow.min.js"; DestDir: "{app}\Web Manager\js"; Flags: ignoreversion
 Source: "..\..\src\Wexflow.Clients.WebManager\css\wexflow.min.css"; DestDir: "{app}\Web Manager\css"; Flags: ignoreversion
 
-Source: "Documentation\*"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\doc\*"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 
 Source: "Wexflow.ico"; DestDir: "{app}"; Flags: ignoreversion
 
