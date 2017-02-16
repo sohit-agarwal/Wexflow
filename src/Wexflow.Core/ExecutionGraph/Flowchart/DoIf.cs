@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Wexflow.Core
+namespace Wexflow.Core.ExecutionGraph.Flowchart
 {
     public class DoIf : Node
     {

@@ -28,6 +28,7 @@ namespace Wexflow.Core
             var xdoc = XDocument.Load(SettingsFile);
             WorkflowsFolder = GetWexflowSetting(xdoc, "workflowsFolder");
             TempFolder = GetWexflowSetting(xdoc, "tempFolder");
+            if (!Directory.Exists(TempFolder)) Directory.CreateDirectory(TempFolder);
             XsdPath = GetWexflowSetting(xdoc, "xsd");
         }
 

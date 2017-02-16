@@ -1,5 +1,5 @@
 ﻿
-namespace Wexflow.Core
+namespace Wexflow.Core.ExecutionGraph
 {
     public class Node
     {

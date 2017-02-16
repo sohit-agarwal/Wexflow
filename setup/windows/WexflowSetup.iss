@@ -16,7 +16,7 @@ DefaultDirName={pf}\{#MyAppName}
 DisableProgramGroupPage=yes
 OutputDir=.
 OutputBaseFilename=WexflowSetup
-SetupIconFile=Wexflow.ico
+SetupIconFile="..\..\src\Wexflow.Clients.Manager\Wexflow.ico"
 Compression=lzma
 SolidCompression=yes
 
@@ -28,18 +28,9 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 ;Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 
 [Files]
-Source: "..\..\src\Wexflow.Clients.Manager\bin\Debug\Wexflow.Clients.Manager.exe"; DestDir: "{app}\Manager"; Flags: ignoreversion
-Source: "..\..\src\Wexflow.Clients.Manager\bin\Debug\Wexflow.Clients.Manager.exe.config"; DestDir: "{app}\Manager"; Flags: ignoreversion
-Source: "..\..\src\Wexflow.Clients.Manager\bin\Debug\Wexflow.Core.Service.Client.dll"; DestDir: "{app}\Manager"; Flags: ignoreversion
-Source: "..\..\src\Wexflow.Clients.Manager\bin\Debug\Newtonsoft.Json.dll"; DestDir: "{app}\Manager"; Flags: ignoreversion
-Source: "..\..\src\Wexflow.Clients.Manager\bin\Debug\Wexflow.Core.Service.Contracts.dll"; DestDir: "{app}\Manager"; Flags: ignoreversion
-
+; Wexflow Windows Service
 Source: "..\..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Clients.WindowsService.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Clients.WindowsService.exe.config"; DestDir: "{app}"; Flags: ignoreversion
-
-Source: "..\..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Core.Service.Contracts.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Core.Service.Cross.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 Source: "..\..\libs\FluentFTP.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\libs\Hammock.ClientProfile.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -54,7 +45,6 @@ Source: "..\..\libs\Oracle.DataAccess.dll"; DestDir: "{app}"; Flags: ignoreversi
 Source: "..\..\libs\MySql.Data.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\libs\System.Data.SQLite.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\libs\Teradata.Client.Provider.dll"; DestDir: "{app}"; Flags: ignoreversion
-
 Source: "..\..\libs\saxon9he.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\libs\saxon9he-api.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\libs\IKVM.OpenJDK.Charsets.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -63,9 +53,12 @@ Source: "..\..\libs\IKVM.OpenJDK.Text.dll"; DestDir: "{app}"; Flags: ignoreversi
 Source: "..\..\libs\IKVM.OpenJDK.Util.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\libs\IKVM.OpenJDK.XML.API.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\libs\IKVM.Runtime.dll"; DestDir: "{app}"; Flags: ignoreversion
-
 Source: "..\..\libs\Microsoft.Synchronization.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\libs\Microsoft.Synchronization.Files.dll"; DestDir: "{app}"; Flags: ignoreversion
+
+Source: "..\..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Core.Service.Contracts.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Core.Service.Cross.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 Source: "..\..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.CsvToXml.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.FilesCopier.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -98,21 +91,58 @@ Source: "..\..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.FilesE
 Source: "..\..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.FileExists.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.Movedir.dll"; DestDir: "{app}"; Flags: ignoreversion
 
+; Wexflow Manager
+Source: "..\..\src\Wexflow.Clients.Manager\bin\Debug\Wexflow.Clients.Manager.exe"; DestDir: "{app}\Manager"; Flags: ignoreversion
+Source: "..\..\src\Wexflow.Clients.Manager\bin\Debug\Wexflow.Clients.Manager.exe.config"; DestDir: "{app}\Manager"; Flags: ignoreversion
+Source: "..\..\src\Wexflow.Clients.Manager\bin\Debug\Wexflow.Core.Service.Client.dll"; DestDir: "{app}\Manager"; Flags: ignoreversion
+Source: "..\..\src\Wexflow.Clients.Manager\bin\Debug\Newtonsoft.Json.dll"; DestDir: "{app}\Manager"; Flags: ignoreversion
+Source: "..\..\src\Wexflow.Clients.Manager\bin\Debug\Wexflow.Core.Service.Contracts.dll"; DestDir: "{app}\Manager"; Flags: ignoreversion
+
+; Wexflow Web Manager
 Source: "..\..\src\Wexflow.Clients.WebManager\index.html"; DestDir: "{app}\Web Manager"; Flags: ignoreversion
 Source: "..\..\src\Wexflow.Clients.WebManager\js\wexflow.min.js"; DestDir: "{app}\Web Manager\js"; Flags: ignoreversion
 Source: "..\..\src\Wexflow.Clients.WebManager\css\wexflow.min.css"; DestDir: "{app}\Web Manager\css"; Flags: ignoreversion
 
-Source: "..\..\doc\*"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+; Wexflow's Documentation
+Source: "..\..\src\Wexflow.Core\Workflow.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.CsvToXml\CsvToXml.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.FileExists\FileExists.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.FilesCopier\FilesCopier.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.FilesExist\FilesExist.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.FilesLoader\FilesLoader.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.FilesMover\FilesMover.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.FilesRemover\FilesRemover.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.FilesRenamer\FilesRenamer.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.Ftp\Ftp.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.Http\Http.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.ImagesTransformer\ImagesTransformer.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.ListEntities\ListEntities.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.ListFiles\ListFiles.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.MailsSender\MailsSender.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.Md5\Md5.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.Mkdir\Mkdir.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.Movedir\Movedir.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.ProcessLauncher\ProcessLauncher.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.Rmdir\Rmdir.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.Sql\Sql.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.Sync\Sync.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.Tar\Tar.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.Template\Template.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.Tgz\Tgz.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.Touch\Touch.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.Twitter\Twitter.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.Wait\Wait.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.Wmi\Wmi.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.XmlToCsv\XmlToCsv.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.Xslt\Xslt.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\..\src\Wexflow.Tasks.Zip\Zip.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 
 Source: "..\..\LICENSE.txt"; DestDir: "{app}\"; Flags: ignoreversion recursesubdirs
 Source: "..\..\VERSION.txt"; DestDir: "{app}\"; Flags: ignoreversion recursesubdirs
 
-Source: "Wexflow.ico"; DestDir: "{app}"; Flags: ignoreversion
-
-Source: "Wexflow.log"; DestDir: "{app}"; Flags: ignoreversion onlyifdoesntexist uninsneveruninstall
-
-Source: "Wexflow\*"; DestDir: "C:\Wexflow\"; Flags: ignoreversion recursesubdirs uninsneveruninstall
-Source: "WexflowTesting\*"; DestDir: "C:\WexflowTesting\"; Flags: ignoreversion recursesubdirs uninsneveruninstall
+; Wexflow's configuration
+Source: "..\..\samples\Wexflow\*"; DestDir: "C:\Wexflow\"; Flags: ignoreversion recursesubdirs uninsneveruninstall
+Source: "..\..\samples\WexflowTesting\*"; DestDir: "C:\WexflowTesting\"; Flags: ignoreversion recursesubdirs uninsneveruninstall
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
