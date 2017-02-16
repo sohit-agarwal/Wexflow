@@ -35,7 +35,7 @@ namespace Wexflow.Clients.Eto.Manager
 			_startButton = new Button(StartClick) { Text = "Start", Width = 75, Enabled = false };
 			_suspendButton = new Button(SuspendClick) { Text = "Suspend", Width = 75, Enabled = false };
 			_resumeButton = new Button(ResumeClick) { Text = "Resume", Width = 75, Enabled = false };
-			_stopButton = new Button(StopClick) { Text = "Stop", Width = 100, Enabled = false };
+			_stopButton = new Button(StopClick) { Text = "Stop", Width = 75, Enabled = false };
 
 			_buttonsLayout = new DynamicLayout { Padding = new Padding(10) };
 			_buttonsLayout.BeginVertical();
