@@ -8,7 +8,7 @@
 | Bitrise (Android)| Linux|[![Build Status](https://www.bitrise.io/app/55915da1dc7572b3.svg?token=xIjHVgLQu_DktBPbJEPTOA)](https://www.bitrise.io/app/55915da1dc7572b3)|
 
 # Wexflow
-[![Release](http://img.shields.io/badge/release-v1.0.6-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/tag/v1.0.6)
+[![Release](http://img.shields.io/badge/release-v1.0.7-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/tag/v1.0.7)
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/Wexflow/Lobby)
 [![Twitter](https://img.shields.io/badge/twitter-@wexflow86-55acee.svg)](https://twitter.com/wexflow86)
