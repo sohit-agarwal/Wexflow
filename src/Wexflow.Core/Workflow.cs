@@ -698,12 +698,6 @@ namespace Wexflow.Core
                 {
                     Logger.ErrorFormat("An error occured while stopping the workflow : {0}", e, this);
                 }
-                finally
-                {
-                    IsRunning = false;
-                    Logger.InfoFormat("{0} Workflow finished.", LogTag);
-                    JobId++;
-                }
             }
         }
 
