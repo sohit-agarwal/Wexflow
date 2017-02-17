@@ -33,7 +33,7 @@ If you'd like to add a feature request please add some details how it is suppose
 
 ![Western Union](https://aelassas.github.io/wexflow/images/wu.png)
 
-If you found Wexflox useful and want to make a donation, please contact me by email at akram.elassas@gmail.com.
+If you found Wexflow useful and want to make a donation, please contact me by email at akram.elassas@gmail.com.
 
 I accept donations through Western Union.
 
