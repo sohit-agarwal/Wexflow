@@ -32,5 +32,4 @@ configuration: Release
 build:
   parallel: true                   # enable MSBuild parallel builds
   project: Wexflow.vs2015.sln      # path to Visual Studio solution or project
-  # MSBuild verbosity level quiet|minimal|normal|detailed
-  verbosity: normal
+  verbosity: normal                # MSBuild verbosity level quiet|minimal|normal|detailed
