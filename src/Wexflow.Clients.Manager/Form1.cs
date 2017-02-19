@@ -8,7 +8,8 @@ using Wexflow.Core.Service.Client;
 
 namespace Wexflow.Clients.Manager
 {
-    // v1.0.7
+    // v1.0.8
+    // TODO DoIf and DoWhile (XSD and ExecutionGraph)
     // TODO Switch/Case
     // TODO update xsd
     // TODO Now task

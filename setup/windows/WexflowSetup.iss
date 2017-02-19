@@ -1,6 +1,6 @@
 #define MyAppName "Wexflow"
-#define MyAppVersion "1.0.7"
-#define MyAppPublisher "Akram EL ASSAS"
+#define MyAppVersion "1.0.8"
+#define MyAppPublisher "Akram El Assas"
 #define MyAppExeName "Wexflow.Clients.Manager.exe"
 
 [Setup]
@@ -142,6 +142,8 @@ Source: "..\..\VERSION.txt"; DestDir: "{app}\"; Flags: ignoreversion recursesubd
 
 ; Wexflow's configuration
 Source: "..\..\samples\Wexflow\*"; DestDir: "C:\Wexflow\"; Flags: ignoreversion recursesubdirs uninsneveruninstall
+Source: "..\..\src\Wexflow.Core\Wexflow.xml"; DestDir: "C:\Wexflow\"; Flags: ignoreversion recursesubdirs uninsneveruninstall
+Source: "..\..\src\Wexflow.Core\Workflow.xml"; DestDir: "C:\Wexflow\"; Flags: ignoreversion recursesubdirs uninsneveruninstall
 Source: "..\..\samples\WexflowTesting\*"; DestDir: "C:\WexflowTesting\"; Flags: ignoreversion recursesubdirs uninsneveruninstall
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files

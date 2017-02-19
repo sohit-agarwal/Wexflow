@@ -135,9 +135,9 @@ namespace Wexflow.Clients.Eto.Manager
 					HeaderText = "Description"
 				});
 			}
-			catch (Exception) 
+			catch (Exception e) 
 			{
-				MessageBox.Show("An error occured while retrieving workflows. Check Wexflow Web Service Uri and check that Wexflow Windows Service is running correctly.", MessageBoxType.Error);
+				MessageBox.Show("An error occured while retrieving workflows. Check Wexflow Web Service Uri and check that Wexflow Windows Service is running correctly. Error: " + e.Message, MessageBoxType.Error);
 			}
 		}
 

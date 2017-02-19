@@ -13,13 +13,6 @@ using Wexflow.Core.ExecutionGraph.Flowchart;
 
 namespace Wexflow.Core
 {
-    public enum LaunchType
-    { 
-        Startup,
-        Trigger,
-        Periodic
-    }
-
     public class Workflow
     {
         public const int StartId = -1;
@@ -175,6 +168,7 @@ namespace Wexflow.Core
                         taskNodes.Add(taskNode);
                         break;
                     case "DoIf":
+                        // TODO
                         var id = int.Parse(xTask.Attribute("id").Value);
                         var ifId = int.Parse(xTask.Attribute("if").Value);
                         var parentId = int.Parse(xTask.XPathSelectElement("wf:Parent", XmlNamespaceManager).Attribute("id").Value);
@@ -198,6 +192,7 @@ namespace Wexflow.Core
                         taskNodes.Add(new DoIf(id, parentId, ifId, doIfNodes, otherwiseNodes));
                         break;
                     case "DoWhile":
+                        // TODO
                         var doWhileId = int.Parse(xTask.Attribute("id").Value);
                         var whileId = int.Parse(xTask.Attribute("while").Value);
                         var doWhileParentId = int.Parse(xTask.XPathSelectElement("wf:Parent", XmlNamespaceManager).Attribute("id").Value);

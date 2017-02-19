@@ -25,7 +25,6 @@
             values are true or false.
           - A collection of settings.
         - An ExecutionGraph section which contains the execution graph of the workflow.
-          This section is optional and described in the samples section (https://github.com/aelassas/Wexflow).
 -->
 <Workflow xmlns="urn:wexflow-schema" id="$int" name="$string" description="$string">
   <Settings>
@@ -45,6 +44,6 @@
     </Task>
     <!-- You can add as many tasks as you want. -->
   </Tasks>
-  <!-- This node is optional and described in the samples section (https://github.com/aelassas/Wexflow). -->
+  <!-- This section is optional and described in the samples section (https://github.com/aelassas/Wexflow/wiki/Samples). -->
   <ExecutionGraph />
 </Workflow>

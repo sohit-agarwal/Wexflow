@@ -2,5 +2,5 @@
 <Wexflow>
 	<Setting name="workflowsFolder" value="C:\Wexflow\Workflows" />
 	<Setting name="tempFolder" value="C:\Wexflow\Temp" />
-	<Setting name="xsd" value="C:\Wexflow\Wexflow.xsd" />
+	<Setting name="xsd" value="C:\Wexflow\Workflow.xsd" />
 </Wexflow>

@@ -31,3 +31,4 @@ _ReSharper*/
 *.vssscc
 $tf*/
 setup/linux/wexflow/*.dll
+.vs/

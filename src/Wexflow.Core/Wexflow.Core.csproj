@@ -80,6 +80,7 @@
     <Compile Include="FileInf.cs" />
     <Compile Include="ExecutionGraph\Graph.cs" />
     <Compile Include="ExecutionGraph\GraphEvent.cs" />
+    <Compile Include="LaunchType.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="ExecutionGraph\Node.cs" />
     <Compile Include="Tag.cs" />
@@ -91,7 +92,13 @@
     <Compile Include="Workflow.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Wexflow.xml" />
     <Content Include="Workflow.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Workflow.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

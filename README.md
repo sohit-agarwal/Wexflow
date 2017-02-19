@@ -61,4 +61,3 @@ Wexflow contains other libraries with their individual licenses:
 - [Npgsql](http://www.npgsql.org/): An open source ADO.NET Data Provider for PostgreSQL written in C# and under the PostgreSQL License, a liberal OSI-approved open source license.
 - [.NET Data Provider for Teradata](http://downloads.teradata.com/download/connectivity/net-data-provider-for-teradata): An ADO.NET provider for Teradata.
 - [Eto.Forms](https://github.com/picoe/Eto): A cross platform GUI framework for desktop and mobile applications in .NET.
-
