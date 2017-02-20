@@ -30,15 +30,7 @@ If you'd like to add a feature request please add some details how it is suppose
 # Awards
 
 - CodeProject award: [Best C# Article of January 2017 (Second Prize)](https://www.codeproject.com/Articles/1164009/Wexflow-Open-source-workflow-engine-in-Csharp)
-<!--
-# Donate
 
-![Western Union](https://aelassas.github.io/wexflow/images/wu.png)
-
-If you found Wexflow useful and want to make a donation, please contact me by email at akram.elassas@gmail.com.
-
-I accept donations through Western Union.
--->
 # License
 Wexflow is licensed under the [MIT License](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt). 
 
