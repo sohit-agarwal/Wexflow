@@ -9,20 +9,21 @@ using Wexflow.Core.Service.Client;
 namespace Wexflow.Clients.Manager
 {
     // v1.0.8
-    // TODO DoIf and DoWhile (XSD and ExecutionGraph)
+    
     // TODO Switch/Case
     // TODO update xsd
     // TODO Now task
     // TODO load
     // TODO run
 
+    // TODO unit tests
     // TODO Wexflow Manager wf status live + row background color
     // TODO Test and fix ftps
     // TODO FluentFtpHelper (after FTPS fix)
 
     // TODO YouTube?
     // TODO Wexflow Designer
-    // TODO Wexflow Web Manager
+    // TODO Wexflow Web Manager (Designer)
 
     public partial class Form1 : Form
     {

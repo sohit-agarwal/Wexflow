@@ -157,76 +157,79 @@ namespace Wexflow.Core
 
         IEnumerable<Node> GetTaskNodes(XElement xExectionGraph)
         {
-            var taskNodes = new List<Node>();
+            var nodes = xExectionGraph
+                .Elements()
+                .Where(xe => xe.Name != "OnSuccess" && xe.Name != "OnWarning" && xe.Name != "OnError")
+                .Select(xNode => XNodeToNode(xNode));
 
-            foreach (var xTask in xExectionGraph.Elements().Where(xe => xe.Name != "OnSuccess" && xe.Name != "OnWarning" && xe.Name != "OnError"))
-            {
-                switch (xTask.Name.LocalName)
-                {
-                    case "Task":
-                        var taskNode = XTaskToNode(xTask);
-                        taskNodes.Add(taskNode);
-                        break;
-                    case "DoIf":
-                        // TODO
-                        var id = int.Parse(xTask.Attribute("id").Value);
-                        var ifId = int.Parse(xTask.Attribute("if").Value);
-                        var parentId = int.Parse(xTask.XPathSelectElement("wf:Parent", XmlNamespaceManager).Attribute("id").Value);
-
-                        var doIfNodes = XTasksToNodes(xTask.XPathSelectElements("wf:Do/wf:Task", XmlNamespaceManager));
-                        CheckStartupNode(doIfNodes, "Startup node with parentId=-1 not found in DoIf>Do execution graph.");
-                        CheckParallelTasks(doIfNodes, "Parallel tasks execution detected in DoIf>Do execution graph.");
-                        CheckInfiniteLoop(doIfNodes, "Infinite loop detected in DoIf>Do execution graph.");
-
-                        var otherwiseNodes = new List<Node>();
-                        var xOtherwise = xTask.XPathSelectElement("wf:Otherwise", XmlNamespaceManager);
-                        if (xOtherwise != null)
-                        {
-                            var otherwiseNodesArray = XTasksToNodes(xOtherwise.XPathSelectElements("wf:Task", XmlNamespaceManager));
-                            otherwiseNodes.AddRange(otherwiseNodesArray);
-                            CheckStartupNode(otherwiseNodesArray, "Startup node with parentId=-1 not found in DoIf>Otherwise execution graph.");
-                            CheckParallelTasks(otherwiseNodes, "Parallel tasks execution detected in DoIf>Otherwise execution graph.");
-                            CheckInfiniteLoop(otherwiseNodes, "Infinite loop detected in DoIf>Otherwise execution graph.");
-                        }
-
-                        taskNodes.Add(new DoIf(id, parentId, ifId, doIfNodes, otherwiseNodes));
-                        break;
-                    case "DoWhile":
-                        // TODO
-                        var doWhileId = int.Parse(xTask.Attribute("id").Value);
-                        var whileId = int.Parse(xTask.Attribute("while").Value);
-                        var doWhileParentId = int.Parse(xTask.XPathSelectElement("wf:Parent", XmlNamespaceManager).Attribute("id").Value);
-
-                        var doWhileNodes = XTasksToNodes(xTask.XPathSelectElements("wf:Do/wf:Task", XmlNamespaceManager));
-                        CheckStartupNode(doWhileNodes, "Startup node with parentId=-1 not found in DoWhile>Do execution graph.");
-                        CheckParallelTasks(doWhileNodes, "Parallel tasks execution detected in DoWhile>Do execution graph.");
-                        CheckInfiniteLoop(doWhileNodes, "Infinite loop detected in DoWhile>Do execution graph.");
-
-                        taskNodes.Add(new DoWhile(doWhileId, doWhileParentId, whileId, doWhileNodes));
-                        break;
-                }
-            }
-
-            return taskNodes;
+            return nodes;
         }
 
-        Node XTaskToNode(XElement xTask)
+        DoIf XDoIfToDoIf(XElement xDoIf)
         {
-            var id = int.Parse(xTask.Attribute("id").Value);
-            var parentId = int.Parse(xTask.XPathSelectElement("wf:Parent", XmlNamespaceManager).Attribute("id").Value);
-            var node = new Node(id, parentId);
-            return node;
+            var id = int.Parse(xDoIf.Attribute("id").Value);
+            var ifId = int.Parse(xDoIf.Attribute("if").Value);
+            var parentId = int.Parse(xDoIf.XPathSelectElement("wf:Parent", XmlNamespaceManager).Attribute("id").Value);
+
+            // Do nodes
+            var doNodes = xDoIf.XPathSelectElement("wf:Do", XmlNamespaceManager)
+                .Elements()
+                .Select(xNode => XNodeToNode(xNode));
+
+            CheckStartupNode(doNodes, "Startup node with parentId=-1 not found in DoIf>Do execution graph.");
+            CheckParallelTasks(doNodes, "Parallel tasks execution detected in DoIf>Do execution graph.");
+            CheckInfiniteLoop(doNodes, "Infinite loop detected in DoIf>Do execution graph.");
+
+            // Otherwise nodes
+            IEnumerable<Node> otherwiseNodes = null;
+            var xOtherwise = xDoIf.XPathSelectElement("wf:Otherwise", XmlNamespaceManager);
+            if (xOtherwise != null)
+            {
+                otherwiseNodes = xOtherwise
+                    .Elements()
+                    .Select(xNode => XNodeToNode(xNode));
+
+                CheckStartupNode(otherwiseNodes, "Startup node with parentId=-1 not found in DoIf>Otherwise execution graph.");
+                CheckParallelTasks(otherwiseNodes, "Parallel tasks execution detected in DoIf>Otherwise execution graph.");
+                CheckInfiniteLoop(otherwiseNodes, "Infinite loop detected in DoIf>Otherwise execution graph.");
+            }
+
+            return new DoIf(id, parentId, ifId, doNodes, otherwiseNodes);
         }
 
-        Node[] XTasksToNodes(IEnumerable<XElement> xTasks)
+        DoWhile XDoWhileToDoWhile(XElement xDoWhile)
         {
-            var taskNodes = new List<Node>();
-            foreach (var xTask in xTasks)
+            var doWhileId = int.Parse(xDoWhile.Attribute("id").Value);
+            var whileId = int.Parse(xDoWhile.Attribute("while").Value);
+            var doWhileParentId = int.Parse(xDoWhile.XPathSelectElement("wf:Parent", XmlNamespaceManager).Attribute("id").Value);
+
+            var doNodes = xDoWhile.XPathSelectElement("wf:Do", XmlNamespaceManager)
+                .Elements()
+                .Select(xNode => XNodeToNode(xNode));
+
+            CheckStartupNode(doNodes, "Startup node with parentId=-1 not found in DoWhile>Do execution graph.");
+            CheckParallelTasks(doNodes, "Parallel tasks execution detected in DoWhile>Do execution graph.");
+            CheckInfiniteLoop(doNodes, "Infinite loop detected in DoWhile>Do execution graph.");
+
+            return new DoWhile(doWhileId, doWhileParentId, whileId, doNodes);
+        }
+
+        Node XNodeToNode(XElement xNode)
+        {
+            switch (xNode.Name.LocalName)
             {
-                var node = XTaskToNode(xTask);
-                taskNodes.Add(node);
-            }
-            return taskNodes.ToArray();
+                case "Task":
+                    var id = int.Parse(xNode.Attribute("id").Value);
+                    var parentId = int.Parse(xNode.XPathSelectElement("wf:Parent", XmlNamespaceManager).Attribute("id").Value);
+                    var node = new Node(id, parentId);
+                    return node;
+                case "DoIf":
+                    return XDoIfToDoIf(xNode);
+                case "DoWhile":
+                    return XDoWhileToDoWhile(xNode);
+                default:
+                    return null;
+            }  
         }
 
         void CheckStartupNode(IEnumerable<Node> nodes, string errorMsg) 
@@ -385,6 +388,8 @@ namespace Wexflow.Core
         IEnumerable<Task> NodesToTasks(IEnumerable<Node> nodes)
         {
             var tasks = new List<Task>();
+
+            if (nodes == null) return tasks;
 
             foreach (var node in nodes)
             {
