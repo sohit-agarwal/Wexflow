@@ -592,7 +592,7 @@ namespace Wexflow.Core
                             var doIfTasks = NodesToTasks(doIf.DoNodes);
 
                             // Run Tasks
-                            Node doIfStartNode = GetStartupNode(doIf.DoNodes);
+                            var doIfStartNode = GetStartupNode(doIf.DoNodes);
 
                             if (doIfStartNode.ParentId == StartId)
                             {
@@ -608,7 +608,7 @@ namespace Wexflow.Core
                             var otherwiseTasks = NodesToTasks(doIf.OtherwiseNodes);
 
                             // Run Tasks
-                            Node otherwiseStartNode = GetStartupNode(doIf.OtherwiseNodes);
+                            var otherwiseStartNode = GetStartupNode(doIf.OtherwiseNodes);
 
                             if (otherwiseStartNode.ParentId == StartId)
                             {
@@ -656,7 +656,7 @@ namespace Wexflow.Core
                                 var doWhileTasks = NodesToTasks(doWhile.DoNodes);
 
                                 // Run Tasks
-                                Node doWhileStartNode = GetStartupNode(doWhile.DoNodes);
+                                var doWhileStartNode = GetStartupNode(doWhile.DoNodes);
 
                                 if (doWhileStartNode.ParentId == StartId)
                                 {
