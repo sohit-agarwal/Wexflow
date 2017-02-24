@@ -19,7 +19,7 @@ Browse the [wiki](https://github.com/aelassas/Wexflow/wiki) to get started.
 
 # More information
 
-More information about Wexflow can be found on [CodeProject](https://www.codeproject.com/Articles/1164009/Wexflow-Open-source-workflow-engine-in-Csharp)
+More information about Wexflow can be found on [CodeProject](https://www.codeproject.com/Articles/1164009/Wexflow-Open-source-workflow-engine-in-Csharp).
 
 # License
 Wexflow is licensed under the [MIT License](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt). 
