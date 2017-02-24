@@ -17,19 +17,9 @@
 
 Browse the [wiki](https://github.com/aelassas/Wexflow/wiki) to get started.
 
-# Bugs and features
+# More information
 
-If you found any issues with Wexflow, please submit a bug report at the [Issue Tracker](https://github.com/aelassas/Wexflow/issues). Please include the following:
-
-- The version of Wexflow you are using.
-- How to reproduce the issue (a step-by-step description).
-- Expected result.
-
-If you'd like to add a feature request please add some details how it is supposed to work.
-
-# Awards
-
-- CodeProject award: [Best C# Article of January 2017 (Second Prize)](https://www.codeproject.com/Articles/1164009/Wexflow-Open-source-workflow-engine-in-Csharp)
+More information about Wexflow can be found on [CodeProject](https://www.codeproject.com/Articles/1164009/Wexflow-Open-source-workflow-engine-in-Csharp)
 
 # License
 Wexflow is licensed under the [MIT License](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt). 
