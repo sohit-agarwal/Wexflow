@@ -17,6 +17,16 @@
 
 Browse the [wiki](https://github.com/aelassas/Wexflow/wiki) to get started.
 
+# Bugs and features
+  
+ If you found any issues with Wexflow, please submit a bug report at the [Issue Tracker](https://github.com/aelassas/Wexflow/issues). Please include the following:
+ 
+  - The version of Wexflow you are using.
+  - How to reproduce the issue (a stepbystep description).
+  - Expected result.
+ 
+If you'd like to add a feature request please add some details how it is supposed to work.
+
 # More information
 
 More information about Wexflow can be found on [CodeProject](https://www.codeproject.com/Articles/1164009/Wexflow-Open-source-workflow-engine-in-Csharp).
