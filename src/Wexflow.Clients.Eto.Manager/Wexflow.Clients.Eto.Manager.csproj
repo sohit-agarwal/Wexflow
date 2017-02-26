@@ -14,7 +14,7 @@
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
-	<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -65,9 +65,6 @@
     <Reference Include="Eto.Gtk2">
       <HintPath>..\..\libs\Eto.Gtk2.dll</HintPath>
     </Reference>
-    <Reference Include="Eto.Gtk3">
-      <HintPath>..\..\libs\Eto.Gtk3.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Form1.cs">
@@ -97,8 +94,9 @@
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.-->
   <Target Name="BeforeBuild">
-  	<PropertyGroup>
-     <CodeAnalysisRuleSet></CodeAnalysisRuleSet>
+    <PropertyGroup>
+      <CodeAnalysisRuleSet>
+      </CodeAnalysisRuleSet>
     </PropertyGroup>
   </Target>
   <Target Name="AfterBuild">
