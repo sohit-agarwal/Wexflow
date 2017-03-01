@@ -10,7 +10,6 @@ namespace Wexflow.Clients.Manager
 {
     // v1.0.8
 
-    // TODO update DoWhile to While + parent as attribute + remove <Do>
     // TODO Switch/Case
     // TODO update xsd
     // TODO Now task

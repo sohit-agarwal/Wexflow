@@ -197,13 +197,13 @@ namespace Wexflow.Core
             return new If(id, parentId, ifId, doNodes, elseNodes);
         }
 
-        DoWhile XDoWhileToDoWhile(XElement xDoWhile)
+        DoWhile XWhileToWhile(XElement xWhile)
         {
-            var doWhileId = int.Parse(xDoWhile.Attribute("id").Value);
-            var whileId = int.Parse(xDoWhile.Attribute("while").Value);
-            var doWhileParentId = int.Parse(xDoWhile.XPathSelectElement("wf:Parent", XmlNamespaceManager).Attribute("id").Value);
+            var doWhileId = int.Parse(xWhile.Attribute("id").Value);
+            var whileId = int.Parse(xWhile.Attribute("while").Value);
+            var doWhileParentId = int.Parse(xWhile.Attribute("parent").Value);
 
-            var doNodes = xDoWhile.XPathSelectElement("wf:Do", XmlNamespaceManager)
+            var doNodes = xWhile
                 .Elements()
                 .Select(xNode => XNodeToNode(xNode));
 
@@ -225,8 +225,8 @@ namespace Wexflow.Core
                     return node;
                 case "If":
                     return XIfToIf(xNode);
-                case "DoWhile":
-                    return XDoWhileToDoWhile(xNode);
+                case "While":
+                    return XWhileToWhile(xNode);
                 default:
                     throw new Exception(xNode.Name.LocalName + " is not supported.");
             }  

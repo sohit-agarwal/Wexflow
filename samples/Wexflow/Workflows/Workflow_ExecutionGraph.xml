@@ -43,14 +43,11 @@
 			</Else>
 		</If>
 		<Task id="11"><Parent id="100" /></Task>
-		<DoWhile id="101" while="99">
-			<Parent id="11" />
-			<Do>
-				<Task id="6"><Parent id="-1" /></Task>
-				<Task id="7"><Parent id="6" /></Task>
-				<Task id="8"><Parent id="7" /></Task>
-			</Do>
-		</DoWhile>
+		<While id="101" parent="11" while="99">
+			<Task id="6"><Parent id="-1" /></Task>
+			<Task id="7"><Parent id="6" /></Task>
+			<Task id="8"><Parent id="7" /></Task>
+		</While>
 		<Task id="10"><Parent id="101" /></Task>
 		<OnSuccess>
 			<Task id="6"><Parent id="-1" /></Task>
