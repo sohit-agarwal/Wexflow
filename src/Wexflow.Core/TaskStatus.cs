@@ -1,20 +1,18 @@
 ﻿
 namespace Wexflow.Core
 {
-    public enum Status
-    {
-        Success,
-        Warning,
-        Error
-    }
-
     public class TaskStatus
     {
         public Status Status { get; set; }
         /// <summary>
-        /// DoIf and DoWhile condition
+        /// If and While condition
         /// </summary>
         public bool Condition { get; set; }
+
+        /// <summary>
+        /// Switch value
+        /// </summary>
+        public string SwitchValue { get; set; }
 
         public TaskStatus(Status status)
         {
@@ -24,6 +22,11 @@ namespace Wexflow.Core
         public TaskStatus(Status status, bool condition) : this(status)
         {
             Condition = condition;
+        }
+
+        public TaskStatus(Status status, string switchValue) : this(status)
+        {
+            SwitchValue = switchValue;
         }
     }
 }

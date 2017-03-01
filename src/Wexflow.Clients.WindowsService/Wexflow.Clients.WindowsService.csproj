@@ -141,6 +141,10 @@
       <Project>{FF5A22B8-B594-4D2B-A3FE-10BD28038005}</Project>
       <Name>Wexflow.Tasks.Mkdir</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.Now\Wexflow.Tasks.Now.csproj">
+      <Project>{f2f1e7e2-2707-40a7-a98d-b5bbd27c0787}</Project>
+      <Name>Wexflow.Tasks.Now</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.ProcessLauncher\Wexflow.Tasks.ProcessLauncher.csproj">
       <Project>{22F4B18B-89BC-443A-AE3E-8863C2459D34}</Project>
       <Name>Wexflow.Tasks.ProcessLauncher</Name>
@@ -214,8 +218,9 @@
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.-->
   <Target Name="BeforeBuild">
-  	<PropertyGroup>
-     <CodeAnalysisRuleSet></CodeAnalysisRuleSet>
+    <PropertyGroup>
+      <CodeAnalysisRuleSet>
+      </CodeAnalysisRuleSet>
     </PropertyGroup>
   </Target>
   <Target Name="AfterBuild">

@@ -11,7 +11,6 @@ namespace Wexflow.Clients.Manager
     // v1.0.8
 
     // TODO Switch/Case
-    // TODO update xsd
     // TODO Now task
     // TODO load
     // TODO run

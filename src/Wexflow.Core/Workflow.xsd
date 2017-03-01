@@ -49,9 +49,10 @@
       <xsd:element name="Task" type="executionTaskType" minOccurs="0" maxOccurs="unbounded"/>
       <xsd:element name="If" type="IfType" minOccurs="0" maxOccurs="unbounded"/>
       <xsd:element name="While" type="whileType" minOccurs="0" maxOccurs="unbounded"/>
-      <xsd:element name="OnSuccess" type="eventTaskType" minOccurs="0" maxOccurs="1"/>
-      <xsd:element name="OnWarning" type="eventTaskType" minOccurs="0" maxOccurs="1"/>
-      <xsd:element name="OnError" type="eventTaskType" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="Switch" type="switchType" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="OnSuccess" type="doType" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="OnWarning" type="doType" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="OnError" type="doType" minOccurs="0" maxOccurs="1"/>
     </xsd:choice>
   </xsd:complexType>
 
@@ -66,18 +67,10 @@
     <xsd:attribute name="id" type="xsd:integer"/>
   </xsd:complexType>
 
-  <xsd:complexType name="eventTaskType">
-    <xsd:choice maxOccurs="unbounded">
-      <xsd:element name="Task" type="executionTaskType"/>
-      <xsd:element name="If" type="IfType" minOccurs="0" maxOccurs="unbounded"/>
-      <xsd:element name="While" type="whileType" minOccurs="0" maxOccurs="unbounded"/>
-    </xsd:choice>
-  </xsd:complexType>
-
   <xsd:complexType name="IfType">
     <xsd:sequence maxOccurs="unbounded">
       <xsd:element name="Do" type="doType"/>
-      <xsd:element name="Else" type="elseType" minOccurs="0"/>
+      <xsd:element name="Else" type="doType" minOccurs="0"/>
     </xsd:sequence>
     <xsd:attribute name="id" type="xsd:integer"/>
     <xsd:attribute name="parent" type="xsd:integer"/>
@@ -86,28 +79,43 @@
 
   <xsd:complexType name="whileType">
     <xsd:sequence maxOccurs="unbounded">
-      <xsd:element name="Task" type="executionTaskType"/>
+      <xsd:element name="Task" type="executionTaskType" minOccurs="0" maxOccurs="unbounded"/>
       <xsd:element name="If" type="IfType" minOccurs="0" maxOccurs="unbounded"/>
       <xsd:element name="While" type="whileType" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="Switch" type="switchType" minOccurs="0" maxOccurs="unbounded"/>
     </xsd:sequence>
     <xsd:attribute name="id" type="xsd:integer"/>
     <xsd:attribute name="parent" type="xsd:integer"/>
     <xsd:attribute name="while" type="xsd:integer"/>
   </xsd:complexType>
 
+  <xsd:complexType name="switchType">
+    <xsd:sequence>
+      <xsd:element name="Case" type="caseType" minOccurs="0" maxOccurs="unbounded" />
+      <xsd:element name="Default" type="doType" minOccurs="0" maxOccurs="1"/>
+    </xsd:sequence>
+    <xsd:attribute name="id" type="xsd:integer"/>
+    <xsd:attribute name="parent" type="xsd:integer"/>
+    <xsd:attribute name="switch" type="xsd:integer"/>
+  </xsd:complexType>
+  
   <xsd:complexType name="doType">
     <xsd:sequence maxOccurs="unbounded" minOccurs="0">
-      <xsd:element name="Task" type="executionTaskType"/>
+      <xsd:element name="Task" type="executionTaskType" minOccurs="0" maxOccurs="unbounded"/>
       <xsd:element name="If" type="IfType" minOccurs="0" maxOccurs="unbounded"/>
       <xsd:element name="While" type="whileType" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="Switch" type="switchType" minOccurs="0" maxOccurs="unbounded"/>
     </xsd:sequence>
   </xsd:complexType>
 
-  <xsd:complexType name="elseType">
+  <xsd:complexType name="caseType">
     <xsd:sequence maxOccurs="unbounded" minOccurs="0">
-      <xsd:element name="Task" type="executionTaskType"/>
+      <xsd:element name="Task" type="executionTaskType" minOccurs="0" maxOccurs="unbounded"/>
       <xsd:element name="If" type="IfType" minOccurs="0" maxOccurs="unbounded"/>
       <xsd:element name="While" type="whileType" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="Switch" type="switchType" minOccurs="0" maxOccurs="unbounded"/>
     </xsd:sequence>
+    <xsd:attribute name="value" type="xsd:string"/>
   </xsd:complexType>
+  
 </xsd:schema>

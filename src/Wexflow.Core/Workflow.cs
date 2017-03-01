@@ -168,8 +168,8 @@ namespace Wexflow.Core
         If XIfToIf(XElement xIf)
         {
             var id = int.Parse(xIf.Attribute("id").Value);
-            var ifId = int.Parse(xIf.Attribute("if").Value);
             var parentId = int.Parse(xIf.Attribute("parent").Value);
+            var ifId = int.Parse(xIf.Attribute("if").Value);
 
             // Do nodes
             var doNodes = xIf.XPathSelectElement("wf:Do", XmlNamespaceManager)
@@ -197,11 +197,11 @@ namespace Wexflow.Core
             return new If(id, parentId, ifId, doNodes, elseNodes);
         }
 
-        DoWhile XWhileToWhile(XElement xWhile)
+        While XWhileToWhile(XElement xWhile)
         {
-            var doWhileId = int.Parse(xWhile.Attribute("id").Value);
+            var id = int.Parse(xWhile.Attribute("id").Value);
+            var parentId = int.Parse(xWhile.Attribute("parent").Value);
             var whileId = int.Parse(xWhile.Attribute("while").Value);
-            var doWhileParentId = int.Parse(xWhile.Attribute("parent").Value);
 
             var doNodes = xWhile
                 .Elements()
@@ -211,7 +211,47 @@ namespace Wexflow.Core
             CheckParallelTasks(doNodes, "Parallel tasks execution detected in DoWhile>Do execution graph.");
             CheckInfiniteLoop(doNodes, "Infinite loop detected in DoWhile>Do execution graph.");
 
-            return new DoWhile(doWhileId, doWhileParentId, whileId, doNodes);
+            return new While(id, parentId, whileId, doNodes);
+        }
+
+        Switch XSwitchToSwitch(XElement xSwitch)
+        {
+            var id = int.Parse(xSwitch.Attribute("id").Value);
+            var parentId = int.Parse(xSwitch.Attribute("parent").Value);
+            var switchId = int.Parse(xSwitch.Attribute("switch").Value);
+
+            var cases = xSwitch
+                .XPathSelectElements("wf:Case", XmlNamespaceManager)
+                .Select(xCase =>
+                {
+                    var val = xCase.Attribute("value").Value;
+
+                    var nodes = xCase
+                      .Elements()
+                      .Select(xNode => XNodeToNode(xNode));
+
+                    var nodeName = string.Format("Switch>Case(value={0})", val);
+                    CheckStartupNode(nodes, "Startup node with parentId=-1 not found in "+ nodeName + " execution graph.");
+                    CheckParallelTasks(nodes, "Parallel tasks execution detected in "+ nodeName + " execution graph.");
+                    CheckInfiniteLoop(nodes, "Infinite loop detected in "+ nodeName + " execution graph.");
+
+                    return new Case(val, nodes);
+                });
+
+            IEnumerable<Node> deflt = null;
+            var xDefault = xSwitch.XPathSelectElement("wf:Default", XmlNamespaceManager);
+            if (xDefault != null)
+            {
+                deflt = xDefault
+                    .Elements()
+                    .Select(xNode => XNodeToNode(xNode));
+
+                CheckStartupNode(deflt, "Startup node with parentId=-1 not found in Switch>Default execution graph.");
+                CheckParallelTasks(deflt, "Parallel tasks execution detected in Switch>Default execution graph.");
+                CheckInfiniteLoop(deflt, "Infinite loop detected in Switch>Default execution graph.");
+            }
+
+            return new Switch(id, parentId, switchId, cases, deflt);
         }
 
         Node XNodeToNode(XElement xNode)
@@ -227,6 +267,8 @@ namespace Wexflow.Core
                     return XIfToIf(xNode);
                 case "While":
                     return XWhileToWhile(xNode);
+                case "Switch":
+                    return XSwitchToSwitch(xNode);
                 default:
                     throw new Exception(xNode.Name.LocalName + " is not supported.");
             }  
@@ -400,8 +442,8 @@ namespace Wexflow.Core
 
                     var ifTasks = new List<Task>(doTasks);
                     foreach (var task in otherwiseTasks)
-                    { 
-                        if(ifTasks.All(t => t.Id != task.Id))
+                    {
+                        if (ifTasks.All(t => t.Id != task.Id))
                         {
                             ifTasks.Add(task);
                         }
@@ -409,9 +451,15 @@ namespace Wexflow.Core
 
                     tasks.AddRange(ifTasks);
                 }
-                else if (node is DoWhile)
+                else if (node is While)
                 {
-                    tasks.AddRange(NodesToTasks(((DoWhile)node).DoNodes));
+                    tasks.AddRange(NodesToTasks(((While)node).Nodes));
+                }
+                else if (node is Switch)
+                {
+                    Switch @switch = (Switch)node;
+                    tasks.AddRange(NodesToTasks(@switch.Default).Where(task => tasks.All(t => t.Id != task.Id)));
+                    tasks.AddRange(NodesToTasks(@switch.Cases.SelectMany(@case => @case.Nodes)).Where(task => tasks.All(t => t.Id != task.Id)));
                 }
                 else
                 {
@@ -447,12 +495,12 @@ namespace Wexflow.Core
                 if (startNode is If)
                 {
                     var doIf = (If)startNode;
-                    RunDoIf(tasks, nodes, doIf, ref success, ref warning, ref atLeastOneSucceed);
+                    RunIf(tasks, nodes, doIf, ref success, ref warning, ref atLeastOneSucceed);
                 }
-                else if (startNode is DoWhile)
+                else if (startNode is While)
                 {
-                    var doWhile = (DoWhile)startNode;
-                    RunDoWhile(tasks, nodes, doWhile, ref success, ref warning, ref atLeastOneSucceed);
+                    var doWhile = (While)startNode;
+                    RunWhile(tasks, nodes, doWhile, ref success, ref warning, ref atLeastOneSucceed);
                 }
                 else
                 {
@@ -494,81 +542,112 @@ namespace Wexflow.Core
         {
             if(node != null)
             {
-                var task = GetTask(tasks, node.Id);
-                if (task != null)
+                if (node is If || node is While || node is Switch)
                 {
-                    if (task.IsEnabled)
+                    if (node is If)
                     {
-                        var status = task.Run();
-
-                        success &= status.Status == Status.Success;
-                        warning |= status.Status == Status.Warning;
-                        if (!atLeastOneSucceed && status.Status == Status.Success) atLeastOneSucceed = true;
-
-                        var childNode = nodes.FirstOrDefault(n => n.ParentId == node.Id);
-
-                        if (childNode != null)
-                        {
-                            if (childNode is If)
-                            {
-                                var doIf = (If)childNode;
-                                RunDoIf(tasks, nodes, doIf, ref success, ref warning, ref atLeastOneSucceed);
-                            }
-                            else if (childNode is DoWhile)
-                            {
-                                var doWhile = (DoWhile)childNode;
-                                RunDoWhile(tasks, nodes, doWhile, ref success, ref warning, ref atLeastOneSucceed);
-                            }
-                            else
-                            {
-                                var childTask = GetTask(tasks, childNode.Id);
-                                if (childTask != null)
-                                {
-                                    if (childTask.IsEnabled)
-                                    {
-                                        var childStatus = childTask.Run();
-
-                                        success &= childStatus.Status == Status.Success;
-                                        warning |= childStatus.Status == Status.Warning;
-                                        if (!atLeastOneSucceed && status.Status == Status.Success) atLeastOneSucceed = true;
-
-                                        // Recusive call
-                                        var ccNode = nodes.FirstOrDefault(n => n.ParentId == childNode.Id);
-
-                                        if (ccNode is If)
-                                        {
-                                            var doIf = (If)ccNode;
-                                            RunDoIf(tasks, nodes, doIf, ref success, ref warning, ref atLeastOneSucceed);
-                                        }
-                                        else if (ccNode is DoWhile)
-                                        {
-                                            var doWhile = (DoWhile)ccNode;
-                                            RunDoWhile(tasks, nodes, doWhile, ref success, ref warning, ref atLeastOneSucceed);
-                                        }
-                                        else
-                                        {
-                                            RunTasks(tasks, nodes, ccNode, ref success, ref warning, ref atLeastOneSucceed);
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    throw new Exception("Task " + childNode.Id + " not found.");
-                                }
-                            }
-                        }
+                        var @if = (If)node;
+                        RunIf(tasks, nodes, @if, ref success, ref warning, ref atLeastOneSucceed);
+                    }
+                    else if (node is While)
+                    {
+                        var @while = (While)node;
+                        RunWhile(tasks, nodes, @while, ref success, ref warning, ref atLeastOneSucceed);
+                    }
+                    else if (node is Switch)
+                    {
+                        var @switch = (Switch)node;
+                        RunSwitch(tasks, nodes, @switch, ref success, ref warning, ref atLeastOneSucceed);
                     }
                 }
                 else
                 {
-                    throw new Exception("Task " + node.Id + " not found.");
+                    var task = GetTask(tasks, node.Id);
+                    if (task != null)
+                    {
+                        if (task.IsEnabled)
+                        {
+                            var status = task.Run();
+
+                            success &= status.Status == Status.Success;
+                            warning |= status.Status == Status.Warning;
+                            if (!atLeastOneSucceed && status.Status == Status.Success) atLeastOneSucceed = true;
+
+                            var childNode = nodes.FirstOrDefault(n => n.ParentId == node.Id);
+
+                            if (childNode != null)
+                            {
+                                if (childNode is If)
+                                {
+                                    var @if = (If)childNode;
+                                    RunIf(tasks, nodes, @if, ref success, ref warning, ref atLeastOneSucceed);
+                                }
+                                else if (childNode is While)
+                                {
+                                    var @while = (While)childNode;
+                                    RunWhile(tasks, nodes, @while, ref success, ref warning, ref atLeastOneSucceed);
+                                }
+                                else if (childNode is Switch)
+                                {
+                                    var @switch = (Switch)childNode;
+                                    RunSwitch(tasks, nodes, @switch, ref success, ref warning, ref atLeastOneSucceed);
+                                }
+                                else
+                                {
+                                    var childTask = GetTask(tasks, childNode.Id);
+                                    if (childTask != null)
+                                    {
+                                        if (childTask.IsEnabled)
+                                        {
+                                            var childStatus = childTask.Run();
+
+                                            success &= childStatus.Status == Status.Success;
+                                            warning |= childStatus.Status == Status.Warning;
+                                            if (!atLeastOneSucceed && status.Status == Status.Success) atLeastOneSucceed = true;
+
+                                            // Recusive call
+                                            var ccNode = nodes.FirstOrDefault(n => n.ParentId == childNode.Id);
+
+                                            if (ccNode is If)
+                                            {
+                                                var @if = (If)ccNode;
+                                                RunIf(tasks, nodes, @if, ref success, ref warning, ref atLeastOneSucceed);
+                                            }
+                                            else if (ccNode is While)
+                                            {
+                                                var @while = (While)ccNode;
+                                                RunWhile(tasks, nodes, @while, ref success, ref warning, ref atLeastOneSucceed);
+                                            }
+                                            else if (childNode is Switch)
+                                            {
+                                                var @switch = (Switch)childNode;
+                                                RunSwitch(tasks, nodes, @switch, ref success, ref warning, ref atLeastOneSucceed);
+                                            }
+                                            else
+                                            {
+                                                RunTasks(tasks, nodes, ccNode, ref success, ref warning, ref atLeastOneSucceed);
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        throw new Exception("Task " + childNode.Id + " not found.");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception("Task " + node.Id + " not found.");
+                    }
                 }
             }
         }
 
-        void RunDoIf(IEnumerable<Task> tasks, IEnumerable<Node> nodes, If doIf, ref bool success, ref bool warning, ref bool atLeastOneSucceed)
+        void RunIf(IEnumerable<Task> tasks, IEnumerable<Node> nodes, If @if, ref bool success, ref bool warning, ref bool atLeastOneSucceed)
         {
-            var ifTask = GetTask(doIf.IfId);
+            var ifTask = GetTask(@if.IfId);
 
             if (ifTask != null)
             {
@@ -580,41 +659,38 @@ namespace Wexflow.Core
                     warning |= status.Status == Status.Warning;
                     if (!atLeastOneSucceed && status.Status == Status.Success) atLeastOneSucceed = true;
 
-                    if (status.Condition)
+                    if (status.Status == Status.Success && status.Condition)
                     {
-                        if (doIf.DoNodes.Length > 0)
+                        if (@if.DoNodes.Length > 0)
                         {
                             // Build Tasks
-                            var doIfTasks = NodesToTasks(doIf.DoNodes);
+                            var doIfTasks = NodesToTasks(@if.DoNodes);
 
                             // Run Tasks
-                            var doIfStartNode = GetStartupNode(doIf.DoNodes);
+                            var doIfStartNode = GetStartupNode(@if.DoNodes);
 
                             if (doIfStartNode.ParentId == StartId)
                             {
-                                RunTasks(doIfTasks, doIf.DoNodes, doIfStartNode, ref success, ref warning, ref atLeastOneSucceed);
+                                RunTasks(doIfTasks, @if.DoNodes, doIfStartNode, ref success, ref warning, ref atLeastOneSucceed);
                             }
                         }
                     }
                     else if(status.Condition == false)
                     {
-                        if (doIf.ElseNodes.Length > 0)
+                        if (@if.ElseNodes.Length > 0)
                         {
                             // Build Tasks
-                            var otherwiseTasks = NodesToTasks(doIf.ElseNodes);
+                            var elseTasks = NodesToTasks(@if.ElseNodes);
 
                             // Run Tasks
-                            var otherwiseStartNode = GetStartupNode(doIf.ElseNodes);
+                            var elseStartNode = GetStartupNode(@if.ElseNodes);
 
-                            if (otherwiseStartNode.ParentId == StartId)
-                            {
-                                RunTasks(otherwiseTasks, doIf.ElseNodes, otherwiseStartNode, ref success, ref warning, ref atLeastOneSucceed);
-                            }
+                            RunTasks(elseTasks, @if.ElseNodes, elseStartNode, ref success, ref warning, ref atLeastOneSucceed);
                         }
                     }
 
                     // Child node
-                    var childNode = nodes.FirstOrDefault(n => n.ParentId == doIf.Id);
+                    var childNode = nodes.FirstOrDefault(n => n.ParentId == @if.Id);
 
                     if (childNode != null)
                     {
@@ -624,13 +700,13 @@ namespace Wexflow.Core
             }
             else
             {
-                throw new Exception("Task " + doIf.Id + " not found.");
+                throw new Exception("Task " + @if.Id + " not found.");
             }
         }
 
-        void RunDoWhile(IEnumerable<Task> tasks, IEnumerable<Node> nodes, DoWhile doWhile, ref bool success, ref bool warning, ref bool atLeastOneSucceed)
+        void RunWhile(IEnumerable<Task> tasks, IEnumerable<Node> nodes, While @while, ref bool success, ref bool warning, ref bool atLeastOneSucceed)
         {
-            var whileTask = GetTask(doWhile.While);
+            var whileTask = GetTask(@while.WhileId);
 
             if (whileTask != null)
             {
@@ -644,20 +720,17 @@ namespace Wexflow.Core
                         warning |= status.Status == Status.Warning;
                         if (!atLeastOneSucceed && status.Status == Status.Success) atLeastOneSucceed = true;
 
-                        if (status.Condition)
+                        if (status.Status == Status.Success && status.Condition)
                         {
-                            if (doWhile.DoNodes.Length > 0)
+                            if (@while.Nodes.Length > 0)
                             {
                                 // Build Tasks
-                                var doWhileTasks = NodesToTasks(doWhile.DoNodes);
+                                var doWhileTasks = NodesToTasks(@while.Nodes);
 
                                 // Run Tasks
-                                var doWhileStartNode = GetStartupNode(doWhile.DoNodes);
+                                var doWhileStartNode = GetStartupNode(@while.Nodes);
 
-                                if (doWhileStartNode.ParentId == StartId)
-                                {
-                                    RunTasks(doWhileTasks, doWhile.DoNodes, doWhileStartNode, ref success, ref warning, ref atLeastOneSucceed);
-                                }
+                                RunTasks(doWhileTasks, @while.Nodes, doWhileStartNode, ref success, ref warning, ref atLeastOneSucceed);
                             }
                         }
                         else if(status.Condition == false)
@@ -667,7 +740,7 @@ namespace Wexflow.Core
                     }
 
                     // Child node
-                    var childNode = nodes.FirstOrDefault(n => n.ParentId == doWhile.Id);
+                    var childNode = nodes.FirstOrDefault(n => n.ParentId == @while.Id);
 
                     if (childNode != null)
                     {
@@ -677,9 +750,61 @@ namespace Wexflow.Core
             }
             else
             {
-                throw new Exception("Task " + doWhile.Id + " not found.");
+                throw new Exception("Task " + @while.Id + " not found.");
             }
         
+        }
+
+        void RunSwitch(IEnumerable<Task> tasks, IEnumerable<Node> nodes, Switch @switch, ref bool success, ref bool warning, ref bool atLeastOneSucceed)
+        {
+            var switchTask = GetTask(@switch.SwitchId);
+
+            if (switchTask != null)
+            {
+                if (switchTask.IsEnabled)
+                {
+                    var status = switchTask.Run();
+
+                    success &= status.Status == Status.Success;
+                    warning |= status.Status == Status.Warning;
+                    if (!atLeastOneSucceed && status.Status == Status.Success) atLeastOneSucceed = true;
+
+                    if (status.Status == Status.Success)
+                    {
+                        bool aCaseHasBeenExecuted = false;
+                        foreach (var @case in @switch.Cases)
+                        {
+                            if (@case.Value == status.SwitchValue)
+                            {
+                                if (@case.Nodes.Length > 0)
+                                {
+                                    // Build Tasks
+                                    var switchTasks = NodesToTasks(@case.Nodes);
+
+                                    // Run Tasks
+                                    var switchStartNode = GetStartupNode(@case.Nodes);
+
+                                    RunTasks(switchTasks, @case.Nodes, switchStartNode, ref success, ref warning, ref atLeastOneSucceed);
+                                }
+                                aCaseHasBeenExecuted = true;
+                                break;
+                            }
+                        }
+
+                        if (!aCaseHasBeenExecuted && @switch.Default != null && @switch.Default.Any())
+                        {
+                            // Build Tasks
+                            var defalutTasks = NodesToTasks(@switch.Default);
+
+                            // Run Tasks
+                            var defaultStartNode = GetStartupNode(@switch.Default);
+
+                            RunTasks(defalutTasks, @switch.Default, defaultStartNode, ref success, ref warning, ref atLeastOneSucceed);
+                        }
+                    }
+
+                }
+            }
         }
 
         public void Stop()
