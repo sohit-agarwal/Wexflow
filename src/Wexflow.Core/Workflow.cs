@@ -111,7 +111,7 @@ namespace Wexflow.Core
                 var taskNodes = GetTaskNodes(xExectionGraph);
 
                 // Check startup node, parallel tasks and infinite loops
-                CheckStartupNode(taskNodes, "Startup node with parentId=-1 not found in ExecutionGraph execution graph.");
+                if(taskNodes.Any()) CheckStartupNode(taskNodes, "Startup node with parentId=-1 not found in ExecutionGraph execution graph.");
                 CheckParallelTasks(taskNodes, "Parallel tasks execution detected in ExecutionGraph execution graph.");
                 CheckInfiniteLoop(taskNodes, "Infinite loop detected in ExecutionGraph execution graph.");
 
@@ -461,10 +461,6 @@ namespace Wexflow.Core
                         RunTasks(tasks, nodes, startNode, ref success, ref warning, ref atLeastOneSucceed);
                     }
                 }
-            }
-            else
-            {
-                RunSequentialTasks(tasks, ref success, ref warning, ref atLeastOneSucceed);
             }
 
             if (success)

@@ -9,13 +9,16 @@ using Wexflow.Core.Service.Client;
 namespace Wexflow.Clients.Manager
 {
     // v1.0.8
-    
+
+    // TODO update DoIf to If/Else + parent as attribute
+    // TODO update DoWhile to While + parent as attribute + remove <Do>
     // TODO Switch/Case
     // TODO update xsd
     // TODO Now task
     // TODO load
     // TODO run
 
+    // TODO Wexflow Designer (read-only)
     // TODO unit tests
     // TODO Wexflow Manager wf status live + row background color
     // TODO Test and fix ftps
