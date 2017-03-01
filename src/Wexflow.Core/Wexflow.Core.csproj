@@ -74,7 +74,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExecutionGraph\Flowchart\DoIf.cs" />
+    <Compile Include="ExecutionGraph\Flowchart\If.cs" />
     <Compile Include="ExecutionGraph\Flowchart\DoWhile.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="FileInf.cs" />
@@ -104,8 +104,9 @@
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.-->
   <Target Name="BeforeBuild">
-  	<PropertyGroup>
-     <CodeAnalysisRuleSet></CodeAnalysisRuleSet>
+    <PropertyGroup>
+      <CodeAnalysisRuleSet>
+      </CodeAnalysisRuleSet>
     </PropertyGroup>
   </Target>
   <Target Name="AfterBuild">

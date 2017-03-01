@@ -27,20 +27,21 @@
 		</Task>
 	</Tasks>
 	<ExecutionGraph>
+		<!-- TODO Switch/Case -->
+	
 		<Task id="8"><Parent id="-1" /></Task>
-		<DoIf id="100" if="99">
-			<Parent id="8" />
+		<If id="100" parent="8" if="99">
 			<Do>
 				<Task id="6"><Parent id="-1" /></Task>
 				<Task id="7"><Parent id="6" /></Task>
 				<Task id="8"><Parent id="7" /></Task>
 			</Do>
-			<Otherwise>
+			<Else>
 				<Task id="9"><Parent id="-1" /></Task>
 				<Task id="10"><Parent id="9" /></Task>
 				<Task id="11"><Parent id="10" /></Task>
-			</Otherwise>
-		</DoIf>
+			</Else>
+		</If>
 		<Task id="11"><Parent id="100" /></Task>
 		<DoWhile id="101" while="99">
 			<Parent id="11" />
@@ -52,82 +53,19 @@
 		</DoWhile>
 		<Task id="10"><Parent id="101" /></Task>
 		<OnSuccess>
-			<Task id="8"><Parent id="-1" /></Task>
-			<DoIf id="100" if="99">
-				<Parent id="8" />
-				<Do>
-					<Task id="6"><Parent id="-1" /></Task>
-					<Task id="7"><Parent id="6" /></Task>
-					<Task id="8"><Parent id="7" /></Task>
-				</Do>
-				<Otherwise>
-					<Task id="9"><Parent id="-1" /></Task>
-					<Task id="10"><Parent id="9" /></Task>
-					<Task id="11"><Parent id="10" /></Task>
-				</Otherwise>
-			</DoIf>
-			<Task id="11"><Parent id="100" /></Task>
-			<DoWhile id="101" while="99">
-				<Parent id="11" />
-				<Do>
-					<Task id="6"><Parent id="-1" /></Task>
-					<Task id="7"><Parent id="6" /></Task>
-					<Task id="8"><Parent id="7" /></Task>
-				</Do>
-			</DoWhile>
-			<Task id="10"><Parent id="101" /></Task>
+			<Task id="6"><Parent id="-1" /></Task>
+			<Task id="7"><Parent id="6" /></Task>
+			<Task id="8"><Parent id="7" /></Task>
 		</OnSuccess>
 		<OnWarning>
-			<Task id="8"><Parent id="-1" /></Task>
-			<DoIf id="100" if="99">
-				<Parent id="8" />
-				<Do>
-					<Task id="6"><Parent id="-1" /></Task>
-					<Task id="7"><Parent id="6" /></Task>
-					<Task id="8"><Parent id="7" /></Task>
-				</Do>
-				<Otherwise>
-					<Task id="9"><Parent id="-1" /></Task>
-					<Task id="10"><Parent id="9" /></Task>
-					<Task id="11"><Parent id="10" /></Task>
-				</Otherwise>
-			</DoIf>
-			<Task id="11"><Parent id="100" /></Task>
-			<DoWhile id="101" while="99">
-				<Parent id="11" />
-				<Do>
-					<Task id="6"><Parent id="-1" /></Task>
-					<Task id="7"><Parent id="6" /></Task>
-					<Task id="8"><Parent id="7" /></Task>
-				</Do>
-			</DoWhile>
-			<Task id="10"><Parent id="101" /></Task>
+			<Task id="9"><Parent id="-1" /></Task>
+			<Task id="10"><Parent id="9" /></Task>
+			<Task id="11"><Parent id="10" /></Task>
 		</OnWarning>
 		<OnError>
 			<Task id="8"><Parent id="-1" /></Task>
-			<DoIf id="100" if="99">
-				<Parent id="8" />
-				<Do>
-					<Task id="6"><Parent id="-1" /></Task>
-					<Task id="7"><Parent id="6" /></Task>
-					<Task id="8"><Parent id="7" /></Task>
-				</Do>
-				<Otherwise>
-					<Task id="9"><Parent id="-1" /></Task>
-					<Task id="10"><Parent id="9" /></Task>
-					<Task id="11"><Parent id="10" /></Task>
-				</Otherwise>
-			</DoIf>
-			<Task id="11"><Parent id="100" /></Task>
-			<DoWhile id="101" while="99">
-				<Parent id="11" />
-				<Do>
-					<Task id="6"><Parent id="-1" /></Task>
-					<Task id="7"><Parent id="6" /></Task>
-					<Task id="8"><Parent id="7" /></Task>
-				</Do>
-			</DoWhile>
-			<Task id="10"><Parent id="101" /></Task>
+			<Task id="9"><Parent id="8" /></Task>
+			<Task id="10"><Parent id="9" /></Task>
 		</OnError>
 	</ExecutionGraph>
 </Workflow>

@@ -159,20 +159,20 @@ namespace Wexflow.Core
         {
             var nodes = xExectionGraph
                 .Elements()
-                .Where(xe => xe.Name != "OnSuccess" && xe.Name != "OnWarning" && xe.Name != "OnError")
+                .Where(xe => xe.Name.LocalName != "OnSuccess" && xe.Name.LocalName != "OnWarning" && xe.Name.LocalName != "OnError")
                 .Select(xNode => XNodeToNode(xNode));
 
             return nodes;
         }
 
-        DoIf XDoIfToDoIf(XElement xDoIf)
+        If XIfToIf(XElement xIf)
         {
-            var id = int.Parse(xDoIf.Attribute("id").Value);
-            var ifId = int.Parse(xDoIf.Attribute("if").Value);
-            var parentId = int.Parse(xDoIf.XPathSelectElement("wf:Parent", XmlNamespaceManager).Attribute("id").Value);
+            var id = int.Parse(xIf.Attribute("id").Value);
+            var ifId = int.Parse(xIf.Attribute("if").Value);
+            var parentId = int.Parse(xIf.Attribute("parent").Value);
 
             // Do nodes
-            var doNodes = xDoIf.XPathSelectElement("wf:Do", XmlNamespaceManager)
+            var doNodes = xIf.XPathSelectElement("wf:Do", XmlNamespaceManager)
                 .Elements()
                 .Select(xNode => XNodeToNode(xNode));
 
@@ -181,20 +181,20 @@ namespace Wexflow.Core
             CheckInfiniteLoop(doNodes, "Infinite loop detected in DoIf>Do execution graph.");
 
             // Otherwise nodes
-            IEnumerable<Node> otherwiseNodes = null;
-            var xOtherwise = xDoIf.XPathSelectElement("wf:Otherwise", XmlNamespaceManager);
-            if (xOtherwise != null)
+            IEnumerable<Node> elseNodes = null;
+            var xElse = xIf.XPathSelectElement("wf:Else", XmlNamespaceManager);
+            if (xElse != null)
             {
-                otherwiseNodes = xOtherwise
+                elseNodes = xElse
                     .Elements()
                     .Select(xNode => XNodeToNode(xNode));
 
-                CheckStartupNode(otherwiseNodes, "Startup node with parentId=-1 not found in DoIf>Otherwise execution graph.");
-                CheckParallelTasks(otherwiseNodes, "Parallel tasks execution detected in DoIf>Otherwise execution graph.");
-                CheckInfiniteLoop(otherwiseNodes, "Infinite loop detected in DoIf>Otherwise execution graph.");
+                CheckStartupNode(elseNodes, "Startup node with parentId=-1 not found in DoIf>Otherwise execution graph.");
+                CheckParallelTasks(elseNodes, "Parallel tasks execution detected in DoIf>Otherwise execution graph.");
+                CheckInfiniteLoop(elseNodes, "Infinite loop detected in DoIf>Otherwise execution graph.");
             }
 
-            return new DoIf(id, parentId, ifId, doNodes, otherwiseNodes);
+            return new If(id, parentId, ifId, doNodes, elseNodes);
         }
 
         DoWhile XDoWhileToDoWhile(XElement xDoWhile)
@@ -223,12 +223,12 @@ namespace Wexflow.Core
                     var parentId = int.Parse(xNode.XPathSelectElement("wf:Parent", XmlNamespaceManager).Attribute("id").Value);
                     var node = new Node(id, parentId);
                     return node;
-                case "DoIf":
-                    return XDoIfToDoIf(xNode);
+                case "If":
+                    return XIfToIf(xNode);
                 case "DoWhile":
                     return XDoWhileToDoWhile(xNode);
                 default:
-                    return null;
+                    throw new Exception(xNode.Name.LocalName + " is not supported.");
             }  
         }
 
@@ -393,10 +393,10 @@ namespace Wexflow.Core
 
             foreach (var node in nodes)
             {
-                if (node is DoIf)
+                if (node is If)
                 {
-                    var doTasks = NodesToTasks(((DoIf)node).DoNodes);
-                    var otherwiseTasks = NodesToTasks(((DoIf)node).OtherwiseNodes);
+                    var doTasks = NodesToTasks(((If)node).DoNodes);
+                    var otherwiseTasks = NodesToTasks(((If)node).ElseNodes);
 
                     var ifTasks = new List<Task>(doTasks);
                     foreach (var task in otherwiseTasks)
@@ -444,9 +444,9 @@ namespace Wexflow.Core
             {
                 var startNode = GetStartupNode(nodes);
 
-                if (startNode is DoIf)
+                if (startNode is If)
                 {
-                    var doIf = (DoIf)startNode;
+                    var doIf = (If)startNode;
                     RunDoIf(tasks, nodes, doIf, ref success, ref warning, ref atLeastOneSucceed);
                 }
                 else if (startNode is DoWhile)
@@ -509,9 +509,9 @@ namespace Wexflow.Core
 
                         if (childNode != null)
                         {
-                            if (childNode is DoIf)
+                            if (childNode is If)
                             {
-                                var doIf = (DoIf)childNode;
+                                var doIf = (If)childNode;
                                 RunDoIf(tasks, nodes, doIf, ref success, ref warning, ref atLeastOneSucceed);
                             }
                             else if (childNode is DoWhile)
@@ -535,9 +535,9 @@ namespace Wexflow.Core
                                         // Recusive call
                                         var ccNode = nodes.FirstOrDefault(n => n.ParentId == childNode.Id);
 
-                                        if (ccNode is DoIf)
+                                        if (ccNode is If)
                                         {
-                                            var doIf = (DoIf)ccNode;
+                                            var doIf = (If)ccNode;
                                             RunDoIf(tasks, nodes, doIf, ref success, ref warning, ref atLeastOneSucceed);
                                         }
                                         else if (ccNode is DoWhile)
@@ -566,9 +566,9 @@ namespace Wexflow.Core
             }
         }
 
-        void RunDoIf(IEnumerable<Task> tasks, IEnumerable<Node> nodes, DoIf doIf, ref bool success, ref bool warning, ref bool atLeastOneSucceed)
+        void RunDoIf(IEnumerable<Task> tasks, IEnumerable<Node> nodes, If doIf, ref bool success, ref bool warning, ref bool atLeastOneSucceed)
         {
-            var ifTask = GetTask(doIf.If);
+            var ifTask = GetTask(doIf.IfId);
 
             if (ifTask != null)
             {
@@ -598,17 +598,17 @@ namespace Wexflow.Core
                     }
                     else if(status.Condition == false)
                     {
-                        if (doIf.OtherwiseNodes.Length > 0)
+                        if (doIf.ElseNodes.Length > 0)
                         {
                             // Build Tasks
-                            var otherwiseTasks = NodesToTasks(doIf.OtherwiseNodes);
+                            var otherwiseTasks = NodesToTasks(doIf.ElseNodes);
 
                             // Run Tasks
-                            var otherwiseStartNode = GetStartupNode(doIf.OtherwiseNodes);
+                            var otherwiseStartNode = GetStartupNode(doIf.ElseNodes);
 
                             if (otherwiseStartNode.ParentId == StartId)
                             {
-                                RunTasks(otherwiseTasks, doIf.OtherwiseNodes, otherwiseStartNode, ref success, ref warning, ref atLeastOneSucceed);
+                                RunTasks(otherwiseTasks, doIf.ElseNodes, otherwiseStartNode, ref success, ref warning, ref atLeastOneSucceed);
                             }
                         }
                     }
