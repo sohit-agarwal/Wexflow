@@ -1,5 +1,11 @@
 language: csharp
-sudo: required
-os:
-  - linux
+mono:
+  - latest
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+      sudo: required
+    - os: osx
+      osx_image: xcode7.2
 solution: Wexflow.vs2015.sln
