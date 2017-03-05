@@ -9,10 +9,10 @@ using Wexflow.Core.Service.Client;
 namespace Wexflow.Clients.Manager
 {
     // v1.0.8
-    // Git push
-    // Update CodeProject article
+    // Update CodeProject article: first image?
     // Create GitHub release
     // Update GitHub wiki
+    // Update website
     // Publish CodeProject article
 
     // TODO Wexflow Designer (read-only)
