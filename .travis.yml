@@ -1,5 +1,4 @@
 language: csharp
-sudo: required
 os:
   - linux
 solution: Wexflow.vs2015.sln

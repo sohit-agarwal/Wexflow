@@ -1,9 +1,9 @@
-<!--
+
 [![Release](http://img.shields.io/badge/release-v1.0.7-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/tag/v1.0.7)
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/Wexflow/Lobby)
 [![Twitter](https://img.shields.io/badge/twitter-@wexflow86-55acee.svg)](https://twitter.com/wexflow86)
--->
+
 
 # Continuous integration
 
@@ -15,7 +15,10 @@
 
 # Get started
 
-Browse the [wiki](https://github.com/aelassas/Wexflow/wiki) to get started.
+- [Features](https://github.com/aelassas/Wexflow/wiki)
+- [Installation guide](https://github.com/aelassas/Wexflow/wiki/Installation)
+- [Quick start](https://github.com/aelassas/Wexflow/wiki/Usage)
+- [Workflow samples](https://github.com/aelassas/Wexflow/wiki/Samples)
 
 # Bugs and features
   
