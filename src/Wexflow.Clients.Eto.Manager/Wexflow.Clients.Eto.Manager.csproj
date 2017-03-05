@@ -76,8 +76,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Wexflow.app\Contents\MacOS\Launcher.exec" />
+    <None Include="Wexflow.app\Contents\Resources\Wexflow.icns" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Wexflow.app\Contents\Info.plist" />
     <Content Include="Wexflow.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -89,6 +92,9 @@
       <Project>{7DEBD0D9-EA9B-445C-9B6D-F426908CE736}</Project>
       <Name>Wexflow.Core.Service.Contracts</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Wexflow.app\Contents\MonoBundle\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

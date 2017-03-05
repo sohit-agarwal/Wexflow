@@ -28,5 +28,11 @@ namespace Wexflow.Core
         {
             SwitchValue = switchValue;
         }
+
+        public TaskStatus(Status status, bool condition, string switchValue) : this(status)
+        {
+            Condition = condition;
+            SwitchValue = switchValue;
+        }
     }
 }

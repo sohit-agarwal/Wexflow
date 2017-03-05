@@ -238,20 +238,20 @@ namespace Wexflow.Core
                     return new Case(val, nodes);
                 });
 
-            IEnumerable<Node> deflt = null;
+            IEnumerable<Node> @default = null;
             var xDefault = xSwitch.XPathSelectElement("wf:Default", XmlNamespaceManager);
             if (xDefault != null)
             {
-                deflt = xDefault
+                @default = xDefault
                     .Elements()
                     .Select(xNode => XNodeToNode(xNode));
 
-                CheckStartupNode(deflt, "Startup node with parentId=-1 not found in Switch>Default execution graph.");
-                CheckParallelTasks(deflt, "Parallel tasks execution detected in Switch>Default execution graph.");
-                CheckInfiniteLoop(deflt, "Infinite loop detected in Switch>Default execution graph.");
+                CheckStartupNode(@default, "Startup node with parentId=-1 not found in Switch>Default execution graph.");
+                CheckParallelTasks(@default, "Parallel tasks execution detected in Switch>Default execution graph.");
+                CheckInfiniteLoop(@default, "Infinite loop detected in Switch>Default execution graph.");
             }
 
-            return new Switch(id, parentId, switchId, cases, deflt);
+            return new Switch(id, parentId, switchId, cases, @default);
         }
 
         Node XNodeToNode(XElement xNode)

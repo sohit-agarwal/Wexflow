@@ -11,11 +11,11 @@ namespace Wexflow.Core.ExecutionGraph.Flowchart
         public Case[] Cases { get; private set; }
         public Node[] Default { get; private set; }
 
-        public Switch(int id, int parentId, int switchId, IEnumerable<Case> cases, IEnumerable<Node> deflt) : base(id, parentId)
+        public Switch(int id, int parentId, int switchId, IEnumerable<Case> cases, IEnumerable<Node> @default) : base(id, parentId)
         {
             SwitchId = switchId;
             if (cases != null) Cases = cases.ToArray();
-            if (deflt != null) Default = deflt.ToArray();
+            if (@default != null) Default = @default.ToArray();
         }
     }
 }

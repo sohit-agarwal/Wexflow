@@ -1,6 +1,6 @@
 Thumbs.db
+*.dmg
 *.userprefs
-*.tar.gz
 *.obj
 *.exe
 *.exe.config
@@ -30,5 +30,6 @@ _ReSharper*/
 [Tt]est[Rr]esult*
 *.vssscc
 $tf*/
-setup/linux/wexflow/*.dll
 .vs/
+setup/*.tar.gz
+setup/Wexflow.app/

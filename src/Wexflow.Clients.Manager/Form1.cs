@@ -9,11 +9,11 @@ using Wexflow.Core.Service.Client;
 namespace Wexflow.Clients.Manager
 {
     // v1.0.8
-
-    // TODO Switch/Case
-    // TODO Now task
-    // TODO load
-    // TODO run
+    // Git push
+    // Update CodeProject article
+    // Create GitHub release
+    // Update GitHub wiki
+    // Publish CodeProject article
 
     // TODO Wexflow Designer (read-only)
     // TODO unit tests
