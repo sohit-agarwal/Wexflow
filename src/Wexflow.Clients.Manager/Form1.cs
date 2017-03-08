@@ -9,7 +9,7 @@ using Wexflow.Core.Service.Client;
 namespace Wexflow.Clients.Manager
 {
     // v1.0.8
-
+    
     // TODO Wexflow Designer (read-only)
     // TODO unit tests
     // TODO Wexflow Manager wf status live + row background color

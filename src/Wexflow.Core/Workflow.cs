@@ -379,7 +379,6 @@ namespace Wexflow.Core
                                 case Status.Success:
                                     if (ExecutionGraph.OnSuccess != null)
                                     {
-                                        // TODO check DOIf and DoWhile types in NodesToTasks
                                         var successTasks = NodesToTasks(ExecutionGraph.OnSuccess.DoNodes);
                                         RunTasks(ExecutionGraph.OnSuccess.DoNodes, successTasks);
                                     }
@@ -457,7 +456,7 @@ namespace Wexflow.Core
                 }
                 else if (node is Switch)
                 {
-                    Switch @switch = (Switch)node;
+                    var @switch = (Switch)node;
                     tasks.AddRange(NodesToTasks(@switch.Default).Where(task => tasks.All(t => t.Id != task.Id)));
                     tasks.AddRange(NodesToTasks(@switch.Cases.SelectMany(@case => @case.Nodes)).Where(task => tasks.All(t => t.Id != task.Id)));
                 }
@@ -801,6 +800,14 @@ namespace Wexflow.Core
 
                             RunTasks(defalutTasks, @switch.Default, defaultStartNode, ref success, ref warning, ref atLeastOneSucceed);
                         }
+
+						// Child node
+						var childNode = nodes.FirstOrDefault(n => n.ParentId == @switch.Id);
+
+						if (childNode != null)
+						{
+							RunTasks(tasks, nodes, childNode, ref success, ref warning, ref atLeastOneSucceed);
+						}
                     }
 
                 }

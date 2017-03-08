@@ -24,8 +24,6 @@ namespace Wexflow.Tasks.Sql
         Teradata
     }
 
-    // TODO Oracle, Teradata, Access?
-
     public class Sql:Task
     {
         public Type DbType {get; set;}
