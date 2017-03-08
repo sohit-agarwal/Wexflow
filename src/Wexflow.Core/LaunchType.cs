@@ -1,5 +1,4 @@
-﻿
-namespace Wexflow.Core
+﻿namespace Wexflow.Core
 {
     public enum LaunchType
     {
