@@ -17,7 +17,7 @@
 
 - [Features](https://github.com/aelassas/Wexflow/wiki)
 - [Installation guide](https://github.com/aelassas/Wexflow/wiki/Installation)
-- [Quick start](https://github.com/aelassas/Wexflow/wiki/Usage)
+- [Quickstart](https://github.com/aelassas/Wexflow/wiki/Usage)
 - [Workflow samples](https://github.com/aelassas/Wexflow/wiki/Samples)
 
 # Bugs and features
