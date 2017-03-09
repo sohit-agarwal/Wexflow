@@ -12,6 +12,8 @@ copy ..\src\Wexflow.Clients.Eto.Manager\bin\Debug\Wexflow.Core.Service.Client.dl
 copy ..\src\Wexflow.Clients.Eto.Manager\bin\Debug\Wexflow.Core.Service.Contracts.dll %dstDir%
 copy ..\src\Wexflow.Clients.Eto.Manager\bin\Debug\Wexflow.Clients.Eto.Manager.exe %dstDir%
 copy ..\src\Wexflow.Clients.Eto.Manager\bin\Debug\Wexflow.Clients.Eto.Manager.exe.config %dstDir%
+copy ..\LICENSE.txt %dstDir%
+copy ..\VERSION.txt %dstDir%
 @echo off
 @echo #!/bin/bash> %sh%
 @echo|set /p="mono /opt/wexflow/Wexflow.Clients.Eto.Manager.exe">> %sh%

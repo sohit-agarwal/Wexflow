@@ -12,3 +12,5 @@ copy ..\src\Wexflow.Clients.Eto.Manager\bin\Debug\Wexflow.Core.Service.Client.dl
 copy ..\src\Wexflow.Clients.Eto.Manager\bin\Debug\Wexflow.Core.Service.Contracts.dll %monoBundleDir%
 copy ..\src\Wexflow.Clients.Eto.Manager\bin\Debug\Wexflow.Clients.Eto.Manager.exe %monoBundleDir%
 copy ..\src\Wexflow.Clients.Eto.Manager\bin\Debug\Wexflow.Clients.Eto.Manager.exe.config %monoBundleDir%
+copy ..\LICENSE.txt %monoBundleDir%
+copy ..\VERSION.txt %monoBundleDir%

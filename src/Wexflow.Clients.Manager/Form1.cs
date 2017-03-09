@@ -8,10 +8,9 @@ using Wexflow.Core.Service.Client;
 
 namespace Wexflow.Clients.Manager
 {
-    // v1.0.8
-    
-    // TODO Wexflow Designer (read-only)
+    // v1.0.10
     // TODO unit tests
+    // TODO Wexflow Designer (read-only)
     // TODO Wexflow Manager wf status live + row background color
     // TODO Test and fix ftps
     // TODO FluentFtpHelper (after FTPS fix)
