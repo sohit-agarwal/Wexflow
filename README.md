@@ -4,6 +4,10 @@
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/Wexflow/Lobby)-->
 
+This open source project is sponsored by [JetBrains](https://www.jetbrains.com/).
+
+[![JetBrains](https://aelassas.github.io/wexflow/images/Jetbrains_logo.png)](https://www.jetbrains.com/)
+
 # Continuous integration
 
 |  Server | Platform | Build status |
@@ -36,4 +40,8 @@ More information about Wexflow can be found on [CodeProject](https://www.codepro
 # License
 Wexflow is licensed under the [MIT License](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt). 
 
-Wexflow contains other libraries with their individual licenses. More details about these licenses can be found [here](https://github.com/aelassas/Wexflow/wiki/License).
+Wexflow contains other libraries with their individual licenses. More details about these licenses can be found in the [wiki](https://github.com/aelassas/Wexflow/wiki/License).
+
+# Change log
+
+The changes are documented in the release history that can be found in the [wiki](https://github.com/aelassas/Wexflow/wiki/History).
