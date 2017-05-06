@@ -5,10 +5,10 @@ namespace Wexflow.Core.ExecutionGraph
 {
     public class Graph
     {
-        public Node[] Nodes { get; private set; }
-        public GraphEvent OnSuccess { get; private set; }
-        public GraphEvent OnWarning { get; private set; }
-        public GraphEvent OnError { get; private set; }
+        public Node[] Nodes { get; }
+        public GraphEvent OnSuccess { get; }
+        public GraphEvent OnWarning { get; }
+        public GraphEvent OnError { get; }
 
         public Graph(IEnumerable<Node> nodes,
             GraphEvent onSuccess, 

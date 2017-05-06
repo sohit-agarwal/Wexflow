@@ -23,8 +23,8 @@ namespace Wexflow.Tasks.ImagesTransformer
 
     public class ImagesTransformer:Task
     {
-        public string OutputFilePattern { get; private set; }
-        public ImgFormat OutputFormat { get; private set; }
+        public string OutputFilePattern { get; }
+        public ImgFormat OutputFormat { get; }
 
         public ImagesTransformer(XElement xe, Workflow wf)
             : base(xe, wf)

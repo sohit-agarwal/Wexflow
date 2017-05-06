@@ -9,7 +9,7 @@ namespace Wexflow.Tasks.Wmi
 {
     public class Wmi:Task
     {
-        public string Query { get; private set; }
+        public string Query { get; }
 
         public Wmi(XElement xe, Workflow wf)
             : base(xe, wf)
@@ -31,14 +31,16 @@ namespace Wexflow.Tasks.Wmi
                 var searcher = new ManagementObjectSearcher(Query);
                 var collection = searcher.Get();
 
-                foreach (ManagementObject obj in collection)
+                foreach (var o in collection)
                 {
+                    var obj = (ManagementObject) o;
                     var xObj = new XElement("Object");
                     foreach (PropertyData prop in obj.Properties)
                     {
                         var xProp = new XElement("Property", new XAttribute("name", prop.Name), new XAttribute("value", prop.Value ?? string.Empty));
                         xObj.Add(xProp);
                     }
+                    if(xdoc.Root==null)throw new Exception("Root node does not exist.");
                     xdoc.Root.Add(xObj);
                 }
                 xdoc.Save(xmlPath);

@@ -2,11 +2,11 @@
 {
     public class WorkflowDataInfo
     {
-        public string Id { get; private set; }
-        public string Name { get; private set; }
-        public string LaunchType { get; private set; }
-        public bool IsEnabled { get; private set; }
-        public string Description { get; private set; }
+        public string Id { get; }
+        public string Name { get; }
+        public string LaunchType { get; }
+        public bool IsEnabled { get; }
+        public string Description { get; }
 
         public WorkflowDataInfo(string id, string name, string launchType, bool isEnabled, string desc)
         {

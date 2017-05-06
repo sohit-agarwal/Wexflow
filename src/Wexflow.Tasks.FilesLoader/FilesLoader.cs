@@ -8,8 +8,8 @@ namespace Wexflow.Tasks.FilesLoader
 {
     public class FilesLoader : Task
     {
-        public string[] Folders { get; private set; }
-        public string[] FlFiles { get; private set; }
+        public string[] Folders { get; }
+        public string[] FlFiles { get; }
 
         public FilesLoader(XElement xe, Workflow wf): base(xe, wf)
         {

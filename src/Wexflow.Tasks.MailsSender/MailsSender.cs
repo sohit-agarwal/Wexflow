@@ -8,11 +8,11 @@ namespace Wexflow.Tasks.MailsSender
 {
     public class MailsSender:Task
     {
-        public string Host { get; private set; }
-        public int Port { get; private set; }
-        public bool EnableSsl { get; private set; }
-        public string User { get; private set; }
-        public string Password { get; private set; }
+        public string Host { get; }
+        public int Port { get; }
+        public bool EnableSsl { get; }
+        public string User { get; }
+        public string Password { get; }
 
         public MailsSender(XElement xe, Workflow wf)
             : base(xe, wf)

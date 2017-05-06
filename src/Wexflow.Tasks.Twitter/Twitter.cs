@@ -10,10 +10,10 @@ namespace Wexflow.Tasks.Twitter
 {
     public class Twitter:Task
     {
-        public string ConsumerKey {get; private set;}
-        public string ConsumerSecret { get; private set; }
-        public string AccessToken { get; private set; }
-        public string AccessTokenSecret { get; private set; }
+        public string ConsumerKey {get; }
+        public string ConsumerSecret { get; }
+        public string AccessToken { get; }
+        public string AccessTokenSecret { get; }
 
         public Twitter(XElement xe, Workflow wf)
             : base(xe, wf)

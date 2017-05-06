@@ -8,13 +8,16 @@ using Wexflow.Core.Service.Client;
 
 namespace Wexflow.Clients.Manager
 {
-    // v1.0.10
-    // TODO unit tests
+    // v1.2
     // TODO Wexflow Designer (read-only)
+
+    // v1.3
+    // TODO Wexflow Designer (edit)
+
+    // TODO unit tests
     // TODO Wexflow Manager wf status live + row background color
     // TODO Test and fix ftps
     // TODO FluentFtpHelper (after FTPS fix)
-
     // TODO YouTube?
     // TODO Wexflow Designer
     // TODO Wexflow Web Manager (Designer)
@@ -37,7 +40,7 @@ namespace Wexflow.Clients.Manager
         {
             InitializeComponent();
 
-            textBoxInfo.Text = "Loading workflows...";
+            textBoxInfo.Text = @"Loading workflows...";
 
             backgroundWorker1.RunWorkerAsync();
         }
@@ -73,8 +76,8 @@ namespace Wexflow.Clients.Manager
             if (_exception != null)
             {
                 MessageBox.Show(
-                    "An error occured while retrieving workflows. Check Wexflow Web Service Uri and check that Wexflow Windows Service is running correctly.",
-                    "Wexflow", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    @"An error occured while retrieving workflows. Check Wexflow Web Service Uri and check that Wexflow Windows Service is running correctly.",
+                    @"Wexflow", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 textBoxInfo.Text = "";
                 return;
             }
@@ -138,7 +141,7 @@ namespace Wexflow.Clients.Manager
         void HandleNonRunningWindowsService()
         {
             buttonStart.Enabled = buttonPause.Enabled = buttonResume.Enabled = buttonStop.Enabled = false;
-            textBoxInfo.Text = "Wexflow Windows Service is not running.";
+            textBoxInfo.Text = @"Wexflow Windows Service is not running.";
         }
 
         void buttonStart_Click(object sender, EventArgs e)
@@ -221,7 +224,7 @@ namespace Wexflow.Clients.Manager
                 {
                     if (!workflow.IsEnabled)
                     {
-                        textBoxInfo.Text = "This workflow is disabled.";
+                        textBoxInfo.Text = @"This workflow is disabled.";
                         buttonStart.Enabled = buttonPause.Enabled = buttonResume.Enabled = buttonStop.Enabled = false;
                     }
                     else
@@ -235,11 +238,11 @@ namespace Wexflow.Clients.Manager
 
                         if (workflow.IsRunning && !workflow.IsPaused)
                         {
-                            textBoxInfo.Text = "This workflow is running...";
+                            textBoxInfo.Text = @"This workflow is running...";
                         }
                         else if (workflow.IsPaused)
                         {
-                            textBoxInfo.Text = "This workflow is suspended.";
+                            textBoxInfo.Text = @"This workflow is suspended.";
                         }
                         else
                         {

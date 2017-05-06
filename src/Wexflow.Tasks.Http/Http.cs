@@ -9,7 +9,7 @@ namespace Wexflow.Tasks.Http
 {
     public class Http:Task
     {
-        public string[] Urls { get; private set; }
+        public string[] Urls { get; }
 
         public Http(XElement xe, Workflow wf)
             : base(xe, wf)
@@ -30,7 +30,9 @@ namespace Wexflow.Tasks.Http
             {
                 try
                 {
-                    var destPath = Path.Combine(Workflow.WorkflowTempFolder, Path.GetFileName(url));
+                    var fileName = Path.GetFileName(url);
+                    if(fileName == null) throw new Exception("File name is null");
+                    var destPath = Path.Combine(Workflow.WorkflowTempFolder, fileName);
                     webClient.DownloadFile(url, destPath);
                     InfoFormat("File {0} downlaoded as {1}", url, destPath);
                     Files.Add(new FileInf(destPath, Id));

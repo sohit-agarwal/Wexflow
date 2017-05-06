@@ -116,9 +116,10 @@ namespace Wexflow.Clients.Manager
             {
                 return 1; //first has value, second doesn't
             }
-            if (lhsValue is IComparable)
+            var value = lhsValue as IComparable;
+            if (value != null)
             {
-                return ((IComparable)lhsValue).CompareTo(rhsValue);
+                return value.CompareTo(rhsValue);
             }
             if (lhsValue.Equals(rhsValue))
             {

@@ -29,7 +29,7 @@ namespace Wexflow.Clients.Manager
                 }
                 else
                 {
-                    MessageBox.Show("Wexflow Windows Service is not running. Please run it to start Wexflow Manager.");
+                    MessageBox.Show(@"Wexflow Windows Service is not running. Please run it to start Wexflow Manager.");
                 }
             }
         }

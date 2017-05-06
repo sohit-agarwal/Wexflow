@@ -15,7 +15,7 @@ namespace Wexflow.Clients.WindowsService
             }
             else
             {
-                var servicesToRun = new [] { new WexflowWindowsService() };
+                ServiceBase[] servicesToRun = { new WexflowWindowsService() };
                 ServiceBase.Run(servicesToRun);
             }
         }

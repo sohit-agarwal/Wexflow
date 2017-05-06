@@ -11,12 +11,12 @@ namespace Wexflow.Tasks.Ftp
 
     public abstract class PluginBase
     {
-        public string Server { get; private set; }
-        public int Port { get; private set; }
-        public string User { get; private set; }
-        public string Password { get; private set; }
-        public string Path { get; private set; }
-        public Task Task { get; private set; }
+        public string Server { get; }
+        public int Port { get; }
+        public string User { get; }
+        public string Password { get; }
+        public string Path { get; }
+        public Task Task { get; }
 
 		protected PluginBase(Task task, string server, int port, string user, string password, string path)
         {

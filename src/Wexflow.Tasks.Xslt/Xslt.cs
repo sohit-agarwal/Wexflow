@@ -11,9 +11,9 @@ namespace Wexflow.Tasks.Xslt
 {
     public class Xslt:Task
     {
-        public string XsltPath { get; private set; }
-        public string Version { get; private set; }
-        public bool RemoveWexflowProcessingNodes { get; private set; }
+        public string XsltPath { get; }
+        public string Version { get; }
+        public bool RemoveWexflowProcessingNodes { get; }
 
         public Xslt(XElement xe, Workflow wf)
             : base(xe, wf)
@@ -78,7 +78,7 @@ namespace Wexflow.Tasks.Xslt
                     // Remove /*//<WexflowProcessing> nodes if necessary
 
                     var xdoc = XDocument.Load(destPath);
-                    var xWexflowProcessings = xdoc.Descendants("WexflowProcessing");
+                    var xWexflowProcessings = xdoc.Descendants("WexflowProcessing").ToArray();
                     foreach (var xWexflowProcessing in xWexflowProcessings)
                     {
                         var xFiles = xWexflowProcessing.Descendants("File");

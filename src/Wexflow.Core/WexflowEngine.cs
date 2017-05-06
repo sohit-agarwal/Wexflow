@@ -10,7 +10,7 @@ namespace Wexflow.Core
 {
     public class WexflowEngine
     {
-        public string SettingsFile { get; private set; }
+        public string SettingsFile { get; }
         public string WorkflowsFolder { get; private set; }
         public string TempFolder { get; private set; }
         public string XsdPath { get; private set; }
@@ -34,7 +34,9 @@ namespace Wexflow.Core
 
         string GetWexflowSetting(XDocument xdoc, string name)
         {
-            return xdoc.XPathSelectElement(string.Format("/Wexflow/Setting[@name='{0}']", name)).Attribute("value").Value;    
+            var xValue = xdoc.XPathSelectElement(string.Format("/Wexflow/Setting[@name='{0}']", name)).Attribute("value");
+            if (xValue == null) throw new Exception("Wexflow Setting Value attribute not found.");
+            return xValue.Value;
         }
 
         void LoadWorkflows()

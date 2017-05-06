@@ -68,6 +68,7 @@ namespace Wexflow.Tasks.CsvToXml
                 {
                     if(!string.IsNullOrEmpty(col)) xLine.Add(new XElement("Column", col));
                 }
+                if (xdoc.Root == null) throw new Exception("No root node found.");
                 xdoc.Root.Add(xLine);
             }
 

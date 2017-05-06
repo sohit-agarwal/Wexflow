@@ -44,7 +44,7 @@ namespace Wexflow.Tasks.ListFiles
                 }
 
                 xWorkflow.Add(xFiles);
-                xdoc.Root.Add(xWorkflow);
+                if(xdoc.Root != null) xdoc.Root.Add(xWorkflow);
                 xdoc.Save(xmlPath);
 
                 var xmlFile = new FileInf(xmlPath, Id);

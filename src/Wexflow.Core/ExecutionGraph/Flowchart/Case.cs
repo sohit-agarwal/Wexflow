@@ -5,8 +5,8 @@ namespace Wexflow.Core.ExecutionGraph.Flowchart
 {
     public class Case
     {
-        public string Value { get; private set; }
-        public Node[] Nodes { get; private set; }
+        public string Value { get; }
+        public Node[] Nodes { get; }
 
         public Case(string val, IEnumerable<Node> nodes)
         {

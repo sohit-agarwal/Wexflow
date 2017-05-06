@@ -8,8 +8,8 @@ namespace Wexflow.Tasks.FilesMover
 {
     public class FilesMover:Task
     {
-        public string DestFolder { get; private set; }
-        public bool Overwrite { get; private set; }
+        public string DestFolder { get; }
+        public bool Overwrite { get; }
 
         public FilesMover(XElement xe, Workflow wf)
             : base(xe, wf)
@@ -22,14 +22,24 @@ namespace Wexflow.Tasks.FilesMover
         {
             Info("Moving files...");
 
-            bool success = true;
-            bool atLeastOneSucceed = false;
+            var success = true;
+            var atLeastOneSucceed = false;
 
             var files = SelectFiles();
-            for (int i = files.Length - 1; i > -1 ; i--) 
+            for (var i = files.Length - 1; i > -1 ; i--) 
             {
                 var file = files[i];
-                var destFilePath = Path.Combine(DestFolder, Path.GetFileName(file.Path));
+                var fileName = Path.GetFileName(file.Path);
+                string destFilePath;
+                if (!string.IsNullOrEmpty(fileName))
+                {
+                    destFilePath = Path.Combine(DestFolder, fileName);
+                }
+                else
+                {
+                    ErrorFormat("File name of {0} is empty.", file);
+                    continue;
+                }
 
                 try
                 {

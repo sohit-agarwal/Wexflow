@@ -8,8 +8,8 @@ namespace Wexflow.Tasks.FilesExist
 {
     public class FilesExist:Task
     {
-        public string[] FFiles { get; private set; }
-        public string[] Folders { get; private set; }
+        public string[] FFiles { get; }
+        public string[] Folders { get; }
 
         public FilesExist(XElement xe, Workflow wf)
             : base(xe, wf)
@@ -48,8 +48,11 @@ namespace Wexflow.Tasks.FilesExist
                         new XAttribute("exists", Directory.Exists(folder))));
                 }
 
-                xdoc.Root.Add(xFiles);
-                xdoc.Root.Add(xFolders);
+                if (xdoc.Root != null)
+                {
+                    xdoc.Root.Add(xFiles);
+                    xdoc.Root.Add(xFolders);
+                }
                 xdoc.Save(xmlPath);
                 Files.Add(new FileInf(xmlPath, Id));
                 InfoFormat("The result has been written in: {0}", xmlPath);

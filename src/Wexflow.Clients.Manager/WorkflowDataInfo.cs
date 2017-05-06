@@ -5,11 +5,11 @@ namespace Wexflow.Clients.Manager
 {
     public class WorkflowDataInfo:IComparable
     {
-        public int Id { get; private set; }
-        public string Name { get; private set; }
-        public LaunchType LaunchType { get; private set; }
-        public bool IsEnabled { get; private set; }
-        public string Description { get; private set; }
+        public int Id { get; }
+        public string Name { get; }
+        public LaunchType LaunchType { get; }
+        public bool IsEnabled { get; }
+        public string Description { get; }
 
         public WorkflowDataInfo(int id, string name, LaunchType launchType, bool isEnabled, string desc)
         {

@@ -8,7 +8,7 @@ namespace Wexflow.Tasks.FilesRenamer
 {
     public class FilesRenamer:Task
     {
-        public bool Overwrite { get; private set; }
+        public bool Overwrite { get; }
 
         public FilesRenamer(XElement xe, Workflow wf)
             : base(xe, wf)
@@ -29,7 +29,9 @@ namespace Wexflow.Tasks.FilesRenamer
                 {
                     if (!string.IsNullOrEmpty(file.RenameTo))
                     {
-                        var destPath = Path.Combine(Path.GetDirectoryName(file.Path), file.RenameTo);
+                        var dirName = Path.GetDirectoryName(file.Path);
+                        if(dirName == null) throw new Exception("File directory is null");
+                        var destPath = Path.Combine(dirName, file.RenameTo);
 
                         if (File.Exists(destPath))
                         {

@@ -35,10 +35,13 @@ namespace Wexflow.Tasks.Md5
                     try
                     {
                         var md5 = GetMd5(file.Path);
-                        xdoc.Root.Add(new XElement("File",
-                            new XAttribute("path", file.Path),
-                            new XAttribute("name", file.FileName),
-                            new XAttribute("md5", md5)));
+                        if (xdoc.Root != null)
+                        {
+                            xdoc.Root.Add(new XElement("File",
+                                new XAttribute("path", file.Path),
+                                new XAttribute("name", file.FileName),
+                                new XAttribute("md5", md5)));
+                        }
                         InfoFormat("Md5 of the file {0} is {1}", file.Path, md5);
                         
                         if (!atLeastOneSucceed) atLeastOneSucceed = true;

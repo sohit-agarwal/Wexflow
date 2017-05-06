@@ -25,26 +25,11 @@ namespace Wexflow.Tasks.Ftp
 
             if (!string.IsNullOrEmpty(PrivateKeyPath) && !string.IsNullOrEmpty(Passphrase))
             {
-                connInfo = new ConnectionInfo(Server, Port, User,
-                    new AuthenticationMethod[]{
-
-                        // Pasword based Authentication
-                        new PasswordAuthenticationMethod(User, Password),
-
-                        // Key Based Authentication (using keys in OpenSSH Format)
-                        new PrivateKeyAuthenticationMethod(User,new[]{ 
-                            new PrivateKeyFile(PrivateKeyPath, Passphrase)
-                        })
-                });
+                connInfo = new ConnectionInfo(Server, Port, User, new PasswordAuthenticationMethod(User, Password), new PrivateKeyAuthenticationMethod(User, new PrivateKeyFile(PrivateKeyPath, Passphrase)));
             }
             else
             {
-                connInfo = new ConnectionInfo(Server, Port, User,
-                       new AuthenticationMethod[]{
-
-                               // Pasword based Authentication
-                               new PasswordAuthenticationMethod(User, Password)
-                           });
+                connInfo = new ConnectionInfo(Server, Port, User, new PasswordAuthenticationMethod(User, Password));
             }
 
             return connInfo;

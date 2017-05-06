@@ -23,7 +23,7 @@ namespace Wexflow.Core.Service.Cross
             var httpHeader = reply.Properties["httpResponse"] as HttpResponseMessageProperty;
             foreach (var item in _requiredHeaders)
             {
-                httpHeader.Headers.Add(item.Key, item.Value);
+                if (httpHeader != null) httpHeader.Headers.Add(item.Key, item.Value);
             }
         }
     }

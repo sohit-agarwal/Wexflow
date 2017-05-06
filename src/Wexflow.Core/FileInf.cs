@@ -21,7 +21,7 @@ namespace Wexflow.Core
             } 
         }
         public string FileName { get; private set; }
-        public int TaskId { get; private set; }
+        public int TaskId { get; }
         public string RenameTo {
             get
             {
@@ -36,7 +36,7 @@ namespace Wexflow.Core
             }
         }
         public string RenameToOrName { get; private set; }
-        public List<Tag> Tags { get; private set; }
+        public List<Tag> Tags { get; }
 
         public FileInf(string path, int taskId)
         {
