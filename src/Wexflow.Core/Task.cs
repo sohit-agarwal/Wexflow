@@ -93,6 +93,11 @@ namespace Wexflow.Core
             }).ToArray();
         }
 
+        public int[] GetSettingsInt(string name)
+        {
+            return GetSettings(name).Select(int.Parse).ToArray();
+        }
+
         public XElement[] GetXSettings(string name)
         {
             return _xElement.XPathSelectElements(string.Format("wf:Setting[@name='{0}']", name), Workflow.XmlNamespaceManager).ToArray();

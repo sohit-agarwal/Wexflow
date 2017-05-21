@@ -107,6 +107,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Setup", "Setup", "{6A94C34E
 		setup\setup-windows.iss = setup\setup-windows.iss
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Workflow", "src\Wexflow.Tasks.Workflow\Wexflow.Tasks.Workflow.csproj", "{10F39219-FE79-4191-B63E-59FF217EFC47}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -558,6 +560,18 @@ Global
 		{F2F1E7E2-2707-40A7-A98D-B5BBD27C0787}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{F2F1E7E2-2707-40A7-A98D-B5BBD27C0787}.Release|x86.ActiveCfg = Release|Any CPU
 		{F2F1E7E2-2707-40A7-A98D-B5BBD27C0787}.Release|x86.Build.0 = Release|Any CPU
+		{10F39219-FE79-4191-B63E-59FF217EFC47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10F39219-FE79-4191-B63E-59FF217EFC47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10F39219-FE79-4191-B63E-59FF217EFC47}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{10F39219-FE79-4191-B63E-59FF217EFC47}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{10F39219-FE79-4191-B63E-59FF217EFC47}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{10F39219-FE79-4191-B63E-59FF217EFC47}.Debug|x86.Build.0 = Debug|Any CPU
+		{10F39219-FE79-4191-B63E-59FF217EFC47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10F39219-FE79-4191-B63E-59FF217EFC47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10F39219-FE79-4191-B63E-59FF217EFC47}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{10F39219-FE79-4191-B63E-59FF217EFC47}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{10F39219-FE79-4191-B63E-59FF217EFC47}.Release|x86.ActiveCfg = Release|Any CPU
+		{10F39219-FE79-4191-B63E-59FF217EFC47}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -603,5 +617,6 @@ Global
 		{391DE15B-D5A2-462C-8E40-9DB3CE5CB83D} = {6AF980AE-0A8F-4F6F-A387-2C3C21A30710}
 		{BBCA7CF8-635A-4ABE-B3C5-81C584DB0D46} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{F2F1E7E2-2707-40A7-A98D-B5BBD27C0787} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
+		{10F39219-FE79-4191-B63E-59FF217EFC47} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 	EndGlobalSection
 EndGlobal
