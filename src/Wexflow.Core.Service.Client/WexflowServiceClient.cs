@@ -17,6 +17,7 @@ namespace Wexflow.Core.Service.Client
         {
             string uri = Uri + "/workflows";
             var webClient = new WebClient();
+            webClient.Encoding = System.Text.Encoding.UTF8;
             var response = webClient.DownloadString(uri);
             var workflows = JsonConvert.DeserializeObject<WorkflowInfo[]>(response);
             return workflows;
