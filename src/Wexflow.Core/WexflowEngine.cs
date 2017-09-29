@@ -20,6 +20,10 @@ namespace Wexflow.Core
         {
             SettingsFile = settingsFile;
             Workflows = new List<Workflow>();
+
+            Logger.Info("");
+            Logger.Info("Starting Wexflow Engine");
+
             LoadSettings();
             LoadWorkflows();
         }
@@ -48,7 +52,6 @@ namespace Wexflow.Core
                 if (workflow != null)
                 {
                     Workflows.Add(workflow);
-                    Logger.InfoFormat("Workflow loaded: {0} ({1})", workflow, workflow.WorkflowFilePath);
                 }
             }
 
@@ -56,7 +59,6 @@ namespace Wexflow.Core
             {
                 EnableRaisingEvents = true,
                 IncludeSubdirectories = false,
-                NotifyFilter = NotifyFilters.CreationTime | NotifyFilters.LastWrite | NotifyFilters.Size
             };
 
             watcher.Created += (_, args) =>
@@ -116,7 +118,7 @@ namespace Wexflow.Core
             try
             {
                 var wf = new Workflow(file, TempFolder, XsdPath);
-                Logger.InfoFormat("Workflow loaded: {0}", wf);
+                Logger.InfoFormat("Workflow loaded: {0} ({1})", wf, file);
                 return wf;
             }
             catch (Exception e)
@@ -128,8 +130,7 @@ namespace Wexflow.Core
 
         public void Run()
         {
-            Logger.Info("");
-            Logger.Info("Starting Wexflow Engine");
+            
             foreach (Workflow workflow in Workflows)
             {
                 ScheduleWorkflow(workflow);
