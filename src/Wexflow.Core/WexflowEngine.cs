@@ -51,13 +51,73 @@ namespace Wexflow.Core
                     Logger.InfoFormat("Workflow loaded: {0} ({1})", workflow, workflow.WorkflowFilePath);
                 }
             }
+
+            var watcher = new FileSystemWatcher(WorkflowsFolder, "*.xml")
+            {
+                EnableRaisingEvents = true,
+                IncludeSubdirectories = false,
+                NotifyFilter = NotifyFilters.CreationTime | NotifyFilters.LastWrite | NotifyFilters.Size
+            };
+
+            watcher.Created += (_, args) =>
+            {
+                var workflow = LoadWorkflowFromFile(args.FullPath);
+                if (workflow != null)
+                {
+                    Workflows.Add(workflow);
+                    ScheduleWorkflow(workflow);
+                }
+            };
+
+            watcher.Deleted += (_, args) =>
+            {
+                var removedWorkflow = Workflows.Where(wf => wf.WorkflowFilePath == args.FullPath).Single();
+                Logger.InfoFormat("Workflow {0} is stopped and removed because its definition file {1} was deleted", removedWorkflow.Name, removedWorkflow.WorkflowFilePath);
+                removedWorkflow.Stop();
+                Workflows.Remove(removedWorkflow);
+            };
+
+            watcher.Changed += (_, args) =>
+            {
+                try
+                {
+                    Logger.Info($"Workflows: {Workflows?.Select(wf => wf.WorkflowFilePath)?.Aggregate((wf1, wf2) => wf1 + " " + wf2) ?? "'Workflows' is null"}");
+                    var changedWorkflow = Workflows.Where(wf => wf.WorkflowFilePath == args.FullPath)
+                                                   .SingleOrDefault();
+                    if (changedWorkflow != null)
+                    {
+                        // the existing file might have caused an error during loading, so there may be no corresponding
+                        // workflow to the changed file
+                        Workflows.Remove(changedWorkflow);
+                    }
+                    Logger.InfoFormat("A change in the definition file {0} of workflow {1} has been detected. The workflow will be reloaded", changedWorkflow.WorkflowFilePath, changedWorkflow.Name);
+                }
+                catch (Exception e)
+                {
+                    Logger.Error("Error during workflow reload", e);
+                }
+
+                var reloaded = LoadWorkflowFromFile(args.FullPath);
+                if (reloaded != null)
+                {
+                    var duplicateId = Workflows.Where(wf => wf.Id == reloaded.Id).SingleOrDefault();
+                    if (duplicateId != null)
+                    {
+                        Logger.ErrorFormat("An error occured while loading the workflow : {0}. The workflow Id {1} is already assgined in {2}", args.FullPath, reloaded.Id, duplicateId.WorkflowFilePath);
+                    }
+                    Workflows.Add(reloaded);
+                    ScheduleWorkflow(reloaded);
+                }
+            };
         }
 
         Workflow LoadWorkflowFromFile(string file)
         {
             try
             {
-                return new Workflow(file, TempFolder, XsdPath);
+                var wf = new Workflow(file, TempFolder, XsdPath);
+                Logger.InfoFormat("Workflow loaded: {0}", wf);
+                return wf;
             }
             catch (Exception e)
             {
@@ -68,25 +128,32 @@ namespace Wexflow.Core
 
         public void Run()
         {
+            Logger.Info("");
+            Logger.Info("Starting Wexflow Engine");
             foreach (Workflow workflow in Workflows)
             {
-                if (workflow.IsEnabled)
-                {
-                    if (workflow.LaunchType == LaunchType.Startup)
-                    {
-                        workflow.Start();
-                    }
-                    else if (workflow.LaunchType == LaunchType.Periodic)
-                    {
-                        Action<object> callback = o =>
-                        {
-                            var wf = (Workflow)o;
-                            if (!wf.IsRunning) wf.Start();
-                        };
+                ScheduleWorkflow(workflow);
+            }
+        }
 
-                        var timer = new WexflowTimer(new TimerCallback(callback), workflow, workflow.Period);
-                        timer.Start();
-                    }
+        public void ScheduleWorkflow(Workflow wf)
+        {
+            if (wf.IsEnabled)
+            {
+                if (wf.LaunchType == LaunchType.Startup)
+                {
+                    wf.Start();
+                }
+                else if (wf.LaunchType == LaunchType.Periodic)
+                {
+                    Action<object> callback = o =>
+                    {
+                        var workflow = o as Workflow;
+                        if (!workflow.IsRunning) workflow.Start();
+                    };
+
+                    var timer = new WexflowTimer(new TimerCallback(callback), wf, wf.Period);
+                    timer.Start();
                 }
             }
         }
