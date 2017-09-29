@@ -90,6 +90,7 @@ namespace Wexflow.Core
                     {
                         // the existing file might have caused an error during loading, so there may be no corresponding
                         // workflow to the changed file
+                        changedWorkflow.Stop();
                         Workflows.Remove(changedWorkflow);
                     }
                     Logger.InfoFormat("A change in the definition file {0} of workflow {1} has been detected. The workflow will be reloaded", changedWorkflow.WorkflowFilePath, changedWorkflow.Name);
