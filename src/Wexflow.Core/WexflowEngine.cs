@@ -16,7 +16,7 @@ namespace Wexflow.Core
         public string XsdPath { get; private set; }
         public IList<Workflow> Workflows { get; private set; }
 
-        public WexflowEngine(string settingsFile) 
+        public WexflowEngine(string settingsFile)
         {
             SettingsFile = settingsFile;
             Workflows = new List<Workflow>();
@@ -41,19 +41,28 @@ namespace Wexflow.Core
         }
 
         void LoadWorkflows()
-        { 
+        {
             foreach (string file in Directory.GetFiles(WorkflowsFolder))
             {
-                try
+                var workflow = LoadWorkflowFromFile(file);
+                if (workflow != null)
                 {
-                    var workflow = new Workflow(file, TempFolder, XsdPath);
                     Workflows.Add(workflow);
                     Logger.InfoFormat("Workflow loaded: {0} ({1})", workflow, workflow.WorkflowFilePath);
                 }
-                catch (Exception e)
-                {
-                    Logger.ErrorFormat("An error occured while loading the workflow : {0} Please check the workflow configuration. Error: {1}", file, e.Message);
-                }
+            }
+        }
+
+        Workflow LoadWorkflowFromFile(string file)
+        {
+            try
+            {
+                return new Workflow(file, TempFolder, XsdPath);
+            }
+            catch (Exception e)
+            {
+                Logger.ErrorFormat("An error occured while loading the workflow : {0} Please check the workflow configuration. Error: {1}", file, e.Message);
+                return null;
             }
         }
 
@@ -74,7 +83,7 @@ namespace Wexflow.Core
                             var wf = (Workflow)o;
                             if (!wf.IsRunning) wf.Start();
                         };
-                        
+
                         var timer = new WexflowTimer(new TimerCallback(callback), workflow, workflow.Period);
                         timer.Start();
                     }
@@ -95,7 +104,7 @@ namespace Wexflow.Core
             {
                 Logger.ErrorFormat("Workflow {0} not found.", workflowId);
             }
-            else 
+            else
             {
                 if (wf.IsEnabled) wf.Start();
             }
