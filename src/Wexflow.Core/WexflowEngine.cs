@@ -14,11 +14,12 @@ namespace Wexflow.Core
         public string WorkflowsFolder { get; private set; }
         public string TempFolder { get; private set; }
         public string XsdPath { get; private set; }
-        public Workflow[] Workflows { get; private set; }
+        public IList<Workflow> Workflows { get; private set; }
 
         public WexflowEngine(string settingsFile) 
         {
             SettingsFile = settingsFile;
+            Workflows = new List<Workflow>();
             LoadSettings();
             LoadWorkflows();
         }
@@ -41,21 +42,19 @@ namespace Wexflow.Core
 
         void LoadWorkflows()
         { 
-            var workflows = new List<Workflow>();
             foreach (string file in Directory.GetFiles(WorkflowsFolder))
             {
                 try
                 {
                     var workflow = new Workflow(file, TempFolder, XsdPath);
-                    workflows.Add(workflow);
-                    Logger.InfoFormat("Workflow loaded: {0}", workflow);
+                    Workflows.Add(workflow);
+                    Logger.InfoFormat("Workflow loaded: {0} ({1})", workflow, workflow.WorkflowFilePath);
                 }
                 catch (Exception e)
                 {
                     Logger.ErrorFormat("An error occured while loading the workflow : {0} Please check the workflow configuration. Error: {1}", file, e.Message);
                 }
             }
-            Workflows = workflows.ToArray();
         }
 
         public void Run()
@@ -143,6 +142,5 @@ namespace Wexflow.Core
                 if (wf.IsEnabled) wf.Resume();
             }
         }
-
     }
 }
