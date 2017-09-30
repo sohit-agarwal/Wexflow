@@ -78,104 +78,106 @@ namespace Wexflow.Core
 
         void Load()
         {
-            var xmlReader = XmlReader.Create(WorkflowFilePath);
-            var xmlNameTable = xmlReader.NameTable;
-            if (xmlNameTable != null)
+            using (var xmlReader = XmlReader.Create(WorkflowFilePath))
             {
-                XmlNamespaceManager = new XmlNamespaceManager(xmlNameTable);
-                XmlNamespaceManager.AddNamespace("wf", "urn:wexflow-schema");
-            }
-            else
-            {
-                throw new Exception("xmlNameTable of " + WorkflowFilePath + " is null");
-            }
-
-            // Loading settings
-            var xdoc = XDocument.Load(WorkflowFilePath);
-            Id = int.Parse(GetWorkflowAttribute(xdoc, "id"));
-            Name = GetWorkflowAttribute(xdoc, "name");
-            Description = GetWorkflowAttribute(xdoc, "description");
-            LaunchType = (LaunchType)Enum.Parse(typeof(LaunchType), GetWorkflowSetting(xdoc, "launchType"), true);
-            if(LaunchType == LaunchType.Periodic) Period = TimeSpan.Parse(GetWorkflowSetting(xdoc, "period"));
-            IsEnabled = bool.Parse(GetWorkflowSetting(xdoc, "enabled"));
-
-            // Loading tasks
-            var tasks = new List<Task>();
-            foreach (var xTask in xdoc.XPathSelectElements("/wf:Workflow/wf:Tasks/wf:Task", XmlNamespaceManager))
-            {
-                var xAttribute = xTask.Attribute("name");
-                if (xAttribute != null)
+                var xmlNameTable = xmlReader.NameTable;
+                if (xmlNameTable != null)
                 {
-                    var name = xAttribute.Value;
-                    var assemblyName = "Wexflow.Tasks." + name;
-                    var typeName = "Wexflow.Tasks." + name + "." + name + ", " + assemblyName;
-                    var type = Type.GetType(typeName);
-
-                    if (type != null)
-                    {
-                        var task = (Task)Activator.CreateInstance(type, xTask, this);
-                        tasks.Add(task);
-                    }
-                    else
-                    {
-                        throw new Exception("The type of the task " + name + "could not be loaded.");
-                    }
+                    XmlNamespaceManager = new XmlNamespaceManager(xmlNameTable);
+                    XmlNamespaceManager.AddNamespace("wf", "urn:wexflow-schema");
                 }
                 else
                 {
-                    throw new Exception("Name attribute of the task " + xTask + " does not exist.");
+                    throw new Exception("xmlNameTable of " + WorkflowFilePath + " is null");
                 }
-            }
-            Taks = tasks.ToArray();
 
-            // Loading execution graph
-            var xExectionGraph = xdoc.XPathSelectElement("/wf:Workflow/wf:ExecutionGraph", XmlNamespaceManager);
-            if (xExectionGraph != null)
-            {
-                var taskNodes = GetTaskNodes(xExectionGraph);
+                // Loading settings
+                var xdoc = XDocument.Load(WorkflowFilePath);
+                Id = int.Parse(GetWorkflowAttribute(xdoc, "id"));
+                Name = GetWorkflowAttribute(xdoc, "name");
+                Description = GetWorkflowAttribute(xdoc, "description");
+                LaunchType = (LaunchType)Enum.Parse(typeof(LaunchType), GetWorkflowSetting(xdoc, "launchType"), true);
+                if (LaunchType == LaunchType.Periodic) Period = TimeSpan.Parse(GetWorkflowSetting(xdoc, "period"));
+                IsEnabled = bool.Parse(GetWorkflowSetting(xdoc, "enabled"));
 
-                // Check startup node, parallel tasks and infinite loops
-                if(taskNodes.Any()) CheckStartupNode(taskNodes, "Startup node with parentId=-1 not found in ExecutionGraph execution graph.");
-                CheckParallelTasks(taskNodes, "Parallel tasks execution detected in ExecutionGraph execution graph.");
-                CheckInfiniteLoop(taskNodes, "Infinite loop detected in ExecutionGraph execution graph.");
-
-                // OnSuccess
-                GraphEvent onSuccess = null;
-                var xOnSuccess = xExectionGraph.XPathSelectElement("wf:OnSuccess", XmlNamespaceManager);
-                if (xOnSuccess != null)
+                // Loading tasks
+                var tasks = new List<Task>();
+                foreach (var xTask in xdoc.XPathSelectElements("/wf:Workflow/wf:Tasks/wf:Task", XmlNamespaceManager))
                 {
-                    var onSuccessNodes = GetTaskNodes(xOnSuccess);
-                    CheckStartupNode(onSuccessNodes, "Startup node with parentId=-1 not found in OnSuccess execution graph.");
-                    CheckParallelTasks(onSuccessNodes, "Parallel tasks execution detected in OnSuccess execution graph.");
-                    CheckInfiniteLoop(onSuccessNodes, "Infinite loop detected in OnSuccess execution graph.");
-                    onSuccess = new GraphEvent(onSuccessNodes);
-                }
+                    var xAttribute = xTask.Attribute("name");
+                    if (xAttribute != null)
+                    {
+                        var name = xAttribute.Value;
+                        var assemblyName = "Wexflow.Tasks." + name;
+                        var typeName = "Wexflow.Tasks." + name + "." + name + ", " + assemblyName;
+                        var type = Type.GetType(typeName);
 
-                // OnWarning
-                GraphEvent onWarning = null;
-                var xOnWarning = xExectionGraph.XPathSelectElement("wf:OnWarning", XmlNamespaceManager);
-                if (xOnWarning != null)
+                        if (type != null)
+                        {
+                            var task = (Task)Activator.CreateInstance(type, xTask, this);
+                            tasks.Add(task);
+                        }
+                        else
+                        {
+                            throw new Exception("The type of the task " + name + "could not be loaded.");
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception("Name attribute of the task " + xTask + " does not exist.");
+                    }
+                }
+                Taks = tasks.ToArray();
+
+                // Loading execution graph
+                var xExectionGraph = xdoc.XPathSelectElement("/wf:Workflow/wf:ExecutionGraph", XmlNamespaceManager);
+                if (xExectionGraph != null)
                 {
-                    var onWarningNodes = GetTaskNodes(xOnWarning);
-                    CheckStartupNode(onWarningNodes, "Startup node with parentId=-1 not found in OnWarning execution graph.");
-                    CheckParallelTasks(onWarningNodes, "Parallel tasks execution detected in OnWarning execution graph.");
-                    CheckInfiniteLoop(onWarningNodes, "Infinite loop detected in OnWarning execution graph.");
-                    onWarning = new GraphEvent(onWarningNodes);
-                }
+                    var taskNodes = GetTaskNodes(xExectionGraph);
 
-                // OnError
-                GraphEvent onError = null;
-                var xOnError = xExectionGraph.XPathSelectElement("wf:OnError", XmlNamespaceManager);
-                if (xOnError != null)
-                {
-                    var onErrorNodes = GetTaskNodes(xOnError);
-                    CheckStartupNode(onErrorNodes, "Startup node with parentId=-1 not found in OnError execution graph.");
-                    CheckParallelTasks(onErrorNodes, "Parallel tasks execution detected in OnError execution graph.");
-                    CheckInfiniteLoop(onErrorNodes, "Infinite loop detected in OnError execution graph.");
-                    onError = new GraphEvent(onErrorNodes);
-                }
+                    // Check startup node, parallel tasks and infinite loops
+                    if (taskNodes.Any()) CheckStartupNode(taskNodes, "Startup node with parentId=-1 not found in ExecutionGraph execution graph.");
+                    CheckParallelTasks(taskNodes, "Parallel tasks execution detected in ExecutionGraph execution graph.");
+                    CheckInfiniteLoop(taskNodes, "Infinite loop detected in ExecutionGraph execution graph.");
 
-                ExecutionGraph = new Graph(taskNodes, onSuccess, onWarning, onError);
+                    // OnSuccess
+                    GraphEvent onSuccess = null;
+                    var xOnSuccess = xExectionGraph.XPathSelectElement("wf:OnSuccess", XmlNamespaceManager);
+                    if (xOnSuccess != null)
+                    {
+                        var onSuccessNodes = GetTaskNodes(xOnSuccess);
+                        CheckStartupNode(onSuccessNodes, "Startup node with parentId=-1 not found in OnSuccess execution graph.");
+                        CheckParallelTasks(onSuccessNodes, "Parallel tasks execution detected in OnSuccess execution graph.");
+                        CheckInfiniteLoop(onSuccessNodes, "Infinite loop detected in OnSuccess execution graph.");
+                        onSuccess = new GraphEvent(onSuccessNodes);
+                    }
+
+                    // OnWarning
+                    GraphEvent onWarning = null;
+                    var xOnWarning = xExectionGraph.XPathSelectElement("wf:OnWarning", XmlNamespaceManager);
+                    if (xOnWarning != null)
+                    {
+                        var onWarningNodes = GetTaskNodes(xOnWarning);
+                        CheckStartupNode(onWarningNodes, "Startup node with parentId=-1 not found in OnWarning execution graph.");
+                        CheckParallelTasks(onWarningNodes, "Parallel tasks execution detected in OnWarning execution graph.");
+                        CheckInfiniteLoop(onWarningNodes, "Infinite loop detected in OnWarning execution graph.");
+                        onWarning = new GraphEvent(onWarningNodes);
+                    }
+
+                    // OnError
+                    GraphEvent onError = null;
+                    var xOnError = xExectionGraph.XPathSelectElement("wf:OnError", XmlNamespaceManager);
+                    if (xOnError != null)
+                    {
+                        var onErrorNodes = GetTaskNodes(xOnError);
+                        CheckStartupNode(onErrorNodes, "Startup node with parentId=-1 not found in OnError execution graph.");
+                        CheckParallelTasks(onErrorNodes, "Parallel tasks execution detected in OnError execution graph.");
+                        CheckInfiniteLoop(onErrorNodes, "Infinite loop detected in OnError execution graph.");
+                        onError = new GraphEvent(onErrorNodes);
+                    }
+
+                    ExecutionGraph = new Graph(taskNodes, onSuccess, onWarning, onError);
+                }
             }
         }
 
@@ -280,9 +282,9 @@ namespace Wexflow.Core
                         .ToArray();
 
                     var nodeName = string.Format("Switch>Case(value={0})", val);
-                    CheckStartupNode(nodes, "Startup node with parentId=-1 not found in "+ nodeName + " execution graph.");
-                    CheckParallelTasks(nodes, "Parallel tasks execution detected in "+ nodeName + " execution graph.");
-                    CheckInfiniteLoop(nodes, "Infinite loop detected in "+ nodeName + " execution graph.");
+                    CheckStartupNode(nodes, "Startup node with parentId=-1 not found in " + nodeName + " execution graph.");
+                    CheckParallelTasks(nodes, "Parallel tasks execution detected in " + nodeName + " execution graph.");
+                    CheckInfiniteLoop(nodes, "Infinite loop detected in " + nodeName + " execution graph.");
 
                     return new Case(val, nodes);
                 });
@@ -312,7 +314,7 @@ namespace Wexflow.Core
 
                     var xParentId = xNode.XPathSelectElement("wf:Parent", XmlNamespaceManager)
                         .Attribute("id");
-                    
+
                     if (xParentId == null) throw new Exception("Parent id not found.");
                     var parentId = int.Parse(xParentId.Value);
 
@@ -401,7 +403,7 @@ namespace Wexflow.Core
             {
                 return xAttribute.Value;
             }
-            
+
             throw new Exception("Workflow attribute " + attr + "not found.");
         }
 
@@ -447,7 +449,7 @@ namespace Wexflow.Core
                             var status = RunTasks(ExecutionGraph.Nodes, Taks);
 
                             switch (status)
-                            { 
+                            {
                                 case Status.Success:
                                     if (ExecutionGraph.OnSuccess != null)
                                     {
@@ -590,11 +592,11 @@ namespace Wexflow.Core
             }
 
             if (atLeastOneSucceed || warning)
-			{
-				return Status.Warning;
-			}
+            {
+                return Status.Warning;
+            }
 
-			return Status.Error;
+            return Status.Error;
         }
 
         private static void RunSequentialTasks(IEnumerable<Task> tasks, ref bool success, ref bool warning, ref bool atLeastOneSucceed)
@@ -611,7 +613,7 @@ namespace Wexflow.Core
 
         void RunTasks(Task[] tasks, Node[] nodes, Node node, ref bool success, ref bool warning, ref bool atLeastOneSucceed)
         {
-            if(node != null)
+            if (node != null)
             {
                 if (node is If || node is While || node is Switch)
                 {
@@ -749,7 +751,7 @@ namespace Wexflow.Core
                             }
                         }
                     }
-                    else if(status.Condition == false)
+                    else if (status.Condition == false)
                     {
                         if (@if.ElseNodes.Length > 0)
                         {
@@ -807,7 +809,7 @@ namespace Wexflow.Core
                                 RunTasks(doWhileTasks, @while.Nodes, doWhileStartNode, ref success, ref warning, ref atLeastOneSucceed);
                             }
                         }
-                        else if(status.Condition == false)
+                        else if (status.Condition == false)
                         {
                             break;
                         }
@@ -826,7 +828,7 @@ namespace Wexflow.Core
             {
                 throw new Exception("Task " + @while.Id + " not found.");
             }
-        
+
         }
 
         void RunSwitch(Task[] tasks, Node[] nodes, Switch @switch, ref bool success, ref bool warning, ref bool atLeastOneSucceed)
@@ -876,13 +878,13 @@ namespace Wexflow.Core
                             RunTasks(defalutTasks, @switch.Default, defaultStartNode, ref success, ref warning, ref atLeastOneSucceed);
                         }
 
-						// Child node
-						var childNode = nodes.FirstOrDefault(n => n.ParentId == @switch.Id);
+                        // Child node
+                        var childNode = nodes.FirstOrDefault(n => n.ParentId == @switch.Id);
 
-						if (childNode != null)
-						{
-							RunTasks(tasks, nodes, childNode, ref success, ref warning, ref atLeastOneSucceed);
-						}
+                        if (childNode != null)
+                        {
+                            RunTasks(tasks, nodes, childNode, ref success, ref warning, ref atLeastOneSucceed);
+                        }
                     }
 
                 }
@@ -944,11 +946,11 @@ namespace Wexflow.Core
         }
 
         void CreateTempFolder()
-        { 
+        {
             // WorkflowId/dd-MM-yyyy/HH-mm-ss-fff
             var wfTempFolder = Path.Combine(WexflowTempFolder, Id.ToString(CultureInfo.CurrentCulture));
             if (!Directory.Exists(wfTempFolder)) Directory.CreateDirectory(wfTempFolder);
-            
+
             var wfDayTempFolder = Path.Combine(wfTempFolder, string.Format("{0:yyyy-MM-dd}", DateTime.Now));
             if (!Directory.Exists(wfDayTempFolder)) Directory.CreateDirectory(wfDayTempFolder);
 
