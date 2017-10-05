@@ -58,7 +58,7 @@ namespace Wexflow.Core
             var watcher = new FileSystemWatcher(WorkflowsFolder, "*.xml")
             {
                 EnableRaisingEvents = true,
-                IncludeSubdirectories = false,
+                IncludeSubdirectories = false
             };
 
             watcher.Created += (_, args) =>
@@ -73,7 +73,7 @@ namespace Wexflow.Core
 
             watcher.Deleted += (_, args) =>
             {
-                var removedWorkflow = Workflows.Where(wf => wf.WorkflowFilePath == args.FullPath).Single();
+                var removedWorkflow = Workflows.Single(wf => wf.WorkflowFilePath == args.FullPath);
                 Logger.InfoFormat("Workflow {0} is stopped and removed because its definition file {1} was deleted", removedWorkflow.Name, removedWorkflow.WorkflowFilePath);
                 removedWorkflow.Stop();
                 Workflows.Remove(removedWorkflow);
@@ -84,8 +84,8 @@ namespace Wexflow.Core
                 try
                 {
                     Logger.Info($"Workflows: {Workflows?.Select(wf => wf.WorkflowFilePath)?.Aggregate((wf1, wf2) => wf1 + " " + wf2) ?? "'Workflows' is null"}");
-                    var changedWorkflow = Workflows.Where(wf => wf.WorkflowFilePath == args.FullPath)
-                                                   .SingleOrDefault();
+                    var changedWorkflow = Workflows.SingleOrDefault(wf => wf.WorkflowFilePath == args.FullPath);
+
                     if (changedWorkflow != null)
                     {
                         // the existing file might have caused an error during loading, so there may be no corresponding
@@ -103,7 +103,7 @@ namespace Wexflow.Core
                 var reloaded = LoadWorkflowFromFile(args.FullPath);
                 if (reloaded != null)
                 {
-                    var duplicateId = Workflows.Where(wf => wf.Id == reloaded.Id).SingleOrDefault();
+                    var duplicateId = Workflows.SingleOrDefault(wf => wf.Id == reloaded.Id);
                     if (duplicateId != null)
                     {
                         Logger.ErrorFormat("An error occured while loading the workflow : {0}. The workflow Id {1} is already assgined in {2}", args.FullPath, reloaded.Id, duplicateId.WorkflowFilePath);
