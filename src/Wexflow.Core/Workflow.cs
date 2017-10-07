@@ -296,9 +296,13 @@ namespace Wexflow.Core
                 .Select(XNodeToNode)
                 .ToArray();
 
-            CheckStartupNode(@default, "Startup node with parentId=-1 not found in Switch>Default execution graph.");
-            CheckParallelTasks(@default, "Parallel tasks execution detected in Switch>Default execution graph.");
-            CheckInfiniteLoop(@default, "Infinite loop detected in Switch>Default execution graph.");
+            if (@default.Length > 0)
+            {
+                CheckStartupNode(@default,
+                    "Startup node with parentId=-1 not found in Switch>Default execution graph.");
+                CheckParallelTasks(@default, "Parallel tasks execution detected in Switch>Default execution graph.");
+                CheckInfiniteLoop(@default, "Infinite loop detected in Switch>Default execution graph.");
+            }
 
             return new Switch(id, parentId, switchId, cases, @default);
         }

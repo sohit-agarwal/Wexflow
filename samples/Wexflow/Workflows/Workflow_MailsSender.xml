@@ -7,12 +7,17 @@
 		<Task id="1" name="FilesLoader" description="Loading mails" enabled="true">
 			<Setting name="folder" value="C:\WexflowTesting\Mails\" />
 		</Task>
-		<Task id="2" name="MailsSender" description="Sending mails" enabled="true">
+		<Task id="2" name="FilesLoader" description="Loading attachments" enabled="true">
+			<Setting name="file" value="C:\WexflowTesting\file1.txt" />
+			<Setting name="file" value="C:\WexflowTesting\file2.txt" />
+		</Task>
+		<Task id="3" name="MailsSender" description="Sending mails" enabled="true">
 			<Setting name="selectFiles" value="1" />
-			<Setting name="host" value="127.0.0.1" />
+			<Setting name="selectAttachments" value="2" />
+			<Setting name="host" value="smtp.gmail.com" />
 			<Setting name="port" value="587" />
 			<Setting name="enableSsl" value="true" />
-			<Setting name="user" value="user" />
+			<Setting name="user" value="username" />
 			<Setting name="password" value="password" />
 		</Task>
 	</Tasks>

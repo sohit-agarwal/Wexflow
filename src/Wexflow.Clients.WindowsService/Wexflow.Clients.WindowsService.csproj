@@ -191,6 +191,10 @@
       <Project>{0BEF411F-039F-4C4F-A0FF-8DEFCFE1C019}</Project>
       <Name>Wexflow.Tasks.Wmi</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.Workflow\Wexflow.Tasks.Workflow.csproj">
+      <Project>{10f39219-fe79-4191-b63e-59ff217efc47}</Project>
+      <Name>Wexflow.Tasks.Workflow</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.XmlToCsv\Wexflow.Tasks.XmlToCsv.csproj">
       <Project>{39D75060-94B3-4164-9213-908AE208799C}</Project>
       <Name>Wexflow.Tasks.XmlToCsv</Name>

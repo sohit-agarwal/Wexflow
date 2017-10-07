@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Wexflow.Core;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -33,6 +35,8 @@ namespace Wexflow.Tasks.MailsSender
 
             try
             {
+                FileInf[] attachments = SelectAttachments();
+
                 foreach (FileInf mailFile in SelectFiles())
                 {
                     var xdoc = XDocument.Load(mailFile.Path);
@@ -44,7 +48,7 @@ namespace Wexflow.Tasks.MailsSender
                         Mail mail;
                         try
                         {
-                            mail = Mail.Parse(xMail);
+                            mail = Mail.Parse(xMail, attachments);
                         }
                         catch (ThreadAbortException)
                         {
@@ -102,6 +106,32 @@ namespace Wexflow.Tasks.MailsSender
 
             Info("Task finished.");
             return new TaskStatus(status, false);
+        }
+
+        public FileInf[] SelectAttachments()
+        {
+            var files = new List<FileInf>();
+            foreach (var xSelectFile in GetXSettings("selectAttachments"))
+            {
+                var xTaskId = xSelectFile.Attribute("value");
+                if (xTaskId != null)
+                {
+                    var taskId = int.Parse(xTaskId.Value);
+
+                    var qf = QueryFiles(Workflow.FilesPerTask[taskId], xSelectFile).ToArray();
+
+                    files.AddRange(qf);
+                }
+                else
+                {
+                    var qf = (from lf in Workflow.FilesPerTask.Values
+                        from f in QueryFiles(lf, xSelectFile)
+                        select f).Distinct().ToArray();
+
+                    files.AddRange(qf);
+                }
+            }
+            return files.ToArray();
         }
     }
 }

@@ -129,7 +129,7 @@ namespace Wexflow.Core
             return files.ToArray();
         }
 
-        IEnumerable<FileInf> QueryFiles(IEnumerable<FileInf> files, XElement xSelectFile)
+        public IEnumerable<FileInf> QueryFiles(IEnumerable<FileInf> files, XElement xSelectFile)
         {
             var fl = new List<FileInf>();
 

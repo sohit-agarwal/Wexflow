@@ -8,19 +8,13 @@ using Wexflow.Core.Service.Client;
 
 namespace Wexflow.Clients.Manager
 {
-    // v1.2
-    // TODO Wexflow Designer (read-only)
-
     // v1.3
-    // TODO Wexflow Designer (edit)
+    // TODO Wexflow Web Designer
 
     // TODO unit tests
     // TODO Wexflow Manager wf status live + row background color
-    // TODO Test and fix ftps
-    // TODO FluentFtpHelper (after FTPS fix)
+    // TODO Test and fix ftps (FluentFtpHelper)
     // TODO YouTube?
-    // TODO Wexflow Designer
-    // TODO Wexflow Web Manager (Designer)
 
     public partial class Form1 : Form
     {
@@ -33,7 +27,7 @@ namespace Wexflow.Clients.Manager
         WorkflowInfo[] _workflows;
         Dictionary<int, WorkflowInfo> _workflowsPerId;
         bool _windowsServiceWasStopped;
-        readonly Timer _timer = new Timer { Interval = 500 };
+        Timer _timer;
         Exception _exception;
 
         public Form1()
@@ -190,10 +184,15 @@ namespace Wexflow.Clients.Manager
             {
                 var workflow = GetWorkflow(wfId);
 
-				_timer.Stop();
-
-                if (workflow.IsEnabled)
+                if (_timer != null)
                 {
+                    _timer.Stop();
+                    _timer.Dispose();
+                }
+
+                if (workflow != null && workflow.IsEnabled)
+                {
+                    _timer = new Timer {Interval = 500};
                     _timer.Tick += (o, ea) => UpdateButtons(wfId, false);
                     _timer.Start();
 
@@ -248,6 +247,18 @@ namespace Wexflow.Clients.Manager
                         {
                             textBoxInfo.Text = "";
                         }
+                    }
+                }
+                else
+                {
+                    buttonStart.Enabled = false;
+                    buttonStop.Enabled = false;
+                    buttonPause.Enabled = false;
+                    buttonResume.Enabled = false;
+                    if (_timer != null)
+                    {
+                        _timer.Stop();
+                        _timer.Dispose();
                     }
                 }
             }

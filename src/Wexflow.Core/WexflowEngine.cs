@@ -14,7 +14,7 @@ namespace Wexflow.Core
         public string WorkflowsFolder { get; private set; }
         public string TempFolder { get; private set; }
         public string XsdPath { get; private set; }
-        public IList<Workflow> Workflows { get; private set; }
+        public IList<Workflow> Workflows { get; }
 
         public WexflowEngine(string settingsFile)
         {
@@ -73,27 +73,34 @@ namespace Wexflow.Core
 
             watcher.Deleted += (_, args) =>
             {
-                var removedWorkflow = Workflows.Single(wf => wf.WorkflowFilePath == args.FullPath);
-                Logger.InfoFormat("Workflow {0} is stopped and removed because its definition file {1} was deleted", removedWorkflow.Name, removedWorkflow.WorkflowFilePath);
-                removedWorkflow.Stop();
-                Workflows.Remove(removedWorkflow);
+                var removedWorkflow = Workflows.SingleOrDefault(wf => wf.WorkflowFilePath == args.FullPath);
+                if (removedWorkflow != null)
+                {
+                    Logger.InfoFormat("Workflow {0} is stopped and removed because its definition file {1} was deleted",
+                        removedWorkflow.Name, removedWorkflow.WorkflowFilePath);
+                    removedWorkflow.Stop();
+                    Workflows.Remove(removedWorkflow);
+                }
             };
 
             watcher.Changed += (_, args) =>
             {
                 try
                 {
-                    Logger.Info($"Workflows: {Workflows?.Select(wf => wf.WorkflowFilePath)?.Aggregate((wf1, wf2) => wf1 + " " + wf2) ?? "'Workflows' is null"}");
-                    var changedWorkflow = Workflows.SingleOrDefault(wf => wf.WorkflowFilePath == args.FullPath);
-
-                    if (changedWorkflow != null)
+                    Logger.Debug($"Workflows: {Workflows?.Select(wf => wf.WorkflowFilePath).Aggregate((wf1, wf2) => wf1 + " " + wf2) ?? "'Workflows' is null"}");
+                    if (Workflows != null)
                     {
-                        // the existing file might have caused an error during loading, so there may be no corresponding
-                        // workflow to the changed file
-                        changedWorkflow.Stop();
-                        Workflows.Remove(changedWorkflow);
+                        var changedWorkflow = Workflows.SingleOrDefault(wf => wf.WorkflowFilePath == args.FullPath);
+
+                        if (changedWorkflow != null)
+                        {
+                            // the existing file might have caused an error during loading, so there may be no corresponding
+                            // workflow to the changed file
+                            changedWorkflow.Stop();
+                            Workflows.Remove(changedWorkflow);
+                            Logger.InfoFormat("A change in the definition file {0} of workflow {1} has been detected. The workflow will be reloaded", changedWorkflow.WorkflowFilePath, changedWorkflow.Name);
+                        }
                     }
-                    Logger.InfoFormat("A change in the definition file {0} of workflow {1} has been detected. The workflow will be reloaded", changedWorkflow.WorkflowFilePath, changedWorkflow.Name);
                 }
                 catch (Exception e)
                 {
@@ -106,10 +113,15 @@ namespace Wexflow.Core
                     var duplicateId = Workflows.SingleOrDefault(wf => wf.Id == reloaded.Id);
                     if (duplicateId != null)
                     {
-                        Logger.ErrorFormat("An error occured while loading the workflow : {0}. The workflow Id {1} is already assgined in {2}", args.FullPath, reloaded.Id, duplicateId.WorkflowFilePath);
+                        Logger.ErrorFormat(
+                            "An error occured while loading the workflow : {0}. The workflow Id {1} is already assgined in {2}",
+                            args.FullPath, reloaded.Id, duplicateId.WorkflowFilePath);
                     }
-                    Workflows.Add(reloaded);
-                    ScheduleWorkflow(reloaded);
+                    else
+                    {
+                        Workflows.Add(reloaded);
+                        ScheduleWorkflow(reloaded);
+                    }
                 }
             };
         }
@@ -151,7 +163,7 @@ namespace Wexflow.Core
                     Action<object> callback = o =>
                     {
                         var workflow = o as Workflow;
-                        if (!workflow.IsRunning) workflow.Start();
+                        if (workflow != null && !workflow.IsRunning) workflow.Start();
                     };
 
                     var timer = new WexflowTimer(new TimerCallback(callback), wf, wf.Period);

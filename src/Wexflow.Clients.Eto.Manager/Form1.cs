@@ -23,7 +23,7 @@ namespace Wexflow.Clients.Eto.Manager
         private readonly GridView _gvWorkflows;
         private readonly WexflowServiceClient _wexflowServiceClient;
         private Dictionary<int, WorkflowInfo> _workflowsPerId;
-        private readonly UITimer _timer = new UITimer { Interval = 0.5 };
+        private UITimer _timer;
 
         public Form1()
         {
@@ -155,11 +155,16 @@ namespace Wexflow.Clients.Eto.Manager
 			var id = GetSlectedWorkflowId();
 			var wf = GetWorkflow(id);
 
-			_timer.Stop();
+		    if (_timer != null && _timer.Started)
+		    {
+		        _timer.Stop();
+                _timer.Dispose();
+            }
 
-			if (wf.IsEnabled)
+			if (wf != null && wf.IsEnabled)
 			{
-				_timer.Elapsed += (s, ea) => UpdateButtons(id, false);
+                _timer = new UITimer { Interval = 0.5 };
+                _timer.Elapsed += (s, ea) => UpdateButtons(id, false);
 				_timer.Start();
 
 				UpdateButtons(id, true);
@@ -219,6 +224,18 @@ namespace Wexflow.Clients.Eto.Manager
 						}
 					}
 				}
+				else
+				{
+				    _startButton.Enabled = false;
+				    _stopButton.Enabled = false;
+				    _suspendButton.Enabled = false;
+				    _resumeButton.Enabled = false;
+                    if (_timer != null && _timer.Started)
+				    {
+				        _timer.Stop();
+				        _timer.Dispose();
+				    }
+                }
 			}
 		}
 

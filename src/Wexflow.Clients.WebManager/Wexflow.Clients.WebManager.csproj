@@ -18,6 +18,13 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
+    <UseIISExpress>false</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -68,11 +75,11 @@
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="css\wexflow.css" />
-    <Content Include="css\wexflow.min.css" />
+    <Content Include="css\wexflow-manager.css" />
+    <Content Include="css\wexflow-manager.min.css" />
     <Content Include="index.html" />
-    <Content Include="js\wexflow.js" />
-    <Content Include="js\wexflow.min.js" />
+    <Content Include="js\wexflow-manager.js" />
+    <Content Include="js\wexflow-manager.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -119,8 +126,9 @@
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.-->
   <Target Name="BeforeBuild">
-  	<PropertyGroup>
-     <CodeAnalysisRuleSet></CodeAnalysisRuleSet>
+    <PropertyGroup>
+      <CodeAnalysisRuleSet>
+      </CodeAnalysisRuleSet>
     </PropertyGroup>
   </Target>
   <Target Name="AfterBuild">

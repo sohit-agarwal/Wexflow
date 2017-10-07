@@ -54,7 +54,13 @@ namespace Wexflow.Clients.WindowsService
         public WorkflowInfo GetWorkflow(string id)
         {
             var wf = WexflowWindowsService.WexflowEngine.GetWorkflow(int.Parse(id));
-			return new WorkflowInfo(wf.Id, wf.Name, (LaunchType)wf.LaunchType, wf.IsEnabled, wf.Description, wf.IsRunning, wf.IsPaused);
+            if (wf != null)
+            {
+                return new WorkflowInfo(wf.Id, wf.Name, (LaunchType) wf.LaunchType, wf.IsEnabled, wf.Description,
+                    wf.IsRunning, wf.IsPaused);
+            }
+
+            return null;
         }
     }
 }
