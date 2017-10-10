@@ -8,7 +8,7 @@ namespace Wexflow.Tasks.Mkdir
 {
     public class Mkdir:Task
     {
-        public string[] Folders { get; }
+        public string[] Folders { get; private set; }
 
         public Mkdir(XElement xe, Workflow wf)
             : base(xe, wf)

@@ -7,7 +7,7 @@ namespace Wexflow.Tasks.FileExists
 {
     public class FileExists:Task
     {
-        public string File { get; }
+        public string File { get; private set; }
 
         public FileExists(XElement xe, Workflow wf)
             : base(xe, wf)

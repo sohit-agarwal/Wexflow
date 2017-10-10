@@ -107,6 +107,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Setup", "Setup", "{5365A7ED
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Workflow", "src\Wexflow.Tasks.Workflow\Wexflow.Tasks.Workflow.csproj", "{10F39219-FE79-4191-B63E-59FF217EFC47}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Clients.WebDesigner", "src\Wexflow.Clients.WebDesigner\Wexflow.Clients.WebDesigner.csproj", "{76F89165-83B9-4048-93A9-A93FF81D12EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -567,6 +569,16 @@ Global
 		{10F39219-FE79-4191-B63E-59FF217EFC47}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{10F39219-FE79-4191-B63E-59FF217EFC47}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{10F39219-FE79-4191-B63E-59FF217EFC47}.Release|x86.ActiveCfg = Release|Any CPU
+		{76F89165-83B9-4048-93A9-A93FF81D12EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76F89165-83B9-4048-93A9-A93FF81D12EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76F89165-83B9-4048-93A9-A93FF81D12EE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{76F89165-83B9-4048-93A9-A93FF81D12EE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{76F89165-83B9-4048-93A9-A93FF81D12EE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{76F89165-83B9-4048-93A9-A93FF81D12EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76F89165-83B9-4048-93A9-A93FF81D12EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76F89165-83B9-4048-93A9-A93FF81D12EE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{76F89165-83B9-4048-93A9-A93FF81D12EE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{76F89165-83B9-4048-93A9-A93FF81D12EE}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -613,5 +625,6 @@ Global
 		{D559C35B-BFF5-49C2-9490-818314C88A76} = {67871E52-CB11-4EDF-B036-15F359EF6B66}
 		{59410829-C439-4683-818E-AC99F94D1EBA} = {67871E52-CB11-4EDF-B036-15F359EF6B66}
 		{120B41DA-F306-4B3C-A6C3-D99E8142B47F} = {67871E52-CB11-4EDF-B036-15F359EF6B66}
+		{76F89165-83B9-4048-93A9-A93FF81D12EE} = {67871E52-CB11-4EDF-B036-15F359EF6B66}
 	EndGlobalSection
 EndGlobal

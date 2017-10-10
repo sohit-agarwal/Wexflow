@@ -10,11 +10,11 @@ namespace Wexflow.Core
 {
     public class WexflowEngine
     {
-        public string SettingsFile { get; }
+        public string SettingsFile { get; private set; }
         public string WorkflowsFolder { get; private set; }
         public string TempFolder { get; private set; }
         public string XsdPath { get; private set; }
-        public IList<Workflow> Workflows { get; }
+        public IList<Workflow> Workflows { get; private set; }
 
         public WexflowEngine(string settingsFile)
         {
@@ -87,7 +87,7 @@ namespace Wexflow.Core
             {
                 try
                 {
-                    Logger.Debug($"Workflows: {Workflows?.Select(wf => wf.WorkflowFilePath).Aggregate((wf1, wf2) => wf1 + " " + wf2) ?? "'Workflows' is null"}");
+                    //Logger.Debug($"Workflows: {Workflows?.Select(wf => wf.WorkflowFilePath).Aggregate((wf1, wf2) => wf1 + " " + wf2) ?? "'Workflows' is null"}");
                     if (Workflows != null)
                     {
                         var changedWorkflow = Workflows.SingleOrDefault(wf => wf.WorkflowFilePath == args.FullPath);

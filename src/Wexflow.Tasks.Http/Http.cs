@@ -9,7 +9,7 @@ namespace Wexflow.Tasks.Http
 {
     public class Http:Task
     {
-        public string[] Urls { get; }
+        public string[] Urls { get; private set; }
 
         public Http(XElement xe, Workflow wf)
             : base(xe, wf)

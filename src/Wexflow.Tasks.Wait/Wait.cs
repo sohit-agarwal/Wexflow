@@ -7,7 +7,7 @@ namespace Wexflow.Tasks.Wait
 {
     public class Wait:Task
     {
-        public TimeSpan Duration { get; }
+        public TimeSpan Duration { get; private set; }
 
         public Wait(XElement xe, Workflow wf)
             : base(xe, wf)

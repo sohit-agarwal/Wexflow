@@ -9,7 +9,7 @@ namespace Wexflow.Tasks.Wmi
 {
     public class Wmi:Task
     {
-        public string Query { get; }
+        public string Query { get; private set; }
 
         public Wmi(XElement xe, Workflow wf)
             : base(xe, wf)

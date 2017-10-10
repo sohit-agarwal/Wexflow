@@ -5,9 +5,9 @@ namespace Wexflow.Core.ExecutionGraph.Flowchart
 {
     public class Switch : Node
     {
-        public int SwitchId { get; }
-        public Case[] Cases { get; }
-        public Node[] Default { get; }
+        public int SwitchId { get; private set; }
+        public Case[] Cases { get; private set; }
+        public Node[] Default { get; private set; }
 
         public Switch(int id, int parentId, int switchId, IEnumerable<Case> cases, IEnumerable<Node> @default) : base(id, parentId)
         {

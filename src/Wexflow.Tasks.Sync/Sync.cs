@@ -10,8 +10,8 @@ namespace Wexflow.Tasks.Sync
 {
     public class Sync:Task
     {
-        public string SrcFolder { get; }
-        public string DestFolder { get; }
+        public string SrcFolder { get; private set; }
+        public string DestFolder { get; private set; }
 
         public Sync(XElement xe, Workflow wf)
             : base(xe, wf)

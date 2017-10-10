@@ -8,12 +8,12 @@ namespace Wexflow.Core
 {
     public abstract class Task
     {
-        public int Id { get; }
-        public string Name { get; }
-        public string Description { get; }
-        public bool IsEnabled { get; }
-        public Setting[] Settings { get; }
-        public Workflow Workflow { get; }
+        public int Id { get; private set; }
+        public string Name { get; private set; }
+        public string Description { get; private set; }
+        public bool IsEnabled { get; private set; }
+        public Setting[] Settings { get; private set; }
+        public Workflow Workflow { get; private set; }
         public List<FileInf> Files 
         { 
             get

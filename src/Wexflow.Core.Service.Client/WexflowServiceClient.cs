@@ -6,7 +6,7 @@ namespace Wexflow.Core.Service.Client
 {
     public class WexflowServiceClient
     {
-        public string Uri { get; }
+        public string Uri { get; private set; }
 
         public WexflowServiceClient(string uri)
         {

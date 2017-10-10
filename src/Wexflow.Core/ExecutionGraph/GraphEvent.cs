@@ -5,7 +5,7 @@ namespace Wexflow.Core.ExecutionGraph
 {
     public class GraphEvent
     {
-        public Node[] DoNodes { get; }
+        public Node[] DoNodes { get; private set; }
 
         public GraphEvent(IEnumerable<Node> doNodes)
         {

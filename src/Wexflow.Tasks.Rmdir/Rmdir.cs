@@ -8,7 +8,7 @@ namespace Wexflow.Tasks.Rmdir
 {
     public class Rmdir:Task
     {
-        public string[] Folders { get; }
+        public string[] Folders { get; private set; }
 
         public Rmdir(XElement xe, Workflow wf)
             : base(xe, wf)

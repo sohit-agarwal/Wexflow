@@ -10,12 +10,12 @@ namespace Wexflow.Tasks.MailsSender
 {
     public class Mail
     {
-        public string From {get; }
-        public string[] To { get; }
-        public string[] Cc { get; }
-        public string Subject { get; }
-        public string Body { get; }
-        public FileInf[] Attachments { get; }
+        public string From { get; private set; }
+        public string[] To { get; private set; }
+        public string[] Cc { get; private set; }
+        public string Subject { get; private set; }
+        public string Body { get; private set; }
+        public FileInf[] Attachments { get; private set; }
 
         public Mail(string from, string[] to, string[] cc, string subject, string body, FileInf[] attachments)
         {

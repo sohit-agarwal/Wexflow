@@ -17,9 +17,9 @@ namespace Wexflow.Tasks.Workflow
 
     public class Workflow:Task
     {
-        public string WexflowWebServiceUri { get; }
-        public WorkflowAction Action { get; }
-        public int[] WorkflowIds { get; }
+        public string WexflowWebServiceUri { get; private set; }
+        public WorkflowAction Action { get; private set; }
+        public int[] WorkflowIds { get; private set; }
 
         public Workflow(XElement xe, Core.Workflow wf) : base(xe, wf)
         {

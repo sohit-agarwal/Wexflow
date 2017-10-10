@@ -8,8 +8,8 @@ namespace Wexflow.Tasks.FilesExist
 {
     public class FilesExist:Task
     {
-        public string[] FFiles { get; }
-        public string[] Folders { get; }
+        public string[] FFiles { get; private set; }
+        public string[] Folders { get; private set; }
 
         public FilesExist(XElement xe, Workflow wf)
             : base(xe, wf)

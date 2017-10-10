@@ -11,9 +11,9 @@ namespace Wexflow.Tasks.Xslt
 {
     public class Xslt:Task
     {
-        public string XsltPath { get; }
-        public string Version { get; }
-        public bool RemoveWexflowProcessingNodes { get; }
+        public string XsltPath { get; private set; }
+        public string Version { get; private set; }
+        public bool RemoveWexflowProcessingNodes { get; private set; }
 
         public Xslt(XElement xe, Workflow wf)
             : base(xe, wf)

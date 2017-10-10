@@ -17,10 +17,10 @@ namespace Wexflow.Core
     {
         public const int StartId = -1;
 
-        public string WorkflowFilePath { get; }
-        public string WexflowTempFolder { get; }
+        public string WorkflowFilePath { get; private set; }
+        public string WexflowTempFolder { get; private set; }
         public string WorkflowTempFolder { get; private set; }
-        public string XsdPath { get; }
+        public string XsdPath { get; private set; }
         public int Id { get; private set; }
         public string Name { get; private set; }
         public string Description { get; private set; }
@@ -30,8 +30,8 @@ namespace Wexflow.Core
         public bool IsRunning { get; private set; }
         public bool IsPaused { get; private set; }
         public Task[] Taks { get; private set; }
-        public Dictionary<int, List<FileInf>> FilesPerTask { get; }
-        public Dictionary<int, List<Entity>> EntitiesPerTask { get; }
+        public Dictionary<int, List<FileInf>> FilesPerTask { get; private set; }
+        public Dictionary<int, List<Entity>> EntitiesPerTask { get; private set; }
         public int JobId { get; private set; }
         public string LogTag { get { return string.Format("[{0} / {1}]", Name, JobId); } }
         public XmlNamespaceManager XmlNamespaceManager { get; private set; }
@@ -339,7 +339,7 @@ namespace Wexflow.Core
 
         void CheckStartupNode(Node[] nodes, string errorMsg)
         {
-            if (nodes == null) throw new ArgumentNullException(nameof(nodes));
+            if (nodes == null) throw new ArgumentNullException(); // new ArgumentNullException(nameof(nodes))
             if (nodes.All(n => n.ParentId != StartId))
             {
                 throw new Exception(errorMsg);
