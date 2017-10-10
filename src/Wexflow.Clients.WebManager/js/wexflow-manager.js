@@ -1,4 +1,4 @@
-﻿function Wexflow(id, uri) {
+﻿function WexflowManager(id, uri) {
     "use strict";
 
     uri = trimEnd(uri, "/");
@@ -38,7 +38,7 @@
     disableButton(stopButton, true);
     
     function trimEnd(string, charToRemove) {
-        while (string.charAt(string.length - 1) == charToRemove) {
+        while (string.charAt(string.length - 1) === charToRemove) {
             string = string.substring(0, string.length - 1);
         }
 
@@ -213,7 +213,7 @@
     function get(url, callback, errorCallback) {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200 && callback) {
+            if (this.readyState === 4 && this.status === 200 && callback) {
                 var data = JSON.parse(this.responseText);
                 callback(data);
             }
@@ -228,7 +228,7 @@
     function post(url, callback) {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200 && callback) {
+            if (this.readyState === 4 && this.status === 200 && callback) {
                 callback();
             }
         };

@@ -74,6 +74,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attribute.cs" />
     <Compile Include="ExecutionGraph\Flowchart\Case.cs" />
     <Compile Include="ExecutionGraph\Flowchart\If.cs" />
     <Compile Include="ExecutionGraph\Flowchart\Switch.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="LaunchType.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="ExecutionGraph\Node.cs" />
+    <Compile Include="Setting.cs" />
     <Compile Include="Status.cs" />
     <Compile Include="Tag.cs" />
     <Compile Include="Task.cs" />

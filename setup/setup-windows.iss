@@ -103,8 +103,8 @@ Source: "..\src\Wexflow.Clients.Manager\bin\Debug\Wexflow.Core.Service.Contracts
 
 ; Wexflow Web Manager
 Source: "..\src\Wexflow.Clients.WebManager\index.html"; DestDir: "{app}\Web Manager"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WebManager\js\wexflow.min.js"; DestDir: "{app}\Web Manager\js"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WebManager\css\wexflow.min.css"; DestDir: "{app}\Web Manager\css"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.WebManager\js\wexflow-manager.min.js"; DestDir: "{app}\Web Manager\js"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.WebManager\css\wexflow-manager.min.css"; DestDir: "{app}\Web Manager\css"; Flags: ignoreversion
 
 ; Wexflow's Documentation
 Source: "..\src\Wexflow.Core\Workflow.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs

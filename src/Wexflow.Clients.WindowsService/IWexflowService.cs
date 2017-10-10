@@ -3,7 +3,7 @@ using Wexflow.Core.Service.Contracts;
 
 namespace Wexflow.Clients.WindowsService
 {
-    [ServiceContract(Namespace = "http://wexflow/")]
+    [ServiceContract(Namespace = "http://wexflow.com/")]
     public interface IWexflowService
     {
         [OperationContract]
@@ -23,5 +23,8 @@ namespace Wexflow.Clients.WindowsService
 
         [OperationContract]
         WorkflowInfo GetWorkflow(string id);
+
+        [OperationContract]
+        TaskInfo[] GetTasks(string id);
     }
 }

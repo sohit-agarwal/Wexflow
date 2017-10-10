@@ -12,6 +12,7 @@ namespace Wexflow.Core
         public string Name { get; }
         public string Description { get; }
         public bool IsEnabled { get; }
+        public Setting[] Settings { get; }
         public Workflow Workflow { get; }
         public List<FileInf> Files 
         { 
@@ -48,6 +49,36 @@ namespace Wexflow.Core
             Workflow = wf;
             Workflow.FilesPerTask.Add(Id, new List<FileInf>());
             Workflow.EntitiesPerTask.Add(Id, new List<Entity>());
+
+            // settings
+            IList<Setting> settings = new List<Setting>();
+
+            foreach (var xSetting in xe.XPathSelectElements("wf:Setting", Workflow.XmlNamespaceManager))
+            {
+                // setting name
+                var xSettingName = xSetting.Attribute("name");
+                if(xSettingName == null) throw new Exception("Setting name not found");
+                string settingName = xSettingName.Value;
+
+                // setting value
+                var xSettingValue = xSetting.Attribute("value");
+                string settingValue = string.Empty;
+                if (xSettingValue != null) settingValue = xSettingValue.Value;
+
+                // setting attributes
+                IList<Attribute> attributes = new List<Attribute>();
+
+                foreach (var xAttribute in xSetting.Attributes().Where(attr => attr.Name.LocalName != "name" && attr.Name.LocalName != "value"))
+                {
+                    Attribute attr = new Attribute(xAttribute.Name.LocalName, xAttribute.Value);
+                    attributes.Add(attr);
+                }
+
+                Setting setting = new Setting(settingName, settingValue, attributes.ToArray());
+                settings.Add(setting);
+            }
+
+            Settings = settings.ToArray();
         }
 
         public abstract TaskStatus Run();

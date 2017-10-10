@@ -1,0 +1,16 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Wexflow Designer</title>
+    <link rel="stylesheet" type="text/css" href="css/wexflow-designer.min.css" />
+    <script type="text/javascript" src="js/wexflow-designer.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            new WexflowDesigner("wf-designer", "http://localhost:8000/wexflow/");
+        };
+    </script>
+</head>
+<body>
+<div id="wf-designer" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;"></div>
+</body>
+</html>
