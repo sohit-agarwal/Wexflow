@@ -54,8 +54,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\vs2015.css" />
     <Content Include="css\wexflow-designer.css" />
     <Content Include="index.html" />
+    <Content Include="js\highlight.pack.js" />
     <Content Include="js\wexflow-designer.js" />
     <Content Include="js\wexflow-designer.min.js" />
     <Content Include="Web.config" />

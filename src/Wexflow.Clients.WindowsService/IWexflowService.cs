@@ -26,5 +26,8 @@ namespace Wexflow.Clients.WindowsService
 
         [OperationContract]
         TaskInfo[] GetTasks(string id);
+
+        [OperationContract]
+        string GetWorkflowXML(string id);
     }
 }

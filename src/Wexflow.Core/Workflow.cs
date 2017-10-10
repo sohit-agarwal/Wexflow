@@ -36,6 +36,7 @@ namespace Wexflow.Core
         public string LogTag { get { return string.Format("[{0} / {1}]", Name, JobId); } }
         public XmlNamespaceManager XmlNamespaceManager { get; private set; }
         public Graph ExecutionGraph { get; private set; }
+        public XDocument XDoc { get; private set; }
 
         private Thread _thread;
 
@@ -93,6 +94,7 @@ namespace Wexflow.Core
 
                 // Loading settings
                 var xdoc = XDocument.Load(WorkflowFilePath);
+                XDoc = xdoc;
                 Id = int.Parse(GetWorkflowAttribute(xdoc, "id"));
                 Name = GetWorkflowAttribute(xdoc, "name");
                 Description = GetWorkflowAttribute(xdoc, "description");

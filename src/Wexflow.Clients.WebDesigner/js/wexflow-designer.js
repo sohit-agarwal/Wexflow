@@ -1,6 +1,8 @@
 ﻿function WexflowDesigner(id, uri) {
     "use strict";
 
+    hljs.initHighlightingOnLoad();
+
     uri = trimEnd(uri, "/");
     var selectedId = -1;
     var workflows = {};
@@ -11,7 +13,8 @@
         + "<div id='wf-workflows'></div>"
 
         +  "<div id='wf-designer-right-panel'>"
-        + "        <h3>Workflow</h3>"
+        + "        <h3>Workflow <button id= 'wf-xml-button' type= 'button'>XML</button></h3>"
+        + "<pre><code id='wf-xml-container' class='xml'></pre>"
         + "<table class='wf-designer-table'>"
         + "<tbody>"
         + "        <tr><td class='wf-title'>Id</td><td class='wf-value'><input id='wf-id' type='text' readonly /></td></tr>"
@@ -34,7 +37,7 @@
         + "</div>";
 
     document.getElementById(id).innerHTML = html;
-    
+
     /*function disableButton(button, disabled) {
         button.disabled = disabled;
     }*/
@@ -45,6 +48,19 @@
         }
 
         return string;
+    }
+
+    function escapeXml(xml) {
+        return xml.replace(/[<>&'"]/g, function (c) {
+            switch (c) {
+            case '<': return '&lt;';
+            case '>': return '&gt;';
+            case '&': return '&amp;';
+            case '\'': return '&apos;';
+            case '"': return '&quot;';
+            }
+            return c;
+        });
     }
 
     function compareById(wf1, wf2) {
@@ -121,6 +137,12 @@
             });
         }
 
+        function getXml(wid, func) {
+            get(uri + "/xml/" + wid, function (tasks) {
+                func(tasks);
+            });
+        }
+
         var rows = (workflowsTable.getElementsByTagName("tbody")[0]).getElementsByTagName("tr");
         for (i = 0; i < rows.length; i++) {
             rows[i].onclick = function () {
@@ -132,6 +154,16 @@
                 }
 
                 this.className += "selected";
+                var xmlContainer = document.getElementById("wf-xml-container");
+
+                xmlContainer.innerHTML = '';
+                document.getElementById("wf-xml-button").onclick = function () {
+                    getXml(selectedId, function (xml) {
+                        
+                        xmlContainer.innerHTML = escapeXml(xml);
+                        hljs.highlightBlock(xmlContainer);
+                    });
+                };
 
                 getWorkflow(selectedId,
                     function (workflow) {

@@ -103,5 +103,18 @@ namespace Wexflow.Clients.WindowsService
 
             return null;
         }
+
+        [WebInvoke(Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "xml/{id}")]
+        public string GetWorkflowXML(string id)
+        {
+            var wf = WexflowWindowsService.WexflowEngine.GetWorkflow(int.Parse(id));
+            if (wf != null)
+            {
+                return wf.XDoc.ToString();
+            }
+            return string.Empty;
+        }
     }
 }
