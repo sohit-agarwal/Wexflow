@@ -4,9 +4,9 @@
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/Wexflow/Lobby)-->
 
-
+<!--
 <i>This project is sponsored by [JetBrains](https://www.jetbrains.com/).</i>
-<!--[![JetBrains](https://aelassas.github.io/wexflow/images/Jetbrains_logo.png)](https://www.jetbrains.com/)
+[![JetBrains](https://aelassas.github.io/wexflow/images/Jetbrains_logo.png)](https://www.jetbrains.com/)
 -->
 
 # Continuous integration
