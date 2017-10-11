@@ -106,6 +106,13 @@ Source: "..\src\Wexflow.Clients.WebManager\index.html"; DestDir: "{app}\Web Mana
 Source: "..\src\Wexflow.Clients.WebManager\js\wexflow-manager.min.js"; DestDir: "{app}\Web Manager\js"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.WebManager\css\wexflow-manager.min.css"; DestDir: "{app}\Web Manager\css"; Flags: ignoreversion
 
+; Wexflow Web Designer
+Source: "..\src\Wexflow.Clients.WebDesigner\index.html"; DestDir: "{app}\Web Designer"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.WebDesigner\js\highlight.pack.js"; DestDir: "{app}\Web Designer\js"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.WebDesigner\js\wexflow-designer.min.js"; DestDir: "{app}\Web Designer\js"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.WebDesigner\css\vs2015.css"; DestDir: "{app}\Web Designer\css"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.WebDesigner\css\wexflow-designer.min.css"; DestDir: "{app}\Web Designer\css"; Flags: ignoreversion
+
 ; Wexflow's Documentation
 Source: "..\src\Wexflow.Core\Workflow.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 Source: "..\src\Wexflow.Tasks.CsvToXml\CsvToXml.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
@@ -156,6 +163,7 @@ Source: "..\samples\WexflowTesting\*"; DestDir: "C:\WexflowTesting\"; Flags: ign
 [Icons]
 Name: "{commonprograms}\{#MyAppName}\Manager"; Filename: "{app}\Manager\{#MyAppExeName}";
 Name: "{commonprograms}\{#MyAppName}\Web Manager"; Filename: "{app}\Web Manager\index.html";
+Name: "{commonprograms}\{#MyAppName}\Web Designer"; Filename: "{app}\Web Designer\index.html";
 ;Name: "{commonprograms}\{#MyAppName}\Start Wexflow Windows Service"; Filename: {sys}\sc.exe; Parameters: "start Wexflow" ; IconFilename: "{app}\Wexflow.ico";
 ;Name: "{commonprograms}\{#MyAppName}\Stop Wexflow Windows Service"; Filename: {sys}\sc.exe; Parameters: "stop Wexflow" ; IconFilename: "{app}\Wexflow.ico";
 Name: "{commonprograms}\{#MyAppName}\Configuration"; Filename: "C:\Wexflow\";

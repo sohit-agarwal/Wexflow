@@ -12,8 +12,8 @@
     var html = "<div id='wf-container'>"
         + "<div id='wf-workflows'></div>"
 
-        +  "<div id='wf-designer-right-panel'>"
-        + "        <h3>Workflow <button id= 'wf-xml-button' type= 'button'>XML</button></h3>"
+        +  "<div id='wf-designer-right-panel' style='display: none;'>"
+        + "<h3>Workflow <button id= 'wf-xml-button' type= 'button'>XML</button></h3>"
         + "<pre><code id='wf-xml-container' class='xml'></pre>"
         + "<table class='wf-designer-table'>"
         + "<tbody>"
@@ -154,6 +154,9 @@
                 }
 
                 this.className += "selected";
+
+                document.getElementById('wf-designer-right-panel').style.display = 'block';
+
                 var xmlContainer = document.getElementById("wf-xml-container");
 
                 xmlContainer.innerHTML = '';
