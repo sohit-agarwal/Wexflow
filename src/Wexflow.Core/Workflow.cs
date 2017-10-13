@@ -37,6 +37,7 @@ namespace Wexflow.Core
         public XmlNamespaceManager XmlNamespaceManager { get; private set; }
         public Graph ExecutionGraph { get; private set; }
         public XDocument XDoc { get; private set; }
+        public XNamespace XNamespaceWf { get; private set; }
 
         private Thread _thread;
 
@@ -95,6 +96,8 @@ namespace Wexflow.Core
                 // Loading settings
                 var xdoc = XDocument.Load(WorkflowFilePath);
                 XDoc = xdoc;
+                XNamespaceWf = "urn:wexflow-schema";
+
                 Id = int.Parse(GetWorkflowAttribute(xdoc, "id"));
                 Name = GetWorkflowAttribute(xdoc, "name");
                 Description = GetWorkflowAttribute(xdoc, "description");

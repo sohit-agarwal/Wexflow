@@ -29,8 +29,10 @@ namespace Wexflow.Core.Service.Contracts
         public bool IsPaused { get; set; }
         [DataMember]
         public string Period { get; set; }
+        [DataMember]
+        public string Path { get; set; }
 
-        public WorkflowInfo(int id, string name, LaunchType launchType, bool isEnabled, string desc, bool isRunning, bool isPaused, string period)
+        public WorkflowInfo(int id, string name, LaunchType launchType, bool isEnabled, string desc, bool isRunning, bool isPaused, string period, string path)
         {
             Id = id;
             Name = name;
@@ -40,6 +42,7 @@ namespace Wexflow.Core.Service.Contracts
             IsRunning = isRunning;
             IsPaused = isPaused;
             Period = period;
+            Path = path;
         }
 
         public int CompareTo(object obj)

@@ -198,8 +198,21 @@
     width: 100%;
 }
 
-.wf-setting-value, .wf-setting-value input {
+.wf-setting-value-td, .wf-setting-value-td input {
     width: 100%;
+}
+
+.action-left {
+    width: 75px;
+}
+
+.action-right {
+    float: right;
+    margin-right: 10px;
+    width: 75px;
+}
+.wf-task-id, .wf-task-name, .wf-task-desc, .wf-task-enabled, .wf-settings, .wf-setting-name, .wf-setting-value, .wf-attribute-name, .wf-attribute-value {
+    visibility: visible;
 }
 
 /*end of table style*/

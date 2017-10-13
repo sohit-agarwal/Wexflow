@@ -1,4 +1,5 @@
-﻿using System.ServiceModel;
+﻿using System.IO;
+using System.ServiceModel;
 using Wexflow.Core.Service.Contracts;
 
 namespace Wexflow.Clients.WindowsService
@@ -29,5 +30,8 @@ namespace Wexflow.Clients.WindowsService
 
         [OperationContract]
         string GetWorkflowXML(string id);
+
+        [OperationContract]
+        bool SaveWorkflow(Stream streamdata);
     }
 }
