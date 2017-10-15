@@ -202,17 +202,31 @@
     width: 100%;
 }
 
-.action-left {
+.wf-action-left {
     width: 75px;
 }
 
-.action-right {
+.wf-action-right {
     float: right;
     margin-right: 10px;
     width: 75px;
 }
-.wf-task-id, .wf-task-name, .wf-task-desc, .wf-task-enabled, .wf-settings, .wf-setting-name, .wf-setting-value, .wf-attribute-name, .wf-attribute-value {
+.wf-task-id, .wf-task-name, .wf-task-desc, .wf-task-enabled, .wf-settings, .wf-setting-name, .wf-setting-value, .wf-attribute-name, .wf-attribute-value, .wf-remove-setting, .wf-add-attribute, .wf-remove-attribute, .wf-attributes, .wf-task, .wf-task-title-label {
     visibility: visible;
 }
+.wf-add-setting {
+    margin-left: 10px;
+}
 
+.wf-remove-task {
+    float: right;
+}
+#wf-add-task {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: none;
+}
+.wf-add-attribute-td {
+    display: none;
+}
 /*end of table style*/

@@ -38,6 +38,7 @@ namespace Wexflow.Core
         public Graph ExecutionGraph { get; private set; }
         public XDocument XDoc { get; private set; }
         public XNamespace XNamespaceWf { get; private set; }
+        public bool IsExecutionGraphEmpty { get; private set; }
 
         private Thread _thread;
 
@@ -105,6 +106,11 @@ namespace Wexflow.Core
                 if (LaunchType == LaunchType.Periodic) Period = TimeSpan.Parse(GetWorkflowSetting(xdoc, "period"));
                 IsEnabled = bool.Parse(GetWorkflowSetting(xdoc, "enabled"));
 
+                if (xdoc.Root != null)
+                {
+                    var xExecutionGraph = xdoc.Root.Element(XNamespaceWf + "ExecutionGraph");
+                    IsExecutionGraphEmpty = xExecutionGraph == null || !xExecutionGraph.Elements().Any();
+                }
                 // Loading tasks
                 var tasks = new List<Task>();
                 foreach (var xTask in xdoc.XPathSelectElements("/wf:Workflow/wf:Tasks/wf:Task", XmlNamespaceManager))
@@ -343,10 +349,7 @@ namespace Wexflow.Core
         void CheckStartupNode(Node[] nodes, string errorMsg)
         {
             if (nodes == null) throw new ArgumentNullException(); // new ArgumentNullException(nameof(nodes))
-            if (nodes.All(n => n.ParentId != StartId))
-            {
-                throw new Exception(errorMsg);
-            }
+            if (nodes.All(n => n.ParentId != StartId)) throw new Exception(errorMsg);
         }
 
         void CheckParallelTasks(Node[] taskNodes, string errorMsg)

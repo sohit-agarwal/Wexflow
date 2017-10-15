@@ -21,7 +21,7 @@ namespace Wexflow.Clients.WindowsService
         {
             return WexflowWindowsService.WexflowEngine.Workflows.Select(wf => new WorkflowInfo(wf.Id, wf.Name,
                     (LaunchType) wf.LaunchType, wf.IsEnabled, wf.Description, wf.IsRunning, wf.IsPaused,
-                    wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.WorkflowFilePath))
+                    wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.WorkflowFilePath, wf.IsExecutionGraphEmpty))
                 .ToArray();
         }
 
@@ -66,7 +66,7 @@ namespace Wexflow.Clients.WindowsService
             if (wf != null)
             {
                 return new WorkflowInfo(wf.Id, wf.Name, (LaunchType) wf.LaunchType, wf.IsEnabled, wf.Description,
-                    wf.IsRunning, wf.IsPaused, wf.Period.ToString(@"dd\.hh\:mm\:ss") , wf.WorkflowFilePath);
+                    wf.IsRunning, wf.IsPaused, wf.Period.ToString(@"dd\.hh\:mm\:ss") , wf.WorkflowFilePath, wf.IsExecutionGraphEmpty);
             }
 
             return null;
@@ -236,6 +236,48 @@ namespace Wexflow.Clients.WindowsService
             {
                 return false;
             }
+        }
+
+        [WebInvoke(Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "taskNames")]
+        public string[] GetTaskNames()
+        {
+            return new []
+            {
+                "CsvToXml",
+                "FileExists",
+                "FilesCopier",
+                "FilesExist",
+                "FilesLoader",
+                "FilesMover",
+                "FilesRemover",
+                "FilesRenamer",
+                "Ftp",
+                "Http",
+                "ImagesTransformer",
+                "ListEntities",
+                "ListFiles",
+                "MailsSender",
+                "Md5",
+                "Mkdir",
+                "Movedir",
+                "Now",
+                "ProcessLauncher",
+                "Rmdir",
+                "Sql",
+                "Sync",
+                "Tar",
+                "Tgz",
+                "Touch",
+                "Twitter",
+                "Wait",
+                "Wmi",
+                "Workflow",
+                "XmlToCsv",
+                "Xslt",
+                "Zip"
+            };
         }
     }
 }

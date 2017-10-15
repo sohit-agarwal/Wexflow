@@ -33,5 +33,8 @@ namespace Wexflow.Clients.WindowsService
 
         [OperationContract]
         bool SaveWorkflow(Stream streamdata);
+
+        [OperationContract]
+        string[] GetTaskNames();
     }
 }
