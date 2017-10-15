@@ -1,8 +1,10 @@
 
-<!--[![Release](http://img.shields.io/badge/release-v1.0.8-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/tag/v1.0.8)
+<!--
 [![Twitter](https://img.shields.io/badge/twitter-@wexflow86-55acee.svg)](https://twitter.com/wexflow86)
-[![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/Wexflow/Lobby)-->
+[![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)-->
+
+[![Release](http://img.shields.io/badge/release-v1.5-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/tag/v1.5)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby)
 
 <!--
 <i>This project is sponsored by [JetBrains](https://www.jetbrains.com/).</i>
