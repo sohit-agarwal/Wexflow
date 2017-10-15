@@ -11,8 +11,9 @@
 <i>This project is sponsored by [JetBrains](https://www.jetbrains.com/).</i>
 [![JetBrains](https://aelassas.github.io/wexflow/images/Jetbrains_logo.png)](https://www.jetbrains.com/)
 -->
-
+<!--
 <h4 align="center"><a href="https://wexflow.github.io/"><img height="321px" src="https://aelassas.github.io/wexflow/images/logo.png" width="494px" /> <br />Workflows Made Easy</a></h4>
+-->
 
 # Continuous integration
 
