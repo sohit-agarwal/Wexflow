@@ -4,7 +4,7 @@
 
 <i>Thanks [JetBrains](https://www.jetbrains.com/) for providing a free license of [Resharper](https://www.jetbrains.com/resharper/).</i>
 
-[![Release](http://img.shields.io/badge/release-v1.5-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/tag/v1.5)
+[![Release](http://img.shields.io/badge/release-v1.6-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/tag/v1.5)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby)
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)
 
