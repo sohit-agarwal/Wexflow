@@ -1,7 +1,8 @@
-
 <!--
 [![Twitter](https://img.shields.io/badge/twitter-@wexflow86-55acee.svg)](https://twitter.com/wexflow86)
 -->
+
+<i>Thanks [JetBrains](https://www.jetbrains.com/) for providing a free license of [Resharper](https://www.jetbrains.com/resharper/).</i>
 
 [![Release](http://img.shields.io/badge/release-v1.5-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/tag/v1.5)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby)
