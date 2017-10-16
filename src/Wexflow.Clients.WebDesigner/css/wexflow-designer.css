@@ -156,7 +156,7 @@
 
 #wf-designer-right-panel {
     position: fixed;
-    top: 30px;
+    top: 45px;
     right: 0;
     bottom: 0;
     left: 320px;
@@ -203,13 +203,14 @@
 }
 
 .wf-action-left {
-    width: 75px;
+    width: 100px;    
 }
 
 .wf-action-right {
     float: right;
     margin-right: 10px;
-    width: 75px;
+    width: 100px;
+    display: none;
 }
 .wf-task-id, .wf-task-name, .wf-task-desc, .wf-task-enabled, .wf-settings, .wf-setting-name, .wf-setting-value, .wf-attribute-name, .wf-attribute-value, .wf-remove-setting, .wf-add-attribute, .wf-remove-attribute, .wf-attributes, .wf-task, .wf-task-title-label {
     visibility: visible;
@@ -227,6 +228,21 @@
     display: none;
 }
 .wf-add-attribute-td {
+    display: none;
+}
+.wf-remove-task {
+    display: none;
+}
+#wf-add-workflow {
+    width: 100px;
+}
+#wf-action {
+    position: absolute;
+    top: 10px;
+    right: 0;
+    left: 310px;
+    background-color: #373737;
+    padding: 7px;
     display: none;
 }
 /*end of table style*/

@@ -29,12 +29,18 @@ namespace Wexflow.Clients.WindowsService
         TaskInfo[] GetTasks(string id);
 
         [OperationContract]
-        string GetWorkflowXML(string id);
+        string GetWorkflowXml(string id);
 
         [OperationContract]
         bool SaveWorkflow(Stream streamdata);
 
         [OperationContract]
         string[] GetTaskNames();
+
+        [OperationContract]
+        string GetWorkflowsFolder();
+
+        [OperationContract]
+        bool IsWorkflowIdValid(string id);
     }
 }

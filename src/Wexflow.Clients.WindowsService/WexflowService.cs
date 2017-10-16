@@ -117,7 +117,7 @@ namespace Wexflow.Clients.WindowsService
         [WebInvoke(Method = "GET",
             ResponseFormat = WebMessageFormat.Json,
             UriTemplate = "xml/{id}")]
-        public string GetWorkflowXML(string id)
+        public string GetWorkflowXml(string id)
         {
             var wf = WexflowWindowsService.WexflowEngine.GetWorkflow(int.Parse(id));
             if (wf != null)
@@ -140,73 +140,48 @@ namespace Wexflow.Clients.WindowsService
                 reader.Dispose();
 
                 JObject o = JObject.Parse(json);
-                int id = int.Parse((string) o.SelectToken("Id"));
+                var wi = o.SelectToken("WorkflowInfo");
 
-                var wf = WexflowWindowsService.WexflowEngine.GetWorkflow(id);
-                if (wf != null)
+                var isNew = (bool) wi.SelectToken("IsNew");
+                if (isNew)
                 {
-                    var xdoc = wf.XDoc;
-                    var xn = "urn:wexflow-schema";
+                    XNamespace xn = "urn:wexflow-schema";
+                    var xdoc = new XDocument();
+                 
+                    int workflowId = (int)wi.SelectToken("Id");
+                    string workflowName = (string)wi.SelectToken("Name");
+                    LaunchType workflowLaunchType = (LaunchType)((int)wi.SelectToken("LaunchType"));
+                    string p = (string)wi.SelectToken("Period");
+                    TimeSpan workflowPeriod = TimeSpan.Parse(string.IsNullOrEmpty(p) ? "00.00:00:00" : p);
+                    bool isWorkflowEnabled = (bool)wi.SelectToken("IsEnabled");
+                    string workflowDesc = (string)wi.SelectToken("Description");
 
-                    var wi = o.SelectToken("WorkflowInfo");
-                    int workflowId = (int) wi.SelectToken("Id");
-                    string workflowName = (string) wi.SelectToken("Name");
-                    LaunchType workflowLaunchType = (LaunchType) ((int) wi.SelectToken("LaunchType"));
-                    TimeSpan workflowPeriod = TimeSpan.Parse((string) wi.SelectToken("Period"));
-                    bool isWorkflowEnabled = (bool) wi.SelectToken("IsEnabled");
-                    string workflowDesc = (string) wi.SelectToken("Description");
-
-                    //if(xdoc.Root == null) throw new Exception("Root is null");
-                    xdoc.Root.Attribute("id").Value = workflowId.ToString();
-                    xdoc.Root.Attribute("name").Value = workflowName;
-                    xdoc.Root.Attribute("description").Value = workflowDesc;
-
-                    var xwfEnabled = xdoc.Root.XPathSelectElement("wf:Settings/wf:Setting[@name='enabled']", wf.XmlNamespaceManager);
-                    xwfEnabled.Attribute("value").Value = isWorkflowEnabled.ToString().ToLower();
-                    var xwfLaunchType = xdoc.Root.XPathSelectElement("wf:Settings/wf:Setting[@name='launchType']", wf.XmlNamespaceManager);
-                    xwfLaunchType.Attribute("value").Value = workflowLaunchType.ToString().ToLower();
-
-                    var xwfPeriod = xdoc.Root.XPathSelectElement("wf:Settings/wf:Setting[@name='period']", wf.XmlNamespaceManager);
-                    //if (workflowLaunchType == LaunchType.Periodic)
-                    //{
-                    if (xwfPeriod != null)
-                    {
-                        xwfPeriod.Attribute("value").Value = workflowPeriod.ToString();
-                    }
-                    else
-                    {
-                        xdoc.Root.XPathSelectElement("wf:Settings", wf.XmlNamespaceManager).Add(new XElement(wf.XNamespaceWf + "Setting", new XAttribute("name", "period"), new XAttribute("value", workflowPeriod.ToString())));
-                    }
-                    //}
-
-                    var xtasks = xdoc.Root.Element(wf.XNamespaceWf + "Tasks");
-                    var alltasks = xtasks.Elements(wf.XNamespaceWf + "Task");
-                    alltasks.Remove();
-
+                    // tasks
+                    var xtasks = new XElement(xn + "Tasks");
                     var tasks = o.SelectToken("Tasks");
                     foreach (var task in tasks)
                     {
-                        int taskId = (int) task.SelectToken("Id");
-                        string taskName = (string) task.SelectToken("Name");
-                        string taskDesc = (string) task.SelectToken("Description");
-                        bool isTaskEnabled = (bool) task.SelectToken("IsEnabled");
+                        int taskId = (int)task.SelectToken("Id");
+                        string taskName = (string)task.SelectToken("Name");
+                        string taskDesc = (string)task.SelectToken("Description");
+                        bool isTaskEnabled = (bool)task.SelectToken("IsEnabled");
 
-                        var xtask = new XElement(wf.XNamespaceWf + "Task"
+                        var xtask = new XElement(xn + "Task"
                             , new XAttribute("id", taskId)
                             , new XAttribute("name", taskName)
                             , new XAttribute("description", taskDesc)
                             , new XAttribute("enabled", isTaskEnabled.ToString().ToLower())
-                            );
+                        );
 
                         var settings = task.SelectToken("Settings");
                         foreach (var setting in settings)
                         {
-                            string settingName = (string) setting.SelectToken("Name");
-                            string settingValue = (string) setting.SelectToken("Value");
+                            string settingName = (string)setting.SelectToken("Name");
+                            string settingValue = (string)setting.SelectToken("Value");
 
-                            var xsetting = new XElement(wf.XNamespaceWf + "Setting"
+                            var xsetting = new XElement(xn + "Setting"
                                 , new XAttribute("name", settingName)
-                                );
+                            );
 
                             if (!string.IsNullOrEmpty(settingValue))
                             {
@@ -216,8 +191,8 @@ namespace Wexflow.Clients.WindowsService
                             var attributes = setting.SelectToken("Attributes");
                             foreach (var attribute in attributes)
                             {
-                                string attributeName = (string) attribute.SelectToken("Name");
-                                string attributeValue = (string) attribute.SelectToken("Value");
+                                string attributeName = (string)attribute.SelectToken("Name");
+                                string attributeValue = (string)attribute.SelectToken("Value");
                                 xsetting.SetAttributeValue(attributeName, attributeValue);
                             }
 
@@ -227,9 +202,126 @@ namespace Wexflow.Clients.WindowsService
                         xtasks.Add(xtask);
                     }
 
-                    xdoc.Save(wf.WorkflowFilePath);
-                }
+                    // root
+                    var xwf = new XElement(xn + "Workflow"
+                        , new XAttribute("id", workflowId)
+                        , new XAttribute("name", workflowName)
+                        , new XAttribute("description", workflowDesc)
+                            , new XElement(xn + "Settings"
+                                , new XElement(xn + "Setting"
+                                    , new XAttribute("name", "launchType")
+                                    , new XAttribute("value", workflowLaunchType.ToString().ToLower()))
+                                , new XElement(xn + "Setting"
+                                    , new XAttribute("name", "enabled")
+                                    , new XAttribute("value", isWorkflowEnabled.ToString().ToLower()))
+                                , new XElement(xn + "Setting"
+                                    , new XAttribute("name", "period")
+                                    , new XAttribute("value", workflowPeriod.ToString(@"dd\.hh\:mm\:ss")))
+                                        )
+                            , xtasks
+                        );
 
+                    xdoc.Add(xwf);
+
+                    var path = (string) wi.SelectToken("Path");
+                    xdoc.Save(path);
+
+                }
+                else
+                {
+                    int id = int.Parse((string)o.SelectToken("Id"));
+                    var wf = WexflowWindowsService.WexflowEngine.GetWorkflow(id);
+                    if (wf != null)
+                    {
+                        var xdoc = wf.XDoc;
+
+                        int workflowId = (int) wi.SelectToken("Id");
+                        string workflowName = (string) wi.SelectToken("Name");
+                        LaunchType workflowLaunchType = (LaunchType) ((int) wi.SelectToken("LaunchType"));
+                        string p = (string) wi.SelectToken("Period");
+                        TimeSpan workflowPeriod = TimeSpan.Parse(string.IsNullOrEmpty(p) ? "00.00:00:00" : p);
+                        bool isWorkflowEnabled = (bool) wi.SelectToken("IsEnabled");
+                        string workflowDesc = (string) wi.SelectToken("Description");
+
+                        //if(xdoc.Root == null) throw new Exception("Root is null");
+                        xdoc.Root.Attribute("id").Value = workflowId.ToString();
+                        xdoc.Root.Attribute("name").Value = workflowName;
+                        xdoc.Root.Attribute("description").Value = workflowDesc;
+
+                        var xwfEnabled = xdoc.Root.XPathSelectElement("wf:Settings/wf:Setting[@name='enabled']",
+                            wf.XmlNamespaceManager);
+                        xwfEnabled.Attribute("value").Value = isWorkflowEnabled.ToString().ToLower();
+                        var xwfLaunchType = xdoc.Root.XPathSelectElement("wf:Settings/wf:Setting[@name='launchType']",
+                            wf.XmlNamespaceManager);
+                        xwfLaunchType.Attribute("value").Value = workflowLaunchType.ToString().ToLower();
+
+                        var xwfPeriod = xdoc.Root.XPathSelectElement("wf:Settings/wf:Setting[@name='period']",
+                            wf.XmlNamespaceManager);
+                        //if (workflowLaunchType == LaunchType.Periodic)
+                        //{
+                        if (xwfPeriod != null)
+                        {
+                            xwfPeriod.Attribute("value").Value = workflowPeriod.ToString(@"dd\.hh\:mm\:ss");
+                        }
+                        else
+                        {
+                            xdoc.Root.XPathSelectElement("wf:Settings", wf.XmlNamespaceManager)
+                                .Add(new XElement(wf.XNamespaceWf + "Setting", new XAttribute("name", "period"),
+                                    new XAttribute("value", workflowPeriod.ToString())));
+                        }
+                        //}
+
+                        var xtasks = xdoc.Root.Element(wf.XNamespaceWf + "Tasks");
+                        var alltasks = xtasks.Elements(wf.XNamespaceWf + "Task");
+                        alltasks.Remove();
+
+                        var tasks = o.SelectToken("Tasks");
+                        foreach (var task in tasks)
+                        {
+                            int taskId = (int) task.SelectToken("Id");
+                            string taskName = (string) task.SelectToken("Name");
+                            string taskDesc = (string) task.SelectToken("Description");
+                            bool isTaskEnabled = (bool) task.SelectToken("IsEnabled");
+
+                            var xtask = new XElement(wf.XNamespaceWf + "Task"
+                                , new XAttribute("id", taskId)
+                                , new XAttribute("name", taskName)
+                                , new XAttribute("description", taskDesc)
+                                , new XAttribute("enabled", isTaskEnabled.ToString().ToLower())
+                            );
+
+                            var settings = task.SelectToken("Settings");
+                            foreach (var setting in settings)
+                            {
+                                string settingName = (string) setting.SelectToken("Name");
+                                string settingValue = (string) setting.SelectToken("Value");
+
+                                var xsetting = new XElement(wf.XNamespaceWf + "Setting"
+                                    , new XAttribute("name", settingName)
+                                );
+
+                                if (!string.IsNullOrEmpty(settingValue))
+                                {
+                                    xsetting.SetAttributeValue("value", settingValue);
+                                }
+
+                                var attributes = setting.SelectToken("Attributes");
+                                foreach (var attribute in attributes)
+                                {
+                                    string attributeName = (string) attribute.SelectToken("Name");
+                                    string attributeValue = (string) attribute.SelectToken("Value");
+                                    xsetting.SetAttributeValue(attributeName, attributeValue);
+                                }
+
+                                xtask.Add(xsetting);
+                            }
+
+                            xtasks.Add(xtask);
+                        }
+
+                        xdoc.Save(wf.WorkflowFilePath);
+                    }
+                }
                 return true;
             }
             catch (Exception e)
@@ -278,6 +370,27 @@ namespace Wexflow.Clients.WindowsService
                 "Xslt",
                 "Zip"
             };
+        }
+
+        [WebInvoke(Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "workflowsFolder")]
+        public string GetWorkflowsFolder()
+        {
+            return WexflowWindowsService.WexflowEngine.WorkflowsFolder;
+        }
+
+        [WebInvoke(Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "isWorkflowIdValid/{id}")]
+        public bool IsWorkflowIdValid(string id)
+        {
+            var workflowId = int.Parse(id);
+            foreach (var workflow in WexflowWindowsService.WexflowEngine.Workflows)
+            {
+                if (workflow.Id == workflowId) return false;
+            }
+            return true;
         }
     }
 }

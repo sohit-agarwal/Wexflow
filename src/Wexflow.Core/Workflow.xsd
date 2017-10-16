@@ -29,7 +29,7 @@
  </xsd:complexType>
  
  <xsd:complexType name="tasksType">
-   <xsd:sequence maxOccurs="unbounded">
+   <xsd:sequence minOccurs="0" maxOccurs="unbounded">
      <xsd:element name="Task" type="taskType"/>
    </xsd:sequence>
  </xsd:complexType>
