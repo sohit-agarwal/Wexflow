@@ -28,6 +28,9 @@
     -->
     <Setting name="selectFiles" value="$taskId" />
     <Setting name="selectFiles" value="$taskId" />
+    <!-- Optional.  The files loaded by the task having as id the $taskId will be sent as attachments.-->
+    <Setting name="selectAttachments" value="$taskId" />
+    <Setting name="selectAttachments" value="$taskId" />
     <!-- You can add as many selecteFiles as you want.-->
     <!-- The email server host address. Example:  smtp.gmail.com-->
     <Setting name="host" value="$string" />

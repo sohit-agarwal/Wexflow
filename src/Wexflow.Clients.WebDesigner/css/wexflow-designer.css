@@ -215,6 +215,9 @@
 .wf-task-id, .wf-task-name, .wf-task-desc, .wf-task-enabled, .wf-settings, .wf-setting-name, .wf-setting-value, .wf-attribute-name, .wf-attribute-value, .wf-remove-setting, .wf-add-attribute, .wf-remove-attribute, .wf-attributes, .wf-task, .wf-task-title-label {
     visibility: visible;
 }
+.wf-add-attribute {
+    width: 100px;
+}
 .wf-add-setting {
     margin-left: 10px;
 }
@@ -234,7 +237,7 @@
     display: none;
 }
 #wf-add-workflow {
-    width: 100px;
+    width: 110px;
 }
 #wf-action {
     position: absolute;
@@ -244,5 +247,9 @@
     background-color: #373737;
     padding: 7px;
     display: none;
+}
+.wf-delete {
+    color: #cb2431;
+    font-weight: bold;
 }
 /*end of table style*/

@@ -12,6 +12,7 @@ namespace Wexflow.Core
     {
         public string SettingsFile { get; private set; }
         public string WorkflowsFolder { get; private set; }
+        public string TrashFolder { get; private set; }
         public string TempFolder { get; private set; }
         public string XsdPath { get; private set; }
         public IList<Workflow> Workflows { get; private set; }
@@ -32,6 +33,7 @@ namespace Wexflow.Core
         {
             var xdoc = XDocument.Load(SettingsFile);
             WorkflowsFolder = GetWexflowSetting(xdoc, "workflowsFolder");
+            TrashFolder = GetWexflowSetting(xdoc, "trashFolder");
             TempFolder = GetWexflowSetting(xdoc, "tempFolder");
             if (!Directory.Exists(TempFolder)) Directory.CreateDirectory(TempFolder);
             XsdPath = GetWexflowSetting(xdoc, "xsd");

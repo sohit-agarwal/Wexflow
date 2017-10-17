@@ -392,5 +392,108 @@ namespace Wexflow.Clients.WindowsService
             }
             return true;
         }
+
+        [WebInvoke(Method = "POST",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "delete/{id}")]
+        public bool DeleteWorkflow(string id)
+        {
+            try
+            {
+                var wf = WexflowWindowsService.WexflowEngine.GetWorkflow(int.Parse(id));
+                if (wf != null)
+                {
+                    string destPath = Path.Combine(WexflowWindowsService.WexflowEngine.TrashFolder, Path.GetFileName(wf.WorkflowFilePath));
+                    if (File.Exists(destPath))
+                    {
+                        destPath = Path.Combine(WexflowWindowsService.WexflowEngine.TrashFolder
+                            , Path.GetFileNameWithoutExtension(destPath) + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + Path.GetExtension(destPath));
+                    }
+                    File.Move(wf.WorkflowFilePath, destPath);
+                }
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+        }
+
+        [WebInvoke(Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "settings/{taskName}")]
+        public string[] GetSettings(string taskName)
+        {
+            switch (taskName)
+            {
+                case "CsvToXml":
+                    return new[] { "selectFiles" };
+                case "FileExists":
+                    return new[] { "file" };
+                case "FilesCopier":
+                    return new[] { "selectFiles", "destFolder", "overwrite" };
+                case "FilesExist":
+                    return new[] { "file", "folder" };
+                case "FilesLoader":
+                    return new[] { "file", "folder" };
+                case "FilesMover":
+                    return new[] { "selectFiles", "destFolder", "overwrite" };
+                case "FilesRemover":
+                    return new[] { "selectFiles" };
+                case "FilesRenamer":
+                    return new[] { "overwrite" };
+                case "Ftp":
+                    return new[] { "selectFiles", "command", "protocol", "encryption", "server", "port", "user", "password", "privateKeyPath", "passphrase", "path", "retryCount", "retryTimeout" };
+                case "Http":
+                    return new[] { "url" };
+                case "ImagesTransformer":
+                    return new[] { "selectFiles", "outputFilePattern", "outputFormat" };
+                case "ListEntities":
+                    return new string[] { };
+                case "ListFiles":
+                    return new string[] { };
+                case "MailsSender":
+                    return new[] { "selectFiles", "selectAttachments", "host", "port", "enableSsl", "user", "password" };
+                case "Md5":
+                    return new[] { "selectFiles" };
+                case "Mkdir":
+                    return new[] { "folder" };
+                case "Movedir":
+                    return new[] { "folder", "destinationFolder", "overwrite" };
+                case "Now":
+                    return new[] { "culture", "format" };
+                case "ProcessLauncher":
+                    return new[] { "selectFiles", "processPath", "processCmd", "hideGui", "generatesFiles" };
+                case "Rmdir":
+                    return new[] { "folder" };
+                case "Sql":
+                    return new[] { "selectFiles", "type", "connectionString", "sql" };
+                case "Sync":
+                    return new[] { "srcFolder", "destFolder" };
+                case "Tar":
+                    return new[] { "selectFiles", "zipFileName" };
+                case "Tgz":
+                    return new[] { "selectFiles", "tgzFileName" };
+                case "Touch":
+                    return new[] { "file" };
+                case "Twitter":
+                    return new[] { "selectFiles", "consumerKey", "consumerSecret", "accessToken", "accessTokenSecret" };
+                case "Wait":
+                    return new[] { "duration" };
+                case "Wmi":
+                    return new[] { "query" };
+                case "Workflow":
+                    return new[] { "wexflowWebServiceUri", "action", "id" };
+                case "XmlToCsv":
+                    return new[] { "selectFiles" };
+                case "Xslt":
+                    return new[] { "selectFiles", "xsltPath", "version", "removeWexflowProcessingNodes" };
+                case "Zip":
+                    return new[] { "selectFiles", "zipFileName" };
+            }
+            return new string[]{};
+        }
     }
 }

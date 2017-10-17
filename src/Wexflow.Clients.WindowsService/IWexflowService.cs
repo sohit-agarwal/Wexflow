@@ -42,5 +42,11 @@ namespace Wexflow.Clients.WindowsService
 
         [OperationContract]
         bool IsWorkflowIdValid(string id);
+
+        [OperationContract]
+        bool DeleteWorkflow(string id);
+
+        [OperationContract]
+        string[] GetSettings(string taskName);
     }
 }

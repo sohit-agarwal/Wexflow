@@ -185,3 +185,9 @@ Filename: "taskkill"; Parameters: "/im ""{#MyAppExeName}"" /f"; Flags: runhidden
 Filename: "{sys}\sc.exe"; Parameters: "stop Wexflow"; Flags: runhidden waituntilterminated
 Filename: "taskkill"; Parameters: "/im ""Wexflow.Clients.WindowsService.exe"" /f"; Flags: runhidden waituntilterminated
 Filename: "{sys}\sc.exe"; Parameters: "delete Wexflow"; Flags: runhidden waituntilterminated
+
+[Code]
+procedure InitializeWizard();
+begin
+  CreateDir('C:\Wexflow\Trash');
+end;
