@@ -1,4 +1,4 @@
-# WEXFLOW
+# Wexflow
 
 <!--
 [![Twitter](https://img.shields.io/badge/twitter-@wexflow86-55acee.svg)](https://twitter.com/wexflow86)
@@ -33,6 +33,7 @@ Wexflow is an open source extensible workflow engine with a cross-platform manag
 - [Quickstart](https://github.com/aelassas/Wexflow/wiki/Usage)
 - [Workflow samples](https://github.com/aelassas/Wexflow/wiki/Samples)
 
+<!--
 # Bugs and features
   
  If you found any issues with Wexflow, please submit a bug report at the [Issue Tracker](https://github.com/aelassas/Wexflow/issues). Please include the following:
@@ -46,15 +47,16 @@ If you'd like to add a feature request please add some details how it is suppose
 # More information
 
 More information about Wexflow can be found on [CodeProject](https://www.codeproject.com/Articles/1164009/Wexflow-Open-source-workflow-engine-in-Csharp).
+-->
 
 # License
 Wexflow is licensed under the [MIT License](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt). 
 
 Wexflow contains other libraries with their individual licenses. More details about these licenses can be found in the [wiki](https://github.com/aelassas/Wexflow/wiki/License).
 
-# Change log
+# Changelog
 
-The changes are documented in the release history that can be found in the [wiki](https://github.com/aelassas/Wexflow/wiki/History).
+The changelog is available in the [release history](https://github.com/aelassas/Wexflow/wiki/History).
 
 # Thanks
 
