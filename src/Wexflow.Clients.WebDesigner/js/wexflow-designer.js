@@ -29,7 +29,9 @@
         "<h3>Tasks</h3>" +
         "<div id='wf-tasks'>" +
         "</div>" +
-        "<button type='button' id='wf-add-task'>New task</button>";
+        "<button type='button' id='wf-add-task'>New task</button>" +
+        "<h3 id='wf-execution-graph-title'>Execution graph</h3>" +
+        "<div id='wf-execution-graph'></div>";
 
     var html = "<div id='wf-container'>" +
         "<div id='wf-workflows'></div>" +
@@ -366,6 +368,7 @@
         wfTaskId.onkeyup = function () {
             workflowTasks[workflowId][index].Id = wfTaskId.value;
             this.parentElement.parentElement.parentElement.parentElement.parentElement.getElementsByClassName("wf-task-title-label")[0].innerHTML = "Task " + wfTaskId.value;
+            loadExecutionGraph();
         }
 
         var wfTaskName = wfTask.getElementsByClassName("wf-task-name")[0];
@@ -414,6 +417,7 @@
         var wfRemoveTask = wfTask.getElementsByClassName("wf-remove-task")[0];
         wfRemoveTask.onclick = function() {
             removeTask(workflowId, this);
+            loadExecutionGraph();
         };
     }
 
@@ -710,6 +714,78 @@
             });
     }
 
+    function loadExecutionGraph(workflow) {
+        if (typeof workflow != "undefined" && workflow != null && workflow.IsExecutionGraphEmpty === false) {
+            document.getElementById("wf-execution-graph").style.display = "none";
+            document.getElementById("wf-execution-graph-title").style.display = "none";
+            return;
+        }
+
+        document.getElementById("wf-execution-graph").style.display = "block";
+        document.getElementById("wf-execution-graph-title").style.display = "block";
+
+        var nodes = [];
+        var edges = [];
+
+        var wfTasks = document.getElementsByClassName("wf-task");
+        for (var index4 = 0; index4 < wfTasks.length; index4++) {
+            var wfTask = wfTasks[index4];
+            var taskLabel =
+                wfTask.getElementsByClassName("wf-task-title-label")[0]
+                    .innerHTML;
+            nodes.push({ data: { id: 'n' + index4, name: taskLabel } });
+        }
+
+        for (var index5 = 0; index5 < nodes.length; index5++) {
+            var node = nodes[index5];
+            var source = node.data.id;
+            if (index5 + 1 < nodes.length) {
+                var target = nodes[index5 + 1].data.id;
+                edges.push({ data: { source: source, target: target } });
+            }
+        }
+
+        cytoscape({
+            container: document.getElementById('wf-execution-graph'),
+
+            boxSelectionEnabled: false,
+            autounselectify: true,
+
+            layout: {
+                name: 'dagre'
+            },
+
+            style: [
+                {
+                    selector: 'node',
+                    style: {
+                        'content': 'data(name)',
+                        'text-opacity': 0.5,
+                        'text-valign': 'center',
+                        'text-halign': 'right',
+                        'background-color': '#373737' // 11479e
+                    }
+                },
+                {
+                    selector: 'edge',
+                    style: {
+                        'curve-style': 'bezier',
+                        'width': 4,
+                        'target-arrow-shape': 'triangle',
+                        'line-color': '#ffb347', // 9dbaea
+                        'target-arrow-color': '#ffb347' // 9dbaea
+                    }
+                }
+            ],
+
+            elements: {
+                nodes: nodes,
+                edges: edges
+            }
+        });
+        // end of execution graph
+    }
+
     function loadWorkflows(callback) {
         get(uri + "/workflows",
             function (data) {
@@ -948,12 +1024,13 @@
 
                                             if (workflow.IsExecutionGraphEmpty === true) {
                                                 document.getElementById("wf-add-task").style.display = "block";
-                                                var wfRemoveTaskBtns =
-                                                    document.getElementsByClassName("wf-remove-task");
+                                                var wfRemoveTaskBtns = document.getElementsByClassName("wf-remove-task");
                                                 for (var i4 = 0; i4 < wfRemoveTaskBtns.length; i4++) {
                                                     var wfRemoveTaskBtn = wfRemoveTaskBtns[i4];
                                                     wfRemoveTaskBtn.style.display = "block";
                                                 }
+                                            } else {
+                                                document.getElementById("wf-add-task").style.display = "none";
                                             }
 
                                             var wfAddAttributsTds = document.getElementsByClassName("wf-add-attribute-td");
@@ -1010,6 +1087,7 @@
                                                 var wfRemoveTask = wfRemoveTasks[p];
                                                 wfRemoveTask.onclick = function () {
                                                     removeTask(selectedId, this);
+                                                    loadExecutionGraph();
                                                 };
                                             }
 
@@ -1023,10 +1101,8 @@
                                                 var wfTaskId = document.getElementsByClassName("wf-task-id")[m];
                                                 wfTaskId.onkeyup = function () {
                                                     workflowTasks[selectedId][m].Id = wfTaskId.value;
-                                                    this.parentElement.parentElement.parentElement.parentElement
-                                                        .parentElement
-                                                        .getElementsByClassName("wf-task-title-label")[0].innerHTML =
-                                                        "Task " + wfTaskId.value;
+                                                    this.parentElement.parentElement.parentElement.parentElement.parentElement.getElementsByClassName("wf-task-title-label")[0].innerHTML = "Task " + wfTaskId.value;
+                                                    loadExecutionGraph(workflow);
                                                 }
                                             }
 
@@ -1126,6 +1202,10 @@
                                                     }
                                                 }
                                             }
+
+                                            // Execution graph
+                                            loadExecutionGraph(workflow);
+
                                         },
                                         function () {
                                             alert("An error occured while retrieving task names.");

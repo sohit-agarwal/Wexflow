@@ -47,6 +47,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="css\wexflow-designer.min.css" />
+    <Content Include="js\uglify.bat" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -58,6 +59,7 @@
     <Content Include="css\vs2015.css" />
     <Content Include="css\wexflow-designer.css" />
     <Content Include="index.html" />
+    <Content Include="js\cytoscape-dagre.min.js" />
     <Content Include="js\highlight.pack.js" />
     <Content Include="js\wexflow-designer.js" />
     <Content Include="js\wexflow-designer.min.js" />

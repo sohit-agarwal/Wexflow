@@ -252,4 +252,13 @@
     color: #cb2431;
     font-weight: bold;
 }
+#wf-execution-graph {
+    position: absolute;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+}
+
 /*end of table style*/
