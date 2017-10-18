@@ -786,7 +786,7 @@
                     for (var i = 0; i < wfNodes.length; i++) {
                         var wfNode = wfNodes[i];
                         nodes.push({ data: { id: wfNode.Id, name: wfNode.Name } });
-                        if (wfNode.Id !== "n-1") {
+                        if (wfNode.ParentId !== "n-1") {
                             edges.push({ data: { source: wfNode.ParentId, target: wfNode.Id } }); 
                         }
                     }
