@@ -2,7 +2,9 @@
 [![Twitter](https://img.shields.io/badge/twitter-@wexflow86-55acee.svg)](https://twitter.com/wexflow86)
 -->
 
-<i>Thanks [JetBrains](https://www.jetbrains.com/) for providing a free license of [Resharper](https://www.jetbrains.com/resharper/).</i>
+# [WEXFLOW](https://wexflow.github.io/)
+
+Wexflow is an open source extensible workflow engine with a cross-platform manager and designer. Wexflow aims to make automations, workflow processes, long-running processes and interactions between systems, applications and folks easy, straitforward and clean.
 
 [![Release](http://img.shields.io/badge/release-v1.7-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/tag/v1.7)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby)
@@ -53,3 +55,7 @@ Wexflow contains other libraries with their individual licenses. More details ab
 # Change log
 
 The changes are documented in the release history that can be found in the [wiki](https://github.com/aelassas/Wexflow/wiki/History).
+
+# Thanks
+
+Thanks [JetBrains](https://www.jetbrains.com/) for providing a free license of [Resharper](https://www.jetbrains.com/resharper/).
