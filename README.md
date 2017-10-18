@@ -1,14 +1,14 @@
+# WEXFLOW
+
 <!--
 [![Twitter](https://img.shields.io/badge/twitter-@wexflow86-55acee.svg)](https://twitter.com/wexflow86)
 -->
 
-# [WEXFLOW](https://wexflow.github.io/)
-
-Wexflow is an open source extensible workflow engine with a cross-platform manager and designer. Wexflow aims to make automations, workflow processes, long-running processes and interactions between systems, applications and folks easy, straitforward and clean.
-
 [![Release](http://img.shields.io/badge/release-v1.7-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/tag/v1.7)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby)
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)
+
+Wexflow is an open source extensible workflow engine with a cross-platform manager and designer. Wexflow aims to make automations, workflow processes, long-running processes and interactions between systems, applications and folks easy, straitforward and clean.
 
 <!--
 <i>This project is sponsored by [JetBrains](https://www.jetbrains.com/).</i>
