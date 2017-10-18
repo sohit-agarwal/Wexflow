@@ -8,6 +8,7 @@ using System.ServiceModel.Web;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using Newtonsoft.Json.Linq;
+using Wexflow.Core.ExecutionGraph.Flowchart;
 
 namespace Wexflow.Clients.WindowsService
 {
@@ -324,7 +325,7 @@ namespace Wexflow.Clients.WindowsService
                 }
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
@@ -414,7 +415,7 @@ namespace Wexflow.Clients.WindowsService
 
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
@@ -494,6 +495,46 @@ namespace Wexflow.Clients.WindowsService
                     return new[] { "selectFiles", "zipFileName" };
             }
             return new string[]{};
+        }
+
+        [WebInvoke(Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "graph/{id}")]
+        public Node[] GetExecutionGraph(string id)
+        {
+            var wf = WexflowWindowsService.WexflowEngine.GetWorkflow(int.Parse(id));
+            if (wf != null)
+            {
+                IList<Node> nodes = new List<Node>();
+                //int i = 0;
+                foreach (var node in wf.ExecutionGraph.Nodes)
+                {
+                    string nodeName = "Task " + node.Id;
+
+                    if (node is If)
+                    {
+                        nodeName = "If...EndIf";
+                    }
+                    else if (node is While)
+                    {
+                        nodeName = "While...EndWhile";
+                    }
+                    else if (node is Switch)
+                    {
+                        nodeName = "Switch...EndSwitch";
+                    }
+
+                    string nodeId = "n" + node.Id;
+                    string parentId = "n" + node.ParentId;
+
+                    nodes.Add(new Node(nodeId, nodeName, parentId));
+                }
+
+                return nodes.ToArray();
+
+            }
+
+            return null;
         }
     }
 }

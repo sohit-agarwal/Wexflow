@@ -715,74 +715,98 @@
     }
 
     function loadExecutionGraph(workflow) {
-        if (typeof workflow != "undefined" && workflow != null && workflow.IsExecutionGraphEmpty === false) {
-            document.getElementById("wf-execution-graph").style.display = "none";
-            document.getElementById("wf-execution-graph-title").style.display = "none";
-            return;
-        }
 
-        document.getElementById("wf-execution-graph").style.display = "block";
-        document.getElementById("wf-execution-graph-title").style.display = "block";
+        var layout = {
+            name: 'dagre'
+        };
 
-        var nodes = [];
-        var edges = [];
-
-        var wfTasks = document.getElementsByClassName("wf-task");
-        for (var index4 = 0; index4 < wfTasks.length; index4++) {
-            var wfTask = wfTasks[index4];
-            var taskLabel =
-                wfTask.getElementsByClassName("wf-task-title-label")[0]
-                    .innerHTML;
-            nodes.push({ data: { id: 'n' + index4, name: taskLabel } });
-        }
-
-        for (var index5 = 0; index5 < nodes.length; index5++) {
-            var node = nodes[index5];
-            var source = node.data.id;
-            if (index5 + 1 < nodes.length) {
-                var target = nodes[index5 + 1].data.id;
-                edges.push({ data: { source: source, target: target } });
-            }
-        }
-
-        cytoscape({
-            container: document.getElementById('wf-execution-graph'),
-
-            boxSelectionEnabled: false,
-            autounselectify: true,
-
-            layout: {
-                name: 'dagre'
-            },
-
-            style: [
-                {
-                    selector: 'node',
-                    style: {
-                        'content': 'data(name)',
-                        'text-opacity': 0.5,
-                        'text-valign': 'center',
-                        'text-halign': 'right',
-                        'background-color': '#373737' // 11479e
-                    }
-                },
-                {
-                    selector: 'edge',
-                    style: {
-                        'curve-style': 'bezier',
-                        'width': 4,
-                        'target-arrow-shape': 'triangle',
-                        'line-color': '#ffb347', // 9dbaea
-                        'target-arrow-color': '#ffb347' // 9dbaea
-                    }
+        var style = [
+            {
+                selector: 'node',
+                style: {
+                    'content': 'data(name)',
+                    'text-opacity': 0.7,
+                    'text-valign': 'center',
+                    'text-halign': 'right',
+                    'background-color': '#373737' // 11479e
                 }
-            ],
-
-            elements: {
-                nodes: nodes,
-                edges: edges
+            },
+            {
+                selector: 'edge',
+                style: {
+                    'curve-style': 'bezier',
+                    'width': 4,
+                    'target-arrow-shape': 'triangle',
+                    'line-color': '#ffb347', // 9dbaea
+                    'target-arrow-color': '#ffb347' // 9dbaea
+                }
             }
-        });
+        ];
+        var wfExecutionGraph = document.getElementById('wf-execution-graph');
+        
+        if (typeof workflow == "undefined" || workflow == null || workflow.IsExecutionGraphEmpty === true) {
+
+            var nodes = [];
+            var edges = [];
+
+            var wfTasks = document.getElementsByClassName("wf-task");
+            for (var index4 = 0; index4 < wfTasks.length; index4++) {
+                var wfTask = wfTasks[index4];
+                var taskLabel = wfTask.getElementsByClassName("wf-task-title-label")[0].innerHTML;
+                nodes.push({ data: { id: 'n' + index4, name: taskLabel } });
+            }
+
+            for (var index5 = 0; index5 < nodes.length; index5++) {
+                var node = nodes[index5];
+                var source = node.data.id;
+                if (index5 + 1 < nodes.length) {
+                    var target = nodes[index5 + 1].data.id;
+                    edges.push({ data: { source: source, target: target } });
+                }
+            }
+
+            cytoscape({
+                container: wfExecutionGraph,
+                boxSelectionEnabled: false,
+                autounselectify: true,
+                layout: layout,
+                style: style,
+                elements: {
+                    nodes: nodes,
+                    edges: edges
+                }
+            });
+        } else if (workflow.IsExecutionGraphEmpty === false) {
+
+            get(uri + "/graph/" + workflow.Id,
+                function(wfNodes) {
+                    var nodes = [];
+                    var edges = [];
+
+                    for (var i = 0; i < wfNodes.length; i++) {
+                        var wfNode = wfNodes[i];
+                        nodes.push({ data: { id: wfNode.Id, name: wfNode.Name } });
+                        if (wfNode.Id !== "n-1") {
+                            edges.push({ data: { source: wfNode.ParentId, target: wfNode.Id } }); 
+                        }
+                    }
+
+                    cytoscape({
+                        container: wfExecutionGraph,
+                        boxSelectionEnabled: false,
+                        autounselectify: true,
+                        layout: layout,
+                        style: style,
+                        elements: {
+                            nodes: nodes,
+                            edges: edges
+                        }
+                    });
+                },
+                function() {
+                    alert("An error occured while retrieving the execution graph of this workflow.");
+                });
+        }
         // end of execution graph
     }
 

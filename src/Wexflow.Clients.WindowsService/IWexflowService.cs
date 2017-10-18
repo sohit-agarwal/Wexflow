@@ -48,5 +48,8 @@ namespace Wexflow.Clients.WindowsService
 
         [OperationContract]
         string[] GetSettings(string taskName);
+
+        [OperationContract]
+        Node[] GetExecutionGraph(string id);
     }
 }
