@@ -8,18 +8,18 @@
     var timerInterval = 500; // ms
 
     var html = "<div id='wf-container'>"
-                    + "<div id='wf-cmd'>"
-                        + "<button id='wf-start' type='button'>Start</button>"
-                        + "<button id='wf-pause' type='button'>Suspend</button>"
-                        + "<button id='wf-resume' type='button'>Resume</button>"
-                        + "<button id='wf-stop' type='button'>Stop</button>"
-                    + "</div>"
-                    + "<div id='wf-notifier'>"
-                        + "<input id='wf-notifier-text' type='text' name='fname' readonly>"
-                    + "</div>"
-                    + "<div id='wf-workflows'>"
-                    + "</div>"
-              + "</div>";
+        + "<div id='wf-cmd'>"
+        + "<button id='wf-start' type='button' class='btn btn-primary btn-sm'>Start</button>"
+        + "<button id='wf-pause' type='button' class='btn btn-secondary btn-sm'>Suspend</button>"
+        + "<button id='wf-resume' type='button' class='btn btn-secondary btn-sm'>Resume</button>"
+        + "<button id='wf-stop' type='button' class='btn btn-outline-danger btn-sm'>Stop</button>"
+        + "</div>"
+        + "<div id='wf-notifier'>"
+        + "<input id='wf-notifier-text' type='text' name='fname' readonly>"
+        + "</div>"
+        + "<div id='wf-workflows'>"
+        + "</div>"
+        + "</div>";
 
     document.getElementById(id).innerHTML = html;
 
@@ -85,8 +85,8 @@
 
         }
 
-        var table = "<table id='wf-workflows-table' class='table table-striped'>"
-                        + "<thead>"
+        var table = "<table id='wf-workflows-table' class='table table-hover'>"
+                        + "<thead class='thead-inverse'>"
                         + "<tr>"
                          + "<th class='wf-id'>Id</th>"
                          + "<th class='wf-n'>Name</th>"
@@ -199,10 +199,14 @@
         };
 
         stopButton.onclick = function () {
-            var stopUri = uri + "/stop/" + selectedId;
-            post(stopUri, function () {
-                updateButtons(selectedId, true);
-            });
+            var r = confirm("Are you sure you want to stop this workflow?");
+            if (r === true) {
+                var stopUri = uri + "/stop/" + selectedId;
+                post(stopUri,
+                    function() {
+                        updateButtons(selectedId, true);
+                    });
+            }
         };
 
         // End of get workflows

@@ -445,7 +445,7 @@ namespace Wexflow.Clients.WindowsService
                 case "FilesRemover":
                     return new[] { "selectFiles" };
                 case "FilesRenamer":
-                    return new[] { "overwrite" };
+                    return new[] { "selectFiles", "overwrite" };
                 case "Ftp":
                     return new[] { "selectFiles", "command", "protocol", "encryption", "server", "port", "user", "password", "privateKeyPath", "passphrase", "path", "retryCount", "retryTimeout" };
                 case "Http":
@@ -507,7 +507,7 @@ namespace Wexflow.Clients.WindowsService
             if (wf != null)
             {
                 IList<Node> nodes = new List<Node>();
-                //int i = 0;
+                
                 foreach (var node in wf.ExecutionGraph.Nodes)
                 {
                     string nodeName = "Task " + node.Id;

@@ -46,6 +46,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="css\bootstrap.min.css" />
     <Content Include="css\wexflow-designer.min.css" />
     <Content Include="js\uglify.bat" />
     <None Include="Web.Debug.config">

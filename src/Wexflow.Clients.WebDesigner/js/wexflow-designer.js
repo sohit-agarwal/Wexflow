@@ -12,7 +12,7 @@
     var timerInterval = 500; // ms
     var saveCalled = false;
 
-    var rightPanelHtml = "<h3>Workflow <button id='wf-xml' type='button' class='wf-action-left'>Xml</button></h3>" +
+    var rightPanelHtml = "<h3><button id='wf-xml' type='button' class='wf-action-left btn btn-outline-secondary btn-sm'>Xml</button></h3>" +
         "<pre><code id='wf-xml-container' class='xml'></code></pre>" +
         "<table class='wf-designer-table'>" +
         "<tbody>" +
@@ -26,20 +26,19 @@
         "<tr><td class='wf-title'>Status</td><td id='wf-status' class='wf-value'></td></tr>" +
         "</tbody>" +
         "</table>" +
-        "<h3>Tasks</h3>" +
         "<div id='wf-tasks'>" +
         "</div>" +
-        "<button type='button' id='wf-add-task'>New task</button>" +
+        "<button type='button' id='wf-add-task' class='btn btn-outline-secondary btn-sm'>New task</button>" +
         "<h3 id='wf-execution-graph-title'>Execution graph</h3>" +
         "<div id='wf-execution-graph'></div>";
 
     var html = "<div id='wf-container'>" +
         "<div id='wf-workflows'></div>" +
         "<div id='wf-action'>" +
-        "<button type='button' id='wf-add-workflow'>New workflow</button>" +
-        "<button id='wf-delete' type='button' class='wf-action-right wf-delete'>Delete</button>" +
-        "<button id='wf-save' type= 'button' class='wf-action-right'>Save</button>" +
-        "<button id='wf-cancel' type= 'button' class='wf-action-right'>Cancel</button>" +
+        "<button type='button' id='wf-add-workflow' class='btn btn-outline-secondary btn-sm'>New workflow</button>" +
+        "<button id='wf-delete' type='button' class='wf-action-right btn btn-outline-danger btn-sm'>Delete</button>" +
+        "<button id='wf-save' type= 'button' class='wf-action-right btn btn-secondary btn-sm'>Save</button>" +
+        "<button id='wf-cancel' type= 'button' class='wf-action-right btn btn-secondary btn-sm'>Cancel</button>" +
         "</div>"+
         "<div id='wf-designer-right-panel' style='display: none;'>" +
         rightPanelHtml +
@@ -155,11 +154,7 @@
         document.getElementById("wf-delete").onclick = deleteWorkflow;
 
         document.getElementById("wf-save").onclick = function () {
-            var wfIdStr = document.getElementById("wf-id").value;
-            if (isInt(wfIdStr)) {
-                var workflowId = parseInt(wfIdStr);
-                saveClick(workflowId);
-            }
+            saveClick(true);
         };
 
         get(uri + "/taskNames",
@@ -181,37 +176,58 @@
 
     }
 
-    function saveClick(selectedId) {
+    function saveClick(checkId) {
+
+        var selectedId = -1;
+        var wfSelectedWorkflow = document.getElementsByClassName("selected");
+        if (wfSelectedWorkflow.length > 0) {
+            selectedId = parseInt(wfSelectedWorkflow[0].getElementsByClassName("wf-id")[0].innerHTML);
+        }
+
         var wfIdStr = document.getElementById("wf-id").value;
         if (isInt(wfIdStr)) {
             var workflowId = parseInt(wfIdStr);
-            get(uri + "/isWorkflowIdValid/" + workflowId,
-                function (res) {
-                    if (res === true || saveCalled === true) {
-                        if (document.getElementById("wf-name").value === "") {
-                            alert("Please enter the name of the workflow.");
-                        } else {
-                            var lt = document.getElementById("wf-launchType").value;
-                            if (lt === "") {
-                                alert("Please select the launchType of the workflow.");
+            
+            if (checkId === true) {
+                get(uri + "/isWorkflowIdValid/" + workflowId,
+                    function(res) {
+                        if (res === true || saveCalled === true) {
+                            if (document.getElementById("wf-name").value === "") {
+                                alert("Enter a name for this workflow.");
                             } else {
-                                if (lt === "periodic" && document.getElementById("wf-period").value === "") {
-                                    alert("Please enter the period of the workflow.");
+                                var lt = document.getElementById("wf-launchType").value;
+                                if (lt === "") {
+                                    alert("Select a launchType for this workflow.");
                                 } else {
-                                    save(workflowId, selectedId, function () {
-                                        saveCalled = true;
-                                        workflowInfos[workflowId].IsNew = false;
-                                        document.getElementById("wf-delete").style.display = "inline-block";
-                                    });
+                                    if (lt === "periodic" && document.getElementById("wf-period").value === "") {
+                                        alert("Enter a period for this workflow.");
+                                    } else {
+                                        save(workflowId,
+                                            selectedId === -1 ? workflowId : selectedId,
+                                            function() {
+                                                saveCalled = true;
+                                                workflowInfos[workflowId].IsNew = false;
+                                                document.getElementById("wf-delete").style.display = "inline-block";
+                                            });
+                                    }
                                 }
                             }
+                        } else {
+                            alert("The workflow id is already in use. Enter another one.");
                         }
-                    } else {
-                        alert("The workflow Id is already in use. Please enter an other one.");
-                    }
-                });
+                    });
+            } else {
+                save(workflowId,
+                    selectedId === -1 ? workflowId : selectedId,
+                    function () {
+                        saveCalled = true;
+                        workflowInfos[workflowId].IsNew = false;
+                        document.getElementById("wf-delete").style.display = "inline-block";
+                    });
+            }
+
         } else {
-            alert("Please enter a valid workflow id.");
+            alert("Enter a valid workflow id.");
         }
     }
 
@@ -356,13 +372,14 @@
         wfTask.className = "wf-task";
         var newTaskHtml =
             "<h5 class='wf-task-title'>" +
-                "<label class='wf-task-title-label'>Task</label>" +
-                "<button type='button' class='wf-remove-task wf-delete' style='display: block;'>Delete</button>" +
-                "</h5>" +
-                "<table class='wf-designer-table'>" +
-                "<tbody>" +
-                "<tr><td class='wf-title'>Id</td><td class='wf-value'><input class='wf-task-id' type='text' /></td></tr>" +
-                "<tr><td class='wf-title'>Name</td><td class='wf-value'><select class='wf-task-name'>";
+            "<label class='wf-task-title-label'>Task</label>" +
+            "<button type='button' class='wf-remove-task btn btn-outline-danger btn-sm' style='display: block;'>Delete</button>" +
+            "<button type='button' class='wf-add-setting btn btn-outline-secondary btn-sm'>New setting</button>" +
+            "</h5>" +
+            "<table class='wf-designer-table'>" +
+            "<tbody>" +
+            "<tr><td class='wf-title'>Id</td><td class='wf-value'><input class='wf-task-id' type='text' /></td></tr>" +
+            "<tr><td class='wf-title'>Name</td><td class='wf-value'><select class='wf-task-name'>";
 
         newTaskHtml += "<option value=''></option>";
         for (var i1 = 0; i1 < taskNames.length; i1++) {
@@ -375,9 +392,6 @@
             "<tr><td class='wf-title'>Enabled</td><td class='wf-value'><input class='wf-task-enabled' type='checkbox' checked /></td></tr>" +
             "</tbody>" +
             "</table>" +
-            "<h6>Settings" +
-            "<button type='button' class='wf-add-setting'>New setting</button>" +
-            "</h6>" +
             "<table class='wf-designer-table wf-settings'>" +
             "</table>";
 
@@ -497,9 +511,9 @@
                 cell2.innerHTML = "<input class='wf-setting-value' type='text' /><table class='wf-attributes'></table>";
 
                 cell3.className = "wf-add-attribute-td";
-                cell3.innerHTML = "<button type='button' class='wf-add-attribute'>New attribute</button>";
+                cell3.innerHTML = "<button type='button' class='wf-add-attribute btn btn-outline-secondary btn-sm'>New attribute</button>";
                 cell4.colSpan = "2";
-                cell4.innerHTML = "<button type='button' class='wf-remove-setting wf-delete'>Delete</button>";
+                cell4.innerHTML = "<button type='button' class='wf-remove-setting btn btn-outline-danger btn-sm'>Delete</button>";
 
                 var taskIndex = getElementIndex(btn.parentElement.parentElement);
                 var task = workflowTasks[workflowId][taskIndex];
@@ -565,7 +579,7 @@
 
         cell1.innerHTML = "<input class='wf-attribute-name' type='text' />";
         cell2.innerHTML = "<input class='wf-attribute-value' type='text' />";
-        cell3.innerHTML = "<button type='button' class='wf-remove-attribute wf-delete'>Delete</button>";
+        cell3.innerHTML = "<button type='button' class='wf-remove-attribute btn btn-outline-danger btn-sm'>Delete</button>";
 
         var taskIndex =
             getElementIndex(btn.parentElement.parentElement.parentElement.parentElement.parentElement);
@@ -948,7 +962,8 @@
 
                                     tasksHtml += "<div class='wf-task'>" +
                                         "<h5 class='wf-task-title'><label class='wf-task-title-label'>Task " + task.Id + "</label>" +
-                                        "<button type='button' class='wf-remove-task wf-delete'>Delete</button>" +
+                                        "<button type='button' class='wf-remove-task btn btn-outline-danger btn-sm'>Delete</button>" +
+                                        "<button type='button' class='wf-add-setting btn btn-outline-secondary btn-sm'>New setting</button>" +
                                         "</h5>" +
                                         "<table class='wf-designer-table'>" +
                                         "<tbody>" +
@@ -965,9 +980,8 @@
                                         "<tr><td class='wf-title'>Enabled</td><td class='wf-value'><input class='wf-task-enabled' type='checkbox'   " + (task.IsEnabled ? "checked" : "") + " /></td></tr>" +
                                         "</tbody>" +
                                         "</table>" +
-                                        "<h6>Settings" +
-                                        "<button type='button' class='wf-add-setting'>New setting</button>" +
-                                        "</h6>" +
+                                        //"<div class='wf-add-setting-title'>" +
+                                        //"</div>" +
                                         "<table class='wf-designer-table wf-settings'>" +
                                         "<tbody>";
 
@@ -990,15 +1004,15 @@
                                                 "<tr>" +
                                                 "<td><input class='wf-attribute-name' type='text' value='" + attr.Name + "'  /></td>" +
                                                 "<td><input class='wf-attribute-value' type='text' value='" + attr.Value + "'  /></td>" +
-                                                "<td><button type='button' class='wf-remove-attribute wf-delete'>Delete</button></td>" +
+                                                "<td><button type='button' class='wf-remove-attribute btn btn-outline-danger btn-sm'>Delete</button></td>" +
                                                 "</tr>";
                                         }
 
                                         tasksHtml += "</table>";
 
                                         tasksHtml += "</td>" +
-                                            "<td class='wf-add-attribute-td'><button type='button' class='wf-add-attribute'>New attribute</button></td>" +
-                                            "<td colspan='2'><button type='button' class='wf-remove-setting wf-delete'>Delete</button></td>" +
+                                            "<td class='wf-add-attribute-td'><button type='button' class='wf-add-attribute btn btn-outline-secondary btn-sm'>New attribute</button></td>" +
+                                            "<td colspan='2'><button type='button' class='wf-remove-setting btn btn-outline-danger btn-sm'>Delete</button></td>" +
                                             "</tr>";
                                     }
 
@@ -1043,8 +1057,7 @@
                                     var wfAddAttributeTd = wfAddAttributsTds[i3];
                                     var settingValue =
                                         wfAddAttributeTd.parentElement.getElementsByClassName("wf-setting-name")[0].value;
-                                    if (settingValue === "selectFiles" ||
-                                        settingValue === "selectetAttachments") {
+                                    if (settingValue === "selectFiles" || settingValue === "selectetAttachments") {
                                         wfAddAttributeTd.style.display = "block";
                                     }
                                 }
@@ -1240,7 +1253,7 @@
 
                 }
 
-                var table = "<table id='wf-workflows-table' class='table table-striped'>" +
+                var table = "<table id='wf-workflows-table' class='table table-hover'>" +
                     "<thead>" +
                     "<tr>" +
                     "<th class='wf-id'>Id</th>" +
@@ -1277,8 +1290,7 @@
                         }
 
                         document.getElementById("wf-save").onclick = function () {
-                            //save(selectedId);
-                            saveClick(selectedId);
+                            saveClick(false);
                         };
                     };
                 }
