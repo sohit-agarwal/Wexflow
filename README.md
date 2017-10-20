@@ -32,6 +32,7 @@ Wexflow is an open source extensible workflow engine with a cross-platform manag
 - [Installation guide](https://github.com/aelassas/Wexflow/wiki/Installation)
 - [Quickstart](https://github.com/aelassas/Wexflow/wiki/Usage)
 - [Workflow samples](https://github.com/aelassas/Wexflow/wiki/Samples)
+- [Tasks documentation](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation)
 
 <!--
 # Bugs and features
