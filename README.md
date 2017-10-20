@@ -4,7 +4,7 @@
 [![Twitter](https://img.shields.io/badge/twitter-@wexflow86-55acee.svg)](https://twitter.com/wexflow86)
 -->
 
-[![Release](http://img.shields.io/badge/release-v1.8-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/tag/v1.8)
+[![Release](http://img.shields.io/badge/release-v2.0-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/tag/v2.0)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby)
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)
 
