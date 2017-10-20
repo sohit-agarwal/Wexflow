@@ -12,6 +12,9 @@
 			<Setting name="file" value="C:\WexflowTesting\file3.txt" />
 			<Setting name="file" value="C:\WexflowTesting\file4.txt" />
 			<Setting name="file" value="C:\WexflowTesting\file5.txt" />
+			
+			<Setting name="regexPattern" value=".*\.mp4" />
+			<Setting name="recursive" value="true" />
 		</Task>
 		<Task id="2" name="ListFiles" description="Listing files" enabled="true">
 		</Task>

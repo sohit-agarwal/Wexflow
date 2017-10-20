@@ -18,5 +18,10 @@
     <Setting name="file" value="$string" />
     <Setting name="file" value="$string" />
     <!-- You can add as many file options as you want.-->
+    <!-- Optional. The files loaded from the folders matching the regex pattern will be loaded. 
+    Example: .*\.mp4 will load only mp4 files.-->
+    <Setting name="regexPattern" value="$string" />
+    <!-- Optional and by default false. If set to true the files in subfolders will be loaded recursively. -->
+    <Setting name="recursive" value="true|false" />
   </Task>
 </Tasks>

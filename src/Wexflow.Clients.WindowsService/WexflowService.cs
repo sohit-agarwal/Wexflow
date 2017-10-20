@@ -439,7 +439,7 @@ namespace Wexflow.Clients.WindowsService
                 case "FilesExist":
                     return new[] { "file", "folder" };
                 case "FilesLoader":
-                    return new[] { "file", "folder" };
+                    return new[] { "file", "folder", "regexPattern", "recursive" };
                 case "FilesMover":
                     return new[] { "selectFiles", "destFolder", "overwrite" };
                 case "FilesRemover":
