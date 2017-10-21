@@ -10,8 +10,9 @@
 [![Release](http://img.shields.io/badge/release-v2.0-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/tag/v2.0)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby)
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)
+<!--
 [![Say Thanks!](https://img.shields.io/badge/say%20thanks-!-1EAEDB.svg)](https://saythanks.io/to/aelassas)
-
+-->
 Wexflow is an open source extensible workflow engine with a cross-platform manager and designer. Wexflow aims to make automations, workflow processes, long-running processes and interactions between systems, applications and folks easy, straitforward and clean.
 
 <!--
