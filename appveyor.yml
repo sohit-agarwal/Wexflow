@@ -31,5 +31,5 @@ configuration: Debug
 
 build:
   parallel: true                   # enable MSBuild parallel builds
-  project: Wexflow.vs2017.sln      # path to Visual Studio solution or project
+  project: Wexflow.vs2010.sln      # path to Visual Studio solution or project
   verbosity: minimal               # MSBuild verbosity level quiet|minimal|normal|detailed
