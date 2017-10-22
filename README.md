@@ -87,4 +87,5 @@ Wexflow contains other libraries with their individual licenses. More details ab
 
 # Thanks
 
-Thanks [JetBrains](https://www.jetbrains.com/) for providing a free license of [Resharper](https://www.jetbrains.com/resharper/).
+- Thanks [JetBrains](https://www.jetbrains.com/) for providing a free license of [Resharper](https://www.jetbrains.com/resharper/).
+- Thanks [@HaMster21](https://github.com/HaMster21) for your contributions to the code.
