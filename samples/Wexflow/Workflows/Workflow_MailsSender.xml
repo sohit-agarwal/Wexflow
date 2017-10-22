@@ -1,7 +1,7 @@
 <Workflow xmlns="urn:wexflow-schema" id="9" name="Workflow_MailsSender" description="Workflow_MailsSender">
 	<Settings>
-		<Setting name="launchType" value="trigger" /> <!-- startup|trigger|periodic -->
-		<Setting name="enabled" value="true" /> <!-- true|false -->
+		<Setting name="launchType" value="trigger" />
+		<Setting name="enabled" value="true" />
 	</Settings>
 	<Tasks>
 		<Task id="1" name="FilesLoader" description="Loading mails" enabled="true">

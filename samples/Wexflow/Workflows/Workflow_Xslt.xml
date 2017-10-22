@@ -10,7 +10,7 @@
 		<Task id="2" name="Xslt" description="Transforming XMLs" enabled="true">
 			<Setting name="selectFiles" value="1" />
 			<Setting name="xsltPath" value="C:\Wexflow\Xslt\Products.xslt" />
-			<Setting name="version" value="2.0" /> <!-- 1.0|2.0 -->
+			<Setting name="version" value="1.0" /> <!-- 1.0|2.0 -->
 		</Task>
 		<Task id="3" name="FilesMover" description="Moving transformed XMLs" enabled="true">
 			<Setting name="selectFiles" value="2" />

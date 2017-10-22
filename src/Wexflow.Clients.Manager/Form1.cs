@@ -8,10 +8,10 @@ using Wexflow.Core.Service.Client;
 
 namespace Wexflow.Clients.Manager
 {
-    // v1.3
-    // TODO Wexflow Web Designer
-
+    // v2.1
     // TODO unit tests
+    // TODO Wmi, Sql, FileExists, Now, Ftp, MailsSender, Twitter, Workflow, ExecutionGraph
+
     // TODO Wexflow Manager wf status live + row background color
     // TODO Test and fix ftps (FluentFtpHelper)
     // TODO YouTube?

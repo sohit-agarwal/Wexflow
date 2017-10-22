@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    Xslt is a sequential task that transforms an XML file. 
+    Xslt is a sequential task that transforms a list of XML files. 
     
     The files generated will be loaded by this task so that other
     tasks can select them through the selectFiles option.
     
     This task can also be used along with ListFiles task to rename or tag a collection of files.
-    If you already know the file names that you wan to rename and their taskId you don't need to
+    If you already know the file names that you want to rename and their taskId you don't need to
     use ListFiles task.
     
     The ListFiles task outputs an XML file in this format:
@@ -68,8 +68,8 @@
     
     The Xslt task looks for <WexflowProcessing>//<File> nodes wherever they are in the XML in order
     to perform the following operations:
-      - set the renameTo of the file
-      - set the tags of the file
+      - Set the renameTo of the file.
+      - Set the tags of the file.
     
     The Xslt task needs the file name and the taskId to perform the operation described above.
     

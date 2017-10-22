@@ -19,8 +19,8 @@
       </Folders>
     </Root>
 
-    The XML files generated will be loaded by this task so that other
-    tasks can select them through the selectFiles option.
+    The XML file generated will be loaded by this task so that other
+    tasks can select it through the selectFiles option.
   -->
   <Task id="$int" name="FilesExist" description="$string" enabled="true|false">
     <!--  The file path. You can add as many options as you want.-->

@@ -81,7 +81,7 @@
     </ProjectReference>
     <ProjectReference Include="..\Wexflow.Core\Wexflow.Core.csproj">
       <Project>{46257949-80B5-48F2-9B83-29354C339869}</Project>
-      <Name>Wexflow.Core %28Wexflow.Core\Wexflow.Core%29</Name>
+      <Name>Wexflow.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.CsvToXml\Wexflow.Tasks.CsvToXml.csproj">
       <Project>{40664177-8903-4c7b-ad0e-7b98bed6a3c8}</Project>

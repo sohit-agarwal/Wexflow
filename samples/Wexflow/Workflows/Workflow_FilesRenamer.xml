@@ -1,8 +1,7 @@
 <Workflow xmlns="urn:wexflow-schema" id="36" name="Workflow_FilesRenamer" description="Workflow_FilesRenamer">
 	<Settings>
-		<Setting name="launchType" value="trigger" /> <!-- startup|trigger|periodic -->
-		<!--<Setting name="period" value="00.00:00:20" />-->
-		<Setting name="enabled" value="true" /> <!-- true|false -->
+		<Setting name="launchType" value="trigger" />
+		<Setting name="enabled" value="true" />
 	</Settings>
 	<Tasks>
 		<Task id="1" name="FilesLoader" description="Loading files" enabled="true">

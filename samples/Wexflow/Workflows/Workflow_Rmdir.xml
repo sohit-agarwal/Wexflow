@@ -1,7 +1,7 @@
 <Workflow xmlns="urn:wexflow-schema" id="14" name="Workflow_Rmdir" description="Workflow_Rmdir">
 	<Settings>
-		<Setting name="launchType" value="trigger" /> <!-- startup|trigger|periodic -->
-		<Setting name="enabled" value="true" /> <!-- true|false -->
+		<Setting name="launchType" value="trigger" />
+		<Setting name="enabled" value="true" />
 	</Settings>
 	<Tasks>
 		<Task id="1" name="Rmdir" description="Deleting folders" enabled="true">
