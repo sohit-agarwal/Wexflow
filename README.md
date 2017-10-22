@@ -54,6 +54,12 @@ Discover more about the features in [details](https://github.com/aelassas/Wexflo
 - [Workflow samples](https://github.com/aelassas/Wexflow/wiki/Samples)
 - [Tasks documentation](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation)
 
+# Contribute
+To contribute to this project, proceed as follows:
+- Read the technical documentation available on [CodeProject](https://www.codeproject.com/Articles/1164009/Wexflow-Open-source-workflow-engine-in-Csharp#code).
+- Read the documentation on how to [debug](https://github.com/aelassas/Wexflow/wiki/Debug) Wexflow.
+- Use GitHub [pull requests](https://github.com/aelassas/Wexflow/pulls) to push your contribution.
+
 <!--
 # Bugs and features
   
