@@ -76,14 +76,14 @@ If you'd like to add a feature request please add some details how it is suppose
 More information about Wexflow can be found on [CodeProject](https://www.codeproject.com/Articles/1164009/Wexflow-Open-source-workflow-engine-in-Csharp).
 -->
 
+# Changelog
+
+The changelog is available in the [release history](https://github.com/aelassas/Wexflow/wiki/History).
+
 # License
 Wexflow is licensed under the [MIT License](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt). 
 
 Wexflow contains other libraries with their individual licenses. More details about these licenses can be found in the [wiki](https://github.com/aelassas/Wexflow/wiki/License).
-
-# Changelog
-
-The changelog is available in the [release history](https://github.com/aelassas/Wexflow/wiki/History).
 
 # Thanks
 
