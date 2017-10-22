@@ -6,7 +6,6 @@
 [![forthebadge](http://forthebadge.com/images/badges/made-with-c-sharp.svg)](http://forthebadge.com)
 [![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)
 
-
 [![Release](http://img.shields.io/badge/release-v2.0-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/tag/v2.0)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby)
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)
@@ -14,6 +13,22 @@
 [![Say Thanks!](https://img.shields.io/badge/say%20thanks-!-1EAEDB.svg)](https://saythanks.io/to/aelassas)
 -->
 Wexflow is an open source extensible workflow engine with a cross-platform manager and designer. Wexflow aims to make automations, workflow processes, long-running processes and interactions between systems, applications and folks easy, straitforward and clean.
+
+Wexflow provides the following features:
+
+- [x] Sequential workflows.
+- [x] Flowchart workflows.
+- [x] Workflow events.
+- [x] A cross-platform application for managing workflows.
+- [x] A cross-platform application for designing workflows.
+- [x] An Android application for managing workflows.
+- [x] Automation.
+- [x] Hot reload of workflows.
+- [x] Monitoring.
+- [x] 32 built-in tasks.
+- [x] Extensible.
+
+Discover more about the features in [details](https://github.com/aelassas/Wexflow/wiki).
 
 <!--
 <i>This project is sponsored by [JetBrains](https://www.jetbrains.com/).</i>
