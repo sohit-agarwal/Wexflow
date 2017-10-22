@@ -27,6 +27,7 @@ Wexflow provides the following features:
 - [x] Monitoring.
 - [x] 32 built-in tasks.
 - [x] Extensible.
+- [x] Straightforward and easy to use.
 
 Discover more about the features in [details](https://github.com/aelassas/Wexflow/wiki).
 
