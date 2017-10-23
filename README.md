@@ -12,7 +12,7 @@
 <!--
 [![Say Thanks!](https://img.shields.io/badge/say%20thanks-!-1EAEDB.svg)](https://saythanks.io/to/aelassas)
 -->
-Wexflow is an open source extensible workflow engine with a cross-platform manager and designer. Wexflow aims to make automations, workflow processes, long-running processes and interactions between systems, applications and folks easy, straitforward and clean.
+Wexflow is an open source extensible workflow engine with a cross-platform manager and designer. Wexflow aims to make automations, workflow processes, long-running processes and interactions between systems, applications and folks easy, straightforward and clean.
 
 Wexflow provides the following features:
 
