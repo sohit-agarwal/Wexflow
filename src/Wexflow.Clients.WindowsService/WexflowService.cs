@@ -359,6 +359,9 @@ namespace Wexflow.Clients.WindowsService
                 "Now",
                 "ProcessLauncher",
                 "Rmdir",
+                "Sha1",
+                "Sha256",
+                "Sha512",
                 "Sql",
                 "Sync",
                 "Tar",
@@ -470,6 +473,12 @@ namespace Wexflow.Clients.WindowsService
                     return new[] { "selectFiles", "processPath", "processCmd", "hideGui", "generatesFiles" };
                 case "Rmdir":
                     return new[] { "folder" };
+                case "Sha1":
+                    return new[] { "selectFiles" };
+                case "Sha256":
+                    return new[] { "selectFiles" };
+                case "Sha512":
+                    return new[] { "selectFiles" };
                 case "Sql":
                     return new[] { "selectFiles", "type", "connectionString", "sql" };
                 case "Sync":

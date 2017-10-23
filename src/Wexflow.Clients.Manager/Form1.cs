@@ -9,8 +9,7 @@ using Wexflow.Core.Service.Client;
 namespace Wexflow.Clients.Manager
 {
     // v2.1
-    // TODO unit tests
-    // TODO Wmi, Sql, FileExists, Now, Ftp, MailsSender, Twitter, Workflow, ExecutionGraph
+    // TODO unit tests: Sql, Wmi, Ftp, MailsSender, Twitter, Workflow
 
     // TODO Wexflow Manager wf status live + row background color
     // TODO Test and fix ftps (FluentFtpHelper)

@@ -71,6 +71,9 @@
     <Compile Include="FilesCopier.cs" />
     <Compile Include="FilesExist.cs" />
     <Compile Include="FilesLoader.cs" />
+    <Compile Include="Sha512.cs" />
+    <Compile Include="Sha256.cs" />
+    <Compile Include="Sha1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="FilesMover.cs" />
@@ -188,6 +191,18 @@
     <ProjectReference Include="..\Wexflow.Tasks.Rmdir\Wexflow.Tasks.Rmdir.csproj">
       <Project>{f3f7276b-ac03-4db2-a1d8-28738434c72e}</Project>
       <Name>Wexflow.Tasks.Rmdir</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.Sha1\Wexflow.Tasks.Sha1.csproj">
+      <Project>{58e208f5-9943-48e5-86df-56f1ccfa8e75}</Project>
+      <Name>Wexflow.Tasks.Sha1</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.Sha256\Wexflow.Tasks.Sha256.csproj">
+      <Project>{841f05bd-adfa-45d1-8c73-9ae0cdd6afd4}</Project>
+      <Name>Wexflow.Tasks.Sha256</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.Sha512\Wexflow.Tasks.Sha512.csproj">
+      <Project>{261e8567-6ace-4591-80ec-658eede9ebcf}</Project>
+      <Name>Wexflow.Tasks.Sha512</Name>
     </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.Sql\Wexflow.Tasks.Sql.csproj">
       <Project>{ef416670-6443-4c98-8d26-27d3741b8fb0}</Project>

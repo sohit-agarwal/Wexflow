@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Diagnostics;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Wexflow.Tasks.Tests
 {
@@ -19,7 +20,15 @@ namespace Wexflow.Tasks.Tests
         [TestMethod]
         public void Run()
         {
-            // TODO
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            Helper.StartWorkflow(49);
+            stopwatch.Stop();
+            Assert.IsTrue(stopwatch.ElapsedMilliseconds > 1000 && stopwatch.ElapsedMilliseconds < 2000);
+            stopwatch.Reset();
+            stopwatch.Start();
+            Helper.StartWorkflow(50);
+            stopwatch.Stop();
+            Assert.IsTrue(stopwatch.ElapsedMilliseconds > 2000);
         }
     }
 }

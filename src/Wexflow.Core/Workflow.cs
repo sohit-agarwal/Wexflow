@@ -130,7 +130,7 @@ namespace Wexflow.Core
                         }
                         else
                         {
-                            throw new Exception("The type of the task " + name + "could not be loaded.");
+                            throw new Exception("The type of the task " + name + " could not be loaded.");
                         }
                     }
                     else

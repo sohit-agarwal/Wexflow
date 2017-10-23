@@ -18,7 +18,7 @@ namespace Wexflow.Tasks.Tests
             var isRunning = workflow.IsRunning;
             while (isRunning)
             {
-                Thread.Sleep(500);
+                Thread.Sleep(100);
                 workflow = WexflowEngine.GetWorkflow(workflowId);
                 isRunning = workflow.IsRunning;
             }
