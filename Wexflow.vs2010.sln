@@ -92,7 +92,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.tfignore = .tfignore
 		appveyor.yml = appveyor.yml
 		LICENSE.txt = LICENSE.txt
-		README.md = README.md
 		VERSION.txt = VERSION.txt
 	EndProjectSection
 EndProject
