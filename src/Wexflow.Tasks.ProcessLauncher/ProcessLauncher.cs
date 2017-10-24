@@ -124,13 +124,15 @@ namespace Wexflow.Tasks.ProcessLauncher
         {
             try
             {
+                //if (hideGui)
+                //{
                 var startInfo = new ProcessStartInfo(ProcessPath, processCmd)
-                    {
-                        CreateNoWindow = hideGui,
-                        UseShellExecute = false,
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true
-                    };
+                {
+                    CreateNoWindow = hideGui,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true
+                };
 
                 var process = new Process {StartInfo = startInfo};
                 process.OutputDataReceived += OutputHandler;
@@ -139,6 +141,14 @@ namespace Wexflow.Tasks.ProcessLauncher
                 process.BeginOutputReadLine();
                 process.BeginErrorReadLine();
                 process.WaitForExit();
+                //}
+                //else
+                //{
+                //    // Works on Vista and 7 but not on 10
+                //    var applicationName = ProcessPath + " " + processCmd;
+                //    ApplicationLoader.PROCESS_INFORMATION procInfo;
+                //    ApplicationLoader.StartProcessAndBypassUAC(applicationName, out procInfo, true);
+                //}
                 return new TaskStatus(Status.Success, false);
             }
             catch (ThreadAbortException)

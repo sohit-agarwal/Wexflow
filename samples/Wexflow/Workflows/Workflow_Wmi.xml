@@ -5,7 +5,7 @@
 	</Settings>
 	<Tasks>
 		<Task id="1" name="Wmi" description="Listing all running processes" enabled="true">
-			<Setting name="query" value="SELECT * FROM Win32_Process" />
+			<Setting name="query" value="SELECT Name FROM Win32_ComputerSystem" />
 		</Task>
 		<Task id="2" name="FilesMover" description="Moving Wmi Xmls to Wmi folder" enabled="true">
 			<Setting name="selectFiles" value="1" />

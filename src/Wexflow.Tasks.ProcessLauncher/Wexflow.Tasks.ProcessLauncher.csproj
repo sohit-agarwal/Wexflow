@@ -70,6 +70,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationLoader.cs" />
     <Compile Include="ProcessLauncher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
