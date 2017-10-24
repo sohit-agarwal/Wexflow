@@ -1,17 +1,12 @@
 # Wexflow
 
-<!--
-[![Twitter](https://img.shields.io/badge/twitter-@wexflow86-55acee.svg)](https://twitter.com/wexflow86)
--->
 [![forthebadge](http://forthebadge.com/images/badges/made-with-c-sharp.svg)](http://forthebadge.com)
 [![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)
 
 [![Release](http://img.shields.io/badge/release-v2.0-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/tag/v2.0)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby)
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)
-<!--
-[![Say Thanks!](https://img.shields.io/badge/say%20thanks-!-1EAEDB.svg)](https://saythanks.io/to/aelassas)
--->
+
 Wexflow is an open source extensible workflow engine with a cross-platform manager and designer. Wexflow aims to make automations, workflow processes, long-running processes and interactions between systems, applications and folks easy, straightforward and clean.
 
 Wexflow provides the following features:
@@ -31,13 +26,14 @@ Wexflow provides the following features:
 
 Discover more about the features in [details](https://github.com/aelassas/Wexflow/wiki).
 
-<!--
-<i>This project is sponsored by [JetBrains](https://www.jetbrains.com/).</i>
-[![JetBrains](https://aelassas.github.io/wexflow/images/Jetbrains_logo.png)](https://www.jetbrains.com/)
--->
-<!--
-<h4 align="center"><a href="https://wexflow.github.io/"><img height="321px" src="https://aelassas.github.io/wexflow/images/logo.png" width="494px" /> <br />Workflows Made Easy</a></h4>
--->
+Here are the benefits of using Wexflow:
+
+- [x] Gain time by automating repetitive tasks.
+- [x] Save money by avoiding re-work and corrections.
+- [x] Reduce human error.
+- [x] Become more efficient and effective in completing your tasks.
+- [x] Become more productive in what you do.
+- [x] Become consistent in what you do.
 
 # Continuous integration
 
@@ -65,7 +61,6 @@ To contribute to this project, proceed as follows:
 - Read the documentation on how to [debug](https://github.com/aelassas/Wexflow/wiki/Debug) Wexflow.
 - Use GitHub [pull requests](https://github.com/aelassas/Wexflow/pulls) to push your contribution.
 
-<!--
 # Bugs and features
   
  If you found any issues with Wexflow, please submit a bug report at the [Issue Tracker](https://github.com/aelassas/Wexflow/issues). Please include the following:
@@ -75,11 +70,6 @@ To contribute to this project, proceed as follows:
   - Expected result.
  
 If you'd like to add a feature request please add some details how it is supposed to work.
-
-# More information
-
-More information about Wexflow can be found on [CodeProject](https://www.codeproject.com/Articles/1164009/Wexflow-Open-source-workflow-engine-in-Csharp).
--->
 
 # Changelog
 
