@@ -71,6 +71,9 @@
     <Compile Include="FilesCopier.cs" />
     <Compile Include="FilesExist.cs" />
     <Compile Include="FilesLoader.cs" />
+    <Compile Include="FilesConcat.cs" />
+    <Compile Include="FilesInfo.cs" />
+    <Compile Include="MediaInfo.cs" />
     <Compile Include="Sha512.cs" />
     <Compile Include="Sha256.cs" />
     <Compile Include="Sha1.cs" />
@@ -120,6 +123,10 @@
       <Project>{8ed85a48-a8e3-4565-a874-3562f081d14c}</Project>
       <Name>Wexflow.Tasks.FileExists</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.FilesConcat\Wexflow.Tasks.FilesConcat.csproj">
+      <Project>{215834bb-7c88-45f0-b376-76ffae93f4b2}</Project>
+      <Name>Wexflow.Tasks.FilesConcat</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.FilesCopier\Wexflow.Tasks.FilesCopier.csproj">
       <Project>{4f396126-2220-45ae-a90f-d655a3ab585f}</Project>
       <Name>Wexflow.Tasks.FilesCopier</Name>
@@ -127,6 +134,10 @@
     <ProjectReference Include="..\Wexflow.Tasks.FilesExist\Wexflow.Tasks.FilesExist.csproj">
       <Project>{eda6a4d5-5814-4920-b2da-dd414894cbf5}</Project>
       <Name>Wexflow.Tasks.FilesExist</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.FilesInfo\Wexflow.Tasks.FilesInfo.csproj">
+      <Project>{4c64fc9a-edad-4741-9b1d-76f11a73532a}</Project>
+      <Name>Wexflow.Tasks.FilesInfo</Name>
     </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.FilesLoader\Wexflow.Tasks.FilesLoader.csproj">
       <Project>{d9dd665a-a147-462c-bcee-3008559728b5}</Project>
@@ -171,6 +182,10 @@
     <ProjectReference Include="..\Wexflow.Tasks.Md5\Wexflow.Tasks.Md5.csproj">
       <Project>{73f4e657-2d76-4fff-970a-788c8272d6a3}</Project>
       <Name>Wexflow.Tasks.Md5</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.MediaInfo\Wexflow.Tasks.MediaInfo.csproj">
+      <Project>{31f725ce-5047-4afd-a21e-58828f7ccb08}</Project>
+      <Name>Wexflow.Tasks.MediaInfo</Name>
     </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.Mkdir\Wexflow.Tasks.Mkdir.csproj">
       <Project>{ff5a22b8-b594-4d2b-a3fe-10bd28038005}</Project>

@@ -343,6 +343,8 @@ namespace Wexflow.Clients.WindowsService
                 "FileExists",
                 "FilesCopier",
                 "FilesExist",
+                "FilesInfo",
+                "FilesConcat",
                 "FilesLoader",
                 "FilesMover",
                 "FilesRemover",
@@ -354,6 +356,7 @@ namespace Wexflow.Clients.WindowsService
                 "ListFiles",
                 "MailsSender",
                 "Md5",
+                "MediaInfo",
                 "Mkdir",
                 "Movedir",
                 "Now",
@@ -437,10 +440,14 @@ namespace Wexflow.Clients.WindowsService
                     return new[] { "selectFiles" };
                 case "FileExists":
                     return new[] { "file" };
+                case "FilesConcat":
+                    return new[] { "selectFiles" };
                 case "FilesCopier":
                     return new[] { "selectFiles", "destFolder", "overwrite" };
                 case "FilesExist":
                     return new[] { "file", "folder" };
+                case "FilesInfo":
+                    return new[] { "selectFiles" };
                 case "FilesLoader":
                     return new[] { "file", "folder", "regexPattern", "recursive" };
                 case "FilesMover":
@@ -462,6 +469,8 @@ namespace Wexflow.Clients.WindowsService
                 case "MailsSender":
                     return new[] { "selectFiles", "selectAttachments", "host", "port", "enableSsl", "user", "password" };
                 case "Md5":
+                    return new[] { "selectFiles" };
+                case "MediaInfo":
                     return new[] { "selectFiles" };
                 case "Mkdir":
                     return new[] { "folder" };

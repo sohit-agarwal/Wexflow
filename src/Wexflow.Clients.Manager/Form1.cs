@@ -9,11 +9,13 @@ using Wexflow.Core.Service.Client;
 namespace Wexflow.Clients.Manager
 {
     // v2.1
-    // TODO unit tests: Sql, Wmi, Ftp, MailsSender, Twitter, Workflow
+    // TODO unit tests: Sql, Ftp, MailsSender?, Twitter?, Workflow?
+
+    // TODO Tasks: Reporting?, YouTube?
+    
 
     // TODO Wexflow Manager wf status live + row background color
     // TODO Test and fix ftps (FluentFtpHelper)
-    // TODO YouTube?
 
     public partial class Form1 : Form
     {

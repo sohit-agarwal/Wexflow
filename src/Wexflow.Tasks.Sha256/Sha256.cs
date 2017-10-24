@@ -52,7 +52,7 @@ namespace Wexflow.Tasks.Sha256
                     }
                     catch (Exception e)
                     {
-                        ErrorFormat("An error occured while generating the md5 of the file {0}", e, file.Path);
+                        ErrorFormat("An error occured while generating the SHA-256 hash of the file {0}", e, file.Path);
                         success = false;
                     }
                 }
