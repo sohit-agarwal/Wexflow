@@ -81,13 +81,13 @@ namespace Wexflow.Tasks.MediaInfo
                                     continue;
                                 }
 
-                                if (line == "Audio")
-                                {
-                                    break;
-                                }
-
                                 if (xvideoFound)
                                 {
+                                    if (line == "Audio")
+                                    {
+                                        break;
+                                    }
+
                                     string[] tag = line.Split(':');
                                     xvideo.Add(new XElement("Tag",
                                         new XAttribute("name", tag[0].Trim()),
@@ -109,6 +109,11 @@ namespace Wexflow.Tasks.MediaInfo
 
                                 if (xaudioFound)
                                 {
+                                    if (line == "Video")
+                                    {
+                                        break;
+                                    }
+
                                     string[] tag = line.Split(':');
                                     xaudio.Add(new XElement("Tag",
                                         new XAttribute("name", tag[0].Trim()),

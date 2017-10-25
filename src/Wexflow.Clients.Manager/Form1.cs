@@ -11,7 +11,7 @@ namespace Wexflow.Clients.Manager
     // v2.1
     // TODO unit tests: MailsSender?, Twitter?, Workflow?
 
-    // TODO Tasks: Reporting?, YouTube?
+    // TODO Tasks: FilesSplitter, Reporting?, YouTube?
 
     // TODO Wexflow Manager wf status live + row background color
     // TODO Test and fix ftps (FluentFtpHelper)
