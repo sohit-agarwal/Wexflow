@@ -9,6 +9,9 @@ image: Visual Studio 2015
 init:
   - git config --global core.autocrlf input
 
+# clone directory
+clone_folder: c:\projects\wexflow
+
 #---------------------------------#
 #       build configuration       #
 #---------------------------------#
@@ -32,4 +35,9 @@ configuration: Debug
 build:
   parallel: true                   # enable MSBuild parallel builds
   project: Wexflow.vs2010.sln      # path to Visual Studio solution or project
-  verbosity: normal               # MSBuild verbosity level quiet|minimal|normal|detailed
+  verbosity: normal                # MSBuild verbosity level quiet|minimal|normal|detailed
+  
+# scripts to run before build
+before_build:
+  - ps: cp c:\projects\wexflow\samples\Wexflow c:\
+  - ps: cp c:\projects\wexflow\samples\WexflowTesting c:\
