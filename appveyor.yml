@@ -38,6 +38,6 @@ build:
   verbosity: normal                # MSBuild verbosity level quiet|minimal|normal|detailed
   
 # scripts to run before build
-#before_build:
-#  - ps: Copy-Item c:\projects\wexflow\samples\Wexflow c:\ -recurse
-#  - ps: Copy-Item c:\projects\wexflow\samples\WexflowTesting c:\ -recurse
+after_build:
+  - ps: Copy-Item c:\projects\wexflow\samples\Wexflow c:\ -recurse
+  - ps: Copy-Item c:\projects\wexflow\samples\WexflowTesting c:\ -recurse
