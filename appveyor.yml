@@ -39,5 +39,5 @@ build:
   
 # scripts to run before build
 before_build:
-  - ps: cp c:\projects\wexflow\samples\Wexflow c:\
-  - ps: cp c:\projects\wexflow\samples\WexflowTesting c:\
+  - ps: Copy-Item -Path c:\projects\wexflow\samples\Wexflow -Recurse -Destination c:\ -Container
+  - ps: cp Copy-Item -Path c:\projects\wexflow\samples\WexflowTesting -Recurse -Destination c:\ -Container
