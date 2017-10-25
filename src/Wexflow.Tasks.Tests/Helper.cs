@@ -44,17 +44,17 @@ namespace Wexflow.Tasks.Tests
 
         private static void DeleteDirRec(string dir)
         {
-            foreach (var file in Directory.GetFiles(dir))
-            {
-                File.Delete(file);
-            }
+            //foreach (var file in Directory.GetFiles(dir))
+            //{
+            //    File.Delete(file);
+            //}
 
             foreach (var subdir in Directory.GetDirectories(dir))
             {
                 DeleteDirRec(subdir);
             }
 
-            Directory.Delete(dir);
+            Directory.Delete(dir, true);
         }
 
         public static void CopyDirRec(string src, string dest)

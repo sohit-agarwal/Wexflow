@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Tasks>
+  <!--
+    MailsReceiver is a sequential task that fetches a collection of emails.
+  -->
+  <Task id="$int" name="MailsReceiver" description="$string" enabled="true|false">
+    <!-- The POP server address. Example:  pop.gmail.com-->
+    <Setting name="host" value="$string" />
+    <!-- The email server port. Example: 995-->
+    <Setting name="port" value="$int" />
+    <!-- true if the email server uses SSL, false otherwise.-->
+    <Setting name="enableSsl" value="true|false" />
+    <!-- The user name to connect to the email server.-->
+    <Setting name="user" value="$string" />
+    <!-- The password to connect to the email server.-->
+    <Setting name="password" value="$string" />
+    <!-- The number of messages to fetch.-->
+    <Setting name="messageCount" value="$int" />
+  </Task>
+</Tasks>

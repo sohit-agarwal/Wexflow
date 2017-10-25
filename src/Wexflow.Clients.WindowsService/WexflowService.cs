@@ -354,6 +354,7 @@ namespace Wexflow.Clients.WindowsService
                 "ImagesTransformer",
                 "ListEntities",
                 "ListFiles",
+                "MailsReceiver",
                 "MailsSender",
                 "Md5",
                 "MediaInfo",
@@ -466,6 +467,8 @@ namespace Wexflow.Clients.WindowsService
                     return new string[] { };
                 case "ListFiles":
                     return new string[] { };
+                case "MailsReceiver":
+                    return new[] { "host", "port", "enableSsl", "user", "password", "messageCount" };
                 case "MailsSender":
                     return new[] { "selectFiles", "selectAttachments", "host", "port", "enableSsl", "user", "password" };
                 case "Md5":

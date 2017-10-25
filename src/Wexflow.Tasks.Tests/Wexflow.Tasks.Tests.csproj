@@ -64,6 +64,11 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.104.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\libs\System.Data.SQLite.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CsvToXml.cs" />
@@ -73,6 +78,7 @@
     <Compile Include="FilesLoader.cs" />
     <Compile Include="FilesConcat.cs" />
     <Compile Include="FilesInfo.cs" />
+    <Compile Include="MailsReceiver.cs" />
     <Compile Include="MediaInfo.cs" />
     <Compile Include="Sha512.cs" />
     <Compile Include="Sha256.cs" />
@@ -174,6 +180,10 @@
     <ProjectReference Include="..\Wexflow.Tasks.ListFiles\Wexflow.Tasks.ListFiles.csproj">
       <Project>{8016d7d3-223b-484f-a78d-dfcdf8677607}</Project>
       <Name>Wexflow.Tasks.ListFiles</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.MailsReceiver\Wexflow.Tasks.MailsReceiver.csproj">
+      <Project>{e0481eca-ea10-4b91-ba37-f6c544398643}</Project>
+      <Name>Wexflow.Tasks.MailsReceiver</Name>
     </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.MailsSender\Wexflow.Tasks.MailsSender.csproj">
       <Project>{c12433e2-fb3d-472a-9c52-e2d8e60c0ab5}</Project>
