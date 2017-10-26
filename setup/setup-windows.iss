@@ -1,5 +1,5 @@
 #define MyAppName "Wexflow"
-#define MyAppVersion "2.0"
+#define MyAppVersion "2.1"
 #define MyAppPublisher "Akram El Assas"
 #define MyAppExeName "Wexflow.Clients.Manager.exe"
 
@@ -119,9 +119,7 @@ Source: "..\src\Wexflow.Clients.WebManager\css\wexflow-manager.min.css"; DestDir
 
 ; Wexflow Web Designer
 Source: "..\src\Wexflow.Clients.WebDesigner\index.html"; DestDir: "{app}\Web Designer"; Flags: ignoreversion
-;Source: "..\src\Wexflow.Clients.WebDesigner\js\highlight.pack.js"; DestDir: "{app}\Web Designer\js"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.WebDesigner\js\wexflow-designer.min.js"; DestDir: "{app}\Web Designer\js"; Flags: ignoreversion
-;Source: "..\src\Wexflow.Clients.WebDesigner\css\vs2015.css"; DestDir: "{app}\Web Designer\css"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.WebDesigner\css\wexflow-designer.min.css"; DestDir: "{app}\Web Designer\css"; Flags: ignoreversion
 
 ; Wexflow's Documentation
@@ -209,5 +207,7 @@ Filename: "{sys}\sc.exe"; Parameters: "delete Wexflow"; Flags: runhidden waitunt
 [Code]
 procedure InitializeWizard();
 begin
+  CreateDir('C:\Wexflow\');
   CreateDir('C:\Wexflow\Trash');
+  CreateDir('C:\WexflowTesting\');
 end;

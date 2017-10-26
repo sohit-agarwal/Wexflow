@@ -29,6 +29,7 @@ namespace Wexflow.Tasks.Tests
         [TestInitialize]
         public void TestInitialize()
         {
+            if (!Directory.Exists(Temp)) Directory.CreateDirectory(Temp);
             Helper.DeleteFilesAndFolders(Temp);
             Helper.DeleteFiles(FtpDownload);
         }

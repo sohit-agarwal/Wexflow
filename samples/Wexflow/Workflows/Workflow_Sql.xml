@@ -14,11 +14,11 @@
 			<!--<Setting name="sql" value="UPDATE [dbo].[Data] SET [Description] = 'Hello World Description 1! updated' WHERE Id = 11;" />-->
 			<Setting name="selectFiles" value="1" />
 		</Task>
-		<Task id="3" name="FilesLoader" description="Loading SQLite scripts" enabled="false">
+		<Task id="3" name="FilesLoader" description="Loading SQLite scripts" enabled="true">
 			<Setting name="file" value="C:\WexflowTesting\sqlite\script1.sql" />
 			<Setting name="file" value="C:\WexflowTesting\sqlite\script2.sql" />
 		</Task>
-		<Task id="4" name="Sql" description="SQlite" enabled="false">
+		<Task id="4" name="Sql" description="SQlite" enabled="true">
 			<Setting name="type" value="sqlite" />
 			<Setting name="connectionString" value="Data Source=C:\WexflowTesting\sqlite\HelloWorld.db;Version=3" /><!-- https://www.connectionstrings.com/sqlite/ -->
 			<!--<Setting name="sql" value="UPDATE Data SET Description = 'Hello World Description 1! updated' WHERE Id = 1;" />-->

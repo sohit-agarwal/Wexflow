@@ -13,11 +13,11 @@
 			<Setting name="command" value="upload" />
 			<Setting name="protocol" value="ftps" /> <!-- ftp|ftps|sftp -->
 			<Setting name="encryption" value="explicit" />
-			<Setting name="server" value="inspiron" />
+			<Setting name="server" value="127.0.0.1" />
 			<Setting name="port" value="21" />
-			<Setting name="user" value="ftpuser" />
+			<Setting name="user" value="user" />
 			<Setting name="password" value="password" />
-			<Setting name="path" value="/public/" />
+			<Setting name="path" value="/" />
 			<Setting name="selectFiles" value="1" />
 		</Task>
 	</Tasks>
