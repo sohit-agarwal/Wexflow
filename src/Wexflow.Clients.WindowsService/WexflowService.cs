@@ -349,6 +349,7 @@ namespace Wexflow.Clients.WindowsService
                 "FilesMover",
                 "FilesRemover",
                 "FilesRenamer",
+                "FilesSplitter",
                 "Ftp",
                 "Http",
                 "ImagesTransformer",
@@ -361,6 +362,7 @@ namespace Wexflow.Clients.WindowsService
                 "Mkdir",
                 "Movedir",
                 "Now",
+                "ProcessKiller",
                 "ProcessLauncher",
                 "Rmdir",
                 "Sha1",
@@ -457,6 +459,8 @@ namespace Wexflow.Clients.WindowsService
                     return new[] { "selectFiles" };
                 case "FilesRenamer":
                     return new[] { "selectFiles", "overwrite" };
+                case "FilesSplitter":
+                    return new[] { "selectFiles", "chunkSize" };
                 case "Ftp":
                     return new[] { "selectFiles", "command", "protocol", "encryption", "server", "port", "user", "password", "privateKeyPath", "passphrase", "path", "retryCount", "retryTimeout" };
                 case "Http":
@@ -481,6 +485,8 @@ namespace Wexflow.Clients.WindowsService
                     return new[] { "folder", "destinationFolder", "overwrite" };
                 case "Now":
                     return new[] { "culture", "format" };
+                case "ProcessKiller":
+                    return new[] { "processName" };
                 case "ProcessLauncher":
                     return new[] { "selectFiles", "processPath", "processCmd", "hideGui", "generatesFiles" };
                 case "Rmdir":

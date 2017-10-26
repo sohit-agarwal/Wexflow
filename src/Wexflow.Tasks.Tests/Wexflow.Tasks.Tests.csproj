@@ -78,7 +78,9 @@
     <Compile Include="FilesLoader.cs" />
     <Compile Include="FilesConcat.cs" />
     <Compile Include="FilesInfo.cs" />
+    <Compile Include="ProcessKiller.cs" />
     <Compile Include="MailsReceiver.cs" />
+    <Compile Include="FilesSplitter.cs" />
     <Compile Include="MediaInfo.cs" />
     <Compile Include="Sha512.cs" />
     <Compile Include="Sha256.cs" />
@@ -161,6 +163,10 @@
       <Project>{98a6156e-9784-4d83-8d39-c01976a32155}</Project>
       <Name>Wexflow.Tasks.FilesRenamer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.FilesSplitter\Wexflow.Tasks.FilesSplitter.csproj">
+      <Project>{7efe7108-621b-49a0-b592-77e402aadbdb}</Project>
+      <Name>Wexflow.Tasks.FilesSplitter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.Ftp\Wexflow.Tasks.Ftp.csproj">
       <Project>{272ab358-72d6-446a-b339-e9a579a63b76}</Project>
       <Name>Wexflow.Tasks.Ftp</Name>
@@ -208,6 +214,10 @@
     <ProjectReference Include="..\Wexflow.Tasks.Now\Wexflow.Tasks.Now.csproj">
       <Project>{f2f1e7e2-2707-40a7-a98d-b5bbd27c0787}</Project>
       <Name>Wexflow.Tasks.Now</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.ProcessKiller\Wexflow.Tasks.ProcessKiller.csproj">
+      <Project>{72597a39-8c74-4107-950d-c0ea0719aa35}</Project>
+      <Name>Wexflow.Tasks.ProcessKiller</Name>
     </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.ProcessLauncher\Wexflow.Tasks.ProcessLauncher.csproj">
       <Project>{22f4b18b-89bc-443a-ae3e-8863c2459d34}</Project>

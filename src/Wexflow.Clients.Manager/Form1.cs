@@ -9,9 +9,9 @@ using Wexflow.Core.Service.Client;
 namespace Wexflow.Clients.Manager
 {
     // v2.1
-    // TODO unit tests: MailsSender?, Twitter?, Workflow?
+    // TODO unit tests: Twitter?, Workflow?
 
-    // TODO Tasks: FilesSplitter, Reporting?, YouTube?
+    // TODO Tasks: Reporting?, YouTube?
 
     // TODO Wexflow Manager wf status live + row background color
     // TODO Test and fix ftps (FluentFtpHelper)

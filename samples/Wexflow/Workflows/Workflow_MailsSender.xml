@@ -20,5 +20,19 @@
 			<Setting name="user" value="username" />
 			<Setting name="password" value="password" />
 		</Task>
+		<Task id="4" name="FilesCopier" description="Copying attachments" enabled="true">
+			<Setting name="selectFiles" value="2" />
+			<Setting name="destFolder" value="C:\WexflowTesting\MailsSender\" />
+			<Setting name="overwrite" value="false" />
+		</Task>
 	</Tasks>
+	<ExecutionGraph>
+		<Task id="1"><Parent id="-1" /></Task>
+		<Task id="2"><Parent id="1" /></Task>
+		<Task id="3"><Parent id="2" /></Task>
+		<OnSuccess>
+			<Task id="2"><Parent id="-1" /></Task>
+			<Task id="4"><Parent id="2" /></Task>
+		</OnSuccess>
+	</ExecutionGraph>
 </Workflow>

@@ -1,24 +1,23 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Wexflow.Tasks.Tests
 {
     [TestClass]
-    public class MailsSender
+    public class FilesSplitter
     {
-        private static readonly string MailsSenderFolder = @"C:\WexflowTesting\MailsSender\";
+        private static readonly string FilesSplitterFolder = @"C:\WexflowTesting\FilesSplitter\";
 
         [TestInitialize]
         public void TestInitialize()
         {
-            Helper.DeleteFiles(MailsSenderFolder);
+            Helper.DeleteFiles(FilesSplitterFolder);
         }
 
         [TestCleanup]
         public void TestCleanup()
         {
-            Helper.DeleteFiles(MailsSenderFolder);
+            Helper.DeleteFiles(FilesSplitterFolder);
         }
 
         [TestMethod]
@@ -26,14 +25,14 @@ namespace Wexflow.Tasks.Tests
         {
             string[] files = GetFiles();
             Assert.AreEqual(0, files.Length);
-            Helper.StartWorkflow(9);
+            Helper.StartWorkflow(57);
             files = GetFiles();
-            Assert.AreEqual(2, files.Length);
+            Assert.AreEqual(6, files.Length);
         }
 
         private string[] GetFiles()
         {
-            return Directory.GetFiles(MailsSenderFolder, "*.txt");
+            return Directory.GetFiles(FilesSplitterFolder, "*_*");
         }
     }
 }

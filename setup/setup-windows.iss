@@ -102,6 +102,8 @@ Source: "..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.Movedir.d
 Source: "..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.Now.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.Workflow.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.MailsReceiver.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.FilesSplitter.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.ProcessKiller.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 ; Wexflow Manager
 Source: "..\src\Wexflow.Clients.Manager\bin\Debug\Wexflow.Clients.Manager.exe"; DestDir: "{app}\Manager"; Flags: ignoreversion
@@ -164,6 +166,8 @@ Source: "..\src\Wexflow.Tasks.Xslt\Xslt.xml"; DestDir: "{app}\Documentation"; Fl
 Source: "..\src\Wexflow.Tasks.Zip\Zip.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 Source: "..\src\Wexflow.Tasks.Now\Now.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 Source: "..\src\Wexflow.Tasks.Workflow\Workflow.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\Wexflow.Tasks.FilesSplitter\FilesSplitter.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\Wexflow.Tasks.ProcessKiller\ProcessKiller.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 
 Source: "..\LICENSE.txt"; DestDir: "{app}\"; Flags: ignoreversion recursesubdirs
 Source: "..\VERSION.txt"; DestDir: "{app}\"; Flags: ignoreversion recursesubdirs
