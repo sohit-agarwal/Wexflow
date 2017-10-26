@@ -9,8 +9,6 @@ using Wexflow.Core.Service.Client;
 namespace Wexflow.Clients.Manager
 {
     // v2.1
-    // TODO unit tests: Fix MediaInfo test
-    // TODO Tasks: Reporting?, YouTube?
 
     public partial class Form1 : Form
     {
