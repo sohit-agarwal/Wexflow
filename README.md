@@ -3,7 +3,7 @@
 [![forthebadge](http://forthebadge.com/images/badges/made-with-c-sharp.svg)](http://forthebadge.com)
 [![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)
 
-[![Release](http://img.shields.io/badge/release-v2.0-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/tag/v2.0)
+[![Release](http://img.shields.io/badge/release-v2.1-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/tag/v2.1)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby)
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)
 
@@ -20,7 +20,7 @@ Wexflow provides the following features:
 - [x] Automation.
 - [x] Hot reload of workflows.
 - [x] Monitoring.
-- [x] 32 built-in tasks.
+- [x] 41 built-in tasks.
 - [x] Extensible.
 - [x] Straightforward and easy to use.
 
@@ -53,7 +53,7 @@ Here are the benefits of using Wexflow:
 
 # Download
 
-Download the latest release [here](https://github.com/aelassas/Wexflow/releases/tag/v2.0).
+Download the latest release [here](https://github.com/aelassas/Wexflow/releases/tag/v2.1).
 
 # Contribute
 To contribute to this project, proceed as follows:
