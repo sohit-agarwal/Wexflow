@@ -7,8 +7,6 @@ namespace Wexflow.Tasks.Tests
     [TestClass]
     public class ImagesTransformer
     {
-        private static readonly string Src1 = @"C:\WexflowTesting\ImagesTransformer\image1.jpg";
-        private static readonly string Src2 = @"C:\WexflowTesting\ImagesTransformer\image2.jpg";
         private static readonly string Dest1 = @"C:\WexflowTesting\ImagesTransformer\image1.png";
         private static readonly string Dest2 = @"C:\WexflowTesting\ImagesTransformer\image2.png";
 
