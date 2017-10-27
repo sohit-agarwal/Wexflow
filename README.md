@@ -11,18 +11,18 @@ Wexflow is an open source extensible workflow engine with a cross-platform manag
 
 Wexflow provides the following features:
 
-- [x] Sequential workflows.
-- [x] Flowchart workflows.
-- [x] Workflow events.
-- [x] A cross-platform application for managing workflows.
-- [x] A cross-platform application for designing workflows.
-- [x] An Android application for managing workflows.
-- [x] Automation.
-- [x] Hot reload of workflows.
-- [x] Monitoring.
-- [x] 41 built-in tasks.
-- [x] Extensible.
+- [x] [Sequential workflows](https://github.com/aelassas/Wexflow/wiki/Samples#sequential-workflows).
+- [x] [Flowchart workflows](https://github.com/aelassas/Wexflow/wiki/Samples#flowchart-workflows).
+- [x] [Workflow events](https://github.com/aelassas/Wexflow/wiki/Samples#workflow-events).
+- [x] [A cross-platform application for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#wexflow-manager).
+- [x] [A cross-platform application for designing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#wexflow-web-designer).
+- [x] [An Android application for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#wexflow-android-manager).
+- [x] [41 built-in tasks](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation).
 - [x] Straightforward and easy to use.
+- [x] Hot reload of workflows.
+- [x] Automation.
+- [x] Monitoring.
+- [x] Extensible.
 
 Discover more about the features in [details](https://github.com/aelassas/Wexflow/wiki).
 
