@@ -18,11 +18,11 @@ Wexflow provides the following features:
 - [x] [A cross-platform application for designing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#wexflow-web-designer).
 - [x] [An Android application for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#wexflow-android-manager).
 - [x] [41 built-in tasks](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation).
-- [x] Straightforward and easy to use.
-- [x] Hot reload of workflows.
-- [x] Automation.
-- [x] Monitoring.
-- [x] Extensible.
+- [x] [Straightforward and easy to use](https://github.com/aelassas/Wexflow/wiki/Usage).
+- [x] [Hot reloading](https://github.com/aelassas/Wexflow/wiki/Hot-reloading).
+- [x] [Automation](https://github.com/aelassas/Wexflow/wiki/Automation).
+- [x] [Monitoring](https://github.com/aelassas/Wexflow/wiki/Monitoring).
+- [x] [Extensible](https://github.com/aelassas/Wexflow/wiki/Extensible).
 
 Discover more about the features in [details](https://github.com/aelassas/Wexflow/wiki).
 
