@@ -80,6 +80,7 @@
     <Compile Include="FilesLoader.cs" />
     <Compile Include="FilesConcat.cs" />
     <Compile Include="FilesInfo.cs" />
+    <Compile Include="PeriodicTest.cs" />
     <Compile Include="ProcessKiller.cs" />
     <Compile Include="MailsReceiver.cs" />
     <Compile Include="FilesSplitter.cs" />

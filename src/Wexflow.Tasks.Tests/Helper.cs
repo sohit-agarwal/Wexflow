@@ -9,6 +9,11 @@ namespace Wexflow.Tasks.Tests
     {
         private static readonly WexflowEngine WexflowEngine = new WexflowEngine(@"C:\Wexflow\Wexflow.xml");
 
+        public static void Run()
+        {
+            WexflowEngine.Run();
+        }
+
         public static void StartWorkflow(int workflowId)
         {
             WexflowEngine.StartWorkflow(workflowId);

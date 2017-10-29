@@ -1,13 +1,16 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Threading;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Wexflow.Tasks.Tests
 {
     [TestClass]
-    public class ListEntities
+    public class PeriodicTest
     {
         [TestInitialize]
         public void TestInitialize()
         {
+            Helper.Run(); // Run Wexflow engine instance
+
         }
 
         [TestCleanup]
@@ -18,7 +21,7 @@ namespace Wexflow.Tasks.Tests
         [TestMethod]
         public void Run()
         {
-            Helper.StartWorkflow(7);
+            Thread.Sleep(2000);
             // TODO
         }
     }
