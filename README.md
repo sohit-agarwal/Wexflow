@@ -43,11 +43,11 @@ Here are the benefits of using Wexflow:
 | Travis (Mono) | Linux |[![Build Status](https://travis-ci.org/aelassas/Wexflow.svg?branch=master)](https://travis-ci.org/aelassas/Wexflow)|
 | Bitrise (Android)| Linux|[![Build Status](https://www.bitrise.io/app/55915da1dc7572b3.svg?token=xIjHVgLQu_DktBPbJEPTOA)](https://www.bitrise.io/app/55915da1dc7572b3)|
 
-<!--
+
 # Code coverage
 
 [![codecov](https://codecov.io/gh/aelassas/Wexflow/branch/master/graph/badge.svg)](https://codecov.io/gh/aelassas/Wexflow)
--->
+
 
 # Get started
 
