@@ -45,6 +45,7 @@ Here are the benefits of using Wexflow:
 
 <!--
 # Code coverage
+
 [![codecov](https://codecov.io/gh/aelassas/Wexflow/branch/master/graph/badge.svg)](https://codecov.io/gh/aelassas/Wexflow)
 -->
 
