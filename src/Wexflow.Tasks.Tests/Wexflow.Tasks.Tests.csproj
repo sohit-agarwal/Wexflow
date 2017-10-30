@@ -107,6 +107,9 @@
     <Compile Include="Rmdir.cs" />
     <Compile Include="Sql.cs" />
     <Compile Include="Sync.cs" />
+    <Compile Include="StopTest.cs" />
+    <Compile Include="SuspendTest.cs" />
+    <Compile Include="ResumeTest.cs" />
     <Compile Include="Xslt.cs" />
     <Compile Include="XmlToCsv.cs" />
     <Compile Include="Workflow.cs" />

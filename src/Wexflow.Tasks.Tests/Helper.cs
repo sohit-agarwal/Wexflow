@@ -29,6 +29,31 @@ namespace Wexflow.Tasks.Tests
             }
         }
 
+        public static void StartWorkflowAsync(int workflowId)
+        {
+            WexflowEngine.StartWorkflow(workflowId);
+        }
+
+        public static void StopWorkflow(int workflowId)
+        {
+            WexflowEngine.StopWorkflow(workflowId);
+        }
+
+        public static void SuspendWorkflow(int workflowId)
+        {
+            WexflowEngine.PauseWorkflow(workflowId);
+        }
+
+        public static void ResumeWorkflow(int workflowId)
+        {
+            WexflowEngine.ResumeWorkflow(workflowId);
+        }
+
+        public static Core.Workflow GetWorkflow(int workflowId)
+        {
+            return WexflowEngine.GetWorkflow(workflowId);
+        }
+
         public static void DeleteFilesAndFolders(string folder)
         {
             DeleteFiles(folder);
