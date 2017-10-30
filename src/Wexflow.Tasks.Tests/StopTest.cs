@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Wexflow.Tasks.Tests
@@ -20,14 +21,21 @@ namespace Wexflow.Tasks.Tests
         public void Run()
         {
             int workflowId = 41;
-            Helper.StartWorkflowAsync(workflowId);
-            Thread.Sleep(500);
-            var workflow = Helper.GetWorkflow(workflowId);
-            Assert.IsTrue(workflow.IsRunning);
-            Helper.StopWorkflow(workflowId);
-            Thread.Sleep(500);
-            workflow = Helper.GetWorkflow(workflowId);
-            Assert.IsFalse(workflow.IsRunning);
+            try
+            {
+                Helper.StartWorkflowAsync(workflowId);
+                Thread.Sleep(500);
+                var workflow = Helper.GetWorkflow(workflowId);
+                Assert.IsTrue(workflow.IsRunning);
+                Helper.StopWorkflow(workflowId);
+                Thread.Sleep(500);
+                workflow = Helper.GetWorkflow(workflowId);
+                Assert.IsFalse(workflow.IsRunning);
+            }
+            finally
+            {
+                Helper.StopWorkflow(workflowId);
+            }
         }
     }
 }

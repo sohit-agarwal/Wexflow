@@ -15,8 +15,6 @@ namespace Wexflow.Clients.Manager
     // https://github.com/icsharpcode/SharpZipLib/wiki/GZip-and-Tar-Samples#anchorTGZ
     // https://msdn.microsoft.com/en-us/library/system.diagnostics.process(v=vs.110).aspx
 
-    // TODO unit tests: periodic, listEntities
-
     public partial class Form1 : Form
     {
         static readonly string WexflowWebServiceUri = ConfigurationManager.AppSettings["WexflowWebServiceUri"];
