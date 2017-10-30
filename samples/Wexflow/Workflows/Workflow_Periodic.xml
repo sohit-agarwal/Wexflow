@@ -2,7 +2,7 @@
 	<Settings>
 		<Setting name="launchType" value="periodic" /> <!-- startup|trigger|periodic -->
 		<Setting name="period" value="00.00:00:01" />
-		<Setting name="enabled" value="true" /> <!-- true|false -->
+		<Setting name="enabled" value="false" /> <!-- true|false -->
 	</Settings>
 	<Tasks>
 	</Tasks>

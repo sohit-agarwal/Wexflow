@@ -227,6 +227,10 @@
       <Project>{d1b9e2ba-e783-4c26-89e8-28e13ae3220c}</Project>
       <Name>Wexflow.Tasks.Twitter</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.Unzip\Wexflow.Tasks.Unzip.csproj">
+      <Project>{0e4a787c-10f9-4c52-9e9a-596f6d6e2536}</Project>
+      <Name>Wexflow.Tasks.Unzip</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.Wait\Wexflow.Tasks.Wait.csproj">
       <Project>{81c8da3e-32cb-4084-84da-c531522318c3}</Project>
       <Name>Wexflow.Tasks.Wait</Name>

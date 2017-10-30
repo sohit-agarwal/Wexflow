@@ -9,8 +9,7 @@ using Wexflow.Core.Service.Client;
 namespace Wexflow.Clients.Manager
 {
     // v2.2
-    // TODO Tasks: Unzip, Untar, Untgz, ProcessInfo
-    // https://github.com/icsharpcode/SharpZipLib/wiki/Zip-Samples#unpack-a-zip-with-full-control-over-the-operation
+    // TODO Tasks: Untar, Untgz, ProcessInfo
     // https://github.com/icsharpcode/SharpZipLib/wiki/GZip-and-Tar-Samples#extractFull
     // https://github.com/icsharpcode/SharpZipLib/wiki/GZip-and-Tar-Samples#anchorTGZ
     // https://msdn.microsoft.com/en-us/library/system.diagnostics.process(v=vs.110).aspx
