@@ -375,6 +375,7 @@ namespace Wexflow.Clients.WindowsService
                 "Touch",
                 "Twitter",
                 "Untar",
+                "Untgz",
                 "Unzip",
                 "Wait",
                 "Wmi",
@@ -513,6 +514,8 @@ namespace Wexflow.Clients.WindowsService
                     return new[] { "selectFiles", "consumerKey", "consumerSecret", "accessToken", "accessTokenSecret" };
                 case "Untar":
                     return new[] {"selectFiles", "destDir"};
+                case "Untgz":
+                    return new[] { "selectFiles", "destDir" };
                 case "Unzip":
                     return new[] { "selectFiles", "destDir", "password" };
                 case "Wait":

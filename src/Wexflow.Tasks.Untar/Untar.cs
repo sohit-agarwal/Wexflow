@@ -32,17 +32,17 @@ namespace Wexflow.Tasks.Untar
                 {
                     try
                     {
-                        string destPath = Path.Combine(DestDir
+                        string destFolder = Path.Combine(DestDir
                             , Path.GetFileNameWithoutExtension(tar.Path) + "_" + string.Format("{0:yyyy-MM-dd-HH-mm-ss-fff}", DateTime.Now));
-                        Directory.CreateDirectory(destPath);
-                        ExtractTarByEntry(tar.Path, destPath);
+                        Directory.CreateDirectory(destFolder);
+                        ExtractTarByEntry(tar.Path, destFolder);
 
-                        foreach (var file in Directory.GetFiles(destPath, "*.*", SearchOption.AllDirectories))
+                        foreach (var file in Directory.GetFiles(destFolder, "*.*", SearchOption.AllDirectories))
                         {
                             Files.Add(new FileInf(file, Id));
                         }
 
-                        InfoFormat("TAR {0} extracted to {1}", tar.Path, destPath);
+                        InfoFormat("TAR {0} extracted to {1}", tar.Path, destFolder);
 
                         if (!atLeastOneSucceed) atLeastOneSucceed = true;
                     }

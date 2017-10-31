@@ -37,17 +37,17 @@ namespace Wexflow.Tasks.Unzip
                 {
                     try
                     {
-                        string destPath = Path.Combine(DestDir
+                        string destFolder = Path.Combine(DestDir
                             , Path.GetFileNameWithoutExtension(zip.Path) + "_" + string.Format("{0:yyyy-MM-dd-HH-mm-ss-fff}", DateTime.Now));
-                        Directory.CreateDirectory(destPath);
-                        ExtractZipFile(zip.Path, Password, destPath);
+                        Directory.CreateDirectory(destFolder);
+                        ExtractZipFile(zip.Path, Password, destFolder);
 
-                        foreach (var file in Directory.GetFiles(destPath, "*.*", SearchOption.AllDirectories))
+                        foreach (var file in Directory.GetFiles(destFolder, "*.*", SearchOption.AllDirectories))
                         {
                             Files.Add(new FileInf(file, Id));
                         }
 
-                        InfoFormat("ZIP {0} extracted to {1}", zip.Path, destPath);
+                        InfoFormat("ZIP {0} extracted to {1}", zip.Path, destFolder);
 
                         if (!atLeastOneSucceed) atLeastOneSucceed = true;
                     }

@@ -9,9 +9,7 @@ using Wexflow.Core.Service.Client;
 namespace Wexflow.Clients.Manager
 {
     // v2.2
-    // TODO Tasks: Untar, Untgz, ProcessInfo
-    // https://github.com/icsharpcode/SharpZipLib/wiki/GZip-and-Tar-Samples#extractFull
-    // https://github.com/icsharpcode/SharpZipLib/wiki/GZip-and-Tar-Samples#anchorTGZ
+    // TODO Tasks: ProcessInfo
     // https://msdn.microsoft.com/en-us/library/system.diagnostics.process(v=vs.110).aspx
 
     public partial class Form1 : Form

@@ -4,20 +4,20 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Wexflow.Tasks.Tests
 {
     [TestClass]
-    public class Untar
+    public class Untgz
     {
-        private static readonly string TarFolder = @"C:\WexflowTesting\Untar_dest";
+        private static readonly string TgzFolder = @"C:\WexflowTesting\Untgz_dest";
 
         [TestInitialize]
         public void TestInitialize()
         {
-            Helper.DeleteFilesAndFolders(TarFolder);
+            Helper.DeleteFilesAndFolders(TgzFolder);
         }
 
         [TestCleanup]
         public void TestCleanup()
         {
-            Helper.DeleteFilesAndFolders(TarFolder);
+            Helper.DeleteFilesAndFolders(TgzFolder);
         }
 
         [TestMethod]
@@ -25,14 +25,14 @@ namespace Wexflow.Tasks.Tests
         {
             string[] files = GetFiles();
             Assert.AreEqual(0, files.Length);
-            Helper.StartWorkflow(61);
+            Helper.StartWorkflow(62);
             files = GetFiles();
             Assert.AreEqual(3, files.Length);
         }
 
         private string[] GetFiles()
         {
-            return Directory.GetFiles(TarFolder, "*.*", SearchOption.AllDirectories);
+            return Directory.GetFiles(TgzFolder, "*.*", SearchOption.AllDirectories);
         }
     }
 }
