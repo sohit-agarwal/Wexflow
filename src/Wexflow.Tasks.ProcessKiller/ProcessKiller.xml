@@ -5,6 +5,6 @@
   -->
   <Task id="$int" name="ProcessKiller" description="$string" enabled="true|false">
     <!-- The process name. Ex: notepad.exe-->
-    <Setting name="processName" value="$taskId" />
+    <Setting name="processName" value="$string" />
   </Task>
 </Tasks>

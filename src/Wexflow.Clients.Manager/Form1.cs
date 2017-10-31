@@ -9,8 +9,7 @@ using Wexflow.Core.Service.Client;
 namespace Wexflow.Clients.Manager
 {
     // v2.2
-    // TODO Tasks: ProcessInfo
-    // https://msdn.microsoft.com/en-us/library/system.diagnostics.process(v=vs.110).aspx
+    // TODO Tasks: 
 
     public partial class Form1 : Form
     {
