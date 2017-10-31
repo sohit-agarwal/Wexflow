@@ -175,6 +175,10 @@
       <Project>{f2f1e7e2-2707-40a7-a98d-b5bbd27c0787}</Project>
       <Name>Wexflow.Tasks.Now</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.ProcessInfo\Wexflow.Tasks.ProcessInfo.csproj">
+      <Project>{479d962f-08e3-4b9c-bf45-18c85cf44222}</Project>
+      <Name>Wexflow.Tasks.ProcessInfo</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.ProcessKiller\Wexflow.Tasks.ProcessKiller.csproj">
       <Project>{72597a39-8c74-4107-950d-c0ea0719aa35}</Project>
       <Name>Wexflow.Tasks.ProcessKiller</Name>

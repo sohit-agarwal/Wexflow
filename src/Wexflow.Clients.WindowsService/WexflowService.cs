@@ -362,6 +362,7 @@ namespace Wexflow.Clients.WindowsService
                 "Mkdir",
                 "Movedir",
                 "Now",
+                "ProcessInfo",
                 "ProcessKiller",
                 "ProcessLauncher",
                 "Rmdir",
@@ -488,6 +489,8 @@ namespace Wexflow.Clients.WindowsService
                     return new[] { "folder", "destinationFolder", "overwrite" };
                 case "Now":
                     return new[] { "culture", "format" };
+                case "ProcessInfo":
+                    return new[] { "processName" };
                 case "ProcessKiller":
                     return new[] { "processName" };
                 case "ProcessLauncher":

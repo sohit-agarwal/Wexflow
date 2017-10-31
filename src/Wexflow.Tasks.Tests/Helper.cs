@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using Wexflow.Core;
@@ -100,6 +101,34 @@ namespace Wexflow.Tasks.Tests
             //Copy all the files & Replaces any files with the same name
             foreach (string newPath in Directory.GetFiles(src, "*.*", SearchOption.AllDirectories))
                 File.Copy(newPath, newPath.Replace(src, destDir), true);
+        }
+
+        public static void StartProcess(string name, string cmd, bool hideGui)
+        {
+            var startInfo = new ProcessStartInfo(name, cmd)
+            {
+                CreateNoWindow = hideGui,
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true
+            };
+
+            var process = new Process { StartInfo = startInfo };
+            process.OutputDataReceived += OutputHandler;
+            process.ErrorDataReceived += ErrorHandler;
+            process.Start();
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
+        }
+
+        private static void OutputHandler(object sendingProcess, DataReceivedEventArgs outLine)
+        {
+            Debug.WriteLine("{0}", outLine.Data);
+        }
+
+        private static void ErrorHandler(object sendingProcess, DataReceivedEventArgs outLine)
+        {
+            Debug.WriteLine("{0}", outLine.Data);
         }
 
     }

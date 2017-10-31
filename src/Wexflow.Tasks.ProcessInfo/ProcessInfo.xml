@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Tasks>
+  <!--
+    ProcessInfo is a sequential task that shows information about a process.
+    The output is written in an XML file as follows:
+    
+    TODO
+    
+    The XML output is loaded by the task so that other tasks could select it through the selectFiles option.
+    
+  -->
+  <Task id="$int" name="ProcessInfo" description="$string" enabled="true|false">
+    <!-- The process name. Ex: notepad.exe-->
+    <Setting name="processName" value="$taskId" />
+  </Task>
+</Tasks>
