@@ -58,7 +58,8 @@ Download the latest release [here](https://github.com/aelassas/Wexflow/releases/
 To contribute to this project, proceed as follows:
 - Read the technical documentation available on [CodeProject](https://www.codeproject.com/Articles/1164009/Wexflow-Open-source-workflow-engine-in-Csharp#code).
 - Read the documentation on how to [debug](https://github.com/aelassas/Wexflow/wiki/Debug) Wexflow.
-- Use GitHub [pull requests](https://github.com/aelassas/Wexflow/pulls) to push your contribution.
+- Create a [pull request](https://help.github.com/articles/creating-a-pull-request/).
+- After your pull request has been reviewed, it can be merged into the repository.
 
 # Bugs and features
   
