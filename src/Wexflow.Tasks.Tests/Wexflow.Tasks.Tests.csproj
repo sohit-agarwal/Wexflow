@@ -80,6 +80,7 @@
     <Compile Include="FilesLoader.cs" />
     <Compile Include="FilesConcat.cs" />
     <Compile Include="FilesInfo.cs" />
+    <Compile Include="Untar.cs" />
     <Compile Include="Unzip.cs" />
     <Compile Include="PeriodicTest.cs" />
     <Compile Include="ProcessKiller.cs" />
@@ -273,6 +274,10 @@
     <ProjectReference Include="..\Wexflow.Tasks.Twitter\Wexflow.Tasks.Twitter.csproj">
       <Project>{d1b9e2ba-e783-4c26-89e8-28e13ae3220c}</Project>
       <Name>Wexflow.Tasks.Twitter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.Untar\Wexflow.Tasks.Untar.csproj">
+      <Project>{7f8d838f-594e-47e7-aadc-6e57af9b9d57}</Project>
+      <Name>Wexflow.Tasks.Untar</Name>
     </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.Unzip\Wexflow.Tasks.Unzip.csproj">
       <Project>{0e4a787c-10f9-4c52-9e9a-596f6d6e2536}</Project>
