@@ -1,8 +1,8 @@
 # [Wexflow](https://wexflow.github.io/) [![Release](http://img.shields.io/badge/release-v2.1-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/tag/v2.1) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby) [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)
-
+<!--
 [![forthebadge](http://forthebadge.com/images/badges/made-with-c-sharp.svg)](http://forthebadge.com)
 [![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)
-
+-->
 
 Wexflow is an open source extensible workflow engine with a cross-platform manager and designer. Wexflow aims to make automations, workflow processes, long-running processes and interactions between systems, applications and folks easy, straightforward and clean.
 
