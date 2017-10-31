@@ -14,6 +14,7 @@ namespace Wexflow.Tasks.Xslt
         public string XsltPath { get; private set; }
         public string Version { get; private set; }
         public bool RemoveWexflowProcessingNodes { get; private set; }
+        public string Extension { get; private set; }
 
         public Xslt(XElement xe, Workflow wf)
             : base(xe, wf)
@@ -21,6 +22,7 @@ namespace Wexflow.Tasks.Xslt
             XsltPath = GetSetting("xsltPath");
             Version = GetSetting("version");
             RemoveWexflowProcessingNodes = bool.Parse(GetSetting("removeWexflowProcessingNodes", "true"));
+            Extension = GetSetting("extension", "xml");
         }
 
         public override TaskStatus Run()
@@ -33,7 +35,7 @@ namespace Wexflow.Tasks.Xslt
             foreach (FileInf file in SelectFiles())
             {
                 var destPath = Path.Combine(Workflow.WorkflowTempFolder,
-                    string.Format("{0}_{1:yyyy-MM-dd-HH-mm-ss-fff}.xml", Path.GetFileNameWithoutExtension(file.FileName), DateTime.Now));
+                    string.Format("{0}_{1:yyyy-MM-dd-HH-mm-ss-fff}.{2}", Path.GetFileNameWithoutExtension(file.FileName), DateTime.Now, Extension));
 
                 try
                 {

@@ -66,7 +66,7 @@
       </WexflowProcessing>
     </root>
     
-    The Xslt task looks for <WexflowProcessing>//<File> nodes wherever they are in the XML in order
+    The Xslt task looks for WexflowProcessing//File nodes wherever they are in the XML in order
     to perform the following operations:
       - Set the renameTo of the file.
       - Set the tags of the file.
@@ -94,5 +94,7 @@
     <!-- Optional and defaults to true. If it is set to false, <WexflowProcessing> nodes will not be removed
          from the output XML document.-->
     <Setting name="removeWexflowProcessingNodes" value="true|false" />
+    <!-- Optional and defaults to xml. the output extension. Ex: html-->
+    <Setting name="extension" value="$string" />
   </Task>
 </Tasks>
