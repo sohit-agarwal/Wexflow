@@ -5,6 +5,11 @@ using System.Windows.Forms;
 using System.Configuration;
 using Wexflow.Core.Service.Contracts;
 using Wexflow.Core.Service.Client;
+using System.Diagnostics;
+using System.IO;
+using System.Xml.Linq;
+using System.Linq;
+using System.Xml;
 
 namespace Wexflow.Clients.Manager
 {
@@ -24,6 +29,8 @@ namespace Wexflow.Clients.Manager
         bool _windowsServiceWasStopped;
         Timer _timer;
         Exception _exception;
+        string logfile = "";
+        string designerWebFile = "..\\Web Designer\\index.html";
 
         public Form1()
         {
@@ -32,6 +39,18 @@ namespace Wexflow.Clients.Manager
             textBoxInfo.Text = @"Loading workflows...";
 
             backgroundWorker1.RunWorkerAsync();
+            if (File.Exists(@"Wexflow.Clients.WindowsService.exe.config"))
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load("Wexflow.Clients.WindowsService.exe.config");
+                XmlElement root = doc.DocumentElement;
+                XmlNodeList nodeList = root.SelectNodes("/configuration/log4net/appender/file/@value");
+                if (nodeList.Count > 0) {
+                    logfile = nodeList[0].Value.ToString();
+                }
+            }
+            buttonLog.Enabled = (logfile != "");
+            buttonDesign.Enabled = (File.Exists(designerWebFile));
         }
 
         void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
@@ -287,6 +306,22 @@ namespace Wexflow.Clients.Manager
                 dataGridViewWorkflows.AutoResizeColumn(e.ColumnIndex, DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader);
             }
             e.Handled = true;
+        }
+
+        private void buttonLog_Click(object sender, EventArgs e)
+        {
+            if (File.Exists(logfile))
+            {
+                Process.Start("notepad.exe", logfile);
+            }
+        }
+
+        private void buttonDesign_Click(object sender, EventArgs e)
+        {
+            if (File.Exists(designerWebFile))
+            {
+                Process.Start(designerWebFile, "");
+            }
         }
     }
 }
