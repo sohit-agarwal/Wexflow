@@ -27,7 +27,7 @@ namespace Wexflow.Tasks.Tests
             Assert.AreEqual(0, files.Length);
             Helper.StartWorkflow(57);
             files = GetFiles();
-            Assert.AreEqual(6, files.Length);
+            Assert.AreEqual(510, files.Length);
         }
 
         private string[] GetFiles()
