@@ -6,6 +6,7 @@ using System.Threading;
 using iTextSharp.text;
 using iTextSharp.text.html.simpleparser;
 using iTextSharp.text.pdf;
+using iTextSharp.text.xml.simpleparser;
 
 namespace Wexflow.Tasks.HtmlToPdf
 {
