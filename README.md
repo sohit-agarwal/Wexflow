@@ -46,7 +46,7 @@ Here are the benefits of using Wexflow:
 
 - [Features](https://github.com/aelassas/Wexflow/wiki)
 - [Installation guide](https://github.com/aelassas/Wexflow/wiki/Installation)
-- [Quickstart](https://github.com/aelassas/Wexflow/wiki/Usage)
+- [Quick start](https://github.com/aelassas/Wexflow/wiki/Usage)
 - [Workflow samples](https://github.com/aelassas/Wexflow/wiki/Samples)
 - [Tasks documentation](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation)
 
