@@ -16,7 +16,7 @@
     <!-- You can add as many selecteFiles as you want.-->
     <!-- The destination folder. For example: C:\MyFolder\-->
     <Setting name="destFolder" value="$string" />
-    <!--- true to overwrite the files located in the destination folder, false otherwise.-->
+    <!--- Optional and defualts to false. true to overwrite the files located in the destination folder, false otherwise.-->
     <Setting name="overwrite" value="true|false" />
   </Task>
 </Tasks>

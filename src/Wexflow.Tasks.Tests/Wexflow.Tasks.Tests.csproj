@@ -80,6 +80,8 @@
     <Compile Include="FilesLoader.cs" />
     <Compile Include="FilesConcat.cs" />
     <Compile Include="FilesInfo.cs" />
+    <Compile Include="HtmlToPdf.cs" />
+    <Compile Include="TextToPdf.cs" />
     <Compile Include="ProcessInfo.cs" />
     <Compile Include="Untgz.cs" />
     <Compile Include="Untar.cs" />
@@ -181,6 +183,10 @@
       <Project>{272ab358-72d6-446a-b339-e9a579a63b76}</Project>
       <Name>Wexflow.Tasks.Ftp</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.HtmlToPdf\Wexflow.Tasks.HtmlToPdf.csproj">
+      <Project>{3b5b4434-ab77-41f7-a25a-fc3e12df1275}</Project>
+      <Name>Wexflow.Tasks.HtmlToPdf</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.Http\Wexflow.Tasks.Http.csproj">
       <Project>{c249b3ea-e3a3-4975-b3ba-51bc9d7e5816}</Project>
       <Name>Wexflow.Tasks.Http</Name>
@@ -268,6 +274,10 @@
     <ProjectReference Include="..\Wexflow.Tasks.Template\Wexflow.Tasks.Template.csproj">
       <Project>{ad401c5b-85fe-4c93-8e31-029c090e9b01}</Project>
       <Name>Wexflow.Tasks.Template</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.TextToPdf\Wexflow.Tasks.TextToPdf.csproj">
+      <Project>{dd5c037c-f7ff-4d8d-8076-3386e30cb0fa}</Project>
+      <Name>Wexflow.Tasks.TextToPdf</Name>
     </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.Tgz\Wexflow.Tasks.Tgz.csproj">
       <Project>{f7184c59-67d4-4bf5-abd0-d6ea9c50b6b7}</Project>

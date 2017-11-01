@@ -9,9 +9,7 @@ using Wexflow.Core.Service.Client;
 namespace Wexflow.Clients.Manager
 {
     // v2.2
-    // TODO Tasks: TextToPdf, HtmlToPdf
-    // https://www.codeproject.com/articles/877840/itextsharp-convert-a-text-file-to-pdf-while-upload
-    // https://stackoverflow.com/questions/2822843/itextsharp-html-to-pdf
+    // TODO Tasks:
 
     public partial class Form1 : Form
     {

@@ -8,7 +8,9 @@ using System.ServiceModel.Web;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using Newtonsoft.Json.Linq;
+using Wexflow.Core;
 using Wexflow.Core.ExecutionGraph.Flowchart;
+using LaunchType = Wexflow.Core.Service.Contracts.LaunchType;
 
 namespace Wexflow.Clients.WindowsService
 {
@@ -189,6 +191,19 @@ namespace Wexflow.Clients.WindowsService
                                 xsetting.SetAttributeValue("value", settingValue);
                             }
 
+                            if (settingName == "selectFiles" || settingName == "selectAttachments")
+                            {
+                                if (!string.IsNullOrEmpty(settingValue))
+                                {
+                                    xsetting.SetAttributeValue("value", settingValue);
+                                }
+                            }
+                            else
+                            {
+                                xsetting.SetAttributeValue("value", settingValue);
+                            }
+
+
                             var attributes = setting.SelectToken("Attributes");
                             foreach (var attribute in attributes)
                             {
@@ -301,7 +316,14 @@ namespace Wexflow.Clients.WindowsService
                                     , new XAttribute("name", settingName)
                                 );
 
-                                if (!string.IsNullOrEmpty(settingValue))
+                                if (settingName == "selectFiles" || settingName == "selectAttachments")
+                                {
+                                    if (!string.IsNullOrEmpty(settingValue))
+                                    {
+                                        xsetting.SetAttributeValue("value", settingValue);
+                                    }
+                                }
+                                else
                                 {
                                     xsetting.SetAttributeValue("value", settingValue);
                                 }
@@ -351,6 +373,7 @@ namespace Wexflow.Clients.WindowsService
                 "FilesRenamer",
                 "FilesSplitter",
                 "Ftp",
+                "HtmlToPdf",
                 "Http",
                 "ImagesTransformer",
                 "ListEntities",
@@ -372,6 +395,7 @@ namespace Wexflow.Clients.WindowsService
                 "Sql",
                 "Sync",
                 "Tar",
+                "TextToPdf",
                 "Tgz",
                 "Touch",
                 "Twitter",
@@ -467,6 +491,8 @@ namespace Wexflow.Clients.WindowsService
                     return new[] { "selectFiles", "chunkSize" };
                 case "Ftp":
                     return new[] { "selectFiles", "command", "protocol", "encryption", "server", "port", "user", "password", "privateKeyPath", "passphrase", "path", "retryCount", "retryTimeout" };
+                case "HtmlToPdf":
+                    return new[] {"selectFiles"};
                 case "Http":
                     return new[] { "url" };
                 case "ImagesTransformer":
@@ -509,6 +535,8 @@ namespace Wexflow.Clients.WindowsService
                     return new[] { "srcFolder", "destFolder" };
                 case "Tar":
                     return new[] { "selectFiles", "zipFileName" };
+                case "TextToPdf":
+                    return new[] { "selectFiles" };
                 case "Tgz":
                     return new[] { "selectFiles", "tgzFileName" };
                 case "Touch":

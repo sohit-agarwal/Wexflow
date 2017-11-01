@@ -15,7 +15,7 @@ namespace Wexflow.Tasks.FilesCopier
             : base(xe, wf)
         {
             DestFolder = GetSetting("destFolder");
-            Overwrite = bool.Parse(GetSetting("overwrite"));
+            Overwrite = bool.Parse(GetSetting("overwrite", "false"));
         }
 
         public override TaskStatus Run()
