@@ -19,7 +19,7 @@ namespace Wexflow.Tasks.Tests
         }
 
         [TestMethod]
-        public void Run()
+        public void ProcessKillerTest()
         {
             Helper.StartWorkflow(58);
             Process[] notepadProcesses = Process.GetProcessesByName("notepad");

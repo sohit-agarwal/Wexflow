@@ -21,7 +21,7 @@ namespace Wexflow.Tasks.Tests
         }
 
         [TestMethod]
-        public void Run()
+        public void SqlTest()
         {
             Helper.StartWorkflow(22);
 

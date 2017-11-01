@@ -39,7 +39,7 @@ namespace Wexflow.Tasks.Tests
         }
 
         [TestMethod]
-        public void Run()
+        public void CsvToXmlTest()
         {
             Helper.StartWorkflow(1);
 

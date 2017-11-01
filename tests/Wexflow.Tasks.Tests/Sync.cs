@@ -44,7 +44,7 @@ namespace Wexflow.Tasks.Tests
         }
 
         [TestMethod]
-        public void Run()
+        public void SyncTest()
         {
             Assert.AreEqual(true, Directory.Exists(Src));
             Assert.AreEqual(true, Directory.Exists(Dest));

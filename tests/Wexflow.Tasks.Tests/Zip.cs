@@ -23,7 +23,7 @@ namespace Wexflow.Tasks.Tests
         }
 
         [TestMethod]
-        public void Run()
+        public void ZipTest()
         {
             Assert.AreEqual(false, File.Exists(ZipFile));
             Helper.StartWorkflow(19);

@@ -25,7 +25,7 @@ namespace Wexflow.Tasks.Tests
         }
 
         [TestMethod]
-        public void Run()
+        public void ImagesTransformerTest()
         {
             Assert.AreEqual(false, File.Exists(Dest1));
             Assert.AreEqual(false, File.Exists(Dest2));

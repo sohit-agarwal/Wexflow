@@ -37,7 +37,7 @@ namespace Wexflow.Tasks.Tests
         }
 
         [TestMethod]
-        public void Run()
+        public void FilesExistTest()
         {
             Helper.StartWorkflow(42);
 

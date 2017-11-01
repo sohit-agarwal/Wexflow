@@ -24,7 +24,7 @@ namespace Wexflow.Tasks.Tests
         }
 
         [TestMethod]
-        public void Run()
+        public void RmdirTest()
         {
             Assert.AreEqual(true, Directory.Exists(Src));
             Helper.StartWorkflow(14);

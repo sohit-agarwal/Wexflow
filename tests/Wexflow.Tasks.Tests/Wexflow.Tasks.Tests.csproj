@@ -86,7 +86,7 @@
     <Compile Include="Untgz.cs" />
     <Compile Include="Untar.cs" />
     <Compile Include="Unzip.cs" />
-    <Compile Include="PeriodicTest.cs" />
+    <Compile Include="Periodic.cs" />
     <Compile Include="ProcessKiller.cs" />
     <Compile Include="MailsReceiver.cs" />
     <Compile Include="FilesSplitter.cs" />
@@ -113,9 +113,9 @@
     <Compile Include="Rmdir.cs" />
     <Compile Include="Sql.cs" />
     <Compile Include="Sync.cs" />
-    <Compile Include="StopTest.cs" />
-    <Compile Include="SuspendTest.cs" />
-    <Compile Include="ResumeTest.cs" />
+    <Compile Include="Stop.cs" />
+    <Compile Include="Suspend.cs" />
+    <Compile Include="Resume.cs" />
     <Compile Include="Xslt.cs" />
     <Compile Include="XmlToCsv.cs" />
     <Compile Include="Workflow.cs" />

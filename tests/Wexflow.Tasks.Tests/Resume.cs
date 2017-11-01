@@ -1,10 +1,11 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Wexflow.Tasks.Tests
 {
     [TestClass]
-    public class SuspendTest
+    public class Resume
     {
         [TestInitialize]
         public void TestInitialize()
@@ -17,7 +18,7 @@ namespace Wexflow.Tasks.Tests
         }
 
         [TestMethod]
-        public void Run()
+        public void ResumeTest()
         {
             int workflowId = 41;
 
@@ -32,6 +33,10 @@ namespace Wexflow.Tasks.Tests
                 workflow = Helper.GetWorkflow(workflowId);
                 Assert.IsTrue(workflow.IsPaused);
                 Helper.ResumeWorkflow(workflowId);
+                Thread.Sleep(500);
+                workflow = Helper.GetWorkflow(workflowId);
+                Assert.IsFalse(workflow.IsPaused);
+                Assert.IsTrue(workflow.IsRunning);
             }
             finally
             {

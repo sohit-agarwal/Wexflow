@@ -21,7 +21,7 @@ namespace Wexflow.Tasks.Tests
         }
 
         [TestMethod]
-        public void Run()
+        public void UntgzTest()
         {
             string[] files = GetFiles();
             Assert.AreEqual(0, files.Length);

@@ -25,7 +25,7 @@ namespace Wexflow.Tasks.Tests
         }
 
         [TestMethod]
-        public void Run()
+        public void MkdirTest()
         {
             Assert.AreEqual(false, Directory.Exists(Folder1));
             Assert.AreEqual(false, Directory.Exists(Folder2));

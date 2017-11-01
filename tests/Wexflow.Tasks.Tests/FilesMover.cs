@@ -23,7 +23,7 @@ namespace Wexflow.Tasks.Tests
         }
 
         [TestMethod]
-        public void Run()
+        public void FilesMoverTest()
         {
             Helper.StartWorkflow(4);
             Assert.AreEqual(true, File.Exists(Dest));

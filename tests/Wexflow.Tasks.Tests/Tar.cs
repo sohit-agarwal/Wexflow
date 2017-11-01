@@ -23,7 +23,7 @@ namespace Wexflow.Tasks.Tests
         }
 
         [TestMethod]
-        public void Run()
+        public void TarTest()
         {
             Assert.AreEqual(false, File.Exists(TarFile));
             Helper.StartWorkflow(20);

@@ -19,7 +19,7 @@ namespace Wexflow.Tasks.Tests
         }
 
         [TestMethod]
-        public void Run()
+        public void NowTest()
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
             Helper.StartWorkflow(51);

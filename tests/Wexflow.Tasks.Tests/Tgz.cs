@@ -23,7 +23,7 @@ namespace Wexflow.Tasks.Tests
         }
 
         [TestMethod]
-        public void Run()
+        public void TgzTest()
         {
             Assert.AreEqual(false, File.Exists(TgzFile));
             Helper.StartWorkflow(21);

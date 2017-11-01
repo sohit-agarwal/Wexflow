@@ -41,7 +41,7 @@ namespace Wexflow.Tasks.Tests
         }
 
         [TestMethod]
-        public void Run()
+        public void FtpTest()
         {
             Assert.IsFalse(File.Exists(File1));
             Assert.IsFalse(File.Exists(File2));

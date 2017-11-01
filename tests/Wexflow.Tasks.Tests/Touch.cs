@@ -25,7 +25,7 @@ namespace Wexflow.Tasks.Tests
         }
 
         [TestMethod]
-        public void Run()
+        public void TouchTest()
         {
             Assert.AreEqual(false, File.Exists(File1));
             Assert.AreEqual(false, File.Exists(File2));

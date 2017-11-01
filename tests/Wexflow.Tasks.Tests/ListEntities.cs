@@ -16,7 +16,7 @@ namespace Wexflow.Tasks.Tests
         }
 
         [TestMethod]
-        public void Run()
+        public void ListEntitiesTest()
         {
             Helper.StartWorkflow(7);
             // TODO

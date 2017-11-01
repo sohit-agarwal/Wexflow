@@ -26,7 +26,7 @@ namespace Wexflow.Tasks.Tests
         }
 
         [TestMethod]
-        public void Run()
+        public void XmlToCsvTest()
         {
             string[] files = GetCsvs();
             Assert.AreEqual(0, files.Length);

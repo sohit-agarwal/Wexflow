@@ -41,7 +41,7 @@ namespace Wexflow.Tasks.Tests
         }
 
         [TestMethod]
-        public void Run()
+        public void FilesConcatTest()
         {
             Assert.IsFalse(File.Exists(FilesConcatFile));
             Helper.StartWorkflow(53);

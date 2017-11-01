@@ -18,7 +18,7 @@ namespace Wexflow.Tasks.Tests
         }
 
         [TestMethod]
-        public void Run()
+        public void FileExistsTest()
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
             Helper.StartWorkflow(49);

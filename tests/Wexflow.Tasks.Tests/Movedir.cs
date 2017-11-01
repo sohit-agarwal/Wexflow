@@ -26,7 +26,7 @@ namespace Wexflow.Tasks.Tests
         }
 
         [TestMethod]
-        public void Run()
+        public void MovedirTest()
         {
             Assert.AreEqual(true, Directory.Exists(Src));
             Assert.AreEqual(false, Directory.Exists(Dest));

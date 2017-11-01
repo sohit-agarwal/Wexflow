@@ -27,7 +27,7 @@ namespace Wexflow.Tasks.Tests
         }
 
         [TestMethod]
-        public void Run()
+        public void FilesRenamerTest()
         {
             Assert.AreEqual(false, File.Exists(SrcRenamed));
             Helper.StartWorkflow(36);

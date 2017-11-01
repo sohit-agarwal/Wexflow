@@ -22,7 +22,7 @@ namespace Wexflow.Tasks.Tests
         }
 
         [TestMethod]
-        public void Run()
+        public void HttpTest()
         {
             Assert.AreEqual(false, File.Exists(Dest));
             Helper.StartWorkflow(25);
