@@ -7,8 +7,6 @@ using Wexflow.Core.Service.Contracts;
 using Wexflow.Core.Service.Client;
 using System.Diagnostics;
 using System.IO;
-using System.Xml.Linq;
-using System.Linq;
 using System.Xml;
 
 namespace Wexflow.Clients.Manager
@@ -22,6 +20,7 @@ namespace Wexflow.Clients.Manager
 
         const string ColumnId = "Id";
         const string ColumnEnabled = "Enabled";
+        const string WexflowWindowsServicePath = @"..\Wexflow.Clients.WindowsService.exe.config";
 
         WexflowServiceClient _wexflowServiceClient;
         WorkflowInfo[] _workflows;
@@ -29,8 +28,8 @@ namespace Wexflow.Clients.Manager
         bool _windowsServiceWasStopped;
         Timer _timer;
         Exception _exception;
-        string logfile = "";
-        string designerWebFile = "..\\Web Designer\\index.html";
+        readonly string _logfile;
+        string designerWebFile = @"..\Web Designer\index.html";
 
         public Form1()
         {
@@ -39,18 +38,23 @@ namespace Wexflow.Clients.Manager
             textBoxInfo.Text = @"Loading workflows...";
 
             backgroundWorker1.RunWorkerAsync();
-            if (File.Exists(@"Wexflow.Clients.WindowsService.exe.config"))
+
+            if (File.Exists(WexflowWindowsServicePath))
             {
                 XmlDocument doc = new XmlDocument();
-                doc.Load("Wexflow.Clients.WindowsService.exe.config");
+                doc.Load(WexflowWindowsServicePath);
                 XmlElement root = doc.DocumentElement;
-                XmlNodeList nodeList = root.SelectNodes("/configuration/log4net/appender/file/@value");
-                if (nodeList.Count > 0) {
-                    logfile = nodeList[0].Value.ToString();
+                if (root != null)
+                {
+                    XmlNodeList nodeList = root.SelectNodes("/configuration/log4net/appender/file/@value");
+                    if (nodeList != null && nodeList.Count > 0) {
+                        _logfile = nodeList[0].Value;
+                    }
                 }
             }
-            buttonLog.Enabled = (logfile != "");
-            buttonDesign.Enabled = (File.Exists(designerWebFile));
+
+            buttonLogs.Enabled = !string.IsNullOrEmpty(_logfile);
+            buttonDesigner.Enabled = File.Exists(designerWebFile);
         }
 
         void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
@@ -310,9 +314,10 @@ namespace Wexflow.Clients.Manager
 
         private void buttonLog_Click(object sender, EventArgs e)
         {
-            if (File.Exists(logfile))
+            string logFile = @"..\" + _logfile;
+            if (File.Exists(logFile))
             {
-                Process.Start("notepad.exe", logfile);
+                Process.Start("notepad.exe", logFile);
             }
         }
 
