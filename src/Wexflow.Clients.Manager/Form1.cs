@@ -21,6 +21,7 @@ namespace Wexflow.Clients.Manager
         const string ColumnId = "Id";
         const string ColumnEnabled = "Enabled";
         const string WexflowWindowsServicePath = @"..\Wexflow.Clients.WindowsService.exe.config";
+        const string DesignerWebFile = @"..\Web Designer\index.html";
 
         WexflowServiceClient _wexflowServiceClient;
         WorkflowInfo[] _workflows;
@@ -29,7 +30,6 @@ namespace Wexflow.Clients.Manager
         Timer _timer;
         Exception _exception;
         readonly string _logfile;
-        string designerWebFile = @"..\Web Designer\index.html";
 
         public Form1()
         {
@@ -54,7 +54,7 @@ namespace Wexflow.Clients.Manager
             }
 
             buttonLogs.Enabled = !string.IsNullOrEmpty(_logfile);
-            buttonDesigner.Enabled = File.Exists(designerWebFile);
+            buttonDesigner.Enabled = File.Exists(DesignerWebFile);
         }
 
         void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
@@ -323,9 +323,9 @@ namespace Wexflow.Clients.Manager
 
         private void buttonDesign_Click(object sender, EventArgs e)
         {
-            if (File.Exists(designerWebFile))
+            if (File.Exists(DesignerWebFile))
             {
-                Process.Start(designerWebFile, "");
+                Process.Start(DesignerWebFile, "");
             }
         }
     }
