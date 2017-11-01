@@ -938,7 +938,7 @@
                 var wfDesc = document.getElementById("wf-desc");
                 wfDesc.value = workflow.Description;
                 wfDesc.onkeyup = function () {
-                    workflowInfos[workflowId].Period = wfDesc.value;
+                    workflowInfos[workflowId].Description = wfDesc.value;
                 }
 
                 document.getElementById("wf-path").innerHTML = workflow.Path;
