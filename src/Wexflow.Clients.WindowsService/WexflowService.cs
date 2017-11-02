@@ -393,6 +393,7 @@ namespace Wexflow.Clients.WindowsService
                 "Sha256",
                 "Sha512",
                 "Sql",
+                "SqlToCsv",
                 "SqlToXml",
                 "Sync",
                 "Tar",
@@ -531,6 +532,8 @@ namespace Wexflow.Clients.WindowsService
                 case "Sha512":
                     return new[] { "selectFiles" };
                 case "Sql":
+                    return new[] { "selectFiles", "type", "connectionString", "sql" };
+                case "SqlToCsv":
                     return new[] { "selectFiles", "type", "connectionString", "sql" };
                 case "SqlToXml":
                     return new[] { "selectFiles", "type", "connectionString", "sql" };

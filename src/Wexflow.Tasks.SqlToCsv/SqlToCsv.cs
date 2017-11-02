@@ -10,9 +10,10 @@ using System.Data.SQLite;
 using Npgsql;
 using System.IO;
 using System.Data.OleDb;
+using System.Text;
 using Teradata.Client.Provider;
 
-namespace Wexflow.Tasks.SqlToXml
+namespace Wexflow.Tasks.SqlToCsv
 {
     public enum Type
     {
@@ -25,18 +26,20 @@ namespace Wexflow.Tasks.SqlToXml
         Teradata
     }
 
-    public class SqlToXml : Task
+    public class SqlToCsv : Task
     {
         public Type DbType {get; set;}
         public string ConnectionString { get; set; }
         public string SqlScript { get; set; }
+        public string Separator { get; set; }
 
-        public SqlToXml(XElement xe, Workflow wf)
+        public SqlToCsv(XElement xe, Workflow wf)
             : base(xe, wf)
         {
             DbType = (Type)Enum.Parse(typeof(Type), GetSetting("type"), true);
             ConnectionString = GetSetting("connectionString");
             SqlScript = GetSetting("sql", string.Empty);
+            Separator = GetSetting("separator", ";");
         }
 
         public override TaskStatus Run()
@@ -115,29 +118,30 @@ namespace Wexflow.Tasks.SqlToXml
 
                         // Get column names
                         var columns = new List<string>();
+                        StringBuilder builder = new StringBuilder();
                         for (int i = 0; i < reader.FieldCount; i++)
                         {
                             columns.Add(reader.GetName(i));
+                            builder.Append(reader.GetName(i)).Append(Separator);
                         }
+                        builder.Append("\r\n");
 
-                        // Build Xml
+                        // Build Csv
                         string destPath = Path.Combine(Workflow.WorkflowTempFolder
-                            , string.Format("SqlServer_{0:yyyy-MM-dd-HH-mm-ss-fff}.xml", DateTime.Now));
-                        var xdoc = new XDocument();
-                        var xobjects = new XElement("Records");
+                            , string.Format("SqlServer_{0:yyyy-MM-dd-HH-mm-ss-fff}.csv", DateTime.Now));
+
                         while (reader.Read())
                         {
-                            var xobject = new XElement("Record");
                             foreach (var column in columns)
                             {
-                                xobject.Add(new XElement("Cell", new XAttribute("column", column), new XAttribute("value", reader[column])));
+                                builder.Append(reader[column]).Append(Separator);
                             }
-                            xobjects.Add(xobject);
+                            builder.Append("\r\n");
                         }
-                        xdoc.Add(xobjects);
-                        xdoc.Save(destPath);
+
+                        File.WriteAllText(destPath, builder.ToString());
                         Files.Add(new FileInf(destPath, Id));
-                        InfoFormat("XML file generated: {0}", destPath);
+                        InfoFormat("CSV file generated: {0}", destPath);
                     }
                     break;
                 case Type.Access:
@@ -149,32 +153,33 @@ namespace Wexflow.Tasks.SqlToXml
 
                         // Get column names
                         var columns = new List<string>();
+                        StringBuilder builder = new StringBuilder();
                         if (reader != null)
                         {
                             for (int i = 0; i < reader.FieldCount; i++)
                             {
                                 columns.Add(reader.GetName(i));
+                                builder.Append(reader.GetName(i)).Append(Separator);
                             }
                         }
+                        builder.Append("\r\n");
 
-                        // Build Xml
+                        // Build Csv
                         string destPath = Path.Combine(Workflow.WorkflowTempFolder
-                            , string.Format("Access_{0:yyyy-MM-dd-HH-mm-ss-fff}.xml", DateTime.Now));
-                        var xdoc = new XDocument();
-                        var xobjects = new XElement("Records");
+                            , string.Format("Access_{0:yyyy-MM-dd-HH-mm-ss-fff}.csv", DateTime.Now));
+
                         while (reader != null && reader.Read())
                         {
-                            var xobject = new XElement("Record");
                             foreach (var column in columns)
                             {
-                                xobject.Add(new XElement("Cell", new XAttribute("column", column), new XAttribute("value", reader[column])));
+                                builder.Append(reader[column]).Append(Separator);
                             }
-                            xobjects.Add(xobject);
+                            builder.Append("\r\n");
                         }
-                        xdoc.Add(xobjects);
-                        xdoc.Save(destPath);
+
+                        File.WriteAllText(destPath, builder.ToString());
                         Files.Add(new FileInf(destPath, Id));
-                        InfoFormat("XML file generated: {0}", destPath);
+                        InfoFormat("CSV file generated: {0}", destPath);
                     }
                     break;
                 case Type.Oracle:
@@ -186,29 +191,30 @@ namespace Wexflow.Tasks.SqlToXml
 
                         // Get column names
                         var columns = new List<string>();
+                        StringBuilder builder = new StringBuilder();
                         for (int i = 0; i < reader.FieldCount; i++)
                         {
                             columns.Add(reader.GetName(i));
+                            builder.Append(reader.GetName(i)).Append(Separator);
                         }
+                        builder.Append("\r\n");
 
-                        // Build Xml
+                        // Build Csv
                         string destPath = Path.Combine(Workflow.WorkflowTempFolder
-                            , string.Format("Oracle_{0:yyyy-MM-dd-HH-mm-ss-fff}.xml", DateTime.Now));
-                        var xdoc = new XDocument();
-                        var xobjects = new XElement("Records");
+                            , string.Format("Oracle_{0:yyyy-MM-dd-HH-mm-ss-fff}.csv", DateTime.Now));
+
                         while (reader.Read())
                         {
-                            var xobject = new XElement("Record");
                             foreach (var column in columns)
                             {
-                                xobject.Add(new XElement("Cell", new XAttribute("column", column), new XAttribute("value", reader[column])));
+                                builder.Append(reader[column]).Append(Separator);
                             }
-                            xobjects.Add(xobject);
+                            builder.Append("\r\n");
                         }
-                        xdoc.Add(xobjects);
-                        xdoc.Save(destPath);
+
+                        File.WriteAllText(destPath, builder.ToString());
                         Files.Add(new FileInf(destPath, Id));
-                        InfoFormat("XML file generated: {0}", destPath);
+                        InfoFormat("CSV file generated: {0}", destPath);
                     }
                     break;
                 case Type.MySql:
@@ -220,29 +226,30 @@ namespace Wexflow.Tasks.SqlToXml
 
                         // Get column names
                         var columns = new List<string>();
+                        StringBuilder builder = new StringBuilder();
                         for (int i = 0; i < reader.FieldCount; i++)
                         {
                             columns.Add(reader.GetName(i));
+                            builder.Append(reader.GetName(i)).Append(Separator);
                         }
+                        builder.Append("\r\n");
 
-                        // Build Xml
+                        // Build Csv
                         string destPath = Path.Combine(Workflow.WorkflowTempFolder
-                            , string.Format("MySql_{0:yyyy-MM-dd-HH-mm-ss-fff}.xml", DateTime.Now));
-                        var xdoc = new XDocument();
-                        var xobjects = new XElement("Records");
+                            , string.Format("MySql_{0:yyyy-MM-dd-HH-mm-ss-fff}.csv", DateTime.Now));
+
                         while (reader.Read())
                         {
-                            var xobject = new XElement("Record");
                             foreach (var column in columns)
                             {
-                                xobject.Add(new XElement("Cell", new XAttribute("column", column), new XAttribute("value", reader[column])));
+                                builder.Append(reader[column]).Append(Separator);
                             }
-                            xobjects.Add(xobject);
+                            builder.Append("\r\n");
                         }
-                        xdoc.Add(xobjects);
-                        xdoc.Save(destPath);
+
+                        File.WriteAllText(destPath, builder.ToString());
                         Files.Add(new FileInf(destPath, Id));
-                        InfoFormat("XML file generated: {0}", destPath);
+                        InfoFormat("CSV file generated: {0}", destPath);
                     }
                     break;
                 case Type.Sqlite:
@@ -254,29 +261,30 @@ namespace Wexflow.Tasks.SqlToXml
 
                         // Get column names
                         var columns = new List<string>();
+                        StringBuilder builder = new StringBuilder();
                         for (int i = 0; i < reader.FieldCount; i++)
                         {
                             columns.Add(reader.GetName(i));
+                            builder.Append(reader.GetName(i)).Append(Separator);
                         }
+                        builder.Append("\r\n");
 
-                        // Build Xml
+                        // Build Csv
                         string destPath = Path.Combine(Workflow.WorkflowTempFolder
-                            , string.Format("Sqlite_{0:yyyy-MM-dd-HH-mm-ss-fff}.xml", DateTime.Now));
-                        var xdoc = new XDocument();
-                        var xobjects = new XElement("Records");
+                            , string.Format("Sqlite_{0:yyyy-MM-dd-HH-mm-ss-fff}.csv", DateTime.Now));
+                       
                         while (reader.Read())
                         {
-                            var xobject = new XElement("Record");
                             foreach (var column in columns)
                             {
-                                xobject.Add(new XElement("Cell", new XAttribute("column", column), new XAttribute("value", reader[column])));
+                                builder.Append(reader[column]).Append(Separator);
                             }
-                            xobjects.Add(xobject);
+                            builder.Append("\r\n");
                         }
-                        xdoc.Add(xobjects);
-                        xdoc.Save(destPath);
+                        
+                        File.WriteAllText(destPath, builder.ToString());
                         Files.Add(new FileInf(destPath, Id));
-                        InfoFormat("XML file generated: {0}", destPath);
+                        InfoFormat("CSV file generated: {0}", destPath);
                     }
                     break;
                 case Type.PostGreSql:
@@ -288,29 +296,30 @@ namespace Wexflow.Tasks.SqlToXml
 
                         // Get column names
                         var columns = new List<string>();
+                        StringBuilder builder = new StringBuilder();
                         for (int i = 0; i < reader.FieldCount; i++)
                         {
                             columns.Add(reader.GetName(i));
+                            builder.Append(reader.GetName(i)).Append(Separator);
                         }
+                        builder.Append("\r\n");
 
-                        // Build Xml
+                        // Build Csv
                         string destPath = Path.Combine(Workflow.WorkflowTempFolder
-                            , string.Format("PostGreSql_{0:yyyy-MM-dd-HH-mm-ss-fff}.xml", DateTime.Now));
-                        var xdoc = new XDocument();
-                        var xobjects = new XElement("Records");
+                            , string.Format("PostGreSql_{0:yyyy-MM-dd-HH-mm-ss-fff}.csv", DateTime.Now));
+
                         while (reader.Read())
                         {
-                            var xobject = new XElement("Record");
                             foreach (var column in columns)
                             {
-                                xobject.Add(new XElement("Cell", new XAttribute("column", column), new XAttribute("value", reader[column])));
+                                builder.Append(reader[column]).Append(Separator);
                             }
-                            xobjects.Add(xobject);
+                            builder.Append("\r\n");
                         }
-                        xdoc.Add(xobjects);
-                        xdoc.Save(destPath);
+
+                        File.WriteAllText(destPath, builder.ToString());
                         Files.Add(new FileInf(destPath, Id));
-                        InfoFormat("XML file generated: {0}", destPath);
+                        InfoFormat("CSV file generated: {0}", destPath);
                     }
                     break;
                 case Type.Teradata:
@@ -322,29 +331,30 @@ namespace Wexflow.Tasks.SqlToXml
 
                         // Get column names
                         var columns = new List<string>();
+                        StringBuilder builder = new StringBuilder();
                         for (int i = 0; i < reader.FieldCount; i++)
                         {
                             columns.Add(reader.GetName(i));
+                            builder.Append(reader.GetName(i)).Append(Separator);
                         }
+                        builder.Append("\r\n");
 
-                        // Build Xml
+                        // Build Csv
                         string destPath = Path.Combine(Workflow.WorkflowTempFolder
-                            , string.Format("Teradata_{0:yyyy-MM-dd-HH-mm-ss-fff}.xml", DateTime.Now));
-                        var xdoc = new XDocument();
-                        var xobjects = new XElement("Records");
+                            , string.Format("Teradata_{0:yyyy-MM-dd-HH-mm-ss-fff}.csv", DateTime.Now));
+
                         while (reader.Read())
                         {
-                            var xobject = new XElement("Record");
                             foreach (var column in columns)
                             {
-                                xobject.Add(new XElement("Cell", new XAttribute("column", column), new XAttribute("value", reader[column])));
+                                builder.Append(reader[column]).Append(Separator);
                             }
-                            xobjects.Add(xobject);
+                            builder.Append("\r\n");
                         }
-                        xdoc.Add(xobjects);
-                        xdoc.Save(destPath);
+
+                        File.WriteAllText(destPath, builder.ToString());
                         Files.Add(new FileInf(destPath, Id));
-                        InfoFormat("XML file generated: {0}", destPath);
+                        InfoFormat("CSV file generated: {0}", destPath);
                     }
                     break;
             }

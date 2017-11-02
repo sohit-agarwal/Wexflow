@@ -11,29 +11,29 @@ namespace Wexflow.Tasks.Tests
             "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n"
             + "<Records>\r\n"
             + "  <Record>\r\n"
-            + "    <Id>1</Id>\r\n"
-            + "    <Title>Hello World 1!</Title>\r\n"
-            + "    <Description>Hello World Description 1!</Description>\r\n"
+            + "    <Cell column=\"Id\" value=\"1\" />\r\n"
+            + "    <Cell column=\"Title\" value=\"Hello World 1!\" />\r\n"
+            + "    <Cell column=\"Description\" value=\"Hello World Description 1!\" />\r\n"
             + "  </Record>\r\n"
             + "  <Record>\r\n"
-            + "    <Id>2</Id>\r\n"
-            + "    <Title>Hello World 2!</Title>\r\n"
-            + "    <Description>Hello World Description 2!</Description>\r\n"
+            + "    <Cell column=\"Id\" value=\"2\" />\r\n"
+            + "    <Cell column=\"Title\" value=\"Hello World 2!\" />\r\n"
+            + "    <Cell column=\"Description\" value=\"Hello World Description 2!\" />\r\n"
             + "  </Record>\r\n"
             + "  <Record>\r\n"
-            + "    <Id>3</Id>\r\n"
-            + "    <Title>Hello World 3!</Title>\r\n"
-            + "    <Description>Hello World Description 3!</Description>\r\n"
+            + "    <Cell column=\"Id\" value=\"3\" />\r\n"
+            + "    <Cell column=\"Title\" value=\"Hello World 3!\" />\r\n"
+            + "    <Cell column=\"Description\" value=\"Hello World Description 3!\" />\r\n"
             + "  </Record>\r\n"
             + "  <Record>\r\n"
-            + "    <Id>4</Id>\r\n"
-            + "    <Title>Hello World 4!</Title>\r\n"
-            + "    <Description>Hello World Description 4!</Description>\r\n"
+            + "    <Cell column=\"Id\" value=\"4\" />\r\n"
+            + "    <Cell column=\"Title\" value=\"Hello World 4!\" />\r\n"
+            + "    <Cell column=\"Description\" value=\"Hello World Description 4!\" />\r\n"
             + "  </Record>\r\n"
             + "  <Record>\r\n"
-            + "    <Id>5</Id>\r\n"
-            + "    <Title>Hello World 5!</Title>\r\n"
-            + "    <Description>Hello World Description 5!</Description>\r\n"
+            + "    <Cell column=\"Id\" value=\"5\" />\r\n"
+            + "    <Cell column=\"Title\" value=\"Hello World 5!\" />\r\n"
+            + "    <Cell column=\"Description\" value=\"Hello World Description 5!\" />\r\n"
             + "  </Record>\r\n"
             + "</Records>";
 
@@ -50,7 +50,7 @@ namespace Wexflow.Tasks.Tests
         }
 
         [TestMethod]
-        public void Md5Test()
+        public void SqlToXmlTest()
         {
             string[] files = GetFiles();
             Assert.AreEqual(0, files.Length);
