@@ -1,4 +1,4 @@
-[![Release](http://img.shields.io/badge/release-v2.1-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/tag/v2.1) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby) [![Release](http://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/aelassas/Wexflow#contribute) [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)
+[![Release](http://img.shields.io/badge/release-v2.1-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/latest) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby) [![Release](http://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/aelassas/Wexflow#contribute) [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)
 
 ![Logo](https://aelassas.github.io/wexflow/images/wexflow.png "Logo")
 
@@ -54,7 +54,7 @@ Here are the benefits of using Wexflow:
 
 # Download
 
-Download the latest release [here](https://github.com/aelassas/Wexflow/releases/tag/v2.1).
+Download the latest release [here](https://github.com/aelassas/Wexflow/releases/latest).
 
 # Contribute
 To contribute to this project, proceed as follows:
