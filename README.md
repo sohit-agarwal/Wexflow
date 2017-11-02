@@ -62,10 +62,11 @@ To contribute to this project, proceed as follows:
 - Read the documentation on how to [debug](https://github.com/aelassas/Wexflow/wiki/Debug) Wexflow.
 - [Fork](https://guides.github.com/activities/forking/) this repository.
 - Clone your fork.
+- Branch.
 - Make and push your changes.
-- To run unit tests follow these [guidelines](https://github.com/aelassas/Wexflow/wiki/How-to-run-unit-tests%3F).
 - Create a [pull request](https://help.github.com/articles/creating-a-pull-request/).
 - After your pull request has been reviewed, it can be merged into the repository.
+- To run unit tests follow these [guidelines](https://github.com/aelassas/Wexflow/wiki/How-to-run-unit-tests%3F).
 
 # Bugs and features
   
