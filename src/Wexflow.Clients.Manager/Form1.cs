@@ -328,5 +328,21 @@ namespace Wexflow.Clients.Manager
                 Process.Start(DesignerWebFile, "");
             }
         }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Wexflow version 2.2\r\n\r\nCheck if a new version is available?"
+                , "About Wexflow"
+                , MessageBoxButtons.YesNo
+                , MessageBoxIcon.Information) == DialogResult.Yes)
+            {
+                Process.Start("https://github.com/aelassas/Wexflow/releases/latest");
+            }
+        }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://github.com/aelassas/Wexflow/wiki");
+        }
     }
 }
