@@ -66,7 +66,7 @@ To contribute to this project, proceed as follows:
 - Make and push your changes.
 - Create a [pull request](https://help.github.com/articles/creating-a-pull-request/).
 - After your pull request has been reviewed, it can be merged into the repository.
-- To run unit tests follow these [guidelines](https://github.com/aelassas/Wexflow/wiki/How-to-run-unit-tests%3F).
+- To run unit tests, follow these [guidelines](https://github.com/aelassas/Wexflow/wiki/How-to-run-unit-tests%3F).
 
 # Bugs and features
   
