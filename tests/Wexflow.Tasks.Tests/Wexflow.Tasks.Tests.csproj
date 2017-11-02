@@ -81,6 +81,7 @@
     <Compile Include="FilesConcat.cs" />
     <Compile Include="FilesInfo.cs" />
     <Compile Include="HtmlToPdf.cs" />
+    <Compile Include="SqlToXml.cs" />
     <Compile Include="TextToPdf.cs" />
     <Compile Include="ProcessInfo.cs" />
     <Compile Include="Untgz.cs" />
@@ -258,6 +259,10 @@
     <ProjectReference Include="..\..\src\Wexflow.Tasks.Sha512\Wexflow.Tasks.Sha512.csproj">
       <Project>{261e8567-6ace-4591-80ec-658eede9ebcf}</Project>
       <Name>Wexflow.Tasks.Sha512</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Wexflow.Tasks.SqlToXml\Wexflow.Tasks.SqlToXml.csproj">
+      <Project>{118258f3-0273-48f2-bd0c-5349ae14a99a}</Project>
+      <Name>Wexflow.Tasks.SqlToXml</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Wexflow.Tasks.Sql\Wexflow.Tasks.Sql.csproj">
       <Project>{ef416670-6443-4c98-8d26-27d3741b8fb0}</Project>

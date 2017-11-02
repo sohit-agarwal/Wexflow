@@ -110,6 +110,7 @@ Source: "..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.Untgz.dll
 Source: "..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.ProcessInfo.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.TextToPdf.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.HtmlToPdf.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.SqlToXml.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 ; Wexflow Manager
 Source: "..\src\Wexflow.Clients.Manager\bin\Debug\Wexflow.Clients.Manager.exe"; DestDir: "{app}\Manager"; Flags: ignoreversion
@@ -178,6 +179,7 @@ Source: "..\src\Wexflow.Tasks.Untgz\Untgz.xml"; DestDir: "{app}\Documentation"; 
 Source: "..\src\Wexflow.Tasks.ProcessInfo\ProcessInfo.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 Source: "..\src\Wexflow.Tasks.TextToPdf\TextToPdf.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 Source: "..\src\Wexflow.Tasks.HtmlToPdf\HtmlToPdf.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\Wexflow.Tasks.SqlToXml\SqlToXml.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 
 Source: "..\LICENSE.txt"; DestDir: "{app}\"; Flags: ignoreversion recursesubdirs
 Source: "..\VERSION.txt"; DestDir: "{app}\"; Flags: ignoreversion recursesubdirs
