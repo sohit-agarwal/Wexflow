@@ -805,7 +805,7 @@
             for (var index4 = 0; index4 < wfTasks.length; index4++) {
                 var wfTask = wfTasks[index4];
                 var wfDesc = wfTask.getElementsByClassName("wf-task-desc")[0].value;
-                var taskLabel = wfTask.getElementsByClassName("wf-task-title-label")[0].innerHTML+': '+wfDesc;
+                var taskLabel = wfTask.getElementsByClassName("wf-task-title-label")[0].innerHTML + ': ' + wfDesc;
                 nodes.push({ data: { id: 'n' + index4, name: taskLabel } });
             }
 

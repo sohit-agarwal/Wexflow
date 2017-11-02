@@ -577,7 +577,8 @@ namespace Wexflow.Clients.WindowsService
                 
                 foreach (var node in wf.ExecutionGraph.Nodes)
                 {
-                    string nodeName = "Task " + node.Id;
+                    var task = wf.Taks.FirstOrDefault(t => t.Id == node.Id);
+                    string nodeName = "Task " + node.Id + (task != null ? ": " + task.Description : "");
 
                     if (node is If)
                     {
