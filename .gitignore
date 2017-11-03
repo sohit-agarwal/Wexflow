@@ -33,3 +33,4 @@ $tf*/
 .vs/
 setup/*.tar.gz
 setup/Wexflow.app/
+*.nupkg
