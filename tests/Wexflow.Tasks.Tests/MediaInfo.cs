@@ -32,7 +32,7 @@ namespace Wexflow.Tasks.Tests
             Assert.AreEqual(1, files.Length);
             string content = File.ReadAllText(files[0]);
 
-            string expectedResultPath = Path.Combine(MediaInfoFolder, Guid.NewGuid() + ".xml");
+            string expectedResultPath = Path.Combine(MediaInfoFolder, System.Guid.NewGuid() + ".xml");
             var xdoc = Tasks.MediaInfo.MediaInfo.Inform(new[]
             {
                 new FileInf(@"C:\WexflowTesting\WAV\kof.wav", 1),

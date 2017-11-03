@@ -373,6 +373,7 @@ namespace Wexflow.Clients.WindowsService
                 "FilesRenamer",
                 "FilesSplitter",
                 "Ftp",
+                "Guid",
                 "HtmlToPdf",
                 "Http",
                 "ImagesTransformer",
@@ -493,6 +494,8 @@ namespace Wexflow.Clients.WindowsService
                     return new[] { "selectFiles", "chunkSize" };
                 case "Ftp":
                     return new[] { "selectFiles", "command", "protocol", "encryption", "server", "port", "user", "password", "privateKeyPath", "passphrase", "path", "retryCount", "retryTimeout" };
+                case "Guid":
+                    return new[] { "guidCount" };
                 case "HtmlToPdf":
                     return new[] {"selectFiles"};
                 case "Http":
