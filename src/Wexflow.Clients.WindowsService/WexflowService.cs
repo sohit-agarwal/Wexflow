@@ -109,11 +109,8 @@ namespace Wexflow.Clients.WindowsService
 
                     taskInfos.Add(taskInfo);
                 }
-
-
                 return taskInfos.ToArray();
             }
-
             return null;
         }
 
@@ -241,7 +238,6 @@ namespace Wexflow.Clients.WindowsService
 
                     var path = (string) wi.SelectToken("Path");
                     xdoc.Save(path);
-
                 }
                 else
                 {
@@ -460,7 +456,6 @@ namespace Wexflow.Clients.WindowsService
             {
                 return false;
             }
-
         }
 
         [WebInvoke(Method = "GET",
@@ -609,7 +604,6 @@ namespace Wexflow.Clients.WindowsService
                 }
 
                 return nodes.ToArray();
-
             }
 
             return null;

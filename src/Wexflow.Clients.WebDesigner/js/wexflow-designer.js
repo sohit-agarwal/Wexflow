@@ -620,7 +620,7 @@
 
         task.Settings[settingIndex].Attributes = deleteRow(task.Settings[settingIndex].Attributes, attributeIndex);
         btn.parentElement.parentElement.remove();
-    };
+    }
 
     function removeSetting(workflowId, btn) {
         var taskIndex = getElementIndex(btn.parentElement.parentElement.parentElement.parentElement.parentElement);

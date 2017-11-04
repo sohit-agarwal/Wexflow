@@ -485,7 +485,6 @@ namespace Wexflow.Core
                                     break;
                             }
                         }
-
                     }
                     catch (ThreadAbortException)
                     {
@@ -840,7 +839,6 @@ namespace Wexflow.Core
             {
                 throw new Exception("Task " + @while.Id + " not found.");
             }
-
         }
 
         void RunSwitch(Task[] tasks, Node[] nodes, Switch @switch, ref bool success, ref bool warning, ref bool atLeastOneSucceed)
@@ -898,7 +896,6 @@ namespace Wexflow.Core
                             RunTasks(tasks, nodes, childNode, ref success, ref warning, ref atLeastOneSucceed);
                         }
                     }
-
                 }
             }
         }
