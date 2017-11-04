@@ -200,7 +200,6 @@ namespace Wexflow.Clients.WindowsService
                                 xsetting.SetAttributeValue("value", settingValue);
                             }
 
-
                             var attributes = setting.SelectToken("Attributes");
                             foreach (var attribute in attributes)
                             {
