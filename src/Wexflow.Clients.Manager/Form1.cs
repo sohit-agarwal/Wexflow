@@ -7,6 +7,7 @@ using Wexflow.Core.Service.Contracts;
 using Wexflow.Core.Service.Client;
 using System.Diagnostics;
 using System.IO;
+using System.Resources;
 using System.Xml;
 
 namespace Wexflow.Clients.Manager
@@ -30,6 +31,7 @@ namespace Wexflow.Clients.Manager
         Timer _timer;
         Exception _exception;
         readonly string _logfile;
+        readonly ResourceManager _resources = new ResourceManager(typeof(Form1));
 
         public Form1()
         {
@@ -331,8 +333,11 @@ namespace Wexflow.Clients.Manager
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Wexflow version 2.2\r\n\r\nCheck if a new version is available?"
-                , "About Wexflow"
+            var about = _resources.GetString("Form1_toolStripMenuItem1_Click_About");
+            var title = _resources.GetString("Form1_toolStripMenuItem1_Click_About_Title");
+                
+            if (MessageBox.Show(about
+                , title
                 , MessageBoxButtons.YesNo
                 , MessageBoxIcon.Information) == DialogResult.Yes)
             {

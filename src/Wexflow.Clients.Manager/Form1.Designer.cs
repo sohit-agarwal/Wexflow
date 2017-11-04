@@ -76,7 +76,7 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewWorkflows.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridViewWorkflows.Location = new System.Drawing.Point(12, 83);
+            this.dataGridViewWorkflows.Location = new System.Drawing.Point(12, 92);
             this.dataGridViewWorkflows.MultiSelect = false;
             this.dataGridViewWorkflows.Name = "dataGridViewWorkflows";
             this.dataGridViewWorkflows.ReadOnly = true;
@@ -90,7 +90,7 @@
             this.dataGridViewWorkflows.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewWorkflows.RowHeadersVisible = false;
             this.dataGridViewWorkflows.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewWorkflows.Size = new System.Drawing.Size(768, 367);
+            this.dataGridViewWorkflows.Size = new System.Drawing.Size(768, 403);
             this.dataGridViewWorkflows.TabIndex = 0;
             this.dataGridViewWorkflows.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewWorkflows_CellDoubleClick);
             this.dataGridViewWorkflows.ColumnDividerDoubleClick += new System.Windows.Forms.DataGridViewColumnDividerDoubleClickEventHandler(this.dataGridViewWorkflows_ColumnDividerDoubleClick);
@@ -99,7 +99,7 @@
             // buttonStart
             // 
             this.buttonStart.Enabled = false;
-            this.buttonStart.Location = new System.Drawing.Point(3, 3);
+            this.buttonStart.Location = new System.Drawing.Point(12, 10);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(75, 23);
             this.buttonStart.TabIndex = 1;
@@ -110,7 +110,7 @@
             // buttonPause
             // 
             this.buttonPause.Enabled = false;
-            this.buttonPause.Location = new System.Drawing.Point(84, 3);
+            this.buttonPause.Location = new System.Drawing.Point(93, 10);
             this.buttonPause.Name = "buttonPause";
             this.buttonPause.Size = new System.Drawing.Size(75, 23);
             this.buttonPause.TabIndex = 2;
@@ -121,7 +121,7 @@
             // buttonResume
             // 
             this.buttonResume.Enabled = false;
-            this.buttonResume.Location = new System.Drawing.Point(165, 3);
+            this.buttonResume.Location = new System.Drawing.Point(174, 10);
             this.buttonResume.Name = "buttonResume";
             this.buttonResume.Size = new System.Drawing.Size(75, 23);
             this.buttonResume.TabIndex = 3;
@@ -132,7 +132,7 @@
             // buttonStop
             // 
             this.buttonStop.Enabled = false;
-            this.buttonStop.Location = new System.Drawing.Point(246, 3);
+            this.buttonStop.Location = new System.Drawing.Point(255, 10);
             this.buttonStop.Name = "buttonStop";
             this.buttonStop.Size = new System.Drawing.Size(75, 23);
             this.buttonStop.TabIndex = 4;
@@ -145,7 +145,7 @@
             this.textBoxInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxInfo.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.textBoxInfo.Location = new System.Drawing.Point(12, 57);
+            this.textBoxInfo.Location = new System.Drawing.Point(9, 66);
             this.textBoxInfo.Name = "textBoxInfo";
             this.textBoxInfo.ReadOnly = true;
             this.textBoxInfo.Size = new System.Drawing.Size(768, 20);
@@ -153,21 +153,24 @@
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.buttonLogs);
             this.panel1.Controls.Add(this.buttonDesigner);
             this.panel1.Controls.Add(this.buttonStart);
             this.panel1.Controls.Add(this.buttonPause);
             this.panel1.Controls.Add(this.buttonStop);
             this.panel1.Controls.Add(this.buttonResume);
-            this.panel1.Location = new System.Drawing.Point(12, 24);
+            this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(768, 27);
+            this.panel1.Size = new System.Drawing.Size(792, 36);
             this.panel1.TabIndex = 6;
             // 
             // buttonLogs
             // 
+            this.buttonLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonLogs.Enabled = false;
-            this.buttonLogs.Location = new System.Drawing.Point(690, 4);
+            this.buttonLogs.Location = new System.Drawing.Point(702, 10);
             this.buttonLogs.Name = "buttonLogs";
             this.buttonLogs.Size = new System.Drawing.Size(75, 23);
             this.buttonLogs.TabIndex = 6;
@@ -177,8 +180,9 @@
             // 
             // buttonDesigner
             // 
+            this.buttonDesigner.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonDesigner.Enabled = false;
-            this.buttonDesigner.Location = new System.Drawing.Point(602, 4);
+            this.buttonDesigner.Location = new System.Drawing.Point(614, 10);
             this.buttonDesigner.Name = "buttonDesigner";
             this.buttonDesigner.Size = new System.Drawing.Size(82, 23);
             this.buttonDesigner.TabIndex = 5;
@@ -201,6 +205,7 @@
             // 
             // menuStrip2
             // 
+            this.menuStrip2.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1,
             this.helpToolStripMenuItem});
@@ -230,7 +235,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(792, 456);
+            this.ClientSize = new System.Drawing.Size(792, 507);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.textBoxInfo);
             this.Controls.Add(this.dataGridViewWorkflows);
