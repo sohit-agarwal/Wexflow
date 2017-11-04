@@ -5,5 +5,6 @@ dependencies:
     - sudo apt-get update
     - sudo apt-get install mono-complete
     - wget https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+    - xbuild /version
     - mono nuget.exe restore Wexflow.vs2010.sln
-    - xbuild Wexflow.vs2010.sln
+    - xbuild /p:Configuration=Release Wexflow.vs2010.sln
