@@ -26,7 +26,7 @@ namespace Wexflow.Tasks.FilesMover
             var atLeastOneSucceed = false;
 
             var files = SelectFiles();
-            for (var i = files.Length - 1; i > -1 ; i--) 
+            for (var i = files.Length - 1; i > -1; i--) 
             {
                 var file = files[i];
                 var fileName = Path.GetFileName(file.Path);

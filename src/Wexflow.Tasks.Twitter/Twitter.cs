@@ -92,7 +92,5 @@ namespace Wexflow.Tasks.Twitter
             Info("Task finished.");
             return new TaskStatus(tstatus, false);
         }
-
     }
 }
-

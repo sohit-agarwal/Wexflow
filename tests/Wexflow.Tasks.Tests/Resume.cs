@@ -42,7 +42,6 @@ namespace Wexflow.Tasks.Tests
             {
                 Helper.StopWorkflow(workflowId);
             }
-
         }
     }
 }

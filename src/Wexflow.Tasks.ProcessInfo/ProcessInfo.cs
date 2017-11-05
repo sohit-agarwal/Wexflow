@@ -26,7 +26,6 @@ namespace Wexflow.Tasks.ProcessInfo
 
                 var destPath = Path.Combine(Workflow.WorkflowTempFolder,
                     string.Format("ProcessInfo_{0:yyyy-MM-dd-HH-mm-ss-fff}.xml", DateTime.Now));
-
                 
                 var xprocesses = new XElement("Processes");
                 foreach (var process in processes)
@@ -61,6 +60,5 @@ namespace Wexflow.Tasks.ProcessInfo
                 return new TaskStatus(Status.Error);
             }
         }
-
     }
 }

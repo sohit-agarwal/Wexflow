@@ -35,4 +35,3 @@ namespace Wexflow.Tasks.Tests
         }
     }
 }
-

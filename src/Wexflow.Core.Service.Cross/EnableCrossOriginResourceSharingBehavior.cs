@@ -9,12 +9,10 @@ namespace Wexflow.Core.Service.Cross
     {
         public void AddBindingParameters(ServiceEndpoint endpoint, System.ServiceModel.Channels.BindingParameterCollection bindingParameters)
         {
-
         }
 
         public void ApplyClientBehavior(ServiceEndpoint endpoint, System.ServiceModel.Dispatcher.ClientRuntime clientRuntime)
         {
-
         }
 
         public void ApplyDispatchBehavior(ServiceEndpoint endpoint, System.ServiceModel.Dispatcher.EndpointDispatcher endpointDispatcher)
@@ -31,7 +29,6 @@ namespace Wexflow.Core.Service.Cross
 
         public void Validate(ServiceEndpoint endpoint)
         {
-
         }
 
         public override Type BehaviorType
@@ -43,6 +40,5 @@ namespace Wexflow.Core.Service.Cross
         {
             return new EnableCrossOriginResourceSharingBehavior();
         }
-    }
-        
+    }   
 }

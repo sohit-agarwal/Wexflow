@@ -106,7 +106,6 @@ namespace Wexflow.Tasks.Ftp
                     {
                         try
                         {
-
                             switch (_cmd)
                             {
                                 case FtpCommad.Upload:
@@ -143,7 +142,6 @@ namespace Wexflow.Tasks.Ftp
                                 Thread.Sleep(_retryTimeout);
                             }
                         }
-
                     }
                 }
             }

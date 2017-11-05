@@ -32,6 +32,8 @@ class ActionTask {
                 case Stop:
                     this.client.stop(this.activity.getWorkflowId());
                     break;
+                default:
+                    break;
             }
         } catch (Exception e) {
             this.exception = e;

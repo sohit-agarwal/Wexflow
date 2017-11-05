@@ -89,6 +89,5 @@ namespace Wexflow.Tasks.FilesInfo
             Info("Task finished.");
             return new TaskStatus(status, false);
         }
-
     }
 }

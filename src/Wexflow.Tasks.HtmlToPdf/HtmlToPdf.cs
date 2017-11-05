@@ -6,7 +6,6 @@ using System.Threading;
 using iTextSharp.text;
 using iTextSharp.text.html.simpleparser;
 using iTextSharp.text.pdf;
-using iTextSharp.text.xml.simpleparser;
 
 namespace Wexflow.Tasks.HtmlToPdf
 {
@@ -58,8 +57,7 @@ namespace Wexflow.Tasks.HtmlToPdf
                         ErrorFormat("An error occured while generating the md5 of the file {0}", e, file.Path);
                         success = false;
                     }
-                }
-              
+                }  
             }
 
             var status = Status.Success;
@@ -76,6 +74,5 @@ namespace Wexflow.Tasks.HtmlToPdf
             Info("Task finished.");
             return new TaskStatus(status, false);
         }
-
     }
 }

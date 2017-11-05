@@ -16,6 +16,5 @@
             IsEnabled = isEnabled;
             Description = desc;
         }
-
     }
 }

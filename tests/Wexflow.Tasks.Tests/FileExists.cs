@@ -6,7 +6,6 @@ namespace Wexflow.Tasks.Tests
     [TestClass]
     public class FileExists
     {
-
         [TestInitialize]
         public void TestInitialize()
         {

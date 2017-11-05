@@ -28,7 +28,7 @@ namespace Wexflow.Tasks.SqlToCsv
 
     public class SqlToCsv : Task
     {
-        public Type DbType {get; set;}
+        public Type DbType { get; set; }
         public string ConnectionString { get; set; }
         public string SqlScript { get; set; }
         public string Separator { get; set; }

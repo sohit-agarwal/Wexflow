@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Text;
 using Wexflow.Core;
 using System.Xml.Linq;
 using System.IO;
-using System.Security.Cryptography;
 using System.Threading;
 using ICSharpCode.SharpZipLib.Core;
 using ICSharpCode.SharpZipLib.Zip;
@@ -61,7 +59,6 @@ namespace Wexflow.Tasks.Unzip
                         success = false;
                     }
                 }
-
             }
 
             var status = Status.Success;
@@ -128,6 +125,5 @@ namespace Wexflow.Tasks.Unzip
                 }
             }
         }
-
     }
 }

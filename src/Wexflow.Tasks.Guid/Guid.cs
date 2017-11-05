@@ -36,6 +36,5 @@ namespace Wexflow.Tasks.Guid
             Info("Task finished.");
             return new TaskStatus(Status.Success, false);
         }
-
     }
 }

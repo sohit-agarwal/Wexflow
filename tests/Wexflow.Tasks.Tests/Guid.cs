@@ -35,6 +35,7 @@ namespace Wexflow.Tasks.Tests
             var xguids = xdoc.Descendants("Guid").ToList();
             Assert.AreEqual(3, xguids.Count);
             var regexPattern = @"^([0-9A-Fa-f]{8}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{12})$";
+
             foreach (var xguid in xguids)
             {
                 Assert.IsTrue(Regex.IsMatch(xguid.Value, regexPattern));

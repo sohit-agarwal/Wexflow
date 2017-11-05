@@ -145,7 +145,6 @@ namespace Wexflow.Core
 
         public void Run()
         {
-            
             foreach (Workflow workflow in Workflows)
             {
                 ScheduleWorkflow(workflow);

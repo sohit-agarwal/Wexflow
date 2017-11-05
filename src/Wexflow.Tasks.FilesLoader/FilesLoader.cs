@@ -63,7 +63,6 @@ namespace Wexflow.Tasks.FilesLoader
                     }
                 }
 
-
                 foreach (string file in FlFiles)
                 {
                     if (File.Exists(file))
@@ -97,7 +96,6 @@ namespace Wexflow.Tasks.FilesLoader
 
             Info("Task finished.");
             return new TaskStatus(status, false);
-
         }
 
         private string[] GetFilesRecursive(string dir)

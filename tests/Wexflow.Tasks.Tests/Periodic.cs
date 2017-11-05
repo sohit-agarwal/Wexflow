@@ -10,7 +10,6 @@ namespace Wexflow.Tasks.Tests
         public void TestInitialize()
         {
             Helper.Run(); // Run Wexflow engine instance
-
         }
 
         [TestCleanup]

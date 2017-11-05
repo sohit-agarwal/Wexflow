@@ -13,7 +13,8 @@ enum LaunchType {
                 return Trigger;
             case 2:
                 return Periodic;
+            default:
+                return null;
         }
-        return null;
     }
 }

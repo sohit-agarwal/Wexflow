@@ -26,7 +26,7 @@ namespace Wexflow.Tasks.Sql
 
     public class Sql:Task
     {
-        public Type DbType {get; set;}
+        public Type DbType { get; set; }
         public string ConnectionString { get; set; }
         public string SqlScript { get; set; }
 

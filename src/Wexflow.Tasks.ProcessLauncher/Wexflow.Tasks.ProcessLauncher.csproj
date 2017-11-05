@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="ApplicationLoader.cs" />
     <Compile Include="ProcessLauncher.cs" />
+    <Compile Include="ProcessWaitHandle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
