@@ -80,7 +80,6 @@ namespace Wexflow.Tasks.MailsSender
                             success = false;
                         }
                     }
-
                 }
             }
             catch (ThreadAbortException)

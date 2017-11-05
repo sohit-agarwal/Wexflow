@@ -90,6 +90,5 @@ namespace Wexflow.Tasks.FilesConcat
             Info("Task finished.");
             return new TaskStatus(status, false);
         }
-
     }
 }

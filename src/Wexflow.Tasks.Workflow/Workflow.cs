@@ -4,7 +4,6 @@ using Wexflow.Core;
 using Wexflow.Core.Service.Client;
 using Wexflow.Core.Service.Contracts;
 
-
 namespace Wexflow.Tasks.Workflow
 {
     public enum WorkflowAction

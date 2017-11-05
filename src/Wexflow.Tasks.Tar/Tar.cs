@@ -32,7 +32,6 @@ namespace Wexflow.Tasks.Tar
                 {
                     using (var tar = new TarOutputStream(File.Create(tarPath)))
                     {
-
                         foreach (FileInf file in files)
                         {
                             using (Stream inputStream = File.OpenRead(file.Path))

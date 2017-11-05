@@ -1,11 +1,13 @@
-# [Wexflow](https://wexflow.github.io/) [![Release](http://img.shields.io/badge/release-v2.1-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/tag/v2.1) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby) [![Release](http://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/aelassas/Wexflow/blob/master/README.md#contribute) [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)
+[![Release](http://img.shields.io/badge/release-v2.2-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/latest) [![Nuget](http://img.shields.io/badge/nuget-v2.2.0-blue.svg)](https://www.nuget.org/packages/Wexflow) [![CodeFactor](https://www.codefactor.io/repository/github/aelassas/wexflow/badge)](https://www.codefactor.io/repository/github/aelassas/wexflow) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby) [![Release](http://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/aelassas/Wexflow#contribute) [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)
+
+[![Logo](https://aelassas.github.io/wexflow/images/wexflow.png "Logo")](https://wexflow.github.io/)
 
 <!--
 [![forthebadge](http://forthebadge.com/images/badges/made-with-c-sharp.svg)](http://forthebadge.com)
 [![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)
 -->
 
-Wexflow is an open source extensible workflow engine with a cross-platform manager and designer. Wexflow aims to make automations, workflow processes, long-running processes and interactions between systems, applications and folks easy, straightforward and clean.
+Wexflow is an open source extensible workflow engine with a cross-platform manager and designer. The goal of Wexflow is to automate recurring tasks without user intervention. Wexflow aims to make automations, workflow processes, long-running processes and interactions between systems, applications and folks easy, straightforward and clean.
 
 Wexflow provides the following features:
 
@@ -15,7 +17,7 @@ Wexflow provides the following features:
 - [x] [A cross-platform application for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#wexflow-manager).
 - [x] [A cross-platform application for designing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#wexflow-web-designer).
 - [x] [An Android application for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#wexflow-android-manager).
-- [x] [41 built-in tasks](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation).
+- [x] [50 built-in tasks](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation).
 - [x] [Straightforward and easy to use](https://github.com/aelassas/Wexflow/wiki/Usage).
 - [x] [Hot reloading](https://github.com/aelassas/Wexflow/wiki/Hot-reloading).
 - [x] [Automation](https://github.com/aelassas/Wexflow/wiki/Automation).
@@ -52,7 +54,7 @@ Here are the benefits of using Wexflow:
 
 # Download
 
-Download the latest release [here](https://github.com/aelassas/Wexflow/releases/tag/v2.1).
+Download the latest release [here](https://github.com/aelassas/Wexflow/releases/latest).
 
 # Contribute
 To contribute to this project, proceed as follows:
@@ -60,9 +62,11 @@ To contribute to this project, proceed as follows:
 - Read the documentation on how to [debug](https://github.com/aelassas/Wexflow/wiki/Debug) Wexflow.
 - [Fork](https://guides.github.com/activities/forking/) this repository.
 - Clone your fork.
+- Branch.
 - Make and push your changes.
 - Create a [pull request](https://help.github.com/articles/creating-a-pull-request/).
 - After your pull request has been reviewed, it can be merged into the repository.
+- To run unit tests, follow these [guidelines](https://github.com/aelassas/Wexflow/wiki/How-to-run-unit-tests%3F).
 
 # Bugs and features
   
@@ -86,4 +90,4 @@ Wexflow contains other libraries with their individual licenses. More details ab
 # Thanks
 
 - Thanks [JetBrains](https://www.jetbrains.com/) for providing a free license of [Resharper](https://www.jetbrains.com/resharper/).
-- Thanks [@HaMster21](https://github.com/HaMster21) for your contributions to the code.
+- Thanks [@HaMster21](https://github.com/HaMster21) and [@janborup](https://github.com/janborup) for your contributions to the code.

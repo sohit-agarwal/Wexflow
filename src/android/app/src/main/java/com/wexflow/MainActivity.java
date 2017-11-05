@@ -98,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(this, SettingsActivity.class);
                 startActivityForResult(i, RESULT_SETTINGS);
                 break;
+            default:
+                break;
         }
 
         return true;

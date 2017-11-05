@@ -54,8 +54,7 @@ namespace Wexflow.Tasks.TextToPdf
                         ErrorFormat("An error occured while generating the md5 of the file {0}", e, file.Path);
                         success = false;
                     }
-                }
-              
+                }  
             }
 
             var status = Status.Success;
@@ -72,6 +71,5 @@ namespace Wexflow.Tasks.TextToPdf
             Info("Task finished.");
             return new TaskStatus(status, false);
         }
-
     }
 }

@@ -171,6 +171,5 @@ namespace Wexflow.Tasks.ProcessLauncher
         {
             ErrorFormat("{0}", outLine.Data);
         }
-
     }
 }

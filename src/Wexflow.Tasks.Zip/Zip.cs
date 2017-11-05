@@ -52,7 +52,6 @@ namespace Wexflow.Tasks.Zip
 
                             using (FileStream fs = File.OpenRead(file.Path))
                             {
-
                                 // Using a fixed size buffer here makes no noticeable difference for output
                                 // but keeps a lid on memory usage.
                                 int sourceBytes;

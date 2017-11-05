@@ -2,8 +2,6 @@
 using System.Security;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Threading;
-using Microsoft.Win32.SafeHandles;
 
 namespace Wexflow.Tasks.ProcessLauncher
 {
@@ -206,15 +204,6 @@ namespace Wexflow.Tasks.ProcessLauncher
             CloseHandle(hUserTokenDup);
 
             return result; // return the result
-        }
-
-    }
-
-    class ProcessWaitHandle : WaitHandle
-    {
-        public ProcessWaitHandle(IntPtr processHandle)
-        {
-            SafeWaitHandle = new SafeWaitHandle(processHandle, false);
         }
     }
 }

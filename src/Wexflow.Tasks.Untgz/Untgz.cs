@@ -57,7 +57,6 @@ namespace Wexflow.Tasks.Untgz
                         success = false;
                     }
                 }
-
             }
 
             var status = Status.Success;
@@ -77,7 +76,6 @@ namespace Wexflow.Tasks.Untgz
 
         private void ExtractTGZ(String gzArchiveName, String destFolder)
         {
-
             Stream inStream = File.OpenRead(gzArchiveName);
             Stream gzipStream = new GZipInputStream(inStream);
 
@@ -88,6 +86,5 @@ namespace Wexflow.Tasks.Untgz
             gzipStream.Close();
             inStream.Close();
         }
-
     }
 }

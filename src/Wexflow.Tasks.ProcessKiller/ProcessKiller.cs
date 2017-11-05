@@ -55,6 +55,5 @@ namespace Wexflow.Tasks.ProcessKiller
         {
             ErrorFormat("{0}", outLine.Data);
         }
-
     }
 }

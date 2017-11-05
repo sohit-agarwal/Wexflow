@@ -93,8 +93,7 @@ namespace Wexflow.Clients.Manager
             //fire an event that the list has been changed.
             OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, -1));
         }
- 
- 
+  
         int Compare(T lhs, T rhs)
         {
             var result = OnComparison(lhs, rhs);
@@ -129,5 +128,4 @@ namespace Wexflow.Clients.Manager
 			return string.CompareOrdinal(lhsValue.ToString(), rhsValue.ToString());
         }
     }
-
 }

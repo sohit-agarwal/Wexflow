@@ -5,7 +5,6 @@ using System.Xml.XPath;
 using TweetSharp;
 using System.Threading;
 
-
 namespace Wexflow.Tasks.Twitter
 {
     public class Twitter:Task
@@ -92,7 +91,5 @@ namespace Wexflow.Tasks.Twitter
             Info("Task finished.");
             return new TaskStatus(tstatus, false);
         }
-
     }
 }
-

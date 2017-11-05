@@ -32,15 +32,15 @@ namespace Wexflow.Tasks.MediaInfo
                 Files.Add(new FileInf(mediaInfoPath, Id));
             }
 
-            var status = Status.Success;
+            var status = Core.Status.Success;
 
             if (!_success && _atLeastOneSucceed)
             {
-                status = Status.Warning;
+                status = Core.Status.Warning;
             }
             else if (!_success)
             {
-                status = Status.Error;
+                status = Core.Status.Error;
             }
 
             Info("Task finished.");
@@ -60,7 +60,7 @@ namespace Wexflow.Tasks.MediaInfo
                             new XAttribute("path", file.Path),
                             new XAttribute("name", file.FileName));
 
-                        MediaInfoLib.MediaInfo mediaInfo = new MediaInfoLib.MediaInfo();
+                        MediaInfoLib mediaInfo = new MediaInfoLib();
                         mediaInfo.Open(file.Path);
                         mediaInfo.Option("Complete", "1");
                         string info = mediaInfo.Inform();
@@ -88,7 +88,6 @@ namespace Wexflow.Tasks.MediaInfo
                             xgeneral.Add(new XElement("Tag",
                                 new XAttribute("name", tag[0].Trim()),
                                 new XAttribute("value", tag[1].Trim())));
-
                         }
 
                         // Build xvideo
@@ -114,7 +113,6 @@ namespace Wexflow.Tasks.MediaInfo
                                     new XAttribute("name", tag[0].Trim()),
                                     new XAttribute("value", tag[1].Trim())));
                             }
-
                         }
 
                         // Build xaudio
@@ -175,6 +173,5 @@ namespace Wexflow.Tasks.MediaInfo
             }
             return xdoc;
         }
-
     }
 }

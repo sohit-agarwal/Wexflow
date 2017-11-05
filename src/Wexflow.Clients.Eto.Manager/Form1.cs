@@ -102,7 +102,6 @@ namespace Wexflow.Clients.Eto.Manager
 				var collection = new ObservableCollection<WorkflowDataInfo>(workflows.OrderBy(w => int.Parse(w.Id)));
 				_gvWorkflows.DataStore = collection;
 
-
 				_gvWorkflows.Columns.Add(new GridColumn
 				{
 					DataCell = new TextBoxCell { Binding = Binding.Property<WorkflowDataInfo, string>(w => w.Id) },
@@ -138,7 +137,6 @@ namespace Wexflow.Clients.Eto.Manager
 				MessageBox.Show("An error occured while retrieving workflows. Check Wexflow Web Service Uri and check that Wexflow Windows Service is running correctly. Error: " + e.Message, MessageBoxType.Error);
 			}
 		}
-
 
         private int GetSlectedWorkflowId()
 		{ 

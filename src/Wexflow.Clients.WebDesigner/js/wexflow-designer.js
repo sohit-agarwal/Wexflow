@@ -620,7 +620,7 @@
 
         task.Settings[settingIndex].Attributes = deleteRow(task.Settings[settingIndex].Attributes, attributeIndex);
         btn.parentElement.parentElement.remove();
-    };
+    }
 
     function removeSetting(workflowId, btn) {
         var taskIndex = getElementIndex(btn.parentElement.parentElement.parentElement.parentElement.parentElement);
@@ -805,7 +805,7 @@
             for (var index4 = 0; index4 < wfTasks.length; index4++) {
                 var wfTask = wfTasks[index4];
                 var wfDesc = wfTask.getElementsByClassName("wf-task-desc")[0].value;
-                var taskLabel = wfTask.getElementsByClassName("wf-task-title-label")[0].innerHTML+': '+wfDesc;
+                var taskLabel = wfTask.getElementsByClassName("wf-task-title-label")[0].innerHTML + ': ' + wfDesc;
                 nodes.push({ data: { id: 'n' + index4, name: taskLabel } });
             }
 

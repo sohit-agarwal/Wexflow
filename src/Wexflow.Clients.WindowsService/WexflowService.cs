@@ -109,11 +109,8 @@ namespace Wexflow.Clients.WindowsService
 
                     taskInfos.Add(taskInfo);
                 }
-
-
                 return taskInfos.ToArray();
             }
-
             return null;
         }
 
@@ -203,7 +200,6 @@ namespace Wexflow.Clients.WindowsService
                                 xsetting.SetAttributeValue("value", settingValue);
                             }
 
-
                             var attributes = setting.SelectToken("Attributes");
                             foreach (var attribute in attributes)
                             {
@@ -241,7 +237,6 @@ namespace Wexflow.Clients.WindowsService
 
                     var path = (string) wi.SelectToken("Path");
                     xdoc.Save(path);
-
                 }
                 else
                 {
@@ -373,6 +368,7 @@ namespace Wexflow.Clients.WindowsService
                 "FilesRenamer",
                 "FilesSplitter",
                 "Ftp",
+                "Guid",
                 "HtmlToPdf",
                 "Http",
                 "ImagesTransformer",
@@ -393,6 +389,8 @@ namespace Wexflow.Clients.WindowsService
                 "Sha256",
                 "Sha512",
                 "Sql",
+                "SqlToCsv",
+                "SqlToXml",
                 "Sync",
                 "Tar",
                 "TextToPdf",
@@ -457,7 +455,6 @@ namespace Wexflow.Clients.WindowsService
             {
                 return false;
             }
-
         }
 
         [WebInvoke(Method = "GET",
@@ -491,6 +488,8 @@ namespace Wexflow.Clients.WindowsService
                     return new[] { "selectFiles", "chunkSize" };
                 case "Ftp":
                     return new[] { "selectFiles", "command", "protocol", "encryption", "server", "port", "user", "password", "privateKeyPath", "passphrase", "path", "retryCount", "retryTimeout" };
+                case "Guid":
+                    return new[] { "guidCount" };
                 case "HtmlToPdf":
                     return new[] {"selectFiles"};
                 case "Http":
@@ -530,6 +529,10 @@ namespace Wexflow.Clients.WindowsService
                 case "Sha512":
                     return new[] { "selectFiles" };
                 case "Sql":
+                    return new[] { "selectFiles", "type", "connectionString", "sql" };
+                case "SqlToCsv":
+                    return new[] { "selectFiles", "type", "connectionString", "sql" };
+                case "SqlToXml":
                     return new[] { "selectFiles", "type", "connectionString", "sql" };
                 case "Sync":
                     return new[] { "srcFolder", "destFolder" };
@@ -577,7 +580,8 @@ namespace Wexflow.Clients.WindowsService
                 
                 foreach (var node in wf.ExecutionGraph.Nodes)
                 {
-                    string nodeName = "Task " + node.Id;
+                    var task = wf.Taks.FirstOrDefault(t => t.Id == node.Id);
+                    string nodeName = "Task " + node.Id + (task != null ? ": " + task.Description : "");
 
                     if (node is If)
                     {
@@ -599,7 +603,6 @@ namespace Wexflow.Clients.WindowsService
                 }
 
                 return nodes.ToArray();
-
             }
 
             return null;

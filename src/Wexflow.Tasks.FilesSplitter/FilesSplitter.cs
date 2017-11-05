@@ -86,6 +86,5 @@ namespace Wexflow.Tasks.FilesSplitter
             Info("Task finished.");
             return new TaskStatus(status, false);
         }
-
     }
 }

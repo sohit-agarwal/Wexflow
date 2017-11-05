@@ -53,6 +53,7 @@ namespace Wexflow.Tasks.FilesExist
                     xdoc.Root.Add(xFiles);
                     xdoc.Root.Add(xFolders);
                 }
+
                 xdoc.Save(xmlPath);
                 Files.Add(new FileInf(xmlPath, Id));
                 InfoFormat("The result has been written in: {0}", xmlPath);
