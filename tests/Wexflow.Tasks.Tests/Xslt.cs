@@ -39,7 +39,6 @@ namespace Wexflow.Tasks.Tests
             Assert.AreEqual(1, files.Length);
             string content = File.ReadAllText(files[0]);
             Assert.AreEqual(ExpectedResult, content);
-
         }
 
         private string[] GetFiles()

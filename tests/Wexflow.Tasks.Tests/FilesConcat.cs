@@ -49,6 +49,5 @@ namespace Wexflow.Tasks.Tests
             string content = File.ReadAllText(FilesConcatFile);
             Assert.AreEqual(ExpectedResult, content);
         }
-
     }
 }

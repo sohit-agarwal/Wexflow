@@ -48,6 +48,5 @@ namespace Wexflow.Tasks.Tests
             string content = File.ReadAllText(files[0]);
             Assert.AreEqual(ExpectedResult, content);
         }
-
     }
 }

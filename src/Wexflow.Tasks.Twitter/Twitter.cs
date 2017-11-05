@@ -5,7 +5,6 @@ using System.Xml.XPath;
 using TweetSharp;
 using System.Threading;
 
-
 namespace Wexflow.Tasks.Twitter
 {
     public class Twitter:Task

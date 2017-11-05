@@ -66,6 +66,8 @@ class ActionTask {
                 case Stop:
                     stringBuilder.append("was stopped.");
                     break;
+                default:
+                    break;
             }
 
             Toast.makeText(this.activity.getBaseContext(), stringBuilder.toString(), Toast.LENGTH_SHORT).show();
