@@ -1,4 +1,4 @@
-[![Release](http://img.shields.io/badge/release-v2.1-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/latest) [![Nuget](http://img.shields.io/badge/nuget-v2.2.0-blue.svg)](https://www.nuget.org/packages/Wexflow) [![CodeFactor](https://www.codefactor.io/repository/github/aelassas/wexflow/badge)](https://www.codefactor.io/repository/github/aelassas/wexflow) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby) [![Release](http://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/aelassas/Wexflow#contribute) [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)
+[![Release](http://img.shields.io/badge/release-v2.2-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/latest) [![Nuget](http://img.shields.io/badge/nuget-v2.2.0-blue.svg)](https://www.nuget.org/packages/Wexflow) [![CodeFactor](https://www.codefactor.io/repository/github/aelassas/wexflow/badge)](https://www.codefactor.io/repository/github/aelassas/wexflow) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby) [![Release](http://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/aelassas/Wexflow#contribute) [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)
 
 ![Logo](https://aelassas.github.io/wexflow/images/wexflow.png "Logo")
 
@@ -17,7 +17,7 @@ Wexflow provides the following features:
 - [x] [A cross-platform application for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#wexflow-manager).
 - [x] [A cross-platform application for designing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#wexflow-web-designer).
 - [x] [An Android application for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#wexflow-android-manager).
-- [x] [41 built-in tasks](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation).
+- [x] [50 built-in tasks](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation).
 - [x] [Straightforward and easy to use](https://github.com/aelassas/Wexflow/wiki/Usage).
 - [x] [Hot reloading](https://github.com/aelassas/Wexflow/wiki/Hot-reloading).
 - [x] [Automation](https://github.com/aelassas/Wexflow/wiki/Automation).
