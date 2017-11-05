@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Wexflow.Tasks.Tests
 {
     [TestClass]
-    public class Periodic
+    public class PeriodicAndStratup
     {
         [TestInitialize]
         public void TestInitialize()
@@ -18,7 +18,7 @@ namespace Wexflow.Tasks.Tests
         }
 
         [TestMethod]
-        public void PeriodicTest()
+        public void PeriodicAndStratupTest()
         {
             Thread.Sleep(2000);
             // TODO
