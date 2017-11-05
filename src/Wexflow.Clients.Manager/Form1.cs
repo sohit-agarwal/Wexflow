@@ -13,7 +13,6 @@ using System.Xml;
 namespace Wexflow.Clients.Manager
 {
     // v2.2
-    // TODO Tasks:
 
     public partial class Form1 : Form
     {
