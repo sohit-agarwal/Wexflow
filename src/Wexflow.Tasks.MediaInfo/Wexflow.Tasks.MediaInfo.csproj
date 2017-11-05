@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="MediaInfo.cs" />
     <Compile Include="MediaInfoLib.cs" />
+    <Compile Include="MediaInfoList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
