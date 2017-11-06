@@ -17,10 +17,13 @@ namespace Wexflow.Core
         public string XsdPath { get; private set; }
         public IList<Workflow> Workflows { get; private set; }
 
+        private readonly Dictionary<int, WexflowTimer> _wexflowTimers;
+
         public WexflowEngine(string settingsFile)
         {
             SettingsFile = settingsFile;
             Workflows = new List<Workflow>();
+            _wexflowTimers = new Dictionary<int, WexflowTimer>();
 
             Logger.Info("");
             Logger.Info("Starting Wexflow Engine");
@@ -168,7 +171,24 @@ namespace Wexflow.Core
                     };
 
                     var timer = new WexflowTimer(new TimerCallback(callback), wf, wf.Period);
+                    _wexflowTimers.Add(wf.Id, timer);
                     timer.Start();
+                }
+            }
+        }
+
+        public void Stop()
+        {
+            foreach (var wt in _wexflowTimers.Values)
+            {
+               wt.Stop();
+            }
+
+            foreach (var wf in Workflows)
+            {
+                if (wf.IsRunning)
+                {
+                    wf.Stop();
                 }
             }
         }
