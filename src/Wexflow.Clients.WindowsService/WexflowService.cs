@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
@@ -354,59 +355,9 @@ namespace Wexflow.Clients.WindowsService
             UriTemplate = "taskNames")]
         public string[] GetTaskNames()
         {
-            return new []
-            {
-                "CsvToXml",
-                "FileExists",
-                "FilesCopier",
-                "FilesExist",
-                "FilesInfo",
-                "FilesConcat",
-                "FilesLoader",
-                "FilesMover",
-                "FilesRemover",
-                "FilesRenamer",
-                "FilesSplitter",
-                "Ftp",
-                "Guid",
-                "HtmlToPdf",
-                "Http",
-                "ImagesTransformer",
-                "ListEntities",
-                "ListFiles",
-                "MailsReceiver",
-                "MailsSender",
-                "Md5",
-                "MediaInfo",
-                "Mkdir",
-                "Movedir",
-                "Now",
-                "ProcessInfo",
-                "ProcessKiller",
-                "ProcessLauncher",
-                "Rmdir",
-                "Sha1",
-                "Sha256",
-                "Sha512",
-                "Sql",
-                "SqlToCsv",
-                "SqlToXml",
-                "Sync",
-                "Tar",
-                "TextToPdf",
-                "Tgz",
-                "Touch",
-                "Twitter",
-                "Untar",
-                "Untgz",
-                "Unzip",
-                "Wait",
-                "Wmi",
-                "Workflow",
-                "XmlToCsv",
-                "Xslt",
-                "Zip"
-            };
+            var taskNamesFile = ConfigurationManager.AppSettings["TaskNamesFile"];
+            JArray taskNames = JArray.Parse(File.ReadAllText(taskNamesFile));
+            return taskNames.ToObject<string[]>();
         }
 
         [WebInvoke(Method = "GET",
@@ -462,110 +413,10 @@ namespace Wexflow.Clients.WindowsService
             UriTemplate = "settings/{taskName}")]
         public string[] GetSettings(string taskName)
         {
-            switch (taskName)
-            {
-                case "CsvToXml":
-                    return new[] { "selectFiles" };
-                case "FileExists":
-                    return new[] { "file" };
-                case "FilesConcat":
-                    return new[] { "selectFiles" };
-                case "FilesCopier":
-                    return new[] { "selectFiles", "destFolder", "overwrite" };
-                case "FilesExist":
-                    return new[] { "file", "folder" };
-                case "FilesInfo":
-                    return new[] { "selectFiles" };
-                case "FilesLoader":
-                    return new[] { "file", "folder", "regexPattern", "recursive" };
-                case "FilesMover":
-                    return new[] { "selectFiles", "destFolder", "overwrite" };
-                case "FilesRemover":
-                    return new[] { "selectFiles" };
-                case "FilesRenamer":
-                    return new[] { "selectFiles", "overwrite" };
-                case "FilesSplitter":
-                    return new[] { "selectFiles", "chunkSize" };
-                case "Ftp":
-                    return new[] { "selectFiles", "command", "protocol", "encryption", "server", "port", "user", "password", "privateKeyPath", "passphrase", "path", "retryCount", "retryTimeout" };
-                case "Guid":
-                    return new[] { "guidCount" };
-                case "HtmlToPdf":
-                    return new[] {"selectFiles"};
-                case "Http":
-                    return new[] { "url" };
-                case "ImagesTransformer":
-                    return new[] { "selectFiles", "outputFilePattern", "outputFormat" };
-                case "ListEntities":
-                    return new string[] { };
-                case "ListFiles":
-                    return new string[] { };
-                case "MailsReceiver":
-                    return new[] { "host", "port", "enableSsl", "user", "password", "messageCount" };
-                case "MailsSender":
-                    return new[] { "selectFiles", "selectAttachments", "host", "port", "enableSsl", "user", "password" };
-                case "Md5":
-                    return new[] { "selectFiles" };
-                case "MediaInfo":
-                    return new[] { "selectFiles" };
-                case "Mkdir":
-                    return new[] { "folder" };
-                case "Movedir":
-                    return new[] { "folder", "destinationFolder", "overwrite" };
-                case "Now":
-                    return new[] { "culture", "format" };
-                case "ProcessInfo":
-                    return new[] { "processName" };
-                case "ProcessKiller":
-                    return new[] { "processName" };
-                case "ProcessLauncher":
-                    return new[] { "selectFiles", "processPath", "processCmd", "hideGui", "generatesFiles" };
-                case "Rmdir":
-                    return new[] { "folder" };
-                case "Sha1":
-                    return new[] { "selectFiles" };
-                case "Sha256":
-                    return new[] { "selectFiles" };
-                case "Sha512":
-                    return new[] { "selectFiles" };
-                case "Sql":
-                    return new[] { "selectFiles", "type", "connectionString", "sql" };
-                case "SqlToCsv":
-                    return new[] { "selectFiles", "type", "connectionString", "sql" };
-                case "SqlToXml":
-                    return new[] { "selectFiles", "type", "connectionString", "sql" };
-                case "Sync":
-                    return new[] { "srcFolder", "destFolder" };
-                case "Tar":
-                    return new[] { "selectFiles", "zipFileName" };
-                case "TextToPdf":
-                    return new[] { "selectFiles" };
-                case "Tgz":
-                    return new[] { "selectFiles", "tgzFileName" };
-                case "Touch":
-                    return new[] { "file" };
-                case "Twitter":
-                    return new[] { "selectFiles", "consumerKey", "consumerSecret", "accessToken", "accessTokenSecret" };
-                case "Untar":
-                    return new[] {"selectFiles", "destDir"};
-                case "Untgz":
-                    return new[] { "selectFiles", "destDir" };
-                case "Unzip":
-                    return new[] { "selectFiles", "destDir", "password" };
-                case "Wait":
-                    return new[] { "duration" };
-                case "Wmi":
-                    return new[] { "query" };
-                case "Workflow":
-                    return new[] { "wexflowWebServiceUri", "action", "id" };
-                case "XmlToCsv":
-                    return new[] { "selectFiles" };
-                case "Xslt":
-                    return new[] { "selectFiles", "xsltPath", "version", "removeWexflowProcessingNodes" };
-                case "Zip":
-                    return new[] { "selectFiles", "zipFileName" };
-            }
-            return new string[]{};
+            var taskSettingsFile = ConfigurationManager.AppSettings["TaskSettingsFile"];
+            JObject o = JObject.Parse(File.ReadAllText(taskSettingsFile));
+            var token = o.SelectToken(taskName);
+            return token != null ? token.ToObject<string[]>() : new string[]{};
         }
 
         [WebInvoke(Method = "GET",

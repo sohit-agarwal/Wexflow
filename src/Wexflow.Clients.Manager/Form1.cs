@@ -13,8 +13,8 @@ using System.Xml;
 namespace Wexflow.Clients.Manager
 {
     // v2.3
-    // TODO Designer: Move task names to an external file C:\Wexflow\taskNames.json.
-    // TODO Designer: Move task settings to an external file C:\Wexflow\taskSettings.json.
+    // TODO add logs+wf in custom task doc
+    // TODO Wexflow.Core: doc.
 
     public partial class Form1 : Form
     {
