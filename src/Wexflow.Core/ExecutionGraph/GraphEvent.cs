@@ -3,13 +3,23 @@ using System.Linq;
 
 namespace Wexflow.Core.ExecutionGraph
 {
+    /// <summary>
+    /// Graph event.
+    /// </summary>
     public class GraphEvent
     {
-        public Node[] DoNodes { get; private set; }
+        /// <summary>
+        /// Nodes.
+        /// </summary>
+        public Node[] Nodes { get; private set; }
 
-        public GraphEvent(IEnumerable<Node> doNodes)
+        /// <summary>
+        /// Creates a new graph event.
+        /// </summary>
+        /// <param name="nodes">Nodes.</param>
+        public GraphEvent(IEnumerable<Node> nodes)
         {
-            if (doNodes != null) DoNodes = doNodes.ToArray();
+            if (nodes != null) Nodes = nodes.ToArray();
         }
     }
 }

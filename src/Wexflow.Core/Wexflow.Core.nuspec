@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Wexflow</id>
-    <version>2.2</version>
+    <version>2.3</version>
     <title>Wexflow</title>
     <authors>Akram El Assas</authors>
     <owners>Akram El Assas</owners>
@@ -11,7 +11,7 @@
     <!--<iconUrl></iconUrl>-->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Core assembly of Wexflow workflow engine.</description>
-    <releaseNotes>Fixed an issue in Task.GetSetting</releaseNotes>
+    <releaseNotes>Added WexflowEngine.Stop and the documentation.</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>Wexflow Workflow</tags>
   </metadata>
