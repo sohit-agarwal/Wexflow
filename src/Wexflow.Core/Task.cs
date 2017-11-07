@@ -85,37 +85,24 @@ namespace Wexflow.Core
 
         public string GetSetting(string name)
         {
-            var xSetting = _xElement.XPathSelectElement(string.Format("wf:Setting[@name='{0}']", name),
-                    Workflow.XmlNamespaceManager).Attribute("value");
-
-            if (xSetting == null)
+            var xNode = _xElement.XPathSelectElement(string.Format("wf:Setting[@name='{0}']", name), Workflow.XmlNamespaceManager);
+            if (xNode != null)
             {
-                throw new Exception("Setting " + name + " value attribute not found.");
+                var xSetting = xNode.Attribute("value");
+                if (xSetting == null)
+                {
+                    throw new Exception("Setting " + name + " value attribute not found.");
+                }
+                return xSetting.Value;
             }
-
-            return xSetting.Value;
+            return "";
         }
 
         public string GetSetting(string name, string defaultValue)
         {
-            var xe = _xElement.XPathSelectElement(string.Format("wf:Setting[@name='{0}']", name), Workflow.XmlNamespaceManager);
-            if (xe == null)
-            {
-                return defaultValue;
-            }
-
-            var xSetting = xe.Attribute("value");
-            if (xSetting == null)
-            {
-                throw new Exception("Setting " + name + " value attribute not found.");
-            }
-
-            if (string.IsNullOrEmpty(xSetting.Value))
-            {
-                return defaultValue;
-            }
-
-            return xSetting.Value;
+            var returnValue = GetSetting(name);
+            if (string.IsNullOrEmpty(returnValue)) return defaultValue;
+            return returnValue;
         }
 
         public string[] GetSettings(string name)

@@ -501,7 +501,7 @@ namespace Wexflow.Clients.WindowsService
                 case "ListFiles":
                     return new string[] { };
                 case "MailsReceiver":
-                    return new[] { "host", "port", "enableSsl", "user", "password", "messageCount" };
+                    return new[] { "host", "port", "enableSsl", "user", "password", "messageCount", "deleteMessages" };
                 case "MailsSender":
                     return new[] { "selectFiles", "selectAttachments", "host", "port", "enableSsl", "user", "password" };
                 case "Md5":
