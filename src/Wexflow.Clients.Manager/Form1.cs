@@ -13,7 +13,6 @@ using System.Xml;
 namespace Wexflow.Clients.Manager
 {
     // v2.3
-    // TODO Wexflow.Core: doc.
 
     public partial class Form1 : Form
     {
