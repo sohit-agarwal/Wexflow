@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
@@ -9,7 +8,6 @@ using System.ServiceModel.Web;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using Newtonsoft.Json.Linq;
-using Wexflow.Core;
 using Wexflow.Core.ExecutionGraph.Flowchart;
 using LaunchType = Wexflow.Core.Service.Contracts.LaunchType;
 
@@ -355,9 +353,8 @@ namespace Wexflow.Clients.WindowsService
             UriTemplate = "taskNames")]
         public string[] GetTaskNames()
         {
-            var taskNamesFile = ConfigurationManager.AppSettings["TaskNamesFile"];
-            JArray taskNames = JArray.Parse(File.ReadAllText(taskNamesFile));
-            return taskNames.ToObject<string[]>();
+            JArray array = JArray.Parse(File.ReadAllText(WexflowWindowsService.WexflowEngine.TasksNamesFile));
+            return array.ToObject<string[]>().OrderBy(x => x).ToArray();
         }
 
         [WebInvoke(Method = "GET",
@@ -413,10 +410,9 @@ namespace Wexflow.Clients.WindowsService
             UriTemplate = "settings/{taskName}")]
         public string[] GetSettings(string taskName)
         {
-            var taskSettingsFile = ConfigurationManager.AppSettings["TaskSettingsFile"];
-            JObject o = JObject.Parse(File.ReadAllText(taskSettingsFile));
+            JObject o = JObject.Parse(File.ReadAllText(WexflowWindowsService.WexflowEngine.TasksSettingsFile));
             var token = o.SelectToken(taskName);
-            return token != null ? token.ToObject<string[]>() : new string[]{};
+            return token != null ? token.ToObject<string[]>().OrderBy(x => x).ToArray() : new string[]{};
         }
 
         [WebInvoke(Method = "GET",

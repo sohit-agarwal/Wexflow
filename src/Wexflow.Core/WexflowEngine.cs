@@ -15,6 +15,8 @@ namespace Wexflow.Core
         public string TrashFolder { get; private set; }
         public string TempFolder { get; private set; }
         public string XsdPath { get; private set; }
+        public string TasksNamesFile { get; private set; }
+        public string TasksSettingsFile { get; private set; }
         public IList<Workflow> Workflows { get; private set; }
 
         private readonly Dictionary<int, WexflowTimer> _wexflowTimers;
@@ -40,6 +42,8 @@ namespace Wexflow.Core
             TempFolder = GetWexflowSetting(xdoc, "tempFolder");
             if (!Directory.Exists(TempFolder)) Directory.CreateDirectory(TempFolder);
             XsdPath = GetWexflowSetting(xdoc, "xsd");
+            TasksNamesFile = GetWexflowSetting(xdoc, "tasksNamesFile");
+            TasksSettingsFile = GetWexflowSetting(xdoc, "tasksSettingsFile");
         }
 
         string GetWexflowSetting(XDocument xdoc, string name)
