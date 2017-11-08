@@ -102,7 +102,7 @@ namespace Wexflow.Tasks.Untar
                     string outName = Path.Combine(targetDir, name);
 
                     string directoryName = Path.GetDirectoryName(outName);
-                    Directory.CreateDirectory(directoryName ?? throw new InvalidOperationException());       // Does nothing if directory exists
+                    Directory.CreateDirectory(directoryName); // ?? throw new InvalidOperationException());       // Does nothing if directory exists
 
                     FileStream outStr = new FileStream(outName, FileMode.Create);
 

@@ -90,7 +90,7 @@ namespace Wexflow.Tasks.Tests
 
         public static void CopyDirRec(string src, string dest)
         {
-            string dirName = Path.GetFileName(src) ?? throw new InvalidOperationException();
+            string dirName = Path.GetFileName(src); // throw new InvalidOperationException();
             string destDir = Path.Combine(dest, dirName);
             Directory.CreateDirectory(destDir);
 

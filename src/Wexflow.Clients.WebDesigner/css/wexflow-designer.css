@@ -1,4 +1,9 @@
-﻿#wf-container
+﻿.wf-taskxml
+{
+    display: none;
+}
+
+#wf-container
 {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 14px;
@@ -113,11 +118,11 @@
 .wf-add-attribute {
     width: 100px;
 }
-.wf-add-setting {
+.wf-add-setting, .wf-show-taskxml {
     margin-left: 10px;
 }
 
-.wf-remove-task, .wf-add-setting {
+.wf-remove-task, .wf-add-setting, .wf-show-taskxml {
     float: right;
 }
 .wf-add-setting {

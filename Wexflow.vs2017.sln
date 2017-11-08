@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27004.2006
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wexflow.Tasks", "Wexflow.Tasks", "{E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}"
 EndProject
@@ -150,6 +150,77 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.SqlToCsv", "src\Wexflow.Tasks.SqlToCsv\Wexflow.Tasks.SqlToCsv.csproj", "{FE20EFFB-272E-4673-86AA-A8C62E043450}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Guid", "src\Wexflow.Tasks.Guid\Wexflow.Tasks.Guid.csproj", "{EB130173-426E-45E6-A852-60215E46FDF8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{8C2CDC3E-E849-4DB2-A9D1-929AAA8BB8E5}"
+	ProjectSection(SolutionItems) = preProject
+		samples\Wexflow\Workflows\Workflow_CsvToXml.xml = samples\Wexflow\Workflows\Workflow_CsvToXml.xml
+		samples\Wexflow\Workflows\Workflow_ExecutionGraph.xml = samples\Wexflow\Workflows\Workflow_ExecutionGraph.xml
+		samples\Wexflow\Workflows\Workflow_ffmpeg.xml = samples\Wexflow\Workflows\Workflow_ffmpeg.xml
+		samples\Wexflow\Workflows\Workflow_FileExists1.xml = samples\Wexflow\Workflows\Workflow_FileExists1.xml
+		samples\Wexflow\Workflows\Workflow_FileExists2.xml = samples\Wexflow\Workflows\Workflow_FileExists2.xml
+		samples\Wexflow\Workflows\Workflow_FilesConcat.xml = samples\Wexflow\Workflows\Workflow_FilesConcat.xml
+		samples\Wexflow\Workflows\Workflow_FilesCopier.xml = samples\Wexflow\Workflows\Workflow_FilesCopier.xml
+		samples\Wexflow\Workflows\Workflow_FilesExist.xml = samples\Wexflow\Workflows\Workflow_FilesExist.xml
+		samples\Wexflow\Workflows\Workflow_FilesInfo.xml = samples\Wexflow\Workflows\Workflow_FilesInfo.xml
+		samples\Wexflow\Workflows\Workflow_FilesLoader.xml = samples\Wexflow\Workflows\Workflow_FilesLoader.xml
+		samples\Wexflow\Workflows\Workflow_FilesMover.xml = samples\Wexflow\Workflows\Workflow_FilesMover.xml
+		samples\Wexflow\Workflows\Workflow_FilesRemover.xml = samples\Wexflow\Workflows\Workflow_FilesRemover.xml
+		samples\Wexflow\Workflows\Workflow_FilesRenamer.xml = samples\Wexflow\Workflows\Workflow_FilesRenamer.xml
+		samples\Wexflow\Workflows\Workflow_FilesSplitter.xml = samples\Wexflow\Workflows\Workflow_FilesSplitter.xml
+		samples\Wexflow\Workflows\Workflow_Ftp.xml = samples\Wexflow\Workflows\Workflow_Ftp.xml
+		samples\Wexflow\Workflows\Workflow_Ftp_delete.xml = samples\Wexflow\Workflows\Workflow_Ftp_delete.xml
+		samples\Wexflow\Workflows\Workflow_Ftp_download.xml = samples\Wexflow\Workflows\Workflow_Ftp_download.xml
+		samples\Wexflow\Workflows\Workflow_Ftp_download_tag.xml = samples\Wexflow\Workflows\Workflow_Ftp_download_tag.xml
+		samples\Wexflow\Workflows\Workflow_Ftp_upload.xml = samples\Wexflow\Workflows\Workflow_Ftp_upload.xml
+		samples\Wexflow\Workflows\Workflow_Ftp_upload_rename.xml = samples\Wexflow\Workflows\Workflow_Ftp_upload_rename.xml
+		samples\Wexflow\Workflows\Workflow_Ftps_delete.xml = samples\Wexflow\Workflows\Workflow_Ftps_delete.xml
+		samples\Wexflow\Workflows\Workflow_Ftps_download.xml = samples\Wexflow\Workflows\Workflow_Ftps_download.xml
+		samples\Wexflow\Workflows\Workflow_Ftps_upload.xml = samples\Wexflow\Workflows\Workflow_Ftps_upload.xml
+		samples\Wexflow\Workflows\Workflow_Ftps_upload_rename.xml = samples\Wexflow\Workflows\Workflow_Ftps_upload_rename.xml
+		samples\Wexflow\Workflows\Workflow_Guid.xml = samples\Wexflow\Workflows\Workflow_Guid.xml
+		samples\Wexflow\Workflows\Workflow_HtmlToPdf.xml = samples\Wexflow\Workflows\Workflow_HtmlToPdf.xml
+		samples\Wexflow\Workflows\Workflow_Http.xml = samples\Wexflow\Workflows\Workflow_Http.xml
+		samples\Wexflow\Workflows\Workflow_ImagesTransformer.xml = samples\Wexflow\Workflows\Workflow_ImagesTransformer.xml
+		samples\Wexflow\Workflows\Workflow_ListEntities.xml = samples\Wexflow\Workflows\Workflow_ListEntities.xml
+		samples\Wexflow\Workflows\Workflow_ListFiles.xml = samples\Wexflow\Workflows\Workflow_ListFiles.xml
+		samples\Wexflow\Workflows\Workflow_MailsReceiver.xml = samples\Wexflow\Workflows\Workflow_MailsReceiver.xml
+		samples\Wexflow\Workflows\Workflow_MailsSender.xml = samples\Wexflow\Workflows\Workflow_MailsSender.xml
+		samples\Wexflow\Workflows\Workflow_Md5.xml = samples\Wexflow\Workflows\Workflow_Md5.xml
+		samples\Wexflow\Workflows\Workflow_MediaInfo.xml = samples\Wexflow\Workflows\Workflow_MediaInfo.xml
+		samples\Wexflow\Workflows\Workflow_Mkdir.xml = samples\Wexflow\Workflows\Workflow_Mkdir.xml
+		samples\Wexflow\Workflows\Workflow_Movedir.xml = samples\Wexflow\Workflows\Workflow_Movedir.xml
+		samples\Wexflow\Workflows\Workflow_Now.xml = samples\Wexflow\Workflows\Workflow_Now.xml
+		samples\Wexflow\Workflows\Workflow_Periodic.xml = samples\Wexflow\Workflows\Workflow_Periodic.xml
+		samples\Wexflow\Workflows\Workflow_ProcessInfo.xml = samples\Wexflow\Workflows\Workflow_ProcessInfo.xml
+		samples\Wexflow\Workflows\Workflow_ProcessKiller.xml = samples\Wexflow\Workflows\Workflow_ProcessKiller.xml
+		samples\Wexflow\Workflows\Workflow_Rmdir.xml = samples\Wexflow\Workflows\Workflow_Rmdir.xml
+		samples\Wexflow\Workflows\Workflow_Sftp_delete.xml = samples\Wexflow\Workflows\Workflow_Sftp_delete.xml
+		samples\Wexflow\Workflows\Workflow_Sftp_download.xml = samples\Wexflow\Workflows\Workflow_Sftp_download.xml
+		samples\Wexflow\Workflows\Workflow_Sftp_upload.xml = samples\Wexflow\Workflows\Workflow_Sftp_upload.xml
+		samples\Wexflow\Workflows\Workflow_Sftp_upload_rename.xml = samples\Wexflow\Workflows\Workflow_Sftp_upload_rename.xml
+		samples\Wexflow\Workflows\Workflow_Sha1.xml = samples\Wexflow\Workflows\Workflow_Sha1.xml
+		samples\Wexflow\Workflows\Workflow_Sha256.xml = samples\Wexflow\Workflows\Workflow_Sha256.xml
+		samples\Wexflow\Workflows\Workflow_Sha512.xml = samples\Wexflow\Workflows\Workflow_Sha512.xml
+		samples\Wexflow\Workflows\Workflow_Sql.xml = samples\Wexflow\Workflows\Workflow_Sql.xml
+		samples\Wexflow\Workflows\Workflow_SqlToCsv.xml = samples\Wexflow\Workflows\Workflow_SqlToCsv.xml
+		samples\Wexflow\Workflows\Workflow_SqlToXml.xml = samples\Wexflow\Workflows\Workflow_SqlToXml.xml
+		samples\Wexflow\Workflows\Workflow_Sync.xml = samples\Wexflow\Workflows\Workflow_Sync.xml
+		samples\Wexflow\Workflows\Workflow_Tar.xml = samples\Wexflow\Workflows\Workflow_Tar.xml
+		samples\Wexflow\Workflows\Workflow_TextToPdf.xml = samples\Wexflow\Workflows\Workflow_TextToPdf.xml
+		samples\Wexflow\Workflows\Workflow_Tgz.xml = samples\Wexflow\Workflows\Workflow_Tgz.xml
+		samples\Wexflow\Workflows\Workflow_Touch.xml = samples\Wexflow\Workflows\Workflow_Touch.xml
+		samples\Wexflow\Workflows\Workflow_Twitter.xml = samples\Wexflow\Workflows\Workflow_Twitter.xml
+		samples\Wexflow\Workflows\Workflow_Untar.xml = samples\Wexflow\Workflows\Workflow_Untar.xml
+		samples\Wexflow\Workflows\Workflow_Untgz.xml = samples\Wexflow\Workflows\Workflow_Untgz.xml
+		samples\Wexflow\Workflows\Workflow_Unzip.xml = samples\Wexflow\Workflows\Workflow_Unzip.xml
+		samples\Wexflow\Workflows\Workflow_vlc.xml = samples\Wexflow\Workflows\Workflow_vlc.xml
+		samples\Wexflow\Workflows\Workflow_Wait.xml = samples\Wexflow\Workflows\Workflow_Wait.xml
+		samples\Wexflow\Workflows\Workflow_Wmi.xml = samples\Wexflow\Workflows\Workflow_Wmi.xml
+		samples\Wexflow\Workflows\Workflow_Workflow.xml = samples\Wexflow\Workflows\Workflow_Workflow.xml
+		samples\Wexflow\Workflows\Workflow_XmlToCsv.xml = samples\Wexflow\Workflows\Workflow_XmlToCsv.xml
+		samples\Wexflow\Workflows\Workflow_Xslt.xml = samples\Wexflow\Workflows\Workflow_Xslt.xml
+		samples\Wexflow\Workflows\Workflow_Zip.xml = samples\Wexflow\Workflows\Workflow_Zip.xml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

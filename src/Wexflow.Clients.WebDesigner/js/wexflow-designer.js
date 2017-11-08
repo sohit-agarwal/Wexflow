@@ -479,6 +479,14 @@
         btn.parentElement.parentElement.remove();
     }
 
+    function showTaskXML(workflowId, btn) {
+        var index = getElementIndex(btn.parentElement.parentElement);
+        var xmlContainer = btn.parentElement.parentElement.parentElement.getElementsByClassName("wf-taskxml")[0];
+        xmlContainer.display = true;
+        //workflowTasks[workflowId] = deleteRow(workflowTasks[workflowId], index);
+        //btn.parentElement.parentElement.remove();
+    }
+
     function addSetting(workflowId, btn, sn) {
         var taskName = btn.parentElement.parentElement.getElementsByClassName("wf-task-name")[0].value;
 
@@ -976,7 +984,10 @@
                                         tasksHtml += "<option value='" + taskName + "' " + (taskName === task.Name ? "selected" : "") + ">" + taskName + "</option>";
                                     }
 
-                                    tasksHtml += "</select></td></tr>" +
+                                    tasksHtml += "</select>" +
+                                        "<button type='button' class='wf-show-taskxml btn btn-outline-secondary btn-sm'>XML</button>" +
+                                        "</td></tr>" +
+                                        "<tr><td class='wf-taskxml'><pre><code id='wf-taskxml-container' class='wf-taskxml'></code></pre></td></tr>" +
                                         "<tr><td class='wf-title'>Description</td><td class='wf-value'><input class='wf-task-desc' type='text' value='" + task.Description + "' /></td></tr>" +
                                         "<tr><td class='wf-title'>Enabled</td><td class='wf-value'><input class='wf-task-enabled' type='checkbox'   " + (task.IsEnabled ? "checked" : "") + " /></td></tr>" +
                                         "</tbody>" +
@@ -1063,6 +1074,14 @@
                                     }
                                 }
 
+                                // Show Task function XML
+                                var wfShowTaskXMLs = document.getElementsByClassName("wf-show-taskxml");
+                                for (var l = 0; l < wfShowTaskXMLs.length; l++) {
+                                    var wfShowTaskXML = wfShowTaskXMLs[l];
+                                    wfShowTaskXML.onclick = function () {
+                                        showTaskXML(workflowId, this);
+                                    };
+                                }
 
                                 // Add/Remove a setting
                                 var wfAddSettings = document.getElementsByClassName("wf-add-setting");

@@ -131,7 +131,7 @@ namespace Wexflow.Tasks.SqlToXml
                             var xobject = new XElement("Record");
                             foreach (var column in columns)
                             {
-                                xobject.Add(new XElement("Cell", new XAttribute("column", SecurityElement.Escape(column) ?? throw new InvalidOperationException()), new XAttribute("value", SecurityElement.Escape(reader[column].ToString()) ?? throw new InvalidOperationException())));
+                                //xobject.Add(new XElement("Cell", new XAttribute("column", SecurityElement.Escape(column) , new XAttribute("value", SecurityElement.Escape(reader[column].ToString())))));
                             }
                             xobjects.Add(xobject);
                         }
@@ -168,7 +168,7 @@ namespace Wexflow.Tasks.SqlToXml
                             var xobject = new XElement("Record");
                             foreach (var column in columns)
                             {
-                                xobject.Add(new XElement("Cell", new XAttribute("column", SecurityElement.Escape(column) ?? throw new InvalidOperationException()), new XAttribute("value", SecurityElement.Escape(reader[column].ToString()) ?? throw new InvalidOperationException())));
+                                xobject.Add(new XElement("Cell", new XAttribute("column", SecurityElement.Escape(column)), new XAttribute("value", SecurityElement.Escape(reader[column].ToString()))));
                             }
                             xobjects.Add(xobject);
                         }
@@ -202,7 +202,7 @@ namespace Wexflow.Tasks.SqlToXml
                             var xobject = new XElement("Record");
                             foreach (var column in columns)
                             {
-                                xobject.Add(new XElement("Cell", new XAttribute("column", SecurityElement.Escape(column) ?? throw new InvalidOperationException()), new XAttribute("value", SecurityElement.Escape(reader[column].ToString()) ?? throw new InvalidOperationException())));
+                                xobject.Add(new XElement("Cell", new XAttribute("column", SecurityElement.Escape(column)), new XAttribute("value", SecurityElement.Escape(reader[column].ToString()))));
                             }
                             xobjects.Add(xobject);
                         }
@@ -236,7 +236,7 @@ namespace Wexflow.Tasks.SqlToXml
                             var xobject = new XElement("Record");
                             foreach (var column in columns)
                             {
-                                xobject.Add(new XElement("Cell", new XAttribute("column", SecurityElement.Escape(column) ?? throw new InvalidOperationException()), new XAttribute("value", SecurityElement.Escape(reader[column].ToString()) ?? throw new InvalidOperationException())));
+                                xobject.Add(new XElement("Cell", new XAttribute("column", SecurityElement.Escape(column)), new XAttribute("value", SecurityElement.Escape(reader[column].ToString()))));
                             }
                             xobjects.Add(xobject);
                         }
@@ -270,7 +270,7 @@ namespace Wexflow.Tasks.SqlToXml
                             var xobject = new XElement("Record");
                             foreach (var column in columns)
                             {
-                                xobject.Add(new XElement("Cell", new XAttribute("column", SecurityElement.Escape(column) ?? throw new InvalidOperationException()), new XAttribute("value", SecurityElement.Escape(reader[column].ToString()) ?? throw new InvalidOperationException())));
+                                xobject.Add(new XElement("Cell", new XAttribute("column", SecurityElement.Escape(column)), new XAttribute("value", SecurityElement.Escape(reader[column].ToString()))));
                             }
                             xobjects.Add(xobject);
                         }
@@ -304,7 +304,7 @@ namespace Wexflow.Tasks.SqlToXml
                             var xobject = new XElement("Record");
                             foreach (var column in columns)
                             {
-                                xobject.Add(new XElement("Cell", new XAttribute("column", SecurityElement.Escape(column) ?? throw new InvalidOperationException()), new XAttribute("value", SecurityElement.Escape(reader[column].ToString()) ?? throw new InvalidOperationException())));
+                                xobject.Add(new XElement("Cell", new XAttribute("column", SecurityElement.Escape(column)), new XAttribute("value", SecurityElement.Escape(reader[column].ToString()))));
                             }
                             xobjects.Add(xobject);
                         }
@@ -338,7 +338,7 @@ namespace Wexflow.Tasks.SqlToXml
                             var xobject = new XElement("Record");
                             foreach (var column in columns)
                             {
-                                xobject.Add(new XElement("Cell", new XAttribute("column", SecurityElement.Escape(column) ?? throw new InvalidOperationException()), new XAttribute("value", SecurityElement.Escape(reader[column].ToString()) ?? throw new InvalidOperationException())));
+                                xobject.Add(new XElement("Cell", new XAttribute("column", SecurityElement.Escape(column)), new XAttribute("value", SecurityElement.Escape(reader[column].ToString()))));
                             }
                             xobjects.Add(xobject);
                         }
