@@ -101,7 +101,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Setup", "Setup", "{5365A7ED
 	ProjectSection(SolutionItems) = preProject
 		setup\setup-linux.bat = setup\setup-linux.bat
 		setup\setup-mac.bat = setup\setup-mac.bat
-		setup\setup-windows.iss = setup\setup-windows.iss
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Workflow", "src\Wexflow.Tasks.Workflow\Wexflow.Tasks.Workflow.csproj", "{10F39219-FE79-4191-B63E-59FF217EFC47}"

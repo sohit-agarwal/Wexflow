@@ -3,9 +3,7 @@ using Wexflow.Core;
 using System.Xml.Linq;
 using System.IO;
 using System.Threading;
-using iTextSharp.text;
-using iTextSharp.text.html.simpleparser;
-using iTextSharp.text.pdf;
+using TuesPechkin;
 
 namespace Wexflow.Tasks.HtmlToPdf
 {
@@ -33,7 +31,8 @@ namespace Wexflow.Tasks.HtmlToPdf
                     {
                         string pdfPath = Path.Combine(Workflow.WorkflowTempFolder,
                             string.Format("{0}_{1:yyyy-MM-dd-HH-mm-ss-fff}.pdf", Path.GetFileNameWithoutExtension(file.FileName), DateTime.Now));
-                        var doc = new Document();
+                        
+                        /*var doc = new Document();
                         PdfWriter.GetInstance(doc, new FileStream(pdfPath, FileMode.Create));
                         var worker = new HTMLWorker(doc);
                         doc.Open();
@@ -42,7 +41,24 @@ namespace Wexflow.Tasks.HtmlToPdf
                         worker.EndDocument();
                         worker.Close();
                         // Close the document
-                        doc.Close();
+                        doc.Close();*/
+
+                        IConverter converter =
+                            new ThreadSafeConverter(
+                                new PdfToolset(
+                                    new Win32EmbeddedDeployment(
+                                        new TempFolderDeployment())));
+
+                        var document = new HtmlToPdfDocument
+                        {
+                            Objects = {
+                                new ObjectSettings { HtmlText = File.ReadAllText(file.Path) }
+                            }
+                        };
+
+                        byte[] result = converter.Convert(document);
+                        ByteArrayToFile(pdfPath, result);
+
                         Files.Add(new FileInf(pdfPath, Id));
                         InfoFormat("PDF {0} generated from the file {1}", pdfPath, file.Path);
 
@@ -54,7 +70,7 @@ namespace Wexflow.Tasks.HtmlToPdf
                     }
                     catch (Exception e)
                     {
-                        ErrorFormat("An error occured while generating the md5 of the file {0}", e, file.Path);
+                        ErrorFormat("An error occured while generating the PDF of the file {0}", e, file.Path);
                         success = false;
                     }
                 }  
@@ -73,6 +89,13 @@ namespace Wexflow.Tasks.HtmlToPdf
 
             Info("Task finished.");
             return new TaskStatus(status, false);
+        }
+
+        public void ByteArrayToFile(string fileName, byte[] byteArray)
+        {
+            FileStream fileStream = new FileStream(fileName, FileMode.Create, FileAccess.Write);
+            fileStream.Write(byteArray, 0, byteArray.Length);
+            fileStream.Close();
         }
     }
 }

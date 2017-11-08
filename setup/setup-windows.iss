@@ -58,6 +58,8 @@ Source: "..\libs\Microsoft.Synchronization.Files.dll"; DestDir: "{app}"; Flags: 
 Source: "..\libs\MediaInfo.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\OpenPop.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\itextsharp.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\libs\TuesPechkin.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\libs\TuesPechkin.Wkhtmltox.Win32.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 Source: "..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Core.Service.Client.dll"; DestDir: "{app}"; Flags: ignoreversion
