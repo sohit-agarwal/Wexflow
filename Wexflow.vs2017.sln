@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wexflow.Tasks", "Wexflow.Tasks", "{E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}"
 EndProject
@@ -151,7 +151,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.SqlToCsv", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Guid", "src\Wexflow.Tasks.Guid\Wexflow.Tasks.Guid.csproj", "{EB130173-426E-45E6-A852-60215E46FDF8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{8C2CDC3E-E849-4DB2-A9D1-929AAA8BB8E5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{8C2CDC3E-E849-4DB2-A9D1-929AAA8BB8E5}"
 	ProjectSection(SolutionItems) = preProject
 		samples\Wexflow\Workflows\Workflow_CsvToXml.xml = samples\Wexflow\Workflows\Workflow_CsvToXml.xml
 		samples\Wexflow\Workflows\Workflow_ExecutionGraph.xml = samples\Wexflow\Workflows\Workflow_ExecutionGraph.xml

@@ -374,10 +374,12 @@
             "<h5 class='wf-task-title'>" +
             "<label class='wf-task-title-label'>Task</label>" +
             "<button type='button' class='wf-remove-task btn btn-outline-danger btn-sm' style='display: block;'>Delete</button>" +
+            "<button type='button' class='wf-show-taskxml btn btn-outline-secondary btn-sm'>Xml</button>" +
             "<button type='button' class='wf-add-setting btn btn-outline-secondary btn-sm'>New setting</button>" +
             "</h5>" +
             "<table class='wf-designer-table'>" +
             "<tbody>" +
+            "<tr><td class='wf-taskxml' colspan='2'><pre><code class='wf-taskxml-container'></code></pre></td></tr>" +
             "<tr><td class='wf-title'>Id</td><td class='wf-value'><input class='wf-task-id' type='text' /></td></tr>" +
             "<tr><td class='wf-title'>Name</td><td class='wf-value'><select class='wf-task-name'>";
 
@@ -472,6 +474,12 @@
             removeTask(workflowId, this);
             loadExecutionGraph();
         };
+
+        // xml
+        var wfTaskToXml = wfTask.getElementsByClassName("wf-show-taskxml")[0];
+        wfTaskToXml.onclick = function() {
+            showTaskXml(workflowId, this);
+        };
     }
 
     function removeTask(workflowId, btn) {
@@ -480,12 +488,22 @@
         btn.parentElement.parentElement.remove();
     }
 
-    function showTaskXML(workflowId, btn) {
+    function showTaskXml(workflowId, btn) {
         var index = getElementIndex(btn.parentElement.parentElement);
-        var xmlContainer = btn.parentElement.parentElement.parentElement.getElementsByClassName("wf-taskxml")[0];
-        xmlContainer.display = true;
-        //workflowTasks[workflowId] = deleteRow(workflowTasks[workflowId], index);
-        //btn.parentElement.parentElement.remove();
+        var task = workflowTasks[workflowId][index];
+        console.log(task);
+
+        post(uri + "/taskToXml",
+            function(xml) {
+                var xmlContainer = btn.parentElement.parentElement.getElementsByClassName("wf-taskxml")[0];
+                xmlContainer.style.display = 'table-cell';
+                var codeContainer = xmlContainer.getElementsByClassName("wf-taskxml-container")[0];
+                codeContainer.innerHTML = escapeXml(xml);
+                hljs.highlightBlock(codeContainer);
+            },
+            function() {
+                alert("An error occured while retrieving task's Xml.");
+            }, task);
     }
 
     function addSetting(workflowId, btn, sn) {
@@ -973,10 +991,12 @@
                                     tasksHtml += "<div class='wf-task'>" +
                                         "<h5 class='wf-task-title'><label class='wf-task-title-label'>Task " + task.Id + "</label>" +
                                         "<button type='button' class='wf-remove-task btn btn-outline-danger btn-sm'>Delete</button>" +
+                                        "<button type='button' class='wf-show-taskxml btn btn-outline-secondary btn-sm'>Xml</button>" +
                                         "<button type='button' class='wf-add-setting btn btn-outline-secondary btn-sm'>New setting</button>" +
                                         "</h5>" +
                                         "<table class='wf-designer-table'>" +
                                         "<tbody>" +
+                                        "<tr><td class='wf-taskxml' colspan='2'><pre><code class='wf-taskxml-container'></code></pre></td></tr>" +
                                         "<tr><td class='wf-title'>Id</td><td class='wf-value'><input class='wf-task-id' type='text' value='" + task.Id + "'" + (workflow.IsExecutionGraphEmpty === false ? "readonly" : "") + "/></td></tr>" +
                                         "<tr><td class='wf-title'>Name</td><td class='wf-value'><select class='wf-task-name'>";
 
@@ -986,9 +1006,7 @@
                                     }
 
                                     tasksHtml += "</select>" +
-                                        "<button type='button' class='wf-show-taskxml btn btn-outline-secondary btn-sm'>XML</button>" +
                                         "</td></tr>" +
-                                        "<tr><td class='wf-taskxml'><pre><code id='wf-taskxml-container' class='wf-taskxml'></code></pre></td></tr>" +
                                         "<tr><td class='wf-title'>Description</td><td class='wf-value'><input class='wf-task-desc' type='text' value='" + task.Description + "' /></td></tr>" +
                                         "<tr><td class='wf-title'>Enabled</td><td class='wf-value'><input class='wf-task-enabled' type='checkbox'   " + (task.IsEnabled ? "checked" : "") + " /></td></tr>" +
                                         "</tbody>" +
@@ -1076,11 +1094,11 @@
                                 }
 
                                 // Show Task function XML
-                                var wfShowTaskXMLs = document.getElementsByClassName("wf-show-taskxml");
-                                for (var l = 0; l < wfShowTaskXMLs.length; l++) {
-                                    var wfShowTaskXML = wfShowTaskXMLs[l];
-                                    wfShowTaskXML.onclick = function () {
-                                        showTaskXML(workflowId, this);
+                                var wfShowTaskXmLs = document.getElementsByClassName("wf-show-taskxml");
+                                for (var i5 = 0; i5 < wfShowTaskXmLs.length; i5++) {
+                                    var wfShowTaskXml = wfShowTaskXmLs[i5];
+                                    wfShowTaskXml.onclick = function () {
+                                        showTaskXml(workflowId, this);
                                     };
                                 }
 

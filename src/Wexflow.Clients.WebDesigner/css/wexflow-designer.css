@@ -112,14 +112,17 @@
     width: 100px;
     display: none;
 }
-.wf-task-id, .wf-task-name, .wf-task-desc, .wf-task-enabled, .wf-settings, .wf-setting-name, .wf-setting-value, .wf-attribute-name, .wf-attribute-value, .wf-remove-setting, .wf-add-attribute, .wf-remove-attribute, .wf-attributes, .wf-task, .wf-task-title-label {
+.wf-task-id, .wf-task-name, .wf-task-desc, .wf-task-enabled, .wf-settings, .wf-setting-name, .wf-setting-value, .wf-attribute-name, .wf-attribute-value, .wf-remove-setting, .wf-add-attribute, .wf-remove-attribute, .wf-attributes, .wf-task, .wf-task-title-label, .wf-taskxml-container {
     visibility: visible;
 }
 .wf-add-attribute {
     width: 100px;
 }
-.wf-add-setting, .wf-show-taskxml {
+.wf-add-setting {
     margin-left: 10px;
+}
+.wf-show-taskxml {
+    margin-right: 10px;
 }
 
 .wf-remove-task, .wf-add-setting, .wf-show-taskxml {
