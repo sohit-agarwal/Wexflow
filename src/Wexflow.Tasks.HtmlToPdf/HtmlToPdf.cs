@@ -56,6 +56,8 @@ namespace Wexflow.Tasks.HtmlToPdf
                             }
                         };
 
+                        converter.Error += Converter_Error;
+
                         byte[] result = converter.Convert(document);
                         ByteArrayToFile(pdfPath, result);
 
@@ -89,6 +91,11 @@ namespace Wexflow.Tasks.HtmlToPdf
 
             Info("Task finished.");
             return new TaskStatus(status, false);
+        }
+
+        private void Converter_Error(object sender, TuesPechkin.ErrorEventArgs e)
+        {
+           Error(e.ErrorMessage);
         }
 
         public void ByteArrayToFile(string fileName, byte[] byteArray)
