@@ -56,7 +56,6 @@ namespace Wexflow.Tasks.Untar
                         success = false;
                     }
                 }
-
             }
 
             var status = Status.Success;
@@ -76,14 +75,12 @@ namespace Wexflow.Tasks.Untar
 
         public void ExtractTarByEntry(string tarFileName, string targetDir)
         {
-
             using (FileStream fsIn = new FileStream(tarFileName, FileMode.Open, FileAccess.Read))
             {
                 TarInputStream tarIn = new TarInputStream(fsIn);
                 TarEntry tarEntry;
                 while ((tarEntry = tarIn.GetNextEntry()) != null)
                 {
-
                     if (tarEntry.IsDirectory)
                     {
                         continue;
@@ -102,7 +99,7 @@ namespace Wexflow.Tasks.Untar
                     string outName = Path.Combine(targetDir, name);
 
                     string directoryName = Path.GetDirectoryName(outName);
-                    Directory.CreateDirectory(directoryName); // ?? throw new InvalidOperationException());       // Does nothing if directory exists
+                    Directory.CreateDirectory(directoryName);
 
                     FileStream outStr = new FileStream(outName, FileMode.Create);
 
@@ -116,6 +113,5 @@ namespace Wexflow.Tasks.Untar
                 tarIn.Close();
             }
         }
-
     }
 }
