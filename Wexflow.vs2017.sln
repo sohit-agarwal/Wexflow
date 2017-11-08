@@ -222,6 +222,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{
 		samples\Wexflow\Workflows\Workflow_Zip.xml = samples\Wexflow\Workflows\Workflow_Zip.xml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xslt", "Xslt", "{B64B7C4B-5620-45A8-A518-DEC6B6E7C608}"
+	ProjectSection(SolutionItems) = preProject
+		samples\Wexflow\Xslt\ListFiles.xslt = samples\Wexflow\Xslt\ListFiles.xslt
+		samples\Wexflow\Xslt\Products.xslt = samples\Wexflow\Xslt\Products.xslt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
