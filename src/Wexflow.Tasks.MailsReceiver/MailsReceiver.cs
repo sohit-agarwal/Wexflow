@@ -19,16 +19,18 @@ namespace Wexflow.Tasks.MailsReceiver
         public string User { get; private set; }
         public string Password { get; private set; }
         public int MessageCount { get; private set; }
+        public bool DeleteMessages { get; private set; }
 
         public MailsReceiver(XElement xe, Workflow wf)
             : base(xe, wf)
         {
             Host = GetSetting("host");
-            Port = int.Parse(GetSetting("port"));
-            EnableSsl = bool.Parse(GetSetting("enableSsl"));
+            Port = int.Parse(GetSetting("port","993"));
+            EnableSsl = bool.Parse(GetSetting("enableSsl", "true"));
             User = GetSetting("user");
             Password = GetSetting("password");
             MessageCount = int.Parse(GetSetting("messageCount"));
+            DeleteMessages = bool.Parse(GetSetting("deleteMessages","false"));
         }
 
         public override TaskStatus Run()
@@ -51,11 +53,11 @@ namespace Wexflow.Tasks.MailsReceiver
                     // Messages are numbered in the interval: [1, messageCount]
                     // Ergo: message numbers are 1-based.
                     // Most servers give the latest message the highest number
-                    for (int i = MessageCount; i > 0; i--)
+                    for (int i = Math.Min(MessageCount,count); i > 0; i--)
                     {
                         var message = client.GetMessage(i);
                         string messageFileName = "message_" + i + "_" + string.Format("{0:yyyy-MM-dd-HH-mm-ss-fff}", message.Headers.DateSent);
-                        string messagePath = Path.Combine(Workflow.WorkflowTempFolder, messageFileName);
+                        string messagePath = Path.Combine(Workflow.WorkflowTempFolder, messageFileName + ".eml");
                         File.WriteAllBytes(messagePath, message.RawMessage);
                         Files.Add(new FileInf(messagePath, Id));
                         Logger.InfoFormat("Message {0} received. Path: {1}", i, messagePath);
@@ -74,7 +76,10 @@ namespace Wexflow.Tasks.MailsReceiver
                                 }
                             }
                         }
-
+                        if (DeleteMessages)
+                        {
+                            client.DeleteMessage(i);
+                        }
                         if (!atLeastOneSucceed)
                         {
                             atLeastOneSucceed = true;

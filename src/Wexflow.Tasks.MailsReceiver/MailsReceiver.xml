@@ -16,5 +16,7 @@
     <Setting name="password" value="$string" />
     <!-- The number of messages to fetch.-->
     <Setting name="messageCount" value="$int" />
+    <!-- true if the read emails should be deleted from server, false otherwise.-->
+    <Setting name="deleteMessages" value="true|false" />
   </Task>
 </Tasks>
