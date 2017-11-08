@@ -453,6 +453,7 @@
         var wfTaskDesc = wfTask.getElementsByClassName("wf-task-desc")[0];
         wfTaskDesc.onkeyup = function () {
             workflowTasks[workflowId][index].Description = wfTaskDesc.value;
+            loadExecutionGraph();
         }
 
         var wfTaskEnabled = wfTask.getElementsByClassName("wf-task-enabled")[0];
@@ -1136,6 +1137,7 @@
                                     var wfTaskDesc = document.getElementsByClassName("wf-task-desc")[m];
                                     wfTaskDesc.onkeyup = function () {
                                         workflowTasks[workflowId][m].Description = wfTaskDesc.value;
+                                        loadExecutionGraph();
                                     }
                                 }
 

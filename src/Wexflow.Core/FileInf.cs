@@ -4,11 +4,17 @@ using System.Xml.Linq;
 
 namespace Wexflow.Core
 {
+    /// <summary>
+    /// FileInf.
+    /// </summary>
     public class FileInf
     {
         string _path;
         string _renameTo;
 
+        /// <summary>
+        /// File path.
+        /// </summary>
         public string Path { 
             get 
             { 
@@ -20,8 +26,17 @@ namespace Wexflow.Core
                 FileName = System.IO.Path.GetFileName(value);
             } 
         }
+        /// <summary>
+        /// File name.
+        /// </summary>
         public string FileName { get; private set; }
+        /// <summary>
+        /// Task Id.
+        /// </summary>
         public int TaskId { get; private set; }
+        /// <summary>
+        /// RenameTo.
+        /// </summary>
         public string RenameTo {
             get
             {
@@ -35,9 +50,20 @@ namespace Wexflow.Core
                     RenameToOrName = value;
             }
         }
+        /// <summary>
+        /// RenameToOrName.
+        /// </summary>
         public string RenameToOrName { get; private set; }
+        /// <summary>
+        /// List of tags.
+        /// </summary>
         public List<Tag> Tags { get; private set; }
 
+        /// <summary>
+        /// Creates a new instance of FileInf.
+        /// </summary>
+        /// <param name="path">File path.</param>
+        /// <param name="taskId">Task Id.</param>
         public FileInf(string path, int taskId)
         {
             Path = path;
@@ -46,11 +72,19 @@ namespace Wexflow.Core
             Tags = new List<Tag>();
         }
 
+        /// <summary>
+        /// FileInfo to string.
+        /// </summary>
+        /// <returns>FileInf as an XElement.ToString().</returns>
         public override string ToString()
         {
             return ToXElement().ToString();
         }
 
+        /// <summary>
+        /// FileInf To XElement.
+        /// </summary>
+        /// <returns>FileInf as an XElement.</returns>
         public XElement ToXElement()
         {
             return new XElement("File",

@@ -6,14 +6,38 @@ using System.Xml.XPath;
 
 namespace Wexflow.Core
 {
+    /// <summary>
+    /// Task.
+    /// </summary>
     public abstract class Task
     {
+        /// <summary>
+        /// Task Id.
+        /// </summary>
         public int Id { get; private set; }
+        /// <summary>
+        /// Task name.
+        /// </summary>
         public string Name { get; private set; }
+        /// <summary>
+        /// Task description.
+        /// </summary>
         public string Description { get; private set; }
+        /// <summary>
+        /// Shows whether this task is enabled or not.
+        /// </summary>
         public bool IsEnabled { get; private set; }
+        /// <summary>
+        /// Task settings.
+        /// </summary>
         public Setting[] Settings { get; private set; }
+        /// <summary>
+        /// Workflow.
+        /// </summary>
         public Workflow Workflow { get; private set; }
+        /// <summary>
+        /// Task files.
+        /// </summary>
         public List<FileInf> Files 
         { 
             get
@@ -21,6 +45,9 @@ namespace Wexflow.Core
                 return Workflow.FilesPerTask[Id];
             }
         }
+        /// <summary>
+        /// Task entities.
+        /// </summary>
         public List<Entity> Entities
         {
             get
@@ -31,6 +58,11 @@ namespace Wexflow.Core
 
         readonly XElement _xElement;
 
+        /// <summary>
+        /// Creates a new task.
+        /// </summary>
+        /// <param name="xe">XElement.</param>
+        /// <param name="wf">Workflow.</param>
 		protected Task(XElement xe, Workflow wf) 
         {
             _xElement = xe;
@@ -81,8 +113,17 @@ namespace Wexflow.Core
             Settings = settings.ToArray();
         }
 
+        /// <summary>
+        /// Starts the task.
+        /// </summary>
+        /// <returns>Task status.</returns>
         public abstract TaskStatus Run();
 
+        /// <summary>
+        /// Returns a setting value from its name.
+        /// </summary>
+        /// <param name="name">Setting name.</param>
+        /// <returns>Setting value.</returns>
         public string GetSetting(string name)
         {
             var xNode = _xElement.XPathSelectElement(string.Format("wf:Setting[@name='{0}']", name), Workflow.XmlNamespaceManager);
@@ -98,6 +139,12 @@ namespace Wexflow.Core
             return "";
         }
 
+        /// <summary>
+        /// Returns a setting value from its name and returns a default value if the setting value is not found.
+        /// </summary>
+        /// <param name="name">Setting name.</param>
+        /// <param name="defaultValue">Default value.</param>
+        /// <returns>Setting value.</returns>
         public string GetSetting(string name, string defaultValue)
         {
             var returnValue = GetSetting(name);
@@ -105,6 +152,11 @@ namespace Wexflow.Core
             return returnValue;
         }
 
+        /// <summary>
+        /// Returns a list of setting values from a setting name.
+        /// </summary>
+        /// <param name="name">Setting name.</param>
+        /// <returns>A list of setting values.</returns>
         public string[] GetSettings(string name)
         {
             return _xElement.XPathSelectElements(string.Format("wf:Setting[@name='{0}']", name), Workflow.XmlNamespaceManager).Select(xe =>
@@ -119,16 +171,30 @@ namespace Wexflow.Core
             }).ToArray();
         }
 
+        /// <summary>
+        /// Returns a list of integers from a setting name.
+        /// </summary>
+        /// <param name="name">Setting name.</param>
+        /// <returns>A list of integers.</returns>
         public int[] GetSettingsInt(string name)
         {
             return GetSettings(name).Select(int.Parse).ToArray();
         }
 
+        /// <summary>
+        /// Returns a list of setting values as XElements from a setting name.
+        /// </summary>
+        /// <param name="name">Setting name.</param>
+        /// <returns>A list of setting values as XElements.</returns>
         public XElement[] GetXSettings(string name)
         {
             return _xElement.XPathSelectElements(string.Format("wf:Setting[@name='{0}']", name), Workflow.XmlNamespaceManager).ToArray();
         }
 
+        /// <summary>
+        /// Returns a list of the files loaded by this task through selectFiles setting.
+        /// </summary>
+        /// <returns>A list of the files loaded by this task through selectFiles setting.</returns>
         public FileInf[] SelectFiles() 
         {
             var files = new List<FileInf>();
@@ -155,6 +221,12 @@ namespace Wexflow.Core
             return files.ToArray();
         }
 
+        /// <summary>
+        /// Filters a list of files from the tags in selectFiles setting.
+        /// </summary>
+        /// <param name="files">Files to filter.</param>
+        /// <param name="xSelectFile">selectFile as an XElement</param>
+        /// <returns>A list of files from the tags in selectFiles setting.</returns>
         public IEnumerable<FileInf> QueryFiles(IEnumerable<FileInf> files, XElement xSelectFile)
         {
             var fl = new List<FileInf>();
@@ -185,6 +257,10 @@ namespace Wexflow.Core
             return fl;
         }
 
+        /// <summary>
+        /// Returns a list of the entities loaded by this task through selectEntities setting.
+        /// </summary>
+        /// <returns>A list of the entities loaded by this task through selectEntities setting.</returns>
         public Entity[] SelectEntities()
         {
             var entities = new List<Entity>();
@@ -196,46 +272,84 @@ namespace Wexflow.Core
             return entities.ToArray();
         }
 
-        string BuildLogMsg(string msg)
+        private string BuildLogMsg(string msg)
         {
             return string.Format("{0} [{1}] {2}", Workflow.LogTag, GetType().Name, msg);
         }
 
+        /// <summary>
+        /// Logs an information message.
+        /// </summary>
+        /// <param name="msg">Log message.</param>
         public void Info(string msg)
         {
             Logger.Info(BuildLogMsg(msg));
         }
 
+        /// <summary>
+        /// Logs a formatted information message.
+        /// </summary>
+        /// <param name="msg">Formatted log message.</param>
+        /// <param name="args">Arguments.</param>
         public void InfoFormat(string msg, params object[] args)
         {
             Logger.InfoFormat(BuildLogMsg(msg), args);
         }
 
+        /// <summary>
+        /// Logs a Debug log message.
+        /// </summary>
+        /// <param name="msg">Log message.</param>
         public void Debug(string msg)
         {
             Logger.Debug(BuildLogMsg(msg));
         }
 
+        /// <summary>
+        /// Logs a formatted debug message.
+        /// </summary>
+        /// <param name="msg">Log message.</param>
+        /// <param name="args">Arguments.</param>
         public void DebugFormat(string msg, params object[] args)
         {
             Logger.DebugFormat(BuildLogMsg(msg), args);
         }
 
+        /// <summary>
+        /// Logs an error log message.
+        /// </summary>
+        /// <param name="msg">Log message.</param>
         public void Error(string msg)
         {
             Logger.Error(BuildLogMsg(msg));
         }
 
+        /// <summary>
+        /// Logs a formatted error message.
+        /// </summary>
+        /// <param name="msg">Log message.</param>
+        /// <param name="args">Arguments.</param>
         public void ErrorFormat(string msg, params object[] args)
         {
             Logger.ErrorFormat(BuildLogMsg(msg), args);
         }
 
+        /// <summary>
+        /// Logs an error message and an exception.
+        /// </summary>
+        /// <param name="msg">Log message.</param>
+        /// <param name="e">Exception.</param>
         public void Error(string msg, Exception e)
         {
             Logger.Error(BuildLogMsg(msg), e);
         }
 
+        /// <summary>
+        /// Logs a formatted log message and an exception.
+        /// </summary>
+        /// <param name="msg">Formatted log message.</param>
+        /// <param name="e">Exception.</param>
+        /// <param name="args">Arguments.</param>
         public void ErrorFormat(string msg, Exception e, params object[] args)
         {
             Logger.Error(string.Format(BuildLogMsg(msg), args), e);

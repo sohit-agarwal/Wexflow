@@ -15,6 +15,11 @@ namespace Wexflow.Tasks.Tests
             WexflowEngine.Run();
         }
 
+        public static void Stop()
+        {
+            WexflowEngine.Stop();
+        }
+
         public static void StartWorkflow(int workflowId)
         {
             WexflowEngine.StartWorkflow(workflowId);
