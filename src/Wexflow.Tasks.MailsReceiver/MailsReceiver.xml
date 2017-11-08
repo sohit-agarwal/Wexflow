@@ -6,9 +6,9 @@
   <Task id="$int" name="MailsReceiver" description="$string" enabled="true|false">
     <!-- The POP server address. Example:  pop.gmail.com-->
     <Setting name="host" value="$string" />
-    <!-- The email server port. Example: 995-->
+    <!-- The email server port (defaults to 995). Example: 995-->
     <Setting name="port" value="$int" />
-    <!-- true if the email server uses SSL, false otherwise.-->
+    <!-- true if the email server uses SSL, false otherwise (defaults to true).-->
     <Setting name="enableSsl" value="true|false" />
     <!-- The user name to connect to the email server.-->
     <Setting name="user" value="$string" />
@@ -16,7 +16,7 @@
     <Setting name="password" value="$string" />
     <!-- The number of messages to fetch.-->
     <Setting name="messageCount" value="$int" />
-    <!-- true if the read emails should be deleted from server, false otherwise.-->
+    <!-- True if the read emails should be deleted from server, false otherwise (defaults to false).-->
     <Setting name="deleteMessages" value="true|false" />
   </Task>
 </Tasks>

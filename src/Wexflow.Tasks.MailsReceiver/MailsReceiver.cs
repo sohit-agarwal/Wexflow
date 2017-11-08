@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Wexflow.Core;
 using System.Xml.Linq;
-using System.Xml.XPath;
 using System.Threading;
-using OpenPop.Mime;
 using OpenPop.Pop3;
 
 namespace Wexflow.Tasks.MailsReceiver
@@ -53,7 +49,7 @@ namespace Wexflow.Tasks.MailsReceiver
                     // Messages are numbered in the interval: [1, messageCount]
                     // Ergo: message numbers are 1-based.
                     // Most servers give the latest message the highest number
-                    for (int i = Math.Min(MessageCount,count); i > 0; i--)
+                    for (int i = Math.Min(MessageCount, count); i > 0; i--)
                     {
                         var message = client.GetMessage(i);
                         string messageFileName = "message_" + i + "_" + string.Format("{0:yyyy-MM-dd-HH-mm-ss-fff}", message.Headers.DateSent);
@@ -76,10 +72,12 @@ namespace Wexflow.Tasks.MailsReceiver
                                 }
                             }
                         }
+
                         if (DeleteMessages)
                         {
                             client.DeleteMessage(i);
                         }
+
                         if (!atLeastOneSucceed)
                         {
                             atLeastOneSucceed = true;

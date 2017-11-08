@@ -136,7 +136,7 @@ namespace Wexflow.Core
                 }
                 return xSetting.Value;
             }
-            return "";
+            return string.Empty;
         }
 
         /// <summary>
@@ -148,7 +148,12 @@ namespace Wexflow.Core
         public string GetSetting(string name, string defaultValue)
         {
             var returnValue = GetSetting(name);
-            if (string.IsNullOrEmpty(returnValue)) return defaultValue;
+
+            if (string.IsNullOrEmpty(returnValue))
+            {
+                return defaultValue;
+            }
+
             return returnValue;
         }
 
