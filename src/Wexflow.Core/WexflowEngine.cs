@@ -8,19 +8,55 @@ using System.Threading;
 
 namespace Wexflow.Core
 {
+    /// <summary>
+    /// Wexflow engine.
+    /// </summary>
     public class WexflowEngine
     {
+        /// <summary>
+        /// Settings file path.
+        /// </summary>
         public string SettingsFile { get; private set; }
+        /// <summary>
+        /// Workflows folder path.
+        /// </summary>
         public string WorkflowsFolder { get; private set; }
+        /// <summary>
+        /// Trash folder path.
+        /// </summary>
         public string TrashFolder { get; private set; }
+        /// <summary>
+        /// Temp folder path.
+        /// </summary>
         public string TempFolder { get; private set; }
+        /// <summary>
+        /// XSD path.
+        /// </summary>
         public string XsdPath { get; private set; }
+        /// <summary>
+        /// Tasks names file path.
+        /// </summary>
+        public string TasksNamesFile { get; private set; }
+        /// <summary>
+        /// Tasks settings file path.
+        /// </summary>
+        public string TasksSettingsFile { get; private set; }
+        /// <summary>
+        /// List of the Workflows loaded by Wexflow engine.
+        /// </summary>
         public IList<Workflow> Workflows { get; private set; }
 
+        private readonly Dictionary<int, WexflowTimer> _wexflowTimers;
+
+        /// <summary>
+        /// Creates a new instance of Wexflow engine.
+        /// </summary>
+        /// <param name="settingsFile">Settings file path.</param>
         public WexflowEngine(string settingsFile)
         {
             SettingsFile = settingsFile;
             Workflows = new List<Workflow>();
+            _wexflowTimers = new Dictionary<int, WexflowTimer>();
 
             Logger.Info("");
             Logger.Info("Starting Wexflow Engine");
@@ -37,6 +73,8 @@ namespace Wexflow.Core
             TempFolder = GetWexflowSetting(xdoc, "tempFolder");
             if (!Directory.Exists(TempFolder)) Directory.CreateDirectory(TempFolder);
             XsdPath = GetWexflowSetting(xdoc, "xsd");
+            TasksNamesFile = GetWexflowSetting(xdoc, "tasksNamesFile");
+            TasksSettingsFile = GetWexflowSetting(xdoc, "tasksSettingsFile");
         }
 
         string GetWexflowSetting(XDocument xdoc, string name)
@@ -143,6 +181,9 @@ namespace Wexflow.Core
             }
         }
 
+        /// <summary>
+        /// Starts Wexflow engine.
+        /// </summary>
         public void Run()
         {
             foreach (Workflow workflow in Workflows)
@@ -151,7 +192,7 @@ namespace Wexflow.Core
             }
         }
 
-        public void ScheduleWorkflow(Workflow wf)
+        private void ScheduleWorkflow(Workflow wf)
         {
             if (wf.IsEnabled)
             {
@@ -164,20 +205,52 @@ namespace Wexflow.Core
                     Action<object> callback = o =>
                     {
                         var workflow = o as Workflow;
-                        if (workflow != null && !workflow.IsRunning) workflow.Start();
+                        if (workflow != null && !workflow.IsRunning)
+                        {
+                            workflow.Start();
+                        }
                     };
 
                     var timer = new WexflowTimer(new TimerCallback(callback), wf, wf.Period);
+                    _wexflowTimers.Add(wf.Id, timer);
                     timer.Start();
                 }
             }
         }
 
+        /// <summary>
+        /// Stops Wexflow engine.
+        /// </summary>
+        public void Stop()
+        {
+            foreach (var wt in _wexflowTimers.Values)
+            {
+               wt.Stop();
+            }
+
+            foreach (var wf in Workflows)
+            {
+                if (wf.IsRunning)
+                {
+                    wf.Stop();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets a workflow.
+        /// </summary>
+        /// <param name="workflowId">Workflow Id.</param>
+        /// <returns></returns>
         public Workflow GetWorkflow(int workflowId)
         {
             return Workflows.FirstOrDefault(wf => wf.Id == workflowId);
         }
 
+        /// <summary>
+        /// Starts a workflow.
+        /// </summary>
+        /// <param name="workflowId">Workflow Id.</param>
         public void StartWorkflow(int workflowId)
         {
             var wf = GetWorkflow(workflowId);
@@ -192,6 +265,10 @@ namespace Wexflow.Core
             }
         }
 
+        /// <summary>
+        /// Stops a workflow.
+        /// </summary>
+        /// <param name="workflowId">Workflow Id.</param>
         public void StopWorkflow(int workflowId)
         {
             var wf = GetWorkflow(workflowId);
@@ -206,6 +283,10 @@ namespace Wexflow.Core
             }
         }
 
+        /// <summary>
+        /// Suspends a workflow.
+        /// </summary>
+        /// <param name="workflowId">Workflow Id.</param>
         public void PauseWorkflow(int workflowId)
         {
             var wf = GetWorkflow(workflowId);
@@ -220,6 +301,10 @@ namespace Wexflow.Core
             }
         }
 
+        /// <summary>
+        /// Resumes a workflow.
+        /// </summary>
+        /// <param name="workflowId">Workflow Id.</param>
         public void ResumeWorkflow(int workflowId)
         {
             var wf = GetWorkflow(workflowId);

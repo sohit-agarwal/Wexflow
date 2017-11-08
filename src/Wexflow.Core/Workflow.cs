@@ -13,35 +13,113 @@ using Wexflow.Core.ExecutionGraph.Flowchart;
 
 namespace Wexflow.Core
 {
+    /// <summary>
+    /// Worflow.
+    /// </summary>
     public class Workflow
     {
+        /// <summary>
+        /// Default parent node id to start with in the execution graph.
+        /// </summary>
         public const int StartId = -1;
 
+        /// <summary>
+        /// Workflow file path.
+        /// </summary>
         public string WorkflowFilePath { get; private set; }
+        /// <summary>
+        /// Wexflow temp folder.
+        /// </summary>
         public string WexflowTempFolder { get; private set; }
+        /// <summary>
+        /// Workflow temp folder.
+        /// </summary>
         public string WorkflowTempFolder { get; private set; }
+        /// <summary>
+        /// XSD path.
+        /// </summary>
         public string XsdPath { get; private set; }
+        /// <summary>
+        /// Workflow Id.
+        /// </summary>
         public int Id { get; private set; }
+        /// <summary>
+        /// Workflow name.
+        /// </summary>
         public string Name { get; private set; }
+        /// <summary>
+        /// Workflow description.
+        /// </summary>
         public string Description { get; private set; }
+        /// <summary>
+        /// Workflow lanch type.
+        /// </summary>
         public LaunchType LaunchType { get; private set; }
+        /// <summary>
+        /// Workflow period.
+        /// </summary>
         public TimeSpan Period { get; private set; }
+        /// <summary>
+        /// Shows whether this workflow is enabled or not.
+        /// </summary>
         public bool IsEnabled { get; private set; }
+        /// <summary>
+        /// Shows whether this workflow is running or not.
+        /// </summary>
         public bool IsRunning { get; private set; }
+        /// <summary>
+        /// Shows whether this workflow is suspended or not.
+        /// </summary>
         public bool IsPaused { get; private set; }
+        /// <summary>
+        /// Workflow tasks.
+        /// </summary>
         public Task[] Taks { get; private set; }
+        /// <summary>
+        /// Workflow files.
+        /// </summary>
         public Dictionary<int, List<FileInf>> FilesPerTask { get; private set; }
+        /// <summary>
+        /// Workflow entities.
+        /// </summary>
         public Dictionary<int, List<Entity>> EntitiesPerTask { get; private set; }
+        /// <summary>
+        /// Job Id.
+        /// </summary>
         public int JobId { get; private set; }
+        /// <summary>
+        /// Log tag.
+        /// </summary>
         public string LogTag { get { return string.Format("[{0} / {1}]", Name, JobId); } }
+        /// <summary>
+        /// Xml Namespace Manager.
+        /// </summary>
         public XmlNamespaceManager XmlNamespaceManager { get; private set; }
+        /// <summary>
+        /// Execution graph.
+        /// </summary>
         public Graph ExecutionGraph { get; private set; }
+        /// <summary>
+        /// Workflow XDocument.
+        /// </summary>
         public XDocument XDoc { get; private set; }
+        /// <summary>
+        /// XNamespace.
+        /// </summary>
         public XNamespace XNamespaceWf { get; private set; }
+        /// <summary>
+        /// Shows whether the execution graph is empty or not.
+        /// </summary>
         public bool IsExecutionGraphEmpty { get; private set; }
 
         private Thread _thread;
 
+        /// <summary>
+        /// Creates a new workflow.
+        /// </summary>
+        /// <param name="path">Workflow file path.</param>
+        /// <param name="wexflowTempFolder">Wexflow temp folder.</param>
+        /// <param name="xsdPath">XSD path.</param>
         public Workflow(string path, string wexflowTempFolder, string xsdPath)
         {
             JobId = 1;
@@ -55,10 +133,13 @@ namespace Wexflow.Core
             Load();
         }
 
+        /// <summary>
+        /// Returns informations about this workflow.
+        /// </summary>
+        /// <returns>Informations about this workflow.</returns>
         public override string ToString()
         {
-            return string.Format("{{id: {0}, name: {1}, enabled: {2}, launchType: {3}}}"
-                , Id, Name, IsEnabled, LaunchType);
+            return string.Format("{{id: {0}, name: {1}, enabled: {2}, launchType: {3}}}", Id, Name, IsEnabled, LaunchType);
         }
 
         void Check()
@@ -434,6 +515,9 @@ namespace Wexflow.Core
             throw new Exception("Workflow setting " + name + " not found.");
         }
 
+        /// <summary>
+        /// Starts this workflow.
+        /// </summary>
         public void Start()
         {
             if (IsRunning) return;
@@ -465,22 +549,22 @@ namespace Wexflow.Core
                                 case Status.Success:
                                     if (ExecutionGraph.OnSuccess != null)
                                     {
-                                        var successTasks = NodesToTasks(ExecutionGraph.OnSuccess.DoNodes);
-                                        RunTasks(ExecutionGraph.OnSuccess.DoNodes, successTasks);
+                                        var successTasks = NodesToTasks(ExecutionGraph.OnSuccess.Nodes);
+                                        RunTasks(ExecutionGraph.OnSuccess.Nodes, successTasks);
                                     }
                                     break;
                                 case Status.Warning:
                                     if (ExecutionGraph.OnWarning != null)
                                     {
-                                        var warningTasks = NodesToTasks(ExecutionGraph.OnWarning.DoNodes);
-                                        RunTasks(ExecutionGraph.OnWarning.DoNodes, warningTasks);
+                                        var warningTasks = NodesToTasks(ExecutionGraph.OnWarning.Nodes);
+                                        RunTasks(ExecutionGraph.OnWarning.Nodes, warningTasks);
                                     }
                                     break;
                                 case Status.Error:
                                     if (ExecutionGraph.OnError != null)
                                     {
-                                        var errorTasks = NodesToTasks(ExecutionGraph.OnError.DoNodes);
-                                        RunTasks(ExecutionGraph.OnError.DoNodes, errorTasks);
+                                        var errorTasks = NodesToTasks(ExecutionGraph.OnError.Nodes);
+                                        RunTasks(ExecutionGraph.OnError.Nodes, errorTasks);
                                     }
                                     break;
                             }
@@ -900,6 +984,9 @@ namespace Wexflow.Core
             }
         }
 
+        /// <summary>
+        /// Stops this workflow.
+        /// </summary>
         public void Stop()
         {
             if (IsRunning)
@@ -915,6 +1002,9 @@ namespace Wexflow.Core
             }
         }
 
+        /// <summary>
+        /// Suspends this workflow.
+        /// </summary>
         public void Pause()
         {
             if (IsRunning)
@@ -933,6 +1023,9 @@ namespace Wexflow.Core
             }
         }
 
+        /// <summary>
+        /// Resumes this workflow.
+        /// </summary>
         public void Resume()
         {
             if (IsPaused)
