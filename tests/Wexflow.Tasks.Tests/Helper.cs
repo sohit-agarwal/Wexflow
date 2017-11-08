@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using Wexflow.Core;
@@ -95,7 +94,7 @@ namespace Wexflow.Tasks.Tests
 
         public static void CopyDirRec(string src, string dest)
         {
-            string dirName = Path.GetFileName(src); // throw new InvalidOperationException();
+            string dirName = Path.GetFileName(src);
             string destDir = Path.Combine(dest, dirName);
             Directory.CreateDirectory(destDir);
 
@@ -135,6 +134,5 @@ namespace Wexflow.Tasks.Tests
         {
             Debug.WriteLine("{0}", outLine.Data);
         }
-
     }
 }

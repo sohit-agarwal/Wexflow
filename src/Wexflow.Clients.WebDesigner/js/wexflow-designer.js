@@ -491,7 +491,6 @@
     function showTaskXml(workflowId, btn) {
         var index = getElementIndex(btn.parentElement.parentElement);
         var task = workflowTasks[workflowId][index];
-        console.log(task);
 
         post(uri + "/taskToXml",
             function(xml) {
@@ -502,7 +501,7 @@
                 hljs.highlightBlock(codeContainer);
             },
             function() {
-                alert("An error occured while retrieving task's Xml.");
+                alert("An error occured while retrieving the Xml of the task " + task.Id + ".");
             }, task);
     }
 

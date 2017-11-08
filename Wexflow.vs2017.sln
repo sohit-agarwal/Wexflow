@@ -204,6 +204,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{
 		samples\Wexflow\Workflows\Workflow_Sql.xml = samples\Wexflow\Workflows\Workflow_Sql.xml
 		samples\Wexflow\Workflows\Workflow_SqlToCsv.xml = samples\Wexflow\Workflows\Workflow_SqlToCsv.xml
 		samples\Wexflow\Workflows\Workflow_SqlToXml.xml = samples\Wexflow\Workflows\Workflow_SqlToXml.xml
+		samples\Wexflow\Workflows\Workflow_Startup.xml = samples\Wexflow\Workflows\Workflow_Startup.xml
 		samples\Wexflow\Workflows\Workflow_Sync.xml = samples\Wexflow\Workflows\Workflow_Sync.xml
 		samples\Wexflow\Workflows\Workflow_Tar.xml = samples\Wexflow\Workflows\Workflow_Tar.xml
 		samples\Wexflow\Workflows\Workflow_TextToPdf.xml = samples\Wexflow\Workflows\Workflow_TextToPdf.xml
@@ -220,6 +221,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{
 		samples\Wexflow\Workflows\Workflow_XmlToCsv.xml = samples\Wexflow\Workflows\Workflow_XmlToCsv.xml
 		samples\Wexflow\Workflows\Workflow_Xslt.xml = samples\Wexflow\Workflows\Workflow_Xslt.xml
 		samples\Wexflow\Workflows\Workflow_Zip.xml = samples\Wexflow\Workflows\Workflow_Zip.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xslt", "Xslt", "{B64B7C4B-5620-45A8-A518-DEC6B6E7C608}"
+	ProjectSection(SolutionItems) = preProject
+		samples\Wexflow\Xslt\ListFiles.xslt = samples\Wexflow\Xslt\ListFiles.xslt
+		samples\Wexflow\Xslt\Products.xslt = samples\Wexflow\Xslt\Products.xslt
 	EndProjectSection
 EndProject
 Global

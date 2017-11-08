@@ -28,7 +28,7 @@ namespace Wexflow.Tasks.SqlToXml
 
     public class SqlToXml : Task
     {
-        public Type DbType {get; set;}
+        public Type DbType { get; set; }
         public string ConnectionString { get; set; }
         public string SqlScript { get; set; }
 
