@@ -1,9 +1,4 @@
-﻿.wf-taskxml
-{
-    display: none;
-}
-
-#wf-container
+﻿#wf-container
 {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 14px;
@@ -168,6 +163,10 @@
     width: 100%;
     height: 100%;
     z-index: 999;
+}
+
+.wf-taskxml {
+    display: none;
 }
 
 /*end of table style*/
