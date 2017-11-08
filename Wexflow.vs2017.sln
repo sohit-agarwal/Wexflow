@@ -204,6 +204,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{
 		samples\Wexflow\Workflows\Workflow_Sql.xml = samples\Wexflow\Workflows\Workflow_Sql.xml
 		samples\Wexflow\Workflows\Workflow_SqlToCsv.xml = samples\Wexflow\Workflows\Workflow_SqlToCsv.xml
 		samples\Wexflow\Workflows\Workflow_SqlToXml.xml = samples\Wexflow\Workflows\Workflow_SqlToXml.xml
+		samples\Wexflow\Workflows\Workflow_Startup.xml = samples\Wexflow\Workflows\Workflow_Startup.xml
 		samples\Wexflow\Workflows\Workflow_Sync.xml = samples\Wexflow\Workflows\Workflow_Sync.xml
 		samples\Wexflow\Workflows\Workflow_Tar.xml = samples\Wexflow\Workflows\Workflow_Tar.xml
 		samples\Wexflow\Workflows\Workflow_TextToPdf.xml = samples\Wexflow\Workflows\Workflow_TextToPdf.xml
