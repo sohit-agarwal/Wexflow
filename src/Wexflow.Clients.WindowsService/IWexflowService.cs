@@ -51,5 +51,8 @@ namespace Wexflow.Clients.WindowsService
 
         [OperationContract]
         Node[] GetExecutionGraph(string id);
+
+        [OperationContract]
+        string GetTaskXml(Stream streamdata);
     }
 }

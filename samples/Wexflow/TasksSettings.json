@@ -17,7 +17,7 @@
 	"ImagesTransformer": [ "selectFiles", "outputFilePattern", "outputFormat" ],
 	"ListEntities": [ ],
 	"ListFiles": [ ],
-	"MailsReceiver": [ "host", "port", "enableSsl", "user", "password", "messageCount" ],
+	"MailsReceiver": [ "host", "port", "enableSsl", "user", "password", "messageCount", "deleteMessages" ],
 	"MailsSender": [ "selectFiles", "selectAttachments", "host", "port", "enableSsl", "user", "password" ],
 	"Md5": [ "selectFiles" ],
 	"MediaInfo": [ "selectFiles" ],

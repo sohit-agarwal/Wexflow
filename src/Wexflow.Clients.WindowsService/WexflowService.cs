@@ -128,6 +128,79 @@ namespace Wexflow.Clients.WindowsService
 
         [WebInvoke(Method = "POST",
             ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "taskToXml")]
+        public string GetTaskXml(Stream streamdata)
+        {
+            try
+            {
+                StreamReader reader = new StreamReader(streamdata);
+                string json = reader.ReadToEnd();
+                reader.Close();
+                reader.Dispose();
+
+                JObject task = JObject.Parse(json);
+
+                int taskId = (int)task.SelectToken("Id");
+                string taskName = (string)task.SelectToken("Name");
+                string taskDesc = (string)task.SelectToken("Description");
+                bool isTaskEnabled = (bool)task.SelectToken("IsEnabled");
+
+                var xtask = new XElement("Task"
+                    , new XAttribute("id", taskId)
+                    , new XAttribute("name", taskName)
+                    , new XAttribute("description", taskDesc)
+                    , new XAttribute("enabled", isTaskEnabled.ToString().ToLower())
+                );
+
+                var settings = task.SelectToken("Settings");
+                foreach (var setting in settings)
+                {
+                    string settingName = (string)setting.SelectToken("Name");
+                    string settingValue = (string)setting.SelectToken("Value");
+
+                    var xsetting = new XElement("Setting"
+                        , new XAttribute("name", settingName)
+                    );
+
+                    if (!string.IsNullOrEmpty(settingValue))
+                    {
+                        xsetting.SetAttributeValue("value", settingValue);
+                    }
+
+                    if (settingName == "selectFiles" || settingName == "selectAttachments")
+                    {
+                        if (!string.IsNullOrEmpty(settingValue))
+                        {
+                            xsetting.SetAttributeValue("value", settingValue);
+                        }
+                    }
+                    else
+                    {
+                        xsetting.SetAttributeValue("value", settingValue);
+                    }
+
+                    var attributes = setting.SelectToken("Attributes");
+                    foreach (var attribute in attributes)
+                    {
+                        string attributeName = (string)attribute.SelectToken("Name");
+                        string attributeValue = (string)attribute.SelectToken("Value");
+                        xsetting.SetAttributeValue(attributeName, attributeValue);
+                    }
+
+                    xtask.Add(xsetting);
+                }
+
+                return xtask.ToString();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return string.Empty;
+            }
+        }
+
+        [WebInvoke(Method = "POST",
+            ResponseFormat = WebMessageFormat.Json,
             UriTemplate = "save")]
         public bool SaveWorkflow(Stream streamdata)
         {
