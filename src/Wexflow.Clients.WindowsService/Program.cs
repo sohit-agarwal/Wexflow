@@ -89,7 +89,7 @@ namespace Wexflow.Clients.WindowsService
             if (System.Diagnostics.Debugger.IsAttached)
             {
                 Console.WriteLine();
-                Console.Write("=== Press a key to quit ===");
+                Console.WriteLine("=== Press a key to quit ===");
                 Console.ReadKey();
             }
         }
