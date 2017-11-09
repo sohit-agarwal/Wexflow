@@ -20,7 +20,7 @@ namespace Wexflow.Tasks.Tests
             Helper.DeleteFiles(HtmlToPdfFolder);
         }
 
-        [Ignore("There is an issue whith TuesPechkin and MSTest but it works fine on prod.")]
+        //[Ignore("There is an issue whith TuesPechkin and MSTest but it works fine on prod.")]
         [TestMethod]
         public void HtmlToPdfTest()
         {
