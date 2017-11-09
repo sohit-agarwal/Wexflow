@@ -287,7 +287,7 @@ namespace Wexflow.Core
         /// <summary>
         /// Returns an object from the Hashtable through selectObject setting.
         /// </summary>
-        /// <returns>1n object from the Hashtable through selectObject setting.</returns>
+        /// <returns>An object from the Hashtable through selectObject setting.</returns>
         public object SelectObject()
         {
             var key = GetSetting("selectObject");
