@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -54,6 +55,12 @@ namespace Wexflow.Core
             {
                 return Workflow.EntitiesPerTask[Id];
             }
+        }
+        /// <summary>
+        /// Hashtable used as shared memory for tasks.
+        /// </summary>
+        public Hashtable Hashtable {
+            get { return Workflow.Hashtable; }
         }
 
         readonly XElement _xElement;
@@ -275,6 +282,20 @@ namespace Wexflow.Core
                 entities.AddRange(Workflow.EntitiesPerTask[taskId]);
             }
             return entities.ToArray();
+        }
+
+        /// <summary>
+        /// Returns an object from the Hashtable through selectObject setting.
+        /// </summary>
+        /// <returns>1n object from the Hashtable through selectObject setting.</returns>
+        public object SelectObject()
+        {
+            var key = GetSetting("selectObject");
+            if (Hashtable.ContainsKey(key))
+            {
+                return Hashtable[key];
+            }
+            return null;
         }
 
         private string BuildLogMsg(string msg)

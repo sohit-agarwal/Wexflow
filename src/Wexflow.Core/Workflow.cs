@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -111,6 +112,10 @@ namespace Wexflow.Core
         /// Shows whether the execution graph is empty or not.
         /// </summary>
         public bool IsExecutionGraphEmpty { get; private set; }
+        /// <summary>
+        /// Hashtable used as shared memory for tasks.
+        /// </summary>
+        public Hashtable Hashtable { get; private set; }
 
         private Thread _thread;
 
@@ -129,6 +134,7 @@ namespace Wexflow.Core
             XsdPath = xsdPath;
             FilesPerTask = new Dictionary<int, List<FileInf>>();
             EntitiesPerTask = new Dictionary<int, List<Entity>>();
+            Hashtable = new Hashtable();
             Check();
             Load();
         }
