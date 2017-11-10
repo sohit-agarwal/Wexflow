@@ -16,7 +16,6 @@ namespace Wexflow.Clients.Manager
         [STAThread]
         static void Main(string[] args)
         {
-            //if (args.Length > 0 && args[0].Equals("debug"))
             if (Environment.UserInteractive && System.Diagnostics.Debugger.IsAttached)
             {
                 DebugMode = true;
