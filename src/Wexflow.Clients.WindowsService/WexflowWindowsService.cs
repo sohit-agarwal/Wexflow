@@ -19,11 +19,6 @@ namespace Wexflow.Clients.WindowsService
             WexflowEngine.Run();
         }
 
-        /*public void OnDebug()
-        {
-            OnStart(null);
-        }*/
-
         protected override void OnStart(string[] args)
         {
             if (_serviceHost != null)
