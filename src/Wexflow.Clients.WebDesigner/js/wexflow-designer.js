@@ -478,8 +478,15 @@
         // xml
         var wfTaskToXml = wfTask.getElementsByClassName("wf-show-taskxml")[0];
         wfTaskToXml.onclick = function() {
-            showTaskXml(workflowId, this);
+            showTaskXml(workflowId, this, "/taskToXml");
         };
+
+        // xmldescription
+        var wfTaskToXmlDescription = wfTask.getElementsByClassName("wf-show-taskxmldescription")[0];
+        wfTaskToXmlDescription.onclick = function () {
+            showTaskXml(workflowId, this, "/taskToXmlDescription");
+        };
+
     }
 
     function removeTask(workflowId, btn) {
@@ -488,11 +495,12 @@
         btn.parentElement.parentElement.remove();
     }
 
-    function showTaskXml(workflowId, btn) {
+    function showTaskXml(workflowId, btn, uripath) {
         var index = getElementIndex(btn.parentElement.parentElement);
         var task = workflowTasks[workflowId][index];
+        uripath = (uripath=="" ? "/taskToXml" : uripath)
 
-        post(uri + "/taskToXml",
+        post(uri + uripath,
             function(xml) {
                 var xmlContainer = btn.parentElement.parentElement.getElementsByClassName("wf-taskxml")[0];
                 xmlContainer.style.display = 'table-cell';
@@ -990,6 +998,7 @@
                                     tasksHtml += "<div class='wf-task'>" +
                                         "<h5 class='wf-task-title'><label class='wf-task-title-label'>Task " + task.Id + "</label>" +
                                         "<button type='button' class='wf-remove-task btn btn-outline-danger btn-sm'>Delete</button>" +
+                                        "<button type='button' class='wf-show-taskxmldescription btn btn-outline-secondary btn-sm'>Xml description</button>" +
                                         "<button type='button' class='wf-show-taskxml btn btn-outline-secondary btn-sm'>Xml</button>" +
                                         "<button type='button' class='wf-add-setting btn btn-outline-secondary btn-sm'>New setting</button>" +
                                         "</h5>" +
@@ -1097,9 +1106,19 @@
                                 for (var i5 = 0; i5 < wfShowTaskXmLs.length; i5++) {
                                     var wfShowTaskXml = wfShowTaskXmLs[i5];
                                     wfShowTaskXml.onclick = function () {
-                                        showTaskXml(workflowId, this);
+                                        showTaskXml(workflowId, this, "/taskToXml");
                                     };
                                 }
+
+                                // Show Task function XML description
+                                var wfShowTaskXmLDescriptions = document.getElementsByClassName("wf-show-taskxmldescription");
+                                for (var i5 = 0; i5 < wfShowTaskXmLDescriptions.length; i5++) {
+                                    var wfShowTaskXmlDescription = wfShowTaskXmLDescriptions[i5];
+                                    wfShowTaskXmlDescription.onclick = function () {
+                                        showTaskXml(workflowId, this, "/taskToXmlDescription");
+                                    };
+                                }
+
 
                                 // Add/Remove a setting
                                 var wfAddSettings = document.getElementsByClassName("wf-add-setting");
