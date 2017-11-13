@@ -1,17 +1,18 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using Npgsql;
+using Oracle.DataAccess.Client;
+using System;
 using System.Collections.Generic;
-using Wexflow.Core;
+using System.Data.Common;
+using System.Data.OleDb;
+using System.Data.SqlClient;
+using System.Data.SQLite;
+using System.IO;
+using System.Security;
 using System.Threading;
 using System.Xml.Linq;
-using System.Data.SqlClient;
-using Oracle.DataAccess.Client;
-using MySql.Data.MySqlClient;
-using System.Data.SQLite;
-using Npgsql;
-using System.IO;
-using System.Data.OleDb;
-using System.Security;
 using Teradata.Client.Provider;
+using Wexflow.Core;
 
 namespace Wexflow.Tasks.SqlToXml
 {
@@ -108,246 +109,91 @@ namespace Wexflow.Tasks.SqlToXml
             switch (DbType)
             {
                 case Type.SqlServer:
-                    using (var conn = new SqlConnection(ConnectionString))
+                    using (var connection = new SqlConnection(ConnectionString))
+                    using (var command = new SqlCommand(sql, connection))
                     {
-                        var comm = new SqlCommand(sql, conn);
-                        conn.Open();
-                        var reader = comm.ExecuteReader();
-
-                        // Get column names
-                        var columns = new List<string>();
-                        for (int i = 0; i < reader.FieldCount; i++)
-                        {
-                            columns.Add(reader.GetName(i));
-                        }
-
-                        // Build Xml
-                        string destPath = Path.Combine(Workflow.WorkflowTempFolder
-                            , string.Format("SqlServer_{0:yyyy-MM-dd-HH-mm-ss-fff}.xml", DateTime.Now));
-                        var xdoc = new XDocument();
-                        var xobjects = new XElement("Records");
-                        while (reader.Read())
-                        {
-                            var xobject = new XElement("Record");
-                            foreach (var column in columns)
-                            {
-                                //xobject.Add(new XElement("Cell", new XAttribute("column", SecurityElement.Escape(column) , new XAttribute("value", SecurityElement.Escape(reader[column].ToString())))));
-                            }
-                            xobjects.Add(xobject);
-                        }
-                        xdoc.Add(xobjects);
-                        xdoc.Save(destPath);
-                        Files.Add(new FileInf(destPath, Id));
-                        InfoFormat("XML file generated: {0}", destPath);
+                        ConvertToXML(connection, command);
                     }
                     break;
                 case Type.Access:
                     using (var conn = new OleDbConnection(ConnectionString))
+                    using (var comm = new OleDbCommand(sql, conn))
                     {
-                        var comm = new OleDbCommand(sql, conn);
-                        conn.Open();
-                        var reader = comm.ExecuteReader();
-
-                        // Get column names
-                        var columns = new List<string>();
-                        if (reader != null)
-                        {
-                            for (int i = 0; i < reader.FieldCount; i++)
-                            {
-                                columns.Add(reader.GetName(i));
-                            }
-                        }
-
-                        // Build Xml
-                        string destPath = Path.Combine(Workflow.WorkflowTempFolder
-                            , string.Format("Access_{0:yyyy-MM-dd-HH-mm-ss-fff}.xml", DateTime.Now));
-                        var xdoc = new XDocument();
-                        var xobjects = new XElement("Records");
-                        while (reader != null && reader.Read())
-                        {
-                            var xobject = new XElement("Record");
-                            foreach (var column in columns)
-                            {
-                                xobject.Add(new XElement("Cell", new XAttribute("column", SecurityElement.Escape(column)), new XAttribute("value", SecurityElement.Escape(reader[column].ToString()))));
-                            }
-                            xobjects.Add(xobject);
-                        }
-                        xdoc.Add(xobjects);
-                        xdoc.Save(destPath);
-                        Files.Add(new FileInf(destPath, Id));
-                        InfoFormat("XML file generated: {0}", destPath);
+                        ConvertToXML(conn, comm);
                     }
                     break;
                 case Type.Oracle:
-                    using (var conn = new OracleConnection(ConnectionString))
+                    using (var connection = new OracleConnection(ConnectionString))
+                    using (var command = new OracleCommand(sql, connection))
                     {
-                        var comm = new OracleCommand(sql, conn);
-                        conn.Open();
-                        var reader = comm.ExecuteReader();
-
-                        // Get column names
-                        var columns = new List<string>();
-                        for (int i = 0; i < reader.FieldCount; i++)
-                        {
-                            columns.Add(reader.GetName(i));
-                        }
-
-                        // Build Xml
-                        string destPath = Path.Combine(Workflow.WorkflowTempFolder
-                            , string.Format("Oracle_{0:yyyy-MM-dd-HH-mm-ss-fff}.xml", DateTime.Now));
-                        var xdoc = new XDocument();
-                        var xobjects = new XElement("Records");
-                        while (reader.Read())
-                        {
-                            var xobject = new XElement("Record");
-                            foreach (var column in columns)
-                            {
-                                xobject.Add(new XElement("Cell", new XAttribute("column", SecurityElement.Escape(column)), new XAttribute("value", SecurityElement.Escape(reader[column].ToString()))));
-                            }
-                            xobjects.Add(xobject);
-                        }
-                        xdoc.Add(xobjects);
-                        xdoc.Save(destPath);
-                        Files.Add(new FileInf(destPath, Id));
-                        InfoFormat("XML file generated: {0}", destPath);
+                        ConvertToXML(connection, command);
                     }
                     break;
                 case Type.MySql:
-                    using (var conn = new MySqlConnection(ConnectionString))
+                    using (var connection = new MySqlConnection(ConnectionString))
+                    using (var command = new MySqlCommand(sql, connection))
                     {
-                        var comm = new MySqlCommand(sql, conn);
-                        conn.Open();
-                        var reader = comm.ExecuteReader();
-
-                        // Get column names
-                        var columns = new List<string>();
-                        for (int i = 0; i < reader.FieldCount; i++)
-                        {
-                            columns.Add(reader.GetName(i));
-                        }
-
-                        // Build Xml
-                        string destPath = Path.Combine(Workflow.WorkflowTempFolder
-                            , string.Format("MySql_{0:yyyy-MM-dd-HH-mm-ss-fff}.xml", DateTime.Now));
-                        var xdoc = new XDocument();
-                        var xobjects = new XElement("Records");
-                        while (reader.Read())
-                        {
-                            var xobject = new XElement("Record");
-                            foreach (var column in columns)
-                            {
-                                xobject.Add(new XElement("Cell", new XAttribute("column", SecurityElement.Escape(column)), new XAttribute("value", SecurityElement.Escape(reader[column].ToString()))));
-                            }
-                            xobjects.Add(xobject);
-                        }
-                        xdoc.Add(xobjects);
-                        xdoc.Save(destPath);
-                        Files.Add(new FileInf(destPath, Id));
-                        InfoFormat("XML file generated: {0}", destPath);
+                        ConvertToXML(connection, command);
                     }
                     break;
                 case Type.Sqlite:
-                    using (var conn = new SQLiteConnection(ConnectionString))
+                    using (var connection = new SQLiteConnection(ConnectionString))
+                    using (var command = new SQLiteCommand(sql, connection))
                     {
-                        var comm = new SQLiteCommand(sql, conn);
-                        conn.Open();
-                        var reader = comm.ExecuteReader();
-
-                        // Get column names
-                        var columns = new List<string>();
-                        for (int i = 0; i < reader.FieldCount; i++)
-                        {
-                            columns.Add(reader.GetName(i));
-                        }
-
-                        // Build Xml
-                        string destPath = Path.Combine(Workflow.WorkflowTempFolder
-                            , string.Format("Sqlite_{0:yyyy-MM-dd-HH-mm-ss-fff}.xml", DateTime.Now));
-                        var xdoc = new XDocument();
-                        var xobjects = new XElement("Records");
-                        while (reader.Read())
-                        {
-                            var xobject = new XElement("Record");
-                            foreach (var column in columns)
-                            {
-                                xobject.Add(new XElement("Cell", new XAttribute("column", SecurityElement.Escape(column)), new XAttribute("value", SecurityElement.Escape(reader[column].ToString()))));
-                            }
-                            xobjects.Add(xobject);
-                        }
-                        xdoc.Add(xobjects);
-                        xdoc.Save(destPath);
-                        Files.Add(new FileInf(destPath, Id));
-                        InfoFormat("XML file generated: {0}", destPath);
+                        ConvertToXML(connection, command);
                     }
                     break;
                 case Type.PostGreSql:
-                    using (var conn = new NpgsqlConnection(ConnectionString))
+                    using (var connection = new NpgsqlConnection(ConnectionString))
+                    using (var command = new NpgsqlCommand(sql, connection))
                     {
-                        var comm = new NpgsqlCommand(sql, conn);
-                        conn.Open();
-                        var reader = comm.ExecuteReader();
-
-                        // Get column names
-                        var columns = new List<string>();
-                        for (int i = 0; i < reader.FieldCount; i++)
-                        {
-                            columns.Add(reader.GetName(i));
-                        }
-
-                        // Build Xml
-                        string destPath = Path.Combine(Workflow.WorkflowTempFolder
-                            , string.Format("PostGreSql_{0:yyyy-MM-dd-HH-mm-ss-fff}.xml", DateTime.Now));
-                        var xdoc = new XDocument();
-                        var xobjects = new XElement("Records");
-                        while (reader.Read())
-                        {
-                            var xobject = new XElement("Record");
-                            foreach (var column in columns)
-                            {
-                                xobject.Add(new XElement("Cell", new XAttribute("column", SecurityElement.Escape(column)), new XAttribute("value", SecurityElement.Escape(reader[column].ToString()))));
-                            }
-                            xobjects.Add(xobject);
-                        }
-                        xdoc.Add(xobjects);
-                        xdoc.Save(destPath);
-                        Files.Add(new FileInf(destPath, Id));
-                        InfoFormat("XML file generated: {0}", destPath);
+                        ConvertToXML(connection, command);
                     }
                     break;
                 case Type.Teradata:
-                    using (var conn = new TdConnection(ConnectionString))
+                    using (var connenction = new TdConnection(ConnectionString))
+                    using (var command = new TdCommand(sql, connenction))
                     {
-                        var comm = new TdCommand(sql, conn);
-                        conn.Open();
-                        var reader = comm.ExecuteReader();
-
-                        // Get column names
-                        var columns = new List<string>();
-                        for (int i = 0; i < reader.FieldCount; i++)
-                        {
-                            columns.Add(reader.GetName(i));
-                        }
-
-                        // Build Xml
-                        string destPath = Path.Combine(Workflow.WorkflowTempFolder
-                            , string.Format("Teradata_{0:yyyy-MM-dd-HH-mm-ss-fff}.xml", DateTime.Now));
-                        var xdoc = new XDocument();
-                        var xobjects = new XElement("Records");
-                        while (reader.Read())
-                        {
-                            var xobject = new XElement("Record");
-                            foreach (var column in columns)
-                            {
-                                xobject.Add(new XElement("Cell", new XAttribute("column", SecurityElement.Escape(column)), new XAttribute("value", SecurityElement.Escape(reader[column].ToString()))));
-                            }
-                            xobjects.Add(xobject);
-                        }
-                        xdoc.Add(xobjects);
-                        xdoc.Save(destPath);
-                        Files.Add(new FileInf(destPath, Id));
-                        InfoFormat("XML file generated: {0}", destPath);
+                        ConvertToXML(connenction, command);
                     }
                     break;
+            }
+        }
+
+        private void ConvertToXML(DbConnection connection, DbCommand command)
+        {
+            connection.Open();
+            var reader = command.ExecuteReader();
+
+            if (reader.HasRows)
+            {
+                var columns = new List<string>();
+
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    columns.Add(reader.GetName(i));
+                }
+
+                string destPath = Path.Combine(Workflow.WorkflowTempFolder,
+                                               string.Format("SqlServer_{0:yyyy-MM-dd-HH-mm-ss-fff}.xml",
+                                               DateTime.Now));
+                var xdoc = new XDocument();
+                var xobjects = new XElement("Records");
+
+                while (reader.Read())
+                {
+                    var xobject = new XElement("Record");
+
+                    foreach (var column in columns)
+                    {
+                        //xobject.Add(new XElement("Cell", new XAttribute("column", SecurityElement.Escape(column) , new XAttribute("value", SecurityElement.Escape(reader[column].ToString())))));
+                    }
+                    xobjects.Add(xobject);
+                }
+                xdoc.Add(xobjects);
+                xdoc.Save(destPath);
+                Files.Add(new FileInf(destPath, Id));
+                InfoFormat("XML file generated: {0}", destPath);
             }
         }
     }
