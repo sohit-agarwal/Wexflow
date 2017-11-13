@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Common;
 using Wexflow.Core;
 using System.Threading;
 using System.Xml.Linq;
@@ -109,59 +110,58 @@ namespace Wexflow.Tasks.Sql
                     using (var conn = new SqlConnection(ConnectionString))
                     {
                         var comm = new SqlCommand(sql, conn);
-                        conn.Open();
-                        comm.ExecuteNonQuery();
+                        ExecSql(conn, comm);
                     }
                     break;
                 case Type.Access:
                     using (var conn = new OleDbConnection(ConnectionString))
                     {
                         var comm = new OleDbCommand(sql, conn);
-                        conn.Open();
-                        comm.ExecuteNonQuery();
+                        ExecSql(conn, comm);
                     }
                     break;
                 case Type.Oracle:
                     using (var conn = new OracleConnection(ConnectionString))
                     {
                         var comm = new OracleCommand(sql, conn);
-                        conn.Open();
-                        comm.ExecuteNonQuery();
+                        ExecSql(conn, comm);
                     }
                     break;
                 case Type.MySql:
                     using (var conn = new MySqlConnection(ConnectionString))
                     {
                         var comm = new MySqlCommand(sql, conn);
-                        conn.Open();
-                        comm.ExecuteNonQuery();
+                        ExecSql(conn, comm);
                     }
                     break;
                 case Type.Sqlite:
                     using (var conn = new SQLiteConnection(ConnectionString))
                     {
                         var comm = new SQLiteCommand(sql, conn);
-                        conn.Open();
-                        comm.ExecuteNonQuery();
+                        ExecSql(conn, comm);
                     }
                     break;
                 case Type.PostGreSql:
                     using (var conn = new NpgsqlConnection(ConnectionString))
                     {
                         var comm = new NpgsqlCommand(sql, conn);
-                        conn.Open();
-                        comm.ExecuteNonQuery();
+                        ExecSql(conn, comm);
                     }
                     break;
                 case Type.Teradata:
                     using (var conn = new TdConnection(ConnectionString))
                     {
                         var comm = new TdCommand(sql, conn);
-                        conn.Open();
-                        comm.ExecuteNonQuery();
+                        ExecSql(conn, comm);
                     }
                     break;
             }
+        }
+
+        void ExecSql(DbConnection conn, DbCommand comm)
+        {
+            conn.Open();
+            comm.ExecuteNonQuery();
         }
     }
 }
