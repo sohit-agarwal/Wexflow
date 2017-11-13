@@ -41,7 +41,7 @@ namespace Wexflow.Tasks.Tests
 
         private string[] GetFiles()
         {
-            return Directory.GetFiles(SqlToCsvFolder, "Sqlite_*.csv");
+            return Directory.GetFiles(SqlToCsvFolder, "SqlToCsv_*.csv");
         }
     }
 }

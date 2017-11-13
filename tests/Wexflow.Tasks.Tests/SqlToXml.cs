@@ -63,7 +63,7 @@ namespace Wexflow.Tasks.Tests
 
         private string[] GetFiles()
         {
-            return Directory.GetFiles(SqlToXmlFolder, "Sqlite_*.xml");
+            return Directory.GetFiles(SqlToXmlFolder, "SqlToXml_*.xml");
         }
     }
 }

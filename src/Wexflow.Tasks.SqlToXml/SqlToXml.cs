@@ -112,55 +112,55 @@ namespace Wexflow.Tasks.SqlToXml
                     using (var connection = new SqlConnection(ConnectionString))
                     using (var command = new SqlCommand(sql, connection))
                     {
-                        ConvertToXML(connection, command);
+                        ConvertToXml(connection, command);
                     }
                     break;
                 case Type.Access:
                     using (var conn = new OleDbConnection(ConnectionString))
                     using (var comm = new OleDbCommand(sql, conn))
                     {
-                        ConvertToXML(conn, comm);
+                        ConvertToXml(conn, comm);
                     }
                     break;
                 case Type.Oracle:
                     using (var connection = new OracleConnection(ConnectionString))
                     using (var command = new OracleCommand(sql, connection))
                     {
-                        ConvertToXML(connection, command);
+                        ConvertToXml(connection, command);
                     }
                     break;
                 case Type.MySql:
                     using (var connection = new MySqlConnection(ConnectionString))
                     using (var command = new MySqlCommand(sql, connection))
                     {
-                        ConvertToXML(connection, command);
+                        ConvertToXml(connection, command);
                     }
                     break;
                 case Type.Sqlite:
                     using (var connection = new SQLiteConnection(ConnectionString))
                     using (var command = new SQLiteCommand(sql, connection))
                     {
-                        ConvertToXML(connection, command);
+                        ConvertToXml(connection, command);
                     }
                     break;
                 case Type.PostGreSql:
                     using (var connection = new NpgsqlConnection(ConnectionString))
                     using (var command = new NpgsqlCommand(sql, connection))
                     {
-                        ConvertToXML(connection, command);
+                        ConvertToXml(connection, command);
                     }
                     break;
                 case Type.Teradata:
                     using (var connenction = new TdConnection(ConnectionString))
                     using (var command = new TdCommand(sql, connenction))
                     {
-                        ConvertToXML(connenction, command);
+                        ConvertToXml(connenction, command);
                     }
                     break;
             }
         }
 
-        private void ConvertToXML(DbConnection connection, DbCommand command)
+        private void ConvertToXml(DbConnection connection, DbCommand command)
         {
             connection.Open();
             var reader = command.ExecuteReader();
@@ -175,7 +175,7 @@ namespace Wexflow.Tasks.SqlToXml
                 }
 
                 string destPath = Path.Combine(Workflow.WorkflowTempFolder,
-                                               string.Format("SqlServer_{0:yyyy-MM-dd-HH-mm-ss-fff}.xml",
+                                               string.Format("SqlToXml_{0:yyyy-MM-dd-HH-mm-ss-fff}.xml",
                                                DateTime.Now));
                 var xdoc = new XDocument();
                 var xobjects = new XElement("Records");
@@ -186,7 +186,9 @@ namespace Wexflow.Tasks.SqlToXml
 
                     foreach (var column in columns)
                     {
-                        //xobject.Add(new XElement("Cell", new XAttribute("column", SecurityElement.Escape(column) , new XAttribute("value", SecurityElement.Escape(reader[column].ToString())))));
+                        xobject.Add(new XElement("Cell"
+                            , new XAttribute("column", SecurityElement.Escape(column))
+                            , new XAttribute("value", SecurityElement.Escape(reader[column].ToString()))));
                     }
                     xobjects.Add(xobject);
                 }

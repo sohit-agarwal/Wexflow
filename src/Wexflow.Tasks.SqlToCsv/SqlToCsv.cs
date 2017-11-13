@@ -180,7 +180,7 @@ namespace Wexflow.Tasks.SqlToCsv
 
                 builder.Append("\r\n");
                 string destPath = Path.Combine(Workflow.WorkflowTempFolder,
-                                               string.Format("SqlServer_{0:yyyy-MM-dd-HH-mm-ss-fff}.csv",
+                                               string.Format("SqlToCsv_{0:yyyy-MM-dd-HH-mm-ss-fff}.csv",
                                                DateTime.Now));
 
                 while (reader.Read())
