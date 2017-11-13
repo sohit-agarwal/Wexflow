@@ -44,11 +44,6 @@ namespace Wexflow.Core
         /// <summary>
         /// List of the Workflows loaded by Wexflow engine.
         /// </summary>
-        public string DocumentationPath { get; private set; }
-        /// <summary>
-        /// Should be the path to the documenation of the TastXML dokumentation.
-        /// </summary>
-
         public IList<Workflow> Workflows { get; private set; }
 
         private readonly Dictionary<int, WexflowTimer> _wexflowTimers;
@@ -80,7 +75,6 @@ namespace Wexflow.Core
             XsdPath = GetWexflowSetting(xdoc, "xsd");
             TasksNamesFile = GetWexflowSetting(xdoc, "tasksNamesFile");
             TasksSettingsFile = GetWexflowSetting(xdoc, "tasksSettingsFile");
-            DocumentationPath = GetWexflowSetting(xdoc, "documentationPath");
         }
 
         string GetWexflowSetting(XDocument xdoc, string name)
@@ -93,7 +87,7 @@ namespace Wexflow.Core
             }
             catch (Exception e)
             {
-                Logger.Error($"Error reading Webflow.XML, Setting[@name='{name}']", e);
+                Logger.ErrorFormat("An error occured when reading Wexflow settings: Setting[@name='{0}']", e, name);
                 return string.Empty;
             }
         }

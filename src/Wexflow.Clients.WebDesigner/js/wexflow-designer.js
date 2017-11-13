@@ -374,6 +374,7 @@
             "<h5 class='wf-task-title'>" +
             "<label class='wf-task-title-label'>Task</label>" +
             "<button type='button' class='wf-remove-task btn btn-outline-danger btn-sm' style='display: block;'>Delete</button>" +
+            "<button type='button' class='wf-show-doc btn btn-outline-secondary btn-sm'>Documentation</button>" +
             "<button type='button' class='wf-show-taskxml btn btn-outline-secondary btn-sm'>Xml</button>" +
             "<button type='button' class='wf-add-setting btn btn-outline-secondary btn-sm'>New setting</button>" +
             "</h5>" +
@@ -478,13 +479,13 @@
         // xml
         var wfTaskToXml = wfTask.getElementsByClassName("wf-show-taskxml")[0];
         wfTaskToXml.onclick = function() {
-            showTaskXml(workflowId, this, "/taskToXml");
+            showTaskXml(workflowId, this);
         };
 
-        // xmldescription
-        var wfTaskToXmlDescription = wfTask.getElementsByClassName("wf-show-taskxmldescription")[0];
+        // doc
+        var wfTaskToXmlDescription = wfTask.getElementsByClassName("wf-show-doc")[0];
         wfTaskToXmlDescription.onclick = function () {
-            showTaskXml(workflowId, this, "/taskToXmlDescription");
+            doc(workflowId, this);
         };
 
     }
@@ -493,24 +494,6 @@
         var index = getElementIndex(btn.parentElement.parentElement);
         workflowTasks[workflowId] = deleteRow(workflowTasks[workflowId], index);
         btn.parentElement.parentElement.remove();
-    }
-
-    function showTaskXml(workflowId, btn, uripath) {
-        var index = getElementIndex(btn.parentElement.parentElement);
-        var task = workflowTasks[workflowId][index];
-        uripath = (uripath=="" ? "/taskToXml" : uripath)
-
-        post(uri + uripath,
-            function(xml) {
-                var xmlContainer = btn.parentElement.parentElement.getElementsByClassName("wf-taskxml")[0];
-                xmlContainer.style.display = 'table-cell';
-                var codeContainer = xmlContainer.getElementsByClassName("wf-taskxml-container")[0];
-                codeContainer.innerHTML = escapeXml(xml);
-                hljs.highlightBlock(codeContainer);
-            },
-            function() {
-                alert("An error occured while retrieving the Xml of the task " + task.Id + ".");
-            }, task);
     }
 
     function addSetting(workflowId, btn, sn) {
@@ -906,6 +889,35 @@
             });
     }
 
+    function showTaskXml(workflowId, btn) {
+        var index = getElementIndex(btn.parentElement.parentElement);
+        var task = workflowTasks[workflowId][index];
+
+        post(uri + "/taskToXml",
+            function (xml) {
+                var xmlContainer = btn.parentElement.parentElement.getElementsByClassName("wf-taskxml")[0];
+                xmlContainer.style.display = 'table-cell';
+                var codeContainer = xmlContainer.getElementsByClassName("wf-taskxml-container")[0];
+                codeContainer.innerHTML = escapeXml(xml);
+                hljs.highlightBlock(codeContainer);
+            },
+            function () {
+                alert("An error occured while retrieving the Xml of the task " + task.Id + ".");
+            }, task);
+    }
+
+    function doc(workflowId, btn) {
+        var index = getElementIndex(btn.parentElement.parentElement);
+        var task = workflowTasks[workflowId][index];
+        var taskName = task.Name;
+
+        if (taskName !== '') {
+            var url = "https://github.com/aelassas/Wexflow/wiki/" + taskName;
+            var win = window.open(url, '_blank');
+            win.focus();
+        }
+    }
+
     function loadRightPanel(workflowId) {
 
         document.getElementById("wf-cancel").style.display = "block";
@@ -998,7 +1010,7 @@
                                     tasksHtml += "<div class='wf-task'>" +
                                         "<h5 class='wf-task-title'><label class='wf-task-title-label'>Task " + task.Id + "</label>" +
                                         "<button type='button' class='wf-remove-task btn btn-outline-danger btn-sm'>Delete</button>" +
-                                        "<button type='button' class='wf-show-taskxmldescription btn btn-outline-secondary btn-sm'>Xml description</button>" +
+                                        "<button type='button' class='wf-show-doc btn btn-outline-secondary btn-sm'>Documentation</button>" +
                                         "<button type='button' class='wf-show-taskxml btn btn-outline-secondary btn-sm'>Xml</button>" +
                                         "<button type='button' class='wf-add-setting btn btn-outline-secondary btn-sm'>New setting</button>" +
                                         "</h5>" +
@@ -1106,16 +1118,17 @@
                                 for (var i5 = 0; i5 < wfShowTaskXmLs.length; i5++) {
                                     var wfShowTaskXml = wfShowTaskXmLs[i5];
                                     wfShowTaskXml.onclick = function () {
-                                        showTaskXml(workflowId, this, "/taskToXml");
+                                        showTaskXml(workflowId, this);
                                     };
                                 }
 
                                 // Show Task function XML description
-                                var wfShowTaskXmLDescriptions = document.getElementsByClassName("wf-show-taskxmldescription");
-                                for (var i5 = 0; i5 < wfShowTaskXmLDescriptions.length; i5++) {
-                                    var wfShowTaskXmlDescription = wfShowTaskXmLDescriptions[i5];
+                                var wfShowTaskXmLDescriptions = document.getElementsByClassName("wf-show-doc");
+                                for (var i6 = 0; i6 < wfShowTaskXmLDescriptions.length; i6++) {
+                                    var wfShowTaskXmlDescription = wfShowTaskXmLDescriptions[i6];
                                     wfShowTaskXmlDescription.onclick = function () {
-                                        showTaskXml(workflowId, this, "/taskToXmlDescription");
+                                        //showTaskXml(workflowId, this, "/taskToXmlDescription");
+                                        doc(workflowId, this);
                                     };
                                 }
 
@@ -1206,15 +1219,11 @@
 
                                 var bindwfSettingName = function (m, n) {
                                     var wfSettingName =
-                                        document.getElementsByClassName("wf-settings")[m]
-                                            .getElementsByClassName("wf-setting-name")[n];
+                                        document.getElementsByClassName("wf-settings")[m].getElementsByClassName("wf-setting-name")[n];
                                     wfSettingName.onkeyup = function () {
                                         workflowTasks[workflowId][m].Settings[n].Name = wfSettingName.value;
-                                        var wfAddAttributeTd =
-                                            wfSettingName.parentElement.parentElement
-                                                .getElementsByClassName("wf-add-attribute-td")[0];
-                                        if (wfSettingName.value === "selectFiles" ||
-                                            wfSettingName.value === "selectAttachments") {
+                                        var wfAddAttributeTd = wfSettingName.parentElement.parentElement.getElementsByClassName("wf-add-attribute-td")[0];
+                                        if (wfSettingName.value === "selectFiles" || wfSettingName.value === "selectAttachments") {
                                             wfAddAttributeTd.style.display = "block";
                                         } else {
                                             wfAddAttributeTd.style.display = "none";

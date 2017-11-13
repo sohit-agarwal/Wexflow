@@ -202,32 +202,6 @@ namespace Wexflow.Clients.WindowsService
 
         [WebInvoke(Method = "POST",
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "taskToXmlDescription")]
-        public string GetTaskXmlDescription(Stream streamdata)
-        {
-            try
-            {
-                StreamReader reader = new StreamReader(streamdata);
-                string json = reader.ReadToEnd();
-                reader.Close();
-                reader.Dispose();
-
-                JObject task = JObject.Parse(json);
-                string taskName = (string)task.SelectToken("Name");
-                XmlDocument doc = new XmlDocument();
-                doc.Load($"{WexflowWindowsService.WexflowEngine.DocumentationPath}\\{taskName}.xml");
-                return doc.InnerXml;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return string.Empty;
-            }
-        }
-
-
-        [WebInvoke(Method = "POST",
-            ResponseFormat = WebMessageFormat.Json,
             UriTemplate = "save")]
         public bool SaveWorkflow(Stream streamdata)
         {

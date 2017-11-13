@@ -116,11 +116,11 @@
 .wf-add-setting {
     margin-left: 10px;
 }
-.wf-show-taskxml, .wf-show-taskxmldescription {
+.wf-show-taskxml, .wf-show-doc {
     margin-right: 10px;
 }
 
-.wf-remove-task, .wf-add-setting, .wf-show-taskxml, .wf-show-taskxmldescription {
+.wf-remove-task, .wf-add-setting, .wf-show-taskxml, .wf-show-doc {
     float: right;
 }
 .wf-add-setting {
