@@ -220,7 +220,12 @@ namespace Wexflow.Core
                     };
 
                     var timer = new WexflowTimer(new TimerCallback(callback), wf, wf.Period);
-                    _wexflowTimers.Add(wf.Id, timer);
+
+                    if (!_wexflowTimers.ContainsKey(wf.Id))
+                    {
+                        _wexflowTimers.Add(wf.Id, timer);
+                    }
+
                     timer.Start();
                 }
             }
