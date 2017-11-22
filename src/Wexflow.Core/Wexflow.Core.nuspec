@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Wexflow</id>
-    <version>2.3.1</version>
+    <version>2.3.3</version>
     <title>Wexflow</title>
     <authors>Akram El Assas</authors>
     <owners>Akram El Assas</owners>
@@ -11,7 +11,7 @@
     <!--<iconUrl></iconUrl>-->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Core assembly of Wexflow workflow engine.</description>
-    <releaseNotes>Added Hashtable as shared memory for tasks and fixed some issues Task.GetSetting.</releaseNotes>
+    <releaseNotes>Fixed an issue in wexflow engine.</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>Wexflow Workflow</tags>
   </metadata>

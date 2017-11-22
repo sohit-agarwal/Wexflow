@@ -46,7 +46,7 @@ namespace Wexflow.Core
         /// </summary>
         public IList<Workflow> Workflows { get; private set; }
 
-        private readonly Dictionary<int, WexflowTimer> _wexflowTimers;
+        private readonly Dictionary<int, List<WexflowTimer>> _wexflowTimers;
 
         /// <summary>
         /// Creates a new instance of Wexflow engine.
@@ -56,7 +56,7 @@ namespace Wexflow.Core
         {
             SettingsFile = settingsFile;
             Workflows = new List<Workflow>();
-            _wexflowTimers = new Dictionary<int, WexflowTimer>();
+            _wexflowTimers = new Dictionary<int, List<WexflowTimer>>();
 
             Logger.Info("");
             Logger.Info("Starting Wexflow Engine");
@@ -223,9 +223,16 @@ namespace Wexflow.Core
 
                     if (!_wexflowTimers.ContainsKey(wf.Id))
                     {
-                        _wexflowTimers.Add(wf.Id, timer);
+                        _wexflowTimers.Add(wf.Id, new List<WexflowTimer>{ timer });
                     }
-
+                    else
+                    {
+                        foreach (var wt in _wexflowTimers[wf.Id])
+                        {
+                            wt.Stop();
+                        }
+                        _wexflowTimers[wf.Id].Add(timer);
+                    }
                     timer.Start();
                 }
             }
@@ -236,9 +243,12 @@ namespace Wexflow.Core
         /// </summary>
         public void Stop()
         {
-            foreach (var wt in _wexflowTimers.Values)
+            foreach (var wts in _wexflowTimers.Values)
             {
-               wt.Stop();
+                foreach (var wt in wts)
+                {
+                    wt.Stop();
+                }
             }
 
             foreach (var wf in Workflows)
