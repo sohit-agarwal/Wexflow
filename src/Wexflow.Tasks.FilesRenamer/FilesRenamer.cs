@@ -60,6 +60,7 @@ namespace Wexflow.Tasks.FilesRenamer
                         file.Path = destPath;
                         file.RenameTo = string.Empty;
                         if (!atLeastOneSucceed) atLeastOneSucceed = true;
+                        Files.Add(new FileInf(destPath, file.TaskId));
                     }
                 }
                 catch (ThreadAbortException)
