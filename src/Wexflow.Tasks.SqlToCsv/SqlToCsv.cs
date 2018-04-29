@@ -33,14 +33,21 @@ namespace Wexflow.Tasks.SqlToCsv
         public string ConnectionString { get; set; }
         public string SqlScript { get; set; }
         public string Separator { get; set; }
-
+        public string QuoteString { get; set; }
+        public string EndOfLine { get; set; }
+        public bool Headers { get; set; } = true;
+        public bool SingleRecordHeaders{ get; set; } = true;
         public SqlToCsv(XElement xe, Workflow wf)
             : base(xe, wf)
         {
             DbType = (Type)Enum.Parse(typeof(Type), GetSetting("type"), true);
             ConnectionString = GetSetting("connectionString");
             SqlScript = GetSetting("sql", string.Empty);
-            Separator = GetSetting("separator", ";");
+            QuoteString = GetSetting("quote", string.Empty);
+            EndOfLine = GetSetting("endline", "\r\n");
+            Separator = QuoteString + GetSetting("separator", ";") + QuoteString;
+            if (bool.TryParse(GetSetting("headers", bool.TrueString), out bool result)) Headers = result;
+            if (bool.TryParse(GetSetting("singlerecordheaders", bool.TrueString), out bool result2)) SingleRecordHeaders = result2;
         }
 
         public override TaskStatus Run()
@@ -167,35 +174,69 @@ namespace Wexflow.Tasks.SqlToCsv
             conn.Open();
             var reader = comm.ExecuteReader();
 
-            if (reader.HasRows)
-            {
-                var columns = new List<string>();
-                StringBuilder builder = new StringBuilder();
-
-                for (int i = 0; i < reader.FieldCount; i++)
-                {
-                    columns.Add(reader.GetName(i));
-                    builder.Append(reader.GetName(i)).Append(Separator);
-                }
-
-                builder.Append("\r\n");
-                string destPath = Path.Combine(Workflow.WorkflowTempFolder,
+            string destPath = Path.Combine(Workflow.WorkflowTempFolder,
                                                string.Format("SqlToCsv_{0:yyyy-MM-dd-HH-mm-ss-fff}.csv",
                                                DateTime.Now));
+            using (var sr = new StreamWriter(destPath))
+            {
+                bool hasRows = reader.HasRows;
 
-                while (reader.Read())
+                while (hasRows)
                 {
-                    foreach (var column in columns)
+                    var i = 0;
+                    List<string> columns = new List<string>();
+                    List<string> values = new List<string>();
+                    bool readColumns = false;
+                    bool headerDone = false;
+                    bool readRecord = false;
+                    while (reader.Read())
                     {
-                        builder.Append(reader[column]).Append(Separator);
-                    }
-                    builder.Append("\r\n");
-                }
+                        if (readRecord)
+                        {
+                            if (!headerDone && Headers)
+                            {
+                                headerDone = true;
+                                if (Headers)
+                                {
+                                    sr.Write(QuoteString + string.Join(Separator, columns) + QuoteString);
+                                    sr.Write(EndOfLine);
+                                }
+                            }
+                            sr.Write(QuoteString + string.Join(Separator, values) + QuoteString);
+                            sr.Write(EndOfLine);
+                            values.Clear();
+                        }
+                        if (!readColumns)
+                        {
+                            for (i = 0; i < reader.FieldCount; i++)
+                            {
+                                columns.Add(reader.GetName(i));
+                            }
+                            readColumns = true;
+                        }
+                        for (i = 0; i < reader.FieldCount - 1; i++)
+                        {
+                            values.Add(reader[i].ToString());
+                        }
+                        readRecord = true;
 
-                File.WriteAllText(destPath, builder.ToString());
-                Files.Add(new FileInf(destPath, Id));
-                InfoFormat("CSV file generated: {0}", destPath);
+                    }
+                    if (!headerDone && SingleRecordHeaders)
+                    {
+                        sr.Write(QuoteString + string.Join(Separator, columns) + QuoteString);
+                        sr.Write(EndOfLine);
+                    }
+
+                    sr.Write(QuoteString + string.Join(Separator, values) + QuoteString);
+                    sr.Write(EndOfLine);
+                    values.Clear();
+                    columns.Clear();
+                    hasRows = reader.NextResult();
+                }
             }
+            Files.Add(new FileInf(destPath, Id));
+            InfoFormat("CSV file generated: {0}", destPath);
+
         }
     }
 }
