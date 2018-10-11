@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace Wexflow.Tasks.Zip
 {
-    public class Zip:Task
+    public class Zip : Task
     {
         public string ZipFileName { get; private set; }
 
@@ -24,8 +24,13 @@ namespace Wexflow.Tasks.Zip
             bool success = true;
 
             var files = SelectFiles();
-            if(files.Length > 0)
+            if (files.Length > 0)
             {
+                if (string.IsNullOrEmpty(ZipFileName))
+                {
+                    var fileName = Path.GetFileNameWithoutExtension(files[0].FileName);
+                    ZipFileName = fileName + ".zip";
+                }
                 var zipPath = Path.Combine(Workflow.WorkflowTempFolder, ZipFileName);
 
                 try
@@ -40,7 +45,7 @@ namespace Wexflow.Tasks.Zip
                         {
                             // Using GetFileName makes the result compatible with XP
                             // as the resulting path is not absolute.
-                            var entry = new ZipEntry(Path.GetFileName(file.Path)) {DateTime = DateTime.Now};
+                            var entry = new ZipEntry(Path.GetFileName(file.Path)) { DateTime = DateTime.Now };
 
                             // Setup the entry data as required.
 
