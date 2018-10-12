@@ -2,10 +2,10 @@
 
 [![Logo](https://aelassas.github.io/wexflow/images/wexflow.png "Logo")](https://wexflow.github.io/)
 
-<!--
+
 [![forthebadge](http://forthebadge.com/images/badges/made-with-c-sharp.svg)](http://forthebadge.com)
 [![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)
--->
+
 
 Wexflow is an open source extensible workflow engine with a cross-platform manager and designer. The goal of Wexflow is to automate recurring tasks without user intervention. Wexflow aims to make automations, workflow processes, long-running processes and interactions between systems, applications and folks easy, straightforward and clean.
 
@@ -90,4 +90,4 @@ Wexflow contains other libraries with their individual licenses. More details ab
 # Thanks
 
 - Thanks [JetBrains](https://www.jetbrains.com/) for providing a free license of [Resharper](https://www.jetbrains.com/resharper/).
-- Thanks [@HaMster21](https://github.com/HaMster21) and [@janborup](https://github.com/janborup) for your contributions to the code.
+- Thanks [@HaMster21](https://github.com/HaMster21), [@janborup](https://github.com/janborup) and [@alexhiggins732](https://github.com/alexhiggins732) for your contributions to the code.
