@@ -27,5 +27,9 @@
     <Setting name="sql" value="$string" />
     <!-- Optional and defaults to ';'. The separtor character in the CSV files.-->
     <Setting name="separator" value="$string" />
+    <!-- Optional and defaults to empty string. The quote character for the values. example: ' or &quot;-->
+    <Setting name="quote" value="$string" />
+    <!-- Optional and defaults to true. True to include the headers, False otherwise.-->
+    <Setting name="headers" value="$bool" />
   </Task>
 </Tasks>

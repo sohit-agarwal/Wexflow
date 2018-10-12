@@ -8,7 +8,6 @@ using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.Data.SQLite;
 using System.IO;
-using System.Text;
 using System.Threading;
 using System.Xml.Linq;
 using Teradata.Client.Provider;
@@ -35,8 +34,9 @@ namespace Wexflow.Tasks.SqlToCsv
         public string Separator { get; set; }
         public string QuoteString { get; set; }
         public string EndOfLine { get; set; }
-        public bool Headers { get; set; } = true;
-        public bool SingleRecordHeaders{ get; set; } = true;
+        public bool Headers { get; set; }
+        public bool SingleRecordHeaders{ get; set; }
+
         public SqlToCsv(XElement xe, Workflow wf)
             : base(xe, wf)
         {
@@ -44,10 +44,12 @@ namespace Wexflow.Tasks.SqlToCsv
             ConnectionString = GetSetting("connectionString");
             SqlScript = GetSetting("sql", string.Empty);
             QuoteString = GetSetting("quote", string.Empty);
-            EndOfLine = GetSetting("endline", "\r\n");
+            EndOfLine = "\r\n";
             Separator = QuoteString + GetSetting("separator", ";") + QuoteString;
-            if (bool.TryParse(GetSetting("headers", bool.TrueString), out bool result)) Headers = result;
-            if (bool.TryParse(GetSetting("singlerecordheaders", bool.TrueString), out bool result2)) SingleRecordHeaders = result2;
+            bool result1;
+            if (bool.TryParse(GetSetting("headers", bool.TrueString), out result1)) Headers = result1;
+            bool result2;
+            if (bool.TryParse(GetSetting("singlerecordheaders", bool.TrueString), out result2)) SingleRecordHeaders = result2;
         }
 
         public override TaskStatus Run()
@@ -177,7 +179,7 @@ namespace Wexflow.Tasks.SqlToCsv
             string destPath = Path.Combine(Workflow.WorkflowTempFolder,
                                                string.Format("SqlToCsv_{0:yyyy-MM-dd-HH-mm-ss-fff}.csv",
                                                DateTime.Now));
-            using (var sr = new StreamWriter(destPath))
+            using (var sw = new StreamWriter(destPath))
             {
                 bool hasRows = reader.HasRows;
 
@@ -198,12 +200,12 @@ namespace Wexflow.Tasks.SqlToCsv
                                 headerDone = true;
                                 if (Headers)
                                 {
-                                    sr.Write(QuoteString + string.Join(Separator, columns) + QuoteString);
-                                    sr.Write(EndOfLine);
+                                    sw.Write(QuoteString + string.Join(Separator, columns) + QuoteString);
+                                    sw.Write(EndOfLine);
                                 }
                             }
-                            sr.Write(QuoteString + string.Join(Separator, values) + QuoteString);
-                            sr.Write(EndOfLine);
+                            sw.Write(QuoteString + string.Join(Separator, values) + QuoteString);
+                            sw.Write(EndOfLine);
                             values.Clear();
                         }
                         if (!readColumns)
@@ -214,21 +216,21 @@ namespace Wexflow.Tasks.SqlToCsv
                             }
                             readColumns = true;
                         }
-                        for (i = 0; i < reader.FieldCount - 1; i++)
+                        for (i = 0; i < reader.FieldCount; i++)
                         {
                             values.Add(reader[i].ToString());
                         }
                         readRecord = true;
-
                     }
-                    if (!headerDone && SingleRecordHeaders)
+
+                    if (!headerDone && SingleRecordHeaders && Headers)
                     {
-                        sr.Write(QuoteString + string.Join(Separator, columns) + QuoteString);
-                        sr.Write(EndOfLine);
+                        sw.Write(QuoteString + string.Join(Separator, columns) + QuoteString);
+                        sw.Write(EndOfLine);
                     }
 
-                    sr.Write(QuoteString + string.Join(Separator, values) + QuoteString);
-                    sr.Write(EndOfLine);
+                    sw.Write(QuoteString + string.Join(Separator, values) + QuoteString);
+                    sw.Write(EndOfLine);
                     values.Clear();
                     columns.Clear();
                     hasRows = reader.NextResult();

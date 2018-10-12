@@ -14,7 +14,10 @@
     <Setting name="selectFiles" value="$taskId" />
     <Setting name="selectFiles" value="$taskId" />
     <!-- You can add as many selecteFiles as you want.-->
-    <!-- The Zip file name. Example: output.zip-->
+    <!-- The Zip file name. Example: output.zip
+    If this setting is empty the renameToOrName of the first file in the collection will be taken as the zip file name.
+    For example if the renameToOrName of the first file is file1.txt, the zip file name will be file1.zip.
+    -->
     <Setting name="zipFileName" value="$string" />
   </Task>
 </Tasks>

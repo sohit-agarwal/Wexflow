@@ -28,7 +28,7 @@ namespace Wexflow.Tasks.Zip
             {
                 if (string.IsNullOrEmpty(ZipFileName))
                 {
-                    var fileName = Path.GetFileNameWithoutExtension(files[0].FileName);
+                    var fileName = Path.GetFileNameWithoutExtension(files[0].RenameToOrName);
                     ZipFileName = fileName + ".zip";
                 }
                 var zipPath = Path.Combine(Workflow.WorkflowTempFolder, ZipFileName);
