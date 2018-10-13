@@ -10,8 +10,8 @@
 			<Setting name="enableSsl" value="true" />
 			<Setting name="user" value="username" />
 			<Setting name="password" value="password" />
-      <Setting name="messageCount" value="2" />
-      <Setting name="deleteMessages" value="false" />
+			<Setting name="messageCount" value="2" />
+			<Setting name="deleteMessages" value="false" />
     </Task>
 		<Task id="2" name="FilesMover" description="Moving mails files from temp folder" enabled="true">
 			<Setting name="selectFiles" value="1" />

@@ -23,7 +23,7 @@
 		<Task id="4" name="FilesCopier" description="Copying attachments" enabled="true">
 			<Setting name="selectFiles" value="2" />
 			<Setting name="destFolder" value="C:\WexflowTesting\MailsSender\" />
-			<Setting name="overwrite" value="false" />
+			<Setting name="overwrite" value="true" />
 		</Task>
 	</Tasks>
 	<ExecutionGraph>

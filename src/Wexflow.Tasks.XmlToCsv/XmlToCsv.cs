@@ -11,9 +11,14 @@ namespace Wexflow.Tasks.XmlToCsv
 {
     public class XmlToCsv:Task
     {
+        public string Separator { get; set; }
+        public string Quote { get; set; }
+
         public XmlToCsv(XElement xe, Workflow wf)
             : base(xe, wf)
         {
+            Separator = GetSetting("separator", ";");
+            Quote = GetSetting("quote", string.Empty);
         }
 
         public override TaskStatus Run()
@@ -65,17 +70,17 @@ namespace Wexflow.Tasks.XmlToCsv
         {
             var xdoc = XDocument.Load(xmlPath);
 
-            var lines = new List<string>();
-            foreach (XElement xLine in xdoc.XPathSelectElements("Lines/Line"))
+            using (StreamWriter sw = new StreamWriter(csvPath))
             {
-                var sb = new StringBuilder();
-                foreach (XElement xColumn in xLine.XPathSelectElements("Column"))
+                foreach (XElement xLine in xdoc.XPathSelectElements("Lines/Line"))
                 {
-                    sb.Append(xColumn.Value).Append(";");
+                    foreach (XElement xColumn in xLine.XPathSelectElements("Column"))
+                    {
+                        sw.Write(string.Concat(Quote, xColumn.Value, Quote, Separator));
+                    }
+                    sw.Write("\r\n");
                 }
-                lines.Add(sb.ToString());
             }
-            File.WriteAllLines(csvPath, lines.ToArray());
         }
     }
 }

@@ -28,5 +28,9 @@
     <Setting name="selectFiles" value="$taskId" />
     <Setting name="selectFiles" value="$taskId" />
     <!-- You can add as many selecteFiles as you want.-->
+    <!-- Optional and defaults to ';'. The separtor character in the CSV files.-->
+    <Setting name="separator" value="$string" />
+    <!-- Optional and defaults to empty string. The quote character for the values. example: ' or &quot;-->
+    <Setting name="quote" value="$string" />
   </Task>
 </Tasks>

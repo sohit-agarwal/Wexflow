@@ -8,6 +8,7 @@
 		    <From>user@host.com</From>
 		    <To>user@host.com, user@host.com, ...</To>
 		    <Cc>user@host.com, user@host.com, ...</Cc>
+        <Bcc>user@host.com, user@host.com, ...</Bcc>
 		    <Subject>Mail subject goes here.</Subject>
 		    <Body>Mail body goes here.</Body>
 	    </Mail>
@@ -15,6 +16,7 @@
 		    <From>user@host.com</From>
 		    <To>user@host.com, user@host.com, ...</To>
 		    <Cc>user@host.com, user@host.com, ...</Cc>
+        <Bcc>user@host.com, user@host.com, ...</Bcc>
 		    <Subject>Mail subject goes here.</Subject>
 		    <Body>Mail body goes here.</Body>
 	    </Mail>
