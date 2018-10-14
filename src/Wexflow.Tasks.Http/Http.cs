@@ -10,6 +10,9 @@ namespace Wexflow.Tasks.Http
 {
     public class Http:Task
     {
+        private const SslProtocols _Tls12 = (SslProtocols)0x00000C00;
+        private const SecurityProtocolType Tls12 = (SecurityProtocolType)_Tls12;
+
         public string[] Urls { get; private set; }
 
         public Http(XElement xe, Workflow wf)
@@ -27,6 +30,9 @@ namespace Wexflow.Tasks.Http
 
             using (var webClient = new WebClient())
             {
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = Tls12;
+
                 foreach (string url in Urls)
                 {
                     try
@@ -35,10 +41,6 @@ namespace Wexflow.Tasks.Http
                         if (fileName == null) throw new Exception("File name is null");
                         var destPath = Path.Combine(Workflow.WorkflowTempFolder, fileName);
 
-                        const SslProtocols _Tls12 = (SslProtocols)0x00000C00;
-                        const SecurityProtocolType Tls12 = (SecurityProtocolType)_Tls12;
-                        ServicePointManager.SecurityProtocol = Tls12;
-                        ServicePointManager.Expect100Continue = true;
                         webClient.DownloadFile(url, destPath);
 
                         InfoFormat("File {0} downlaoded as {1}", url, destPath);
