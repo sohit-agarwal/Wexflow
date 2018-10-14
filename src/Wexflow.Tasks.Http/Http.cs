@@ -4,6 +4,7 @@ using System.Xml.Linq;
 using System.IO;
 using System.Net;
 using System.Threading;
+using System.Security.Authentication;
 
 namespace Wexflow.Tasks.Http
 {
@@ -24,29 +25,36 @@ namespace Wexflow.Tasks.Http
             bool success = true;
             bool atLeastOneSucceed = false;
 
-            var webClient = new WebClient();
-
-            foreach (string url in Urls)
+            using (var webClient = new WebClient())
             {
-                try
+                foreach (string url in Urls)
                 {
-                    var fileName = Path.GetFileName(url);
-                    if(fileName == null) throw new Exception("File name is null");
-                    var destPath = Path.Combine(Workflow.WorkflowTempFolder, fileName);
-                    webClient.DownloadFile(url, destPath);
-                    InfoFormat("File {0} downlaoded as {1}", url, destPath);
-                    Files.Add(new FileInf(destPath, Id));
-                    
-                    if (!atLeastOneSucceed) atLeastOneSucceed = true;
-                }
-                catch (ThreadAbortException)
-                {
-                    throw;
-                }
-                catch (Exception e)
-                {
-                    ErrorFormat("An error occured while downloading the file: {0}. Error: {1}", url, e.Message);
-                    success = false;
+                    try
+                    {
+                        var fileName = Path.GetFileName(url);
+                        if (fileName == null) throw new Exception("File name is null");
+                        var destPath = Path.Combine(Workflow.WorkflowTempFolder, fileName);
+
+                        const SslProtocols _Tls12 = (SslProtocols)0x00000C00;
+                        const SecurityProtocolType Tls12 = (SecurityProtocolType)_Tls12;
+                        ServicePointManager.SecurityProtocol = Tls12;
+                        ServicePointManager.Expect100Continue = true;
+                        webClient.DownloadFile(url, destPath);
+
+                        InfoFormat("File {0} downlaoded as {1}", url, destPath);
+                        Files.Add(new FileInf(destPath, Id));
+
+                        if (!atLeastOneSucceed) atLeastOneSucceed = true;
+                    }
+                    catch (ThreadAbortException)
+                    {
+                        throw;
+                    }
+                    catch (Exception e)
+                    {
+                        ErrorFormat("An error occured while downloading the file: {0}. Error: {1}", url, e.Message);
+                        success = false;
+                    }
                 }
             }
 
