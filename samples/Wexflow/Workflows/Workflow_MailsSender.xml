@@ -31,8 +31,7 @@
 		<Task id="2"><Parent id="1" /></Task>
 		<Task id="3"><Parent id="2" /></Task>
 		<OnSuccess>
-			<Task id="2"><Parent id="-1" /></Task>
-			<Task id="4"><Parent id="2" /></Task>
+			<Task id="4"><Parent id="-1" /></Task>
 		</OnSuccess>
 	</ExecutionGraph>
 </Workflow>

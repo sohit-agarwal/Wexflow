@@ -24,8 +24,9 @@ namespace Wexflow.Tasks.FilesCopier
 
             bool success = true;
             bool atLeastOneSucceed = false;
+            var files = SelectFiles();
 
-            foreach (FileInf file in SelectFiles())
+            foreach (FileInf file in files)
             {
                 var destPath = Path.Combine(DestFolder, file.FileName);
                 try
