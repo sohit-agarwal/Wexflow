@@ -76,6 +76,7 @@
     <Compile Include="CsvToXml.cs" />
     <Compile Include="FileExists.cs" />
     <Compile Include="FilesCopier.cs" />
+    <Compile Include="FilesEqual.cs" />
     <Compile Include="FilesExist.cs" />
     <Compile Include="FilesLoader.cs" />
     <Compile Include="FilesConcat.cs" />
@@ -154,6 +155,10 @@
     <ProjectReference Include="..\..\src\Wexflow.Tasks.FilesCopier\Wexflow.Tasks.FilesCopier.csproj">
       <Project>{4f396126-2220-45ae-a90f-d655a3ab585f}</Project>
       <Name>Wexflow.Tasks.FilesCopier</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Wexflow.Tasks.FilesEqual\Wexflow.Tasks.FilesEqual.csproj">
+      <Project>{a3d7f9d8-8359-4302-91a0-d00d4c1eda9b}</Project>
+      <Name>Wexflow.Tasks.FilesEqual</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Wexflow.Tasks.FilesExist\Wexflow.Tasks.FilesExist.csproj">
       <Project>{eda6a4d5-5814-4920-b2da-dd414894cbf5}</Project>

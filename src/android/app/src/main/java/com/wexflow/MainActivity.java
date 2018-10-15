@@ -9,6 +9,7 @@ import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton btnStop;
     private TextView txtInfo;
     private ListView lvWorkflows;
+    private Button btnRefresh;
     private int workflowId;
     private SparseArray<Workflow> workflows;
 
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         this.uri = sharedPref.getString(SettingsActivity.KEY_PREF_WEXFLOW_URI, this.getResources().getString(R.string.pref_wexflow_defualt_value));
 
         final MainActivity activity = this;
-        this.btnStart = (ImageButton) findViewById(R.id.btnStart);
+        this.btnStart = findViewById(R.id.btnStart);
         this.btnStart.setEnabled(false);
         this.btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        this.btnSuspend = (ImageButton) findViewById(R.id.btnSuspend);
+        this.btnSuspend = findViewById(R.id.btnSuspend);
         this.btnSuspend.setEnabled(false);
         this.btnSuspend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        this.btnResume = (ImageButton) findViewById(R.id.btnResume);
+        this.btnResume = findViewById(R.id.btnResume);
         this.btnResume.setEnabled(false);
         this.btnResume.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        this.btnStop = (ImageButton) findViewById(R.id.btnStop);
+        this.btnStop = findViewById(R.id.btnStop);
         this.btnStop.setEnabled(false);
         this.btnStop.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,9 +80,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        this.txtInfo = (TextView) findViewById(R.id.txtInfo);
+        this.txtInfo = findViewById(R.id.txtInfo);
 
-        this.lvWorkflows = (ListView) findViewById(R.id.lvWorkflows);
+        this.lvWorkflows = findViewById(R.id.lvWorkflows);
+
+        this.btnRefresh = findViewById(R.id.btnRefresh);
+        this.btnRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadWorkflows();
+            }
+        });
+
+        loadWorkflows();
+    }
+
+    private void loadWorkflows(){
+        this.txtInfo.setText("");
         WorkflowsTask workflowsTask = new WorkflowsTask(this);
         workflowsTask.execute();
     }

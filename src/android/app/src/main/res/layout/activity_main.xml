@@ -8,7 +8,9 @@
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
     android:orientation="vertical"
-    tools:context="com.wexflow.MainActivity">
+    android:background="@color/background"
+    tools:context="com.wexflow.MainActivity"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,6 +44,13 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/btnStop"
             android:src="@drawable/ic_action_stop" />
+
+        <Button
+            android:id="@+id/btnRefresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/btnRefresh" />
     </LinearLayout>
 
     <TextView

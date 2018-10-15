@@ -10,5 +10,6 @@
     <string name="workflow_disabled">This workflow is disabled.</string>
     <string name="workflow_running">This workflow is running&#8230;</string>
     <string name="workflow_suspended">This workflow is suspended.</string>
-    <string name="workflows_error">An error occurred while retrieving workflows. Check Wexflow Web Service Uri in the settings.</string>
+    <string name="workflows_error">An error occurred while retrieving workflows. Check the settings and click on refresh.</string>
+    <string name="btnRefresh">Refresh</string>
 </resources>
