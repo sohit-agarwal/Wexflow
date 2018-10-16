@@ -34,9 +34,7 @@ namespace Wexflow.Clients.Manager
         {
             InitializeComponent();
 
-            textBoxInfo.Text = @"Loading workflows...";
-
-            backgroundWorker1.RunWorkerAsync();
+            LoadWorkflows();
 
             if (File.Exists(WexflowWindowsServicePath))
             {
@@ -54,6 +52,15 @@ namespace Wexflow.Clients.Manager
 
             buttonLogs.Enabled = !string.IsNullOrEmpty(_logfile);
             buttonDesigner.Enabled = File.Exists(DesignerWebFile);
+        }
+
+        private void LoadWorkflows()
+        {
+            _exception = null;
+
+            textBoxInfo.Text = @"Loading workflows...";
+
+            backgroundWorker1.RunWorkerAsync();
         }
 
         void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
@@ -345,6 +352,11 @@ namespace Wexflow.Clients.Manager
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start("https://github.com/aelassas/Wexflow/wiki");
+        }
+
+        private void buttonRefresh_Click(object sender, EventArgs e)
+        {
+            LoadWorkflows();
         }
     }
 }
