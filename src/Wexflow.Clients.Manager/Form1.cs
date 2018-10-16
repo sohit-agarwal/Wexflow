@@ -53,10 +53,10 @@ namespace Wexflow.Clients.Manager
             buttonLogs.Enabled = !string.IsNullOrEmpty(_logfile);
             buttonDesigner.Enabled = File.Exists(DesignerWebFile);
 
-            dataGridViewWorkflows.MouseWheel += new MouseEventHandler(mousewheel);
+            dataGridViewWorkflows.MouseWheel += new MouseEventHandler(MouseWheelEvt);
         }
 
-        private void mousewheel(object sender, MouseEventArgs e)
+        private void MouseWheelEvt(object sender, MouseEventArgs e)
         {
             if (e.Delta > 0 && dataGridViewWorkflows.FirstDisplayedScrollingRowIndex > 0)
             {
