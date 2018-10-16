@@ -12,8 +12,6 @@ using System.Xml;
 
 namespace Wexflow.Clients.Manager
 {
-    // v2.3
-
     public partial class Form1 : Form
     {
         static readonly string WexflowWebServiceUri = ConfigurationManager.AppSettings["WexflowWebServiceUri"];
@@ -67,6 +65,7 @@ namespace Wexflow.Clients.Manager
 
         void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
+	    // TODO try/catch
             if (Program.DebugMode || Program.IsWexflowWindowsServiceRunning())
             {
                 try
@@ -79,6 +78,10 @@ namespace Wexflow.Clients.Manager
                     _exception = ex;
                 }
             }
+	    else if (!Program.DebugMode && !Program.IsWexflowWindowsServiceRunning())
+	    {
+	        _exception = new Exception();
+	    }
             else 
             {
                 _workflows = new WorkflowInfo[] { };
@@ -95,10 +98,11 @@ namespace Wexflow.Clients.Manager
         {
             if (_exception != null)
             {
+	        textBoxInfo.Text = "";
+	        dataGridViewWorkflows.DataSource = new SortableBindingList<WorkflowDataInfo>();
                 MessageBox.Show(
-                    @"An error occured while retrieving workflows. Check Wexflow Web Service Uri and check that Wexflow Windows Service is running correctly.",
+                    @"An error occured while retrieving workflows. Check Wexflow Web Service Uri and check that Wexflow Windows Service is running.",
                     @"Wexflow", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                textBoxInfo.Text = "";
                 return;
             }
 
