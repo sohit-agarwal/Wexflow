@@ -52,6 +52,20 @@ namespace Wexflow.Clients.Manager
 
             buttonLogs.Enabled = !string.IsNullOrEmpty(_logfile);
             buttonDesigner.Enabled = File.Exists(DesignerWebFile);
+
+            dataGridViewWorkflows.MouseWheel += new MouseEventHandler(mousewheel);
+        }
+
+        private void mousewheel(object sender, MouseEventArgs e)
+        {
+            if (e.Delta > 0 && dataGridViewWorkflows.FirstDisplayedScrollingRowIndex > 0)
+            {
+                dataGridViewWorkflows.FirstDisplayedScrollingRowIndex--;
+            }
+            else if (e.Delta < 0)
+            {
+                dataGridViewWorkflows.FirstDisplayedScrollingRowIndex++;
+            }
         }
 
         private void LoadWorkflows()
@@ -65,28 +79,41 @@ namespace Wexflow.Clients.Manager
 
         void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
-	    // TODO try/catch
-            if (Program.DebugMode || Program.IsWexflowWindowsServiceRunning())
+            try
             {
-                try
+                if (Program.DebugMode || Program.IsWexflowWindowsServiceRunning())
                 {
-                    _wexflowServiceClient = new WexflowServiceClient(WexflowWebServiceUri);
-                    _workflows = _wexflowServiceClient.GetWorkflows();
+                    try
+                    {
+                        _wexflowServiceClient = new WexflowServiceClient(WexflowWebServiceUri);
+                        _workflows = _wexflowServiceClient.GetWorkflows();
+                    }
+                    catch (Exception ex)
+                    {
+                        _exception = ex;
+                    }
                 }
-                catch (Exception ex)
+                else if (!Program.DebugMode && !Program.IsWexflowWindowsServiceRunning())
                 {
-                    _exception = ex;
+                    _exception = new Exception();
+                }
+                else
+                {
+                    _workflows = new WorkflowInfo[] { };
+                    textBoxInfo.Text = "";
                 }
             }
-	    else if (!Program.DebugMode && !Program.IsWexflowWindowsServiceRunning())
-	    {
-	        _exception = new Exception();
-	    }
-            else 
+            catch (Exception)
             {
-                _workflows = new WorkflowInfo[] { };
-                textBoxInfo.Text = "";
+                showError();
             }
+        }
+
+        private void showError()
+        {
+            MessageBox.Show(
+                    @"An error occured while retrieving workflows. Check that Wexflow Windows Service is running and check Wexflow Web Service Uri in the settings.",
+                    @"Wexflow", MessageBoxButtons.OK);
         }
 
         void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -98,11 +125,9 @@ namespace Wexflow.Clients.Manager
         {
             if (_exception != null)
             {
-	        textBoxInfo.Text = "";
-	        dataGridViewWorkflows.DataSource = new SortableBindingList<WorkflowDataInfo>();
-                MessageBox.Show(
-                    @"An error occured while retrieving workflows. Check Wexflow Web Service Uri and check that Wexflow Windows Service is running.",
-                    @"Wexflow", MessageBoxButtons.OK, MessageBoxIcon.Error);
+	            textBoxInfo.Text = "";
+	            dataGridViewWorkflows.DataSource = new SortableBindingList<WorkflowDataInfo>();
+                showError();
                 return;
             }
 

@@ -10,31 +10,18 @@ namespace Wexflow.Clients.Manager
         public static string WexflowServiceName = ConfigurationManager.AppSettings["WexflowServiceName"];
         public static bool DebugMode;
 
-        /// <summary>
-        /// Point d'entrée principal de l'application.
-        /// </summary>
         [STAThread]
         static void Main(string[] args)
         {
             if (Environment.UserInteractive && System.Diagnostics.Debugger.IsAttached)
             {
                 DebugMode = true;
-                RunForm1();
             }
-            else
-            {
-                if (IsWexflowWindowsServiceRunning())
-                {
-                    RunForm1();
-                }
-                else
-                {
-                    MessageBox.Show(@"Wexflow Windows Service is not running. Please run it to start Wexflow Manager.");
-                }
-            }
+
+            RunForm();
         }
 
-        static void RunForm1()
+        static void RunForm()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
