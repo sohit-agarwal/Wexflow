@@ -12,8 +12,6 @@ using System.Xml;
 
 namespace Wexflow.Clients.Manager
 {
-    // v2.3
-
     public partial class Form1 : Form
     {
         static readonly string WexflowWebServiceUri = ConfigurationManager.AppSettings["WexflowWebServiceUri"];
