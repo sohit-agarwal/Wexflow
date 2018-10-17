@@ -89,7 +89,7 @@ namespace Wexflow.Tasks.YouTube
             catch (Exception e)
             {
                 ErrorFormat("An error occured while uploading videos: {0}", e.Message);
-                return new TaskStatus(Status.Error, false);
+                return new TaskStatus(Status.Error);
             }
 
             var status = Status.Success;
@@ -104,7 +104,7 @@ namespace Wexflow.Tasks.YouTube
             }
 
             Info("Task finished.");
-            return new TaskStatus(status, false);
+            return new TaskStatus(status);
         }
 
         private async System.Threading.Tasks.Task<bool> UploadVideo(string title, string desc, string[] tags, string categoryId, PrivacyStatus ps, string filePath)
