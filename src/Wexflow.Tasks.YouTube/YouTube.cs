@@ -10,7 +10,8 @@ using System.Xml.XPath;
 using Wexflow.Core;
 
 //
-// This task works in debug mode but unfortunately YouTube authentication does not work from the Windows Service.
+// This task works in debug mode but unfortunately YouTube authentication does not work from the Windows Service
+// because we cannot open the web browser from a Windows Service for the OAuth 2 authentication.
 //
 
 namespace Wexflow.Tasks.YouTube
