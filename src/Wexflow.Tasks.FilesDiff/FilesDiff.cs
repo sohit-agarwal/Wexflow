@@ -51,6 +51,9 @@ namespace Wexflow.Tasks.FilesDiff
                             case ChangeType.Deleted:
                                 sw.Write("- ");
                                 break;
+                            case ChangeType.Modified:
+                                sw.Write("~ ");
+                                break;
                             default:
                                 sw.Write("  ");
                                 break;
