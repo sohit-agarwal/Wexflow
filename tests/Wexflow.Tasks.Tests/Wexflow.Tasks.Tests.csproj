@@ -87,6 +87,7 @@
     <Compile Include="SqlToXml.cs" />
     <Compile Include="TextToPdf.cs" />
     <Compile Include="ProcessInfo.cs" />
+    <Compile Include="YouTube.cs" />
     <Compile Include="Untgz.cs" />
     <Compile Include="Untar.cs" />
     <Compile Include="Unzip.cs" />

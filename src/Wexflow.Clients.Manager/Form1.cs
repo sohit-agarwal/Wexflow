@@ -77,7 +77,7 @@ namespace Wexflow.Clients.Manager
             backgroundWorker1.RunWorkerAsync();
         }
 
-        void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        void BackgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             try
             {
@@ -105,18 +105,18 @@ namespace Wexflow.Clients.Manager
             }
             catch (Exception)
             {
-                showError();
+                ShowError();
             }
         }
 
-        private void showError()
+        private void ShowError()
         {
             MessageBox.Show(
                     @"An error occured while retrieving workflows. Check that Wexflow Windows Service is running and check Wexflow Web Service Uri in the settings.",
                     @"Wexflow", MessageBoxButtons.OK);
         }
 
-        void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        void BackgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             BindDataGridView();
         }
@@ -127,7 +127,7 @@ namespace Wexflow.Clients.Manager
             {
 	            textBoxInfo.Text = "";
 	            dataGridViewWorkflows.DataSource = new SortableBindingList<WorkflowDataInfo>();
-                showError();
+                ShowError();
                 return;
             }
 
@@ -136,7 +136,11 @@ namespace Wexflow.Clients.Manager
             foreach (WorkflowInfo workflow in _workflows)
             {
                 sworkflows.Add(new WorkflowDataInfo(workflow.Id, workflow.Name, workflow.LaunchType, workflow.IsEnabled, workflow.Description));
-                _workflowsPerId.Add(workflow.Id, workflow);
+
+                if (!_workflowsPerId.ContainsKey(workflow.Id))
+                {
+                    _workflowsPerId.Add(workflow.Id, workflow);
+                }
             }
             dataGridViewWorkflows.DataSource = sworkflows;
 
@@ -193,7 +197,7 @@ namespace Wexflow.Clients.Manager
             textBoxInfo.Text = @"Wexflow Windows Service is not running.";
         }
 
-        void buttonStart_Click(object sender, EventArgs e)
+        void ButtonStart_Click(object sender, EventArgs e)
         {
             var wfId = GetSlectedWorkflowId();
             if (wfId > -1)
@@ -202,7 +206,7 @@ namespace Wexflow.Clients.Manager
             }
         }
 
-        void buttonPause_Click(object sender, EventArgs e)
+        void ButtonPause_Click(object sender, EventArgs e)
         {
             var wfId = GetSlectedWorkflowId();
             if (wfId > -1)
@@ -212,7 +216,7 @@ namespace Wexflow.Clients.Manager
             }
         }
 
-        void buttonResume_Click(object sender, EventArgs e)
+        void ButtonResume_Click(object sender, EventArgs e)
         {
             var wfId = GetSlectedWorkflowId();
             if (wfId > -1)
@@ -221,7 +225,7 @@ namespace Wexflow.Clients.Manager
             }
         }
 
-        void buttonStop_Click(object sender, EventArgs e)
+        void ButtonStop_Click(object sender, EventArgs e)
         {
             var wfId = GetSlectedWorkflowId();
             if (wfId > -1)
@@ -231,7 +235,7 @@ namespace Wexflow.Clients.Manager
             }
         }
 
-        void dataGridViewWorkflows_SelectionChanged(object sender, EventArgs e)
+        void DataGridViewWorkflows_SelectionChanged(object sender, EventArgs e)
         {
             var wfId = GetSlectedWorkflowId();
 
@@ -319,7 +323,7 @@ namespace Wexflow.Clients.Manager
             }
         }
 
-        void dataGridViewWorkflows_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        void DataGridViewWorkflows_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             var wfId = GetSlectedWorkflowId();
             if (wfId > -1)
@@ -330,17 +334,17 @@ namespace Wexflow.Clients.Manager
                 {
                     if (!workflow.IsRunning && !workflow.IsPaused)
                     {
-                        buttonStart_Click(this, null);
+                        ButtonStart_Click(this, null);
                     }
                     else if(workflow.IsPaused)
                     {
-                        buttonResume_Click(this, null);
+                        ButtonResume_Click(this, null);
                     }
                 }
             }
         }
 
-        void dataGridViewWorkflows_ColumnDividerDoubleClick(object sender, DataGridViewColumnDividerDoubleClickEventArgs e)
+        void DataGridViewWorkflows_ColumnDividerDoubleClick(object sender, DataGridViewColumnDividerDoubleClickEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -349,7 +353,7 @@ namespace Wexflow.Clients.Manager
             e.Handled = true;
         }
 
-        private void buttonLog_Click(object sender, EventArgs e)
+        private void ButtonLog_Click(object sender, EventArgs e)
         {
             string logFile = @"..\" + _logfile;
             if (File.Exists(logFile))
@@ -358,7 +362,7 @@ namespace Wexflow.Clients.Manager
             }
         }
 
-        private void buttonDesign_Click(object sender, EventArgs e)
+        private void ButtonDesign_Click(object sender, EventArgs e)
         {
             if (File.Exists(DesignerWebFile))
             {
@@ -366,7 +370,7 @@ namespace Wexflow.Clients.Manager
             }
         }
 
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        private void ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             var about = _resources.GetString("Form1_toolStripMenuItem1_Click_About");
             var title = _resources.GetString("Form1_toolStripMenuItem1_Click_About_Title");
@@ -380,12 +384,12 @@ namespace Wexflow.Clients.Manager
             }
         }
 
-        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        private void HelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start("https://github.com/aelassas/Wexflow/wiki");
         }
 
-        private void buttonRefresh_Click(object sender, EventArgs e)
+        private void ButtonRefresh_Click(object sender, EventArgs e)
         {
             LoadWorkflows();
         }

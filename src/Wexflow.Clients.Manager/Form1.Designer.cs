@@ -93,9 +93,9 @@
             this.dataGridViewWorkflows.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewWorkflows.Size = new System.Drawing.Size(768, 403);
             this.dataGridViewWorkflows.TabIndex = 0;
-            this.dataGridViewWorkflows.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewWorkflows_CellDoubleClick);
-            this.dataGridViewWorkflows.ColumnDividerDoubleClick += new System.Windows.Forms.DataGridViewColumnDividerDoubleClickEventHandler(this.dataGridViewWorkflows_ColumnDividerDoubleClick);
-            this.dataGridViewWorkflows.SelectionChanged += new System.EventHandler(this.dataGridViewWorkflows_SelectionChanged);
+            this.dataGridViewWorkflows.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewWorkflows_CellDoubleClick);
+            this.dataGridViewWorkflows.ColumnDividerDoubleClick += new System.Windows.Forms.DataGridViewColumnDividerDoubleClickEventHandler(this.DataGridViewWorkflows_ColumnDividerDoubleClick);
+            this.dataGridViewWorkflows.SelectionChanged += new System.EventHandler(this.DataGridViewWorkflows_SelectionChanged);
             // 
             // buttonStart
             // 
@@ -106,7 +106,7 @@
             this.buttonStart.TabIndex = 1;
             this.buttonStart.Text = "Start";
             this.buttonStart.UseVisualStyleBackColor = true;
-            this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
+            this.buttonStart.Click += new System.EventHandler(this.ButtonStart_Click);
             // 
             // buttonPause
             // 
@@ -117,7 +117,7 @@
             this.buttonPause.TabIndex = 2;
             this.buttonPause.Text = "Suspend";
             this.buttonPause.UseVisualStyleBackColor = true;
-            this.buttonPause.Click += new System.EventHandler(this.buttonPause_Click);
+            this.buttonPause.Click += new System.EventHandler(this.ButtonPause_Click);
             // 
             // buttonResume
             // 
@@ -128,7 +128,7 @@
             this.buttonResume.TabIndex = 3;
             this.buttonResume.Text = "Resume";
             this.buttonResume.UseVisualStyleBackColor = true;
-            this.buttonResume.Click += new System.EventHandler(this.buttonResume_Click);
+            this.buttonResume.Click += new System.EventHandler(this.ButtonResume_Click);
             // 
             // buttonStop
             // 
@@ -139,7 +139,7 @@
             this.buttonStop.TabIndex = 4;
             this.buttonStop.Text = "Stop";
             this.buttonStop.UseVisualStyleBackColor = true;
-            this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click);
+            this.buttonStop.Click += new System.EventHandler(this.ButtonStop_Click);
             // 
             // textBoxInfo
             // 
@@ -177,7 +177,7 @@
             this.buttonRefresh.TabIndex = 7;
             this.buttonRefresh.Text = "Refresh";
             this.buttonRefresh.UseVisualStyleBackColor = true;
-            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
+            this.buttonRefresh.Click += new System.EventHandler(this.ButtonRefresh_Click);
             // 
             // buttonLogs
             // 
@@ -189,7 +189,7 @@
             this.buttonLogs.TabIndex = 6;
             this.buttonLogs.Text = "Logs";
             this.buttonLogs.UseVisualStyleBackColor = true;
-            this.buttonLogs.Click += new System.EventHandler(this.buttonLog_Click);
+            this.buttonLogs.Click += new System.EventHandler(this.ButtonLog_Click);
             // 
             // buttonDesigner
             // 
@@ -201,12 +201,12 @@
             this.buttonDesigner.TabIndex = 5;
             this.buttonDesigner.Text = "Designer";
             this.buttonDesigner.UseVisualStyleBackColor = true;
-            this.buttonDesigner.Click += new System.EventHandler(this.buttonDesign_Click);
+            this.buttonDesigner.Click += new System.EventHandler(this.ButtonDesign_Click);
             // 
             // backgroundWorker1
             // 
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker1_DoWork);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker1_RunWorkerCompleted);
             // 
             // menuStrip1
             // 
@@ -234,14 +234,14 @@
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(52, 20);
             this.toolStripMenuItem1.Text = "About";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.ToolStripMenuItem1_Click);
             // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
-            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
+            this.helpToolStripMenuItem.Click += new System.EventHandler(this.HelpToolStripMenuItem_Click);
             // 
             // Form1
             // 
