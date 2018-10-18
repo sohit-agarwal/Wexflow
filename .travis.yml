@@ -1,4 +1,2 @@
 language: csharp
-os:
-  - linux
 solution: Wexflow.vs2010.sln
