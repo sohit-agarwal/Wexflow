@@ -35,12 +35,12 @@ namespace Wexflow.Tasks.Tests
         }
 
         [TestMethod]
-        public void FilesExistTest()
+        public void FilesDiffTest()
         {
             Helper.StartWorkflow(71);
 
             // Check the workflow result
-            string[] files = Directory.GetFiles(TempFolder, "FilesDiff*.txt", SearchOption.AllDirectories);
+            string[] files = Directory.GetFiles(TempFolder, "FilesDiff*.diff", SearchOption.AllDirectories);
             Assert.AreEqual(files.Length, 1);
 
             string content = File.ReadAllText(files[0]);

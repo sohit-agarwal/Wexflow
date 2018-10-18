@@ -37,7 +37,7 @@ namespace Wexflow.Tasks.FilesDiff
                 var diff = diffBuilder.BuildDiffModel(oldText, newText);
 
                 var resultPath = Path.Combine(Workflow.WorkflowTempFolder,
-                       string.Format("FilesDiff_{0:yyyy-MM-dd-HH-mm-ss-fff}{1}", DateTime.Now, Path.GetExtension(OldFile)));
+                       string.Format("FilesDiff_{0:yyyy-MM-dd-HH-mm-ss-fff}.diff", DateTime.Now));
 
                 using (StreamWriter sw = new StreamWriter(resultPath))
                 {
