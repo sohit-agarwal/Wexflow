@@ -1,9 +1,6 @@
 ﻿using MonoTorrent.Client;
 using MonoTorrent.Common;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Xml.Linq;
 using Wexflow.Core;
@@ -74,12 +71,11 @@ namespace Wexflow.Tasks.Torrent
                 // Keep running while the torrent isn't stopped or paused.
                 while (torrentManager.State != TorrentState.Stopped && torrentManager.State != TorrentState.Paused)
                 {
-                    //Console.WriteLine(torrentManager.Progress);
                     Thread.Sleep(1000);
 
                     if (torrentManager.Progress == 100.0)
                     {
-                        // If we want to stop a torrent, or the engine for whatever reason, we call engine.Stop()
+                        // If we want to stop a torrent, or the engine for whatever reason, we call engine.StopAll()
                         torrentManager.Stop();
                         engine.StopAll();
                         break;
