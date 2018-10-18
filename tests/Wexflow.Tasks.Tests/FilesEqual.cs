@@ -15,7 +15,7 @@ namespace Wexflow.Tasks.Tests
             + "    <File path=\"C:\\WexflowTesting\\file1.txt\" name=\"file1.txt\" />\r\n"
             + "    <File path=\"C:\\WexflowTesting\\file2.txt\" name=\"file2.txt\" />\r\n"
             + "  </Files>\r\n"
-            + "  <Result>true</Result>\r\n"
+            + "  <Result>false</Result>\r\n"
             + "</Root>";
 
         [TestInitialize]

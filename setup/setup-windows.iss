@@ -68,8 +68,8 @@ Source: "..\libs\itextsharp.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; Source: "..\libs\Google.Apis.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; Source: "..\libs\Google.Apis.PlatformServices.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; Source: "..\libs\Google.Apis.YouTube.v3.dll"; DestDir: "{app}"; Flags: ignoreversion
-
 Source: "..\libs\DiffPlex.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\libs\MonoTorrent.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 Source: "..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Core.Service.Client.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -130,6 +130,7 @@ Source: "..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.Guid.dll"
 Source: "..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.FilesEqual.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; Source: "..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.YouTube.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.FilesDiff.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Tasks.Torrent.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 ; Wexflow Manager
 Source: "..\src\Wexflow.Clients.Manager\bin\Debug\Wexflow.Clients.Manager.exe"; DestDir: "{app}\Manager"; Flags: ignoreversion
@@ -204,6 +205,7 @@ Source: "..\src\Wexflow.Tasks.Guid\Guid.xml"; DestDir: "{app}\Documentation"; Fl
 Source: "..\src\Wexflow.Tasks.FilesEqual\FilesEqual.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 ; Source: "..\src\Wexflow.Tasks.YouTube\YouTube.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 Source: "..\src\Wexflow.Tasks.FilesDiff\FilesDiff.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\Wexflow.Tasks.Torrent\Torrent.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 
 Source: "..\LICENSE.txt"; DestDir: "{app}\"; Flags: ignoreversion recursesubdirs
 Source: "..\VERSION.txt"; DestDir: "{app}\"; Flags: ignoreversion recursesubdirs

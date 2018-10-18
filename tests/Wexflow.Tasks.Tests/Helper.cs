@@ -24,6 +24,7 @@ namespace Wexflow.Tasks.Tests
             WexflowEngine.StartWorkflow(workflowId);
 
             // Wait until the workflow finishes
+            Thread.Sleep(1000);
             var workflow = WexflowEngine.GetWorkflow(workflowId);
             var isRunning = workflow.IsRunning;
             while (isRunning)

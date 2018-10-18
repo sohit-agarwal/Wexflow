@@ -88,6 +88,7 @@
     <Compile Include="SqlToXml.cs" />
     <Compile Include="TextToPdf.cs" />
     <Compile Include="ProcessInfo.cs" />
+    <Compile Include="Torrent.cs" />
     <Compile Include="YouTube.cs" />
     <Compile Include="Untgz.cs" />
     <Compile Include="Untar.cs" />
@@ -309,6 +310,10 @@
     <ProjectReference Include="..\..\src\Wexflow.Tasks.Tgz\Wexflow.Tasks.Tgz.csproj">
       <Project>{f7184c59-67d4-4bf5-abd0-d6ea9c50b6b7}</Project>
       <Name>Wexflow.Tasks.Tgz</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Wexflow.Tasks.Torrent\Wexflow.Tasks.Torrent.csproj">
+      <Project>{6502945c-bc08-42c4-86f8-224b05832f2d}</Project>
+      <Name>Wexflow.Tasks.Torrent</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Wexflow.Tasks.Touch\Wexflow.Tasks.Touch.csproj">
       <Project>{701d8879-706f-4cf0-9783-41076e560124}</Project>
