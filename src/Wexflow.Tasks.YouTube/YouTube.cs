@@ -76,7 +76,7 @@ namespace Wexflow.Tasks.YouTube
                     }
                     catch (Exception e)
                     {
-                        Logger.ErrorFormat("An error occured while uploading the file {0}: {1}", file.Path, e.Message);
+                        ErrorFormat("An error occured while uploading the file {0}: {1}", file.Path, e.Message);
                         succeeded = false;
                     }
                 }
@@ -111,8 +111,8 @@ namespace Wexflow.Tasks.YouTube
         {
             try
             {
-                Logger.InfoFormat("Uploading the video file {0} to YouTube started...", filePath);
-                Logger.Info("Authentication started...");
+                InfoFormat("Uploading the video file {0} to YouTube started...", filePath);
+                Info("Authentication started...");
                 UserCredential credential;
                 using (var stream = new FileStream(ClientSecrets, FileMode.Open, FileAccess.Read))
                 {
@@ -125,7 +125,7 @@ namespace Wexflow.Tasks.YouTube
                         CancellationToken.None
                         );
                 }
-                Logger.Info("Authentication succeeded.");
+                Info("Authentication succeeded.");
 
                 var youtubeService = new YouTubeService(new BaseClientService.Initializer()
                 {
@@ -155,12 +155,12 @@ namespace Wexflow.Tasks.YouTube
 
                     if (res.Exception != null)
                     {
-                        Logger.ErrorFormat("An error occured while uploading the file {0}: {1}", filePath, res.Exception.Message);
+                        ErrorFormat("An error occured while uploading the file {0}: {1}", filePath, res.Exception.Message);
                         return false;
                     }
                 }
 
-                Logger.InfoFormat("Uploading the video file {0} to YouTube succeeded.", filePath);
+                InfoFormat("Uploading the video file {0} to YouTube succeeded.", filePath);
                 return true;
             }
             catch (ThreadAbortException)
@@ -169,14 +169,14 @@ namespace Wexflow.Tasks.YouTube
             }
             catch (Exception e)
             {
-                Logger.ErrorFormat("An error occured while uploading the video file {0}: {1}", filePath, e.Message);
+                ErrorFormat("An error occured while uploading the video file {0}: {1}", filePath, e.Message);
                 return false;
             }
         }
 
         private void VideosInsertRequest_ResponseReceived(Video video)
         {
-            Logger.InfoFormat("The video '{0}' was successfully uploaded. Id: '{1}' ", video.Snippet.Title, video.Id);
+            InfoFormat("The video '{0}' was successfully uploaded. Id: '{1}' ", video.Snippet.Title, video.Id);
         }
 
     }

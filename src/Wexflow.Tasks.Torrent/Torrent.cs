@@ -85,6 +85,10 @@ namespace Wexflow.Tasks.Torrent
                 InfoFormat("The torrent {0} download succeeded.", path);
                 return true;
             }
+            catch (ThreadAbortException)
+            {
+                throw;
+            }
             catch (Exception e)
             {
                 ErrorFormat("An error occured while downloading the torrent {0}: {1}", path, e.Message);
