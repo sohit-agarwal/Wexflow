@@ -43,7 +43,7 @@ Here are the benefits of using Wexflow:
 |  Server | Platform | Build status |
 ----------|--------|----------|
 | [AppVeyor (.NET)](https://www.appveyor.com/) | Windows |[![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow)|
-| [Travis (Mono)](https://travis-ci.org/) | Linux |[![Build Status](https://travis-ci.org/aelassas/Wexflow.svg?branch=master)](https://travis-ci.org/aelassas/Wexflow)|
+| [Travis (Mono)](https://travis-ci.org/) | Linux / macOS |[![Build Status](https://travis-ci.org/aelassas/Wexflow.svg?branch=master)](https://travis-ci.org/aelassas/Wexflow)|
 | [Bitrise (Android)](https://www.bitrise.io/)| Linux|[![Build Status](https://app.bitrise.io/app/55915da1dc7572b3/status.svg?token=xIjHVgLQu_DktBPbJEPTOA&branch=master)](https://app.bitrise.io/app/55915da1dc7572b3)|
 |[codecov.io](https://codecov.io)|Windows|[![codecov](https://codecov.io/gh/aelassas/Wexflow/branch/master/graph/badge.svg)](https://codecov.io/gh/aelassas/Wexflow)|
 
