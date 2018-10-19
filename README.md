@@ -29,6 +29,19 @@ Wexflow provides the following features:
 
 Discover more about the features in [details](https://github.com/aelassas/Wexflow/wiki).
 
+Here are some examples of using Wexflow:
+
+- Batch uploading videos and their metadata to YouTube SFTP dropbox.
+- Batch transcoding audio and video files.
+- Batch converting images.
+- Creating and sending reports and invoices by email.
+- Connecting systems and applications via watch folders.
+- Batch downloading files over FTP/FTS/SFTP/HTTP/Torrent.
+- Batch uploading files over FTP/FTS/SFTP.
+- Database administration and maintenance scripts.
+- Synchronising the content of a local or a remote source directory to a local or a remote destination directory.
+- Batch sending tweets.
+
 Here are the benefits of using Wexflow:
 
 - [x] Gain time by automating repetitive tasks.
