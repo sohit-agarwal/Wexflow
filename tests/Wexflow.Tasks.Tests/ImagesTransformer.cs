@@ -20,8 +20,8 @@ namespace Wexflow.Tasks.Tests
         [TestCleanup]
         public void TestCleanup()
         {
-            File.Delete(Dest1);
-            File.Delete(Dest2);
+            if (File.Exists(Dest1)) File.Delete(Dest1);
+            if (File.Exists(Dest2)) File.Delete(Dest2);
         }
 
         [TestMethod]

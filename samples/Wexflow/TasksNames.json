@@ -16,6 +16,7 @@
 	"Guid",
 	"HtmlToPdf",
 	"Http",
+	"ImagesResizer",
 	"ImagesTransformer",
 	"ListEntities",
 	"ListFiles",

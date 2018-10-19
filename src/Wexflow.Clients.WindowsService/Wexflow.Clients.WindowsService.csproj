@@ -157,6 +157,10 @@
       <Project>{c249b3ea-e3a3-4975-b3ba-51bc9d7e5816}</Project>
       <Name>Wexflow.Tasks.Http</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.ImagesResizer\Wexflow.Tasks.ImagesResizer.csproj">
+      <Project>{c62dde2e-17c7-41ce-9aa6-12f994939f1e}</Project>
+      <Name>Wexflow.Tasks.ImagesResizer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.ImagesTransformer\Wexflow.Tasks.ImagesTransformer.csproj">
       <Project>{d2ba9820-d5c7-4053-8e36-ac94c162c9b0}</Project>
       <Name>Wexflow.Tasks.ImagesTransformer</Name>
