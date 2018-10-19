@@ -14,7 +14,7 @@
 			<Setting name="width" value="512" />
 			<Setting name="height" value="384" />
 		</Task>
-		<Task id="3" name="FilesMover" description="Moving resized images to ImagesResizerDest folder" enabled="true">
+		<Task id="3" name="FilesMover" description="Moving the resized images to ImagesResizerDest folder" enabled="true">
 			<Setting name="selectFiles" value="2" />
 			<Setting name="destFolder" value="C:\WexflowTesting\ImagesResizerDest\" />
 			<Setting name="overwrite" value="true" />
