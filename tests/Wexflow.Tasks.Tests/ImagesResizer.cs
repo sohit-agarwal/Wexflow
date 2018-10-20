@@ -1,7 +1,6 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Drawing;
 using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Wexflow.Tasks.Tests
 {
