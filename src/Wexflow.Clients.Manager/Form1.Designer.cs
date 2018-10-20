@@ -39,6 +39,7 @@
             this.buttonStop = new System.Windows.Forms.Button();
             this.textBoxInfo = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonRestart = new System.Windows.Forms.Button();
             this.buttonRefresh = new System.Windows.Forms.Button();
             this.buttonLogs = new System.Windows.Forms.Button();
             this.buttonDesigner = new System.Windows.Forms.Button();
@@ -156,6 +157,8 @@
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.buttonRestart);
             this.panel1.Controls.Add(this.buttonRefresh);
             this.panel1.Controls.Add(this.buttonLogs);
             this.panel1.Controls.Add(this.buttonDesigner);
@@ -168,10 +171,20 @@
             this.panel1.Size = new System.Drawing.Size(792, 36);
             this.panel1.TabIndex = 6;
             // 
+            // buttonRestart
+            // 
+            this.buttonRestart.Location = new System.Drawing.Point(696, 10);
+            this.buttonRestart.Name = "buttonRestart";
+            this.buttonRestart.Size = new System.Drawing.Size(84, 23);
+            this.buttonRestart.TabIndex = 8;
+            this.buttonRestart.Text = "Restart server";
+            this.buttonRestart.UseVisualStyleBackColor = true;
+            this.buttonRestart.Click += new System.EventHandler(this.ButtonRestart_Click);
+            // 
             // buttonRefresh
             // 
             this.buttonRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRefresh.Location = new System.Drawing.Point(699, 10);
+            this.buttonRefresh.Location = new System.Drawing.Point(615, 10);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(75, 23);
             this.buttonRefresh.TabIndex = 7;
@@ -183,7 +196,7 @@
             // 
             this.buttonLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonLogs.Enabled = false;
-            this.buttonLogs.Location = new System.Drawing.Point(618, 10);
+            this.buttonLogs.Location = new System.Drawing.Point(534, 10);
             this.buttonLogs.Name = "buttonLogs";
             this.buttonLogs.Size = new System.Drawing.Size(75, 23);
             this.buttonLogs.TabIndex = 6;
@@ -195,7 +208,7 @@
             // 
             this.buttonDesigner.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonDesigner.Enabled = false;
-            this.buttonDesigner.Location = new System.Drawing.Point(530, 10);
+            this.buttonDesigner.Location = new System.Drawing.Point(446, 10);
             this.buttonDesigner.Name = "buttonDesigner";
             this.buttonDesigner.Size = new System.Drawing.Size(82, 23);
             this.buttonDesigner.TabIndex = 5;
@@ -218,12 +231,14 @@
             // 
             // menuStrip2
             // 
-            this.menuStrip2.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.menuStrip2.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.menuStrip2.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
             this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1,
             this.helpToolStripMenuItem});
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
             this.menuStrip2.Name = "menuStrip2";
+            this.menuStrip2.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.menuStrip2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.menuStrip2.Size = new System.Drawing.Size(792, 24);
             this.menuStrip2.TabIndex = 8;
@@ -284,6 +299,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.Button buttonRefresh;
+        private System.Windows.Forms.Button buttonRestart;
     }
 }
 

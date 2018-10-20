@@ -8,7 +8,7 @@ namespace Wexflow.Clients.Manager
     public static class Program
     {
         public static string WexflowServiceName = ConfigurationManager.AppSettings["WexflowServiceName"];
-        public static bool DebugMode;
+        public static bool DebugMode = false;
 
         [STAThread]
         static void Main(string[] args)

@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Resources;
 using System.Xml;
+using System.ServiceProcess;
 
 namespace Wexflow.Clients.Manager
 {
@@ -52,6 +53,7 @@ namespace Wexflow.Clients.Manager
 
             buttonLogs.Enabled = !string.IsNullOrEmpty(_logfile);
             buttonDesigner.Enabled = File.Exists(DesignerWebFile);
+            buttonRestart.Enabled = !Program.DebugMode;
 
             dataGridViewWorkflows.MouseWheel += new MouseEventHandler(MouseWheelEvt);
         }
@@ -392,6 +394,44 @@ namespace Wexflow.Clients.Manager
         private void ButtonRefresh_Click(object sender, EventArgs e)
         {
             LoadWorkflows();
+        }
+
+        private void ButtonRestart_Click(object sender, EventArgs e)
+        {
+            string errorMsg;
+            bool res = RestartWindowsService(Program.WexflowServiceName, out errorMsg);
+            if (res)
+            {
+                MessageBox.Show("Wexflow server was restarted with sucess.");
+                LoadWorkflows();
+            }
+            else
+            {
+                MessageBox.Show("An error ocurred while restarting Wexfflow server: ", errorMsg);
+                LoadWorkflows();
+            }
+        }
+
+        private bool RestartWindowsService(string serviceName, out string errorMsg)
+        {
+            errorMsg = string.Empty;
+            ServiceController serviceController = new ServiceController(serviceName);
+            try
+            {
+                if ((serviceController.Status.Equals(ServiceControllerStatus.Running)) || (serviceController.Status.Equals(ServiceControllerStatus.StartPending)))
+                {
+                    serviceController.Stop();
+                }
+                serviceController.WaitForStatus(ServiceControllerStatus.Stopped);
+                serviceController.Start();
+                serviceController.WaitForStatus(ServiceControllerStatus.Running);
+                return true;
+            }
+            catch(Exception e)
+            {
+                errorMsg = e.Message;
+                return false;
+            }
         }
     }
 }
