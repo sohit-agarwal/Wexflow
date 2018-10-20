@@ -103,6 +103,7 @@
     <Compile Include="FilesInfo.cs" />
     <Compile Include="HtmlToPdf.cs" />
     <Compile Include="Guid.cs" />
+    <Compile Include="ImagesCropper.cs" />
     <Compile Include="ImagesResizer.cs" />
     <Compile Include="SqlToCsv.cs" />
     <Compile Include="SqlToXml.cs" />
@@ -230,6 +231,10 @@
     <ProjectReference Include="..\..\src\Wexflow.Tasks.Http\Wexflow.Tasks.Http.csproj">
       <Project>{c249b3ea-e3a3-4975-b3ba-51bc9d7e5816}</Project>
       <Name>Wexflow.Tasks.Http</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Wexflow.Tasks.ImagesCropper\Wexflow.Tasks.ImagesCropper.csproj">
+      <Project>{2c953aeb-0bb5-43a6-a42d-8aff18ad4dc1}</Project>
+      <Name>Wexflow.Tasks.ImagesCropper</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Wexflow.Tasks.ImagesResizer\Wexflow.Tasks.ImagesResizer.csproj">
       <Project>{c62dde2e-17c7-41ce-9aa6-12f994939f1e}</Project>

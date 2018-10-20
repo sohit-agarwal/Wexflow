@@ -16,6 +16,7 @@
 	"Guid": [ "guidCount" ],
 	"HtmlToPdf": ["selectFiles"],
 	"Http": [ "url" ],
+	"ImagesCropper": [ "selectFiles", "width", "height", "x", "y" ],
 	"ImagesResizer": [ "selectFiles", "width", "height" ],
 	"ImagesTransformer": [ "selectFiles", "outputFilePattern", "outputFormat" ],
 	"ListEntities": [ ],
