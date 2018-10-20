@@ -78,7 +78,7 @@ Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Core.dll"
 Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Core.Service.Client.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Core.Service.Contracts.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Core.Service.Cross.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Debug\Wexflow.Core.xml"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Core.xml"; DestDir: "{app}"; Flags: ignoreversion
 
 Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.CsvToXml.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FilesConcat.dll"; DestDir: "{app}"; Flags: ignoreversion

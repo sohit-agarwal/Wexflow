@@ -6,8 +6,10 @@
 
 [![Logo](https://aelassas.github.io/wexflow/images/wexflow.png "Logo")](https://wexflow.github.io/)
 
+<!--
 [![forthebadge](http://aelassas.github.io/wexflow/images/made-with-c-sharp.svg)](http://forthebadge.com)
 [![forthebadge](http://aelassas.github.io/wexflow/images/built-with-love.svg)](http://forthebadge.com)
+-->
 
 Wexflow is an open source extensible workflow engine with a cross-platform manager and designer. The goal of Wexflow is to automate recurring tasks without user intervention. Wexflow aims to make automations, workflow processes, long-running processes and interactions between systems, applications and folks easy, straightforward and clean.
 
