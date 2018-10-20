@@ -1318,8 +1318,8 @@ Global
 		{2C953AEB-0BB5-43A6-A42D-8AFF18AD4DC1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2C953AEB-0BB5-43A6-A42D-8AFF18AD4DC1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{2C953AEB-0BB5-43A6-A42D-8AFF18AD4DC1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{2C953AEB-0BB5-43A6-A42D-8AFF18AD4DC1}.Release|x64.ActiveCfg = Release|Any CPU
-		{2C953AEB-0BB5-43A6-A42D-8AFF18AD4DC1}.Release|x64.Build.0 = Release|Any CPU
+		{2C953AEB-0BB5-43A6-A42D-8AFF18AD4DC1}.Release|x64.ActiveCfg = Release|x64
+		{2C953AEB-0BB5-43A6-A42D-8AFF18AD4DC1}.Release|x64.Build.0 = Release|x64
 		{2C953AEB-0BB5-43A6-A42D-8AFF18AD4DC1}.Release|x86.ActiveCfg = Release|Any CPU
 		{2C953AEB-0BB5-43A6-A42D-8AFF18AD4DC1}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
