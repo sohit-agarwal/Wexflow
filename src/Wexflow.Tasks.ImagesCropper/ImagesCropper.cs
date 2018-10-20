@@ -58,7 +58,7 @@ namespace Wexflow.Tasks.ImagesCropper
             }
             catch (Exception e)
             {
-                ErrorFormat("An error occured while resizing images: {0}", e.Message);
+                ErrorFormat("An error occured while cropping images: {0}", e.Message);
                 status = Status.Error;
             }
 
@@ -85,7 +85,7 @@ namespace Wexflow.Tasks.ImagesCropper
             }
             catch (Exception e)
             {
-                ErrorFormat("An error occured while resizing the image {0}: {1}", srcPath, e.Message);
+                ErrorFormat("An error occured while cropping the image {0}: {1}", srcPath, e.Message);
                 return false;
             }
         }
