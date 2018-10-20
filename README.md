@@ -102,8 +102,6 @@ The changelog is available in the [release history](https://github.com/aelassas/
 
 # License
 
-[![license](http://aelassas.github.io/wexflow/images/mit.jpg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)
-
 Wexflow is licensed under the [MIT License](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt). 
 
 Wexflow contains other libraries with their individual licenses. More details about these licenses can be found in the [wiki](https://github.com/aelassas/Wexflow/wiki/License).
