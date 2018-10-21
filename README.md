@@ -43,6 +43,7 @@ Here are some examples of using Wexflow:
 - Database administration and maintenance.
 - Synchronising the content of local or remote directories.
 - Batch sending tweets.
+- etc.
 
 Here are the benefits of using Wexflow:
 
