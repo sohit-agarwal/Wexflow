@@ -74,6 +74,16 @@ Here are the benefits of using Wexflow:
 
 Download the latest release [here](https://github.com/aelassas/Wexflow/releases/latest).
 
+# They are talking about Wexflow
+
+[![BizTalk: Azure Applications](http://aelassas.github.io/wexflow/images/biztalk-azure-applications.jpg)](https://www.amazon.com/BizTalk-Azure-Applications-Suren-Machiraju-ebook/dp/B06Y6GPN54/) 
+
+[![www.dotnetpro.de](http://aelassas.github.io/wexflow/images/dnp.png)](https://www.dotnetpro.de/tools/open-source-workflow-engine-in-c-1392777.html) 
+
+[![www.technoblogy.net](http://aelassas.github.io/wexflow/images/technoblogy.png)](https://www.technoblogy.net/open-source-workflow-engine-in-c/)
+
+[![/glinksolutions.vn](http://aelassas.github.io/wexflow/images/glinksolutions.png)](https://glinksolutions.vn/2018/10/13/wexflow-open-source-workflow-engine-c/)
+
 # Contribute
 To contribute to this project, proceed as follows:
 - Read the technical documentation available on [CodeProject](https://www.codeproject.com/Articles/1164009/Wexflow-Open-source-workflow-engine-in-Csharp#code).
