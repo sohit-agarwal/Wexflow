@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CronNET;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -60,6 +61,10 @@ namespace Wexflow.Core
         /// Workflow period.
         /// </summary>
         public TimeSpan Period { get; private set; }
+        /// <summary>
+        /// Cron expression
+        /// </summary>
+        public string CronExpression { get; private set; }
         /// <summary>
         /// Shows whether this workflow is enabled or not.
         /// </summary>
@@ -191,6 +196,15 @@ namespace Wexflow.Core
                 Description = GetWorkflowAttribute(xdoc, "description");
                 LaunchType = (LaunchType)Enum.Parse(typeof(LaunchType), GetWorkflowSetting(xdoc, "launchType"), true);
                 if (LaunchType == LaunchType.Periodic) Period = TimeSpan.Parse(GetWorkflowSetting(xdoc, "period"));
+                if (LaunchType == LaunchType.Cron)
+                {
+                    CronExpression = GetWorkflowSetting(xdoc, "cronExpression");
+                    CronSchedule cs = new CronSchedule();
+                    if (!cs.isValid(CronExpression))
+                    {
+                        throw new Exception("The cron expression '" + CronExpression + "' is not valid.");
+                    }
+                }
                 IsEnabled = bool.Parse(GetWorkflowSetting(xdoc, "enabled"));
 
                 if (xdoc.Root != null)

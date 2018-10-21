@@ -37,6 +37,8 @@ namespace Wexflow.Clients.WindowsService
 
         protected override void OnStop()
         {
+            WexflowEngine.Stop();
+
             if (_serviceHost != null)
             {
                 _serviceHost.Close();

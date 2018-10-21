@@ -5,6 +5,7 @@ using System.Xml.Linq;
 using System.Xml.XPath;
 using System.IO;
 using System.Threading;
+using CronNET;
 
 namespace Wexflow.Core
 {
@@ -47,6 +48,8 @@ namespace Wexflow.Core
         public IList<Workflow> Workflows { get; private set; }
 
         private readonly Dictionary<int, List<WexflowTimer>> _wexflowTimers;
+
+        private static readonly CronDaemon CronDaemon = new CronDaemon();
 
         /// <summary>
         /// Creates a new instance of Wexflow engine.
@@ -198,6 +201,8 @@ namespace Wexflow.Core
             {
                 ScheduleWorkflow(workflow);
             }
+
+            CronDaemon.Start();
         }
 
         private void ScheduleWorkflow(Workflow wf)
@@ -223,7 +228,7 @@ namespace Wexflow.Core
 
                     if (!_wexflowTimers.ContainsKey(wf.Id))
                     {
-                        _wexflowTimers.Add(wf.Id, new List<WexflowTimer>{ timer });
+                        _wexflowTimers.Add(wf.Id, new List<WexflowTimer> { timer });
                     }
                     else
                     {
@@ -235,6 +240,10 @@ namespace Wexflow.Core
                     }
                     timer.Start();
                 }
+                else if (wf.LaunchType == LaunchType.Cron)
+                {
+                    CronDaemon.AddJob(wf.CronExpression, new ThreadStart(() => wf.Start()));
+                }
             }
         }
 
@@ -243,6 +252,8 @@ namespace Wexflow.Core
         /// </summary>
         public void Stop()
         {
+            CronDaemon.Stop();
+
             foreach (var wts in _wexflowTimers.Values)
             {
                 foreach (var wt in wts)

@@ -18,8 +18,9 @@
         "<tbody>" +
         "<tr><td class='wf-title'>Id</td><td class='wf-value'><input id='wf-id' type='text'  /></td></tr>" +
         "<tr><td class='wf-title'>Name</td><td class='wf-value'><input id='wf-name' type='text' /></td></tr>" +
-        "<tr><td class='wf-title'>LaunchType</td><td class='wf-value'><select id='wf-launchType'><option value=''></option><option value='startup'>Startup</option><option value='trigger'>Trigger</option><option value='periodic'>Periodic</option></select></td></tr>" +
+        "<tr><td class='wf-title'>LaunchType</td><td class='wf-value'><select id='wf-launchType'><option value=''></option><option value='startup'>Startup</option><option value='trigger'>Trigger</option><option value='periodic'>Periodic</option>><option value='cron'>Cron</option></select></td></tr>" +
         "<tr><td class='wf-title'>Period</td><td class='wf-value'><input id='wf-period' type='text' /></td></tr>" +
+        "<tr><td class='wf-title'>Cron expression</td><td class='wf-value'><input id='wf-cron' type='text' /></td></tr>" +
         "<tr><td class='wf-title'>Enabled</td><td class='wf-value'><input id='wf-enabled' type='checkbox' checked/></td></tr>" +
         "<tr><td class='wf-title'>Description</td><td class='wf-value'><input id='wf-desc' type='text' /></td></tr>" +
         "<tr><td class='wf-title'>Path</td><td id='wf-path' class='wf-value'></td></tr>" +
@@ -83,6 +84,7 @@
                     "Name": document.getElementById("wf-name").value,
                     "LaunchType": launchTypeReverse(document.getElementById("wf-launchType").value),
                     "Period": document.getElementById("wf-period").value,
+                    "CronExpression": document.getElementById("wf-cron").value,
                     "IsEnabled": document.getElementById("wf-enabled").checked,
                     "Description": document.getElementById("wf-desc").value,
                     "Path": "",
@@ -132,6 +134,14 @@
             if (isInt(wfIdStr)) {
                 var workflowId = parseInt(wfIdStr);
                 workflowInfos[workflowId].Period = this.value;
+            }
+        };
+
+        document.getElementById("wf-cron").onkeyup = function () {
+            var wfIdStr = document.getElementById("wf-id").value;
+            if (isInt(wfIdStr)) {
+                var workflowId = parseInt(wfIdStr);
+                workflowInfos[workflowId].CronExpression = this.value;
             }
         };
 
@@ -202,13 +212,17 @@
                                     if (lt === "periodic" && document.getElementById("wf-period").value === "") {
                                         alert("Enter a period for this workflow.");
                                     } else {
-                                        save(workflowId,
-                                            selectedId === -1 ? workflowId : selectedId,
-                                            function() {
-                                                saveCalled = true;
-                                                workflowInfos[workflowId].IsNew = false;
-                                                document.getElementById("wf-delete").style.display = "inline-block";
-                                            });
+                                        if (lt === "cron" && document.getElementById("wf-cron").value === "") {
+                                            alert("Enter a cron expression for this workflow.");
+                                        } else {
+                                            save(workflowId,
+                                                selectedId === -1 ? workflowId : selectedId,
+                                                function () {
+                                                    saveCalled = true;
+                                                    workflowInfos[workflowId].IsNew = false;
+                                                    document.getElementById("wf-delete").style.display = "inline-block";
+                                                });
+                                        }
                                     }
                                 }
                             }
@@ -239,7 +253,7 @@
         var json = { "Id": selectedId, "WorkflowInfo": workflowInfos[workflowId], "Tasks": workflowTasks[workflowId] };
         post(uri + "/save", function (res) {
             if (res === true) {
-                if (typeof callback != "undefined") {
+                if (typeof callback !== "undefined") {
                      callback();
                 }
 
@@ -252,7 +266,7 @@
                         for (var i = 0; i < wfWorkflowsTable.rows.length; i++) {
                             var row = wfWorkflowsTable.rows[i];
                             var wfId = row.getElementsByClassName("wf-id")[0];
-                            if (typeof wfId != "undefined" && wfId != null) {
+                            if (typeof wfId !== "undefined" && wfId !== null) {
                                 var swId = parseInt(wfId.innerHTML);
 
                                 if (swId === workflowId) {
@@ -401,7 +415,7 @@
         wfTask.innerHTML = newTaskHtml;
 
         var lastTask = document.getElementsByClassName("wf-task")[workflowTasks[workflowId].length - 1];
-        if (typeof lastTask != "undefined" && lastTask != null) {
+        if (typeof lastTask !== "undefined" && lastTask !== null) {
             lastTask.parentNode.insertBefore(wfTask, lastTask.nextSibling);
         } else {
             document.getElementById("wf-tasks").appendChild(wfTask);
@@ -534,7 +548,7 @@
 
                 var taskIndex = getElementIndex(btn.parentElement.parentElement);
                 var task = workflowTasks[workflowId][taskIndex];
-                task.Settings.push({ "Name": (typeof sn != "undefined" ? sn : (settings.length ===1 ? settings[0]:"")), "Value": "", "Attributes": [] });
+                task.Settings.push({ "Name": (typeof sn !== "undefined" ? sn : (settings.length ===1 ? settings[0]:"")), "Value": "", "Attributes": [] });
                 
                 var index = task.Settings.length - 1;
                 var wfSettingName = wfSettingsTable.getElementsByClassName("wf-setting-name")[index];
@@ -560,7 +574,7 @@
                 }
 
                 var wfSettingValue = wfSettingsTable.getElementsByClassName("wf-setting-value")[index];
-                if (typeof wfSettingValue != "undefined" && wfSettingValue != null) {
+                if (typeof wfSettingValue !== "undefined" && wfSettingValue !== null) {
                     wfSettingValue.onkeyup = function () {
                         var index2 = getElementIndex(wfSettingValue.parentElement.parentElement);
                         task.Settings[index2].Value = wfSettingValue.value;
@@ -703,6 +717,8 @@
             return "trigger";
         case 2:
             return "periodic";
+        case 3:
+            return "cron";
         default:
             return "";
         }
@@ -716,6 +732,8 @@
             return 1;
         case "periodic":
             return 2;
+        case "cron":
+            return 3;
         default:
             return -1;
         }
@@ -813,7 +831,7 @@
         ];
         var wfExecutionGraph = document.getElementById('wf-execution-graph');
         
-        if (typeof workflow == "undefined" || workflow == null || workflow.IsExecutionGraphEmpty === true) {
+        if (typeof workflow === "undefined" || workflow === null || workflow.IsExecutionGraphEmpty === true) {
 
             var nodes = [];
             var edges = [];
@@ -945,6 +963,7 @@
                     "Name": workflow.Name,
                     "LaunchType": workflow.LaunchType,
                     "Period": workflow.Period,
+                    "CronExpression": workflow.CronExpression,
                     "IsEnabled": workflow.IsEnabled,
                     "Description": workflow.Description,
                     "Path": workflow.Path,
@@ -955,38 +974,44 @@
                 wfId.value = workflow.Id;
                 wfId.onkeyup = function () {
                     workflowInfos[workflowId].Id = wfId.value;
-                }
+                };
 
                 var wfName = document.getElementById("wf-name");
                 wfName.value = workflow.Name;
                 wfName.onkeyup = function () {
                     workflowInfos[workflowId].Name = wfName.value;
-                }
+                };
 
                 var lt = launchType(workflow.LaunchType);
                 var wfLt = document.getElementById("wf-launchType");
                 setSelectedIndex(wfLt, lt);
                 wfLt.onchange = function () {
                     workflowInfos[workflowId].LaunchType = launchTypeReverse(wfLt.value);
-                }
+                };
 
                 var wfPeriod = document.getElementById("wf-period");
                 wfPeriod.value = workflow.Period;
                 wfPeriod.onkeyup = function () {
                     workflowInfos[workflowId].Period = wfPeriod.value;
-                }
+                };
+
+                var wfCron = document.getElementById("wf-cron");
+                wfCron.value = workflow.CronExpression;
+                wfCron.onkeyup = function () {
+                    workflowInfos[workflowId].CronExpression = wfCron.value;
+                };
 
                 var wfEnabled = document.getElementById("wf-enabled");
                 wfEnabled.checked = workflow.IsEnabled;
                 wfEnabled.onchange = function () {
                     workflowInfos[workflowId].IsEnabled = wfEnabled.checked;
-                }
+                };
 
                 var wfDesc = document.getElementById("wf-desc");
                 wfDesc.value = workflow.Description;
                 wfDesc.onkeyup = function () {
                     workflowInfos[workflowId].Description = wfDesc.value;
-                }
+                };
 
                 document.getElementById("wf-path").innerHTML = workflow.Path;
 
@@ -1234,38 +1259,37 @@
                                 var bindwfSettingValue = function (m, n) {
                                     var wfSettingValue = document.getElementsByClassName("wf-settings")[m]
                                         .getElementsByClassName("wf-setting-value")[n];
-                                    if (typeof wfSettingValue != "undefined" && wfSettingValue != null) {
+                                    if (typeof wfSettingValue !== "undefined" && wfSettingValue !== null) {
                                         wfSettingValue.onkeyup = function () {
                                             workflowTasks[workflowId][m].Settings[n].Value =
                                                 wfSettingValue.value;
-                                        }
+                                        };
                                     }
-                                }
+                                };
 
                                 var bindwfAttributeName = function (m, n, o) {
                                     var wfAttributeName = document.getElementsByClassName("wf-settings")[m]
                                         .getElementsByClassName("wf-setting-value-td")[n]
                                         .getElementsByClassName("wf-attribute-name")[o];
-                                    if (typeof wfAttributeName != "undefined" && wfAttributeName != null) {
+                                    if (typeof wfAttributeName !== "undefined" && wfAttributeName !== null) {
                                         wfAttributeName.onkeyup = function () {
                                             workflowTasks[workflowId][m].Settings[n].Attributes[o].Name =
                                                 wfAttributeName.value;
-                                        }
+                                        };
                                     }
-                                }
+                                };
 
                                 var bindwfAttributeValue = function (m, n, o) {
                                     var wfAttributeValue = document.getElementsByClassName("wf-settings")[m]
                                         .getElementsByClassName("wf-setting-value-td")[n]
                                         .getElementsByClassName("wf-attribute-value")[o];
-                                    if (typeof wfAttributeValue != "undefined" &&
-                                        wfAttributeValue != null) {
+                                    if (typeof wfAttributeValue !== "undefined" && wfAttributeValue !== null) {
                                         wfAttributeValue.onkeyup = function () {
                                             workflowTasks[workflowId][m].Settings[n].Attributes[o].Value =
                                                 wfAttributeValue.value;
-                                        }
+                                        };
                                     }
-                                }
+                                };
 
                                 for (var index1 = 0; index1 < tasks.length; index1++) {
                                     var wftask = tasks[index1];
@@ -1354,7 +1378,7 @@
 
                         document.getElementById("wf-cancel").onclick = function () {
                             cancel(selectedId);
-                        }
+                        };
 
                         document.getElementById("wf-save").onclick = function () {
                             saveClick(false);
@@ -1362,7 +1386,7 @@
                     };
                 }
 
-                if (typeof callback != "undefined") {
+                if (typeof callback !== "undefined") {
                     callback();
                 }
                 // End of get workflows

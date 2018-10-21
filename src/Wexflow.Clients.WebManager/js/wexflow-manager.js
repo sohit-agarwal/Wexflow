@@ -62,6 +62,8 @@
                 return "Trigger";
             case 2:
                 return "Periodic";
+            case 3:
+                return "Cron";
             default:
                 return "";
         }

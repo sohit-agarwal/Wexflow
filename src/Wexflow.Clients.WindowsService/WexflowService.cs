@@ -11,6 +11,7 @@ using Newtonsoft.Json.Linq;
 using Wexflow.Core.ExecutionGraph.Flowchart;
 using LaunchType = Wexflow.Core.Service.Contracts.LaunchType;
 using System.Xml;
+using CronNET;
 
 namespace Wexflow.Clients.WindowsService
 {
@@ -24,7 +25,7 @@ namespace Wexflow.Clients.WindowsService
         {
             return WexflowWindowsService.WexflowEngine.Workflows.Select(wf => new WorkflowInfo(wf.Id, wf.Name,
                     (LaunchType) wf.LaunchType, wf.IsEnabled, wf.Description, wf.IsRunning, wf.IsPaused,
-                    wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.WorkflowFilePath, wf.IsExecutionGraphEmpty))
+                    wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression, wf.WorkflowFilePath, wf.IsExecutionGraphEmpty))
                 .ToArray();
         }
 
@@ -69,7 +70,7 @@ namespace Wexflow.Clients.WindowsService
             if (wf != null)
             {
                 return new WorkflowInfo(wf.Id, wf.Name, (LaunchType) wf.LaunchType, wf.IsEnabled, wf.Description,
-                    wf.IsRunning, wf.IsPaused, wf.Period.ToString(@"dd\.hh\:mm\:ss") , wf.WorkflowFilePath, wf.IsExecutionGraphEmpty);
+                    wf.IsRunning, wf.IsPaused, wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression, wf.WorkflowFilePath, wf.IsExecutionGraphEmpty);
             }
 
             return null;
@@ -226,6 +227,13 @@ namespace Wexflow.Clients.WindowsService
                     LaunchType workflowLaunchType = (LaunchType)((int)wi.SelectToken("LaunchType"));
                     string p = (string)wi.SelectToken("Period");
                     TimeSpan workflowPeriod = TimeSpan.Parse(string.IsNullOrEmpty(p) ? "00.00:00:00" : p);
+                    string cronExpression = (string)wi.SelectToken("CronExpression");
+                    CronSchedule cs = new CronSchedule();
+                    if (!cs.isValid(cronExpression))
+                    {
+                        throw new Exception("The cron expression '" + cronExpression + "' is not valid.");
+                    }
+
                     bool isWorkflowEnabled = (bool)wi.SelectToken("IsEnabled");
                     string workflowDesc = (string)wi.SelectToken("Description");
 
@@ -302,6 +310,9 @@ namespace Wexflow.Clients.WindowsService
                                 , new XElement(xn + "Setting"
                                     , new XAttribute("name", "period")
                                     , new XAttribute("value", workflowPeriod.ToString(@"dd\.hh\:mm\:ss")))
+                                , new XElement(xn + "Setting"
+                                    , new XAttribute("name", "cronExpression")
+                                    , new XAttribute("value", cronExpression))
                                         )
                             , xtasks
                         );
@@ -324,6 +335,13 @@ namespace Wexflow.Clients.WindowsService
                         LaunchType workflowLaunchType = (LaunchType) ((int) wi.SelectToken("LaunchType"));
                         string p = (string) wi.SelectToken("Period");
                         TimeSpan workflowPeriod = TimeSpan.Parse(string.IsNullOrEmpty(p) ? "00.00:00:00" : p);
+                        string cronExpression = (string)wi.SelectToken("CronExpression");
+                        CronSchedule cs = new CronSchedule();
+                        if (!cs.isValid(cronExpression))
+                        {
+                            throw new Exception("The cron expression '" + cronExpression + "' is not valid.");
+                        }
+
                         bool isWorkflowEnabled = (bool) wi.SelectToken("IsEnabled");
                         string workflowDesc = (string) wi.SelectToken("Description");
 
@@ -354,6 +372,20 @@ namespace Wexflow.Clients.WindowsService
                                     new XAttribute("value", workflowPeriod.ToString())));
                         }
                         //}
+
+                        var xwfCronExpression = xdoc.Root.XPathSelectElement("wf:Settings/wf:Setting[@name='cronExpression']",
+                            wf.XmlNamespaceManager);
+
+                        if (xwfCronExpression != null)
+                        {
+                            xwfCronExpression.Attribute("value").Value = cronExpression;
+                        }
+                        else if(!string.IsNullOrEmpty(cronExpression))
+                        {
+                            xdoc.Root.XPathSelectElement("wf:Settings", wf.XmlNamespaceManager)
+                                .Add(new XElement(wf.XNamespaceWf + "Setting", new XAttribute("name", "cronExpression"),
+                                    new XAttribute("value", cronExpression)));
+                        }
 
                         var xtasks = xdoc.Root.Element(wf.XNamespaceWf + "Tasks");
                         var alltasks = xtasks.Elements(wf.XNamespaceWf + "Task");

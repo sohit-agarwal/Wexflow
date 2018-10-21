@@ -16,6 +16,10 @@
         /// <summary>
         /// The workflow starts periodically.
         /// </summary>
-        Periodic
+        Periodic,
+        /// <summary>
+        /// The workflow starts depending on the cron scheduling expression
+        /// </summary>
+        Cron
     }
 }

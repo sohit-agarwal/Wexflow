@@ -7,12 +7,15 @@
       - A description wich is a string.
       - A settings section which is composed of the following elements:
         - A launchType which is one of the following options:
-          - startup: The workflow is launched when Wexflow engine starts.
-          - trigger: The workflow is launched manually from the Wexflow manager.
-          - periodic: The workflow is lauched periodically.
+          - startup: The workflow is launched when Wexflow Engine starts.
+          - trigger: The workflow is launched manually from Wexflow Manager.
+          - periodic: The workflow is launched periodically.
+          - corn: The workflow is launched depending on a cron expression.
         - A period which is necessary for the periodic launchType. It is 
           a timeSpan in this format dd.hh:mm:ss. For example the period
           00.00:02:00 will launch the workflow every 2 minutes.
+        - A cron expression which is necessary for the cron launchType.
+          For example '*/2 * * * *' will launch the workflow every 2 minutes.
         - The enabled option which allows to enable or disable a workflow.
           The possible values are true or false.
       - A Tasks section which contains the tasks that will be executed by
@@ -30,6 +33,7 @@
   <Settings>
     <Setting name="launchType" value="startup|trigger|periodic" />
     <Setting name="period" value="dd.hh:mm:ss" />
+    <Setting name="cronExpression" value="$string" />
     <Setting name="enabled" value="true|false" />
   </Settings>
   <Tasks>

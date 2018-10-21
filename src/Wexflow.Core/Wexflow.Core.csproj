@@ -81,6 +81,12 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Cron">
+      <HintPath>..\..\libs\Cron.dll</HintPath>
+    </Reference>
+    <Reference Include="CronNET">
+      <HintPath>..\..\libs\CronNET.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=2.0.6.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\libs\log4net.dll</HintPath>
