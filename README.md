@@ -41,7 +41,7 @@ Here are some examples of using Wexflow:
 - Batch downloading files over FTP/FTPS/SFTP/HTTP/Torrent.
 - Batch uploading files over FTP/FTPS/SFTP.
 - Database administration and maintenance.
-- Synchronising the content of a local or a remote source directory to a local or a remote destination directory.
+- Synchronising the content of local or remote directories.
 - Batch sending tweets.
 
 Here are the benefits of using Wexflow:
