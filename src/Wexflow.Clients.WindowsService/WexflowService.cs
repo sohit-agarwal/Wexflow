@@ -228,7 +228,7 @@ namespace Wexflow.Clients.WindowsService
                     TimeSpan workflowPeriod = TimeSpan.Parse(string.IsNullOrEmpty(p) ? "00.00:00:00" : p);
                     string cronExpression = (string)wi.SelectToken("CronExpression");
 
-                    if (WexflowEngine.IsCronExpressionValid(cronExpression))
+                    if (!WexflowEngine.IsCronExpressionValid(cronExpression))
                     {
                         throw new Exception("The cron expression '" + cronExpression + "' is not valid.");
                     }
