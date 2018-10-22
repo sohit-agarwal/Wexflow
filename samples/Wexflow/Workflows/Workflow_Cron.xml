@@ -2,7 +2,7 @@
 <Workflow xmlns="urn:wexflow-schema" id="75" name="Workflow_Cron" description="Workflow_Cron">
   <Settings>
     <Setting name="launchType" value="cron" />
-	<Setting name="cronExpression" value="*/1 * * * *" /> <!-- Every one minute -->
+	<Setting name="cronExpression" value="0 0/2 * * * ?" /> <!-- Every two minutes. -->
     <Setting name="enabled" value="true" />
   </Settings>
   <Tasks>

@@ -1,17 +1,16 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
-using Wexflow.Core.Service.Contracts;
 using System.ServiceModel.Web;
 using System.Xml.Linq;
 using System.Xml.XPath;
-using Newtonsoft.Json.Linq;
+using Wexflow.Core;
 using Wexflow.Core.ExecutionGraph.Flowchart;
+using Wexflow.Core.Service.Contracts;
 using LaunchType = Wexflow.Core.Service.Contracts.LaunchType;
-using System.Xml;
-using CronNET;
 
 namespace Wexflow.Clients.WindowsService
 {
@@ -228,8 +227,8 @@ namespace Wexflow.Clients.WindowsService
                     string p = (string)wi.SelectToken("Period");
                     TimeSpan workflowPeriod = TimeSpan.Parse(string.IsNullOrEmpty(p) ? "00.00:00:00" : p);
                     string cronExpression = (string)wi.SelectToken("CronExpression");
-                    CronSchedule cs = new CronSchedule();
-                    if (!cs.isValid(cronExpression))
+
+                    if (WexflowEngine.IsCronExpressionValid(cronExpression))
                     {
                         throw new Exception("The cron expression '" + cronExpression + "' is not valid.");
                     }
@@ -336,8 +335,8 @@ namespace Wexflow.Clients.WindowsService
                         string p = (string) wi.SelectToken("Period");
                         TimeSpan workflowPeriod = TimeSpan.Parse(string.IsNullOrEmpty(p) ? "00.00:00:00" : p);
                         string cronExpression = (string)wi.SelectToken("CronExpression");
-                        CronSchedule cs = new CronSchedule();
-                        if (!cs.isValid(cronExpression))
+                        
+                        if (!WexflowEngine.IsCronExpressionValid(cronExpression))
                         {
                             throw new Exception("The cron expression '" + cronExpression + "' is not valid.");
                         }

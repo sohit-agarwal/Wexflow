@@ -1,5 +1,4 @@
-﻿using CronNET;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -199,8 +198,7 @@ namespace Wexflow.Core
                 if (LaunchType == LaunchType.Cron)
                 {
                     CronExpression = GetWorkflowSetting(xdoc, "cronExpression");
-                    CronSchedule cs = new CronSchedule();
-                    if (!cs.isValid(CronExpression))
+                    if (!WexflowEngine.IsCronExpressionValid(CronExpression))
                     {
                         throw new Exception("The cron expression '" + CronExpression + "' is not valid.");
                     }

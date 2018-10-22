@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Quartz;
+using Quartz.Impl;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Xml.Linq;
 using System.Xml.XPath;
-using System.IO;
-using System.Threading;
-using CronNET;
 
 namespace Wexflow.Core
 {
@@ -49,7 +50,9 @@ namespace Wexflow.Core
 
         private readonly Dictionary<int, List<WexflowTimer>> _wexflowTimers;
 
-        private static readonly CronDaemon CronDaemon = new CronDaemon();
+        // Create the scheduler
+        private static readonly ISchedulerFactory SchedulerFactory = new StdSchedulerFactory();
+        private static readonly IScheduler Quartzcheduler = SchedulerFactory.GetScheduler();
 
         /// <summary>
         /// Creates a new instance of Wexflow engine.
@@ -66,6 +69,17 @@ namespace Wexflow.Core
 
             LoadSettings();
             LoadWorkflows();
+        }
+
+        /// <summary>
+        /// Checks whether a cron expression is valid or not.
+        /// </summary>
+        /// <param name="expression">Cron expression</param>
+        /// <returns></returns>
+        public static bool IsCronExpressionValid(string expression)
+        {
+            bool res = CronExpression.IsValidExpression(expression);
+            return res;
         }
 
         void LoadSettings()
@@ -202,7 +216,7 @@ namespace Wexflow.Core
                 ScheduleWorkflow(workflow);
             }
 
-            CronDaemon.Start();
+            Quartzcheduler.Start();
         }
 
         private void ScheduleWorkflow(Workflow wf)
@@ -242,7 +256,30 @@ namespace Wexflow.Core
                 }
                 else if (wf.LaunchType == LaunchType.Cron)
                 {
-                    CronDaemon.AddJob(wf.CronExpression, new ThreadStart(() => wf.Start()));
+                    // Create a job
+                    IDictionary<string, object> map = new Dictionary<string, object>();
+                    map.Add("workflow", wf);
+
+                    string jobIdentity = "Workflow Job " + wf.Id;
+                    IJobDetail jobDetail = JobBuilder.Create<WorkflowJob>()
+                        .WithIdentity(jobIdentity)
+                        .SetJobData(new JobDataMap(map))
+                        .Build();
+
+                    ITrigger trigger = TriggerBuilder.Create()
+                        .ForJob(jobDetail)
+                        .WithCronSchedule(wf.CronExpression)
+                        .WithIdentity("Workflow Trigger " + wf.Id)
+                        .StartNow()
+                        .Build();
+
+                    var jobKey = new JobKey(jobIdentity);
+                    if (Quartzcheduler.CheckExists(jobKey))
+                    {
+                        Quartzcheduler.DeleteJob(jobKey);
+                    }
+
+                    Quartzcheduler.ScheduleJob(jobDetail, trigger);
                 }
             }
         }
@@ -252,7 +289,7 @@ namespace Wexflow.Core
         /// </summary>
         public void Stop()
         {
-            CronDaemon.Stop();
+            Quartzcheduler.Shutdown();
 
             foreach (var wts in _wexflowTimers.Values)
             {

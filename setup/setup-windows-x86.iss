@@ -68,7 +68,9 @@ Source: "..\libs\itextsharp.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; Source: "..\libs\Google.Apis.YouTube.v3.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\DiffPlex.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\MonoTorrent.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\libs\Cron.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\libs\Quartz.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\libs\Common.Logging.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\libs\Common.Logging.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 Source: "..\src\Wexflow.Clients.WindowsService\bin\Release\Wexflow.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.WindowsService\bin\Release\Wexflow.Core.Service.Client.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -236,7 +238,7 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\Manager\{#MyAppExeName}";
 ;Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\{#MyAppName}"; Filename: "{app}\Manager\{#MyAppExeName}"; Tasks: quicklaunchicon
 
 [Run]
-Filename: "{app}\Manager\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+;Filename: "{app}\Manager\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 Filename: "{sys}\sc.exe"; Parameters: "create Wexflow start= auto binPath= ""{app}\Wexflow.Clients.WindowsService.exe""" ; Flags: runhidden  waituntilterminated
 Filename: "{sys}\sc.exe"; Parameters: "description Wexflow ""Wexflow workflow engine."""; Flags: runhidden  waituntilterminated
 Filename: "{sys}\sc.exe"; Parameters: "start Wexflow"; Flags: runhidden  waituntilterminated
