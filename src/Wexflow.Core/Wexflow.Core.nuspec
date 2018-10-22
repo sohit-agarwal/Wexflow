@@ -13,7 +13,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Core assembly of Wexflow workflow engine.</description>
     <releaseNotes>Added cron scheduling.</releaseNotes>
-    <copyright>Copyright 2018</copyright>
+    <copyright>Copyright 2018 Akram El Assas.</copyright>
     <tags>Wexflow Workflow</tags>
   </metadata>
   <files>
