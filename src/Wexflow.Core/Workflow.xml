@@ -16,7 +16,7 @@
           00.00:02:00 will launch the workflow every 2 minutes.
         - A cron expression which is necessary for the cron launchType.
           For example '0 0/2 * * * ?' will launch the workflow every 2 minutes.
-          Seed the following documentation for more details: https://github.com/aelassas/Wexflow/wiki/Cron-scheduling
+          Read the following documentation for more details: https://github.com/aelassas/Wexflow/wiki/Cron-scheduling
         - The enabled option which allows to enable or disable a workflow.
           The possible values are true or false.
       - A Tasks section which contains the tasks that will be executed by
