@@ -16,7 +16,7 @@ namespace Wexflow.Tests
 
         public static void Stop()
         {
-            WexflowEngine.Stop();
+            WexflowEngine.Stop(false);
         }
 
         public static void StartWorkflow(int workflowId)

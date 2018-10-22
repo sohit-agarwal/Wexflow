@@ -211,12 +211,16 @@ namespace Wexflow.Core
         /// </summary>
         public void Run()
         {
+
             foreach (Workflow workflow in Workflows)
             {
                 ScheduleWorkflow(workflow);
             }
 
-            Quartzcheduler.Start();
+            if (!Quartzcheduler.IsStarted)
+            {
+                Quartzcheduler.Start();
+            }
         }
 
         private void ScheduleWorkflow(Workflow wf)
@@ -287,9 +291,13 @@ namespace Wexflow.Core
         /// <summary>
         /// Stops Wexflow engine.
         /// </summary>
-        public void Stop()
+        /// <param name="stopQuartzScheduler">Tells if Quartz scheduler should be stopped or not.</param>
+        public void Stop(bool stopQuartzScheduler)
         {
-            Quartzcheduler.Shutdown();
+            if (stopQuartzScheduler)
+            {
+                Quartzcheduler.Shutdown();
+            }
 
             foreach (var wts in _wexflowTimers.Values)
             {
