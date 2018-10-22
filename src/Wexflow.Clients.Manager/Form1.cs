@@ -407,7 +407,7 @@ namespace Wexflow.Clients.Manager
             }
             else
             {
-                MessageBox.Show("An error ocurred while restarting Wexfflow server: ", errorMsg);
+                MessageBox.Show("An error ocurred while restarting Wexfflow server: " + errorMsg);
                 LoadWorkflows();
             }
         }
