@@ -111,7 +111,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Workflow", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Clients.WebDesigner", "src\Wexflow.Clients.WebDesigner\Wexflow.Clients.WebDesigner.csproj", "{76F89165-83B9-4048-93A9-A93FF81D12EE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wexflow.Tasks.Tests", "Wexflow.Tasks.Tests", "{5AA82F16-43F7-4809-AB3C-23B6137FC5A5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wexflow.Tests", "Wexflow.Tests", "{5AA82F16-43F7-4809-AB3C-23B6137FC5A5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Sha1", "src\Wexflow.Tasks.Sha1\Wexflow.Tasks.Sha1.csproj", "{58E208F5-9943-48E5-86DF-56F1CCFA8E75}"
 EndProject
@@ -143,7 +143,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.TextToPdf", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.HtmlToPdf", "src\Wexflow.Tasks.HtmlToPdf\Wexflow.Tasks.HtmlToPdf.csproj", "{3B5B4434-AB77-41F7-A25A-FC3E12DF1275}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Tests", "tests\Wexflow.Tasks.Tests\Wexflow.Tasks.Tests.csproj", "{2A378A60-AC8D-45B3-A14D-8885FDE24410}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tests", "tests\Wexflow.Tests\Wexflow.Tests.csproj", "{2A378A60-AC8D-45B3-A14D-8885FDE24410}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.SqlToXml", "src\Wexflow.Tasks.SqlToXml\Wexflow.Tasks.SqlToXml.csproj", "{118258F3-0273-48F2-BD0C-5349AE14A99A}"
 EndProject
@@ -153,6 +153,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Guid", "src\W
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{8C2CDC3E-E849-4DB2-A9D1-929AAA8BB8E5}"
 	ProjectSection(SolutionItems) = preProject
+		samples\Wexflow\Workflows\Workflow_Cron.xml = samples\Wexflow\Workflows\Workflow_Cron.xml
 		samples\Wexflow\Workflows\Workflow_CsvToXml.xml = samples\Wexflow\Workflows\Workflow_CsvToXml.xml
 		samples\Wexflow\Workflows\Workflow_ExecutionGraph.xml = samples\Wexflow\Workflows\Workflow_ExecutionGraph.xml
 		samples\Wexflow\Workflows\Workflow_ffmpeg.xml = samples\Wexflow\Workflows\Workflow_ffmpeg.xml
@@ -160,6 +161,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{
 		samples\Wexflow\Workflows\Workflow_FileExists2.xml = samples\Wexflow\Workflows\Workflow_FileExists2.xml
 		samples\Wexflow\Workflows\Workflow_FilesConcat.xml = samples\Wexflow\Workflows\Workflow_FilesConcat.xml
 		samples\Wexflow\Workflows\Workflow_FilesCopier.xml = samples\Wexflow\Workflows\Workflow_FilesCopier.xml
+		samples\Wexflow\Workflows\Workflow_FilesDiff.xml = samples\Wexflow\Workflows\Workflow_FilesDiff.xml
+		samples\Wexflow\Workflows\Workflow_FilesEquals.xml = samples\Wexflow\Workflows\Workflow_FilesEquals.xml
 		samples\Wexflow\Workflows\Workflow_FilesExist.xml = samples\Wexflow\Workflows\Workflow_FilesExist.xml
 		samples\Wexflow\Workflows\Workflow_FilesInfo.xml = samples\Wexflow\Workflows\Workflow_FilesInfo.xml
 		samples\Wexflow\Workflows\Workflow_FilesLoader.xml = samples\Wexflow\Workflows\Workflow_FilesLoader.xml
@@ -180,6 +183,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{
 		samples\Wexflow\Workflows\Workflow_Guid.xml = samples\Wexflow\Workflows\Workflow_Guid.xml
 		samples\Wexflow\Workflows\Workflow_HtmlToPdf.xml = samples\Wexflow\Workflows\Workflow_HtmlToPdf.xml
 		samples\Wexflow\Workflows\Workflow_Http.xml = samples\Wexflow\Workflows\Workflow_Http.xml
+		samples\Wexflow\Workflows\Workflow_ImagesCropper.xml = samples\Wexflow\Workflows\Workflow_ImagesCropper.xml
+		samples\Wexflow\Workflows\Workflow_ImagesResizer.xml = samples\Wexflow\Workflows\Workflow_ImagesResizer.xml
 		samples\Wexflow\Workflows\Workflow_ImagesTransformer.xml = samples\Wexflow\Workflows\Workflow_ImagesTransformer.xml
 		samples\Wexflow\Workflows\Workflow_ListEntities.xml = samples\Wexflow\Workflows\Workflow_ListEntities.xml
 		samples\Wexflow\Workflows\Workflow_ListFiles.xml = samples\Wexflow\Workflows\Workflow_ListFiles.xml
@@ -209,6 +214,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{
 		samples\Wexflow\Workflows\Workflow_Tar.xml = samples\Wexflow\Workflows\Workflow_Tar.xml
 		samples\Wexflow\Workflows\Workflow_TextToPdf.xml = samples\Wexflow\Workflows\Workflow_TextToPdf.xml
 		samples\Wexflow\Workflows\Workflow_Tgz.xml = samples\Wexflow\Workflows\Workflow_Tgz.xml
+		samples\Wexflow\Workflows\Workflow_Torrent.xml = samples\Wexflow\Workflows\Workflow_Torrent.xml
 		samples\Wexflow\Workflows\Workflow_Touch.xml = samples\Wexflow\Workflows\Workflow_Touch.xml
 		samples\Wexflow\Workflows\Workflow_Twitter.xml = samples\Wexflow\Workflows\Workflow_Twitter.xml
 		samples\Wexflow\Workflows\Workflow_Untar.xml = samples\Wexflow\Workflows\Workflow_Untar.xml
