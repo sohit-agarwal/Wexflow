@@ -4,7 +4,7 @@ using Wexflow.Core;
 using System.Threading;
 using System.Xml.Linq;
 using System.Data.SqlClient;
-using Oracle.DataAccess.Client;
+using Oracle.ManagedDataAccess.Client;
 using MySql.Data.MySqlClient;
 using System.Data.SQLite;
 using Npgsql;
