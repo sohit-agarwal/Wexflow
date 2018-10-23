@@ -11,13 +11,20 @@
 [![forthebadge](http://aelassas.github.io/wexflow/images/built-with-love.svg)](http://forthebadge.com)
 -->
 
-Wexflow is a high performance and extensible workflow engine with a cross-platform manager and designer. The goal of Wexflow is to automate recurring tasks without user intervention. With the help of Wexflow, building automation and workflow processes become easy. Wexflow also helps in making the long-running processes straightforward. Wexflow aims to make automations, workflow processes, long-running processes and interactions between systems, applications and folks easy, straightforward and clean. The communication between systems or applications becomes easy through this powerful workflow engine.
+Wexflow is a high performance and extensible workflow engine with a cross-platform manager and designer. The goal of Wexflow is to automate recurring tasks without user intervention. With the help of Wexflow, building automation and workflow processes become easy. Wexflow also helps in making the long-running processes straightforward. 
+
+Wexflow aims to make automations, workflow processes, long-running processes and interactions between systems, applications and folks easy, straightforward and clean. The communication between systems or applications becomes easy through this powerful workflow engine.
+
+Wexflow makes use of [Quartz.NET](https://www.quartz-scheduler.net/) open source job scheduling system that is used in large scale entreprise systems. Thus, Wexflow offers felixibility in planning workflow jobs such as [cron workflows](https://github.com/aelassas/Wexflow/wiki/Cron-scheduling).
+
+# Features
 
 Wexflow provides the following features:
 
 - [x] [Sequential workflows](https://github.com/aelassas/Wexflow/wiki/Samples#sequential-workflows).
 - [x] [Flowchart workflows](https://github.com/aelassas/Wexflow/wiki/Samples#flowchart-workflows).
 - [x] [Workflow events](https://github.com/aelassas/Wexflow/wiki/Samples#workflow-events).
+- [x] [Cron scheduling](https://github.com/aelassas/Wexflow/wiki/Cron-scheduling)
 - [x] [A cross-platform application for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#wexflow-manager).
 - [x] [A cross-platform application for designing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#wexflow-web-designer).
 - [x] [An Android application for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#wexflow-android-manager).
@@ -30,6 +37,8 @@ Wexflow provides the following features:
 - [x] [Extensible](https://github.com/aelassas/Wexflow/wiki/Extensible).
 
 Discover more about the features in [details](https://github.com/aelassas/Wexflow/wiki).
+
+# Examples
 
 Here are some examples of using Wexflow:
 
@@ -44,6 +53,8 @@ Here are some examples of using Wexflow:
 - Synchronising the content of local or remote directories.
 - Batch sending tweets.
 - etc.
+
+# Benefits
 
 Here are the benefits of using Wexflow:
 
@@ -75,7 +86,7 @@ Here are the benefits of using Wexflow:
 
 Download the latest release [here](https://github.com/aelassas/Wexflow/releases/latest).
 
-# They are talking about Wexflow
+# Mentions
 
 [![BizTalk: Azure Applications](http://aelassas.github.io/wexflow/images/biztalk-azure-applications.jpg)](https://www.amazon.com/BizTalk-Azure-Applications-Suren-Machiraju-ebook/dp/B06Y6GPN54/) 
 
