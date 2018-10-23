@@ -17,7 +17,7 @@ clone_folder: c:\projects\wexflow
 #---------------------------------#
 
 # build platform, i.e. x86, x64, Any CPU. This setting is optional.
-platform: x86
+platform: Any CPU
 
 # to add several platforms to build matrix:
 #platform:
@@ -25,7 +25,7 @@ platform: x86
 #  - Any CPU
 
 # build Configuration, i.e. Debug, Release, etc.
-configuration: Debug
+configuration: Release
 
 # to add several configurations to build matrix:
 #configuration:
