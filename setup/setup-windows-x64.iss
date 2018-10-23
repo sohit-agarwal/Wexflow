@@ -50,7 +50,7 @@ Source: "..\libs\Renci.SshNet.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\TweetSharp.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Mono.Security.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Npgsql.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\libs\Oracle.DataAccess.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\libs\Oracle.ManagedDataAccess.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\MySql.Data.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\System.Data.SQLite.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Teradata.Client.Provider.dll"; DestDir: "{app}"; Flags: ignoreversion
