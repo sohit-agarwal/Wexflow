@@ -47,7 +47,7 @@ Here are some examples of using Wexflow:
 - Batch converting, resizing and cropping images.
 - Creating and sending reports and invoices by email.
 - Connecting systems and applications via watch folders.
-- Batch downloading files over FTP/FTPS/SFTP/HTTP/Torrent.
+- Batch downloading files over FTP/FTPS/SFTP/HTTP/HTTPS/Torrent.
 - Batch uploading files over FTP/FTPS/SFTP.
 - Database administration and maintenance.
 - Synchronising the content of local or remote directories.
