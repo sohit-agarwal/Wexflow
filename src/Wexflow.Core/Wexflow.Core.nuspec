@@ -12,7 +12,7 @@
     <!--<iconUrl></iconUrl>-->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Core assembly of Wexflow workflow engine.</description>
-    <releaseNotes>Added cron scheduling.</releaseNotes>
+    <releaseNotes>Fixed an issue when a workflow file is deleted or modified in Wexflow Engine.</releaseNotes>
     <copyright>Copyright 2018 Akram El Assas.</copyright>
     <tags>Wexflow Workflow</tags>
   </metadata>
