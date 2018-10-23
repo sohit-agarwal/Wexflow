@@ -1,4 +1,4 @@
-[![Release](http://img.shields.io/badge/release-v2.6-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/latest) [![Nuget](http://img.shields.io/badge/nuget-v2.3.3-blue.svg)](https://www.nuget.org/packages/Wexflow) [![GitHub Downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://github.com/aelassas/Wexflow/releases) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby) [![Release](http://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/aelassas/Wexflow#contribute) [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)
+[![Release](http://img.shields.io/badge/release-v2.7-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/latest) [![Nuget](http://img.shields.io/badge/nuget-v2.7.2-blue.svg)](https://www.nuget.org/packages/Wexflow) [![GitHub Downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://github.com/aelassas/Wexflow/releases) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby) [![Release](http://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/aelassas/Wexflow#contribute) [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)
 
 <!--
 [![NuGet Downloads](https://img.shields.io/nuget/dt/Wexflow.svg)](https://www.nuget.org/packages/Wexflow/)
@@ -133,6 +133,7 @@ Wexflow contains other libraries with their individual licenses. More details ab
 - [Hans Meyer](https://github.com/HaMster21) 
 - [Jan Borup Coyle](https://github.com/janborup) 
 - [Alex Higgins](https://github.com/alexhiggins732)
+- [Igor Quirino](https://github.com/iquirino)
 
 # Credits
 
