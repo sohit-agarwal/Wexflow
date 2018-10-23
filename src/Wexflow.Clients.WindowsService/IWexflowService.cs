@@ -44,6 +44,12 @@ namespace Wexflow.Clients.WindowsService
         bool IsWorkflowIdValid(string id);
 
         [OperationContract]
+        bool IsCronExpressionValid(string expression);
+
+        [OperationContract]
+        bool IsPeriodValid(string period);
+
+        [OperationContract]
         bool DeleteWorkflow(string id);
 
         [OperationContract]

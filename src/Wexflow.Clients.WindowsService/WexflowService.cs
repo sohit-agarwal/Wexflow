@@ -228,7 +228,7 @@ namespace Wexflow.Clients.WindowsService
                     TimeSpan workflowPeriod = TimeSpan.Parse(string.IsNullOrEmpty(p) ? "00.00:00:00" : p);
                     string cronExpression = (string)wi.SelectToken("CronExpression");
 
-                    if (!WexflowEngine.IsCronExpressionValid(cronExpression))
+                    if (workflowLaunchType == LaunchType.Cron && !WexflowEngine.IsCronExpressionValid(cronExpression))
                     {
                         throw new Exception("The cron expression '" + cronExpression + "' is not valid.");
                     }
@@ -335,8 +335,8 @@ namespace Wexflow.Clients.WindowsService
                         string p = (string) wi.SelectToken("Period");
                         TimeSpan workflowPeriod = TimeSpan.Parse(string.IsNullOrEmpty(p) ? "00.00:00:00" : p);
                         string cronExpression = (string)wi.SelectToken("CronExpression");
-                        
-                        if (!WexflowEngine.IsCronExpressionValid(cronExpression))
+
+                        if (workflowLaunchType == LaunchType.Cron && !WexflowEngine.IsCronExpressionValid(cronExpression))
                         {
                             throw new Exception("The cron expression '" + cronExpression + "' is not valid.");
                         }
@@ -377,7 +377,7 @@ namespace Wexflow.Clients.WindowsService
 
                         if (xwfCronExpression != null)
                         {
-                            xwfCronExpression.Attribute("value").Value = cronExpression;
+                            xwfCronExpression.Attribute("value").Value = cronExpression ?? string.Empty;
                         }
                         else if(!string.IsNullOrEmpty(cronExpression))
                         {
@@ -481,6 +481,25 @@ namespace Wexflow.Clients.WindowsService
                 if (workflow.Id == workflowId) return false;
             }
             return true;
+        }
+
+        [WebInvoke(Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "isCronExpressionValid?e={expression}")]
+        public bool IsCronExpressionValid(string expression)
+        {
+            var res = WexflowEngine.IsCronExpressionValid(expression);
+            return res;
+        }
+
+        [WebInvoke(Method = "GET",
+           ResponseFormat = WebMessageFormat.Json,
+           UriTemplate = "isPeriodValid/{period}")]
+        public bool IsPeriodValid(string period)
+        {
+            TimeSpan ts;
+            var res = TimeSpan.TryParse(period, out ts);
+            return res;
         }
 
         [WebInvoke(Method = "POST",

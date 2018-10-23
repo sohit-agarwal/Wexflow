@@ -21,7 +21,7 @@ DisableProgramGroupPage=yes
 OutputDir=.
 OutputBaseFilename=wexflow-{#MyAppVersion}-windows-x86
 SetupIconFile="..\src\Wexflow.Clients.Manager\Wexflow.ico"
-Compression=lzma
+Compression=lzma2
 SolidCompression=yes
 
 [Languages]

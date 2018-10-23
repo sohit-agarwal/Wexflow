@@ -141,9 +141,11 @@ namespace Wexflow.Core
                 var removedWorkflow = Workflows.SingleOrDefault(wf => wf.WorkflowFilePath == args.FullPath);
                 if (removedWorkflow != null)
                 {
-                    Logger.InfoFormat("Workflow {0} is stopped and removed because its definition file {1} was deleted",
+                    Logger.InfoFormat("Workflow {0} is stopped and removed because its definition file {1} was deleted.",
                         removedWorkflow.Name, removedWorkflow.WorkflowFilePath);
                     removedWorkflow.Stop();
+                    StopTimers(removedWorkflow.Id);
+                    StopCronJobs(removedWorkflow.Id);
                     Workflows.Remove(removedWorkflow);
                 }
             };
@@ -152,7 +154,6 @@ namespace Wexflow.Core
             {
                 try
                 {
-                    //Logger.Debug($"Workflows: {Workflows?.Select(wf => wf.WorkflowFilePath).Aggregate((wf1, wf2) => wf1 + " " + wf2) ?? "'Workflows' is null"}");
                     if (Workflows != null)
                     {
                         var changedWorkflow = Workflows.SingleOrDefault(wf => wf.WorkflowFilePath == args.FullPath);
@@ -162,8 +163,10 @@ namespace Wexflow.Core
                             // the existing file might have caused an error during loading, so there may be no corresponding
                             // workflow to the changed file
                             changedWorkflow.Stop();
+                            StopTimers(changedWorkflow.Id);
+                            StopCronJobs(changedWorkflow.Id);
                             Workflows.Remove(changedWorkflow);
-                            Logger.InfoFormat("A change in the definition file {0} of workflow {1} has been detected. The workflow will be reloaded", changedWorkflow.WorkflowFilePath, changedWorkflow.Name);
+                            Logger.InfoFormat("A change in the definition file {0} of workflow {1} has been detected. The workflow will be reloaded.", changedWorkflow.WorkflowFilePath, changedWorkflow.Name);
                         }
                     }
                 }
@@ -190,6 +193,26 @@ namespace Wexflow.Core
                 }
             };
         }
+
+        private void StopTimers(int workflowId)
+        {
+            if (_wexflowTimers.ContainsKey(workflowId))
+            {
+                var wts = _wexflowTimers[workflowId];
+                foreach (var wt in wts) wt.Stop();
+            }
+        }
+
+        private void StopCronJobs(int workflowId)
+        {
+            string jobIdentity = "Workflow Job " + workflowId;
+            var jobKey = new JobKey(jobIdentity);
+            if (Quartzcheduler.CheckExists(jobKey))
+            {
+                Quartzcheduler.DeleteJob(jobKey);
+            }
+        }
+
 
         Workflow LoadWorkflowFromFile(string file)
         {
