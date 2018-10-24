@@ -101,7 +101,7 @@ namespace Wexflow.Tasks.ImagesConcat
                     finalImage.Save(destPath);
                 }
 
-                Info("Image concatenation succeeded.");
+                InfoFormat("Image concatenation succeeded: {0}", destPath);
                 Files.Add(new FileInf(destPath, Id));
 
                 return true;
