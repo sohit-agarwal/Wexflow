@@ -154,6 +154,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{8C2CDC3E-E849-4DB2-A9D1-929AAA8BB8E5}"
 	ProjectSection(SolutionItems) = preProject
 		samples\Wexflow\Workflows\Workflow_Cron.xml = samples\Wexflow\Workflows\Workflow_Cron.xml
+		samples\Wexflow\Workflows\Workflow_CsvToSql.xml = samples\Wexflow\Workflows\Workflow_CsvToSql.xml
 		samples\Wexflow\Workflows\Workflow_CsvToXml.xml = samples\Wexflow\Workflows\Workflow_CsvToXml.xml
 		samples\Wexflow\Workflows\Workflow_ExecutionGraph.xml = samples\Wexflow\Workflows\Workflow_ExecutionGraph.xml
 		samples\Wexflow\Workflows\Workflow_ffmpeg.xml = samples\Wexflow\Workflows\Workflow_ffmpeg.xml
