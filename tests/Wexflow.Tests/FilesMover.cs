@@ -17,7 +17,7 @@ namespace Wexflow.Tests
             {
                 File.Delete(Dest);
             }
-            else
+            else if (File.Exists(Dest) && !File.Exists(Src))
             {
                 File.Move(Dest, Src);
             }
