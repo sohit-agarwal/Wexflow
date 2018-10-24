@@ -1,4 +1,5 @@
 {
+	"CsvToSql": [ "selectFiles", "tableName", "separator" ],
 	"CsvToXml": [ "selectFiles" ],
 	"FileExists": [ "file" ],
 	"FilesConcat": [ "selectFiles" ],

@@ -111,6 +111,7 @@
     <Compile Include="TextToPdf.cs" />
     <Compile Include="ProcessInfo.cs" />
     <Compile Include="Torrent.cs" />
+    <Compile Include="CsvToSql.cs" />
     <Compile Include="YouTube.cs" />
     <Compile Include="Untgz.cs" />
     <Compile Include="Untar.cs" />
@@ -164,6 +165,10 @@
     <ProjectReference Include="..\..\src\Wexflow.Core\Wexflow.Core.csproj">
       <Project>{46257949-80b5-48f2-9b83-29354c339869}</Project>
       <Name>Wexflow.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Wexflow.Tasks.CsvToSql\Wexflow.Tasks.CsvToSql.csproj">
+      <Project>{64b76fc5-b33d-4843-8708-bc8bd89fba15}</Project>
+      <Name>Wexflow.Tasks.CsvToSql</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Wexflow.Tasks.CsvToXml\Wexflow.Tasks.CsvToXml.csproj">
       <Project>{40664177-8903-4c7b-ad0e-7b98bed6a3c8}</Project>
