@@ -61,7 +61,7 @@ namespace Wexflow.Tasks.Workflow
                         else
                         {
                             success = false;
-                            ErrorFormat("Can't suspend the workflow {0} because it's not running.");   
+                            ErrorFormat("Can't suspend the workflow {0} because it's not running.", Workflow.Id);   
                         }
                         break;
                     case WorkflowAction.Resume:
@@ -74,7 +74,7 @@ namespace Wexflow.Tasks.Workflow
                         else
                         {
                             success = false;
-                            ErrorFormat("Can't resume the workflow {0} because it's not suspended.");
+                            ErrorFormat("Can't resume the workflow {0} because it's not suspended.", Workflow.Id);
                         }
                         break;
                     case WorkflowAction.Stop:
@@ -87,7 +87,7 @@ namespace Wexflow.Tasks.Workflow
                         else
                         {
                             success = false;
-                            ErrorFormat("Can't stop the workflow {0} because it's not running.");
+                            ErrorFormat("Can't stop the workflow {0} because it's not running.", Workflow.Id);
                         }
                         break;
                 }
