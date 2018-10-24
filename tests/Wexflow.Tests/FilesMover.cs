@@ -13,13 +13,20 @@ namespace Wexflow.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            if (File.Exists(Dest)) File.Move(Dest, Src);
+            if (File.Exists(Dest) && File.Exists(Src))
+            {
+                File.Delete(Dest);
+            }
+            else
+            {
+                File.Move(Dest, Src);
+            }
         }
 
         [TestCleanup]
         public void TestCleanup()
         {
-            if(File.Exists(Dest)) File.Move(Dest, Src);
+            if(File.Exists(Dest) && !File.Exists(Src)) File.Move(Dest, Src);
         }
 
         [TestMethod]
