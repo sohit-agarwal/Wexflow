@@ -42,7 +42,7 @@ namespace Wexflow.Tasks.Workflow
                         if (wfInfo.IsRunning)
                         {
                             success = false;
-                            ErrorFormat("Can't start the workflow {0} because it's already running.");
+                            ErrorFormat("Can't start the workflow {0} because it's already running.", Workflow.Id);
                         }
                         else
                         {
