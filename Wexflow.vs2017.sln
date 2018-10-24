@@ -95,7 +95,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		appveyor.yml = appveyor.yml
 		LICENSE.txt = LICENSE.txt
 		README.md = README.md
-		VERSION.txt = VERSION.txt
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Now", "src\Wexflow.Tasks.Now\Wexflow.Tasks.Now.csproj", "{F2F1E7E2-2707-40A7-A98D-B5BBD27C0787}"
@@ -104,7 +103,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Setup", "Setup", "{6A94C34E
 	ProjectSection(SolutionItems) = preProject
 		setup\setup-linux.bat = setup\setup-linux.bat
 		setup\setup-mac.bat = setup\setup-mac.bat
-		setup\setup-windows.iss = setup\setup-windows.iss
+		setup\setup-windows-x64.iss = setup\setup-windows-x64.iss
+		setup\setup-windows-x86.iss = setup\setup-windows-x86.iss
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Workflow", "src\Wexflow.Tasks.Workflow\Wexflow.Tasks.Workflow.csproj", "{10F39219-FE79-4191-B63E-59FF217EFC47}"
