@@ -197,6 +197,10 @@
       <Project>{c249b3ea-e3a3-4975-b3ba-51bc9d7e5816}</Project>
       <Name>Wexflow.Tasks.Http</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.ImagesConcat\Wexflow.Tasks.ImagesConcat.csproj">
+      <Project>{7e3fe55c-4bbe-4d7f-b705-34d247815bb1}</Project>
+      <Name>Wexflow.Tasks.ImagesConcat</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.ImagesCropper\Wexflow.Tasks.ImagesCropper.csproj">
       <Project>{2c953aeb-0bb5-43a6-a42d-8aff18ad4dc1}</Project>
       <Name>Wexflow.Tasks.ImagesCropper</Name>

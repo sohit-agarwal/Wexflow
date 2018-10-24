@@ -139,6 +139,7 @@ Source: "..\src\Wexflow.Clients.WindowsService\bin\Release\Wexflow.Tasks.Torrent
 Source: "..\src\Wexflow.Clients.WindowsService\bin\Release\Wexflow.Tasks.ImagesResizer.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.WindowsService\bin\Release\Wexflow.Tasks.ImagesCropper.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.WindowsService\bin\Release\Wexflow.Tasks.CsvToSql.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.WindowsService\bin\Release\Wexflow.Tasks.ImagesConcat.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 ; Wexflow Manager
 Source: "..\src\Wexflow.Clients.Manager\bin\Release\Wexflow.Clients.Manager.exe"; DestDir: "{app}\Manager"; Flags: ignoreversion
@@ -217,9 +218,9 @@ Source: "..\src\Wexflow.Tasks.Torrent\Torrent.xml"; DestDir: "{app}\Documentatio
 Source: "..\src\Wexflow.Tasks.ImagesResizer\ImagesResizer.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 Source: "..\src\Wexflow.Tasks.ImagesCropper\ImagesCropper.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 Source: "..\src\Wexflow.Tasks.CsvToSql\CsvToSql.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\Wexflow.Tasks.ImagesConcat\ImagesConcat.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 
 Source: "..\LICENSE.txt"; DestDir: "{app}\"; Flags: ignoreversion recursesubdirs
-Source: "..\VERSION.txt"; DestDir: "{app}\"; Flags: ignoreversion recursesubdirs
 
 ; Wexflow's configuration
 Source: "..\samples\Wexflow\*"; DestDir: "C:\Wexflow\"; Flags: ignoreversion recursesubdirs uninsneveruninstall
