@@ -64,7 +64,7 @@ Source: "..\libs\IKVM.OpenJDK.XML.API.dll"; DestDir: "{app}"; Flags: ignoreversi
 Source: "..\libs\IKVM.Runtime.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Microsoft.Synchronization.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Microsoft.Synchronization.Files.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\libs\MediaInfo.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\libs\x64\MediaInfo.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\OpenPop.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\itextsharp.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; Source: "..\libs\TuesPechkin.dll"; DestDir: "{app}"; Flags: ignoreversion

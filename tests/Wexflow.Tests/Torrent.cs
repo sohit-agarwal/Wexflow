@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
+using System.Threading;
 
 namespace Wexflow.Tests
 {
@@ -26,6 +27,7 @@ namespace Wexflow.Tests
             Assert.IsFalse(File.Exists(DownloadedFile));
             Helper.StartWorkflow(72);
             Assert.IsTrue(File.Exists(DownloadedFile));
+            Thread.Sleep(30 * 1000);
         }
     }
 }
