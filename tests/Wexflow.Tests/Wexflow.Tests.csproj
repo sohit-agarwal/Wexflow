@@ -114,6 +114,7 @@
     <Compile Include="ProcessInfo.cs" />
     <Compile Include="Torrent.cs" />
     <Compile Include="CsvToSql.cs" />
+    <Compile Include="Unrar.cs" />
     <Compile Include="YouTube.cs" />
     <Compile Include="Untgz.cs" />
     <Compile Include="Untar.cs" />
@@ -367,6 +368,10 @@
     <ProjectReference Include="..\..\src\Wexflow.Tasks.Twitter\Wexflow.Tasks.Twitter.csproj">
       <Project>{d1b9e2ba-e783-4c26-89e8-28e13ae3220c}</Project>
       <Name>Wexflow.Tasks.Twitter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Wexflow.Tasks.Unrar\Wexflow.Tasks.Unrar.csproj">
+      <Project>{72ef213e-99a7-410c-992e-327dcf119a3b}</Project>
+      <Name>Wexflow.Tasks.Unrar</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Wexflow.Tasks.Untar\Wexflow.Tasks.Untar.csproj">
       <Project>{7f8d838f-594e-47e7-aadc-6e57af9b9d57}</Project>
