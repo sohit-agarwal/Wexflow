@@ -42,8 +42,9 @@ Discover more about the features in [details](https://github.com/aelassas/Wexflo
 
 Here are some examples of using Wexflow:
 
-- Batch uploading videos and their metadata to YouTube SFTP dropbox.
+- Batch recording live video feeds.
 - Batch transcoding audio and video files.
+- Batch uploading videos and their metadata to YouTube SFTP dropbox.
 - Batch converting, resizing and cropping images.
 - Creating and sending reports and invoices by email.
 - Connecting systems and applications via watch folders.
