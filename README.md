@@ -93,7 +93,9 @@ Download the latest release [here](https://github.com/aelassas/Wexflow/releases/
 
 [![www.technoblogy.net](http://aelassas.github.io/wexflow/images/technoblogy.png)](https://www.technoblogy.net/open-source-workflow-engine-in-c/)
 
-[![/glinksolutions.vn](http://aelassas.github.io/wexflow/images/glinksolutions.png)](https://glinksolutions.vn/2018/10/13/wexflow-open-source-workflow-engine-c/)
+[![glinksolutions.vn](http://aelassas.github.io/wexflow/images/glinksolutions.png)](https://glinksolutions.vn/2018/10/13/wexflow-open-source-workflow-engine-c/)
+
+[![www.eandbsoftware.org.vn](http://aelassas.github.io/wexflow/images/eandbsoftware.png)](https://www.eandbsoftware.org/wexflow-open-source-workflow-engine-in-c-an-extensible-workflow-engine-with-a-cross-platform-manager-and-designer/)
 
 # Contribute
 To contribute to this project, proceed as follows:
