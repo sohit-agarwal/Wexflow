@@ -21,6 +21,9 @@ Wexflow makes use of [Quartz.NET](https://www.quartz-scheduler.net/) open source
 
 Wexflow provides the following features:
 
+- [x] [Easy to install and effortless configuration](https://github.com/aelassas/Wexflow/wiki/Installation).
+- [x] [Straightforward and easy to use](https://github.com/aelassas/Wexflow/wiki/Usage).
+- [x] [Extensive logging](https://github.com/aelassas/Wexflow/wiki/Logging).
 - [x] [Sequential workflows](https://github.com/aelassas/Wexflow/wiki/Samples#sequential-workflows).
 - [x] [Flowchart workflows](https://github.com/aelassas/Wexflow/wiki/Samples#flowchart-workflows).
 - [x] [Workflow events](https://github.com/aelassas/Wexflow/wiki/Samples#workflow-events).
@@ -30,7 +33,6 @@ Wexflow provides the following features:
 - [x] [An Android application for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#wexflow-android-manager).
 - [x] [55 built-in tasks](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation).
 - [x] [RESTful API](https://github.com/aelassas/Wexflow/wiki/RESTful-API).
-- [x] [Straightforward and easy to use](https://github.com/aelassas/Wexflow/wiki/Usage).
 - [x] [Hot reloading](https://github.com/aelassas/Wexflow/wiki/Hot-reloading).
 - [x] [Automation](https://github.com/aelassas/Wexflow/wiki/Automation).
 - [x] [Monitoring](https://github.com/aelassas/Wexflow/wiki/Monitoring).
