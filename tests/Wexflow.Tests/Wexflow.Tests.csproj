@@ -114,7 +114,7 @@
     <Compile Include="ProcessInfo.cs" />
     <Compile Include="Torrent.cs" />
     <Compile Include="CsvToSql.cs" />
-    <Compile Include="UnSevenZIp.cs" />
+    <Compile Include="UnSevenZip.cs" />
     <Compile Include="Unrar.cs" />
     <Compile Include="YouTube.cs" />
     <Compile Include="Untgz.cs" />
