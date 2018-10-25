@@ -49,6 +49,7 @@
 	"Touch": [ "file" ],
 	"Twitter": [ "selectFiles", "consumerKey", "consumerSecret", "accessToken", "accessTokenSecret" ],
 	"Unrar": ["selectFiles", "destDir"],
+	"UnSevenZip": ["selectFiles", "destDir"],
 	"Untar": ["selectFiles", "destDir"],
 	"Untgz": [ "selectFiles", "destDir" ],
 	"Unzip": [ "selectFiles", "destDir", "password" ],

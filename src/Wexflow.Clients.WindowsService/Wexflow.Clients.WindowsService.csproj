@@ -329,6 +329,10 @@
       <Project>{72ef213e-99a7-410c-992e-327dcf119a3b}</Project>
       <Name>Wexflow.Tasks.Unrar</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.UnSevenZip\Wexflow.Tasks.UnSevenZip.csproj">
+      <Project>{d72bbdc7-e818-4cb6-9814-0548bd98dcd4}</Project>
+      <Name>Wexflow.Tasks.UnSevenZip</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.Untar\Wexflow.Tasks.Untar.csproj">
       <Project>{7f8d838f-594e-47e7-aadc-6e57af9b9d57}</Project>
       <Name>Wexflow.Tasks.Untar</Name>

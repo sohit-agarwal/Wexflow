@@ -52,7 +52,7 @@ namespace Wexflow.Tasks.Untar
                     }
                     catch (Exception e)
                     {
-                        ErrorFormat("An error occured while extracting of the TAR {0}", e, tar.Path);
+                        ErrorFormat("An error occured while extracting of the TAR {0}: {1}", tar.Path, e.Message);
                         success = false;
                     }
                 }
