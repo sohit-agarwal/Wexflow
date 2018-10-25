@@ -205,6 +205,10 @@
       <Project>{2c953aeb-0bb5-43a6-a42d-8aff18ad4dc1}</Project>
       <Name>Wexflow.Tasks.ImagesCropper</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.ImagesOverlay\Wexflow.Tasks.ImagesOverlay.csproj">
+      <Project>{cc2b67b1-5f8d-4e5d-9062-b92b0d0aa9ef}</Project>
+      <Name>Wexflow.Tasks.ImagesOverlay</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.ImagesResizer\Wexflow.Tasks.ImagesResizer.csproj">
       <Project>{c62dde2e-17c7-41ce-9aa6-12f994939f1e}</Project>
       <Name>Wexflow.Tasks.ImagesResizer</Name>

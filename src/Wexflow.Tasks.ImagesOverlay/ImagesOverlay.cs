@@ -6,18 +6,18 @@ using System.Threading;
 using System.Xml.Linq;
 using Wexflow.Core;
 
-namespace Wexflow.Tasks.ImagesConcat
+namespace Wexflow.Tasks.ImagesOverlay
 {
-    public class ImagesConcat : Task
+    public class ImagesOverlay : Task
     {
-        public ImagesConcat(XElement xe, Workflow wf)
+        public ImagesOverlay(XElement xe, Workflow wf)
           : base(xe, wf)
         {
         }
 
         public override TaskStatus Run()
         {
-            Info("Concatenating images...");
+            Info("Overlaying images...");
             Status status = Status.Success;
 
             try
@@ -29,9 +29,9 @@ namespace Wexflow.Tasks.ImagesConcat
                     var extension = Path.GetExtension(imageFiles[0].FileName);
 
                     var destPath = Path.Combine(Workflow.WorkflowTempFolder,
-                            string.Format("ImagesConcat_{0:yyyy-MM-dd-HH-mm-ss-fff}.{1}", DateTime.Now, extension));
+                            string.Format("ImagesOverlay_{0:yyyy-MM-dd-HH-mm-ss-fff}.{1}", DateTime.Now, extension));
 
-                    var res = ConcatImages(imageFiles, destPath);
+                    var res = OverlayImages(imageFiles, destPath);
                     if (!res)
                     {
                         status = Status.Error;
@@ -39,7 +39,7 @@ namespace Wexflow.Tasks.ImagesConcat
                 }
                 else if (imageFiles.Length == 1)
                 {
-                    Error("You must provide at least two images to concatenate them.");
+                    Error("You must provide at least two images to overlay them.");
                 }
             }
             catch (ThreadAbortException)
@@ -48,7 +48,7 @@ namespace Wexflow.Tasks.ImagesConcat
             }
             catch (Exception e)
             {
-                ErrorFormat("An error occured while concatenating images: {0}", e.Message);
+                ErrorFormat("An error occured while overlaying images: {0}", e.Message);
                 status = Status.Error;
             }
 
@@ -57,24 +57,26 @@ namespace Wexflow.Tasks.ImagesConcat
         }
 
 
-        private bool ConcatImages(FileInf[] imageFiles, string destPath)
+        private bool OverlayImages(FileInf[] imageFiles, string destPath)
         {
             try
             {
                 List<int> imageHeights = new List<int>();
-                int nIndex = 0;
-                int width = 0;
+                List<int> imageWidths = new List<int>();
+                
                 foreach (FileInf imageFile in imageFiles)
                 {
                     using (Image img = Image.FromFile(imageFile.Path))
                     {
                         imageHeights.Add(img.Height);
-                        width += img.Width;
+                        imageWidths.Add(img.Width);
                     }
                 }
                 imageHeights.Sort();
+                imageWidths.Sort();
 
                 int height = imageHeights[imageHeights.Count - 1];
+                int width = imageWidths[imageWidths.Count - 1];
 
                 using (Bitmap finalImage = new Bitmap(width, height))
                 using (Graphics graphics = Graphics.FromImage(finalImage))
@@ -84,24 +86,14 @@ namespace Wexflow.Tasks.ImagesConcat
                     {
                         using (Image img = Image.FromFile(imageFile.Path))
                         {
-                            if (nIndex == 0)
-                            {
-                                graphics.DrawImage(img, new Point(0, 0));
-                                nIndex++;
-                                width = img.Width;
-                            }
-                            else
-                            {
-                                graphics.DrawImage(img, new Point(width, 0));
-                                width += img.Width;
-                            }
+                            graphics.DrawImage(img, new Point(0, 0));
                         }
                     }
 
                     finalImage.Save(destPath);
                 }
 
-                InfoFormat("Image concatenation succeeded: {0}", destPath);
+                InfoFormat("Image overlaying succeeded: {0}", destPath);
                 Files.Add(new FileInf(destPath, Id));
 
                 return true;
@@ -112,7 +104,7 @@ namespace Wexflow.Tasks.ImagesConcat
             }
             catch (Exception e)
             {
-                ErrorFormat("An error occured while concatenating images: {0}", e.Message);
+                ErrorFormat("An error occured while overlaying images: {0}", e.Message);
                 return false;
             }
         }

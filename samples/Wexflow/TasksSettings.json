@@ -19,6 +19,7 @@
 	"Http": [ "url" ],
 	"ImagesConcat": [ "selectFiles" ],
 	"ImagesCropper": [ "selectFiles", "width", "height", "x", "y" ],
+	"ImagesOverlay": [ "selectFiles" ],
 	"ImagesResizer": [ "selectFiles", "width", "height" ],
 	"ImagesTransformer": [ "selectFiles", "outputFilePattern", "outputFormat" ],
 	"ListEntities": [ ],

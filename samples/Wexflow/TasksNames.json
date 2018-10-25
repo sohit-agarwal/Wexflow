@@ -19,6 +19,7 @@
 	"Http",
 	"ImagesConcat",
 	"ImagesCropper",
+	"ImagesOverlay",
 	"ImagesResizer",
 	"ImagesTransformer",
 	"ListEntities",

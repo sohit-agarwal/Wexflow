@@ -252,6 +252,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.CsvToSql", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.ImagesConcat", "src\Wexflow.Tasks.ImagesConcat\Wexflow.Tasks.ImagesConcat.csproj", "{7E3FE55C-4BBE-4D7F-B705-34D247815BB1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.ImagesOverlay", "src\Wexflow.Tasks.ImagesOverlay\Wexflow.Tasks.ImagesOverlay.csproj", "{CC2B67B1-5F8D-4E5D-9062-B92B0D0AA9EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1368,6 +1370,22 @@ Global
 		{7E3FE55C-4BBE-4D7F-B705-34D247815BB1}.Release|x64.Build.0 = Release|x64
 		{7E3FE55C-4BBE-4D7F-B705-34D247815BB1}.Release|x86.ActiveCfg = Release|x86
 		{7E3FE55C-4BBE-4D7F-B705-34D247815BB1}.Release|x86.Build.0 = Release|x86
+		{CC2B67B1-5F8D-4E5D-9062-B92B0D0AA9EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC2B67B1-5F8D-4E5D-9062-B92B0D0AA9EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC2B67B1-5F8D-4E5D-9062-B92B0D0AA9EF}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{CC2B67B1-5F8D-4E5D-9062-B92B0D0AA9EF}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{CC2B67B1-5F8D-4E5D-9062-B92B0D0AA9EF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CC2B67B1-5F8D-4E5D-9062-B92B0D0AA9EF}.Debug|x64.Build.0 = Debug|Any CPU
+		{CC2B67B1-5F8D-4E5D-9062-B92B0D0AA9EF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CC2B67B1-5F8D-4E5D-9062-B92B0D0AA9EF}.Debug|x86.Build.0 = Debug|Any CPU
+		{CC2B67B1-5F8D-4E5D-9062-B92B0D0AA9EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC2B67B1-5F8D-4E5D-9062-B92B0D0AA9EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC2B67B1-5F8D-4E5D-9062-B92B0D0AA9EF}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{CC2B67B1-5F8D-4E5D-9062-B92B0D0AA9EF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{CC2B67B1-5F8D-4E5D-9062-B92B0D0AA9EF}.Release|x64.ActiveCfg = Release|x64
+		{CC2B67B1-5F8D-4E5D-9062-B92B0D0AA9EF}.Release|x64.Build.0 = Release|x64
+		{CC2B67B1-5F8D-4E5D-9062-B92B0D0AA9EF}.Release|x86.ActiveCfg = Release|x86
+		{CC2B67B1-5F8D-4E5D-9062-B92B0D0AA9EF}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1442,6 +1460,7 @@ Global
 		{2C953AEB-0BB5-43A6-A42D-8AFF18AD4DC1} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{64B76FC5-B33D-4843-8708-BC8BD89FBA15} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{7E3FE55C-4BBE-4D7F-B705-34D247815BB1} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
+		{CC2B67B1-5F8D-4E5D-9062-B92B0D0AA9EF} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {694D69C8-AA13-4F54-BAAA-5B967F1A8F9C}
