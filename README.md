@@ -21,6 +21,7 @@ Wexflow makes use of [Quartz.NET](https://www.quartz-scheduler.net/) open source
 
 Wexflow provides the following features:
 
+- [x] [Free and open-source](https://github.com/aelassas/Wexflow/wiki/Free-and-open-source)
 - [x] [Easy to install and effortless configuration](https://github.com/aelassas/Wexflow/wiki/Installation).
 - [x] [Straightforward and easy to use](https://github.com/aelassas/Wexflow/wiki/Usage).
 - [x] [Extensive logging and incident reporting](https://github.com/aelassas/Wexflow/wiki/Logging).
