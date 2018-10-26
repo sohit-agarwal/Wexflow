@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Windows.Forms;
 using System.Configuration;
-using Wexflow.Core.Service.Contracts;
-using Wexflow.Core.Service.Client;
 using System.Diagnostics;
 using System.IO;
 using System.Resources;
-using System.Xml;
 using System.ServiceProcess;
+using System.Windows.Forms;
+using System.Xml;
+using Wexflow.Core.Service.Client;
+using Wexflow.Core.Service.Contracts;
 
 namespace Wexflow.Clients.Manager
 {
@@ -30,6 +30,7 @@ namespace Wexflow.Clients.Manager
         Exception _exception;
         readonly string _logfile;
         readonly ResourceManager _resources = new ResourceManager(typeof(Form1));
+        bool _serviceRestarted;
 
         public Form1()
         {
@@ -122,11 +123,11 @@ namespace Wexflow.Clients.Manager
         {
             BindDataGridView();
 
-            if (serviceRestarted)
+            if (_serviceRestarted)
             {
                 System.Threading.Thread.Sleep(1000);
                 textBoxInfo.Text = "Wexflow server was restarted with success.";
-                serviceRestarted = false;
+                _serviceRestarted = false;
             }
         }
 
@@ -417,14 +418,12 @@ namespace Wexflow.Clients.Manager
             backgroundWorker2.RunWorkerAsync();
         }
 
-        private bool serviceRestarted;
-
         private void BackgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
         {
             string errorMsg;
-            serviceRestarted = RestartWindowsService(Program.WexflowServiceName, out errorMsg);
+            _serviceRestarted = RestartWindowsService(Program.WexflowServiceName, out errorMsg);
             
-            if (!serviceRestarted)
+            if (!_serviceRestarted)
             {
                 MessageBox.Show("An error occurred while restoring Wexflow server: " + errorMsg);
             }
