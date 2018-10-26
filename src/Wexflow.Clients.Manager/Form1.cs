@@ -121,6 +121,13 @@ namespace Wexflow.Clients.Manager
         void BackgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             BindDataGridView();
+
+            if (serviceRestarted)
+            {
+                System.Threading.Thread.Sleep(1000);
+                textBoxInfo.Text = "Wexflow server was restarted with success.";
+                serviceRestarted = false;
+            }
         }
 
         void BindDataGridView()
@@ -268,10 +275,15 @@ namespace Wexflow.Clients.Manager
 
         bool WorkflowStatusChanged(WorkflowInfo workflow)
         {
-            var changed = _workflowsPerId[workflow.Id].IsRunning != workflow.IsRunning || _workflowsPerId[workflow.Id].IsPaused != workflow.IsPaused;
-            _workflowsPerId[workflow.Id].IsRunning = workflow.IsRunning;
-            _workflowsPerId[workflow.Id].IsPaused = workflow.IsPaused;
-            return changed;
+            if (_workflowsPerId.ContainsKey(workflow.Id))
+            {
+                var changed = _workflowsPerId[workflow.Id].IsRunning != workflow.IsRunning || _workflowsPerId[workflow.Id].IsPaused != workflow.IsPaused;
+                _workflowsPerId[workflow.Id].IsRunning = workflow.IsRunning;
+                _workflowsPerId[workflow.Id].IsPaused = workflow.IsPaused;
+                return changed;
+            }
+
+            return false;
         }
 
         void UpdateButtons(int wfId, bool force)
@@ -398,18 +410,29 @@ namespace Wexflow.Clients.Manager
 
         private void ButtonRestart_Click(object sender, EventArgs e)
         {
+            _timer.Stop();
+            textBoxInfo.Text = "Restarting Wexflow server...";
+            _workflows = new WorkflowInfo[] { };
+            BindDataGridView();
+            backgroundWorker2.RunWorkerAsync();
+        }
+
+        private bool serviceRestarted;
+
+        private void BackgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
+        {
             string errorMsg;
-            bool res = RestartWindowsService(Program.WexflowServiceName, out errorMsg);
-            if (res)
+            serviceRestarted = RestartWindowsService(Program.WexflowServiceName, out errorMsg);
+            
+            if (!serviceRestarted)
             {
-                MessageBox.Show("Wexflow server was restarted with sucess.");
-                LoadWorkflows();
+                MessageBox.Show("An error occurred while restoring Wexflow server: " + errorMsg);
             }
-            else
-            {
-                MessageBox.Show("An error ocurred while restarting Wexfflow server: " + errorMsg);
-                LoadWorkflows();
-            }
+        }
+
+        private void BackgroundWorker2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            LoadWorkflows();
         }
 
         private bool RestartWindowsService(string serviceName, out string errorMsg)
@@ -427,11 +450,12 @@ namespace Wexflow.Clients.Manager
                 serviceController.WaitForStatus(ServiceControllerStatus.Running);
                 return true;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 errorMsg = e.Message;
                 return false;
             }
         }
+
     }
 }
