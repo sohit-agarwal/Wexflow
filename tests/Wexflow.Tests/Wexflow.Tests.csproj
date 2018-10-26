@@ -96,6 +96,7 @@
     <Compile Include="FileExists.cs" />
     <Compile Include="FilesCopier.cs" />
     <Compile Include="FilesDiff.cs" />
+    <Compile Include="FilesDecryptor.cs" />
     <Compile Include="FilesEqual.cs" />
     <Compile Include="FilesExist.cs" />
     <Compile Include="FilesLoader.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="ImagesOverlay.cs" />
     <Compile Include="ImagesConcat.cs" />
     <Compile Include="ImagesCropper.cs" />
+    <Compile Include="FilesEncryptor.cs" />
     <Compile Include="ImagesResizer.cs" />
     <Compile Include="Cron.cs" />
     <Compile Include="SqlToCsv.cs" />
@@ -190,9 +192,17 @@
       <Project>{4f396126-2220-45ae-a90f-d655a3ab585f}</Project>
       <Name>Wexflow.Tasks.FilesCopier</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Wexflow.Tasks.FilesDecryptor\Wexflow.Tasks.FilesDecryptor.csproj">
+      <Project>{23ab8ee5-b04d-4876-9155-bfe7ac33e02d}</Project>
+      <Name>Wexflow.Tasks.FilesDecryptor</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Wexflow.Tasks.FilesDiff\Wexflow.Tasks.FilesDiff.csproj">
       <Project>{ea90be5e-884e-4af0-bb46-d64b8fea3013}</Project>
       <Name>Wexflow.Tasks.FilesDiff</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Wexflow.Tasks.FilesEncryptor\Wexflow.Tasks.FilesEncryptor.csproj">
+      <Project>{34539ba1-7c7c-4844-80cf-d635151fc91a}</Project>
+      <Name>Wexflow.Tasks.FilesEncryptor</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Wexflow.Tasks.FilesEqual\Wexflow.Tasks.FilesEqual.csproj">
       <Project>{a3d7f9d8-8359-4302-91a0-d00d4c1eda9b}</Project>

@@ -20,6 +20,11 @@ namespace Wexflow.Core
     public class Workflow
     {
         /// <summary>
+        /// Passphrase.
+        /// </summary>
+        public static string Passphrase = "FHMWW-EORNR-XXF0Q-E8Q#G-YC!RG-KV=TN-M9MQJ-AySDI-LAC5Q-UV==QE-VSVNL-OV1IZ";
+
+        /// <summary>
         /// Default parent node id to start with in the execution graph.
         /// </summary>
         public const int StartId = -1;
