@@ -274,6 +274,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.TextsEncrypto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.TextsDecryptor", "src\Wexflow.Tasks.TextsDecryptor\Wexflow.Tasks.TextsDecryptor.csproj", "{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.DatabaseBackup", "src\Wexflow.Tasks.DatabaseBackup\Wexflow.Tasks.DatabaseBackup.csproj", "{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1476,8 +1478,8 @@ Global
 		{A9B590BC-6B24-4C1E-98E1-50F376F340C5}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{A9B590BC-6B24-4C1E-98E1-50F376F340C5}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{A9B590BC-6B24-4C1E-98E1-50F376F340C5}.Debug|x64.Build.0 = Debug|Any CPU
-		{A9B590BC-6B24-4C1E-98E1-50F376F340C5}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{A9B590BC-6B24-4C1E-98E1-50F376F340C5}.Debug|x86.Build.0 = Debug|Any CPU
+		{A9B590BC-6B24-4C1E-98E1-50F376F340C5}.Debug|x86.ActiveCfg = Debug|x86
+		{A9B590BC-6B24-4C1E-98E1-50F376F340C5}.Debug|x86.Build.0 = Debug|x86
 		{A9B590BC-6B24-4C1E-98E1-50F376F340C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9B590BC-6B24-4C1E-98E1-50F376F340C5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A9B590BC-6B24-4C1E-98E1-50F376F340C5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
@@ -1492,8 +1494,8 @@ Global
 		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}.Debug|x64.Build.0 = Debug|Any CPU
-		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}.Debug|x86.Build.0 = Debug|Any CPU
+		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}.Debug|x86.ActiveCfg = Debug|x86
+		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}.Debug|x86.Build.0 = Debug|x86
 		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
@@ -1502,6 +1504,22 @@ Global
 		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}.Release|x64.Build.0 = Release|x64
 		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}.Release|x86.ActiveCfg = Release|x86
 		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}.Release|x86.Build.0 = Release|x86
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Debug|x64.Build.0 = Debug|Any CPU
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Debug|x86.ActiveCfg = Debug|x86
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Debug|x86.Build.0 = Debug|x86
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Release|x64.ActiveCfg = Release|x64
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Release|x64.Build.0 = Release|x64
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Release|x86.ActiveCfg = Release|x86
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1583,6 +1601,7 @@ Global
 		{23AB8EE5-B04D-4876-9155-BFE7AC33E02D} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{A9B590BC-6B24-4C1E-98E1-50F376F340C5} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {694D69C8-AA13-4F54-BAAA-5B967F1A8F9C}

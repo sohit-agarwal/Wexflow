@@ -1,6 +1,7 @@
 [
 	"CsvToSql",
 	"CsvToXml",
+	"DatabaseBackup",
 	"FileExists",
 	"FilesCopier",
 	"FilesDecryptor",
