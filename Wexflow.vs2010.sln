@@ -148,6 +148,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{
 		samples\Wexflow\Workflows\Workflow_Cron.xml = samples\Wexflow\Workflows\Workflow_Cron.xml
 		samples\Wexflow\Workflows\Workflow_CsvToSql.xml = samples\Wexflow\Workflows\Workflow_CsvToSql.xml
 		samples\Wexflow\Workflows\Workflow_CsvToXml.xml = samples\Wexflow\Workflows\Workflow_CsvToXml.xml
+		samples\Wexflow\Workflows\Workflow_DatabaseBackup.xml = samples\Wexflow\Workflows\Workflow_DatabaseBackup.xml
+		samples\Wexflow\Workflows\Workflow_DatabaseRestore.xml = samples\Wexflow\Workflows\Workflow_DatabaseRestore.xml
 		samples\Wexflow\Workflows\Workflow_ExecutionGraph.xml = samples\Wexflow\Workflows\Workflow_ExecutionGraph.xml
 		samples\Wexflow\Workflows\Workflow_ffmpeg.xml = samples\Wexflow\Workflows\Workflow_ffmpeg.xml
 		samples\Wexflow\Workflows\Workflow_FileExists1.xml = samples\Wexflow\Workflows\Workflow_FileExists1.xml
@@ -263,6 +265,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.TextsDecryptor", "src\Wexflow.Tasks.TextsDecryptor\Wexflow.Tasks.TextsDecryptor.csproj", "{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.TextsEncryptor", "src\Wexflow.Tasks.TextsEncryptor\Wexflow.Tasks.TextsEncryptor.csproj", "{A9B590BC-6B24-4C1E-98E1-50F376F340C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.DatabaseRestore", "src\Wexflow.Tasks.DatabaseRestore\Wexflow.Tasks.DatabaseRestore.csproj", "{F42FBCD6-6D25-4A28-BE88-57025F181C1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.DatabaseBackup", "src\Wexflow.Tasks.DatabaseBackup\Wexflow.Tasks.DatabaseBackup.csproj", "{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1418,6 +1424,38 @@ Global
 		{A9B590BC-6B24-4C1E-98E1-50F376F340C5}.Release|x64.Build.0 = Release|x64
 		{A9B590BC-6B24-4C1E-98E1-50F376F340C5}.Release|x86.ActiveCfg = Release|x86
 		{A9B590BC-6B24-4C1E-98E1-50F376F340C5}.Release|x86.Build.0 = Release|x86
+		{F42FBCD6-6D25-4A28-BE88-57025F181C1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F42FBCD6-6D25-4A28-BE88-57025F181C1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F42FBCD6-6D25-4A28-BE88-57025F181C1C}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{F42FBCD6-6D25-4A28-BE88-57025F181C1C}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{F42FBCD6-6D25-4A28-BE88-57025F181C1C}.Debug|x64.ActiveCfg = Debug|x64
+		{F42FBCD6-6D25-4A28-BE88-57025F181C1C}.Debug|x64.Build.0 = Debug|x64
+		{F42FBCD6-6D25-4A28-BE88-57025F181C1C}.Debug|x86.ActiveCfg = Debug|x86
+		{F42FBCD6-6D25-4A28-BE88-57025F181C1C}.Debug|x86.Build.0 = Debug|x86
+		{F42FBCD6-6D25-4A28-BE88-57025F181C1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F42FBCD6-6D25-4A28-BE88-57025F181C1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F42FBCD6-6D25-4A28-BE88-57025F181C1C}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{F42FBCD6-6D25-4A28-BE88-57025F181C1C}.Release|Mixed Platforms.Build.0 = Release|x86
+		{F42FBCD6-6D25-4A28-BE88-57025F181C1C}.Release|x64.ActiveCfg = Release|x64
+		{F42FBCD6-6D25-4A28-BE88-57025F181C1C}.Release|x64.Build.0 = Release|x64
+		{F42FBCD6-6D25-4A28-BE88-57025F181C1C}.Release|x86.ActiveCfg = Release|x86
+		{F42FBCD6-6D25-4A28-BE88-57025F181C1C}.Release|x86.Build.0 = Release|x86
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Debug|x64.ActiveCfg = Debug|x64
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Debug|x64.Build.0 = Debug|x64
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Debug|x86.ActiveCfg = Debug|x86
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Debug|x86.Build.0 = Debug|x86
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Release|Mixed Platforms.Build.0 = Release|x86
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Release|x64.ActiveCfg = Release|x64
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Release|x64.Build.0 = Release|x64
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Release|x86.ActiveCfg = Release|x86
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1492,6 +1530,8 @@ Global
 		{23AB8EE5-B04D-4876-9155-BFE7AC33E02D} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{A9B590BC-6B24-4C1E-98E1-50F376F340C5} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
+		{F42FBCD6-6D25-4A28-BE88-57025F181C1C} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
+		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{81032249-78D9-4B89-8E22-A3C32562EA69} = {67871E52-CB11-4EDF-B036-15F359EF6B66}
 		{D559C35B-BFF5-49C2-9490-818314C88A76} = {67871E52-CB11-4EDF-B036-15F359EF6B66}
 		{59410829-C439-4683-818E-AC99F94D1EBA} = {67871E52-CB11-4EDF-B036-15F359EF6B66}

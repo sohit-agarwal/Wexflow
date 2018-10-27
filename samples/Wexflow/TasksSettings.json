@@ -2,6 +2,7 @@
 	"CsvToSql": [ "selectFiles", "tableName", "separator" ],
 	"CsvToXml": [ "selectFiles" ],
 	"DatabaseBackup": [ "serverConnection", "databaseName", "backupFilePath", "overwrite" ],
+	"DatabaseRestore": [ "serverConnection", "databaseName", "backupFilePath" ],
 	"FileExists": [ "file" ],
 	"FilesConcat": [ "selectFiles" ],
 	"FilesCopier": [ "selectFiles", "destFolder", "overwrite" ],

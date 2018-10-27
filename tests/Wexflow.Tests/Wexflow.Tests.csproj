@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CsvToXml.cs" />
+    <Compile Include="DatabaseRestore.cs" />
     <Compile Include="FileExists.cs" />
     <Compile Include="FilesCopier.cs" />
     <Compile Include="DatabaseBackup.cs" />
@@ -186,6 +187,10 @@
     <ProjectReference Include="..\..\src\Wexflow.Tasks.DatabaseBackup\Wexflow.Tasks.DatabaseBackup.csproj">
       <Project>{d32e09a0-6738-4ffa-878c-f9290ab3a9f4}</Project>
       <Name>Wexflow.Tasks.DatabaseBackup</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Wexflow.Tasks.DatabaseRestore\Wexflow.Tasks.DatabaseRestore.csproj">
+      <Project>{f42fbcd6-6d25-4a28-be88-57025f181c1c}</Project>
+      <Name>Wexflow.Tasks.DatabaseRestore</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Wexflow.Tasks.FileExists\Wexflow.Tasks.FileExists.csproj">
       <Project>{8ed85a48-a8e3-4565-a874-3562f081d14c}</Project>

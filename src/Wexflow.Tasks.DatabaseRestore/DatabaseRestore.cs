@@ -1,31 +1,28 @@
 ﻿using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
 using System;
-using System.IO;
 using System.Threading;
 using System.Xml.Linq;
 using Wexflow.Core;
 
-namespace Wexflow.Tasks.DatabaseBackup
+namespace Wexflow.Tasks.DatabaseRestore
 {
-    public class DatabaseBackup : Task
+    public class DatabaseRestore : Task
     {
         public string ServerConnection { get; set; }
         public string DatabaseName { get; set; }
         public string BackupFilePath { get; set; }
-        public bool Overwrite { get; set; }
 
-        public DatabaseBackup(XElement xe, Workflow wf) : base(xe, wf)
+        public DatabaseRestore(XElement xe, Workflow wf) : base(xe, wf)
         {
             ServerConnection = GetSetting("serverConnection");
             DatabaseName = GetSetting("databaseName");
             BackupFilePath = GetSetting("backupFilePath");
-            Overwrite = bool.Parse(GetSetting("overwrite", "false"));
         }
 
         public override TaskStatus Run()
         {
-            Info("Backuping database...");
+            Info("Restoring database...");
             Status status = Status.Success;
             bool succeeded = false;
 
@@ -33,17 +30,14 @@ namespace Wexflow.Tasks.DatabaseBackup
             {
                 ServerConnection con = new ServerConnection(ServerConnection);
                 Server server = new Server(con);
-                Backup source = new Backup();
-                source.Action = BackupActionType.Database;
-                source.Database = DatabaseName;
-                BackupDeviceItem destination = new BackupDeviceItem(BackupFilePath, DeviceType.File);
-                source.Devices.Add(destination);
-                if (Overwrite && File.Exists(BackupFilePath)) File.Delete(BackupFilePath);
-                source.SqlBackup(server);
-                con.Disconnect();
+                Restore destination = new Restore();
+                destination.Action = RestoreActionType.Database;
+                destination.Database = DatabaseName;
+                destination.ReplaceDatabase = true;
+                destination.Devices.AddDevice(BackupFilePath, DeviceType.File);
+                destination.SqlRestore(server);
                 succeeded = true;
-                InfoFormat("The database {0} was successfully backuped in {1}", DatabaseName, BackupFilePath);
-                Files.Add(new FileInf(BackupFilePath, Id));
+                InfoFormat("The database {0} was successfully restored.", DatabaseName);
             }
             catch (ThreadAbortException)
             {
@@ -51,7 +45,7 @@ namespace Wexflow.Tasks.DatabaseBackup
             }
             catch (Exception e)
             {
-                ErrorFormat("An error occured while backuping the database {0} on the server {1}: {2}", DatabaseName, ServerConnection, e.Message);
+                ErrorFormat("An error occured while restoring the database {0} on the server {1}: {2}", DatabaseName, ServerConnection, e.Message);
                 status = Status.Error;
             }
 

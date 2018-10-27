@@ -2,6 +2,7 @@
 	"CsvToSql",
 	"CsvToXml",
 	"DatabaseBackup",
+	"DatabaseRestore",
 	"FileExists",
 	"FilesCopier",
 	"FilesDecryptor",
