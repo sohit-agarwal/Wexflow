@@ -4,6 +4,8 @@
     DatabaseBackup is a sequential task that backups a database (SQL Server).
     
     The backup generated is loaded by this task so that other tasks can select it through the selectFiles option.
+    
+    If Windows authentication is used to connect to SQL Server, you need to update the configuration of Wexflow Windows Service so that the service is run as the user who authenticates to SQL Server.
   -->
   <Task id="$int" name="DatabaseBackup" description="$string" enabled="true|false">
     <!-- The server connection. Ex: localhost-->
