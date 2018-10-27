@@ -20,9 +20,20 @@ namespace Wexflow.Core
     public class Workflow
     {
         /// <summary>
+        /// This constant is used to determine the keysize of the encryption algorithm in bits.
+        /// We divide this by 8 within the code below to get the equivalent number of bytes.
+        /// </summary>
+        public static readonly int KeySize = 256;
+
+        /// <summary>
+        /// This constant determines the number of iterations for the password bytes generation function. 
+        /// </summary>
+        public static readonly int DerivationIterations = 1000;
+
+        /// <summary>
         /// Passphrase.
         /// </summary>
-        public static string Passphrase = "FHMWW-EORNR-XXF0Q-E8Q#G-YC!RG-KV=TN-M9MQJ-AySDI-LAC5Q-UV==QE-VSVNL-OV1IZ";
+        public static readonly string Passphrase = "FHMWW-EORNR-XXF0Q-E8Q#G-YC!RG-KV=TN-M9MQJ-AySDI-LAC5Q-UV==QE-VSVNL-OV1IZ";
 
         /// <summary>
         /// Default parent node id to start with in the execution graph.

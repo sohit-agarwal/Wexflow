@@ -30,7 +30,7 @@ namespace Wexflow.Tasks.FilesDecryptor
                 foreach (var file in files)
                 {
                     string destPath = Path.Combine(Workflow.WorkflowTempFolder, file.FileName);
-                    succeeded &= Decrypt(file.Path, destPath, Workflow.Passphrase);
+                    succeeded &= Decrypt(file.Path, destPath, Workflow.Passphrase, Workflow.DerivationIterations);
                     if (!atLeastOneSuccess && succeeded) atLeastOneSuccess = true;
                 }
 
@@ -57,7 +57,7 @@ namespace Wexflow.Tasks.FilesDecryptor
             return new TaskStatus(status);
         }
 
-        private bool Decrypt(string inputFile, string outputFile, string passphrase)
+        private bool Decrypt(string inputFile, string outputFile, string passphrase, int derivationIterations)
         {
             try
             {
@@ -72,7 +72,7 @@ namespace Wexflow.Tasks.FilesDecryptor
                     rmcrypto.KeySize = 256;
                     rmcrypto.BlockSize = 128;
 
-                    var key = new Rfc2898DeriveBytes(ue.GetBytes(passphrase), saltBytes, 1000);
+                    var key = new Rfc2898DeriveBytes(ue.GetBytes(passphrase), saltBytes, derivationIterations);
                     rmcrypto.Key = key.GetBytes(rmcrypto.KeySize / 8);
                     rmcrypto.IV = key.GetBytes(rmcrypto.BlockSize / 8);
                     rmcrypto.Padding = PaddingMode.Zeros;
@@ -93,7 +93,6 @@ namespace Wexflow.Tasks.FilesDecryptor
 
                 InfoFormat("The file {0} has been decrypted -> {1}", inputFile, outputFile);
                 Files.Add(new FileInf(outputFile, Id));
-
                 return true;
             }
             catch (Exception e)

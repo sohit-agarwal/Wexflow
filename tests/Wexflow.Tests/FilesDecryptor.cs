@@ -8,6 +8,7 @@ namespace Wexflow.Tests
     {
         private static readonly string FilesDecryptorSrcFolder = @"C:\WexflowTesting\FilesDecryptor_src\";
         private static readonly string FilesDecryptorDestFolder = @"C:\WexflowTesting\FilesDecryptor_dest\";
+        private static readonly string FilesEncryptorFolder = @"C:\WexflowTesting\FilesEncryptor\";
 
         [TestInitialize]
         public void TestInitialize()
@@ -21,6 +22,7 @@ namespace Wexflow.Tests
         {
             Helper.DeleteFiles(FilesDecryptorSrcFolder);
             Helper.DeleteFiles(FilesDecryptorDestFolder);
+            Helper.DeleteFiles(FilesEncryptorFolder);
         }
 
         [TestMethod]

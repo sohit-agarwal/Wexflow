@@ -145,6 +145,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Guid", "src\W
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{DB08CB74-8778-4B9A-A26B-7D3E3E7EDA8F}"
 	ProjectSection(SolutionItems) = preProject
+		samples\Wexflow\Workflows\Workflow_Cron.xml = samples\Wexflow\Workflows\Workflow_Cron.xml
+		samples\Wexflow\Workflows\Workflow_CsvToSql.xml = samples\Wexflow\Workflows\Workflow_CsvToSql.xml
 		samples\Wexflow\Workflows\Workflow_CsvToXml.xml = samples\Wexflow\Workflows\Workflow_CsvToXml.xml
 		samples\Wexflow\Workflows\Workflow_ExecutionGraph.xml = samples\Wexflow\Workflows\Workflow_ExecutionGraph.xml
 		samples\Wexflow\Workflows\Workflow_ffmpeg.xml = samples\Wexflow\Workflows\Workflow_ffmpeg.xml
@@ -152,6 +154,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{
 		samples\Wexflow\Workflows\Workflow_FileExists2.xml = samples\Wexflow\Workflows\Workflow_FileExists2.xml
 		samples\Wexflow\Workflows\Workflow_FilesConcat.xml = samples\Wexflow\Workflows\Workflow_FilesConcat.xml
 		samples\Wexflow\Workflows\Workflow_FilesCopier.xml = samples\Wexflow\Workflows\Workflow_FilesCopier.xml
+		samples\Wexflow\Workflows\Workflow_FilesDecryptor.xml = samples\Wexflow\Workflows\Workflow_FilesDecryptor.xml
+		samples\Wexflow\Workflows\Workflow_FilesDiff.xml = samples\Wexflow\Workflows\Workflow_FilesDiff.xml
+		samples\Wexflow\Workflows\Workflow_FilesEncryptor.xml = samples\Wexflow\Workflows\Workflow_FilesEncryptor.xml
+		samples\Wexflow\Workflows\Workflow_FilesEquals.xml = samples\Wexflow\Workflows\Workflow_FilesEquals.xml
 		samples\Wexflow\Workflows\Workflow_FilesExist.xml = samples\Wexflow\Workflows\Workflow_FilesExist.xml
 		samples\Wexflow\Workflows\Workflow_FilesInfo.xml = samples\Wexflow\Workflows\Workflow_FilesInfo.xml
 		samples\Wexflow\Workflows\Workflow_FilesLoader.xml = samples\Wexflow\Workflows\Workflow_FilesLoader.xml
@@ -172,6 +178,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{
 		samples\Wexflow\Workflows\Workflow_Guid.xml = samples\Wexflow\Workflows\Workflow_Guid.xml
 		samples\Wexflow\Workflows\Workflow_HtmlToPdf.xml = samples\Wexflow\Workflows\Workflow_HtmlToPdf.xml
 		samples\Wexflow\Workflows\Workflow_Http.xml = samples\Wexflow\Workflows\Workflow_Http.xml
+		samples\Wexflow\Workflows\Workflow_ImagesConcat.xml = samples\Wexflow\Workflows\Workflow_ImagesConcat.xml
+		samples\Wexflow\Workflows\Workflow_ImagesCropper.xml = samples\Wexflow\Workflows\Workflow_ImagesCropper.xml
+		samples\Wexflow\Workflows\Workflow_ImagesOverlay.xml = samples\Wexflow\Workflows\Workflow_ImagesOverlay.xml
+		samples\Wexflow\Workflows\Workflow_ImagesResizer.xml = samples\Wexflow\Workflows\Workflow_ImagesResizer.xml
 		samples\Wexflow\Workflows\Workflow_ImagesTransformer.xml = samples\Wexflow\Workflows\Workflow_ImagesTransformer.xml
 		samples\Wexflow\Workflows\Workflow_ListEntities.xml = samples\Wexflow\Workflows\Workflow_ListEntities.xml
 		samples\Wexflow\Workflows\Workflow_ListFiles.xml = samples\Wexflow\Workflows\Workflow_ListFiles.xml
@@ -199,10 +209,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{
 		samples\Wexflow\Workflows\Workflow_Startup.xml = samples\Wexflow\Workflows\Workflow_Startup.xml
 		samples\Wexflow\Workflows\Workflow_Sync.xml = samples\Wexflow\Workflows\Workflow_Sync.xml
 		samples\Wexflow\Workflows\Workflow_Tar.xml = samples\Wexflow\Workflows\Workflow_Tar.xml
+		samples\Wexflow\Workflows\Workflow_TextsDecryptor.xml = samples\Wexflow\Workflows\Workflow_TextsDecryptor.xml
+		samples\Wexflow\Workflows\Workflow_TextsEncryptor.xml = samples\Wexflow\Workflows\Workflow_TextsEncryptor.xml
 		samples\Wexflow\Workflows\Workflow_TextToPdf.xml = samples\Wexflow\Workflows\Workflow_TextToPdf.xml
 		samples\Wexflow\Workflows\Workflow_Tgz.xml = samples\Wexflow\Workflows\Workflow_Tgz.xml
+		samples\Wexflow\Workflows\Workflow_Torrent.xml = samples\Wexflow\Workflows\Workflow_Torrent.xml
 		samples\Wexflow\Workflows\Workflow_Touch.xml = samples\Wexflow\Workflows\Workflow_Touch.xml
 		samples\Wexflow\Workflows\Workflow_Twitter.xml = samples\Wexflow\Workflows\Workflow_Twitter.xml
+		samples\Wexflow\Workflows\Workflow_Unrar.xml = samples\Wexflow\Workflows\Workflow_Unrar.xml
+		samples\Wexflow\Workflows\Workflow_UnSevenZip.xml = samples\Wexflow\Workflows\Workflow_UnSevenZip.xml
 		samples\Wexflow\Workflows\Workflow_Untar.xml = samples\Wexflow\Workflows\Workflow_Untar.xml
 		samples\Wexflow\Workflows\Workflow_Untgz.xml = samples\Wexflow\Workflows\Workflow_Untgz.xml
 		samples\Wexflow\Workflows\Workflow_Unzip.xml = samples\Wexflow\Workflows\Workflow_Unzip.xml
@@ -244,6 +259,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.FilesEncryptor", "src\Wexflow.Tasks.FilesEncryptor\Wexflow.Tasks.FilesEncryptor.csproj", "{34539BA1-7C7C-4844-80CF-D635151FC91A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.FilesDecryptor", "src\Wexflow.Tasks.FilesDecryptor\Wexflow.Tasks.FilesDecryptor.csproj", "{23AB8EE5-B04D-4876-9155-BFE7AC33E02D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.TextsDecryptor", "src\Wexflow.Tasks.TextsDecryptor\Wexflow.Tasks.TextsDecryptor.csproj", "{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.TextsEncryptor", "src\Wexflow.Tasks.TextsEncryptor\Wexflow.Tasks.TextsEncryptor.csproj", "{A9B590BC-6B24-4C1E-98E1-50F376F340C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1367,6 +1386,38 @@ Global
 		{23AB8EE5-B04D-4876-9155-BFE7AC33E02D}.Release|x64.Build.0 = Release|x64
 		{23AB8EE5-B04D-4876-9155-BFE7AC33E02D}.Release|x86.ActiveCfg = Release|x86
 		{23AB8EE5-B04D-4876-9155-BFE7AC33E02D}.Release|x86.Build.0 = Release|x86
+		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}.Debug|x64.ActiveCfg = Debug|x64
+		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}.Debug|x64.Build.0 = Debug|x64
+		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}.Debug|x86.ActiveCfg = Debug|x86
+		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}.Debug|x86.Build.0 = Debug|x86
+		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}.Release|Mixed Platforms.Build.0 = Release|x86
+		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}.Release|x64.ActiveCfg = Release|x64
+		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}.Release|x64.Build.0 = Release|x64
+		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}.Release|x86.ActiveCfg = Release|x86
+		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59}.Release|x86.Build.0 = Release|x86
+		{A9B590BC-6B24-4C1E-98E1-50F376F340C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9B590BC-6B24-4C1E-98E1-50F376F340C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9B590BC-6B24-4C1E-98E1-50F376F340C5}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{A9B590BC-6B24-4C1E-98E1-50F376F340C5}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{A9B590BC-6B24-4C1E-98E1-50F376F340C5}.Debug|x64.ActiveCfg = Debug|x64
+		{A9B590BC-6B24-4C1E-98E1-50F376F340C5}.Debug|x64.Build.0 = Debug|x64
+		{A9B590BC-6B24-4C1E-98E1-50F376F340C5}.Debug|x86.ActiveCfg = Debug|x86
+		{A9B590BC-6B24-4C1E-98E1-50F376F340C5}.Debug|x86.Build.0 = Debug|x86
+		{A9B590BC-6B24-4C1E-98E1-50F376F340C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9B590BC-6B24-4C1E-98E1-50F376F340C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9B590BC-6B24-4C1E-98E1-50F376F340C5}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{A9B590BC-6B24-4C1E-98E1-50F376F340C5}.Release|Mixed Platforms.Build.0 = Release|x86
+		{A9B590BC-6B24-4C1E-98E1-50F376F340C5}.Release|x64.ActiveCfg = Release|x64
+		{A9B590BC-6B24-4C1E-98E1-50F376F340C5}.Release|x64.Build.0 = Release|x64
+		{A9B590BC-6B24-4C1E-98E1-50F376F340C5}.Release|x86.ActiveCfg = Release|x86
+		{A9B590BC-6B24-4C1E-98E1-50F376F340C5}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1439,6 +1490,8 @@ Global
 		{D72BBDC7-E818-4CB6-9814-0548BD98DCD4} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{34539BA1-7C7C-4844-80CF-D635151FC91A} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{23AB8EE5-B04D-4876-9155-BFE7AC33E02D} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
+		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
+		{A9B590BC-6B24-4C1E-98E1-50F376F340C5} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{81032249-78D9-4B89-8E22-A3C32562EA69} = {67871E52-CB11-4EDF-B036-15F359EF6B66}
 		{D559C35B-BFF5-49C2-9490-818314C88A76} = {67871E52-CB11-4EDF-B036-15F359EF6B66}
 		{59410829-C439-4683-818E-AC99F94D1EBA} = {67871E52-CB11-4EDF-B036-15F359EF6B66}

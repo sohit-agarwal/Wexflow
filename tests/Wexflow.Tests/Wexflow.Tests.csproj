@@ -95,8 +95,10 @@
     <Compile Include="CsvToXml.cs" />
     <Compile Include="FileExists.cs" />
     <Compile Include="FilesCopier.cs" />
+    <Compile Include="TextsDecryptor.cs" />
     <Compile Include="FilesDiff.cs" />
     <Compile Include="FilesDecryptor.cs" />
+    <Compile Include="TextsEncryptor.cs" />
     <Compile Include="FilesEqual.cs" />
     <Compile Include="FilesExist.cs" />
     <Compile Include="FilesLoader.cs" />
@@ -359,6 +361,14 @@
     <ProjectReference Include="..\..\src\Wexflow.Tasks.Template\Wexflow.Tasks.Template.csproj">
       <Project>{ad401c5b-85fe-4c93-8e31-029c090e9b01}</Project>
       <Name>Wexflow.Tasks.Template</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Wexflow.Tasks.TextsDecryptor\Wexflow.Tasks.TextsDecryptor.csproj">
+      <Project>{6fd67ff8-eeda-41b1-bf5e-073d6039ba59}</Project>
+      <Name>Wexflow.Tasks.TextsDecryptor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Wexflow.Tasks.TextsEncryptor\Wexflow.Tasks.TextsEncryptor.csproj">
+      <Project>{a9b590bc-6b24-4c1e-98e1-50f376f340c5}</Project>
+      <Name>Wexflow.Tasks.TextsEncryptor</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Wexflow.Tasks.TextToPdf\Wexflow.Tasks.TextToPdf.csproj">
       <Project>{dd5c037c-f7ff-4d8d-8076-3386e30cb0fa}</Project>

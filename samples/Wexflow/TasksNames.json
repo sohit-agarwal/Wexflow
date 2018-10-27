@@ -45,6 +45,8 @@
 	"SqlToXml",
 	"Sync",
 	"Tar",
+	"TextsDecryptor",
+	"TextsEncryptor",
 	"TextToPdf",
 	"Tgz",
 	"Torrent",

@@ -45,6 +45,8 @@
 	"SqlToXml": [ "selectFiles", "type", "connectionString", "sql" ],
 	"Sync": [ "srcFolder", "destFolder" ],
 	"Tar": [ "selectFiles", "zipFileName" ],
+	"TextsDecryptor": [ "selectFiles" ],
+	"TextsEncryptor": [ "selectFiles" ],
 	"TextToPdf": [ "selectFiles" ],
 	"Tgz": [ "selectFiles", "tgzFileName" ],
 	"Torrent": [ "selectFiles", "saveFolder" ],
