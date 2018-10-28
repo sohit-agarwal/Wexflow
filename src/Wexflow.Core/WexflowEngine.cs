@@ -48,8 +48,6 @@ namespace Wexflow.Core
         /// </summary>
         public IList<Workflow> Workflows { get; private set; }
 
-        private readonly Dictionary<int, List<WexflowTimer>> _wexflowTimers;
-
         // Create the scheduler
         private static readonly ISchedulerFactory SchedulerFactory = new StdSchedulerFactory();
         private static readonly IScheduler Quartzcheduler = SchedulerFactory.GetScheduler();
@@ -62,7 +60,6 @@ namespace Wexflow.Core
         {
             SettingsFile = settingsFile;
             Workflows = new List<Workflow>();
-            _wexflowTimers = new Dictionary<int, List<WexflowTimer>>();
 
             Logger.Info("");
             Logger.Info("Starting Wexflow Engine");
@@ -144,7 +141,7 @@ namespace Wexflow.Core
                     Logger.InfoFormat("Workflow {0} is stopped and removed because its definition file {1} was deleted.",
                         removedWorkflow.Name, removedWorkflow.WorkflowFilePath);
                     removedWorkflow.Stop();
-                    StopTimers(removedWorkflow.Id);
+                    
                     StopCronJobs(removedWorkflow.Id);
                     Workflows.Remove(removedWorkflow);
                 }
@@ -163,7 +160,7 @@ namespace Wexflow.Core
                             // the existing file might have caused an error during loading, so there may be no corresponding
                             // workflow to the changed file
                             changedWorkflow.Stop();
-                            StopTimers(changedWorkflow.Id);
+                            
                             StopCronJobs(changedWorkflow.Id);
                             Workflows.Remove(changedWorkflow);
                             Logger.InfoFormat("A change in the definition file {0} of workflow {1} has been detected. The workflow will be reloaded.", changedWorkflow.WorkflowFilePath, changedWorkflow.Name);
@@ -192,15 +189,6 @@ namespace Wexflow.Core
                     }
                 }
             };
-        }
-
-        private void StopTimers(int workflowId)
-        {
-            if (_wexflowTimers.ContainsKey(workflowId))
-            {
-                var wts = _wexflowTimers[workflowId];
-                foreach (var wt in wts) wt.Stop();
-            }
         }
 
         private void StopCronJobs(int workflowId)
@@ -256,34 +244,33 @@ namespace Wexflow.Core
                 }
                 else if (wf.LaunchType == LaunchType.Periodic)
                 {
-                    Action<object> callback = o =>
-                    {
-                        var workflow = o as Workflow;
-                        if (workflow != null && !workflow.IsRunning)
-                        {
-                            workflow.Start();
-                        }
-                    };
+                    IDictionary<string, object> map = new Dictionary<string, object>();
+                    map.Add("workflow", wf);
 
-                    var timer = new WexflowTimer(new TimerCallback(callback), wf, wf.Period);
+                    string jobIdentity = "Workflow Job " + wf.Id;
+                    IJobDetail jobDetail = JobBuilder.Create<WorkflowJob>()
+                        .WithIdentity(jobIdentity)
+                        .SetJobData(new JobDataMap(map))
+                        .Build();
 
-                    if (!_wexflowTimers.ContainsKey(wf.Id))
+                    ITrigger trigger = TriggerBuilder.Create()
+                        .ForJob(jobDetail)
+                        .WithSimpleSchedule( x => x.WithInterval(wf.Period).RepeatForever())
+                        .WithIdentity("Workflow Trigger " + wf.Id)
+                        .StartNow()
+                        .Build();
+
+                    var jobKey = new JobKey(jobIdentity);
+                    if (Quartzcheduler.CheckExists(jobKey))
                     {
-                        _wexflowTimers.Add(wf.Id, new List<WexflowTimer> { timer });
+                        Quartzcheduler.DeleteJob(jobKey);
                     }
-                    else
-                    {
-                        foreach (var wt in _wexflowTimers[wf.Id])
-                        {
-                            wt.Stop();
-                        }
-                        _wexflowTimers[wf.Id].Add(timer);
-                    }
-                    timer.Start();
+
+                    Quartzcheduler.ScheduleJob(jobDetail, trigger);
+
                 }
                 else if (wf.LaunchType == LaunchType.Cron)
                 {
-                    // Create a job
                     IDictionary<string, object> map = new Dictionary<string, object>();
                     map.Add("workflow", wf);
 
@@ -320,14 +307,6 @@ namespace Wexflow.Core
             if (stopQuartzScheduler)
             {
                 Quartzcheduler.Shutdown();
-            }
-
-            foreach (var wts in _wexflowTimers.Values)
-            {
-                foreach (var wt in wts)
-                {
-                    wt.Stop();
-                }
             }
 
             foreach (var wf in Workflows)
