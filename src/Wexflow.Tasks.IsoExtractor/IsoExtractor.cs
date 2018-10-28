@@ -89,7 +89,7 @@ namespace Wexflow.Tasks.IsoExtractor
                 {
                     using (var stream = cd.OpenFile(file, FileMode.Open))
                     {
-                        var destFile = destDir.TrimEnd('\\') + "\\" + Regex.Replace(file.Replace("/", "\\"), @";\d*", "").TrimStart('\\');
+                        var destFile = destDir.TrimEnd('\\') + "\\" + Regex.Replace(file.Replace("/", "\\"), @";\d*$", "").TrimStart('\\');
 
                         // Create directories
                         var destFolder = Path.GetDirectoryName(destFile);
