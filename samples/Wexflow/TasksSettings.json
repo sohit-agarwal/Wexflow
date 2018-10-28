@@ -26,6 +26,7 @@
 	"ImagesOverlay": [ "selectFiles" ],
 	"ImagesResizer": [ "selectFiles", "width", "height" ],
 	"ImagesTransformer": [ "selectFiles", "outputFilePattern", "outputFormat" ],
+	"IsoCreator": [ "srcDir", "volumeIdentifier", "isoFileName" ],
 	"ListEntities": [ ],
 	"ListFiles": [ ],
 	"MailsReceiver": [ "host", "port", "enableSsl", "user", "password", "messageCount", "deleteMessages" ],

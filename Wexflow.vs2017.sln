@@ -193,6 +193,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{
 		samples\Wexflow\Workflows\Workflow_ImagesOverlay.xml = samples\Wexflow\Workflows\Workflow_ImagesOverlay.xml
 		samples\Wexflow\Workflows\Workflow_ImagesResizer.xml = samples\Wexflow\Workflows\Workflow_ImagesResizer.xml
 		samples\Wexflow\Workflows\Workflow_ImagesTransformer.xml = samples\Wexflow\Workflows\Workflow_ImagesTransformer.xml
+		samples\Wexflow\Workflows\Workflow_IsoCreator.xml = samples\Wexflow\Workflows\Workflow_IsoCreator.xml
 		samples\Wexflow\Workflows\Workflow_ListEntities.xml = samples\Wexflow\Workflows\Workflow_ListEntities.xml
 		samples\Wexflow\Workflows\Workflow_ListFiles.xml = samples\Wexflow\Workflows\Workflow_ListFiles.xml
 		samples\Wexflow\Workflows\Workflow_MailsReceiver.xml = samples\Wexflow\Workflows\Workflow_MailsReceiver.xml
@@ -279,6 +280,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.DatabaseBackup", "src\Wexflow.Tasks.DatabaseBackup\Wexflow.Tasks.DatabaseBackup.csproj", "{D32E09A0-6738-4FFA-878C-F9290AB3A9F4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.DatabaseRestore", "src\Wexflow.Tasks.DatabaseRestore\Wexflow.Tasks.DatabaseRestore.csproj", "{F42FBCD6-6D25-4A28-BE88-57025F181C1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.IsoCreator", "src\Wexflow.Tasks.IsoCreator\Wexflow.Tasks.IsoCreator.csproj", "{9CDFAF59-62B3-48BA-BCCE-3359856D3835}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1540,6 +1543,22 @@ Global
 		{F42FBCD6-6D25-4A28-BE88-57025F181C1C}.Release|x64.Build.0 = Release|x64
 		{F42FBCD6-6D25-4A28-BE88-57025F181C1C}.Release|x86.ActiveCfg = Release|x86
 		{F42FBCD6-6D25-4A28-BE88-57025F181C1C}.Release|x86.Build.0 = Release|x86
+		{9CDFAF59-62B3-48BA-BCCE-3359856D3835}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CDFAF59-62B3-48BA-BCCE-3359856D3835}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CDFAF59-62B3-48BA-BCCE-3359856D3835}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{9CDFAF59-62B3-48BA-BCCE-3359856D3835}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{9CDFAF59-62B3-48BA-BCCE-3359856D3835}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9CDFAF59-62B3-48BA-BCCE-3359856D3835}.Debug|x64.Build.0 = Debug|Any CPU
+		{9CDFAF59-62B3-48BA-BCCE-3359856D3835}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9CDFAF59-62B3-48BA-BCCE-3359856D3835}.Debug|x86.Build.0 = Debug|Any CPU
+		{9CDFAF59-62B3-48BA-BCCE-3359856D3835}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CDFAF59-62B3-48BA-BCCE-3359856D3835}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CDFAF59-62B3-48BA-BCCE-3359856D3835}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{9CDFAF59-62B3-48BA-BCCE-3359856D3835}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{9CDFAF59-62B3-48BA-BCCE-3359856D3835}.Release|x64.ActiveCfg = Release|x64
+		{9CDFAF59-62B3-48BA-BCCE-3359856D3835}.Release|x64.Build.0 = Release|x64
+		{9CDFAF59-62B3-48BA-BCCE-3359856D3835}.Release|x86.ActiveCfg = Release|x86
+		{9CDFAF59-62B3-48BA-BCCE-3359856D3835}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1623,6 +1642,7 @@ Global
 		{6FD67FF8-EEDA-41B1-BF5E-073D6039BA59} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{D32E09A0-6738-4FFA-878C-F9290AB3A9F4} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{F42FBCD6-6D25-4A28-BE88-57025F181C1C} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
+		{9CDFAF59-62B3-48BA-BCCE-3359856D3835} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {694D69C8-AA13-4F54-BAAA-5B967F1A8F9C}

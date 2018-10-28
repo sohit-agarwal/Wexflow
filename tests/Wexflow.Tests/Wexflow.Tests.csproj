@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CsvToXml.cs" />
+    <Compile Include="IsoCreator.cs" />
     <Compile Include="DatabaseRestore.cs" />
     <Compile Include="FileExists.cs" />
     <Compile Include="FilesCopier.cs" />
@@ -283,6 +284,10 @@
     <ProjectReference Include="..\..\src\Wexflow.Tasks.ImagesTransformer\Wexflow.Tasks.ImagesTransformer.csproj">
       <Project>{d2ba9820-d5c7-4053-8e36-ac94c162c9b0}</Project>
       <Name>Wexflow.Tasks.ImagesTransformer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Wexflow.Tasks.IsoCreator\Wexflow.Tasks.IsoCreator.csproj">
+      <Project>{9cdfaf59-62b3-48ba-bcce-3359856d3835}</Project>
+      <Name>Wexflow.Tasks.IsoCreator</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Wexflow.Tasks.ListEntities\Wexflow.Tasks.ListEntities.csproj">
       <Project>{d03eb1f0-5dab-4e93-8b29-783c4135ab55}</Project>

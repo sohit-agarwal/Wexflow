@@ -26,6 +26,7 @@
 	"ImagesOverlay",
 	"ImagesResizer",
 	"ImagesTransformer",
+	"IsoCreator",
 	"ListEntities",
 	"ListFiles",
 	"MailsReceiver",
