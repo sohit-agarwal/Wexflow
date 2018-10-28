@@ -240,6 +240,10 @@
       <Project>{9cdfaf59-62b3-48ba-bcce-3359856d3835}</Project>
       <Name>Wexflow.Tasks.IsoCreator</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.IsoExtractor\Wexflow.Tasks.IsoExtractor.csproj">
+      <Project>{8546cd00-1a5e-4455-bdd4-225716db1727}</Project>
+      <Name>Wexflow.Tasks.IsoExtractor</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.ListEntities\Wexflow.Tasks.ListEntities.csproj">
       <Project>{d03eb1f0-5dab-4e93-8b29-783c4135ab55}</Project>
       <Name>Wexflow.Tasks.ListEntities</Name>

@@ -27,6 +27,7 @@
 	"ImagesResizer",
 	"ImagesTransformer",
 	"IsoCreator",
+	"IsoExtractor",
 	"ListEntities",
 	"ListFiles",
 	"MailsReceiver",
