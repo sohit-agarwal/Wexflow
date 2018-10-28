@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    IsoCreator is a sequential task that creates an .iso from a source folder.
+    IsoCreator is a sequential task that creates a .iso from a source folder.
     
     The created .iso is loaded by this task so that other tasks can select it through the selectFiles option.
   -->
