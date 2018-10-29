@@ -1,21 +1,23 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
-using System.Speech.Synthesis;
+using System.Speech.AudioFormat;
+using System.Speech.Recognition;
 using System.Threading;
 using System.Xml.Linq;
 using Wexflow.Core;
 
-namespace Wexflow.Tasks.TextToSpeech
+namespace Wexflow.Tasks.SpeechToText
 {
-    public class TextToSpeech : Task
+    public class SpeechToText:Task
     {
-        public TextToSpeech(XElement xe, Workflow wf): base(xe, wf)
+        public SpeechToText(XElement xe, Workflow wf) : base(xe, wf)
         {
         }
 
         public override TaskStatus Run()
         {
-            Info("Converting text to speech...");
+            Info("Converting speech to text...");
             var status = Status.Success;
             var success = true;
             var atLeastOneSucceed = false;
@@ -26,17 +28,19 @@ namespace Wexflow.Tasks.TextToSpeech
             {
                 try
                 {
-                    using (var synth = new SpeechSynthesizer())
-                    using (var stream = new MemoryStream())
+                    using (Stream stream = new FileStream(file.Path, FileMode.Open))
                     {
-                        synth.SetOutputToWaveStream(stream);
-                        string text = File.ReadAllText(file.Path);
-                        synth.Speak(text);
-                        byte[] bytes = stream.GetBuffer();
-                        var destFile = Path.Combine(Workflow.WorkflowTempFolder, Path.GetFileNameWithoutExtension(file.FileName) + ".wav");
-                        File.WriteAllBytes(destFile, bytes);
+                        var recognizer = new SpeechRecognitionEngine(new CultureInfo("en-US"));
+                        var dictationGrammar = new DictationGrammar();
+                        recognizer.LoadGrammar(dictationGrammar);
+                        recognizer.SetInputToAudioStream(stream, new SpeechAudioFormatInfo(32000, AudioBitsPerSample.Sixteen, AudioChannel.Mono));
+                        var result = recognizer.Recognize();
+                        string text = result.Text;
+
+                        var destFile = Path.Combine(Workflow.WorkflowTempFolder, Path.GetFileNameWithoutExtension(file.FileName) + ".txt");
+                        File.WriteAllText(destFile, text);
                         Files.Add(new FileInf(destFile, Id));
-                        InfoFormat("The file {0} was converted to speech with success -> {1}", file.Path, destFile);
+                        InfoFormat("The file {0} was converted to a text file with success -> {1}", file.Path, destFile);
                     }
                 }
                 catch (ThreadAbortException)

@@ -45,6 +45,7 @@
 	"Sha1": [ "selectFiles" ],
 	"Sha256": [ "selectFiles" ],
 	"Sha512": [ "selectFiles" ],
+	"SpeechToText": [ "selectFiles" ],
 	"Sql": [ "selectFiles", "type", "connectionString", "sql" ],
 	"SqlToCsv": [ "selectFiles", "type", "connectionString", "sql" ],
 	"SqlToXml": [ "selectFiles", "type", "connectionString", "sql" ],

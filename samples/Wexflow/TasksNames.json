@@ -45,6 +45,7 @@
 	"Sha1",
 	"Sha256",
 	"Sha512",
+	"SpeechToText",
 	"Sql",
 	"SqlToCsv",
 	"SqlToXml",

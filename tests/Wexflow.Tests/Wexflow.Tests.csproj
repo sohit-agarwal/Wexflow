@@ -98,6 +98,7 @@
     <Compile Include="FileExists.cs" />
     <Compile Include="FilesCopier.cs" />
     <Compile Include="DatabaseBackup.cs" />
+    <Compile Include="SpeechToText.cs" />
     <Compile Include="TextToSpeech.cs" />
     <Compile Include="TextsDecryptor.cs" />
     <Compile Include="FilesDiff.cs" />
@@ -363,6 +364,10 @@
     <ProjectReference Include="..\..\src\Wexflow.Tasks.Sha512\Wexflow.Tasks.Sha512.csproj">
       <Project>{261e8567-6ace-4591-80ec-658eede9ebcf}</Project>
       <Name>Wexflow.Tasks.Sha512</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Wexflow.Tasks.SpeechToText\Wexflow.Tasks.SpeechToText.csproj">
+      <Project>{300f2fdc-7fb9-49a9-ae91-8ecacf92fea8}</Project>
+      <Name>Wexflow.Tasks.SpeechToText</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Wexflow.Tasks.SqlToCsv\Wexflow.Tasks.SqlToCsv.csproj">
       <Project>{fe20effb-272e-4673-86aa-a8c62e043450}</Project>
