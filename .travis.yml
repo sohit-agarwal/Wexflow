@@ -1,5 +1,0 @@
-language: csharp
-os:
-  - linux
-  - osx
-solution: Wexflow.vs2010.sln
