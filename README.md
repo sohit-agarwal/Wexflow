@@ -74,7 +74,7 @@ Here are the benefits of using Wexflow:
 
 |  Server | Platform | Build status |
 ----------|--------|----------|
-| [AppVeyor (.NET)](https://www.appveyor.com/) | Windows |[![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow)|
+| [AppVeyor](https://www.appveyor.com/) | Windows |[![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow)|
 |[codecov.io](https://codecov.io)|Windows|[![codecov](https://codecov.io/gh/aelassas/Wexflow/branch/master/graph/badge.svg)](https://codecov.io/gh/aelassas/Wexflow)|
 
 # Get started
