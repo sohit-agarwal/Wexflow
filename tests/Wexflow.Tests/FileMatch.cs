@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Wexflow.Tests
 {
     [TestClass]
-    public class FileExists
+    public class FileMatch
     {
         [TestInitialize]
         public void TestInitialize()
@@ -17,15 +17,15 @@ namespace Wexflow.Tests
         }
 
         [TestMethod]
-        public void FileExistsTest()
+        public void FileMatchTest()
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
-            Helper.StartWorkflow(49);
+            Helper.StartWorkflow(92);
             stopwatch.Stop();
             Assert.IsTrue(stopwatch.ElapsedMilliseconds > 1000);
             stopwatch.Reset();
             stopwatch.Start();
-            Helper.StartWorkflow(50);
+            Helper.StartWorkflow(93);
             stopwatch.Stop();
             Assert.IsTrue(stopwatch.ElapsedMilliseconds > 2000);
         }

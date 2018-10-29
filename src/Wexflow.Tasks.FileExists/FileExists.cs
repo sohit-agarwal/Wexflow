@@ -9,8 +9,7 @@ namespace Wexflow.Tasks.FileExists
     {
         public string File { get; private set; }
 
-        public FileExists(XElement xe, Workflow wf)
-            : base(xe, wf)
+        public FileExists(XElement xe, Workflow wf): base(xe, wf)
         {
             File = GetSetting("file");
         }
@@ -24,6 +23,16 @@ namespace Wexflow.Tasks.FileExists
             try
             {
                 success = System.IO.File.Exists(File);
+
+                if (success)
+                {
+                    InfoFormat("The file {0} exists.", File);
+                }
+                else
+                {
+                    InfoFormat("The file {0} does not exists.", File);
+                }
+
             }
             catch (ThreadAbortException)
             {

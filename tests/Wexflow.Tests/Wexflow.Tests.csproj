@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CsvToXml.cs" />
+    <Compile Include="FileMatch.cs" />
     <Compile Include="IsoCreator.cs" />
     <Compile Include="DatabaseRestore.cs" />
     <Compile Include="FileExists.cs" />
@@ -200,6 +201,10 @@
     <ProjectReference Include="..\..\src\Wexflow.Tasks.FileExists\Wexflow.Tasks.FileExists.csproj">
       <Project>{8ed85a48-a8e3-4565-a874-3562f081d14c}</Project>
       <Name>Wexflow.Tasks.FileExists</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Wexflow.Tasks.FileMatch\Wexflow.Tasks.FileMatch.csproj">
+      <Project>{5d8b91f0-6363-4015-9c95-6a07ce15d56d}</Project>
+      <Name>Wexflow.Tasks.FileMatch</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Wexflow.Tasks.FilesConcat\Wexflow.Tasks.FilesConcat.csproj">
       <Project>{215834bb-7c88-45f0-b376-76ffae93f4b2}</Project>

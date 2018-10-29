@@ -4,6 +4,7 @@
 	"DatabaseBackup",
 	"DatabaseRestore",
 	"FileExists",
+	"FileMatch",
 	"FilesCopier",
 	"FilesDecryptor",
 	"FilesDiff",
