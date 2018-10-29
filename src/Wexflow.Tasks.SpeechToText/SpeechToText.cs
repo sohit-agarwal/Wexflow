@@ -28,20 +28,24 @@ namespace Wexflow.Tasks.SpeechToText
             {
                 try
                 {
-                    using (Stream stream = new FileStream(file.Path, FileMode.Open))
+                    using (var sre = new SpeechRecognitionEngine(new CultureInfo("en-US")))
                     {
-                        var recognizer = new SpeechRecognitionEngine(new CultureInfo("en-US"));
-                        var dictationGrammar = new DictationGrammar();
-                        recognizer.LoadGrammar(dictationGrammar);
-                        recognizer.SetInputToAudioStream(stream, new SpeechAudioFormatInfo(32000, AudioBitsPerSample.Sixteen, AudioChannel.Mono));
-                        var result = recognizer.Recognize();
-                        string text = result.Text;
+                        sre.SetInputToWaveFile(file.Path);
+                        sre.LoadGrammar(new DictationGrammar());
+
+                        sre.BabbleTimeout = new TimeSpan(int.MaxValue);
+                        sre.InitialSilenceTimeout = new TimeSpan(int.MaxValue);
+                        sre.EndSilenceTimeout = new TimeSpan(100000000);
+                        sre.EndSilenceTimeoutAmbiguous = new TimeSpan(100000000);
+
+                        var result = sre.Recognize();
+                        var text = result.Text;
 
                         var destFile = Path.Combine(Workflow.WorkflowTempFolder, Path.GetFileNameWithoutExtension(file.FileName) + ".txt");
                         File.WriteAllText(destFile, text);
                         Files.Add(new FileInf(destFile, Id));
                         InfoFormat("The file {0} was converted to a text file with success -> {1}", file.Path, destFile);
-                    }
+                    }   
                 }
                 catch (ThreadAbortException)
                 {
