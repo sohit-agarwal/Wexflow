@@ -72,7 +72,7 @@ Here are the benefits of using Wexflow:
 
 # Continuous integration
 
-|  Server | Platform | Build status |
+|  Server | Platform | Status |
 ----------|--------|----------|
 | [AppVeyor](https://www.appveyor.com/) | Windows |[![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow)|
 |[codecov.io](https://codecov.io)|Windows|[![codecov](https://codecov.io/gh/aelassas/Wexflow/branch/master/graph/badge.svg)](https://codecov.io/gh/aelassas/Wexflow)|
