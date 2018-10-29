@@ -26,11 +26,6 @@ namespace Wexflow.Tasks.Zip
             var files = SelectFiles();
             if (files.Length > 0)
             {
-                if (string.IsNullOrEmpty(ZipFileName))
-                {
-                    var fileName = Path.GetFileNameWithoutExtension(files[0].RenameToOrName);
-                    ZipFileName = fileName + ".zip";
-                }
                 var zipPath = Path.Combine(Workflow.WorkflowTempFolder, ZipFileName);
 
                 try
@@ -100,7 +95,7 @@ namespace Wexflow.Tasks.Zip
             }
 
             Info("Task finished.");
-            return new TaskStatus(status, false);
+            return new TaskStatus(status);
         }
     }
 }

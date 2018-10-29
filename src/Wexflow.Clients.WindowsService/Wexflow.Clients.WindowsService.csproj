@@ -296,6 +296,10 @@
       <Project>{f3f7276b-ac03-4db2-a1d8-28738434c72e}</Project>
       <Name>Wexflow.Tasks.Rmdir</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.SevenZip\Wexflow.Tasks.SevenZip.csproj">
+      <Project>{fa30208c-6aaa-4bbd-9932-79e2bcd17ede}</Project>
+      <Name>Wexflow.Tasks.SevenZip</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.Sha1\Wexflow.Tasks.Sha1.csproj">
       <Project>{58e208f5-9943-48e5-86df-56f1ccfa8e75}</Project>
       <Name>Wexflow.Tasks.Sha1</Name>

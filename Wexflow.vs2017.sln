@@ -208,6 +208,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{
 		samples\Wexflow\Workflows\Workflow_ProcessInfo.xml = samples\Wexflow\Workflows\Workflow_ProcessInfo.xml
 		samples\Wexflow\Workflows\Workflow_ProcessKiller.xml = samples\Wexflow\Workflows\Workflow_ProcessKiller.xml
 		samples\Wexflow\Workflows\Workflow_Rmdir.xml = samples\Wexflow\Workflows\Workflow_Rmdir.xml
+		samples\Wexflow\Workflows\Workflow_SevenZip.xml = samples\Wexflow\Workflows\Workflow_SevenZip.xml
 		samples\Wexflow\Workflows\Workflow_Sftp_delete.xml = samples\Wexflow\Workflows\Workflow_Sftp_delete.xml
 		samples\Wexflow\Workflows\Workflow_Sftp_download.xml = samples\Wexflow\Workflows\Workflow_Sftp_download.xml
 		samples\Wexflow\Workflows\Workflow_Sftp_upload.xml = samples\Wexflow\Workflows\Workflow_Sftp_upload.xml
@@ -285,6 +286,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.IsoCreator", "src\Wexflow.Tasks.IsoCreator\Wexflow.Tasks.IsoCreator.csproj", "{9CDFAF59-62B3-48BA-BCCE-3359856D3835}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.IsoExtractor", "src\Wexflow.Tasks.IsoExtractor\Wexflow.Tasks.IsoExtractor.csproj", "{8546CD00-1A5E-4455-BDD4-225716DB1727}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.SevenZip", "src\Wexflow.Tasks.SevenZip\Wexflow.Tasks.SevenZip.csproj", "{FA30208C-6AAA-4BBD-9932-79E2BCD17EDE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1536,8 +1539,8 @@ Global
 		{F42FBCD6-6D25-4A28-BE88-57025F181C1C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{F42FBCD6-6D25-4A28-BE88-57025F181C1C}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{F42FBCD6-6D25-4A28-BE88-57025F181C1C}.Debug|x64.Build.0 = Debug|Any CPU
-		{F42FBCD6-6D25-4A28-BE88-57025F181C1C}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{F42FBCD6-6D25-4A28-BE88-57025F181C1C}.Debug|x86.Build.0 = Debug|Any CPU
+		{F42FBCD6-6D25-4A28-BE88-57025F181C1C}.Debug|x86.ActiveCfg = Debug|x86
+		{F42FBCD6-6D25-4A28-BE88-57025F181C1C}.Debug|x86.Build.0 = Debug|x86
 		{F42FBCD6-6D25-4A28-BE88-57025F181C1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F42FBCD6-6D25-4A28-BE88-57025F181C1C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F42FBCD6-6D25-4A28-BE88-57025F181C1C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
@@ -1552,8 +1555,8 @@ Global
 		{9CDFAF59-62B3-48BA-BCCE-3359856D3835}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{9CDFAF59-62B3-48BA-BCCE-3359856D3835}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{9CDFAF59-62B3-48BA-BCCE-3359856D3835}.Debug|x64.Build.0 = Debug|Any CPU
-		{9CDFAF59-62B3-48BA-BCCE-3359856D3835}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{9CDFAF59-62B3-48BA-BCCE-3359856D3835}.Debug|x86.Build.0 = Debug|Any CPU
+		{9CDFAF59-62B3-48BA-BCCE-3359856D3835}.Debug|x86.ActiveCfg = Debug|x86
+		{9CDFAF59-62B3-48BA-BCCE-3359856D3835}.Debug|x86.Build.0 = Debug|x86
 		{9CDFAF59-62B3-48BA-BCCE-3359856D3835}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9CDFAF59-62B3-48BA-BCCE-3359856D3835}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9CDFAF59-62B3-48BA-BCCE-3359856D3835}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
@@ -1568,8 +1571,8 @@ Global
 		{8546CD00-1A5E-4455-BDD4-225716DB1727}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{8546CD00-1A5E-4455-BDD4-225716DB1727}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{8546CD00-1A5E-4455-BDD4-225716DB1727}.Debug|x64.Build.0 = Debug|Any CPU
-		{8546CD00-1A5E-4455-BDD4-225716DB1727}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{8546CD00-1A5E-4455-BDD4-225716DB1727}.Debug|x86.Build.0 = Debug|Any CPU
+		{8546CD00-1A5E-4455-BDD4-225716DB1727}.Debug|x86.ActiveCfg = Debug|x86
+		{8546CD00-1A5E-4455-BDD4-225716DB1727}.Debug|x86.Build.0 = Debug|x86
 		{8546CD00-1A5E-4455-BDD4-225716DB1727}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8546CD00-1A5E-4455-BDD4-225716DB1727}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8546CD00-1A5E-4455-BDD4-225716DB1727}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
@@ -1578,6 +1581,22 @@ Global
 		{8546CD00-1A5E-4455-BDD4-225716DB1727}.Release|x64.Build.0 = Release|x64
 		{8546CD00-1A5E-4455-BDD4-225716DB1727}.Release|x86.ActiveCfg = Release|x86
 		{8546CD00-1A5E-4455-BDD4-225716DB1727}.Release|x86.Build.0 = Release|x86
+		{FA30208C-6AAA-4BBD-9932-79E2BCD17EDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA30208C-6AAA-4BBD-9932-79E2BCD17EDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA30208C-6AAA-4BBD-9932-79E2BCD17EDE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{FA30208C-6AAA-4BBD-9932-79E2BCD17EDE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{FA30208C-6AAA-4BBD-9932-79E2BCD17EDE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FA30208C-6AAA-4BBD-9932-79E2BCD17EDE}.Debug|x64.Build.0 = Debug|Any CPU
+		{FA30208C-6AAA-4BBD-9932-79E2BCD17EDE}.Debug|x86.ActiveCfg = Debug|x86
+		{FA30208C-6AAA-4BBD-9932-79E2BCD17EDE}.Debug|x86.Build.0 = Debug|x86
+		{FA30208C-6AAA-4BBD-9932-79E2BCD17EDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA30208C-6AAA-4BBD-9932-79E2BCD17EDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA30208C-6AAA-4BBD-9932-79E2BCD17EDE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FA30208C-6AAA-4BBD-9932-79E2BCD17EDE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{FA30208C-6AAA-4BBD-9932-79E2BCD17EDE}.Release|x64.ActiveCfg = Release|x64
+		{FA30208C-6AAA-4BBD-9932-79E2BCD17EDE}.Release|x64.Build.0 = Release|x64
+		{FA30208C-6AAA-4BBD-9932-79E2BCD17EDE}.Release|x86.ActiveCfg = Release|x86
+		{FA30208C-6AAA-4BBD-9932-79E2BCD17EDE}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1663,6 +1682,7 @@ Global
 		{F42FBCD6-6D25-4A28-BE88-57025F181C1C} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{9CDFAF59-62B3-48BA-BCCE-3359856D3835} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{8546CD00-1A5E-4455-BDD4-225716DB1727} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
+		{FA30208C-6AAA-4BBD-9932-79E2BCD17EDE} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {694D69C8-AA13-4F54-BAAA-5B967F1A8F9C}
