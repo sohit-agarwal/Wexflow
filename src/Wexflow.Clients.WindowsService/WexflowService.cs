@@ -458,8 +458,16 @@ namespace Wexflow.Clients.WindowsService
             UriTemplate = "taskNames")]
         public string[] GetTaskNames()
         {
-            JArray array = JArray.Parse(File.ReadAllText(WexflowWindowsService.WexflowEngine.TasksNamesFile));
-            return array.ToObject<string[]>().OrderBy(x => x).ToArray();
+            try
+            {
+                JArray array = JArray.Parse(File.ReadAllText(WexflowWindowsService.WexflowEngine.TasksNamesFile));
+                return array.ToObject<string[]>().OrderBy(x => x).ToArray();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return new string[] { "TasksNames.json is not valid." };
+            }
         }
 
         [WebInvoke(Method = "GET",
@@ -534,9 +542,17 @@ namespace Wexflow.Clients.WindowsService
             UriTemplate = "settings/{taskName}")]
         public string[] GetSettings(string taskName)
         {
-            JObject o = JObject.Parse(File.ReadAllText(WexflowWindowsService.WexflowEngine.TasksSettingsFile));
-            var token = o.SelectToken(taskName);
-            return token != null ? token.ToObject<string[]>().OrderBy(x => x).ToArray() : new string[]{};
+            try
+            {
+                JObject o = JObject.Parse(File.ReadAllText(WexflowWindowsService.WexflowEngine.TasksSettingsFile));
+                var token = o.SelectToken(taskName);
+                return token != null ? token.ToObject<string[]>().OrderBy(x => x).ToArray() : new string[] { };
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return new string[] { "TasksSettings.json is not valid." };
+            }
         }
 
         [WebInvoke(Method = "GET",

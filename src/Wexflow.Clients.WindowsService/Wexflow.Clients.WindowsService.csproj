@@ -348,6 +348,10 @@
       <Project>{dd5c037c-f7ff-4d8d-8076-3386e30cb0fa}</Project>
       <Name>Wexflow.Tasks.TextToPdf</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.TextToSpeech\Wexflow.Tasks.TextToSpeech.csproj">
+      <Project>{400071c8-ba8b-4264-b872-adc1a5107db5}</Project>
+      <Name>Wexflow.Tasks.TextToSpeech</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.Tgz\Wexflow.Tasks.Tgz.csproj">
       <Project>{f7184c59-67d4-4bf5-abd0-d6ea9c50b6b7}</Project>
       <Name>Wexflow.Tasks.Tgz</Name>

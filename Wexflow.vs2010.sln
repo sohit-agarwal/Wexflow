@@ -217,6 +217,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{
 		samples\Wexflow\Workflows\Workflow_TextsDecryptor.xml = samples\Wexflow\Workflows\Workflow_TextsDecryptor.xml
 		samples\Wexflow\Workflows\Workflow_TextsEncryptor.xml = samples\Wexflow\Workflows\Workflow_TextsEncryptor.xml
 		samples\Wexflow\Workflows\Workflow_TextToPdf.xml = samples\Wexflow\Workflows\Workflow_TextToPdf.xml
+		samples\Wexflow\Workflows\Workflow_TextToSpeech.xml = samples\Wexflow\Workflows\Workflow_TextToSpeech.xml
 		samples\Wexflow\Workflows\Workflow_Tgz.xml = samples\Wexflow\Workflows\Workflow_Tgz.xml
 		samples\Wexflow\Workflows\Workflow_Torrent.xml = samples\Wexflow\Workflows\Workflow_Torrent.xml
 		samples\Wexflow\Workflows\Workflow_Touch.xml = samples\Wexflow\Workflows\Workflow_Touch.xml
@@ -278,6 +279,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.IsoExtractor", "src\Wexflow.Tasks.IsoExtractor\Wexflow.Tasks.IsoExtractor.csproj", "{8546CD00-1A5E-4455-BDD4-225716DB1727}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.SevenZip", "src\Wexflow.Tasks.SevenZip\Wexflow.Tasks.SevenZip.csproj", "{FA30208C-6AAA-4BBD-9932-79E2BCD17EDE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.TextToSpeech", "src\Wexflow.Tasks.TextToSpeech\Wexflow.Tasks.TextToSpeech.csproj", "{400071C8-BA8B-4264-B872-ADC1A5107DB5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1509,6 +1512,22 @@ Global
 		{FA30208C-6AAA-4BBD-9932-79E2BCD17EDE}.Release|x64.Build.0 = Release|x64
 		{FA30208C-6AAA-4BBD-9932-79E2BCD17EDE}.Release|x86.ActiveCfg = Release|x86
 		{FA30208C-6AAA-4BBD-9932-79E2BCD17EDE}.Release|x86.Build.0 = Release|x86
+		{400071C8-BA8B-4264-B872-ADC1A5107DB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{400071C8-BA8B-4264-B872-ADC1A5107DB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{400071C8-BA8B-4264-B872-ADC1A5107DB5}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{400071C8-BA8B-4264-B872-ADC1A5107DB5}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{400071C8-BA8B-4264-B872-ADC1A5107DB5}.Debug|x64.ActiveCfg = Debug|x64
+		{400071C8-BA8B-4264-B872-ADC1A5107DB5}.Debug|x64.Build.0 = Debug|x64
+		{400071C8-BA8B-4264-B872-ADC1A5107DB5}.Debug|x86.ActiveCfg = Debug|x86
+		{400071C8-BA8B-4264-B872-ADC1A5107DB5}.Debug|x86.Build.0 = Debug|x86
+		{400071C8-BA8B-4264-B872-ADC1A5107DB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{400071C8-BA8B-4264-B872-ADC1A5107DB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{400071C8-BA8B-4264-B872-ADC1A5107DB5}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{400071C8-BA8B-4264-B872-ADC1A5107DB5}.Release|Mixed Platforms.Build.0 = Release|x86
+		{400071C8-BA8B-4264-B872-ADC1A5107DB5}.Release|x64.ActiveCfg = Release|x64
+		{400071C8-BA8B-4264-B872-ADC1A5107DB5}.Release|x64.Build.0 = Release|x64
+		{400071C8-BA8B-4264-B872-ADC1A5107DB5}.Release|x86.ActiveCfg = Release|x86
+		{400071C8-BA8B-4264-B872-ADC1A5107DB5}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1588,6 +1607,7 @@ Global
 		{9CDFAF59-62B3-48BA-BCCE-3359856D3835} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{8546CD00-1A5E-4455-BDD4-225716DB1727} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{FA30208C-6AAA-4BBD-9932-79E2BCD17EDE} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
+		{400071C8-BA8B-4264-B872-ADC1A5107DB5} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{81032249-78D9-4B89-8E22-A3C32562EA69} = {67871E52-CB11-4EDF-B036-15F359EF6B66}
 		{D559C35B-BFF5-49C2-9490-818314C88A76} = {67871E52-CB11-4EDF-B036-15F359EF6B66}
 		{59410829-C439-4683-818E-AC99F94D1EBA} = {67871E52-CB11-4EDF-B036-15F359EF6B66}

@@ -3,8 +3,7 @@
   <!--
     TextToPdf is a sequential task that generates PDF files from TEXT files.
     
-   The PDF files generated are loaded by the TextToPdf task so that other tasks can select 
-   them through the selectFiles option.
+   The PDF files generated are loaded by this task so that other tasks can select them through the selectFiles option.
   -->
   <Task id="$int" name="TextToPdf" description="$string" enabled="true|false">
     <!-- 

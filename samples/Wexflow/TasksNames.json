@@ -53,6 +53,7 @@
 	"TextsDecryptor",
 	"TextsEncryptor",
 	"TextToPdf",
+	"TextToSpeech",
 	"Tgz",
 	"Torrent",
 	"Touch",

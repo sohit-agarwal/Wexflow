@@ -51,7 +51,7 @@ namespace Wexflow.Tasks.TextToPdf
                     }
                     catch (Exception e)
                     {
-                        ErrorFormat("An error occured while generating the md5 of the file {0}", e, file.Path);
+                        ErrorFormat("An error occured while converting the file {0}", e, file.Path);
                         success = false;
                     }
                 }  

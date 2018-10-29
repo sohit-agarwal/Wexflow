@@ -4,10 +4,10 @@ using System.IO;
 namespace Wexflow.Tests
 {
     [TestClass]
-    public class SevenZip
+    public class TextToSpeech
     {
-        private static readonly string DestDir = @"C:\WexflowTesting\SevenZip_dest";
-        private static readonly string SevenZipFile = @"C:\WexflowTesting\SevenZip_dest\output.7z";
+        private static readonly string DestDir = @"C:\WexflowTesting\TextToSpeech_dest";
+        private static readonly string WavFile = @"C:\WexflowTesting\TextToSpeech_dest\file.wav";
 
         [TestInitialize]
         public void TestInitialize()
@@ -22,11 +22,11 @@ namespace Wexflow.Tests
         }
 
         [TestMethod]
-        public void SevenZipTest()
+        public void TextToSpeechTest()
         {
-            Assert.AreEqual(false, File.Exists(SevenZipFile));
-            Helper.StartWorkflow(89);
-            Assert.AreEqual(true, File.Exists(SevenZipFile));
+            Assert.AreEqual(false, File.Exists(WavFile));
+            Helper.StartWorkflow(90);
+            Assert.AreEqual(true, File.Exists(WavFile));
         }
     }
 }

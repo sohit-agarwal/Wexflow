@@ -41,7 +41,7 @@
 	"ProcessKiller": [ "processName" ],
 	"ProcessLauncher": [ "selectFiles", "processPath", "processCmd", "hideGui", "generatesFiles" ],
 	"Rmdir": [ "folder" ],
-	"SevenZip": [ "selectFiles", "zipFileName" ]
+	"SevenZip": [ "selectFiles", "zipFileName" ],
 	"Sha1": [ "selectFiles" ],
 	"Sha256": [ "selectFiles" ],
 	"Sha512": [ "selectFiles" ],
@@ -53,6 +53,7 @@
 	"TextsDecryptor": [ "selectFiles" ],
 	"TextsEncryptor": [ "selectFiles" ],
 	"TextToPdf": [ "selectFiles" ],
+	"TextToSpeech": [ "selectFiles" ],
 	"Tgz": [ "selectFiles", "tgzFileName" ],
 	"Torrent": [ "selectFiles", "saveFolder" ],
 	"Touch": [ "file" ],
