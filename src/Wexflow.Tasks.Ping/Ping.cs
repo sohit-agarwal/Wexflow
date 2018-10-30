@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.NetworkInformation;
-using System.Text;
 using System.Threading;
 using System.Xml.Linq;
 using Wexflow.Core;
@@ -22,7 +19,7 @@ namespace Wexflow.Tasks.Ping
         {
             Info("Checking file...");
 
-            bool success;
+            bool success = false;
 
             try
             {
@@ -56,18 +53,11 @@ namespace Wexflow.Tasks.Ping
         private bool PingHost(string server)
         {
             bool pingable = false;
-           
-            try
+
+            using (System.Net.NetworkInformation.Ping pinger = new System.Net.NetworkInformation.Ping())
             {
-                using (System.Net.NetworkInformation.Ping pinger = new System.Net.NetworkInformation.Ping())
-                {
-                    PingReply reply = pinger.Send(server);
-                    pingable = reply.Status == IPStatus.Success;
-                }
-            }
-            catch (Exception e)
-            {
-                ErrorFormat("An error occured while pinging the server {0}: {1}", Server, e.Message);
+                PingReply reply = pinger.Send(server);
+                pingable = reply.Status == IPStatus.Success;
             }
 
             return pingable;
