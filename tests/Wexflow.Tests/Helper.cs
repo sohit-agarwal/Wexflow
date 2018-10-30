@@ -126,6 +126,11 @@ namespace Wexflow.Tests
             process.BeginErrorReadLine();
         }
 
+        public static string[] GetFiles(string dir, string pattern, SearchOption searchOption)
+        {
+            return Directory.GetFiles(dir, pattern, searchOption);
+        }
+
         private static void OutputHandler(object sendingProcess, DataReceivedEventArgs outLine)
         {
             Debug.WriteLine("{0}", outLine.Data);

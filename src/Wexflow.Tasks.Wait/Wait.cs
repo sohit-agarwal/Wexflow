@@ -9,8 +9,7 @@ namespace Wexflow.Tasks.Wait
     {
         public TimeSpan Duration { get; private set; }
 
-        public Wait(XElement xe, Workflow wf)
-            : base(xe, wf)
+        public Wait(XElement xe, Workflow wf): base(xe, wf)
         {
             Duration = TimeSpan.Parse(GetSetting("duration"));
         }
