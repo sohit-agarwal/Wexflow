@@ -62,6 +62,7 @@
 }
 .wf-designer-table {
     border-spacing: 0;
+    border: #ddd solid 1px;
 }
 
     .wf-designer-table tr {
@@ -87,6 +88,9 @@
     color: #373737;
     padding: 10px;
     margin-bottom: 0;
+    border-top: #ddd 1px solid;
+    border-right: #ddd 1px solid;
+    border-left: #ddd 1px solid;
 }
 
 .wf-value, .wf-value> input {

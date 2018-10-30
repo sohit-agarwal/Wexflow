@@ -12,7 +12,7 @@
     var timerInterval = 500; // ms
     var saveCalled = false;
 
-    var rightPanelHtml = "<h3><button id='wf-xml' type='button' class='wf-action-left btn btn-outline-secondary btn-sm'>Xml</button></h3>" +
+    var rightPanelHtml = "<h3><button id='wf-xml' type='button' class='wf-action-left btn btn-dark btn-sm'>Xml</button></h3>" +
         "<pre><code id='wf-xml-container' class='xml'></code></pre>" +
         "<table class='wf-designer-table'>" +
         "<tbody>" +
@@ -29,15 +29,15 @@
         "</table>" +
         "<div id='wf-tasks'>" +
         "</div>" +
-        "<button type='button' id='wf-add-task' class='btn btn-outline-secondary btn-sm'>New task</button>" +
+        "<button type='button' id='wf-add-task' class='btn btn-dark btn-sm'>New task</button>" +
         "<h3 id='wf-execution-graph-title'>Execution graph</h3>" +
         "<div id='wf-execution-graph'></div>";
 
     var html = "<div id='wf-container'>" +
         "<div id='wf-workflows'></div>" +
         "<div id='wf-action'>" +
-        "<button type='button' id='wf-add-workflow' class='btn btn-outline-secondary btn-sm'>New workflow</button>" +
-        "<button id='wf-delete' type='button' class='wf-action-right btn btn-outline-danger btn-sm'>Delete</button>" +
+        "<button type='button' id='wf-add-workflow' class='btn btn-dark btn-sm'>New workflow</button>" +
+        "<button id='wf-delete' type='button' class='wf-action-right btn btn-danger btn-sm'>Delete</button>" +
         "<button id='wf-save' type= 'button' class='wf-action-right btn btn-secondary btn-sm'>Save</button>" +
         "<button id='wf-cancel' type= 'button' class='wf-action-right btn btn-secondary btn-sm'>Cancel</button>" +
         "</div>"+
@@ -429,10 +429,10 @@
         var newTaskHtml =
             "<h5 class='wf-task-title'>" +
             "<label class='wf-task-title-label'>Task</label>" +
-            "<button type='button' class='wf-remove-task btn btn-outline-danger btn-sm' style='display: block;'>Delete</button>" +
-            "<button type='button' class='wf-show-doc btn btn-outline-secondary btn-sm'>Documentation</button>" +
-            "<button type='button' class='wf-show-taskxml btn btn-outline-secondary btn-sm'>Xml</button>" +
-            "<button type='button' class='wf-add-setting btn btn-outline-secondary btn-sm'>New setting</button>" +
+            "<button type='button' class='wf-remove-task btn btn-danger btn-sm' style='display: block;'>Delete</button>" +
+            "<button type='button' class='wf-show-doc btn btn-dark btn-sm'>Documentation</button>" +
+            "<button type='button' class='wf-show-taskxml btn btn-dark btn-sm'>Xml</button>" +
+            "<button type='button' class='wf-add-setting btn btn-dark btn-sm'>New setting</button>" +
             "</h5>" +
             "<table class='wf-designer-table'>" +
             "<tbody>" +
@@ -584,9 +584,9 @@
                 cell2.innerHTML = "<input class='wf-setting-value' type='text' /><table class='wf-attributes'></table>";
 
                 cell3.className = "wf-add-attribute-td";
-                cell3.innerHTML = "<button type='button' class='wf-add-attribute btn btn-outline-secondary btn-sm'>New attribute</button>";
+                cell3.innerHTML = "<button type='button' class='wf-add-attribute btn btn-dark btn-sm'>New attribute</button>";
                 cell4.colSpan = "2";
-                cell4.innerHTML = "<button type='button' class='wf-remove-setting btn btn-outline-danger btn-sm'>Delete</button>";
+                cell4.innerHTML = "<button type='button' class='wf-remove-setting btn btn-danger btn-sm'>Delete</button>";
 
                 var taskIndex = getElementIndex(btn.parentElement.parentElement);
                 var task = workflowTasks[workflowId][taskIndex];
@@ -652,7 +652,7 @@
 
         cell1.innerHTML = "<input class='wf-attribute-name' type='text' />";
         cell2.innerHTML = "<input class='wf-attribute-value' type='text' />";
-        cell3.innerHTML = "<button type='button' class='wf-remove-attribute btn btn-outline-danger btn-sm'>Delete</button>";
+        cell3.innerHTML = "<button type='button' class='wf-remove-attribute btn btn-danger btn-sm'>Delete</button>";
 
         var taskIndex =
             getElementIndex(btn.parentElement.parentElement.parentElement.parentElement.parentElement);
@@ -1076,10 +1076,10 @@
 
                                     tasksHtml += "<div class='wf-task'>" +
                                         "<h5 class='wf-task-title'><label class='wf-task-title-label'>Task " + task.Id + "</label>" +
-                                        "<button type='button' class='wf-remove-task btn btn-outline-danger btn-sm'>Delete</button>" +
-                                        "<button type='button' class='wf-show-doc btn btn-outline-secondary btn-sm'>Documentation</button>" +
-                                        "<button type='button' class='wf-show-taskxml btn btn-outline-secondary btn-sm'>Xml</button>" +
-                                        "<button type='button' class='wf-add-setting btn btn-outline-secondary btn-sm'>New setting</button>" +
+                                        "<button type='button' class='wf-remove-task btn btn-danger btn-sm'>Delete</button>" +
+                                        "<button type='button' class='wf-show-doc btn btn-dark btn-sm'>Documentation</button>" +
+                                        "<button type='button' class='wf-show-taskxml btn btn-dark btn-sm'>Xml</button>" +
+                                        "<button type='button' class='wf-add-setting btn btn-dark btn-sm'>New setting</button>" +
                                         "</h5>" +
                                         "<table class='wf-designer-table'>" +
                                         "<tbody>" +
@@ -1122,15 +1122,15 @@
                                                 "<tr>" +
                                                 "<td><input class='wf-attribute-name' type='text' value='" + attr.Name + "'  /></td>" +
                                                 "<td><input class='wf-attribute-value' type='text' value='" + attr.Value + "'  /></td>" +
-                                                "<td><button type='button' class='wf-remove-attribute btn btn-outline-danger btn-sm'>Delete</button></td>" +
+                                                "<td><button type='button' class='wf-remove-attribute btn btn-danger btn-sm'>Delete</button></td>" +
                                                 "</tr>";
                                         }
 
                                         tasksHtml += "</table>";
 
                                         tasksHtml += "</td>" +
-                                            "<td class='wf-add-attribute-td'><button type='button' class='wf-add-attribute btn btn-outline-secondary btn-sm'>New attribute</button></td>" +
-                                            "<td colspan='2'><button type='button' class='wf-remove-setting btn btn-outline-danger btn-sm'>Delete</button></td>" +
+                                            "<td class='wf-add-attribute-td'><button type='button' class='wf-add-attribute btn btn-dark btn-sm'>New attribute</button></td>" +
+                                            "<td colspan='2'><button type='button' class='wf-remove-setting btn btn-danger btn-sm'>Delete</button></td>" +
                                             "</tr>";
                                     }
 
