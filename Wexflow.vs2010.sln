@@ -87,12 +87,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Movedir", "sr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{30035A14-29A3-4EEA-A6BC-D790771D8F20}"
 	ProjectSection(SolutionItems) = preProject
-		.travis.yml = .travis.yml
 		.gitignore = .gitignore
 		.tfignore = .tfignore
 		appveyor.yml = appveyor.yml
 		LICENSE.txt = LICENSE.txt
-		VERSION.txt = VERSION.txt
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Now", "src\Wexflow.Tasks.Now\Wexflow.Tasks.Now.csproj", "{F2F1E7E2-2707-40A7-A98D-B5BBD27C0787}"
