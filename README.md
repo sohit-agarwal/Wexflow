@@ -103,6 +103,8 @@ Download the latest release [here](https://github.com/aelassas/Wexflow/releases/
 
 [![builtwithdot.net](http://aelassas.github.io/wexflow/images/builtwithdot.png)](https://builtwithdot.net/project/180/wexflow)
 
+[![dotnet.libhunt.com](http://aelassas.github.io/wexflow/images/awesome.net.png)](https://dotnet.libhunt.com/wexflow-alternatives)
+
 # Contribute
 To contribute to this project, proceed as follows:
 - Read the documentation on how to [debug](https://github.com/aelassas/Wexflow/wiki/Debug) Wexflow.
