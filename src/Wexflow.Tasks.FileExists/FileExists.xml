@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    FileExists is a flowchart task that check whether a file exists or not.
+    FileExists is a flowchart task that checks whether a file exists or not.
   -->
   <Task id="$int" name="FileExists" description="$string" enabled="true|false">
     <!-- 

@@ -38,6 +38,7 @@
 	"Mkdir": [ "folder" ],
 	"Movedir": [ "folder", "destinationFolder", "overwrite" ],
 	"Now": [ "culture", "format" ],
+	"Ping": [ "server" ],
 	"ProcessInfo": [ "processName" ],
 	"ProcessKiller": [ "processName" ],
 	"ProcessLauncher": [ "selectFiles", "processPath", "processCmd", "hideGui", "generatesFiles" ],

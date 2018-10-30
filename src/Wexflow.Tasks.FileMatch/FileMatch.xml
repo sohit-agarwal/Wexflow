@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    FileMatch is a flowchart task that check whether a file exists or not in a directory by using a regex pattern.
+    FileMatch is a flowchart task that checks whether a file exists or not in a directory by using a regex pattern.
   -->
   <Task id="$int" name="FileMatch" description="$string" enabled="true|false">
     <!-- The path of the directory to check. Example: C:\WexflowTesting\ -->
