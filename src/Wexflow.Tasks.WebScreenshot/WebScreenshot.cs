@@ -24,6 +24,9 @@ namespace Wexflow.Tasks.WebScreenshot
             Info("Taking screenshots...");
             var status = Status.Success;
 
+            bool success = true;
+            bool atLeastOneSuccess = false;
+
             foreach (var url in Urls)
             {
                 try
@@ -38,6 +41,8 @@ namespace Wexflow.Tasks.WebScreenshot
 
                     ss.SaveAsFile(destFile, ScreenshotImageFormat.Png);
 
+                    if (!atLeastOneSuccess) atLeastOneSuccess = true;
+
                     InfoFormat("Screenshot of {0} taken with success -> {1}", url, destFile);
                     Files.Add(new FileInf(destFile, Id));
                 }
@@ -48,8 +53,18 @@ namespace Wexflow.Tasks.WebScreenshot
                 catch (Exception e)
                 {
                     ErrorFormat("An error occured while taking the screenshot of {0}: {1}", url, e.Message);
-                    status = Status.Error;
+                    success = false;
                 }
+            }
+
+
+            if (!success && atLeastOneSuccess)
+            {
+                status = Status.Warning;
+            }
+            else if (!success)
+            {
+                status = Status.Error;
             }
 
             Info("Task finished.");
