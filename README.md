@@ -24,6 +24,7 @@ Wexflow provides the following features:
 - [x] [Free and open-source](https://github.com/aelassas/Wexflow/wiki/Free-and-open-source).
 - [x] [Easy to install and effortless configuration](https://github.com/aelassas/Wexflow/wiki/Installation).
 - [x] [Straightforward and easy to use](https://github.com/aelassas/Wexflow/wiki/Usage).
+- [x] [Well documented](https://github.com/aelassas/Wexflow/wiki/).
 - [x] [Extensive logging and incident reporting](https://github.com/aelassas/Wexflow/wiki/Logging).
 - [x] [Sequential workflows](https://github.com/aelassas/Wexflow/wiki/Samples#sequential-workflows).
 - [x] [Flowchart workflows](https://github.com/aelassas/Wexflow/wiki/Samples#flowchart-workflows).
@@ -104,6 +105,10 @@ Download the latest release [here](https://github.com/aelassas/Wexflow/releases/
 [![builtwithdot.net](http://aelassas.github.io/wexflow/images/builtwithdot.png)](https://builtwithdot.net/project/180/wexflow)
 
 [![dotnet.libhunt.com](http://aelassas.github.io/wexflow/images/awesome.net.png)](https://dotnet.libhunt.com/wexflow-alternatives)
+
+# Awards
+
+- [Best C# Article of January 2017 : Second Prize on CodeProject](https://www.codeproject.com/Articles/1164009/Wexflow-Open-source-workflow-engine-in-Csharp)
 
 # Contribute
 To contribute to this project, proceed as follows:
