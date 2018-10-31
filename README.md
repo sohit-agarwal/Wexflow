@@ -114,6 +114,9 @@ Download the latest release [here](https://github.com/aelassas/Wexflow/releases/
 - [Best C# Article of January 2017 : Second Prize on CodeProject](https://www.codeproject.com/Articles/1164009/Wexflow-Open-source-workflow-engine-in-Csharp).
 
 # Contribute
+
+Contributions are very welcome!
+
 To contribute to this project, proceed as follows:
 - Read the documentation on how to [debug](https://github.com/aelassas/Wexflow/wiki/Debug) Wexflow.
 - [Fork](https://guides.github.com/activities/forking/) this repository.
