@@ -26,6 +26,7 @@ Wexflow provides the following features:
 - [x] [Straightforward and easy to use](https://github.com/aelassas/Wexflow/wiki/Usage).
 - [x] [Modular](https://github.com/aelassas/Wexflow/wiki/Modular).
 - [x] [Well documented](https://github.com/aelassas/Wexflow/wiki/).
+- [x] [User driven](https://github.com/aelassas/Wexflow/wiki/User-driven).
 - [x] [Sequential workflows](https://github.com/aelassas/Wexflow/wiki/Samples#sequential-workflows).
 - [x] [Flowchart workflows](https://github.com/aelassas/Wexflow/wiki/Samples#flowchart-workflows).
 - [x] [Workflow events](https://github.com/aelassas/Wexflow/wiki/Samples#workflow-events).
