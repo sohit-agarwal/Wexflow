@@ -1,10 +1,11 @@
+<!--[![Logo](https://aelassas.github.io/wexflow/images/wexflow.png "Logo")](https://wexflow.github.io/)-->
+<a href="https://wexflow.github.io/"><img alt="Wexflow" src="https://aelassas.github.io/wexflow/images/wexflow.png" width="100%"></a>
+
 [![Release](http://img.shields.io/badge/release-v2.8-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/latest) [![Nuget](http://img.shields.io/badge/nuget-v2.8.1-blue.svg)](https://www.nuget.org/packages/Wexflow) [![GitHub Downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://www.somsubhra.com/github-release-stats/?username=aelassas&repository=Wexflow) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby) [![Release](http://img.shields.io/badge/prs-welcome-brightgreen.svg)](https://github.com/aelassas/Wexflow#contribute) [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Wexflow%20-%20Open%20source%20workflow%20engine&url=https://wexflow.github.io&via=aelassas_dev&hashtags=wexflow,workflow)
 
 <!--
 [![NuGet Downloads](https://img.shields.io/nuget/dt/Wexflow.svg)](https://www.nuget.org/packages/Wexflow/)
 -->
-
-[![Logo](https://aelassas.github.io/wexflow/images/wexflow.png "Logo")](https://wexflow.github.io/)
 
 <!--
 [![forthebadge](http://aelassas.github.io/wexflow/images/made-with-c-sharp.svg)](http://forthebadge.com)
