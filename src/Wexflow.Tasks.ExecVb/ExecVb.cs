@@ -1,22 +1,25 @@
 ﻿using System;
 using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Xml.Linq;
 using Wexflow.Core;
 
-namespace Wexflow.Tasks.ExecCs
+namespace Wexflow.Tasks.ExecVb
 {
-    public class ExecCs : Task
+    public class ExecVb : Task
     {
-        public ExecCs(XElement xe, Workflow wf): base(xe, wf)
+        public ExecVb(XElement xe, Workflow wf) : base(xe, wf)
         {
         }
 
         public override TaskStatus Run()
         {
-            Info("Executing cs scripts...");
+            Info("Executing VB scripts...");
 
             var status = Status.Success;
             var success = true;
@@ -66,7 +69,7 @@ namespace Wexflow.Tasks.ExecCs
         private bool CompileExecutable(string sourceName, string exeName)
         {
             FileInfo sourceFile = new FileInfo(sourceName);
-            CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
+            CodeDomProvider provider = CodeDomProvider.CreateProvider("VisualBasic");
             bool compileOk = false;
 
             CompilerParameters cp = new CompilerParameters();
@@ -111,7 +114,7 @@ namespace Wexflow.Tasks.ExecCs
             {
                 compileOk = true;
             }
-            
+
             return compileOk;
         }
 

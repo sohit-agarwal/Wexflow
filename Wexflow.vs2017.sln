@@ -159,6 +159,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{
 		samples\Wexflow\Workflows\Workflow_DatabaseRestore.xml = samples\Wexflow\Workflows\Workflow_DatabaseRestore.xml
 		samples\Wexflow\Workflows\Workflow_ExecCs.xml = samples\Wexflow\Workflows\Workflow_ExecCs.xml
 		samples\Wexflow\Workflows\Workflow_ExecutionGraph.xml = samples\Wexflow\Workflows\Workflow_ExecutionGraph.xml
+		samples\Wexflow\Workflows\Workflow_ExecVb.xml = samples\Wexflow\Workflows\Workflow_ExecVb.xml
 		samples\Wexflow\Workflows\Workflow_ffmpeg.xml = samples\Wexflow\Workflows\Workflow_ffmpeg.xml
 		samples\Wexflow\Workflows\Workflow_FileExists1.xml = samples\Wexflow\Workflows\Workflow_FileExists1.xml
 		samples\Wexflow\Workflows\Workflow_FileExists2.xml = samples\Wexflow\Workflows\Workflow_FileExists2.xml
@@ -310,6 +311,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.WebToHtml", "src\Wexflow.Tasks.WebToHtml\Wexflow.Tasks.WebToHtml.csproj", "{850E6EC7-FD36-4B9D-8A55-67C68F5E4236}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.ExecCs", "src\Wexflow.Tasks.ExecCs\Wexflow.Tasks.ExecCs.csproj", "{485BBBD8-4AD9-4088-A91D-2766CC5CFA0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.ExecVb", "src\Wexflow.Tasks.ExecVb\Wexflow.Tasks.ExecVb.csproj", "{25C5C91B-91B9-4CC6-9CE0-4D7CF9312496}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1731,6 +1734,22 @@ Global
 		{485BBBD8-4AD9-4088-A91D-2766CC5CFA0E}.Release|x64.Build.0 = Release|x64
 		{485BBBD8-4AD9-4088-A91D-2766CC5CFA0E}.Release|x86.ActiveCfg = Release|x86
 		{485BBBD8-4AD9-4088-A91D-2766CC5CFA0E}.Release|x86.Build.0 = Release|x86
+		{25C5C91B-91B9-4CC6-9CE0-4D7CF9312496}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25C5C91B-91B9-4CC6-9CE0-4D7CF9312496}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25C5C91B-91B9-4CC6-9CE0-4D7CF9312496}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{25C5C91B-91B9-4CC6-9CE0-4D7CF9312496}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{25C5C91B-91B9-4CC6-9CE0-4D7CF9312496}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{25C5C91B-91B9-4CC6-9CE0-4D7CF9312496}.Debug|x64.Build.0 = Debug|Any CPU
+		{25C5C91B-91B9-4CC6-9CE0-4D7CF9312496}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{25C5C91B-91B9-4CC6-9CE0-4D7CF9312496}.Debug|x86.Build.0 = Debug|Any CPU
+		{25C5C91B-91B9-4CC6-9CE0-4D7CF9312496}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25C5C91B-91B9-4CC6-9CE0-4D7CF9312496}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25C5C91B-91B9-4CC6-9CE0-4D7CF9312496}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{25C5C91B-91B9-4CC6-9CE0-4D7CF9312496}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{25C5C91B-91B9-4CC6-9CE0-4D7CF9312496}.Release|x64.ActiveCfg = Release|x64
+		{25C5C91B-91B9-4CC6-9CE0-4D7CF9312496}.Release|x64.Build.0 = Release|x64
+		{25C5C91B-91B9-4CC6-9CE0-4D7CF9312496}.Release|x86.ActiveCfg = Release|x86
+		{25C5C91B-91B9-4CC6-9CE0-4D7CF9312496}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1824,6 +1843,7 @@ Global
 		{93C60793-44E3-468B-9460-915FB1003C4B} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{850E6EC7-FD36-4B9D-8A55-67C68F5E4236} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{485BBBD8-4AD9-4088-A91D-2766CC5CFA0E} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
+		{25C5C91B-91B9-4CC6-9CE0-4D7CF9312496} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {694D69C8-AA13-4F54-BAAA-5B967F1A8F9C}

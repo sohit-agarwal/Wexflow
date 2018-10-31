@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CsvToXml.cs" />
+    <Compile Include="ExecVb.cs" />
     <Compile Include="Ping.cs" />
     <Compile Include="FileMatch.cs" />
     <Compile Include="IsoCreator.cs" />
@@ -205,6 +206,10 @@
     <ProjectReference Include="..\..\src\Wexflow.Tasks.ExecCs\Wexflow.Tasks.ExecCs.csproj">
       <Project>{485bbbd8-4ad9-4088-a91d-2766cc5cfa0e}</Project>
       <Name>Wexflow.Tasks.ExecCs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Wexflow.Tasks.ExecVb\Wexflow.Tasks.ExecVb.csproj">
+      <Project>{25c5c91b-91b9-4cc6-9ce0-4d7cf9312496}</Project>
+      <Name>Wexflow.Tasks.ExecVb</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Wexflow.Tasks.FileExists\Wexflow.Tasks.FileExists.csproj">
       <Project>{8ed85a48-a8e3-4565-a874-3562f081d14c}</Project>

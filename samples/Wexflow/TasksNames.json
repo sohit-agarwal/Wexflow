@@ -4,6 +4,7 @@
 	"DatabaseBackup",
 	"DatabaseRestore",
 	"ExecCs",
+	"ExecVb",
 	"FileExists",
 	"FileMatch",
 	"FilesCopier",

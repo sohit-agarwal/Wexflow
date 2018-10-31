@@ -4,6 +4,7 @@
 	"DatabaseBackup": [ "serverConnection", "databaseName", "backupFilePath", "overwrite" ],
 	"DatabaseRestore": [ "serverConnection", "databaseName", "backupFilePath" ],
 	"ExecCs": [ "selectFiles" ],
+	"ExecVb": [ "selectFiles" ],
 	"FileExists": [ "file" ],
 	"FileMatch": [ "dir", "pattern", "recurssive" ],
 	"FilesConcat": [ "selectFiles" ],
