@@ -404,9 +404,9 @@
       <Project>{81c8da3e-32cb-4084-84da-c531522318c3}</Project>
       <Name>Wexflow.Tasks.Wait</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Wexflow.Tasks.WebScreenshot\Wexflow.Tasks.WebScreenshot.csproj">
+    <ProjectReference Include="..\Wexflow.Tasks.WebToScreenshot\Wexflow.Tasks.WebToScreenshot.csproj">
       <Project>{93c60793-44e3-468b-9460-915fb1003c4b}</Project>
-      <Name>Wexflow.Tasks.WebScreenshot</Name>
+      <Name>Wexflow.Tasks.WebToScreenshot</Name>
     </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.Wmi\Wexflow.Tasks.Wmi.csproj">
       <Project>{0bef411f-039f-4c4f-a0ff-8defcfe1c019}</Project>

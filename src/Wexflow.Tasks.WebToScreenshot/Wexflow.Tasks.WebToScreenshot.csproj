@@ -7,8 +7,8 @@
     <ProjectGuid>{93C60793-44E3-468B-9460-915FB1003C4B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Wexflow.Tasks.WebScreenshot</RootNamespace>
-    <AssemblyName>Wexflow.Tasks.WebScreenshot</AssemblyName>
+    <RootNamespace>Wexflow.Tasks.WebToScreenshot</RootNamespace>
+    <AssemblyName>Wexflow.Tasks.WebToScreenshot</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -79,7 +79,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="WebScreenshot.cs" />
+    <Compile Include="WebToScreenshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -89,7 +89,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="WebScreenshot.xml" />
+    <Content Include="WebToScreenshot.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -6,15 +6,15 @@ using System.Threading;
 using System.Xml.Linq;
 using Wexflow.Core;
 
-namespace Wexflow.Tasks.WebScreenshot
+namespace Wexflow.Tasks.WebToScreenshot
 {
-    public class WebScreenshot : Task
+    public class WebToScreenshot : Task
     {
         //string DestFile = @"C:\WexflowTesting\WebScreenshot\google.png"; // TODO
 
         public string[] Urls { get; private set; }
 
-        public WebScreenshot(XElement xe, Workflow wf) : base(xe, wf)
+        public WebToScreenshot(XElement xe, Workflow wf) : base(xe, wf)
         {
             Urls = GetSettings("url");
         }

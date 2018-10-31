@@ -241,7 +241,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{
 		samples\Wexflow\Workflows\Workflow_Unzip.xml = samples\Wexflow\Workflows\Workflow_Unzip.xml
 		samples\Wexflow\Workflows\Workflow_vlc.xml = samples\Wexflow\Workflows\Workflow_vlc.xml
 		samples\Wexflow\Workflows\Workflow_Wait.xml = samples\Wexflow\Workflows\Workflow_Wait.xml
-		samples\Wexflow\Workflows\Workflow_WebScreenshot.xml = samples\Wexflow\Workflows\Workflow_WebScreenshot.xml
+		samples\Wexflow\Workflows\Workflow_WebToScreenshot.xml = samples\Wexflow\Workflows\Workflow_WebToScreenshot.xml
 		samples\Wexflow\Workflows\Workflow_Wmi.xml = samples\Wexflow\Workflows\Workflow_Wmi.xml
 		samples\Wexflow\Workflows\Workflow_Workflow.xml = samples\Wexflow\Workflows\Workflow_Workflow.xml
 		samples\Wexflow\Workflows\Workflow_XmlToCsv.xml = samples\Wexflow\Workflows\Workflow_XmlToCsv.xml
@@ -303,7 +303,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.FileMatch", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Ping", "src\Wexflow.Tasks.Ping\Wexflow.Tasks.Ping.csproj", "{E9D7C7A8-6E79-4CC5-8AB1-F359290D70D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.WebScreenshot", "src\Wexflow.Tasks.WebScreenshot\Wexflow.Tasks.WebScreenshot.csproj", "{93C60793-44E3-468B-9460-915FB1003C4B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.WebToScreenshot", "src\Wexflow.Tasks.WebToScreenshot\Wexflow.Tasks.WebToScreenshot.csproj", "{93C60793-44E3-468B-9460-915FB1003C4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

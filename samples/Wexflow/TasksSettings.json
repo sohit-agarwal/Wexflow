@@ -67,7 +67,7 @@
 	"Untgz": [ "selectFiles", "destDir" ],
 	"Unzip": [ "selectFiles", "destDir", "password" ],
 	"Wait": [ "duration" ],
-	"WebScreenshot": [ "url" ],
+	"WebToScreenshot": [ "url" ],
 	"Wmi": [ "query" ],
 	"Workflow": [ "wexflowWebServiceUri", "action", "id" ],
 	"XmlToCsv": [ "selectFiles" ],

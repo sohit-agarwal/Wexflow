@@ -4,9 +4,9 @@ using System.IO;
 namespace Wexflow.Tests
 {
     [TestClass]
-    public class WebScreenshot
+    public class WebToScreenshot
     {
-        private static readonly string DestDir = @"C:\WexflowTesting\WebScreenshot";
+        private static readonly string DestDir = @"C:\WexflowTesting\WebToScreenshot";
 
         [TestInitialize]
         public void TestInitialize()
@@ -21,7 +21,7 @@ namespace Wexflow.Tests
         }
 
         [TestMethod]
-        public void WebScreenshotTest()
+        public void WebToScreenshotTest()
         {
             var files = GetFiles();
             Assert.AreEqual(0, files.Length);
