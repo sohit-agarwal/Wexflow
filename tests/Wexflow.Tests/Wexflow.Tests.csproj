@@ -100,6 +100,7 @@
     <Compile Include="FileExists.cs" />
     <Compile Include="FilesCopier.cs" />
     <Compile Include="DatabaseBackup.cs" />
+    <Compile Include="WebToHtml.cs" />
     <Compile Include="WebToScreenshot.cs" />
     <Compile Include="SpeechToText.cs" />
     <Compile Include="TextToSpeech.cs" />
@@ -459,6 +460,10 @@
     <ProjectReference Include="..\..\src\Wexflow.Tasks.Wait\Wexflow.Tasks.Wait.csproj">
       <Project>{81c8da3e-32cb-4084-84da-c531522318c3}</Project>
       <Name>Wexflow.Tasks.Wait</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Wexflow.Tasks.WebToHtml\Wexflow.Tasks.WebToHtml.csproj">
+      <Project>{850e6ec7-fd36-4b9d-8a55-67c68f5e4236}</Project>
+      <Name>Wexflow.Tasks.WebToHtml</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Wexflow.Tasks.WebToScreenshot\Wexflow.Tasks.WebToScreenshot.csproj">
       <Project>{93c60793-44e3-468b-9460-915fb1003c4b}</Project>

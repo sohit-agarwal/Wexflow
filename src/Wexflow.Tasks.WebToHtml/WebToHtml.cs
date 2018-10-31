@@ -1,25 +1,27 @@
-﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
+﻿using OpenQA.Selenium.Chrome;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Xml.Linq;
 using Wexflow.Core;
 
-namespace Wexflow.Tasks.WebToScreenshot
+namespace Wexflow.Tasks.WebToHtml
 {
-    public class WebToScreenshot : Task
+    public class WebToHtml: Task
     {
         public string[] Urls { get; private set; }
 
-        public WebToScreenshot(XElement xe, Workflow wf) : base(xe, wf)
+        public WebToHtml(XElement xe, Workflow wf) : base(xe, wf)
         {
             Urls = GetSettings("url");
         }
 
         public override TaskStatus Run()
         {
-            Info("Taking screenshots...");
+            Info("Getting HTML sources...");
             var status = Status.Success;
 
             bool success = true;
@@ -30,18 +32,17 @@ namespace Wexflow.Tasks.WebToScreenshot
                 try
                 {
                     var driver = new ChromeDriver();
-
                     driver.Navigate().GoToUrl(url);
-                    Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
 
                     var destFile = Path.Combine(Workflow.WorkflowTempFolder,
-                         string.Format("WebToScreenshot_{0:yyyy-MM-dd-HH-mm-ss-fff}.png", DateTime.Now));
+                         string.Format("WebToHtml_{0:yyyy-MM-dd-HH-mm-ss-fff}.html", DateTime.Now));
 
-                    ss.SaveAsFile(destFile, ScreenshotImageFormat.Png);
+                    var source = driver.PageSource;
+                    File.WriteAllText(destFile, source);
 
                     if (!atLeastOneSuccess) atLeastOneSuccess = true;
 
-                    InfoFormat("Screenshot of {0} taken with success -> {1}", url, destFile);
+                    InfoFormat("HTML source of {0} retrieved with success -> {1}", url, destFile);
                     Files.Add(new FileInf(destFile, Id));
                 }
                 catch (ThreadAbortException)
@@ -50,7 +51,7 @@ namespace Wexflow.Tasks.WebToScreenshot
                 }
                 catch (Exception e)
                 {
-                    ErrorFormat("An error occured while taking the screenshot of {0}: {1}", url, e.Message);
+                    ErrorFormat("An error occured while retrieving the source of {0}: {1}", url, e.Message);
                     success = false;
                 }
             }

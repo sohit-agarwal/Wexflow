@@ -173,7 +173,8 @@ Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Tex
 Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.SpeechToText.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FileMatch.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Ping.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.WebScreenshot.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.WebToScreenshot.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.WebToHtml.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 ; Wexflow Manager
 Source: "..\src\Wexflow.Clients.Manager\bin\x64\Release\Wexflow.Clients.Manager.exe"; DestDir: "{app}\Manager"; Flags: ignoreversion
@@ -269,7 +270,8 @@ Source: "..\src\Wexflow.Tasks.TextToSpeech\TextToSpeech.xml"; DestDir: "{app}\Do
 Source: "..\src\Wexflow.Tasks.SpeechToText\SpeechToText.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 Source: "..\src\Wexflow.Tasks.FileMatch\FileMatch.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 Source: "..\src\Wexflow.Tasks.Ping\Ping.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.WebScreenshot\WebScreenshot.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\Wexflow.Tasks.WebToScreenshot\WebToScreenshot.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\Wexflow.Tasks.WebToHtml\WebToHtml.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 
 Source: "..\LICENSE.txt"; DestDir: "{app}\"; Flags: ignoreversion recursesubdirs
 
