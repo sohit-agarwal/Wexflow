@@ -10,8 +10,6 @@ namespace Wexflow.Tasks.WebToScreenshot
 {
     public class WebToScreenshot : Task
     {
-        //string DestFile = @"C:\WexflowTesting\WebScreenshot\google.png"; // TODO
-
         public string[] Urls { get; private set; }
 
         public WebToScreenshot(XElement xe, Workflow wf) : base(xe, wf)
