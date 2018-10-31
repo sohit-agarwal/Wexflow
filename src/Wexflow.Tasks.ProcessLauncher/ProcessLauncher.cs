@@ -126,7 +126,7 @@ namespace Wexflow.Tasks.ProcessLauncher
             {
                 //if (hideGui)
                 //{
-                var startInfo = new ProcessStartInfo(ProcessPath, processCmd)
+                var startInfo = new ProcessStartInfo(processPath, processCmd)
                 {
                     CreateNoWindow = hideGui,
                     UseShellExecute = false,

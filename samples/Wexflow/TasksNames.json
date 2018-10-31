@@ -3,6 +3,7 @@
 	"CsvToXml",
 	"DatabaseBackup",
 	"DatabaseRestore",
+	"ExecCs",
 	"FileExists",
 	"FileMatch",
 	"FilesCopier",
