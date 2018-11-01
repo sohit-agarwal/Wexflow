@@ -224,6 +224,10 @@
       <Project>{3b5b4434-ab77-41f7-a25a-fc3e12df1275}</Project>
       <Name>Wexflow.Tasks.HtmlToPdf</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.HttpPost\Wexflow.Tasks.HttpPost.csproj">
+      <Project>{0d02fb10-246b-4c1e-bf51-595747d0ff3a}</Project>
+      <Name>Wexflow.Tasks.HttpPost</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.Http\Wexflow.Tasks.Http.csproj">
       <Project>{c249b3ea-e3a3-4975-b3ba-51bc9d7e5816}</Project>
       <Name>Wexflow.Tasks.Http</Name>

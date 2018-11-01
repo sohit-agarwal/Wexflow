@@ -15,8 +15,7 @@ namespace Wexflow.Tasks.Http
 
         public string[] Urls { get; private set; }
 
-        public Http(XElement xe, Workflow wf)
-            : base(xe, wf)
+        public Http(XElement xe, Workflow wf): base(xe, wf)
         {
             Urls = GetSettings("url");
         }

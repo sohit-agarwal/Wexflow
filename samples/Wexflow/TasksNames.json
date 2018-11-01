@@ -24,6 +24,7 @@
 	"Guid",
 	"HtmlToPdf",
 	"Http",
+	"HttpPost",
 	"ImagesConcat",
 	"ImagesCropper",
 	"ImagesOverlay",

@@ -24,6 +24,7 @@
 	"Guid": [ "guidCount" ],
 	"HtmlToPdf": ["selectFiles"],
 	"Http": [ "url" ],
+	"HttpPost": [ "url", "params" ],
 	"ImagesConcat": [ "selectFiles" ],
 	"ImagesCropper": [ "selectFiles", "width", "height", "x", "y" ],
 	"ImagesOverlay": [ "selectFiles" ],
