@@ -103,6 +103,7 @@
     <Compile Include="FilesCopier.cs" />
     <Compile Include="DatabaseBackup.cs" />
     <Compile Include="ExecCs.cs" />
+    <Compile Include="HttpPut.cs" />
     <Compile Include="WebToHtml.cs" />
     <Compile Include="WebToScreenshot.cs" />
     <Compile Include="SpeechToText.cs" />
@@ -287,6 +288,10 @@
     <ProjectReference Include="..\..\src\Wexflow.Tasks.HttpPost\Wexflow.Tasks.HttpPost.csproj">
       <Project>{0d02fb10-246b-4c1e-bf51-595747d0ff3a}</Project>
       <Name>Wexflow.Tasks.HttpPost</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Wexflow.Tasks.HttpPut\Wexflow.Tasks.HttpPut.csproj">
+      <Project>{169e1c8f-2307-4e20-a8c5-f13a19fd9fc3}</Project>
+      <Name>Wexflow.Tasks.HttpPut</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Wexflow.Tasks.Http\Wexflow.Tasks.Http.csproj">
       <Project>{c249b3ea-e3a3-4975-b3ba-51bc9d7e5816}</Project>

@@ -25,6 +25,7 @@
 	"HtmlToPdf": ["selectFiles"],
 	"Http": [ "url" ],
 	"HttpPost": [ "url", "params" ],
+	"HttpPut": [ "url", "params" ],
 	"ImagesConcat": [ "selectFiles" ],
 	"ImagesCropper": [ "selectFiles", "width", "height", "x", "y" ],
 	"ImagesOverlay": [ "selectFiles" ],

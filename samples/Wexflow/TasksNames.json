@@ -25,6 +25,7 @@
 	"HtmlToPdf",
 	"Http",
 	"HttpPost",
+	"HttpPut",
 	"ImagesConcat",
 	"ImagesCropper",
 	"ImagesOverlay",

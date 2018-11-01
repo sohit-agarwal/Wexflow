@@ -8,9 +8,9 @@ using System.Threading;
 using System.Xml.Linq;
 using Wexflow.Core;
 
-namespace Wexflow.Tasks.HttpPost
+namespace Wexflow.Tasks.HttpPut
 {
-    public class HttpPost : Task
+    public class HttpPut : Task
     {
         private const SslProtocols _Tls12 = (SslProtocols)0x00000C00;
         private const SecurityProtocolType Tls12 = (SecurityProtocolType)_Tls12;
@@ -18,7 +18,7 @@ namespace Wexflow.Tasks.HttpPost
         public string Url { get; private set; }
         public NameValueCollection Params { get; private set; }
 
-        public HttpPost(XElement xe, Workflow wf) : base(xe, wf)
+        public HttpPut(XElement xe, Workflow wf) : base(xe, wf)
         {
             Url = GetSetting("url");
             var parameters = GetSetting("params");
@@ -33,7 +33,7 @@ namespace Wexflow.Tasks.HttpPost
 
         public override TaskStatus Run()
         {
-            Info("Executing POST request...");
+            Info("Executing PUT request...");
             var status = Status.Success;
             try
             {
@@ -42,12 +42,12 @@ namespace Wexflow.Tasks.HttpPost
                     ServicePointManager.Expect100Continue = true;
                     ServicePointManager.SecurityProtocol = Tls12;
 
-                    var response = client.UploadValues(Url, Params);
+                    var response = client.UploadValues(Url, "PUT", Params);
                     var responseString = Encoding.Default.GetString(response);
-                    var destFile = Path.Combine(Workflow.WorkflowTempFolder, string.Format("HttpPost_{0:yyyy-MM-dd-HH-mm-ss-fff}.txt", DateTime.Now));
+                    var destFile = Path.Combine(Workflow.WorkflowTempFolder, string.Format("HttpPut_{0:yyyy-MM-dd-HH-mm-ss-fff}.txt", DateTime.Now));
                     File.WriteAllText(destFile, responseString);
                     Files.Add(new FileInf(destFile, Id));
-                    InfoFormat("POST request {0} executed whith success -> {1}", Url, destFile);
+                    InfoFormat("PUT request {0} executed whith success -> {1}", Url, destFile);
                 }
             }
             catch (ThreadAbortException)
@@ -56,7 +56,7 @@ namespace Wexflow.Tasks.HttpPost
             }
             catch (Exception e)
             {
-                ErrorFormat("An error occured while executing the POST request {0}: {1}", Url, e.Message);
+                ErrorFormat("An error occured while executing the PUT request {0}: {1}", Url, e.Message);
                 status = Status.Error;
             }
             Info("Task finished.");
