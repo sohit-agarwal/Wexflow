@@ -182,6 +182,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{
 		samples\Wexflow\Workflows\Workflow_Guid.xml = samples\Wexflow\Workflows\Workflow_Guid.xml
 		samples\Wexflow\Workflows\Workflow_HtmlToPdf.xml = samples\Wexflow\Workflows\Workflow_HtmlToPdf.xml
 		samples\Wexflow\Workflows\Workflow_Http.xml = samples\Wexflow\Workflows\Workflow_Http.xml
+		samples\Wexflow\Workflows\Workflow_HttpPatch.xml = samples\Wexflow\Workflows\Workflow_HttpPatch.xml
 		samples\Wexflow\Workflows\Workflow_HttpPost.xml = samples\Wexflow\Workflows\Workflow_HttpPost.xml
 		samples\Wexflow\Workflows\Workflow_HttpPut.xml = samples\Wexflow\Workflows\Workflow_HttpPut.xml
 		samples\Wexflow\Workflows\Workflow_ImagesConcat.xml = samples\Wexflow\Workflows\Workflow_ImagesConcat.xml
@@ -297,7 +298,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.FileMatch", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Ping", "src\Wexflow.Tasks.Ping\Wexflow.Tasks.Ping.csproj", "{E9D7C7A8-6E79-4CC5-8AB1-F359290D70D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.WebToScreenshot", "src\Wexflow.Tasks.WebToScreenshot\Wexflow.Tasks.WebToScreenshot.csproj", "{C090E55D-ADCD-42B1-9CAA-329942DDB51C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.WebToScreenshot", "src\Wexflow.Tasks.WebToScreenshot\Wexflow.Tasks.WebToScreenshot.csproj", "{93C60793-44E3-468B-9460-915FB1003C4B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.WebToHtml", "src\Wexflow.Tasks.WebToHtml\Wexflow.Tasks.WebToHtml.csproj", "{850E6EC7-FD36-4B9D-8A55-67C68F5E4236}"
 EndProject
@@ -308,6 +309,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.HttpPost", "src\Wexflow.Tasks.HttpPost\Wexflow.Tasks.HttpPost.csproj", "{0D02FB10-246B-4C1E-BF51-595747D0FF3A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.HttpPut", "src\Wexflow.Tasks.HttpPut\Wexflow.Tasks.HttpPut.csproj", "{169E1C8F-2307-4E20-A8C5-F13A19FD9FC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.HttpPatch", "src\Wexflow.Tasks.HttpPatch\Wexflow.Tasks.HttpPatch.csproj", "{03B0C261-E9EF-466D-8FD8-4D30CE977218}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1595,22 +1598,22 @@ Global
 		{E9D7C7A8-6E79-4CC5-8AB1-F359290D70D0}.Release|x64.Build.0 = Release|x64
 		{E9D7C7A8-6E79-4CC5-8AB1-F359290D70D0}.Release|x86.ActiveCfg = Release|x86
 		{E9D7C7A8-6E79-4CC5-8AB1-F359290D70D0}.Release|x86.Build.0 = Release|x86
-		{C090E55D-ADCD-42B1-9CAA-329942DDB51C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C090E55D-ADCD-42B1-9CAA-329942DDB51C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C090E55D-ADCD-42B1-9CAA-329942DDB51C}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{C090E55D-ADCD-42B1-9CAA-329942DDB51C}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{C090E55D-ADCD-42B1-9CAA-329942DDB51C}.Debug|x64.ActiveCfg = Debug|x64
-		{C090E55D-ADCD-42B1-9CAA-329942DDB51C}.Debug|x64.Build.0 = Debug|x64
-		{C090E55D-ADCD-42B1-9CAA-329942DDB51C}.Debug|x86.ActiveCfg = Debug|x86
-		{C090E55D-ADCD-42B1-9CAA-329942DDB51C}.Debug|x86.Build.0 = Debug|x86
-		{C090E55D-ADCD-42B1-9CAA-329942DDB51C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C090E55D-ADCD-42B1-9CAA-329942DDB51C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C090E55D-ADCD-42B1-9CAA-329942DDB51C}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{C090E55D-ADCD-42B1-9CAA-329942DDB51C}.Release|Mixed Platforms.Build.0 = Release|x86
-		{C090E55D-ADCD-42B1-9CAA-329942DDB51C}.Release|x64.ActiveCfg = Release|x64
-		{C090E55D-ADCD-42B1-9CAA-329942DDB51C}.Release|x64.Build.0 = Release|x64
-		{C090E55D-ADCD-42B1-9CAA-329942DDB51C}.Release|x86.ActiveCfg = Release|x86
-		{C090E55D-ADCD-42B1-9CAA-329942DDB51C}.Release|x86.Build.0 = Release|x86
+		{93C60793-44E3-468B-9460-915FB1003C4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93C60793-44E3-468B-9460-915FB1003C4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93C60793-44E3-468B-9460-915FB1003C4B}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{93C60793-44E3-468B-9460-915FB1003C4B}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{93C60793-44E3-468B-9460-915FB1003C4B}.Debug|x64.ActiveCfg = Debug|x64
+		{93C60793-44E3-468B-9460-915FB1003C4B}.Debug|x64.Build.0 = Debug|x64
+		{93C60793-44E3-468B-9460-915FB1003C4B}.Debug|x86.ActiveCfg = Debug|x86
+		{93C60793-44E3-468B-9460-915FB1003C4B}.Debug|x86.Build.0 = Debug|x86
+		{93C60793-44E3-468B-9460-915FB1003C4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93C60793-44E3-468B-9460-915FB1003C4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93C60793-44E3-468B-9460-915FB1003C4B}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{93C60793-44E3-468B-9460-915FB1003C4B}.Release|Mixed Platforms.Build.0 = Release|x86
+		{93C60793-44E3-468B-9460-915FB1003C4B}.Release|x64.ActiveCfg = Release|x64
+		{93C60793-44E3-468B-9460-915FB1003C4B}.Release|x64.Build.0 = Release|x64
+		{93C60793-44E3-468B-9460-915FB1003C4B}.Release|x86.ActiveCfg = Release|x86
+		{93C60793-44E3-468B-9460-915FB1003C4B}.Release|x86.Build.0 = Release|x86
 		{850E6EC7-FD36-4B9D-8A55-67C68F5E4236}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{850E6EC7-FD36-4B9D-8A55-67C68F5E4236}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{850E6EC7-FD36-4B9D-8A55-67C68F5E4236}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
@@ -1687,6 +1690,22 @@ Global
 		{169E1C8F-2307-4E20-A8C5-F13A19FD9FC3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{169E1C8F-2307-4E20-A8C5-F13A19FD9FC3}.Release|x64.ActiveCfg = Release|Any CPU
 		{169E1C8F-2307-4E20-A8C5-F13A19FD9FC3}.Release|x86.ActiveCfg = Release|Any CPU
+		{03B0C261-E9EF-466D-8FD8-4D30CE977218}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03B0C261-E9EF-466D-8FD8-4D30CE977218}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03B0C261-E9EF-466D-8FD8-4D30CE977218}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{03B0C261-E9EF-466D-8FD8-4D30CE977218}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{03B0C261-E9EF-466D-8FD8-4D30CE977218}.Debug|x64.ActiveCfg = Debug|x64
+		{03B0C261-E9EF-466D-8FD8-4D30CE977218}.Debug|x64.Build.0 = Debug|x64
+		{03B0C261-E9EF-466D-8FD8-4D30CE977218}.Debug|x86.ActiveCfg = Debug|x86
+		{03B0C261-E9EF-466D-8FD8-4D30CE977218}.Debug|x86.Build.0 = Debug|x86
+		{03B0C261-E9EF-466D-8FD8-4D30CE977218}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03B0C261-E9EF-466D-8FD8-4D30CE977218}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03B0C261-E9EF-466D-8FD8-4D30CE977218}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{03B0C261-E9EF-466D-8FD8-4D30CE977218}.Release|Mixed Platforms.Build.0 = Release|x86
+		{03B0C261-E9EF-466D-8FD8-4D30CE977218}.Release|x64.ActiveCfg = Release|x64
+		{03B0C261-E9EF-466D-8FD8-4D30CE977218}.Release|x64.Build.0 = Release|x64
+		{03B0C261-E9EF-466D-8FD8-4D30CE977218}.Release|x86.ActiveCfg = Release|x86
+		{03B0C261-E9EF-466D-8FD8-4D30CE977218}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1770,12 +1789,13 @@ Global
 		{300F2FDC-7FB9-49A9-AE91-8ECACF92FEA8} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{5D8B91F0-6363-4015-9C95-6A07CE15D56D} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{E9D7C7A8-6E79-4CC5-8AB1-F359290D70D0} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
-		{C090E55D-ADCD-42B1-9CAA-329942DDB51C} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
+		{93C60793-44E3-468B-9460-915FB1003C4B} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{850E6EC7-FD36-4B9D-8A55-67C68F5E4236} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{485BBBD8-4AD9-4088-A91D-2766CC5CFA0E} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{25C5C91B-91B9-4CC6-9CE0-4D7CF9312496} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{0D02FB10-246B-4C1E-BF51-595747D0FF3A} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{169E1C8F-2307-4E20-A8C5-F13A19FD9FC3} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
+		{03B0C261-E9EF-466D-8FD8-4D30CE977218} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{81032249-78D9-4B89-8E22-A3C32562EA69} = {67871E52-CB11-4EDF-B036-15F359EF6B66}
 		{D559C35B-BFF5-49C2-9490-818314C88A76} = {67871E52-CB11-4EDF-B036-15F359EF6B66}
 		{59410829-C439-4683-818E-AC99F94D1EBA} = {67871E52-CB11-4EDF-B036-15F359EF6B66}

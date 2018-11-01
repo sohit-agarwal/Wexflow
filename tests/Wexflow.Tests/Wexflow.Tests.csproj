@@ -95,6 +95,7 @@
     <Compile Include="CsvToXml.cs" />
     <Compile Include="HttpPost.cs" />
     <Compile Include="ExecVb.cs" />
+    <Compile Include="HttpPatch.cs" />
     <Compile Include="Ping.cs" />
     <Compile Include="FileMatch.cs" />
     <Compile Include="IsoCreator.cs" />
@@ -284,6 +285,10 @@
     <ProjectReference Include="..\..\src\Wexflow.Tasks.HtmlToPdf\Wexflow.Tasks.HtmlToPdf.csproj">
       <Project>{3b5b4434-ab77-41f7-a25a-fc3e12df1275}</Project>
       <Name>Wexflow.Tasks.HtmlToPdf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Wexflow.Tasks.HttpPatch\Wexflow.Tasks.HttpPatch.csproj">
+      <Project>{03b0c261-e9ef-466d-8fd8-4d30ce977218}</Project>
+      <Name>Wexflow.Tasks.HttpPatch</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Wexflow.Tasks.HttpPost\Wexflow.Tasks.HttpPost.csproj">
       <Project>{0d02fb10-246b-4c1e-bf51-595747d0ff3a}</Project>

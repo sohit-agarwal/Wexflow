@@ -24,6 +24,7 @@
 	"Guid": [ "guidCount" ],
 	"HtmlToPdf": ["selectFiles"],
 	"Http": [ "url" ],
+	"HttpPatch": [ "url", "params" ],
 	"HttpPost": [ "url", "params" ],
 	"HttpPut": [ "url", "params" ],
 	"ImagesConcat": [ "selectFiles" ],
