@@ -235,7 +235,7 @@
             // 
             // menuStrip2
             // 
-            this.menuStrip2.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.menuStrip2.BackColor = System.Drawing.Color.Silver;
             this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1,
             this.helpToolStripMenuItem});
