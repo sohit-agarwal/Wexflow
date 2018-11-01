@@ -4,13 +4,13 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Resources;
 using System.ServiceProcess;
 using System.Windows.Forms;
 using System.Xml;
 using Wexflow.Core.Service.Client;
 using Wexflow.Core.Service.Contracts;
-using System.Linq;
 
 namespace Wexflow.Clients.Manager
 {
