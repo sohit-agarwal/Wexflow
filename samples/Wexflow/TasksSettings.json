@@ -67,6 +67,7 @@
 	"Torrent": [ "selectFiles", "saveFolder" ],
 	"Touch": [ "file" ],
 	"Twitter": [ "selectFiles", "consumerKey", "consumerSecret", "accessToken", "accessTokenSecret" ],
+	"UglifyJs": [ "selectFiles" ],
 	"Unrar": ["selectFiles", "destDir"],
 	"UnSevenZip": ["selectFiles", "destDir"],
 	"Untar": ["selectFiles", "destDir"],

@@ -14,8 +14,7 @@ namespace Wexflow.Tasks.Unrar
     {
         public string DestDir { get; private set; }
 
-        public Unrar(XElement xe, Workflow wf)
-            : base(xe, wf)
+        public Unrar(XElement xe, Workflow wf): base(xe, wf)
         {
             DestDir = GetSetting("destDir");
         }

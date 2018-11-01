@@ -404,6 +404,10 @@
       <Project>{d1b9e2ba-e783-4c26-89e8-28e13ae3220c}</Project>
       <Name>Wexflow.Tasks.Twitter</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.UglifyJs\Wexflow.Tasks.UglifyJs.csproj">
+      <Project>{47e16d9b-c471-4a21-b88c-5515d80fcd8c}</Project>
+      <Name>Wexflow.Tasks.UglifyJs</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.Unrar\Wexflow.Tasks.Unrar.csproj">
       <Project>{72ef213e-99a7-410c-992e-327dcf119a3b}</Project>
       <Name>Wexflow.Tasks.Unrar</Name>
