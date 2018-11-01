@@ -191,6 +191,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{
 		samples\Wexflow\Workflows\Workflow_Guid.xml = samples\Wexflow\Workflows\Workflow_Guid.xml
 		samples\Wexflow\Workflows\Workflow_HtmlToPdf.xml = samples\Wexflow\Workflows\Workflow_HtmlToPdf.xml
 		samples\Wexflow\Workflows\Workflow_Http.xml = samples\Wexflow\Workflows\Workflow_Http.xml
+		samples\Wexflow\Workflows\Workflow_HttpDelete.xml = samples\Wexflow\Workflows\Workflow_HttpDelete.xml
 		samples\Wexflow\Workflows\Workflow_HttpPatch.xml = samples\Wexflow\Workflows\Workflow_HttpPatch.xml
 		samples\Wexflow\Workflows\Workflow_HttpPost.xml = samples\Wexflow\Workflows\Workflow_HttpPost.xml
 		samples\Wexflow\Workflows\Workflow_HttpPut.xml = samples\Wexflow\Workflows\Workflow_HttpPut.xml
@@ -322,6 +323,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.HttpPut", "src\Wexflow.Tasks.HttpPut\Wexflow.Tasks.HttpPut.csproj", "{169E1C8F-2307-4E20-A8C5-F13A19FD9FC3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.HttpPatch", "src\Wexflow.Tasks.HttpPatch\Wexflow.Tasks.HttpPatch.csproj", "{03B0C261-E9EF-466D-8FD8-4D30CE977218}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.HttpDelete", "src\Wexflow.Tasks.HttpDelete\Wexflow.Tasks.HttpDelete.csproj", "{121E2E4E-3337-4650-8FBC-7315314779AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1807,6 +1810,22 @@ Global
 		{03B0C261-E9EF-466D-8FD8-4D30CE977218}.Release|x64.Build.0 = Release|x64
 		{03B0C261-E9EF-466D-8FD8-4D30CE977218}.Release|x86.ActiveCfg = Release|x86
 		{03B0C261-E9EF-466D-8FD8-4D30CE977218}.Release|x86.Build.0 = Release|x86
+		{121E2E4E-3337-4650-8FBC-7315314779AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{121E2E4E-3337-4650-8FBC-7315314779AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{121E2E4E-3337-4650-8FBC-7315314779AC}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{121E2E4E-3337-4650-8FBC-7315314779AC}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{121E2E4E-3337-4650-8FBC-7315314779AC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{121E2E4E-3337-4650-8FBC-7315314779AC}.Debug|x64.Build.0 = Debug|Any CPU
+		{121E2E4E-3337-4650-8FBC-7315314779AC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{121E2E4E-3337-4650-8FBC-7315314779AC}.Debug|x86.Build.0 = Debug|Any CPU
+		{121E2E4E-3337-4650-8FBC-7315314779AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{121E2E4E-3337-4650-8FBC-7315314779AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{121E2E4E-3337-4650-8FBC-7315314779AC}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{121E2E4E-3337-4650-8FBC-7315314779AC}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{121E2E4E-3337-4650-8FBC-7315314779AC}.Release|x64.ActiveCfg = Release|x64
+		{121E2E4E-3337-4650-8FBC-7315314779AC}.Release|x64.Build.0 = Release|x64
+		{121E2E4E-3337-4650-8FBC-7315314779AC}.Release|x86.ActiveCfg = Release|x86
+		{121E2E4E-3337-4650-8FBC-7315314779AC}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1904,6 +1923,7 @@ Global
 		{0D02FB10-246B-4C1E-BF51-595747D0FF3A} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{169E1C8F-2307-4E20-A8C5-F13A19FD9FC3} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{03B0C261-E9EF-466D-8FD8-4D30CE977218} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
+		{121E2E4E-3337-4650-8FBC-7315314779AC} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {694D69C8-AA13-4F54-BAAA-5B967F1A8F9C}

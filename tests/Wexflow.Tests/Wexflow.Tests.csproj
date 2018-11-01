@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CsvToXml.cs" />
+    <Compile Include="HttpDelete.cs" />
     <Compile Include="HttpPost.cs" />
     <Compile Include="ExecVb.cs" />
     <Compile Include="HttpPatch.cs" />
@@ -285,6 +286,10 @@
     <ProjectReference Include="..\..\src\Wexflow.Tasks.HtmlToPdf\Wexflow.Tasks.HtmlToPdf.csproj">
       <Project>{3b5b4434-ab77-41f7-a25a-fc3e12df1275}</Project>
       <Name>Wexflow.Tasks.HtmlToPdf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Wexflow.Tasks.HttpDelete\Wexflow.Tasks.HttpDelete.csproj">
+      <Project>{121e2e4e-3337-4650-8fbc-7315314779ac}</Project>
+      <Name>Wexflow.Tasks.HttpDelete</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Wexflow.Tasks.HttpPatch\Wexflow.Tasks.HttpPatch.csproj">
       <Project>{03b0c261-e9ef-466d-8fd8-4d30ce977218}</Project>

@@ -180,6 +180,7 @@ Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Exe
 Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.HttpPost.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.HttpPut.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.HttpPatch.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.HttpDelete.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 ; Wexflow Manager
 Source: "..\src\Wexflow.Clients.Manager\bin\x64\Release\Wexflow.Clients.Manager.exe"; DestDir: "{app}\Manager"; Flags: ignoreversion
@@ -282,6 +283,7 @@ Source: "..\src\Wexflow.Tasks.ExecVb\ExecVb.xml"; DestDir: "{app}\Documentation"
 Source: "..\src\Wexflow.Tasks.HttpPost\HttpPost.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 Source: "..\src\Wexflow.Tasks.HttpPut\HttpPut.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 Source: "..\src\Wexflow.Tasks.HttpPatch\HttpPatch.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\Wexflow.Tasks.HttpDelete\HttpDelete.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 
 Source: "..\LICENSE.txt"; DestDir: "{app}\"; Flags: ignoreversion recursesubdirs
 
