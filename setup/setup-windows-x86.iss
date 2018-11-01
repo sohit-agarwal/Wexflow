@@ -21,8 +21,9 @@ DisableProgramGroupPage=yes
 OutputDir=.
 OutputBaseFilename=wexflow-{#MyAppVersion}-windows-x86
 SetupIconFile="..\src\Wexflow.Clients.Manager\Wexflow.ico"
-Compression=lzma2
+Compression=lzma
 SolidCompression=yes
+LicenseFile="..\LICENSE.txt"
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"

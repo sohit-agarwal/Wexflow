@@ -21,13 +21,14 @@ DisableProgramGroupPage=yes
 OutputDir=.
 OutputBaseFilename=wexflow-{#MyAppVersion}-windows-x64
 SetupIconFile="..\src\Wexflow.Clients.Manager\Wexflow.ico"
-Compression=lzma2
+Compression=lzma
 SolidCompression=yes
 ; "ArchitecturesInstallIn64BitMode=x64" requests that the install be
 ; done in "64-bit mode" on x64, meaning it should use the native
 ; 64-bit Program Files directory and the 64-bit view of the registry.
 ; On all other architectures it will install in "32-bit mode".
 ArchitecturesInstallIn64BitMode=x64
+LicenseFile="..\LICENSE.txt"
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
