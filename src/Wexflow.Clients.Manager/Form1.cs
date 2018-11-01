@@ -10,27 +10,28 @@ using System.Windows.Forms;
 using System.Xml;
 using Wexflow.Core.Service.Client;
 using Wexflow.Core.Service.Contracts;
+using System.Linq;
 
 namespace Wexflow.Clients.Manager
 {
     public partial class Form1 : Form
     {
-        static readonly string WexflowWebServiceUri = ConfigurationManager.AppSettings["WexflowWebServiceUri"];
+        private static readonly string WexflowWebServiceUri = ConfigurationManager.AppSettings["WexflowWebServiceUri"];
 
-        const string ColumnId = "Id";
-        const string ColumnEnabled = "Enabled";
-        const string WexflowWindowsServicePath = @"..\Wexflow.Clients.WindowsService.exe.config";
-        const string DesignerWebFile = @"..\Web Designer\index.html";
+        private const string ColumnId = "Id";
+        private const string ColumnEnabled = "Enabled";
+        private const string WexflowWindowsServicePath = @"..\Wexflow.Clients.WindowsService.exe.config";
+        private const string DesignerWebFile = @"..\Web Designer\index.html";
 
-        WexflowServiceClient _wexflowServiceClient;
-        WorkflowInfo[] _workflows;
-        Dictionary<int, WorkflowInfo> _workflowsPerId;
-        bool _windowsServiceWasStopped;
-        Timer _timer;
-        Exception _exception;
-        readonly string _logfile;
-        readonly ResourceManager _resources = new ResourceManager(typeof(Form1));
-        bool _serviceRestarted;
+        private WexflowServiceClient _wexflowServiceClient;
+        private WorkflowInfo[] _workflows;
+        private Dictionary<int, WorkflowInfo> _workflowsPerId;
+        private bool _windowsServiceWasStopped;
+        private Timer _timer;
+        private Exception _exception;
+        private readonly string _logfile;
+        private readonly ResourceManager _resources = new ResourceManager(typeof(Form1));
+        private bool _serviceRestarted;
 
         public Form1()
         {
@@ -61,13 +62,20 @@ namespace Wexflow.Clients.Manager
 
         private void MouseWheelEvt(object sender, MouseEventArgs e)
         {
-            if (e.Delta > 0 && dataGridViewWorkflows.FirstDisplayedScrollingRowIndex > 0)
+            try
             {
-                dataGridViewWorkflows.FirstDisplayedScrollingRowIndex--;
+                if (e.Delta > 0 && dataGridViewWorkflows.FirstDisplayedScrollingRowIndex > 0)
+                {
+                    dataGridViewWorkflows.FirstDisplayedScrollingRowIndex--;
+                }
+                else if (e.Delta < 0)
+                {
+                    dataGridViewWorkflows.FirstDisplayedScrollingRowIndex++;
+                }
             }
-            else if (e.Delta < 0)
+            catch (Exception ex)
             {
-                dataGridViewWorkflows.FirstDisplayedScrollingRowIndex++;
+                Debug.WriteLine(ex);
             }
         }
 
@@ -89,7 +97,16 @@ namespace Wexflow.Clients.Manager
                     try
                     {
                         _wexflowServiceClient = new WexflowServiceClient(WexflowWebServiceUri);
-                        _workflows = _wexflowServiceClient.GetWorkflows();
+                        
+                        var workflows = _wexflowServiceClient.GetWorkflows();
+                        if (!string.IsNullOrEmpty(textBoxSearch.Text))
+                        {
+                            _workflows = workflows.Where(wf => wf.Name.ToUpper().Contains(textBoxSearch.Text.ToUpper()) || wf.Description.ToUpper().Contains(textBoxSearch.Text.ToUpper())).ToArray();
+                        }
+                        else
+                        {
+                            _workflows = workflows;
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -456,5 +473,17 @@ namespace Wexflow.Clients.Manager
             }
         }
 
+        private void buttonSearch_Click(object sender, EventArgs e)
+        {
+            LoadWorkflows();
+        }
+
+        private void textBoxSearch_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                LoadWorkflows();
+            }
+        }
     }
 }

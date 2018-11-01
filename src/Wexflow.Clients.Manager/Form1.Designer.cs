@@ -49,6 +49,8 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
+            this.textBoxSearch = new System.Windows.Forms.TextBox();
+            this.buttonSearch = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewWorkflows)).BeginInit();
             this.panel1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
@@ -79,7 +81,7 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewWorkflows.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridViewWorkflows.Location = new System.Drawing.Point(12, 92);
+            this.dataGridViewWorkflows.Location = new System.Drawing.Point(12, 119);
             this.dataGridViewWorkflows.MultiSelect = false;
             this.dataGridViewWorkflows.Name = "dataGridViewWorkflows";
             this.dataGridViewWorkflows.ReadOnly = true;
@@ -93,7 +95,7 @@
             this.dataGridViewWorkflows.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewWorkflows.RowHeadersVisible = false;
             this.dataGridViewWorkflows.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewWorkflows.Size = new System.Drawing.Size(768, 403);
+            this.dataGridViewWorkflows.Size = new System.Drawing.Size(768, 445);
             this.dataGridViewWorkflows.TabIndex = 0;
             this.dataGridViewWorkflows.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewWorkflows_CellDoubleClick);
             this.dataGridViewWorkflows.ColumnDividerDoubleClick += new System.Windows.Forms.DataGridViewColumnDividerDoubleClickEventHandler(this.DataGridViewWorkflows_ColumnDividerDoubleClick);
@@ -264,12 +266,35 @@
             this.backgroundWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundWorker2_DoWork);
             this.backgroundWorker2.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundWorker2_RunWorkerCompleted);
             // 
+            // textBoxSearch
+            // 
+            this.textBoxSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxSearch.Location = new System.Drawing.Point(12, 92);
+            this.textBoxSearch.Name = "textBoxSearch";
+            this.textBoxSearch.Size = new System.Drawing.Size(678, 20);
+            this.textBoxSearch.TabIndex = 9;
+            this.textBoxSearch.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxSearch_KeyUp);
+            // 
+            // buttonSearch
+            // 
+            this.buttonSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSearch.Location = new System.Drawing.Point(696, 90);
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.Size = new System.Drawing.Size(84, 23);
+            this.buttonSearch.TabIndex = 10;
+            this.buttonSearch.Text = "Search";
+            this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(792, 507);
+            this.ClientSize = new System.Drawing.Size(792, 576);
+            this.Controls.Add(this.buttonSearch);
+            this.Controls.Add(this.textBoxSearch);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.textBoxInfo);
             this.Controls.Add(this.dataGridViewWorkflows);
@@ -307,6 +332,8 @@
         private System.Windows.Forms.Button buttonRefresh;
         private System.Windows.Forms.Button buttonRestart;
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
+        private System.Windows.Forms.TextBox textBoxSearch;
+        private System.Windows.Forms.Button buttonSearch;
     }
 }
 
