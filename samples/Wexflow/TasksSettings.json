@@ -23,6 +23,7 @@
 	"Ftp": [ "selectFiles", "command", "protocol", "encryption", "server", "port", "user", "password", "privateKeyPath", "passphrase", "path", "retryCount", "retryTimeout" ],
 	"Guid": [ "guidCount" ],
 	"HtmlToPdf": ["selectFiles"],
+	"HtmlToText": ["selectFiles"],
 	"Http": [ "url" ],
 	"HttpDelete": [ "url", "params" ],
 	"HttpPatch": [ "url", "params" ],

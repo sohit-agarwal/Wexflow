@@ -23,6 +23,7 @@
 	"Ftp",
 	"Guid",
 	"HtmlToPdf",
+	"HtmlToText",
 	"Http",
 	"HttpDelete",
 	"HttpPatch",
