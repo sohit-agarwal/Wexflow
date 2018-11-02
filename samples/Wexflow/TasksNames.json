@@ -26,6 +26,7 @@
 	"HtmlToText",
 	"Http",
 	"HttpDelete",
+	"HttpGet",
 	"HttpPatch",
 	"HttpPost",
 	"HttpPut",

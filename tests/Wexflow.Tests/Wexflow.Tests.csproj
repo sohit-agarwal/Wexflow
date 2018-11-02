@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CsvToXml.cs" />
+    <Compile Include="HttpGet.cs" />
     <Compile Include="HtmlToText.cs" />
     <Compile Include="UglifyHtml.cs" />
     <Compile Include="UglifyCss.cs" />
@@ -298,6 +299,10 @@
     <ProjectReference Include="..\..\src\Wexflow.Tasks.HttpDelete\Wexflow.Tasks.HttpDelete.csproj">
       <Project>{121e2e4e-3337-4650-8fbc-7315314779ac}</Project>
       <Name>Wexflow.Tasks.HttpDelete</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Wexflow.Tasks.HttpGet\Wexflow.Tasks.HttpGet.csproj">
+      <Project>{85a03aea-b876-4009-ac26-6cd1af34c6d0}</Project>
+      <Name>Wexflow.Tasks.HttpGet</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Wexflow.Tasks.HttpPatch\Wexflow.Tasks.HttpPatch.csproj">
       <Project>{03b0c261-e9ef-466d-8fd8-4d30ce977218}</Project>
