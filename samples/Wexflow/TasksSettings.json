@@ -68,6 +68,7 @@
 	"Touch": [ "file" ],
 	"Twitter": [ "selectFiles", "consumerKey", "consumerSecret", "accessToken", "accessTokenSecret" ],
 	"UglifyCss": [ "selectFiles" ],
+	"UglifyHtml": [ "selectFiles" ],
 	"UglifyJs": [ "selectFiles" ],
 	"Unrar": ["selectFiles", "destDir"],
 	"UnSevenZip": ["selectFiles", "destDir"],

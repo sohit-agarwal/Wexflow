@@ -408,6 +408,10 @@
       <Project>{455c5db9-cd56-4841-a5cf-2a80646433c2}</Project>
       <Name>Wexflow.Tasks.UglifyCss</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.UglifyHtml\Wexflow.Tasks.UglifyHtml.csproj">
+      <Project>{db83cb0f-9ed6-4ec3-8735-4d1d0d5e4ce7}</Project>
+      <Name>Wexflow.Tasks.UglifyHtml</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.UglifyJs\Wexflow.Tasks.UglifyJs.csproj">
       <Project>{47e16d9b-c471-4a21-b88c-5515d80fcd8c}</Project>
       <Name>Wexflow.Tasks.UglifyJs</Name>
