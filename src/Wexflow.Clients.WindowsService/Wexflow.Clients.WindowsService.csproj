@@ -476,6 +476,10 @@
       <Project>{68ae707e-1bc5-4af0-8b90-8ef0d2040359}</Project>
       <Name>Wexflow.Tasks.Xslt</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.YamlToJson\Wexflow.Tasks.YamlToJson.csproj">
+      <Project>{4ee9980e-e749-427d-846f-de3773d65263}</Project>
+      <Name>Wexflow.Tasks.YamlToJson</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.Zip\Wexflow.Tasks.Zip.csproj">
       <Project>{67f62b85-9457-429f-857d-7f9d41f5c8f3}</Project>
       <Name>Wexflow.Tasks.Zip</Name>

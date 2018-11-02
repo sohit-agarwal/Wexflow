@@ -91,6 +91,7 @@ Source: "..\libs\chromedriver.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\NUglify.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\SharpScss.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\x86\libsass.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\libs\YamlDotNet.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 Source: "..\src\Wexflow.Clients.WindowsService\bin\Release\Wexflow.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.WindowsService\bin\Release\Wexflow.Core.Service.Client.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -186,6 +187,7 @@ Source: "..\src\Wexflow.Clients.WindowsService\bin\Release\Wexflow.Tasks.UglifyH
 Source: "..\src\Wexflow.Clients.WindowsService\bin\Release\Wexflow.Tasks.HtmlToText.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.WindowsService\bin\Release\Wexflow.Tasks.HttpGet.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.WindowsService\bin\Release\Wexflow.Tasks.ScssToCss.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.WindowsService\bin\Release\Wexflow.Tasks.YamlToJson.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 ; Wexflow Manager
 Source: "..\src\Wexflow.Clients.Manager\bin\Release\Wexflow.Clients.Manager.exe"; DestDir: "{app}\Manager"; Flags: ignoreversion
@@ -295,6 +297,7 @@ Source: "..\src\Wexflow.Tasks.UglifyHtml\UglifyHtml.xml"; DestDir: "{app}\Docume
 Source: "..\src\Wexflow.Tasks.HtmlToText\HtmlToText.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 Source: "..\src\Wexflow.Tasks.HttpGet\HttpGet.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 Source: "..\src\Wexflow.Tasks.ScssToCss\ScssToCss.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\Wexflow.Tasks.YamlToJson\YamlToJson.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 
 Source: "..\LICENSE.txt"; DestDir: "{app}\"; Flags: ignoreversion recursesubdirs
 

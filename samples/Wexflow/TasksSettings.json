@@ -85,5 +85,6 @@
 	"Workflow": [ "wexflowWebServiceUri", "action", "id" ],
 	"XmlToCsv": [ "selectFiles" ],
 	"Xslt": [ "selectFiles", "xsltPath", "version", "removeWexflowProcessingNodes" ],
+	"YamlToJson": [ "selectFiles" ],
 	"Zip": [ "selectFiles", "zipFileName" ]
 }

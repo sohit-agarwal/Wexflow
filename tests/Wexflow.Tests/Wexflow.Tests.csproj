@@ -95,6 +95,7 @@
     <Compile Include="CsvToXml.cs" />
     <Compile Include="HttpGet.cs" />
     <Compile Include="HtmlToText.cs" />
+    <Compile Include="YamlToJson.cs" />
     <Compile Include="ScssToCss.cs" />
     <Compile Include="UglifyHtml.cs" />
     <Compile Include="UglifyCss.cs" />
@@ -544,6 +545,10 @@
     <ProjectReference Include="..\..\src\Wexflow.Tasks.Xslt\Wexflow.Tasks.Xslt.csproj">
       <Project>{68ae707e-1bc5-4af0-8b90-8ef0d2040359}</Project>
       <Name>Wexflow.Tasks.Xslt</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Wexflow.Tasks.YamlToJson\Wexflow.Tasks.YamlToJson.csproj">
+      <Project>{4ee9980e-e749-427d-846f-de3773d65263}</Project>
+      <Name>Wexflow.Tasks.YamlToJson</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Wexflow.Tasks.Zip\Wexflow.Tasks.Zip.csproj">
       <Project>{67f62b85-9457-429f-857d-7f9d41f5c8f3}</Project>

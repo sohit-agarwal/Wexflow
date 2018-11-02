@@ -85,5 +85,6 @@
 	"Workflow",
 	"XmlToCsv",
 	"Xslt",
+	"YamlToJson",
 	"Zip"
 ]
