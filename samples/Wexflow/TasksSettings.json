@@ -37,6 +37,7 @@
 	"ImagesTransformer": [ "selectFiles", "outputFilePattern", "outputFormat" ],
 	"IsoCreator": [ "srcDir", "volumeIdentifier", "isoFileName" ],
 	"IsoExtractor": [ "selectFiles", "destDir" ],
+	"JsonToYaml": ["selectFiles"],
 	"ListEntities": [ ],
 	"ListFiles": [ ],
 	"MailsReceiver": [ "host", "port", "enableSsl", "user", "password", "messageCount", "deleteMessages" ],

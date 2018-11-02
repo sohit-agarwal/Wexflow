@@ -37,6 +37,7 @@
 	"ImagesTransformer",
 	"IsoCreator",
 	"IsoExtractor",
+	"JsonToYaml",
 	"ListEntities",
 	"ListFiles",
 	"MailsReceiver",

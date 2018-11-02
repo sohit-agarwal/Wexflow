@@ -95,6 +95,7 @@
     <Compile Include="CsvToXml.cs" />
     <Compile Include="HttpGet.cs" />
     <Compile Include="HtmlToText.cs" />
+    <Compile Include="JsonToYaml.cs" />
     <Compile Include="YamlToJson.cs" />
     <Compile Include="ScssToCss.cs" />
     <Compile Include="UglifyHtml.cs" />
@@ -349,6 +350,10 @@
     <ProjectReference Include="..\..\src\Wexflow.Tasks.IsoExtractor\Wexflow.Tasks.IsoExtractor.csproj">
       <Project>{8546cd00-1a5e-4455-bdd4-225716db1727}</Project>
       <Name>Wexflow.Tasks.IsoExtractor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Wexflow.Tasks.JsonToYaml\Wexflow.Tasks.JsonToYaml.csproj">
+      <Project>{57edb875-bb62-42b2-8851-8ce774b13457}</Project>
+      <Name>Wexflow.Tasks.JsonToYaml</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Wexflow.Tasks.ListEntities\Wexflow.Tasks.ListEntities.csproj">
       <Project>{d03eb1f0-5dab-4e93-8b29-783c4135ab55}</Project>
