@@ -9,10 +9,28 @@
     height: 100%;
 }
 
-#wf-workflows
-{
+#wf-search {
     position: absolute;
-    top: 10px;
+    top: 17px;
+    left: 10px;
+}
+
+    #wf-search #wf-search-text-container {
+        float: left;
+    }
+
+        #wf-search #wf-search-text-container #wf-search-text {
+            width: 197px;
+        }
+
+    #wf-search #wf-search-action {
+        margin-left: 10px;
+        width: 90px;
+    }
+
+#wf-workflows {
+    position: absolute;
+    top: 55px;
     bottom: 0;
     left: 10px;
     overflow: auto;

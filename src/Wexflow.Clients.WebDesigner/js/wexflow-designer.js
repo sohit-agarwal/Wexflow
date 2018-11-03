@@ -33,20 +33,45 @@
         "<h3 id='wf-execution-graph-title'>Execution graph</h3>" +
         "<div id='wf-execution-graph'></div>";
 
-    var html = "<div id='wf-container'>" +
-        "<div id='wf-workflows'></div>" +
-        "<div id='wf-action'>" +
-        "<button type='button' id='wf-add-workflow' class='btn btn-dark btn-sm'>New workflow</button>" +
-        "<button id='wf-delete' type='button' class='wf-action-right btn btn-danger btn-sm'>Delete</button>" +
-        "<button id='wf-save' type= 'button' class='wf-action-right btn btn-secondary btn-sm'>Save</button>" +
-        "<button id='wf-cancel' type= 'button' class='wf-action-right btn btn-secondary btn-sm'>Cancel</button>" +
-        "</div>"+
-        "<div id='wf-designer-right-panel' style='display: none;'>" +
-        rightPanelHtml +
-        "</div>" +
-        "</div>";
+    var html = "<div id='wf-container'>"
+
+        + "<div id='wf-search'>"
+        + "<div id='wf-search-text-container'>"
+        + "<input id='wf-search-text' type='text' name='fname'>"
+        + "</div>"
+        + "<button id='wf-search-action' type='button' class='btn btn-primary btn-sm'>Search</button>"
+        + "</div>"
+
+        + "<div id='wf-workflows'></div>"
+
+        + "<div id='wf-action'>"
+        + "<button type='button' id='wf-add-workflow' class='btn btn-dark btn-sm'>New workflow</button>"
+        + "<button id='wf-delete' type='button' class='wf-action-right btn btn-danger btn-sm'>Delete</button>"
+        + "<button id='wf-save' type= 'button' class='wf-action-right btn btn-secondary btn-sm'>Save</button>"
+        + "<button id='wf-cancel' type= 'button' class='wf-action-right btn btn-secondary btn-sm'>Cancel</button>"
+        + "</div>"
+
+        + "<div id='wf-designer-right-panel' style='display: none;'>"
+        + rightPanelHtml 
+        + "</div>"
+        + "</div>";
 
     document.getElementById(id).innerHTML = html;
+
+    var searchButton = document.getElementById("wf-search-action");
+    var searchText = document.getElementById("wf-search-text");
+
+    searchButton.onclick = function () {
+        loadWorkflows();
+    };
+
+    searchText.onkeyup = function (e) {
+        event.preventDefault();
+
+        if (event.keyCode === 13) { // Enter
+            loadWorkflows();
+        }
+    };
 
     document.getElementById("wf-add-workflow").onclick = function () {
         saveCalled = false;
@@ -1370,7 +1395,7 @@
     }
 
     function loadWorkflows(callback) {
-        get(uri + "/workflows",
+        get(uri + "/search?s=" + encodeURIComponent(searchText.value),
             function (data) {
                 data.sort(compareById);
 
