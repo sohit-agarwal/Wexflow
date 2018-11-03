@@ -97,16 +97,9 @@ namespace Wexflow.Clients.Manager
                     try
                     {
                         _wexflowServiceClient = new WexflowServiceClient(WexflowWebServiceUri);
-                        
-                        var workflows = _wexflowServiceClient.GetWorkflows();
-                        if (!string.IsNullOrEmpty(textBoxSearch.Text))
-                        {
-                            _workflows = workflows.Where(wf => wf.Name.ToUpper().Contains(textBoxSearch.Text.ToUpper()) || wf.Description.ToUpper().Contains(textBoxSearch.Text.ToUpper())).ToArray();
-                        }
-                        else
-                        {
-                            _workflows = workflows;
-                        }
+
+                        var keyword = textBoxSearch.Text.ToUpper();
+                        _workflows = _wexflowServiceClient.Search(keyword);
                     }
                     catch (Exception ex)
                     {

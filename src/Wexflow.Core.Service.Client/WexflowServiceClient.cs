@@ -22,6 +22,15 @@ namespace Wexflow.Core.Service.Client
             return workflows;
         }
 
+        public WorkflowInfo[] Search(string keyword)
+        {
+            string uri = Uri + "/search?s=" + keyword;
+            var webClient = new WebClient { Encoding = System.Text.Encoding.UTF8 };
+            var response = webClient.DownloadString(uri);
+            var workflows = JsonConvert.DeserializeObject<WorkflowInfo[]>(response);
+            return workflows;
+        }
+
         public void StartWorkflow(int id)
         {
             string uri = Uri + "/start/" + id;
