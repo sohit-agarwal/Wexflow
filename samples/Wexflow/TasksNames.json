@@ -2,6 +2,7 @@
 	"CsvToJson",
 	"CsvToSql",
 	"CsvToXml",
+	"CsvToYaml",
 	"DatabaseBackup",
 	"DatabaseRestore",
 	"ExecCs",

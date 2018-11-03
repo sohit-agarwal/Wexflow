@@ -27,7 +27,7 @@ namespace Wexflow.Tasks.ExecCs
             {
                 try
                 {
-                    var exePath = Path.Combine(Workflow.WexflowTempFolder, Path.GetFileNameWithoutExtension(csFile.FileName) + ".exe");
+                    var exePath = Path.Combine(Workflow.WorkflowTempFolder, Path.GetFileNameWithoutExtension(csFile.FileName) + ".exe");
                     exec(csFile.Path, exePath);
                     Files.Add(new FileInf(exePath, Id));
                     InfoFormat("The script {0} has been executed -> {1}", csFile.Path, exePath);

@@ -40,7 +40,7 @@ namespace Wexflow.Tasks.JsonToYaml
                     var serializer = new Serializer();
                     var yaml = serializer.Serialize(deserializedObject);
 
-                    var destPath = Path.Combine(Workflow.WexflowTempFolder, Path.GetFileNameWithoutExtension(yamlFile.FileName) + ".yml");
+                    var destPath = Path.Combine(Workflow.WorkflowTempFolder, Path.GetFileNameWithoutExtension(yamlFile.FileName) + ".yml");
                     File.WriteAllText(destPath, yaml);
                     Files.Add(new FileInf(destPath, Id));
                     InfoFormat("The JSON file {0} has been converted -> {1}", yamlFile.Path, destPath);

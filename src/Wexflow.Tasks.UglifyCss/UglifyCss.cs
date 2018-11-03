@@ -36,7 +36,7 @@ namespace Wexflow.Tasks.UglifyCss
                         continue;
                     }
 
-                    var destPath = Path.Combine(Workflow.WexflowTempFolder, Path.GetFileNameWithoutExtension(cssFile.FileName) + ".min.css");
+                    var destPath = Path.Combine(Workflow.WorkflowTempFolder, Path.GetFileNameWithoutExtension(cssFile.FileName) + ".min.css");
                     File.WriteAllText(destPath, result.Code);
                     Files.Add(new FileInf(destPath, Id));
                     InfoFormat("The CSS file {0} has been uglified -> {1}", cssFile.Path, destPath);

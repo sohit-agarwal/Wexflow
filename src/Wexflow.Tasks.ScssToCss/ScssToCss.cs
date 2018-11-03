@@ -32,7 +32,7 @@ namespace Wexflow.Tasks.ScssToCss
                     var source = File.ReadAllText(scssFile.Path);
                     var result = Scss.ConvertToCss(source);
 
-                    var destPath = Path.Combine(Workflow.WexflowTempFolder, Path.GetFileNameWithoutExtension(scssFile.FileName) + ".css");
+                    var destPath = Path.Combine(Workflow.WorkflowTempFolder, Path.GetFileNameWithoutExtension(scssFile.FileName) + ".css");
                     File.WriteAllText(destPath, result.Css);
                     Files.Add(new FileInf(destPath, Id));
                     InfoFormat("The SCSS file {0} has been converted -> {1}", scssFile.Path, destPath);

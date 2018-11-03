@@ -38,7 +38,7 @@ namespace Wexflow.Tasks.UglifyJs
                         continue;
                     }
 
-                    var destPath = Path.Combine(Workflow.WexflowTempFolder, Path.GetFileNameWithoutExtension(jsFile.FileName) + ".min.js");
+                    var destPath = Path.Combine(Workflow.WorkflowTempFolder, Path.GetFileNameWithoutExtension(jsFile.FileName) + ".min.js");
                     File.WriteAllText(destPath, result.Code);
                     Files.Add(new FileInf(destPath, Id));
                     InfoFormat("The script {0} has been uglified -> {1}", jsFile.Path, destPath);

@@ -140,6 +140,10 @@
       <Project>{40664177-8903-4c7b-ad0e-7b98bed6a3c8}</Project>
       <Name>Wexflow.Tasks.CsvToXml</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.CsvToYaml\Wexflow.Tasks.CsvToYaml.csproj">
+      <Project>{09607358-cfc4-4365-9bdb-57c9ce6ce741}</Project>
+      <Name>Wexflow.Tasks.CsvToYaml</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.DatabaseBackup\Wexflow.Tasks.DatabaseBackup.csproj">
       <Project>{d32e09a0-6738-4ffa-878c-f9290ab3a9f4}</Project>
       <Name>Wexflow.Tasks.DatabaseBackup</Name>

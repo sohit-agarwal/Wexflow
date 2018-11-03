@@ -38,7 +38,7 @@ namespace Wexflow.Tasks.HtmlToText
                         continue;
                     }
 
-                    var destPath = Path.Combine(Workflow.WexflowTempFolder, Path.GetFileNameWithoutExtension(htmlFile.FileName) + ".txt");
+                    var destPath = Path.Combine(Workflow.WorkflowTempFolder, Path.GetFileNameWithoutExtension(htmlFile.FileName) + ".txt");
                     File.WriteAllText(destPath, result.Code);
                     Files.Add(new FileInf(destPath, Id));
                     InfoFormat("Text has been extracted from the HTML file {0} -> {1}", htmlFile.Path, destPath);

@@ -36,7 +36,7 @@ namespace Wexflow.Tasks.UglifyHtml
                         continue;
                     }
 
-                    var destPath = Path.Combine(Workflow.WexflowTempFolder, Path.GetFileNameWithoutExtension(htmlFile.FileName) + ".min.html");
+                    var destPath = Path.Combine(Workflow.WorkflowTempFolder, Path.GetFileNameWithoutExtension(htmlFile.FileName) + ".min.html");
                     File.WriteAllText(destPath, result.Code);
                     Files.Add(new FileInf(destPath, Id));
                     InfoFormat("The HTML file {0} has been uglified -> {1}", htmlFile.Path, destPath);

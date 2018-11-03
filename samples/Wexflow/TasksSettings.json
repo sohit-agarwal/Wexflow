@@ -2,6 +2,7 @@
 	"CsvToJson": [ "selectFiles", "separator" ],
 	"CsvToSql": [ "selectFiles", "tableName", "separator" ],
 	"CsvToXml": [ "selectFiles" ],
+	"CsvToYaml": [ "selectFiles", "separator" ],
 	"DatabaseBackup": [ "serverConnection", "databaseName", "backupFilePath", "overwrite" ],
 	"DatabaseRestore": [ "serverConnection", "databaseName", "backupFilePath" ],
 	"ExecCs": [ "selectFiles" ],

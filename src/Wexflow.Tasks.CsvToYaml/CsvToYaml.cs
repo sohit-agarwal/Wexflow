@@ -1,25 +1,25 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Xml.Linq;
 using Wexflow.Core;
+using YamlDotNet.Serialization;
 
-namespace Wexflow.Tasks.CsvToJson
+namespace Wexflow.Tasks.CsvToYaml
 {
-    public class CsvToJson:Task
+    public class CsvToYaml:Task
     {
         public string Separator { get; private set; }
 
-        public CsvToJson(XElement xe, Workflow wf) : base(xe, wf)
+        public CsvToYaml(XElement xe, Workflow wf) : base(xe, wf)
         {
             Separator = GetSetting("separator", ";");
         }
 
         public override TaskStatus Run()
         {
-            Info("Converting CSV files to JSON files...");
+            Info("Converting CSV files to YAML files...");
 
             var status = Status.Success;
             var success = true;
@@ -30,9 +30,9 @@ namespace Wexflow.Tasks.CsvToJson
             {
                 try
                 {
-                    var json = Convert(csvFile.Path, Separator);
-                    var destPath = Path.Combine(Workflow.WorkflowTempFolder, Path.GetFileNameWithoutExtension(csvFile.FileName) + ".json");
-                    File.WriteAllText(destPath, json);
+                    var yaml = Convert(csvFile.Path, Separator);
+                    var destPath = Path.Combine(Workflow.WorkflowTempFolder, Path.GetFileNameWithoutExtension(csvFile.FileName) + ".yml");
+                    File.WriteAllText(destPath, yaml);
                     Files.Add(new FileInf(destPath, Id));
                     InfoFormat("The CSV file {0} has been converted -> {1}", csvFile.Path, destPath);
                     if (!atLeastOneSuccess) atLeastOneSuccess = true;
@@ -72,7 +72,7 @@ namespace Wexflow.Tasks.CsvToJson
                 csv.Add(line.Split(new string[] { separator }, StringSplitOptions.RemoveEmptyEntries));
             }
 
-            var properties = lines[0].Split(new string[] { separator}, StringSplitOptions.RemoveEmptyEntries);
+            var properties = lines[0].Split(new string[] { separator }, StringSplitOptions.RemoveEmptyEntries);
 
             var listObjResult = new List<Dictionary<string, string>>();
 
@@ -87,7 +87,9 @@ namespace Wexflow.Tasks.CsvToJson
                 listObjResult.Add(objResult);
             }
 
-            return JsonConvert.SerializeObject(listObjResult);
+            var serializer = new Serializer();
+            var yaml = serializer.Serialize(listObjResult);
+            return yaml;
         }
 
     }
