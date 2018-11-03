@@ -144,6 +144,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{DB08CB74-8778-4B9A-A26B-7D3E3E7EDA8F}"
 	ProjectSection(SolutionItems) = preProject
 		samples\Wexflow\Workflows\Workflow_Cron.xml = samples\Wexflow\Workflows\Workflow_Cron.xml
+		samples\Wexflow\Workflows\Workflow_CsvToJson.xml = samples\Wexflow\Workflows\Workflow_CsvToJson.xml
 		samples\Wexflow\Workflows\Workflow_CsvToSql.xml = samples\Wexflow\Workflows\Workflow_CsvToSql.xml
 		samples\Wexflow\Workflows\Workflow_CsvToXml.xml = samples\Wexflow\Workflows\Workflow_CsvToXml.xml
 		samples\Wexflow\Workflows\Workflow_DatabaseBackup.xml = samples\Wexflow\Workflows\Workflow_DatabaseBackup.xml
@@ -338,6 +339,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.YamlToJson", "src\Wexflow.Tasks.YamlToJson\Wexflow.Tasks.YamlToJson.csproj", "{4EE9980E-E749-427D-846F-DE3773D65263}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.JsonToYaml", "src\Wexflow.Tasks.JsonToYaml\Wexflow.Tasks.JsonToYaml.csproj", "{57EDB875-BB62-42B2-8851-8CE774B13457}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.CsvToJson", "src\Wexflow.Tasks.CsvToJson\Wexflow.Tasks.CsvToJson.csproj", "{DD553A49-A5AD-4F12-91CB-9FBA28777ED2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1873,6 +1876,22 @@ Global
 		{57EDB875-BB62-42B2-8851-8CE774B13457}.Release|x64.Build.0 = Release|x64
 		{57EDB875-BB62-42B2-8851-8CE774B13457}.Release|x86.ActiveCfg = Release|x86
 		{57EDB875-BB62-42B2-8851-8CE774B13457}.Release|x86.Build.0 = Release|x86
+		{DD553A49-A5AD-4F12-91CB-9FBA28777ED2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD553A49-A5AD-4F12-91CB-9FBA28777ED2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD553A49-A5AD-4F12-91CB-9FBA28777ED2}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{DD553A49-A5AD-4F12-91CB-9FBA28777ED2}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{DD553A49-A5AD-4F12-91CB-9FBA28777ED2}.Debug|x64.ActiveCfg = Debug|x64
+		{DD553A49-A5AD-4F12-91CB-9FBA28777ED2}.Debug|x64.Build.0 = Debug|x64
+		{DD553A49-A5AD-4F12-91CB-9FBA28777ED2}.Debug|x86.ActiveCfg = Debug|x86
+		{DD553A49-A5AD-4F12-91CB-9FBA28777ED2}.Debug|x86.Build.0 = Debug|x86
+		{DD553A49-A5AD-4F12-91CB-9FBA28777ED2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD553A49-A5AD-4F12-91CB-9FBA28777ED2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD553A49-A5AD-4F12-91CB-9FBA28777ED2}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{DD553A49-A5AD-4F12-91CB-9FBA28777ED2}.Release|Mixed Platforms.Build.0 = Release|x86
+		{DD553A49-A5AD-4F12-91CB-9FBA28777ED2}.Release|x64.ActiveCfg = Release|x64
+		{DD553A49-A5AD-4F12-91CB-9FBA28777ED2}.Release|x64.Build.0 = Release|x64
+		{DD553A49-A5AD-4F12-91CB-9FBA28777ED2}.Release|x86.ActiveCfg = Release|x86
+		{DD553A49-A5AD-4F12-91CB-9FBA28777ED2}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1972,6 +1991,7 @@ Global
 		{AB4CE02A-1CB1-46B3-82FA-535D740F8EFC} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{4EE9980E-E749-427D-846F-DE3773D65263} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{57EDB875-BB62-42B2-8851-8CE774B13457} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
+		{DD553A49-A5AD-4F12-91CB-9FBA28777ED2} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{81032249-78D9-4B89-8E22-A3C32562EA69} = {67871E52-CB11-4EDF-B036-15F359EF6B66}
 		{D559C35B-BFF5-49C2-9490-818314C88A76} = {67871E52-CB11-4EDF-B036-15F359EF6B66}
 		{59410829-C439-4683-818E-AC99F94D1EBA} = {67871E52-CB11-4EDF-B036-15F359EF6B66}

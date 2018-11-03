@@ -1,4 +1,5 @@
 [
+	"CsvToJson",
 	"CsvToSql",
 	"CsvToXml",
 	"DatabaseBackup",

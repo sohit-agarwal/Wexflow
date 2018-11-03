@@ -128,6 +128,10 @@
       <Project>{46257949-80B5-48F2-9B83-29354C339869}</Project>
       <Name>Wexflow.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.CsvToJson\Wexflow.Tasks.CsvToJson.csproj">
+      <Project>{dd553a49-a5ad-4f12-91cb-9fba28777ed2}</Project>
+      <Name>Wexflow.Tasks.CsvToJson</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.CsvToSql\Wexflow.Tasks.CsvToSql.csproj">
       <Project>{64b76fc5-b33d-4843-8708-bc8bd89fba15}</Project>
       <Name>Wexflow.Tasks.CsvToSql</Name>

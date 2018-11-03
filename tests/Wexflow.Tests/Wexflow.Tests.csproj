@@ -96,6 +96,7 @@
     <Compile Include="HttpGet.cs" />
     <Compile Include="HtmlToText.cs" />
     <Compile Include="JsonToYaml.cs" />
+    <Compile Include="CsvToJson.cs" />
     <Compile Include="YamlToJson.cs" />
     <Compile Include="ScssToCss.cs" />
     <Compile Include="UglifyHtml.cs" />
@@ -198,6 +199,10 @@
     <ProjectReference Include="..\..\src\Wexflow.Core\Wexflow.Core.csproj">
       <Project>{46257949-80b5-48f2-9b83-29354c339869}</Project>
       <Name>Wexflow.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Wexflow.Tasks.CsvToJson\Wexflow.Tasks.CsvToJson.csproj">
+      <Project>{dd553a49-a5ad-4f12-91cb-9fba28777ed2}</Project>
+      <Name>Wexflow.Tasks.CsvToJson</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Wexflow.Tasks.CsvToSql\Wexflow.Tasks.CsvToSql.csproj">
       <Project>{64b76fc5-b33d-4843-8708-bc8bd89fba15}</Project>

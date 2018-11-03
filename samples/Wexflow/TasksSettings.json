@@ -1,4 +1,5 @@
 {
+	"CsvToJson": [ "selectFiles", "separator" ],
 	"CsvToSql": [ "selectFiles", "tableName", "separator" ],
 	"CsvToXml": [ "selectFiles" ],
 	"DatabaseBackup": [ "serverConnection", "databaseName", "backupFilePath", "overwrite" ],
