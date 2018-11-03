@@ -11,6 +11,9 @@ namespace Wexflow.Clients.WindowsService
         WorkflowInfo[] GetWorkflows();
 
         [OperationContract]
+        WorkflowInfo[] Search(string keyword);
+
+        [OperationContract]
         void StartWorkflow(string id);
 
         [OperationContract]

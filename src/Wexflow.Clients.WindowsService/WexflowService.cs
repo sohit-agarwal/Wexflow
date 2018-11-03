@@ -28,6 +28,20 @@ namespace Wexflow.Clients.WindowsService
                 .ToArray();
         }
 
+        [WebInvoke(Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "search?s={keyword}")]
+        public WorkflowInfo[] Search(string keyword)
+        {
+            var keywordToUpper = keyword.ToUpper();
+            return WexflowWindowsService.WexflowEngine.Workflows
+                .Where(wf => wf.Name.ToUpper().Contains(keywordToUpper) || wf.Description.ToUpper().Contains(keywordToUpper))
+                .Select(wf => new WorkflowInfo(wf.Id, wf.Name,
+                    (LaunchType)wf.LaunchType, wf.IsEnabled, wf.Description, wf.IsRunning, wf.IsPaused,
+                    wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression, wf.WorkflowFilePath, wf.IsExecutionGraphEmpty))
+                .ToArray();
+        }
+
         [WebInvoke(Method = "POST",
             ResponseFormat = WebMessageFormat.Json,
             UriTemplate = "start/{id}")]
