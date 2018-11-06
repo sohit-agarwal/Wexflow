@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Wexflow Manager</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/manager.css" />
+    <script type="text/javascript" src="js/settings.js"></script>
+    <script type="text/javascript" src="js/authenticate.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/manager.js"></script>
+</head>
+<body>
+    <div id="header">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="manager.html">Manager</a>
+        <a href="designer.html">Designer</a>
+        <a href="history.html">History</a>
+        <a href="#" id="btn-logout" class="header-right">Logout</a>
+        <a href="https://wexflow.github.io" class="header-right">About</a>
+        <a href="https://github.com/aelassas/Wexflow/wiki" class="header-right">Help</a>
+    </div>
+	<div id="wf-manager"></div>
+	<script type="text/javascript">
+		window.onload = function () {
+			new WexflowManager();
+		};
+	</script>
+</body>
+</html>

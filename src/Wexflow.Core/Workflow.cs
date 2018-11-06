@@ -9,6 +9,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
 using System.Xml.XPath;
+using Wexflow.Core.Db;
 using Wexflow.Core.ExecutionGraph;
 using Wexflow.Core.ExecutionGraph.Flowchart;
 
@@ -136,8 +137,13 @@ namespace Wexflow.Core
         /// Hashtable used as shared memory for tasks.
         /// </summary>
         public Hashtable Hashtable { get; private set; }
+        /// <summary>
+        /// Database.
+        /// </summary>
+        public Db.Db Database { get; private set; }
 
         private Thread _thread;
+        private HistoryEntry _historyEntry;
 
         /// <summary>
         /// Creates a new workflow.
@@ -145,18 +151,25 @@ namespace Wexflow.Core
         /// <param name="path">Workflow file path.</param>
         /// <param name="wexflowTempFolder">Wexflow temp folder.</param>
         /// <param name="xsdPath">XSD path.</param>
-        public Workflow(string path, string wexflowTempFolder, string xsdPath)
+        /// <param name="database">Database.</param>
+        public Workflow(string path, string wexflowTempFolder, string xsdPath, Db.Db database)
         {
             JobId = 1;
             _thread = null;
             WorkflowFilePath = path;
             WexflowTempFolder = wexflowTempFolder;
             XsdPath = xsdPath;
+            Database = database;
             FilesPerTask = new Dictionary<int, List<FileInf>>();
             EntitiesPerTask = new Dictionary<int, List<Entity>>();
             Hashtable = new Hashtable();
             Check();
             Load();
+
+            if (!IsEnabled)
+            {
+                Database.IncrementDisabledCount();
+            }
         }
 
         /// <summary>
@@ -556,6 +569,36 @@ namespace Wexflow.Core
         {
             if (IsRunning) return;
 
+            Database.IncrementRunningCount();
+
+            var entry = Database.GetEntry(Id);
+            if (entry == null)
+            {
+                var newEntry = new Entry
+                {
+                    WorkflowId = Id,
+                    Name = Name,
+                    LaunchType = ((Db.LaunchType)(int)LaunchType),
+                    Description = Description,
+                    Status = Db.Status.Running
+                };
+                Database.InsertEntry(newEntry);
+            }
+            else
+            {
+                entry.Status = Db.Status.Running;
+                Database.UpdateEntry(entry);
+            }
+            entry = Database.GetEntry(Id);
+
+            _historyEntry = new HistoryEntry
+            {
+                WorkflowId = Id,
+                Name = Name,
+                LaunchType = ((Db.LaunchType)(int)LaunchType),
+                Description = Description
+            };
+            
             var thread = new Thread(() =>
                 {
                     try
@@ -573,6 +616,29 @@ namespace Wexflow.Core
                             bool warning = false;
                             bool error = false;
                             RunSequentialTasks(Taks, ref success, ref warning, ref error);
+
+                            if (success)
+                            {
+                                Database.IncrementDoneCount();
+                                entry.Status = Db.Status.Done;
+                                Database.UpdateEntry(entry);
+                                _historyEntry.Status = Db.Status.Done;
+                                
+                            }
+                            else if (warning)
+                            {
+                                Database.IncrementWarningCount();
+                                entry.Status = Db.Status.Warning;
+                                Database.UpdateEntry(entry);
+                                _historyEntry.Status = Db.Status.Warning;
+                            }
+                            else if (error)
+                            {
+                                Database.IncrementFailedCount();
+                                entry.Status = Db.Status.Failed;
+                                Database.UpdateEntry(entry);
+                                _historyEntry.Status = Db.Status.Failed;
+                            }
                         }
                         else
                         {
@@ -586,6 +652,10 @@ namespace Wexflow.Core
                                         var successTasks = NodesToTasks(ExecutionGraph.OnSuccess.Nodes);
                                         RunTasks(ExecutionGraph.OnSuccess.Nodes, successTasks);
                                     }
+                                    Database.IncrementDoneCount();
+                                    entry.Status = Db.Status.Done;
+                                    Database.UpdateEntry(entry);
+                                    _historyEntry.Status = Db.Status.Done;
                                     break;
                                 case Status.Warning:
                                     if (ExecutionGraph.OnWarning != null)
@@ -593,6 +663,10 @@ namespace Wexflow.Core
                                         var warningTasks = NodesToTasks(ExecutionGraph.OnWarning.Nodes);
                                         RunTasks(ExecutionGraph.OnWarning.Nodes, warningTasks);
                                     }
+                                    Database.IncrementWarningCount();
+                                    entry.Status = Db.Status.Warning;
+                                    Database.UpdateEntry(entry);
+                                    _historyEntry.Status = Db.Status.Warning;
                                     break;
                                 case Status.Error:
                                     if (ExecutionGraph.OnError != null)
@@ -600,16 +674,25 @@ namespace Wexflow.Core
                                         var errorTasks = NodesToTasks(ExecutionGraph.OnError.Nodes);
                                         RunTasks(ExecutionGraph.OnError.Nodes, errorTasks);
                                     }
+                                    Database.IncrementFailedCount();
+                                    entry.Status = Db.Status.Failed;
+                                    Database.UpdateEntry(entry);
+                                    _historyEntry.Status = Db.Status.Failed;
                                     break;
                             }
                         }
+
+                        _historyEntry.StatusDate = DateTime.Now;
+                        Database.InsertHistoryEntry(_historyEntry);
+
+                        Database.DecrementRunningCount();
                     }
                     catch (ThreadAbortException)
                     {
                     }
                     catch (Exception e)
                     {
-                        Logger.ErrorFormat("An error occured while running the workflow. Error: {0}", e.Message, this);
+                        Logger.ErrorFormat("An error occured while running the workflow. Error: {0}", e, this);
                     }
                     finally
                     {
@@ -1028,6 +1111,14 @@ namespace Wexflow.Core
                 try
                 {
                     _thread.Abort();
+                    Database.DecrementRunningCount();
+                    Database.IncrementStoppedCount();
+                    var entry = Database.GetEntry(Id);
+                    entry.Status = Db.Status.Stopped;
+                    Database.UpdateEntry(entry);
+                    _historyEntry.Status = Db.Status.Stopped;
+                    _historyEntry.StatusDate = DateTime.Now;
+                    Database.InsertHistoryEntry(_historyEntry);
                 }
                 catch (Exception e)
                 {
@@ -1039,7 +1130,7 @@ namespace Wexflow.Core
         /// <summary>
         /// Suspends this workflow.
         /// </summary>
-        public void Pause()
+        public void Suspend()
         {
             if (IsRunning)
             {
@@ -1049,6 +1140,11 @@ namespace Wexflow.Core
                     _thread.Suspend();
 #pragma warning restore 618
                     IsPaused = true;
+                    Database.IncrementPendingCount();
+                    Database.DecrementRunningCount();
+                    var entry = Database.GetEntry(Id);
+                    entry.Status = Db.Status.Pending;
+                    Database.UpdateEntry(entry);
                 }
                 catch (Exception e)
                 {
@@ -1069,6 +1165,11 @@ namespace Wexflow.Core
 #pragma warning disable 618
                     _thread.Resume();
 #pragma warning restore 618
+                    Database.IncrementRunningCount();
+                    Database.DecrementPendingCount();
+                    var entry = Database.GetEntry(Id);
+                    entry.Status = Db.Status.Running;
+                    Database.UpdateEntry(entry);
                 }
                 catch (Exception e)
                 {

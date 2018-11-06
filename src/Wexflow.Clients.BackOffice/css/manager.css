@@ -1,0 +1,134 @@
+﻿body{
+	background: #FFFFFF;
+}
+
+#header{
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	height: 90px;
+	background: #29A85C;
+	color: #FFFFFF;
+}
+
+#header a{
+	color: #FFFFFF;
+	font-size: 25px;
+	margin: 20px;
+	float: left;
+}
+
+#header .header-right{
+	float: right;
+}
+
+#wf-manager{
+	position: absolute; 
+	top: 100px; 
+	right:0; 
+	bottom:0; 
+	left:0;
+    display: none;
+}
+
+#wf-container
+{
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    position: relative;
+    min-width: 600px;
+    min-height: 400px;
+    width: 100%;
+    height: 100%;
+}
+
+#wf-cmd
+{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+#wf-cmd button
+{
+    margin-right: 5px;
+    width: 70px;
+}
+
+#wf-notifier
+{
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    left: 10px;
+}
+
+#wf-notifier #wf-notifier-text
+{
+    width: 100%;
+}
+
+#wf-search {
+    position: absolute;
+    top: 90px;
+    right: 10px;
+    left: 10px;
+}
+
+    #wf-search #wf-search-text-container {
+        position: absolute;
+        right: 75px;
+        left: 0;
+    }
+        #wf-search #wf-search-text-container #wf-search-text {
+            width: 100%;
+        }
+
+    #wf-search #wf-search-action {
+        position: absolute;
+        right: 0px;
+        width: 70px;
+    }
+
+#wf-workflows {
+    position: absolute;
+    top: 125px;
+    bottom: 0;
+    right: 10px;
+    left: 10px;
+    overflow: auto;
+}
+
+/* start of table style */
+
+#wf-workflows #wf-workflows-table .wf-id
+{
+    width: 45px;    
+}
+
+#wf-workflows #wf-workflows-table .wf-n
+{
+    width: 200px;    
+}
+
+#wf-workflows #wf-workflows-table .wf-lt
+{
+    width: 100px;    
+}
+
+#wf-workflows #wf-workflows-table .wf-e
+{
+    width: 75px;
+}
+
+#wf-workflows #wf-workflows-table tbody tr:hover
+{
+    cursor: pointer;
+}
+
+#wf-workflows #wf-workflows-table .selected, #wf-workflows #wf-workflows-table .selected:hover
+{
+    background-color: #ffb347;
+}
+
+/*end of table style*/

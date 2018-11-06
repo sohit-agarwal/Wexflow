@@ -116,6 +116,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Wexflow.Core.Db\Wexflow.Core.Db.csproj">
+      <Project>{2bbb9f04-49d7-49a7-a065-4b2c81e66307}</Project>
+      <Name>Wexflow.Core.Db</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Core.Service.Contracts\Wexflow.Core.Service.Contracts.csproj">
       <Project>{7debd0d9-ea9b-445c-9b6d-f426908ce736}</Project>
       <Name>Wexflow.Core.Service.Contracts</Name>

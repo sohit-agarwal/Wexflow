@@ -23,7 +23,7 @@ namespace Wexflow.Clients.WindowsService
         public WorkflowInfo[] GetWorkflows()
         {
             return WexflowWindowsService.WexflowEngine.Workflows.Select(wf => new WorkflowInfo(wf.Id, wf.Name,
-                    (LaunchType) wf.LaunchType, wf.IsEnabled, wf.Description, wf.IsRunning, wf.IsPaused,
+                    (LaunchType)wf.LaunchType, wf.IsEnabled, wf.Description, wf.IsRunning, wf.IsPaused,
                     wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression, wf.WorkflowFilePath, wf.IsExecutionGraphEmpty))
                 .ToArray();
         }
@@ -63,7 +63,7 @@ namespace Wexflow.Clients.WindowsService
             UriTemplate = "suspend/{id}")]
         public void SuspendWorkflow(string id)
         {
-            WexflowWindowsService.WexflowEngine.PauseWorkflow(int.Parse(id));
+            WexflowWindowsService.WexflowEngine.SuspendWorkflow(int.Parse(id));
         }
 
         [WebInvoke(Method = "POST",
@@ -82,7 +82,7 @@ namespace Wexflow.Clients.WindowsService
             var wf = WexflowWindowsService.WexflowEngine.GetWorkflow(int.Parse(id));
             if (wf != null)
             {
-                return new WorkflowInfo(wf.Id, wf.Name, (LaunchType) wf.LaunchType, wf.IsEnabled, wf.Description,
+                return new WorkflowInfo(wf.Id, wf.Name, (LaunchType)wf.LaunchType, wf.IsEnabled, wf.Description,
                     wf.IsRunning, wf.IsPaused, wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression, wf.WorkflowFilePath, wf.IsExecutionGraphEmpty);
             }
 
@@ -229,12 +229,12 @@ namespace Wexflow.Clients.WindowsService
                 JObject o = JObject.Parse(json);
                 var wi = o.SelectToken("WorkflowInfo");
 
-                var isNew = (bool) wi.SelectToken("IsNew");
+                var isNew = (bool)wi.SelectToken("IsNew");
                 if (isNew)
                 {
                     XNamespace xn = "urn:wexflow-schema";
                     var xdoc = new XDocument();
-                 
+
                     int workflowId = (int)wi.SelectToken("Id");
                     string workflowName = (string)wi.SelectToken("Name");
                     LaunchType workflowLaunchType = (LaunchType)((int)wi.SelectToken("LaunchType"));
@@ -332,7 +332,7 @@ namespace Wexflow.Clients.WindowsService
 
                     xdoc.Add(xwf);
 
-                    var path = (string) wi.SelectToken("Path");
+                    var path = (string)wi.SelectToken("Path");
                     xdoc.Save(path);
                 }
                 else
@@ -343,10 +343,10 @@ namespace Wexflow.Clients.WindowsService
                     {
                         var xdoc = wf.XDoc;
 
-                        int workflowId = (int) wi.SelectToken("Id");
-                        string workflowName = (string) wi.SelectToken("Name");
-                        LaunchType workflowLaunchType = (LaunchType) ((int) wi.SelectToken("LaunchType"));
-                        string p = (string) wi.SelectToken("Period");
+                        int workflowId = (int)wi.SelectToken("Id");
+                        string workflowName = (string)wi.SelectToken("Name");
+                        LaunchType workflowLaunchType = (LaunchType)((int)wi.SelectToken("LaunchType"));
+                        string p = (string)wi.SelectToken("Period");
                         TimeSpan workflowPeriod = TimeSpan.Parse(string.IsNullOrEmpty(p) ? "00.00:00:00" : p);
                         string cronExpression = (string)wi.SelectToken("CronExpression");
 
@@ -355,8 +355,8 @@ namespace Wexflow.Clients.WindowsService
                             throw new Exception("The cron expression '" + cronExpression + "' is not valid.");
                         }
 
-                        bool isWorkflowEnabled = (bool) wi.SelectToken("IsEnabled");
-                        string workflowDesc = (string) wi.SelectToken("Description");
+                        bool isWorkflowEnabled = (bool)wi.SelectToken("IsEnabled");
+                        string workflowDesc = (string)wi.SelectToken("Description");
 
                         //if(xdoc.Root == null) throw new Exception("Root is null");
                         xdoc.Root.Attribute("id").Value = workflowId.ToString();
@@ -393,7 +393,7 @@ namespace Wexflow.Clients.WindowsService
                         {
                             xwfCronExpression.Attribute("value").Value = cronExpression ?? string.Empty;
                         }
-                        else if(!string.IsNullOrEmpty(cronExpression))
+                        else if (!string.IsNullOrEmpty(cronExpression))
                         {
                             xdoc.Root.XPathSelectElement("wf:Settings", wf.XmlNamespaceManager)
                                 .Add(new XElement(wf.XNamespaceWf + "Setting", new XAttribute("name", "cronExpression"),
@@ -407,10 +407,10 @@ namespace Wexflow.Clients.WindowsService
                         var tasks = o.SelectToken("Tasks");
                         foreach (var task in tasks)
                         {
-                            int taskId = (int) task.SelectToken("Id");
-                            string taskName = (string) task.SelectToken("Name");
-                            string taskDesc = (string) task.SelectToken("Description");
-                            bool isTaskEnabled = (bool) task.SelectToken("IsEnabled");
+                            int taskId = (int)task.SelectToken("Id");
+                            string taskName = (string)task.SelectToken("Name");
+                            string taskDesc = (string)task.SelectToken("Description");
+                            bool isTaskEnabled = (bool)task.SelectToken("IsEnabled");
 
                             var xtask = new XElement(wf.XNamespaceWf + "Task"
                                 , new XAttribute("id", taskId)
@@ -422,8 +422,8 @@ namespace Wexflow.Clients.WindowsService
                             var settings = task.SelectToken("Settings");
                             foreach (var setting in settings)
                             {
-                                string settingName = (string) setting.SelectToken("Name");
-                                string settingValue = (string) setting.SelectToken("Value");
+                                string settingName = (string)setting.SelectToken("Name");
+                                string settingValue = (string)setting.SelectToken("Value");
 
                                 var xsetting = new XElement(wf.XNamespaceWf + "Setting"
                                     , new XAttribute("name", settingName)
@@ -444,8 +444,8 @@ namespace Wexflow.Clients.WindowsService
                                 var attributes = setting.SelectToken("Attributes");
                                 foreach (var attribute in attributes)
                                 {
-                                    string attributeName = (string) attribute.SelectToken("Name");
-                                    string attributeValue = (string) attribute.SelectToken("Value");
+                                    string attributeName = (string)attribute.SelectToken("Name");
+                                    string attributeValue = (string)attribute.SelectToken("Value");
                                     xsetting.SetAttributeValue(attributeName, attributeValue);
                                 }
 
@@ -578,7 +578,7 @@ namespace Wexflow.Clients.WindowsService
             if (wf != null)
             {
                 IList<Node> nodes = new List<Node>();
-                
+
                 foreach (var node in wf.ExecutionGraph.Nodes)
                 {
                     var task = wf.Taks.FirstOrDefault(t => t.Id == node.Id);
@@ -608,5 +608,137 @@ namespace Wexflow.Clients.WindowsService
 
             return null;
         }
+
+        [WebInvoke(Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "statusCount")]
+        public StatusCount GetStatusCount()
+        {
+            var statusCount = WexflowWindowsService.WexflowEngine.GetStatusCount();
+            return new StatusCount
+            {
+                PendingCount = statusCount.PendingCount,
+                RunningCount = statusCount.RunningCount,
+                DoneCount = statusCount.DoneCount,
+                FailedCount = statusCount.FailedCount,
+                WarningCount = statusCount.WarningCount,
+                DisabledCount = statusCount.DisabledCount,
+                StoppedCount = statusCount.StoppedCount
+            };
+        }
+
+        [WebInvoke(Method = "GET",
+           ResponseFormat = WebMessageFormat.Json,
+           UriTemplate = "entries")]
+        public Entry[] GetEntries()
+        {
+            var entries = WexflowWindowsService.WexflowEngine.GetEntries();
+            return entries.Select(e =>
+            new Entry
+            {
+                Id = e.Id,
+                WorkflowId = e.WorkflowId,
+                Name = e.Name,
+                LaunchType = (LaunchType)((int)e.LaunchType),
+                Description = e.Description,
+                Status = (Core.Service.Contracts.Status)((int)e.Status)
+            }).ToArray();
+        }
+
+        [WebInvoke(Method = "GET",
+           ResponseFormat = WebMessageFormat.Json,
+           UriTemplate = "user?username={username}")]
+        public User GetUser(string username)
+        {
+            var user = WexflowWindowsService.WexflowEngine.GetUser(username);
+            if (user != null)
+            {
+                return new User
+                {
+                    Username = user.Username,
+                    Password = user.Password
+                };
+            }
+            return null;
+        }
+
+
+        [WebInvoke(Method = "POST",
+           ResponseFormat = WebMessageFormat.Json,
+           UriTemplate = "insertUser?username={username}&password={password}")]
+        public void InsertUser(string username, string password)
+        {
+            WexflowWindowsService.WexflowEngine.InsertUser(username, password);
+        }
+
+        [WebInvoke(Method = "GET",
+          ResponseFormat = WebMessageFormat.Json,
+          UriTemplate = "historyEntries")]
+        public HistoryEntry[] GetHistoryEntries()
+        {
+            var entries = WexflowWindowsService.WexflowEngine.GetHistoryEntries();
+            DateTime baseDate = new DateTime(1970, 1, 1);
+            return entries.Select(e =>
+            new HistoryEntry
+            {
+                Id = e.Id,
+                WorkflowId = e.WorkflowId,
+                Name = e.Name,
+                LaunchType = (LaunchType)((int)e.LaunchType),
+                Description = e.Description,
+                Status = (Core.Service.Contracts.Status)((int)e.Status),
+                StatusDate = (e.StatusDate - baseDate).TotalMilliseconds
+            }).ToArray();
+        }
+
+        [WebInvoke(Method = "GET",
+          ResponseFormat = WebMessageFormat.Json,
+          UriTemplate = "searchHistoryEntries?s={keyword}")]
+        public HistoryEntry[] SearchHistoryEntries(string keyword)
+        {
+            var entries = WexflowWindowsService.WexflowEngine.GetHistoryEntries(keyword);
+            DateTime baseDate = new DateTime(1970, 1, 1);
+            return entries.Select(e =>
+            new HistoryEntry
+            {
+                Id = e.Id,
+                WorkflowId = e.WorkflowId,
+                Name = e.Name,
+                LaunchType = (LaunchType)((int)e.LaunchType),
+                Description = e.Description,
+                Status = (Core.Service.Contracts.Status)((int)e.Status),
+                StatusDate = (e.StatusDate - baseDate).TotalMilliseconds
+            }).ToArray();
+        }
+
+        [WebInvoke(Method = "GET",
+          ResponseFormat = WebMessageFormat.Json,
+          UriTemplate = "searchHistoryEntriesByPage?s={keyword}&page={page}&entriesCount={entriesCount}")]
+        public HistoryEntry[] SearchHistoryEntriesByPage(string keyword, int page, int entriesCount)
+        {
+            var entries = WexflowWindowsService.WexflowEngine.GetHistoryEntries(keyword, page, entriesCount);
+            DateTime baseDate = new DateTime(1970, 1, 1);
+            return entries.Select(e =>
+            new HistoryEntry
+            {
+                Id = e.Id,
+                WorkflowId = e.WorkflowId,
+                Name = e.Name,
+                LaunchType = (LaunchType)((int)e.LaunchType),
+                Description = e.Description,
+                Status = (Core.Service.Contracts.Status)((int)e.Status),
+                StatusDate = (e.StatusDate - baseDate).TotalMilliseconds
+            }).ToArray();
+        }
+
+        [WebInvoke(Method = "GET",
+         ResponseFormat = WebMessageFormat.Json,
+         UriTemplate = "historyEntriesCount?s={keyword}")]
+        public long GetHistoryEntriesCount(string keyword)
+        {
+            long count = WexflowWindowsService.WexflowEngine.GetHistoryEntriesCount(keyword);
+            return count;
+        }
+
     }
 }

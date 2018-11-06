@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>History</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/history.css" />
+    <script type="text/javascript" src="js/settings.js"></script>
+    <script type="text/javascript" src="js/authenticate.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/history.js"></script>
+</head>
+<body>
+    <div id="header">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="manager.html">Manager</a>
+        <a href="designer.html">Designer</a>
+        <a href="history.html">History</a>
+        <a href="#" id="btn-logout" class="header-right">Logout</a>
+        <a href="https://wexflow.github.io" class="header-right">About</a>
+        <a href="https://github.com/aelassas/Wexflow/wiki" class="header-right">Help</a>
+    </div>
+    <div id="entries-action">
+        <label>Show</label>
+        <select id="slct-entries-count">
+            <option name="ten" value="10">10</option>
+            <option name="ten" value="25">25</option>
+            <option name="hundred" value="50">50</option>
+            <option name="five-hundred" value="100">100</option>
+            <option name="five-hundred" value="250">250</option>
+            <option name="five-hundred" value="500">500</option>
+            <option name="five-hundred" value="1000">1000</option>
+            <option name="five-hundred" value="2500">2500</option>
+            <option name="five-hundred" value="5000">5000</option>
+        </select>
+        <label>entries</label>
+        <input id="btn-previous-page" type="submit" name="search" value="<" class="btn btn-primary btn-sm">
+        <label id="lbl-pages"></label>
+        <input id="btn-next-page" type="submit" name="search" value=">" class="btn btn-primary btn-sm">
+        <label id="lbl-entries-count"></label>
+        <input id="btn-search" type="submit" name="search" value="Search" class="btn btn-primary btn-sm action-right">
+        <input id="txt-search" type="text" class="action-right">
+    </div>
+    <div id="entries"></div>
+    <script type="text/javascript">
+        window.onload = function () {
+            new History();
+        }
+    </script>
+</body>
+</html>

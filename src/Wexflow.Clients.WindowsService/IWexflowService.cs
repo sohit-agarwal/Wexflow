@@ -63,5 +63,29 @@ namespace Wexflow.Clients.WindowsService
 
         [OperationContract]
         string GetTaskXml(Stream streamdata);
+
+        [OperationContract]
+        StatusCount GetStatusCount();
+
+        [OperationContract]
+        Entry[] GetEntries();
+
+        [OperationContract]
+        User GetUser(string username);
+
+        [OperationContract]
+        void InsertUser(string username, string password);
+
+        [OperationContract]
+        HistoryEntry[] GetHistoryEntries();
+
+        [OperationContract]
+        HistoryEntry[] SearchHistoryEntries(string keyword);
+
+        [OperationContract]
+        HistoryEntry[] SearchHistoryEntriesByPage(string keyword, int page, int entriesCount);
+
+        [OperationContract]
+        long GetHistoryEntriesCount(string keyword);
     }
 }

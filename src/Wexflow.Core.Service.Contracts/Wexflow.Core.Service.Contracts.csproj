@@ -90,10 +90,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AttributeInfo.cs" />
+    <Compile Include="Entry.cs" />
+    <Compile Include="HistoryEntry.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingInfo.cs" />
+    <Compile Include="StatusCount.cs" />
     <Compile Include="TaskInfo.cs" />
+    <Compile Include="User.cs" />
     <Compile Include="WorkflowInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

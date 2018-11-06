@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Wexflow Back Office</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/login.css" />
+    <script type="text/javascript" src="js/settings.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/md5.js"></script>
+    <script type="text/javascript" src="js/authenticate.js"></script>
+    <script type="text/javascript" src="js/login.js"></script>
+</head>
+<body>
+    <div id="header">
+        <a href="https://wexflow.github.io" class="header-right">About</a>
+        <a href="https://github.com/aelassas/Wexflow/wiki" class="header-right">Help</a>
+    </div>
+    <div id="login">
+        <table>
+            <tr>
+                <td>
+                    <label>Username</label>
+                </td>
+                <td>
+                    <input type="text" name="username" id="txt-username" class="text" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Password</label>
+                </td>
+                <td>
+                    <input type="password" name="password" id="txt-password" class="text" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div id="login-action">
+                        <input id="btn-login" type="submit" name="sub" value="Sign in" class="btn btn-primary btn-sm" />
+                        <input id="btn-subscribe" type="submit" name="subscribe" value="Sign up" class="btn btn-success btn-sm" />
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script type="text/javascript">
+        window.onload = function () {
+            new Login();
+        }
+    </script>
+</body>
+</html>

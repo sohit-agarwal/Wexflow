@@ -348,7 +348,8 @@ Type: files; Name: "{app}\chromedriver.exe"
 [Code]
 procedure InitializeWizard();
 begin
-  CreateDir('C:\Wexflow\');
+  CreateDir('C:\Wexflow');
   CreateDir('C:\Wexflow\Trash');
-  CreateDir('C:\WexflowTesting\');
+  CreateDir('C:\Wexflow\Database');
+  CreateDir('C:\WexflowTesting');
 end;

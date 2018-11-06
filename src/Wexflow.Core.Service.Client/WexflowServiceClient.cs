@@ -67,5 +67,76 @@ namespace Wexflow.Core.Service.Client
             var workflow = JsonConvert.DeserializeObject<WorkflowInfo>(response);
             return workflow;
         }
+
+        public StatusCount GetStatusCount()
+        {
+            string uri = Uri + "/statusCount/";
+            var webClient = new WebClient();
+            var response = webClient.DownloadString(uri);
+            var statusCount = JsonConvert.DeserializeObject<StatusCount>(response);
+            return statusCount;
+        }
+
+        public Entry[] GetEntries()
+        {
+            string uri = Uri + "/entries/";
+            var webClient = new WebClient();
+            var response = webClient.DownloadString(uri);
+            var entries = JsonConvert.DeserializeObject<Entry[]>(response);
+            return entries;
+        }
+
+        public User GetUser(string username)
+        {
+            string uri = Uri + "/user/" + username;
+            var webClient = new WebClient();
+            var response = webClient.DownloadString(uri);
+            var user = JsonConvert.DeserializeObject<User>(response);
+            return user;
+        }
+
+        public void InsertUser(string username, string password)
+        {
+            string uri = Uri + "/insertUser?username=" + username + "&password=" + password;
+            var webClient = new WebClient();
+            webClient.UploadString(uri, string.Empty);
+        }
+
+        public HistoryEntry[] GetHistoryEntries()
+        {
+            string uri = Uri + "/historyEntries/";
+            var webClient = new WebClient();
+            var response = webClient.DownloadString(uri);
+            var entries = JsonConvert.DeserializeObject<HistoryEntry[]>(response);
+            return entries;
+        }
+
+        public HistoryEntry[] GetHistoryEntries(string keyword)
+        {
+            string uri = Uri + "/searchHistoryEntries?s=" + keyword;
+            var webClient = new WebClient();
+            var response = webClient.DownloadString(uri);
+            var entries = JsonConvert.DeserializeObject<HistoryEntry[]>(response);
+            return entries;
+        }
+
+        public HistoryEntry[] GetHistoryEntries(string keyword, int page, int entriesCount)
+        {
+            string uri = Uri + "/searchHistoryEntriesByPage?s=" + keyword + "&page=" + page + "&entriesCount=" + entriesCount;
+            var webClient = new WebClient();
+            var response = webClient.DownloadString(uri);
+            var entries = JsonConvert.DeserializeObject<HistoryEntry[]>(response);
+            return entries;
+        }
+
+        public long GetHistoryEntriesCount(string keyword)
+        {
+            string uri = Uri + "/historyEntriesCount?s=" + keyword;
+            var webClient = new WebClient();
+            var response = webClient.DownloadString(uri);
+            var count = JsonConvert.DeserializeObject<long>(response);
+            return count;
+        }
+
     }
 }

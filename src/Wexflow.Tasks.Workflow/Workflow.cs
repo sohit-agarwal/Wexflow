@@ -93,15 +93,15 @@ namespace Wexflow.Tasks.Workflow
                 }
             }
             Info("Task finished.");
-            var status = Status.Success;
+            var status = Core.Status.Success;
 
             if (!success && atLeastOneSucceed)
             {
-                status = Status.Warning;
+                status = Core.Status.Warning;
             }
             else if (!success)
             {
-                status = Status.Error;
+                status = Core.Status.Error;
             }
             
             return new TaskStatus(status);

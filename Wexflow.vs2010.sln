@@ -345,6 +345,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.CsvToJson", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.CsvToYaml", "src\Wexflow.Tasks.CsvToYaml\Wexflow.Tasks.CsvToYaml.csproj", "{09607358-CFC4-4365-9BDB-57C9CE6CE741}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Clients.BackOffice", "src\Wexflow.Clients.BackOffice\Wexflow.Clients.BackOffice.csproj", "{C181F37A-30A6-45C6-A191-5672DE38F51F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -1907,6 +1909,18 @@ Global
 		{09607358-CFC4-4365-9BDB-57C9CE6CE741}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{09607358-CFC4-4365-9BDB-57C9CE6CE741}.Release|x64.ActiveCfg = Release|Any CPU
 		{09607358-CFC4-4365-9BDB-57C9CE6CE741}.Release|x86.ActiveCfg = Release|Any CPU
+		{C181F37A-30A6-45C6-A191-5672DE38F51F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C181F37A-30A6-45C6-A191-5672DE38F51F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C181F37A-30A6-45C6-A191-5672DE38F51F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C181F37A-30A6-45C6-A191-5672DE38F51F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C181F37A-30A6-45C6-A191-5672DE38F51F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C181F37A-30A6-45C6-A191-5672DE38F51F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C181F37A-30A6-45C6-A191-5672DE38F51F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C181F37A-30A6-45C6-A191-5672DE38F51F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C181F37A-30A6-45C6-A191-5672DE38F51F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C181F37A-30A6-45C6-A191-5672DE38F51F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C181F37A-30A6-45C6-A191-5672DE38F51F}.Release|x64.ActiveCfg = Release|Any CPU
+		{C181F37A-30A6-45C6-A191-5672DE38F51F}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2013,5 +2027,6 @@ Global
 		{59410829-C439-4683-818E-AC99F94D1EBA} = {67871E52-CB11-4EDF-B036-15F359EF6B66}
 		{120B41DA-F306-4B3C-A6C3-D99E8142B47F} = {67871E52-CB11-4EDF-B036-15F359EF6B66}
 		{76F89165-83B9-4048-93A9-A93FF81D12EE} = {67871E52-CB11-4EDF-B036-15F359EF6B66}
+		{C181F37A-30A6-45C6-A191-5672DE38F51F} = {67871E52-CB11-4EDF-B036-15F359EF6B66}
 	EndGlobalSection
 EndGlobal

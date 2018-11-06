@@ -47,7 +47,7 @@ namespace Wexflow.Tests
 
         public static void SuspendWorkflow(int workflowId)
         {
-            WexflowEngine.PauseWorkflow(workflowId);
+            WexflowEngine.SuspendWorkflow(workflowId);
         }
 
         public static void ResumeWorkflow(int workflowId)

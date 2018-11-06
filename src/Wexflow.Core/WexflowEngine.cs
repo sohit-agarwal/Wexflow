@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using Wexflow.Core.Db;
 
 namespace Wexflow.Core
 {
@@ -47,8 +48,18 @@ namespace Wexflow.Core
         /// List of the Workflows loaded by Wexflow engine.
         /// </summary>
         public IList<Workflow> Workflows { get; private set; }
+        /// <summary>
+        /// Database connection string.
+        /// </summary>
+        public string ConnectionString { get; private set; }
+        /// <summary>
+        /// Database
+        /// </summary>
+        public Db.Db Database { get; private set; }
 
-        // Create the scheduler
+        //
+        // Quartz scheduler
+        //
         private static readonly ISchedulerFactory SchedulerFactory = new StdSchedulerFactory();
         private static readonly IScheduler Quartzcheduler = SchedulerFactory.GetScheduler();
 
@@ -65,7 +76,13 @@ namespace Wexflow.Core
             Logger.Info("Starting Wexflow Engine");
 
             LoadSettings();
+
+            Database = new Db.Db(ConnectionString);
+            Database.Init();
+
             LoadWorkflows();
+
+            
         }
 
         /// <summary>
@@ -89,6 +106,7 @@ namespace Wexflow.Core
             XsdPath = GetWexflowSetting(xdoc, "xsd");
             TasksNamesFile = GetWexflowSetting(xdoc, "tasksNamesFile");
             TasksSettingsFile = GetWexflowSetting(xdoc, "tasksSettingsFile");
+            ConnectionString = GetWexflowSetting(xdoc, "connectionString");
         }
 
         string GetWexflowSetting(XDocument xdoc, string name)
@@ -201,12 +219,11 @@ namespace Wexflow.Core
             }
         }
 
-
         Workflow LoadWorkflowFromFile(string file)
         {
             try
             {
-                var wf = new Workflow(file, TempFolder, XsdPath);
+                var wf = new Workflow(file, TempFolder, XsdPath, Database);
                 Logger.InfoFormat("Workflow loaded: {0} ({1})", wf, file);
                 return wf;
             }
@@ -222,7 +239,6 @@ namespace Wexflow.Core
         /// </summary>
         public void Run()
         {
-
             foreach (Workflow workflow in Workflows)
             {
                 ScheduleWorkflow(workflow);
@@ -316,6 +332,9 @@ namespace Wexflow.Core
                     wf.Stop();
                 }
             }
+
+            Database.ClearStatusCount();
+            Database.ClearEntries();
         }
 
         /// <summary>
@@ -368,7 +387,7 @@ namespace Wexflow.Core
         /// Suspends a workflow.
         /// </summary>
         /// <param name="workflowId">Workflow Id.</param>
-        public void PauseWorkflow(int workflowId)
+        public void SuspendWorkflow(int workflowId)
         {
             var wf = GetWorkflow(workflowId);
 
@@ -378,7 +397,7 @@ namespace Wexflow.Core
             }
             else
             {
-                if (wf.IsEnabled) wf.Pause();
+                if (wf.IsEnabled) wf.Suspend();
             }
         }
 
@@ -398,6 +417,95 @@ namespace Wexflow.Core
             {
                 if (wf.IsEnabled) wf.Resume();
             }
+        }
+
+        /// <summary>
+        /// Returns status count
+        /// </summary>
+        /// <returns>Returns status count</returns>
+        public StatusCount GetStatusCount()
+        {
+            return Database.GetStatusCount();
+        }
+
+        /// <summary>
+        /// Returns all the entries
+        /// </summary>
+        /// <returns>Returns all the entries</returns>
+        public Entry[] GetEntries()
+        {
+            return Database.GetEntries().ToArray();
+        }
+
+        /// <summary>
+        /// Inserts a user.
+        /// </summary>
+        /// <param name="username">Username.</param>
+        /// <param name="password">Password.</param>
+        public void InsertUser(string username, string password)
+        {
+            Database.InsertUser(new User { Username = username, Password = password});
+        }
+
+        /// <summary>
+        /// Gets a user.
+        /// </summary>
+        /// <param name="username">Username.</param>
+        /// <returns></returns>
+        public User GetUser(string username)
+        {
+            return Database.GetUser(username);
+        }
+
+        /// <summary>
+        /// Gets a password.
+        /// </summary>
+        /// <param name="username">Username.</param>
+        /// <returns></returns>
+        public string GetPassword(string username)
+        {
+            return Database.GetPassword(username);
+        }
+
+        /// <summary>
+        /// Returns all the entries.
+        /// </summary>
+        /// <returns>Returns all the entries</returns>
+        public HistoryEntry[] GetHistoryEntries()
+        {
+            return Database.GetHistoryEntries().ToArray();
+        }
+
+        /// <summary>
+        /// Returns the entries by a keyword.
+        /// </summary>
+        /// <param name="keyword">Search keyword.</param>
+        /// <returns>Returns all the entries</returns>
+        public HistoryEntry[] GetHistoryEntries(string keyword)
+        {
+            return Database.GetHistoryEntries(keyword).ToArray();
+        }
+
+        /// <summary>
+        /// Returns the entries by a keyword.
+        /// </summary>
+        /// <param name="keyword">Search keyword.</param>
+        /// <param name="page">Page number.</param>
+        /// <param name="entriesCount">Number of entries.</param>
+        /// <returns>Returns all the entries</returns>
+        public HistoryEntry[] GetHistoryEntries(string keyword, int page, int entriesCount)
+        {
+            return Database.GetHistoryEntries(keyword, page, entriesCount).ToArray();
+        }
+
+        /// <summary>
+        /// Gets the number of history entries by search keyword.
+        /// </summary>
+        /// <param name="keyword">Search keyword.</param>
+        /// <returns>The number of history entries by search keyword.</returns>
+        public long GetHistoryEntriesCount(string keyword)
+        {
+            return Database.GetHistoryEntriesCount(keyword);
         }
     }
 }
