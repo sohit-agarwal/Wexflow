@@ -12,10 +12,6 @@ function Login(){
 
     if (typeof subscribeBtn !== "undefined" && subscribeBtn !== null) {
         subscribeBtn.onclick = function () {
-            if (typeof window.localStorage === "undefined") {
-                alert("Your browser does not support localStorage.");
-                return;
-            }
             window.location.replace("subscribe.html");
         };
     }
@@ -29,11 +25,6 @@ function Login(){
 	};
 	
     function login() {
-
-        if (typeof window.localStorage === "undefined") {
-            alert("Your browser does not support localStorage.");
-            return;
-        }
 
 		var username = usernameTxt.value;
         var password = passwordTxt.value;

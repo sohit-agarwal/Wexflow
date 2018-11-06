@@ -19,10 +19,6 @@ function Subscribe(){
 	};
 	
     function subscribe() {
-        if (typeof window.localStorage === "undefined") {
-            alert("Your browser does not support localStorage.");
-            return;
-        }
 
 		var username = usernameTxt.value;
 		var password = passwordTxt.value;

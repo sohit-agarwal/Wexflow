@@ -80,9 +80,7 @@ namespace Wexflow.Core
             Database = new Db.Db(ConnectionString);
             Database.Init();
 
-            LoadWorkflows();
-
-            
+            LoadWorkflows(); 
         }
 
         /// <summary>

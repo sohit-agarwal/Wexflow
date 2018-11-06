@@ -66,7 +66,7 @@ namespace Wexflow.Core.Db
             using (var db = new LiteDatabase(ConnectionString))
             {
                 var col = db.GetCollection<StatusCount>("statusCount");
-                var statusCount = col.FindAll().First();
+                var statusCount = col.FindAll().FirstOrDefault();
                 return statusCount;
             }
         }
@@ -76,9 +76,12 @@ namespace Wexflow.Core.Db
             using (var db = new LiteDatabase(ConnectionString))
             {
                 var col = db.GetCollection<StatusCount>("statusCount");
-                var statusCount = col.FindAll().First();
-                statusCount.PendingCount++;
-                col.Update(statusCount);
+                var statusCount = col.FindAll().FirstOrDefault();
+                if(statusCount != null)
+                {
+                    statusCount.PendingCount++;
+                    col.Update(statusCount);
+                }   
             }
         }
 
@@ -87,9 +90,12 @@ namespace Wexflow.Core.Db
             using (var db = new LiteDatabase(ConnectionString))
             {
                 var col = db.GetCollection<StatusCount>("statusCount");
-                var statusCount = col.FindAll().First();
-                statusCount.PendingCount--;
-                col.Update(statusCount);
+                var statusCount = col.FindAll().FirstOrDefault();
+                if (statusCount != null)
+                {
+                    statusCount.PendingCount--;
+                    col.Update(statusCount);
+                }
             }
         }
 
@@ -98,9 +104,13 @@ namespace Wexflow.Core.Db
             using (var db = new LiteDatabase(ConnectionString))
             {
                 var col = db.GetCollection<StatusCount>("statusCount");
-                var statusCount = col.FindAll().First();
-                statusCount.RunningCount++;
-                col.Update(statusCount);
+                var statusCount = col.FindAll().FirstOrDefault();
+                if(statusCount != null)
+                {
+                    statusCount.RunningCount++;
+                    col.Update(statusCount);
+                }
+                
             }
         }
 
@@ -109,9 +119,12 @@ namespace Wexflow.Core.Db
             using (var db = new LiteDatabase(ConnectionString))
             {
                 var col = db.GetCollection<StatusCount>("statusCount");
-                var statusCount = col.FindAll().First();
-                statusCount.RunningCount--;
-                col.Update(statusCount);
+                var statusCount = col.FindAll().FirstOrDefault();
+                if (statusCount != null)
+                {
+                    statusCount.RunningCount--;
+                    col.Update(statusCount);
+                }
             }
         }
 
@@ -120,9 +133,12 @@ namespace Wexflow.Core.Db
             using (var db = new LiteDatabase(ConnectionString))
             {
                 var col = db.GetCollection<StatusCount>("statusCount");
-                var statusCount = col.FindAll().First();
-                statusCount.DoneCount++;
-                col.Update(statusCount);
+                var statusCount = col.FindAll().FirstOrDefault();
+                if (statusCount != null)
+                {
+                    statusCount.DoneCount++;
+                    col.Update(statusCount);
+                }
             }
         }
 
@@ -131,9 +147,12 @@ namespace Wexflow.Core.Db
             using (var db = new LiteDatabase(ConnectionString))
             {
                 var col = db.GetCollection<StatusCount>("statusCount");
-                var statusCount = col.FindAll().First();
-                statusCount.DoneCount--;
-                col.Update(statusCount);
+                var statusCount = col.FindAll().FirstOrDefault();
+                if (statusCount != null)
+                {
+                    statusCount.DoneCount--;
+                    col.Update(statusCount);
+                }
             }
         }
 
@@ -142,9 +161,12 @@ namespace Wexflow.Core.Db
             using (var db = new LiteDatabase(ConnectionString))
             {
                 var col = db.GetCollection<StatusCount>("statusCount");
-                var statusCount = col.FindAll().First();
-                statusCount.FailedCount++;
-                col.Update(statusCount);
+                var statusCount = col.FindAll().FirstOrDefault();
+                if (statusCount != null)
+                {
+                    statusCount.FailedCount++;
+                    col.Update(statusCount);
+                }
             }
         }
 
@@ -153,9 +175,12 @@ namespace Wexflow.Core.Db
             using (var db = new LiteDatabase(ConnectionString))
             {
                 var col = db.GetCollection<StatusCount>("statusCount");
-                var statusCount = col.FindAll().First();
-                statusCount.FailedCount--;
-                col.Update(statusCount);
+                var statusCount = col.FindAll().FirstOrDefault();
+                if (statusCount != null)
+                {
+                    statusCount.FailedCount--;
+                    col.Update(statusCount);
+                }
             }
         }
 
@@ -164,9 +189,12 @@ namespace Wexflow.Core.Db
             using (var db = new LiteDatabase(ConnectionString))
             {
                 var col = db.GetCollection<StatusCount>("statusCount");
-                var statusCount = col.FindAll().First();
-                statusCount.WarningCount++;
-                col.Update(statusCount);
+                var statusCount = col.FindAll().FirstOrDefault();
+                if (statusCount != null)
+                {
+                    statusCount.WarningCount++;
+                    col.Update(statusCount);
+                }
             }
         }
 
@@ -175,9 +203,12 @@ namespace Wexflow.Core.Db
             using (var db = new LiteDatabase(ConnectionString))
             {
                 var col = db.GetCollection<StatusCount>("statusCount");
-                var statusCount = col.FindAll().First();
-                statusCount.WarningCount--;
-                col.Update(statusCount);
+                var statusCount = col.FindAll().FirstOrDefault();
+                if (statusCount != null)
+                {
+                    statusCount.WarningCount--;
+                    col.Update(statusCount);
+                }
             }
         }
 
@@ -186,9 +217,12 @@ namespace Wexflow.Core.Db
             using (var db = new LiteDatabase(ConnectionString))
             {
                 var col = db.GetCollection<StatusCount>("statusCount");
-                var statusCount = col.FindAll().First();
-                statusCount.DisabledCount++;
-                col.Update(statusCount);
+                var statusCount = col.FindAll().FirstOrDefault();
+                if (statusCount != null)
+                {
+                    statusCount.DisabledCount++;
+                    col.Update(statusCount);
+                }
             }
         }
 
@@ -197,9 +231,12 @@ namespace Wexflow.Core.Db
             using (var db = new LiteDatabase(ConnectionString))
             {
                 var col = db.GetCollection<StatusCount>("statusCount");
-                var statusCount = col.FindAll().First();
-                statusCount.DisabledCount--;
-                col.Update(statusCount);
+                var statusCount = col.FindAll().FirstOrDefault();
+                if (statusCount != null)
+                {
+                    statusCount.DisabledCount--;
+                    col.Update(statusCount);
+                }
             }
         }
 
@@ -208,9 +245,12 @@ namespace Wexflow.Core.Db
             using (var db = new LiteDatabase(ConnectionString))
             {
                 var col = db.GetCollection<StatusCount>("statusCount");
-                var statusCount = col.FindAll().First();
-                statusCount.StoppedCount++;
-                col.Update(statusCount);
+                var statusCount = col.FindAll().FirstOrDefault();
+                if (statusCount != null)
+                {
+                    statusCount.StoppedCount++;
+                    col.Update(statusCount);
+                }
             }
         }
 
@@ -219,9 +259,12 @@ namespace Wexflow.Core.Db
             using (var db = new LiteDatabase(ConnectionString))
             {
                 var col = db.GetCollection<StatusCount>("statusCount");
-                var statusCount = col.FindAll().First();
-                statusCount.StoppedCount--;
-                col.Update(statusCount);
+                var statusCount = col.FindAll().FirstOrDefault();
+                if (statusCount != null)
+                {
+                    statusCount.StoppedCount--;
+                    col.Update(statusCount);
+                }
             }
         }
 
@@ -230,14 +273,17 @@ namespace Wexflow.Core.Db
             using (var db = new LiteDatabase(ConnectionString))
             {
                 var col = db.GetCollection<StatusCount>("statusCount");
-                var statusCount = col.FindAll().First();
-                statusCount.PendingCount = 0;
-                statusCount.RunningCount = 0;
-                statusCount.DoneCount = 0;
-                statusCount.FailedCount = 0;
-                statusCount.WarningCount = 0;
-                statusCount.DisabledCount = 0;
-                col.Update(statusCount);
+                var statusCount = col.FindAll().FirstOrDefault();
+                if (statusCount != null)
+                {
+                    statusCount.PendingCount = 0;
+                    statusCount.RunningCount = 0;
+                    statusCount.DoneCount = 0;
+                    statusCount.FailedCount = 0;
+                    statusCount.WarningCount = 0;
+                    statusCount.DisabledCount = 0;
+                    col.Update(statusCount);
+                }
             }
         }
 
