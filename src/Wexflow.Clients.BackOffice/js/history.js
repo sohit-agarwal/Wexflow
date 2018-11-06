@@ -14,7 +14,7 @@
     var lblEntriesCount = document.getElementById("lbl-entries-count");
     var page = 1;
     var numberOfPages = 0;
-
+    var heo = 1;
     var suser = getUser();
 
     if (suser === null || suser === "") {
@@ -133,8 +133,8 @@
 
     function loadEntries() {
         var entriesCount = getEntriesCount();
-
-        Common.get(uri + "/searchHistoryEntriesByPage?s=" + encodeURIComponent(txtSearch.value) + "&page=" + page + "&entriesCount=" + entriesCount, function (data) {
+        //Common.get(uri + "/searchHistoryEntriesByPage?s=" + encodeURIComponent(txtSearch.value) + "&page=" + page + "&entriesCount=" + entriesCount, function (data) {
+        Common.get(uri + "/searchHistoryEntriesByPageOrderBy?s=" + encodeURIComponent(txtSearch.value) + "&page=" + page + "&entriesCount=" + entriesCount + "&heo=" + heo, function (data) {
             var items = [];
             for (var i = 0; i < data.length; i++) {
                 var val = data[i];
@@ -142,23 +142,23 @@
                 var estatus = Common.status(val.Status);
                 items.push("<tr>"
                     + "<td class='status'>" + estatus + "</td>"
+                    + "<td class='date'>" + formatDate(new Date(val.StatusDate)) + "</td>"
                     + "<td class='id' title='" + val.WorkflowId + "'>" + val.WorkflowId + "</td>"
                     + "<td class='name'>" + val.Name + "</td>"
                     + "<td class='lt'>" + lt + "</td>"
                     + "<td class='desc' title='" + val.Description + "'>" + val.Description + "</td>"
-                    + "<td class='date'>" + formatDate(new Date(val.StatusDate)) + "</td>"
                     + "</tr>");
             }
 
             var table = "<table id='entries-table' class='table table-hover'>"
                 + "<thead class='thead-dark'>"
                 + "<tr>"
-                + "<th class='status'>Status</th>"
-                + "<th class='id'>Id</th>"
-                + "<th class='name'>Name</th>"
-                + "<th class='lt'>LaunchType</th>"
-                + "<th class='desc'>Description</th>"
-                + "<th class='date'>Date</th>"
+                + "<th id='th-status' class='status'>Status</th>"
+                + "<th id='th-date' class='date'>Date 🔻</th>"
+                + "<th id='th-id' class='id'>Id</th>"
+                + "<th id='th-name' class='name'>Name</th>"
+                + "<th id='th-lt' class='lt'>LaunchType</th>"
+                + "<th id='th-desc' class='desc'>Description</th>"
                 + "</tr>"
                 + "</thead>"
                 + "<tbody>"
@@ -167,6 +167,171 @@
                 + "</table>";
 
             document.getElementById("entries").innerHTML = table;
+
+            var entriesTable = document.getElementById("entries-table");
+            var rows = (entriesTable.getElementsByTagName("tbody")[0]).getElementsByTagName("tr");
+            for (i = 0; i < rows.length; i++) {
+                rows[i].onclick = function () {
+                    var selected = document.getElementsByClassName("selected");
+                    if (selected.length > 0) {
+                        selected[0].className = selected[0].className.replace("selected", "");
+                    }
+                    this.className += "selected";
+                };
+            }
+
+            var thDate = document.getElementById("th-date");
+            var thId = document.getElementById("th-id");
+            var thName = document.getElementById("th-name");
+            var thLt = document.getElementById("th-lt");
+            var thDesc = document.getElementById("th-desc");
+            var thStatus = document.getElementById("th-status");
+
+            if (heo === 0) { // By Date ascending
+                thDate.innerHTML = "Date&nbsp;&nbsp;🔺";
+                thId.innerHTML = "Id";
+                thName.innerHTML = "Name";
+                thLt.innerHTML = "LaunchType";
+                thDesc.innerHTML = "Description";
+                thStatus.innerHTML = "Status";
+            } else if (heo === 1) { // By Date descending
+                thDate.innerHTML = "Date&nbsp;&nbsp;🔻";
+                thId.innerHTML = "Id";
+                thName.innerHTML = "Name";
+                thLt.innerHTML = "LaunchType";
+                thDesc.innerHTML = "Description";
+                thStatus.innerHTML = "Status";
+            } else if (heo === 2) { // By Id ascending
+                thId.innerHTML = "Id&nbsp;&nbsp;🔺";
+                thDate.innerHTML = "Date";
+                thName.innerHTML = "Name";
+                thLt.innerHTML = "LaunchType";
+                thDesc.innerHTML = "Description";
+            } else if (heo === 3) { // By Id descending
+                thId.innerHTML = "Id&nbsp;&nbsp;🔻";
+                thDate.innerHTML = "Date";
+                thName.innerHTML = "Name";
+                thLt.innerHTML = "LaunchType";
+                thDesc.innerHTML = "Description";
+                thStatus.innerHTML = "Status";
+            } else if (heo === 4) { // By Name ascending
+                thName.innerHTML = "Name&nbsp;&nbsp;🔺";
+                thDate.innerHTML = "Date";
+                thId.innerHTML = "Id";
+                thLt.innerHTML = "LaunchType";
+                thDesc.innerHTML = "Description";
+                thStatus.innerHTML = "Status";
+            } else if (heo === 5) { // By Name descending
+                thName.innerHTML = "Name&nbsp;&nbsp;🔻";
+                thDate.innerHTML = "Date";
+                thId.innerHTML = "Id";
+                thLt.innerHTML = "LaunchType";
+                thDesc.innerHTML = "Description";
+                thStatus.innerHTML = "Status";
+            } else if (heo === 6) { // By LaunchType ascending
+                thLt.innerHTML = "LaunchType&nbsp;&nbsp;🔺";
+                thDate.innerHTML = "Date";
+                thId.innerHTML = "Id";
+                thName.innerHTML = "Name";
+                thDesc.innerHTML = "Description";
+                thStatus.innerHTML = "Status";
+            } else if (heo === 7) { // By LaunchType descending
+                thLt.innerHTML = "LaunchType&nbsp;&nbsp;🔻";
+                thDate.innerHTML = "Date";
+                thId.innerHTML = "Id";
+                thName.innerHTML = "Name";
+                thDesc.innerHTML = "Description";
+                thStatus.innerHTML = "Status";
+            } else if (heo === 8) { // By Description ascending
+                thDesc.innerHTML = "Description&nbsp;&nbsp;🔺";
+                thDate.innerHTML = "Date";
+                thId.innerHTML = "Id";
+                thName.innerHTML = "Name";
+                thLt.innerHTML = "LaunchType";
+                thStatus.innerHTML = "Status";
+            } else if (heo === 9) { // By Description descending
+                thDesc.innerHTML = "Description&nbsp;&nbsp;🔻";
+                thDate.innerHTML = "Date";
+                thId.innerHTML = "Id";
+                thName.innerHTML = "Name";
+                thLt.innerHTML = "LaunchType";
+                thStatus.innerHTML = "Status";
+            } else if (heo === 10) { // By Description ascending
+                thStatus.innerHTML = "Status&nbsp;&nbsp;🔺";
+                thDate.innerHTML = "Date";
+                thId.innerHTML = "Id";
+                thName.innerHTML = "Name";
+                thLt.innerHTML = "LaunchType";
+                thDesc.innerHTML = "Description";
+            } else if (heo === 11) { // By Description descending
+                thStatus.innerHTML = "Status&nbsp;&nbsp;🔻";
+                thDate.innerHTML = "Date";
+                thId.innerHTML = "Id";
+                thName.innerHTML = "Name";
+                thLt.innerHTML = "LaunchType";
+                thDesc.innerHTML = "Description";
+            } 
+
+            thDate.onclick = function () {
+                if (heo === 1) {
+                    heo = 0;
+                    loadEntries();
+                } else {
+                    heo = 1;
+                    loadEntries();
+                }
+            };
+
+            thId.onclick = function () {
+                if (heo === 2) {
+                    heo = 3;
+                    loadEntries();
+                } else {
+                    heo = 2;
+                    loadEntries();
+                }
+            };
+
+            thName.onclick = function () {
+                if (heo === 4) {
+                    heo = 5;
+                    loadEntries();
+                } else {
+                    heo = 4;
+                    loadEntries();
+                }
+            };
+
+            thLt.onclick = function () {
+                if (heo === 6) {
+                    heo = 7;
+                    loadEntries();
+                } else {
+                    heo = 6;
+                    loadEntries();
+                }
+            };
+
+            thDesc.onclick = function () {
+                if (heo === 8) {
+                    heo = 9;
+                    loadEntries();
+                } else {
+                    heo = 8;
+                    loadEntries();
+                }
+            };
+
+            thStatus.onclick = function () {
+                if (heo === 10) {
+                    heo = 11;
+                    loadEntries();
+                } else {
+                    heo = 10;
+                    loadEntries();
+                }
+            };
+
         }, function () {
             //alert("An error occured while retrieving entries. Check Wexflow Web Service Uri and check that Wexflow Windows Service is running correctly.");
         });

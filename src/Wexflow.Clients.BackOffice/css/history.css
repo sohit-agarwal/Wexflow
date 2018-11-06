@@ -78,6 +78,10 @@
     }
 
     #entries #entries-table tr:hover {
+        cursor: default;
+    }
+
+    #entries #entries-table th:hover {
         cursor: pointer;
     }
 

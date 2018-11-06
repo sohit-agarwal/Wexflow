@@ -732,6 +732,26 @@ namespace Wexflow.Clients.WindowsService
         }
 
         [WebInvoke(Method = "GET",
+          ResponseFormat = WebMessageFormat.Json,
+          UriTemplate = "searchHistoryEntriesByPageOrderBy?s={keyword}&page={page}&entriesCount={entriesCount}&heo={heo}")]
+        public HistoryEntry[] SearchHistoryEntriesByPageOrderBy(string keyword, int page, int entriesCount, int heo)
+        {
+            var entries = WexflowWindowsService.WexflowEngine.GetHistoryEntries(keyword, page, entriesCount, (Core.Db.HistoryEntryOrderBy)heo);
+            DateTime baseDate = new DateTime(1970, 1, 1);
+            return entries.Select(e =>
+            new HistoryEntry
+            {
+                Id = e.Id,
+                WorkflowId = e.WorkflowId,
+                Name = e.Name,
+                LaunchType = (LaunchType)((int)e.LaunchType),
+                Description = e.Description,
+                Status = (Core.Service.Contracts.Status)((int)e.Status),
+                StatusDate = (e.StatusDate - baseDate).TotalMilliseconds
+            }).ToArray();
+        }
+
+        [WebInvoke(Method = "GET",
          ResponseFormat = WebMessageFormat.Json,
          UriTemplate = "historyEntriesCount?s={keyword}")]
         public long GetHistoryEntriesCount(string keyword)

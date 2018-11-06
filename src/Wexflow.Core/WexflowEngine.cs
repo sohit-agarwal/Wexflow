@@ -316,7 +316,8 @@ namespace Wexflow.Core
         /// Stops Wexflow engine.
         /// </summary>
         /// <param name="stopQuartzScheduler">Tells if Quartz scheduler should be stopped or not.</param>
-        public void Stop(bool stopQuartzScheduler)
+        /// <param name="clearStatusCountAndEntries">Indicates whether to clear statusCount and entries.</param>
+        public void Stop(bool stopQuartzScheduler, bool clearStatusCountAndEntries)
         {
             if (stopQuartzScheduler)
             {
@@ -331,8 +332,11 @@ namespace Wexflow.Core
                 }
             }
 
-            Database.ClearStatusCount();
-            Database.ClearEntries();
+            if (clearStatusCountAndEntries)
+            {
+                Database.ClearStatusCount();
+                Database.ClearEntries();
+            }
         }
 
         /// <summary>
@@ -494,6 +498,28 @@ namespace Wexflow.Core
         public HistoryEntry[] GetHistoryEntries(string keyword, int page, int entriesCount)
         {
             return Database.GetHistoryEntries(keyword, page, entriesCount).ToArray();
+        }
+
+        /// <summary>
+        /// Returns the entries by a keyword.
+        /// </summary>
+        /// <param name="keyword">Search keyword.</param>
+        /// <param name="page">Page number.</param>
+        /// <param name="entriesCount">Number of entries.</param>
+        /// <param name="heo">HistoryEntryOrderBy</param>
+        /// <returns>Returns all the entries</returns>
+        public HistoryEntry[] GetHistoryEntries(string keyword, int page, int entriesCount, HistoryEntryOrderBy heo)
+        {
+            var col = Database.GetHistoryEntries(keyword, page, entriesCount, heo);
+
+            if (!col.Any())
+            {
+                return new HistoryEntry[] { };
+            }
+            else
+            {
+                return col.ToArray();
+            }
         }
 
         /// <summary>
