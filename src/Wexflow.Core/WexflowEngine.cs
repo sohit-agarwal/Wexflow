@@ -504,13 +504,15 @@ namespace Wexflow.Core
         /// Returns the entries by a keyword.
         /// </summary>
         /// <param name="keyword">Search keyword.</param>
+        /// <param name="from">Date From.</param>
+        /// <param name="to">Date To.</param>
         /// <param name="page">Page number.</param>
         /// <param name="entriesCount">Number of entries.</param>
         /// <param name="heo">HistoryEntryOrderBy</param>
         /// <returns>Returns all the entries</returns>
-        public HistoryEntry[] GetHistoryEntries(string keyword, int page, int entriesCount, HistoryEntryOrderBy heo)
+        public HistoryEntry[] GetHistoryEntries(string keyword, DateTime from, DateTime to, int page, int entriesCount, HistoryEntryOrderBy heo)
         {
-            var col = Database.GetHistoryEntries(keyword, page, entriesCount, heo);
+            var col = Database.GetHistoryEntries(keyword, from, to, page, entriesCount, heo);
 
             if (!col.Any())
             {
@@ -530,6 +532,36 @@ namespace Wexflow.Core
         public long GetHistoryEntriesCount(string keyword)
         {
             return Database.GetHistoryEntriesCount(keyword);
+        }
+
+        /// <summary>
+        /// Gets the number of history entries by search keyword and date filter.
+        /// </summary>
+        /// <param name="keyword">Search keyword.</param>
+        /// <param name="from">Date from.</param>
+        /// <param name="to">Date to.</param>
+        /// <returns></returns>
+        public long GetHistoryEntriesCount(string keyword, DateTime from, DateTime to)
+        {
+            return Database.GetHistoryEntriesCount(keyword, from, to);
+        }
+
+        /// <summary>
+        /// Returns Status Date Min value.
+        /// </summary>
+        /// <returns>Status Date Min value.</returns>
+        public DateTime GetStatusDateMin()
+        {
+            return Database.GetStatusDateMin();
+        }
+
+        /// <summary>
+        /// Returns Status Date Max value.
+        /// </summary>
+        /// <returns>Status Date Max value.</returns>
+        public DateTime GetStatusDateMax()
+        {
+            return Database.GetStatusDateMax();
         }
     }
 }

@@ -1,8 +1,7 @@
-﻿using LiteDB;
-using System;
+﻿using System;
+using LiteDB;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Wexflow.Core.Db
 {
@@ -24,7 +23,7 @@ namespace Wexflow.Core.Db
 
     public class Db
     {
-        public string ConnectionString { get; private set; }
+        public string ConnectionString { get; private set;}
 
         public Db(string connectionString)
         {
@@ -442,331 +441,161 @@ namespace Wexflow.Core.Db
             }
         }
 
-        public IEnumerable<HistoryEntry> GetHistoryEntries(string keyword, int page, int entriesCount, HistoryEntryOrderBy heo)
+        public IEnumerable<HistoryEntry> GetHistoryEntries(string keyword, DateTime from, DateTime to, int page, int entriesCount, HistoryEntryOrderBy heo)
         {
             using (var db = new LiteDatabase(ConnectionString))
             {
                 var col = db.GetCollection<HistoryEntry>("historyEntries");
                 var keywordToLower = keyword.ToLower();
-                
                 int skip = (page - 1) * entriesCount;
+                Query query;
+
+                if (!string.IsNullOrEmpty(keyword))
+                {
+                    query = Query.And(Query.Or(Query.Contains("Name", keywordToLower), Query.Contains("Description", keywordToLower))
+                                    , Query.And(Query.GTE("StatusDate", from), Query.LTE("StatusDate", to)));
+                }
+                else
+                {
+                    query = Query.And(Query.GTE("StatusDate", from), Query.LTE("StatusDate", to));
+                }
 
                 switch (heo)
                 {
                     case HistoryEntryOrderBy.StatusDateAscending:
 
-                        if (!string.IsNullOrEmpty(keyword))
-                        {
-                            var res = col.Find(
-                                    Query.And(
-                                        Query.All("StatusDate", Query.Ascending)
-                                      , Query.Or(Query.Contains("Name", keywordToLower), Query.Contains("Description", keywordToLower))
-                                    )
-                                    , skip
-                                    , entriesCount
-                                );
-
-                            return res;
-                        }
-                        else
-                        {
-                            var res = col.Find(
-                                    Query.All("StatusDate", Query.Ascending)
-                                    , skip
-                                    , entriesCount
-                                );
-
-                            return res;
-                        }
-
+                        return col.Find(
+                            Query.And(
+                                Query.All("StatusDate")
+                                , query
+                            )
+                            , skip
+                            , entriesCount
+                        );
 
                     case HistoryEntryOrderBy.StatusDateDescending:
 
-                        if (!string.IsNullOrEmpty(keyword))
-                        {
-                            var res = col.Find(
-                                    Query.And(
-                                        Query.All("StatusDate", Query.Descending)
-                                      , Query.Or(Query.Contains("Name", keywordToLower), Query.Contains("Description", keywordToLower))
-                                    )
-                                    , skip
-                                    , entriesCount
-                                );
-
-                            return res;
-                        }
-                        else
-                        {
-                            var res = col.Find(
-                                    Query.All("StatusDate", Query.Descending)
-                                    , skip
-                                    , entriesCount
-                                );
-
-                            return res;
-                        }
+                        return col.Find(
+                            Query.And(
+                                Query.All("StatusDate", Query.Descending)
+                                , query
+                            )
+                            , skip
+                            , entriesCount
+                        );
 
                     case HistoryEntryOrderBy.WorkflowIdAscending:
 
-                        if (!string.IsNullOrEmpty(keyword))
-                        {
-                            var res = col.Find(
-                                    Query.And(
-                                        Query.All("WorkflowId", Query.Ascending)
-                                      , Query.Or(Query.Contains("Name", keywordToLower), Query.Contains("Description", keywordToLower))
-                                    )
-                                    , skip
-                                    , entriesCount
-                                );
-
-                            return res;
-                        }
-                        else
-                        {
-                            var res = col.Find(
-                                    Query.All("WorkflowId", Query.Ascending)
-                                    , skip
-                                    , entriesCount
-                                );
-
-                            return res;
-                        }
+                        return col.Find(
+                            Query.And(
+                                Query.All("WorkflowId")
+                                , query
+                            )
+                            , skip
+                            , entriesCount
+                        );
 
                     case HistoryEntryOrderBy.WorkflowIdDescending:
 
-                        if (!string.IsNullOrEmpty(keyword))
-                        {
-                            var res = col.Find(
-                                    Query.And(
-                                        Query.All("WorkflowId", Query.Descending)
-                                      , Query.Or(Query.Contains("Name", keywordToLower), Query.Contains("Description", keywordToLower))
-                                    )
-                                    , skip
-                                    , entriesCount
-                                );
-
-                            return res;
-                        }
-                        else
-                        {
-                            var res = col.Find(
-                                    Query.All("WorkflowId", Query.Descending)
-                                    , skip
-                                    , entriesCount
-                                );
-
-                            return res;
-                        }
+                        return col.Find(
+                            Query.And(
+                                Query.All("WorkflowId", Query.Descending)
+                                , query
+                            )
+                            , skip
+                            , entriesCount
+                        );
 
                     case HistoryEntryOrderBy.NameAscending:
 
-                        if (!string.IsNullOrEmpty(keyword))
-                        {
-                            var res = col.Find(
-                                    Query.And(
-                                        Query.All("Name", Query.Ascending)
-                                      , Query.Or(Query.Contains("Name", keywordToLower), Query.Contains("Description", keywordToLower))
-                                    )
-                                    , skip
-                                    , entriesCount
-                                );
-
-                            return res;
-                        }
-                        else
-                        {
-                            var res = col.Find(
-                                    Query.All("Name", Query.Ascending)
-                                    , skip
-                                    , entriesCount
-                                );
-
-                            return res;
-                        }
+                        return col.Find(
+                            Query.And(
+                                Query.All("Name")
+                                , query
+                            )
+                            , skip
+                            , entriesCount
+                        );
 
                     case HistoryEntryOrderBy.NameDescending:
 
-                        if (!string.IsNullOrEmpty(keyword))
-                        {
-                            var res = col.Find(
-                                    Query.And(
-                                        Query.All("Name", Query.Descending)
-                                      , Query.Or(Query.Contains("Name", keywordToLower), Query.Contains("Description", keywordToLower))
-                                    )
-                                    , skip
-                                    , entriesCount
-                                );
-
-                            return res;
-                        }
-                        else
-                        {
-                            var res = col.Find(
-                                    Query.All("Name", Query.Descending)
-                                    , skip
-                                    , entriesCount
-                                );
-
-                            return res;
-                        }
+                        return col.Find(
+                            Query.And(
+                                Query.All("Name", Query.Descending)
+                                , query
+                            )
+                            , skip
+                            , entriesCount
+                        );
 
                     case HistoryEntryOrderBy.LaunchTypeAscending:
 
-                        if (!string.IsNullOrEmpty(keyword))
-                        {
-                            var res = col.Find(
-                                    Query.And(
-                                        Query.All("LaunchType", Query.Ascending)
-                                      , Query.Or(Query.Contains("Name", keywordToLower), Query.Contains("Description", keywordToLower))
-                                    )
-                                    , skip
-                                    , entriesCount
-                                );
-
-                            return res;
-                        }
-                        else
-                        {
-                            var res = col.Find(
-                                    Query.All("LaunchType", Query.Ascending)
-                                    , skip
-                                    , entriesCount
-                                );
-
-                            return res;
-                        }
+                        return col.Find(
+                            Query.And(
+                                Query.All("LaunchType")
+                                , query
+                            )
+                            , skip
+                            , entriesCount
+                        );
 
                     case HistoryEntryOrderBy.LaunchTypeDescending:
 
-                        if (!string.IsNullOrEmpty(keyword))
-                        {
-                            var res = col.Find(
-                                    Query.And(
-                                        Query.All("LaunchType", Query.Descending)
-                                      , Query.Or(Query.Contains("Name", keywordToLower), Query.Contains("Description", keywordToLower))
-                                    )
-                                    , skip
-                                    , entriesCount
-                                );
-
-                            return res;
-                        }
-                        else
-                        {
-                            var res = col.Find(
-                                    Query.All("LaunchType", Query.Descending)
-                                    , skip
-                                    , entriesCount
-                                );
-
-                            return res;
-                        }
+                        return col.Find(
+                            Query.And(
+                                Query.All("LaunchType", Query.Descending)
+                                , query
+                            )
+                            , skip
+                            , entriesCount
+                        );
 
                     case HistoryEntryOrderBy.DescriptionAscending:
 
-                        if (!string.IsNullOrEmpty(keyword))
-                        {
-                            var res = col.Find(
-                                    Query.And(
-                                        Query.All("Description", Query.Ascending)
-                                      , Query.Or(Query.Contains("Name", keywordToLower), Query.Contains("Description", keywordToLower))
-                                    )
-                                    , skip
-                                    , entriesCount
-                                );
+                        return col.Find(
+                            Query.And(
+                                Query.All("Description")
+                                , query
+                            )
+                            , skip
+                            , entriesCount
+                        );
 
-                            return res;
-                        }
-                        else
-                        {
-                            var res = col.Find(
-                                    Query.All("Description", Query.Ascending)
-                                    , skip
-                                    , entriesCount
-                                );
-
-                            return res;
-                        }
                     case HistoryEntryOrderBy.DescriptionDescending:
 
-                        if (!string.IsNullOrEmpty(keyword))
-                        {
-                            var res = col.Find(
-                                    Query.And(
-                                        Query.All("Description", Query.Descending)
-                                      , Query.Or(Query.Contains("Name", keywordToLower), Query.Contains("Description", keywordToLower))
-                                    )
-                                    , skip
-                                    , entriesCount
-                                );
+                        return col.Find(
+                            Query.And(
+                                Query.All("Description", Query.Descending)
+                                , query
+                            )
+                            , skip
+                            , entriesCount
+                        );
 
-                            return res;
-                        }
-                        else
-                        {
-                            var res = col.Find(
-                                    Query.All("Description", Query.Descending)
-                                    , skip
-                                    , entriesCount
-                                );
-
-                            return res;
-                        }
                     case HistoryEntryOrderBy.StatusAscending:
 
-                        if (!string.IsNullOrEmpty(keyword))
-                        {
-                            var res = col.Find(
-                                    Query.And(
-                                        Query.All("Status", Query.Ascending)
-                                      , Query.Or(Query.Contains("Name", keywordToLower), Query.Contains("Description", keywordToLower))
-                                    )
-                                    , skip
-                                    , entriesCount
-                                );
-
-                            return res;
-                        }
-                        else
-                        {
-                            var res = col.Find(
-                                    Query.All("Status", Query.Ascending)
-                                    , skip
-                                    , entriesCount
-                                );
-
-                            return res;
-                        }
+                        return col.Find(
+                            Query.And(
+                                Query.All("Status")
+                                , query
+                            )
+                            , skip
+                            , entriesCount
+                        );
 
                     case HistoryEntryOrderBy.StatusDescending:
 
-                        if (!string.IsNullOrEmpty(keyword))
-                        {
-                            var res = col.Find(
-                                    Query.And(
-                                        Query.All("Status", Query.Descending)
-                                      , Query.Or(Query.Contains("Name", keywordToLower), Query.Contains("Description", keywordToLower))
-                                    )
-                                    , skip
-                                    , entriesCount
-                                );
-
-                            return res;
-                        }
-                        else
-                        {
-                            var res = col.Find(
-                                    Query.All("Status", Query.Descending)
-                                    , skip
-                                    , entriesCount
-                                );
-
-                            return res;
-                        }
+                        return col.Find(
+                            Query.And(
+                                Query.All("Status", Query.Descending)
+                                , query
+                            )
+                            , skip
+                            , entriesCount
+                        );
                 }
 
                 return new HistoryEntry[] { };
-
             }
         }
 
@@ -780,5 +609,56 @@ namespace Wexflow.Core.Db
             }
         }
 
+        public long GetHistoryEntriesCount(string keyword, DateTime from, DateTime to)
+        {
+            using (var db = new LiteDatabase(ConnectionString))
+            {
+                var keywordToLower = keyword.ToLower();
+                var col = db.GetCollection<HistoryEntry>("historyEntries");
+                Query query;
+
+                if (!string.IsNullOrEmpty(keyword))
+                {
+                    query = Query.And(Query.Or(Query.Contains("Name", keywordToLower), Query.Contains("Description", keywordToLower))
+                        , Query.And(Query.GTE("StatusDate", from), Query.LTE("StatusDate", to)));
+                }
+                else
+                {
+                    query = Query.And(Query.GTE("StatusDate", from), Query.LTE("StatusDate", to));
+                }
+
+                return col.Find(query).LongCount();
+            }
+        }
+
+        public DateTime GetStatusDateMin()
+        {
+            using (var db = new LiteDatabase(ConnectionString))
+            {
+                var col = db.GetCollection<HistoryEntry>("historyEntries");
+                var q = col.Find(Query.All("StatusDate"));
+                if (q.Any())
+                {
+                    return q.Select(e=>e.StatusDate).First();
+                }
+
+                return DateTime.MinValue;
+            }
+        }
+
+        public DateTime GetStatusDateMax()
+        {
+            using (var db = new LiteDatabase(ConnectionString))
+            {
+                var col = db.GetCollection<HistoryEntry>("historyEntries");
+                var q = col.Find(Query.All("StatusDate", Query.Descending));
+                if (q.Any())
+                {
+                    return q.Select(e => e.StatusDate).First();
+                }
+
+                return DateTime.MaxValue;
+            }
+        }
     }
 }

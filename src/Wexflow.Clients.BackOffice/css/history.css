@@ -92,3 +92,9 @@
 #entries-table img {
     margin-right: 10px;
 }
+
+#txt-from, #txt-to {
+    width: 120px;
+    margin-right: 15px;
+    margin-left: 5px;
+}

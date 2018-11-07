@@ -733,11 +733,15 @@ namespace Wexflow.Clients.WindowsService
 
         [WebInvoke(Method = "GET",
           ResponseFormat = WebMessageFormat.Json,
-          UriTemplate = "searchHistoryEntriesByPageOrderBy?s={keyword}&page={page}&entriesCount={entriesCount}&heo={heo}")]
-        public HistoryEntry[] SearchHistoryEntriesByPageOrderBy(string keyword, int page, int entriesCount, int heo)
+          UriTemplate = "searchHistoryEntriesByPageOrderBy?s={keyword}&from={from}&to={to}&page={page}&entriesCount={entriesCount}&heo={heo}")]
+        public HistoryEntry[] SearchHistoryEntriesByPageOrderBy(string keyword, double from, double to, int page, int entriesCount, int heo)
         {
-            var entries = WexflowWindowsService.WexflowEngine.GetHistoryEntries(keyword, page, entriesCount, (Core.Db.HistoryEntryOrderBy)heo);
             DateTime baseDate = new DateTime(1970, 1, 1);
+            DateTime fromDate = baseDate.AddMilliseconds(from);
+            DateTime toDate = baseDate.AddMilliseconds(to);
+
+            var entries = WexflowWindowsService.WexflowEngine.GetHistoryEntries(keyword, fromDate, toDate, page, entriesCount, (Core.Db.HistoryEntryOrderBy)heo);
+            
             return entries.Select(e =>
             new HistoryEntry
             {
@@ -760,5 +764,36 @@ namespace Wexflow.Clients.WindowsService
             return count;
         }
 
+        [WebInvoke(Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "historyEntriesCountByDate?s={keyword}&from={from}&to={to}")]
+        public long GetHistoryEntriesCountByDate(string keyword, double from, double to)
+        {
+            DateTime baseDate = new DateTime(1970, 1, 1);
+            DateTime fromDate = baseDate.AddMilliseconds(from);
+            DateTime toDate = baseDate.AddMilliseconds(to);
+            long count = WexflowWindowsService.WexflowEngine.GetHistoryEntriesCount(keyword, fromDate, toDate);
+            return count;
+        }
+
+        [WebInvoke(Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "statusDateMin")]
+        public double GetStatusDateMin()
+        {
+            var date = WexflowWindowsService.WexflowEngine.GetStatusDateMin();
+            DateTime baseDate = new DateTime(1970, 1, 1);
+            return (date - baseDate).TotalMilliseconds;
+        }
+
+        [WebInvoke(Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "statusDateMax")]
+        public double GetStatusDateMax()
+        {
+            var date = WexflowWindowsService.WexflowEngine.GetStatusDateMax();
+            DateTime baseDate = new DateTime(1970, 1, 1);
+            return (date - baseDate).TotalMilliseconds;
+        }
     }
 }

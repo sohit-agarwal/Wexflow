@@ -71,6 +71,13 @@
   <ItemGroup>
     <Content Include="css\dashboard.css" />
     <Content Include="css\designer.css" />
+    <Content Include="css\images\ui-icons_444444_256x240.png" />
+    <Content Include="css\images\ui-icons_555555_256x240.png" />
+    <Content Include="css\images\ui-icons_777620_256x240.png" />
+    <Content Include="css\images\ui-icons_777777_256x240.png" />
+    <Content Include="css\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="css\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="css\jquery-ui.min.css" />
     <Content Include="css\login.css" />
     <Content Include="css\manager.css" />
     <Content Include="css\subscribe.css" />
@@ -100,6 +107,8 @@
     <Content Include="js\designer.js" />
     <Content Include="js\highlight.pack.js" />
     <Content Include="js\history.js" />
+    <Content Include="js\jquery-3.3.1.min.js" />
+    <Content Include="js\jquery-ui.min.js" />
     <Content Include="js\login.js" />
     <Content Include="js\manager.js" />
     <Content Include="js\md5.js" />

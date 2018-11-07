@@ -12,10 +12,15 @@
     var btnPreviousPage = document.getElementById("btn-previous-page");
     var lblPages = document.getElementById("lbl-pages");
     var lblEntriesCount = document.getElementById("lbl-entries-count");
+    var txtFrom = document.getElementById("txt-from");
+    var txtTo = document.getElementById("txt-to");
+
     var page = 1;
     var numberOfPages = 0;
     var heo = 1;
     var suser = getUser();
+    var from = null;
+    var to = null;
 
     if (suser === null || suser === "") {
         Common.redirectToLoginPage();
@@ -34,114 +39,152 @@
                 };
 
                 btnLogout.innerHTML = "Logout (" + u.Username + ")";
+                Common.get(uri + "/statusDateMin",
+                    function(dateMin) {
+                        Common.get(uri + "/statusDateMax",
+                            function (dateMax) {
 
-                Common.get(uri + "/historyEntriesCount?s=" + encodeURIComponent(txtSearch.value), function (count) {
+                                from = new Date(dateMin);
+                                to = new Date(dateMax);
 
-                    updatePagerControls(count);
+                                Common.get(uri + "/historyEntriesCountByDate?s=" + encodeURIComponent(txtSearch.value) + "&from=" + from.getTime() + "&to=" + to.getTime(), function (count) {
 
-                    btnNextPage.onclick = function () {
-                        page++;
-                        if (page > 1) {
-                            disableButton(btnPreviousPage, false);
-                        }
+                                    $(txtFrom).datepicker({
+                                        changeMonth: true,
+                                        changeYear: true,
+                                        dateFormat: "dd-mm-yy",
+                                        onSelect: function() {
+                                            from = $(this).datepicker("getDate");
+                                        }
+                                    });
 
-                        if (page >= numberOfPages) {
-                            disableButton(btnNextPage, true);
-                        } else {
-                            disableButton(btnNextPage, false);
-                        }
+                                    $(txtFrom).datepicker("setDate", from);
 
-                        lblPages.innerHTML = page + " / " + numberOfPages;
-                        loadEntries();
-                    };
+                                    $(txtTo).datepicker({
+                                        changeMonth: true,
+                                        changeYear: true,
+                                        dateFormat: "dd-mm-yy",
+                                        onSelect: function () {
+                                            to = $(this).datepicker("getDate");
+                                        }
+                                    });
 
-                    disableButton(btnPreviousPage, true);
+                                    $(txtTo).datepicker("setDate", to);
 
-                    btnPreviousPage.onclick = function () {
-                        page--;
-                        if (page === 1) {
-                            disableButton(btnPreviousPage, true);
-                        }
+                                    updatePagerControls(count);
 
-                        if (page < numberOfPages) {
-                            disableButton(btnNextPage, false);
-                        }
+                                    btnNextPage.onclick = function () {
+                                        page++;
+                                        if (page > 1) {
+                                            disableButton(btnPreviousPage, false);
+                                        }
 
-                        lblPages.innerHTML = page + " / " + numberOfPages;
-                        loadEntries();
-                    };
+                                        if (page >= numberOfPages) {
+                                            disableButton(btnNextPage, true);
+                                        } else {
+                                            disableButton(btnNextPage, false);
+                                        }
 
-                    btnSearch.onclick = function () {
-                        page = 1;
-                        updatePager();
-                        loadEntries();
-                    };
+                                        lblPages.innerHTML = page + " / " + numberOfPages;
+                                        loadEntries();
+                                    };
 
-                    txtSearch.onkeyup = function (e) {
-                        e.preventDefault();
+                                    disableButton(btnPreviousPage, true);
 
-                        if (e.keyCode === 13) {
-                            page = 1;
-                            updatePager();
-                            loadEntries();
-                        }
-                    };
+                                    btnPreviousPage.onclick = function () {
+                                        page--;
+                                        if (page === 1) {
+                                            disableButton(btnPreviousPage, true);
+                                        }
 
-                    slctEntriesCount.onchange = function () {
-                        page = 1;
-                        updatePagerControls(count);
-                        loadEntries();
-                    };
+                                        if (page < numberOfPages) {
+                                            disableButton(btnNextPage, false);
+                                        }
 
-                    function updatePager() {
+                                        lblPages.innerHTML = page + " / " + numberOfPages;
+                                        loadEntries();
+                                    };
 
-                        Common.get(uri + "/historyEntriesCount?s=" + encodeURIComponent(txtSearch.value), function (count) {
-                            updatePagerControls(count);
-                        });
-                    }
+                                    btnSearch.onclick = function () {
+                                        page = 1;
+                                        updatePager();
+                                        loadEntries();
+                                    };
 
-                    function updatePagerControls(count) {
-                        lblEntriesCount.innerHTML = "Total entries: " + count;
+                                    txtSearch.onkeyup = function (e) {
+                                        e.preventDefault();
 
-                        numberOfPages = count / getEntriesCount();
-                        var numberOfPagesInt = parseInt(numberOfPages);
-                        if (numberOfPages > numberOfPagesInt) {
-                            numberOfPages = numberOfPagesInt + 1;
-                        } else {
-                            numberOfPages = numberOfPagesInt;
-                        }
+                                        if (e.keyCode === 13) {
+                                            page = 1;
+                                            updatePager();
+                                            loadEntries();
+                                        }
+                                    };
 
-                        lblPages.innerHTML = page + " / " + numberOfPages;
+                                    slctEntriesCount.onchange = function () {
+                                        page = 1;
+                                        updatePagerControls(count);
+                                        loadEntries();
+                                    };
 
-                        if (page >= numberOfPages) {
-                            disableButton(btnNextPage, true);
-                        } else {
-                            disableButton(btnNextPage, false);
-                        }
+                                    function updatePager() {
 
-                        if (page === 1) {
-                            disableButton(btnPreviousPage, true);
-                        }
-                    }
+                                        Common.get(uri + "/historyEntriesCountByDate?s=" + encodeURIComponent(txtSearch.value) + "&from=" + from.getTime() + "&to=" + to.getTime(), function (count) {
+                                            updatePagerControls(count);
+                                        });
+                                    }
 
-                });
+                                    function updatePagerControls(count) {
+                                        lblEntriesCount.innerHTML = "Total entries: " + count;
 
-                loadEntries();
+                                        numberOfPages = count / getEntriesCount();
+                                        var numberOfPagesInt = parseInt(numberOfPages);
+                                        if (numberOfPages > numberOfPagesInt) {
+                                            numberOfPages = numberOfPagesInt + 1;
+                                        } else if (numberOfPagesInt === 0) {
+                                            numberOfPages = 1;
+                                        } else {
+                                            numberOfPages = numberOfPagesInt;
+                                        }
+
+                                        lblPages.innerHTML = page + " / " + numberOfPages;
+
+                                        if (page >= numberOfPages) {
+                                            disableButton(btnNextPage, true);
+                                        } else {
+                                            disableButton(btnNextPage, false);
+                                        }
+
+                                        if (page === 1) {
+                                            disableButton(btnPreviousPage, true);
+                                        }
+                                    }
+
+                                    loadEntries();
+
+                            });
+
+                    });
+
+                
+            });
+
             }
         });
     }
 
     function loadEntries() {
         var entriesCount = getEntriesCount();
-        //Common.get(uri + "/searchHistoryEntriesByPage?s=" + encodeURIComponent(txtSearch.value) + "&page=" + page + "&entriesCount=" + entriesCount, function (data) {
-        Common.get(uri + "/searchHistoryEntriesByPageOrderBy?s=" + encodeURIComponent(txtSearch.value) + "&page=" + page + "&entriesCount=" + entriesCount + "&heo=" + heo, function (data) {
+
+        Common.get(uri + "/searchHistoryEntriesByPageOrderBy?s=" + encodeURIComponent(txtSearch.value) +"&from="+ from.getTime() + "&to=" + to.getTime() + "&page=" + page + "&entriesCount=" + entriesCount + "&heo=" + heo, function (data) {
             var items = [];
-            for (var i = 0; i < data.length; i++) {
+            var i;
+            for (i = 0; i < data.length; i++) {
                 var val = data[i];
                 var lt = Common.launchType(val.LaunchType);
-                var estatus = Common.status(val.Status);
+                var entryStatus = Common.status(val.Status);
                 items.push("<tr>"
-                    + "<td class='status'>" + estatus + "</td>"
+                    + "<td class='status'>" + entryStatus + "</td>"
                     + "<td class='date'>" + formatDate(new Date(val.StatusDate)) + "</td>"
                     + "<td class='id' title='" + val.WorkflowId + "'>" + val.WorkflowId + "</td>"
                     + "<td class='name'>" + val.Name + "</td>"
@@ -256,14 +299,14 @@
                 thName.innerHTML = "Name";
                 thLt.innerHTML = "LaunchType";
                 thStatus.innerHTML = "Status";
-            } else if (heo === 10) { // By Description ascending
+            } else if (heo === 10) { // By Status ascending
                 thStatus.innerHTML = "Status&nbsp;&nbsp;🔺";
                 thDate.innerHTML = "Date";
                 thId.innerHTML = "Id";
                 thName.innerHTML = "Name";
                 thLt.innerHTML = "LaunchType";
                 thDesc.innerHTML = "Description";
-            } else if (heo === 11) { // By Description descending
+            } else if (heo === 11) { // By Status descending
                 thStatus.innerHTML = "Status&nbsp;&nbsp;🔻";
                 thDate.innerHTML = "Date";
                 thId.innerHTML = "Id";

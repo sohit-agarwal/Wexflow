@@ -89,6 +89,15 @@ namespace Wexflow.Clients.WindowsService
         long GetHistoryEntriesCount(string keyword);
 
         [OperationContract]
-        HistoryEntry[] SearchHistoryEntriesByPageOrderBy(string keyword, int page, int entriesCount, int heo);
+        long GetHistoryEntriesCountByDate(string keyword, double from, double to);
+
+        [OperationContract]
+        HistoryEntry[] SearchHistoryEntriesByPageOrderBy(string keyword, double from, double to, int page, int entriesCount, int heo);
+
+        [OperationContract]
+        double GetStatusDateMin();
+
+        [OperationContract]
+        double GetStatusDateMax();
     }
 }
