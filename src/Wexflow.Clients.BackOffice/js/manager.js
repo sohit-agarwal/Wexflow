@@ -23,18 +23,18 @@
                 };
                 btnLogout.innerHTML = "Logout (" + u.Username + ")";
 
-                disableButton(startButton, true);
-                disableButton(suspendButton, true);
-                disableButton(resumeButton, true);
-                disableButton(stopButton, true);
+                Common.disableButton(startButton, true);
+                Common.disableButton(suspendButton, true);
+                Common.disableButton(resumeButton, true);
+                Common.disableButton(stopButton, true);
 
                 searchButton.onclick = function () {
                     loadWorkflows();
                     notify("");
-                    disableButton(startButton, true);
-                    disableButton(suspendButton, true);
-                    disableButton(resumeButton, true);
-                    disableButton(stopButton, true);
+                    Common.disableButton(startButton, true);
+                    Common.disableButton(suspendButton, true);
+                    Common.disableButton(resumeButton, true);
+                    Common.disableButton(stopButton, true);
                 };
 
                 searchText.onkeyup = function (e) {
@@ -43,10 +43,10 @@
                     if (event.keyCode === 13) { // Enter
                         loadWorkflows();
                         notify("");
-                        disableButton(startButton, true);
-                        disableButton(suspendButton, true);
-                        disableButton(resumeButton, true);
-                        disableButton(stopButton, true);
+                        Common.disableButton(startButton, true);
+                        Common.disableButton(suspendButton, true);
+                        Common.disableButton(resumeButton, true);
+                        Common.disableButton(stopButton, true);
                     }
                 };
 
@@ -165,18 +165,18 @@
                 getWorkflow(wid, function (workflow) {
                     if (workflow.IsEnabled === false) {
                         notify("This workflow is disabled.");
-                        disableButton(startButton, true);
-                        disableButton(suspendButton, true);
-                        disableButton(resumeButton, true);
-                        disableButton(stopButton, true);
+                        Common.disableButton(startButton, true);
+                        Common.disableButton(suspendButton, true);
+                        Common.disableButton(resumeButton, true);
+                        Common.disableButton(stopButton, true);
                     }
                     else {
                         if (force === false && workflowStatusChanged(workflow) === false) return;
 
-                        disableButton(startButton, workflow.IsRunning);
-                        disableButton(stopButton, !(workflow.IsRunning && !workflow.IsPaused));
-                        disableButton(suspendButton, !(workflow.IsRunning && !workflow.IsPaused));
-                        disableButton(resumeButton, !workflow.IsPaused);
+                        Common.disableButton(startButton, workflow.IsRunning);
+                        Common.disableButton(stopButton, !(workflow.IsRunning && !workflow.IsPaused));
+                        Common.disableButton(suspendButton, !(workflow.IsRunning && !workflow.IsPaused));
+                        Common.disableButton(resumeButton, !workflow.IsPaused);
 
                         if (workflow.IsRunning === true && workflow.IsPaused === false) {
                             notify("This workflow is running...");
@@ -253,10 +253,6 @@
         }, function () {
             alert("An error occured while retrieving workflows. Check Wexflow Web Service Uri and check that Wexflow Windows Service is running correctly.");
         });
-    }
-
-    function disableButton(button, disabled) {
-        button.disabled = disabled;
     }
 
     function notify(msg) {

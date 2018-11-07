@@ -99,29 +99,29 @@
                                     btnNextPage.onclick = function () {
                                         page++;
                                         if (page > 1) {
-                                            disableButton(btnPreviousPage, false);
+                                            Common.disableButton(btnPreviousPage, false);
                                         }
 
                                         if (page >= numberOfPages) {
-                                            disableButton(btnNextPage, true);
+                                            Common.disableButton(btnNextPage, true);
                                         } else {
-                                            disableButton(btnNextPage, false);
+                                            Common.disableButton(btnNextPage, false);
                                         }
 
                                         lblPages.innerHTML = page + " / " + numberOfPages;
                                         loadEntries();
                                     };
 
-                                    disableButton(btnPreviousPage, true);
+                                    Common.disableButton(btnPreviousPage, true);
 
                                     btnPreviousPage.onclick = function () {
                                         page--;
                                         if (page === 1) {
-                                            disableButton(btnPreviousPage, true);
+                                            Common.disableButton(btnPreviousPage, true);
                                         }
 
                                         if (page < numberOfPages) {
-                                            disableButton(btnNextPage, false);
+                                            Common.disableButton(btnNextPage, false);
                                         }
 
                                         lblPages.innerHTML = page + " / " + numberOfPages;
@@ -198,13 +198,13 @@
         lblPages.innerHTML = page + " / " + numberOfPages;
 
         if (page >= numberOfPages) {
-            disableButton(btnNextPage, true);
+            Common.disableButton(btnNextPage, true);
         } else {
-            disableButton(btnNextPage, false);
+            Common.disableButton(btnNextPage, false);
         }
 
         if (page === 1) {
-            disableButton(btnPreviousPage, true);
+            Common.disableButton(btnPreviousPage, true);
         }
     }
 
@@ -214,16 +214,6 @@
         }
 
         return slctEntriesCount.options[slctEntriesCount.selectedIndex].value;
-    }
-
-    function disableButton(button, disabled) {
-        button.disabled = disabled;
-    }
-
-    function formatDate(d) {
-        return ("0" + d.getDate()).slice(-2) + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" +
-            d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2) + ":" + ("0" + d.getSeconds()).slice(-2);
-
     }
 
     function loadEntries() {
@@ -239,7 +229,7 @@
                 var estatus = Common.status(val.Status);
                 items.push("<tr>"
                     + "<td class='status'>" + estatus + "</td>"
-                    + "<td class='date'>" + formatDate(new Date(val.StatusDate)) + "</td>"
+                    + "<td class='date'>" + Common.formatDate(new Date(val.StatusDate)) + "</td>"
                     + "<td class='id' title='" + val.WorkflowId + "'>" + val.WorkflowId + "</td>"
                     + "<td class='name'>" + val.Name + "</td>"
                     + "<td class='lt'>" + lt + "</td>"
