@@ -66,6 +66,12 @@ body{
     margin-left: 5px;
 }
 
+    #entries-action #txt-from, #txt-to {
+        width: 120px;
+        margin-right: 15px;
+        margin-left: 5px;
+    }
+
 #entries {
     position: absolute;
     top: 320px;
@@ -79,6 +85,10 @@ body{
 #entries #entries-table .status
 {
     width: 95px;
+}
+
+#entries #entries-table .date {
+    width: 120px;
 }
 
 #entries #entries-table .id
@@ -101,8 +111,11 @@ body{
     width: 200px;    
 }
 
-#entries #entries-table tr:hover
-{
+#entries #entries-table tr:hover {
+    cursor: default;
+}
+
+#entries #entries-table th:hover {
     cursor: pointer;
 }
 

@@ -1,4 +1,5 @@
-﻿using LiteDB;
+﻿using System;
+using LiteDB;
 
 namespace Wexflow.Core.Db
 {
@@ -30,5 +31,6 @@ namespace Wexflow.Core.Db
         public LaunchType LaunchType { get; set; }
         public string Description { get; set; }
         public Status Status { get; set; }
+        public DateTime StatusDate { get; set; }
     }
 }

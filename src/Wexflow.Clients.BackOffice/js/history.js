@@ -39,13 +39,19 @@
                 };
 
                 btnLogout.innerHTML = "Logout (" + u.Username + ")";
-                Common.get(uri + "/statusDateMin",
+                Common.get(uri + "/historyEntryStatusDateMin",
                     function(dateMin) {
-                        Common.get(uri + "/statusDateMax",
+                        Common.get(uri + "/historyEntryStatusDateMax",
                             function (dateMax) {
 
                                 from = new Date(dateMin);
                                 to = new Date(dateMax);
+
+                                if (from.getDay() === to.getDay() &&
+                                    from.getMonth() === to.getMonth() &&
+                                    from.getYear() === to.getYear()) {
+                                    to.setDate(to.getDate() + 1);
+                                }
 
                                 Common.get(uri + "/historyEntriesCountByDate?s=" + encodeURIComponent(txtSearch.value) + "&from=" + from.getTime() + "&to=" + to.getTime(), function (count) {
 
@@ -127,39 +133,6 @@
                                         loadEntries();
                                     };
 
-                                    function updatePager() {
-
-                                        Common.get(uri + "/historyEntriesCountByDate?s=" + encodeURIComponent(txtSearch.value) + "&from=" + from.getTime() + "&to=" + to.getTime(), function (count) {
-                                            updatePagerControls(count);
-                                        });
-                                    }
-
-                                    function updatePagerControls(count) {
-                                        lblEntriesCount.innerHTML = "Total entries: " + count;
-
-                                        numberOfPages = count / getEntriesCount();
-                                        var numberOfPagesInt = parseInt(numberOfPages);
-                                        if (numberOfPages > numberOfPagesInt) {
-                                            numberOfPages = numberOfPagesInt + 1;
-                                        } else if (numberOfPagesInt === 0) {
-                                            numberOfPages = 1;
-                                        } else {
-                                            numberOfPages = numberOfPagesInt;
-                                        }
-
-                                        lblPages.innerHTML = page + " / " + numberOfPages;
-
-                                        if (page >= numberOfPages) {
-                                            disableButton(btnNextPage, true);
-                                        } else {
-                                            disableButton(btnNextPage, false);
-                                        }
-
-                                        if (page === 1) {
-                                            disableButton(btnPreviousPage, true);
-                                        }
-                                    }
-
                                     loadEntries();
 
                             });
@@ -171,6 +144,57 @@
 
             }
         });
+    }
+
+    function updatePager() {
+
+        Common.get(uri + "/historyEntriesCountByDate?s=" + encodeURIComponent(txtSearch.value) + "&from=" + from.getTime() + "&to=" + to.getTime(), function (count) {
+            updatePagerControls(count);
+        });
+    }
+
+    function updatePagerControls(count) {
+        lblEntriesCount.innerHTML = "Total entries: " + count;
+
+        numberOfPages = count / getEntriesCount();
+        var numberOfPagesInt = parseInt(numberOfPages);
+        if (numberOfPages > numberOfPagesInt) {
+            numberOfPages = numberOfPagesInt + 1;
+        } else if (numberOfPagesInt === 0) {
+            numberOfPages = 1;
+        } else {
+            numberOfPages = numberOfPagesInt;
+        }
+
+        lblPages.innerHTML = page + " / " + numberOfPages;
+
+        if (page >= numberOfPages) {
+            disableButton(btnNextPage, true);
+        } else {
+            disableButton(btnNextPage, false);
+        }
+
+        if (page === 1) {
+            disableButton(btnPreviousPage, true);
+        }
+    }
+
+    function getEntriesCount() {
+        if (slctEntriesCount.selectedIndex === -1) {
+            return 10;
+        }
+
+        return slctEntriesCount.options[slctEntriesCount.selectedIndex].value;
+    }
+
+    function disableButton(button, disabled) {
+        button.disabled = disabled;
+    }
+
+    function formatDate(d) {
+        return ("0" + d.getDate()).slice(-2) + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" +
+            d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2) + ":" + ("0" + d.getSeconds()).slice(-2);
+
     }
 
     function loadEntries() {
@@ -380,21 +404,4 @@
         });
     }
 
-    function formatDate(d) {
-        return ("0" + d.getDate()).slice(-2) + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" +
-            d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2) + ":" + ("0" + d.getSeconds()).slice(-2);
-
-    }
-
-    function getEntriesCount() {
-        if (slctEntriesCount.selectedIndex === -1) {
-            return 10;
-        }
-
-        return slctEntriesCount.options[slctEntriesCount.selectedIndex].value;
-    }
-
-    function disableButton(button, disabled) {
-        button.disabled = disabled;
-    }
 }

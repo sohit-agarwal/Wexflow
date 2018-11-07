@@ -525,6 +525,30 @@ namespace Wexflow.Core
         }
 
         /// <summary>
+        /// Returns the entries by a keyword.
+        /// </summary>
+        /// <param name="keyword">Search keyword.</param>
+        /// <param name="from">Date From.</param>
+        /// <param name="to">Date To.</param>
+        /// <param name="page">Page number.</param>
+        /// <param name="entriesCount">Number of entries.</param>
+        /// <param name="heo">HistoryEntryOrderBy</param>
+        /// <returns>Returns all the entries</returns>
+        public Entry[] GetEntries(string keyword, DateTime from, DateTime to, int page, int entriesCount, HistoryEntryOrderBy heo)
+        {
+            var col = Database.GetEntries(keyword, from, to, page, entriesCount, heo);
+
+            if (!col.Any())
+            {
+                return new Entry[] { };
+            }
+            else
+            {
+                return col.ToArray();
+            }
+        }
+
+        /// <summary>
         /// Gets the number of history entries by search keyword.
         /// </summary>
         /// <param name="keyword">Search keyword.</param>
@@ -547,21 +571,51 @@ namespace Wexflow.Core
         }
 
         /// <summary>
+        /// Gets the number of entries by search keyword and date filter.
+        /// </summary>
+        /// <param name="keyword">Search keyword.</param>
+        /// <param name="from">Date from.</param>
+        /// <param name="to">Date to.</param>
+        /// <returns></returns>
+        public long GetEntriesCount(string keyword, DateTime from, DateTime to)
+        {
+            return Database.GetEntriesCount(keyword, from, to);
+        }
+
+        /// <summary>
         /// Returns Status Date Min value.
         /// </summary>
         /// <returns>Status Date Min value.</returns>
-        public DateTime GetStatusDateMin()
+        public DateTime GetHistoryEntryStatusDateMin()
         {
-            return Database.GetStatusDateMin();
+            return Database.GetHistoryEntryStatusDateMin();
         }
 
         /// <summary>
         /// Returns Status Date Max value.
         /// </summary>
         /// <returns>Status Date Max value.</returns>
-        public DateTime GetStatusDateMax()
+        public DateTime GetHistoryEntryStatusDateMax()
         {
-            return Database.GetStatusDateMax();
+            return Database.GetHistoryEntryStatusDateMax();
+        }
+
+        /// <summary>
+        /// Returns Status Date Min value.
+        /// </summary>
+        /// <returns>Status Date Min value.</returns>
+        public DateTime GetEntryStatusDateMin()
+        {
+            return Database.GetEntryStatusDateMin();
+        }
+
+        /// <summary>
+        /// Returns Status Date Max value.
+        /// </summary>
+        /// <returns>Status Date Max value.</returns>
+        public DateTime GetEntryStatusDateMax()
+        {
+            return Database.GetEntryStatusDateMax();
         }
     }
 }

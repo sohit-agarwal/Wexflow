@@ -327,6 +327,12 @@ namespace Wexflow.Core.Db
             {
                 var col = db.GetCollection<Entry>("entries");
                 col.Insert(entry);
+                col.EnsureIndex(e => e.WorkflowId);
+                col.EnsureIndex(e => e.Name, "LOWER($.Name)");
+                col.EnsureIndex(e => e.LaunchType);
+                col.EnsureIndex(e => e.Description, "LOWER($.Name)");
+                col.EnsureIndex(e => e.Status);
+                col.EnsureIndex(e => e.StatusDate);
             }
         }
 
@@ -599,6 +605,164 @@ namespace Wexflow.Core.Db
             }
         }
 
+        public IEnumerable<Entry> GetEntries(string keyword, DateTime from, DateTime to, int page, int entriesCount, HistoryEntryOrderBy heo)
+        {
+            using (var db = new LiteDatabase(ConnectionString))
+            {
+                var col = db.GetCollection<Entry>("entries");
+                var keywordToLower = keyword.ToLower();
+                int skip = (page - 1) * entriesCount;
+                Query query;
+
+                if (!string.IsNullOrEmpty(keyword))
+                {
+                    query = Query.And(Query.Or(Query.Contains("Name", keywordToLower), Query.Contains("Description", keywordToLower))
+                                    , Query.And(Query.GTE("StatusDate", from), Query.LTE("StatusDate", to)));
+                }
+                else
+                {
+                    query = Query.And(Query.GTE("StatusDate", from), Query.LTE("StatusDate", to));
+                }
+
+                switch (heo)
+                {
+                    case HistoryEntryOrderBy.StatusDateAscending:
+
+                        return col.Find(
+                            Query.And(
+                                Query.All("StatusDate")
+                                , query
+                            )
+                            , skip
+                            , entriesCount
+                        );
+
+                    case HistoryEntryOrderBy.StatusDateDescending:
+
+                        return col.Find(
+                            Query.And(
+                                Query.All("StatusDate", Query.Descending)
+                                , query
+                            )
+                            , skip
+                            , entriesCount
+                        );
+
+                    case HistoryEntryOrderBy.WorkflowIdAscending:
+
+                        return col.Find(
+                            Query.And(
+                                Query.All("WorkflowId")
+                                , query
+                            )
+                            , skip
+                            , entriesCount
+                        );
+
+                    case HistoryEntryOrderBy.WorkflowIdDescending:
+
+                        return col.Find(
+                            Query.And(
+                                Query.All("WorkflowId", Query.Descending)
+                                , query
+                            )
+                            , skip
+                            , entriesCount
+                        );
+
+                    case HistoryEntryOrderBy.NameAscending:
+
+                        return col.Find(
+                            Query.And(
+                                Query.All("Name")
+                                , query
+                            )
+                            , skip
+                            , entriesCount
+                        );
+
+                    case HistoryEntryOrderBy.NameDescending:
+
+                        return col.Find(
+                            Query.And(
+                                Query.All("Name", Query.Descending)
+                                , query
+                            )
+                            , skip
+                            , entriesCount
+                        );
+
+                    case HistoryEntryOrderBy.LaunchTypeAscending:
+
+                        return col.Find(
+                            Query.And(
+                                Query.All("LaunchType")
+                                , query
+                            )
+                            , skip
+                            , entriesCount
+                        );
+
+                    case HistoryEntryOrderBy.LaunchTypeDescending:
+
+                        return col.Find(
+                            Query.And(
+                                Query.All("LaunchType", Query.Descending)
+                                , query
+                            )
+                            , skip
+                            , entriesCount
+                        );
+
+                    case HistoryEntryOrderBy.DescriptionAscending:
+
+                        return col.Find(
+                            Query.And(
+                                Query.All("Description")
+                                , query
+                            )
+                            , skip
+                            , entriesCount
+                        );
+
+                    case HistoryEntryOrderBy.DescriptionDescending:
+
+                        return col.Find(
+                            Query.And(
+                                Query.All("Description", Query.Descending)
+                                , query
+                            )
+                            , skip
+                            , entriesCount
+                        );
+
+                    case HistoryEntryOrderBy.StatusAscending:
+
+                        return col.Find(
+                            Query.And(
+                                Query.All("Status")
+                                , query
+                            )
+                            , skip
+                            , entriesCount
+                        );
+
+                    case HistoryEntryOrderBy.StatusDescending:
+
+                        return col.Find(
+                            Query.And(
+                                Query.All("Status", Query.Descending)
+                                , query
+                            )
+                            , skip
+                            , entriesCount
+                        );
+                }
+
+                return new Entry[] { };
+            }
+        }
+
         public long GetHistoryEntriesCount(string keyword)
         {
             using (var db = new LiteDatabase(ConnectionString))
@@ -631,7 +795,29 @@ namespace Wexflow.Core.Db
             }
         }
 
-        public DateTime GetStatusDateMin()
+        public long GetEntriesCount(string keyword, DateTime from, DateTime to)
+        {
+            using (var db = new LiteDatabase(ConnectionString))
+            {
+                var keywordToLower = keyword.ToLower();
+                var col = db.GetCollection<Entry>("entries");
+                Query query;
+
+                if (!string.IsNullOrEmpty(keyword))
+                {
+                    query = Query.And(Query.Or(Query.Contains("Name", keywordToLower), Query.Contains("Description", keywordToLower))
+                        , Query.And(Query.GTE("StatusDate", from), Query.LTE("StatusDate", to)));
+                }
+                else
+                {
+                    query = Query.And(Query.GTE("StatusDate", from), Query.LTE("StatusDate", to));
+                }
+
+                return col.Find(query).LongCount();
+            }
+        }
+
+        public DateTime GetHistoryEntryStatusDateMin()
         {
             using (var db = new LiteDatabase(ConnectionString))
             {
@@ -646,11 +832,41 @@ namespace Wexflow.Core.Db
             }
         }
 
-        public DateTime GetStatusDateMax()
+        public DateTime GetHistoryEntryStatusDateMax()
         {
             using (var db = new LiteDatabase(ConnectionString))
             {
                 var col = db.GetCollection<HistoryEntry>("historyEntries");
+                var q = col.Find(Query.All("StatusDate", Query.Descending));
+                if (q.Any())
+                {
+                    return q.Select(e => e.StatusDate).First();
+                }
+
+                return DateTime.MaxValue;
+            }
+        }
+
+        public DateTime GetEntryStatusDateMin()
+        {
+            using (var db = new LiteDatabase(ConnectionString))
+            {
+                var col = db.GetCollection<HistoryEntry>("entries");
+                var q = col.Find(Query.All("StatusDate"));
+                if (q.Any())
+                {
+                    return q.Select(e => e.StatusDate).First();
+                }
+
+                return DateTime.MinValue;
+            }
+        }
+
+        public DateTime GetEntryStatusDateMax()
+        {
+            using (var db = new LiteDatabase(ConnectionString))
+            {
+                var col = db.GetCollection<HistoryEntry>("entries");
                 var q = col.Find(Query.All("StatusDate", Query.Descending));
                 if (q.Any())
                 {

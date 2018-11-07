@@ -43,6 +43,12 @@
         margin-left: 5px;
     }
 
+    #entries-action #txt-from, #txt-to {
+        width: 120px;
+        margin-right: 15px;
+        margin-left: 5px;
+    }
+
 #entries {
     position: absolute;
     top: 150px;
@@ -55,6 +61,10 @@
 
     #entries #entries-table .status {
         width: 95px;
+    }
+
+    #entries #entries-table .date {
+        width: 100px;
     }
 
     #entries #entries-table .id {
@@ -73,10 +83,6 @@
         width: 200px;
     }
 
-    #entries #entries-table .date {
-        width: 100px;
-    }
-
     #entries #entries-table tr:hover {
         cursor: default;
     }
@@ -91,10 +97,4 @@
 
 #entries-table img {
     margin-right: 10px;
-}
-
-#txt-from, #txt-to {
-    width: 120px;
-    margin-right: 15px;
-    margin-left: 5px;
 }

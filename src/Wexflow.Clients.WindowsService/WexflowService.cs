@@ -756,6 +756,30 @@ namespace Wexflow.Clients.WindowsService
         }
 
         [WebInvoke(Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "searchEntriesByPageOrderBy?s={keyword}&from={from}&to={to}&page={page}&entriesCount={entriesCount}&heo={heo}")]
+        public Entry[] SearchEntriesByPageOrderBy(string keyword, double from, double to, int page, int entriesCount, int heo)
+        {
+            DateTime baseDate = new DateTime(1970, 1, 1);
+            DateTime fromDate = baseDate.AddMilliseconds(from);
+            DateTime toDate = baseDate.AddMilliseconds(to);
+
+            var entries = WexflowWindowsService.WexflowEngine.GetEntries(keyword, fromDate, toDate, page, entriesCount, (Core.Db.HistoryEntryOrderBy)heo);
+
+            return entries.Select(e =>
+                new Entry
+                {
+                    Id = e.Id,
+                    WorkflowId = e.WorkflowId,
+                    Name = e.Name,
+                    LaunchType = (LaunchType)((int)e.LaunchType),
+                    Description = e.Description,
+                    Status = (Core.Service.Contracts.Status)((int)e.Status),
+                    StatusDate = (e.StatusDate - baseDate).TotalMilliseconds
+                }).ToArray();
+        }
+
+        [WebInvoke(Method = "GET",
          ResponseFormat = WebMessageFormat.Json,
          UriTemplate = "historyEntriesCount?s={keyword}")]
         public long GetHistoryEntriesCount(string keyword)
@@ -778,20 +802,52 @@ namespace Wexflow.Clients.WindowsService
 
         [WebInvoke(Method = "GET",
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "statusDateMin")]
-        public double GetStatusDateMin()
+            UriTemplate = "entriesCountByDate?s={keyword}&from={from}&to={to}")]
+        public long GetEntriesCountByDate(string keyword, double from, double to)
         {
-            var date = WexflowWindowsService.WexflowEngine.GetStatusDateMin();
+            DateTime baseDate = new DateTime(1970, 1, 1);
+            DateTime fromDate = baseDate.AddMilliseconds(from);
+            DateTime toDate = baseDate.AddMilliseconds(to);
+            long count = WexflowWindowsService.WexflowEngine.GetEntriesCount(keyword, fromDate, toDate);
+            return count;
+        }
+
+        [WebInvoke(Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "historyEntryStatusDateMin")]
+        public double GetHistoryEntryStatusDateMin()
+        {
+            var date = WexflowWindowsService.WexflowEngine.GetHistoryEntryStatusDateMin();
             DateTime baseDate = new DateTime(1970, 1, 1);
             return (date - baseDate).TotalMilliseconds;
         }
 
         [WebInvoke(Method = "GET",
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "statusDateMax")]
-        public double GetStatusDateMax()
+            UriTemplate = "historyEntryStatusDateMax")]
+        public double GetHistoryEntryStatusDateMax()
         {
-            var date = WexflowWindowsService.WexflowEngine.GetStatusDateMax();
+            var date = WexflowWindowsService.WexflowEngine.GetHistoryEntryStatusDateMax();
+            DateTime baseDate = new DateTime(1970, 1, 1);
+            return (date - baseDate).TotalMilliseconds;
+        }
+
+        [WebInvoke(Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "entryStatusDateMin")]
+        public double GetEntryStatusDateMin()
+        {
+            var date = WexflowWindowsService.WexflowEngine.GetEntryStatusDateMin();
+            DateTime baseDate = new DateTime(1970, 1, 1);
+            return (date - baseDate).TotalMilliseconds;
+        }
+
+        [WebInvoke(Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "entryStatusDateMax")]
+        public double GetEntryStatusDateMax()
+        {
+            var date = WexflowWindowsService.WexflowEngine.GetEntryStatusDateMax();
             DateTime baseDate = new DateTime(1970, 1, 1);
             return (date - baseDate).TotalMilliseconds;
         }
