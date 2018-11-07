@@ -1,0 +1,1 @@
+uglifyjs common.js authenticate.js manager.js -o manager.min.js -c -m

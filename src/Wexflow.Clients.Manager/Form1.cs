@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Resources;
 using System.ServiceProcess;
 using System.Windows.Forms;
@@ -21,7 +20,7 @@ namespace Wexflow.Clients.Manager
         private const string ColumnId = "Id";
         private const string ColumnEnabled = "Enabled";
         private const string WexflowWindowsServicePath = @"..\Wexflow.Clients.WindowsService.exe.config";
-        private const string DesignerWebFile = @"..\Web Designer\index.html";
+        private const string BackOfficeWebFile = @"..\Back office\index.html";
 
         private WexflowServiceClient _wexflowServiceClient;
         private WorkflowInfo[] _workflows;
@@ -54,7 +53,7 @@ namespace Wexflow.Clients.Manager
             }
 
             buttonLogs.Enabled = !string.IsNullOrEmpty(_logfile);
-            buttonDesigner.Enabled = File.Exists(DesignerWebFile);
+            buttonBackOffice.Enabled = File.Exists(BackOfficeWebFile);
             buttonRestart.Enabled = !Program.DebugMode;
 
             dataGridViewWorkflows.MouseWheel += new MouseEventHandler(MouseWheelEvt);
@@ -387,11 +386,11 @@ namespace Wexflow.Clients.Manager
             }
         }
 
-        private void ButtonDesign_Click(object sender, EventArgs e)
+        private void ButtonBackOffice_Click(object sender, EventArgs e)
         {
-            if (File.Exists(DesignerWebFile))
+            if (File.Exists(BackOfficeWebFile))
             {
-                Process.Start(DesignerWebFile, "");
+                Process.Start(BackOfficeWebFile, "");
             }
         }
 

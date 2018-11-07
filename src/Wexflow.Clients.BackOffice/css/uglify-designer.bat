@@ -1,0 +1,1 @@
+uglifycss bootstrap.min.css vs2015.css designer.css --output designer.min.css

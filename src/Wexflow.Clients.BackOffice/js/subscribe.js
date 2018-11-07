@@ -1,12 +1,12 @@
 function Subscribe(){
 
     var uri = Common.trimEnd(Settings.Uri, "/");
-	var submiBtn = document.getElementById("btn-submit");
+	var submitBtn = document.getElementById("btn-submit");
 	var usernameTxt = document.getElementById("txt-username");
 	var passwordTxt = document.getElementById("txt-password");
 	var confirmPasswordTxt = document.getElementById("txt-confirm-password");
 	
-	submiBtn.onclick = function(){
+	submitBtn.onclick = function(){
 		subscribe();
 	};
 	

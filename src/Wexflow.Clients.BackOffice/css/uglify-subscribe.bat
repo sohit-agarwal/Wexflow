@@ -1,0 +1,1 @@
+uglifycss bootstrap.min.css subscribe.css --output subscribe.min.css

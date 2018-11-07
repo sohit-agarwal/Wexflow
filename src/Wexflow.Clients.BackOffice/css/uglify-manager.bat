@@ -1,0 +1,1 @@
+uglifycss bootstrap.min.css manager.css --output manager.min.css

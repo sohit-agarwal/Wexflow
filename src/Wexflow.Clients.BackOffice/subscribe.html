@@ -2,14 +2,20 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Wexflow Back Office</title>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="css/subscribe.css" />
-    <script type="text/javascript" src="js/common.js"></script>
+    <title>Sign up</title>
+    <!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/subscribe.css" />-->
+
+    <link rel="stylesheet" type="text/css" href="css/subscribe.min.css" />
+
     <script type="text/javascript" src="js/settings.js"></script>
-    <script type="text/javascript" src="js/authenticate.js"></script>
+
+    <!--<script type="text/javascript" src="js/common.js"></script>
     <script type="text/javascript" src="js/md5.js"></script>
-    <script type="text/javascript" src="js/subscribe.js"></script>
+    <script type="text/javascript" src="js/authenticate.js"></script>
+    <script type="text/javascript" src="js/subscribe.js"></script>-->
+
+    <script type="text/javascript" src="js/subscribe.min.js"></script>
 </head>
     <body>
         <div id="header">
@@ -53,7 +59,7 @@
         </div>
         <script type="text/javascript">
             window.onload = function () {
-                new Subscribe("http://localhost:8000/wexflow/");
+                new Subscribe();
             }
         </script>
     </body>

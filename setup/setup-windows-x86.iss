@@ -1,5 +1,5 @@
 #define MyAppName "Wexflow"
-#define MyAppVersion "2.9"
+#define MyAppVersion "3.0"
 #define MyAppPublisher "Akram El Assas"
 #define MyAppPublisherURL "https://wexflow.github.io/"
 #define MyAppExeName "Wexflow.Clients.Manager.exe"
@@ -92,8 +92,10 @@ Source: "..\libs\NUglify.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\SharpScss.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\x86\libsass.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\YamlDotNet.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\libs\LiteDB.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 Source: "..\src\Wexflow.Clients.WindowsService\bin\Release\Wexflow.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.WindowsService\bin\Release\Wexflow.Core.Db.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.WindowsService\bin\Release\Wexflow.Core.Service.Client.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.WindowsService\bin\Release\Wexflow.Core.Service.Contracts.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.WindowsService\bin\Release\Wexflow.Core.Service.Cross.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -200,14 +202,40 @@ Source: "..\src\Wexflow.Clients.Manager\bin\Release\Newtonsoft.Json.dll"; DestDi
 Source: "..\src\Wexflow.Clients.Manager\bin\Release\Wexflow.Core.Service.Contracts.dll"; DestDir: "{app}\Manager"; Flags: ignoreversion
 
 ; Wexflow Web Manager
-Source: "..\src\Wexflow.Clients.WebManager\index.html"; DestDir: "{app}\Web Manager"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WebManager\js\wexflow-manager.min.js"; DestDir: "{app}\Web Manager\js"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WebManager\css\wexflow-manager.min.css"; DestDir: "{app}\Web Manager\css"; Flags: ignoreversion
+;Source: "..\src\Wexflow.Clients.WebManager\index.html"; DestDir: "{app}\Web Manager"; Flags: ignoreversion
+;Source: "..\src\Wexflow.Clients.WebManager\js\wexflow-manager.min.js"; DestDir: "{app}\Web Manager\js"; Flags: ignoreversion
+;Source: "..\src\Wexflow.Clients.WebManager\css\wexflow-manager.min.css"; DestDir: "{app}\Web Manager\css"; Flags: ignoreversion
 
 ; Wexflow Web Designer
-Source: "..\src\Wexflow.Clients.WebDesigner\index.html"; DestDir: "{app}\Web Designer"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WebDesigner\js\wexflow-designer.min.js"; DestDir: "{app}\Web Designer\js"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WebDesigner\css\wexflow-designer.min.css"; DestDir: "{app}\Web Designer\css"; Flags: ignoreversion
+;Source: "..\src\Wexflow.Clients.WebDesigner\index.html"; DestDir: "{app}\Web Designer"; Flags: ignoreversion
+;Source: "..\src\Wexflow.Clients.WebDesigner\js\wexflow-designer.min.js"; DestDir: "{app}\Web Designer\js"; Flags: ignoreversion
+;Source: "..\src\Wexflow.Clients.WebDesigner\css\wexflow-designer.min.css"; DestDir: "{app}\Web Designer\css"; Flags: ignoreversion
+
+; Wexflow Back office
+Source: "..\src\Wexflow.Clients.BackOffice\index.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.BackOffice\subscribe.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.BackOffice\dashboard.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.BackOffice\manager.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.BackOffice\designer.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.BackOffice\history.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
+
+Source: "..\src\Wexflow.Clients.BackOffice\images\*"; DestDir: "{app}\Back office\images"; Flags: ignoreversion
+
+Source: "..\src\Wexflow.Clients.BackOffice\css\images\*"; DestDir: "{app}\Back office\css\images"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.BackOffice\css\login.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.BackOffice\css\subscribe.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.BackOffice\css\dashboard.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.BackOffice\css\manager.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.BackOffice\css\designer.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.BackOffice\css\history.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
+
+Source: "..\src\Wexflow.Clients.BackOffice\js\settings.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.BackOffice\js\login.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.BackOffice\js\subscribe.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.BackOffice\js\dashboard.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.BackOffice\js\manager.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.BackOffice\js\designer.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.BackOffice\js\history.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
 
 ; Wexflow's Documentation
 Source: "..\src\Wexflow.Core\Workflow.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
@@ -317,8 +345,9 @@ Source: "..\samples\WexflowTesting\*"; DestDir: "C:\WexflowTesting\"; Flags: ign
 
 [Icons]
 Name: "{commonprograms}\{#MyAppName}\Manager"; Filename: "{app}\Manager\{#MyAppExeName}";
-Name: "{commonprograms}\{#MyAppName}\Web Manager"; Filename: "{app}\Web Manager\index.html";
-Name: "{commonprograms}\{#MyAppName}\Web Designer"; Filename: "{app}\Web Designer\index.html";
+;Name: "{commonprograms}\{#MyAppName}\Web Manager"; Filename: "{app}\Web Manager\index.html";
+;Name: "{commonprograms}\{#MyAppName}\Web Designer"; Filename: "{app}\Web Designer\index.html";
+Name: "{commonprograms}\{#MyAppName}\Back office"; Filename: "{app}\Back office\index.html";
 ;Name: "{commonprograms}\{#MyAppName}\Start Wexflow Windows Service"; Filename: {sys}\sc.exe; Parameters: "start Wexflow" ; IconFilename: "{app}\Wexflow.ico";
 ;Name: "{commonprograms}\{#MyAppName}\Stop Wexflow Windows Service"; Filename: {sys}\sc.exe; Parameters: "stop Wexflow" ; IconFilename: "{app}\Wexflow.ico";
 Name: "{commonprograms}\{#MyAppName}\Configuration"; Filename: "C:\Wexflow\";

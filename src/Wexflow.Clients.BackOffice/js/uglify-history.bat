@@ -1,0 +1,1 @@
+uglifyjs common.js authenticate.js jquery-3.3.1.min.js jquery-ui.min.js history.js -o history.min.js -c -m

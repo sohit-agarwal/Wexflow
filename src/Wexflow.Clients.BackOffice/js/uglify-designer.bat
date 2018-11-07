@@ -1,0 +1,1 @@
+uglifyjs common.js authenticate.js cytoscape-dagre.min.js highlight.pack.js designer.js -o designer.min.js -c -m
