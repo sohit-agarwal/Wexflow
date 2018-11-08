@@ -22,6 +22,9 @@
     var lblEntriesCount = document.getElementById("lbl-entries-count");
     var txtFrom = document.getElementById("txt-from");
     var txtTo = document.getElementById("txt-to");
+    var lnkManager = document.getElementById("lnk-manager");
+    var lnkDesigner = document.getElementById("lnk-designer");
+    var lnkUsers = document.getElementById("lnk-users");
 
     var suser = getUser();
     var page = 1;
@@ -48,6 +51,12 @@
                 };
 
                 btnLogout.innerHTML = "Logout (" + u.Username + ")";
+
+                if (u.UserProfile === 0) {
+                    lnkManager.style.display = "inline";
+                    lnkDesigner.style.display = "inline";
+                    lnkUsers.style.display = "inline";
+                }
 
                 Common.get(uri + "/entryStatusDateMin",
                     function(dateMin) {

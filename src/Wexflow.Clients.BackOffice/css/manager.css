@@ -23,6 +23,10 @@
 	float: right;
 }
 
+    #header #lnk-manager, #lnk-designer, #lnk-users {
+        display: none;
+    }
+
 #wf-manager{
 	position: absolute; 
 	top: 100px; 

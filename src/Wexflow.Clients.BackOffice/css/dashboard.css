@@ -23,6 +23,10 @@ body{
 	float: right;
 }
 
+#header #lnk-manager, #lnk-designer, #lnk-users {
+    display: none;
+}
+
 #status {
     position: absolute;
     top: 130px;

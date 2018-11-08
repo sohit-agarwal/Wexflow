@@ -22,6 +22,10 @@
         float: right;
     }
 
+    #header #lnk-manager, #lnk-designer, #lnk-users {
+        display: none;
+    }
+
 #entries-action {
     position: absolute;
     top: 110px;

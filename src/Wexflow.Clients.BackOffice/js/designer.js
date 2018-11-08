@@ -5,6 +5,9 @@
 
     var id = "wf-designer";
     var uri = Common.trimEnd(Settings.Uri, "/");
+    var lnkManager = document.getElementById("lnk-manager");
+    var lnkDesigner = document.getElementById("lnk-designer");
+    var lnkUsers = document.getElementById("lnk-users");
     var suser = getUser();
 
     if (suser === null || suser === "") {
@@ -15,17 +18,27 @@
             if (user.Password !== u.Password) {
                 Common.redirectToLoginPage();
             } else {
-                var btnLogout = document.getElementById("btn-logout");
-                var divDesigner = document.getElementById("wf-designer");
-                divDesigner.style.display = "block";
 
-                btnLogout.onclick = function () {
-                    deleteUser();
+                if (u.UserProfile === 0) {
+                    lnkManager.style.display = "inline";
+                    lnkDesigner.style.display = "inline";
+                    lnkUsers.style.display = "inline";
+
+                    var btnLogout = document.getElementById("btn-logout");
+                    var divDesigner = document.getElementById("wf-designer");
+                    divDesigner.style.display = "block";
+
+                    btnLogout.onclick = function () {
+                        deleteUser();
+                        Common.redirectToLoginPage();
+                    };
+
+                    btnLogout.innerHTML = "Logout (" + u.Username + ")";
+                    loadWorkflows();
+                } else {
                     Common.redirectToLoginPage();
-                };
+                }
 
-                btnLogout.innerHTML = "Logout (" + u.Username + ")";
-                loadWorkflows();
             }
         });
     }

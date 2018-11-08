@@ -444,9 +444,30 @@ namespace Wexflow.Core
         /// </summary>
         /// <param name="username">Username.</param>
         /// <param name="password">Password.</param>
-        public void InsertUser(string username, string password)
+        /// <param name="userProfile">User profile.</param>
+        public void InsertUser(string username, string password, UserProfile userProfile)
         {
-            Database.InsertUser(new User { Username = username, Password = password});
+            Database.InsertUser(new User { Username = username, Password = password, UserProfile = userProfile});
+        }
+
+        /// <summary>
+        /// Updates a user.
+        /// </summary>
+        /// <param name="username">Username.</param>
+        /// <param name="password">Password.</param>
+        /// <param name="userProfile">User profile.</param>
+        public void UpdateUser(string username, string password, UserProfile userProfile)
+        {
+            Database.UpdateUser(new User { Username = username, Password = password, UserProfile = userProfile });
+        }
+
+        /// <summary>
+        /// Deletes a user.
+        /// </summary>
+        /// <param name="username">Username.</param>
+        public void DeleteUser(string username)
+        {
+            Database.DeleteUser(username);
         }
 
         /// <summary>
@@ -467,6 +488,21 @@ namespace Wexflow.Core
         public string GetPassword(string username)
         {
             return Database.GetPassword(username);
+        }
+
+        /// <summary>
+        /// Returns all the users.
+        /// </summary>
+        /// <returns>All the users.</returns>
+        public User[] GetUsers()
+        {
+            var q = Database.GetUsers();
+            if (q.Any())
+            {
+                return q.ToArray();
+            }
+
+            return new User[]{};
         }
 
         /// <summary>

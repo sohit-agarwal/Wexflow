@@ -24,6 +24,10 @@ body{
 	float: right;
 }
 
+    #header #lnk-manager, #lnk-designer, #lnk-users {
+        display: none;
+    }
+
 #wf-designer{
 	position: absolute; 
 	top: 100px; 

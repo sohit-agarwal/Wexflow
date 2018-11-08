@@ -14,6 +14,9 @@
     var lblEntriesCount = document.getElementById("lbl-entries-count");
     var txtFrom = document.getElementById("txt-from");
     var txtTo = document.getElementById("txt-to");
+    var lnkManager = document.getElementById("lnk-manager");
+    var lnkDesigner = document.getElementById("lnk-designer");
+    var lnkUsers = document.getElementById("lnk-users");
 
     var page = 1;
     var numberOfPages = 0;
@@ -30,6 +33,13 @@
             if (user.Password !== u.Password) {
                 Common.redirectToLoginPage();
             } else {
+
+                if (u.UserProfile === 0) {
+                    lnkManager.style.display = "inline";
+                    lnkDesigner.style.display = "inline";
+                    lnkUsers.style.display = "inline";
+                }
+
                 divEntries.style.display = "block";
                 divEntriesAction.style.display = "block";
 

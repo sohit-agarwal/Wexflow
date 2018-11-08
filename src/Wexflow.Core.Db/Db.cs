@@ -1,7 +1,10 @@
 ﻿using System;
 using LiteDB;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Wexflow.Core.Db
 {
@@ -37,7 +40,7 @@ namespace Wexflow.Core.Db
                 // StatusCount
                 ClearStatusCount();
 
-                var col = db.GetCollection<StatusCount>("statusCount");
+                var statusCountCol = db.GetCollection<StatusCount>("statusCount");
 
                 var statusCount = new StatusCount
                 {
@@ -50,10 +53,18 @@ namespace Wexflow.Core.Db
                     StoppedCount = 0
                 };
 
-                col.Insert(statusCount);
+                statusCountCol.Insert(statusCount);
 
                 // Entries
                 ClearEntries();
+
+                // Insert default user if necessary
+                var usersCol = db.GetCollection<User>("users");
+                if (usersCol.Count() == 0)
+                {
+                    InsertDefaultUser();
+                }
+
             }
         }
 
@@ -361,6 +372,53 @@ namespace Wexflow.Core.Db
                 var col = db.GetCollection<User>("users");
                 col.Insert(user);
                 col.EnsureIndex(u => u.Username);
+                col.EnsureIndex(u => u.UserProfile);
+            }
+        }
+
+        public void UpdateUser(User user)
+        {
+            using (var db = new LiteDatabase(ConnectionString))
+            {
+                var col = db.GetCollection<User>("users");
+                var dbUser = col.FindOne(u => u.Username == user.Username);
+                dbUser.Password = user.Password;
+                dbUser.UserProfile = user.UserProfile;
+                col.Update(dbUser);
+            }
+        }
+
+        public void DeleteUser(string username)
+        {
+            using (var db = new LiteDatabase(ConnectionString))
+            {
+                var col = db.GetCollection<User>("users");
+                col.Delete(u => u.Username == username);
+            }
+        }
+
+        public void InsertDefaultUser()
+        {
+            var password = GetMd5("wexflow2018");
+            var user = new User {Username = "admin", Password = password, UserProfile = UserProfile.Administrator};
+            InsertUser(user);
+        }
+
+        private string GetMd5(string input)
+        {
+            // Use input string to calculate MD5 hash
+            using (MD5 md5 = MD5.Create())
+            {
+                byte[] inputBytes = Encoding.ASCII.GetBytes(input);
+                byte[] hashBytes = md5.ComputeHash(inputBytes);
+
+                // Convert the byte array to hexadecimal string
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < hashBytes.Length; i++)
+                {
+                    sb.Append(hashBytes[i].ToString("x2"));
+                }
+                return sb.ToString();
             }
         }
 
@@ -381,6 +439,15 @@ namespace Wexflow.Core.Db
                 var col = db.GetCollection<User>("users");
                 User user = col.FindOne(u => u.Username == username);
                 return user.Password;
+            }
+        }
+
+        public IEnumerable<User> GetUsers()
+        {
+            using (var db = new LiteDatabase(ConnectionString))
+            {
+                var col = db.GetCollection<User>("users");
+                return col.FindAll();
             }
         }
 

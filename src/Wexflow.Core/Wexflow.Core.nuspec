@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Wexflow</id>
-    <version>3.0.1</version>
+    <version>3.0.2</version>
     <title>Wexflow</title>
     <authors>Akram El Assas</authors>
     <owners>Akram El Assas</owners>
@@ -29,7 +29,7 @@
     <file src="..\..\libs\Common.Logging.dll" target="lib\net40\Common.Logging.dll"/>
     <file src="..\..\libs\Common.Logging.xml" target="lib\net40\Common.Logging.xml"/>
     <file src="..\..\libs\LiteDB.dll" target="lib\net40\LiteDB.dll"/>
-    <file src="..\..\libs\LiteDB.dll" target="lib\net40\LiteDB.xml"/>
+    <file src="..\..\libs\LiteDB.xml" target="lib\net40\LiteDB.xml"/>
     
   </files>
 </package>

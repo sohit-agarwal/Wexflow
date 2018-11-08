@@ -74,7 +74,13 @@ namespace Wexflow.Clients.WindowsService
         User GetUser(string username);
 
         [OperationContract]
-        void InsertUser(string username, string password);
+        bool InsertUser(string username, string password, int userProfile);
+
+        [OperationContract]
+        bool UpdateUser(string username, string password, int userProfile);
+
+        [OperationContract]
+        bool DeleteUser(string username);
 
         [OperationContract]
         HistoryEntry[] GetHistoryEntries();
@@ -111,5 +117,11 @@ namespace Wexflow.Clients.WindowsService
 
         [OperationContract]
         double GetEntryStatusDateMax();
+
+        [OperationContract]
+        string GetPassword(string username);
+
+        [OperationContract]
+        User[] GetUsers();
     }
 }

@@ -1,6 +1,5 @@
-﻿function authorize(username, password) {
-    set("authorize", '{"Username": "' + username + '", "Password":"' + password + '"}', 365);
-    console.log(window.localStorage);
+﻿function authorize(username, password, userProfile) {
+    set("authorize", '{"Username": "' + username + '", "Password":"' + password + '","UserProfile":' + userProfile + '}');
 }
 
 function getUser() {
