@@ -8,9 +8,15 @@ using System.ServiceModel.Web;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using Wexflow.Core;
+using Wexflow.Core.Db;
 using Wexflow.Core.ExecutionGraph.Flowchart;
 using Wexflow.Core.Service.Contracts;
+using Entry = Wexflow.Core.Service.Contracts.Entry;
+using HistoryEntry = Wexflow.Core.Service.Contracts.HistoryEntry;
 using LaunchType = Wexflow.Core.Service.Contracts.LaunchType;
+using StatusCount = Wexflow.Core.Service.Contracts.StatusCount;
+using User = Wexflow.Core.Service.Contracts.User;
+using UserProfile = Wexflow.Core.Service.Contracts.UserProfile;
 
 namespace Wexflow.Clients.WindowsService
 {
@@ -664,28 +670,80 @@ namespace Wexflow.Clients.WindowsService
         public User GetUser(string username)
         {
             var user = WexflowWindowsService.WexflowEngine.GetUser(username);
+            DateTime baseDate = new DateTime(1970, 1, 1);
             if (user != null)
             {
                 return new User
                 {
+                    Id = user.Id,
                     Username = user.Username,
                     Password = user.Password,
-                    UserProfile = (UserProfile)((int)user.UserProfile)
+                    UserProfile = (UserProfile)((int)user.UserProfile),
+                    Email = user.Email,
+                    CreatedOn = (user.CreatedOn - baseDate).TotalMilliseconds,
+                    ModifiedOn = (user.ModifiedOn - baseDate).TotalMilliseconds
                 };
             }
 
             return null;
         }
 
+        [WebInvoke(Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "users")]
+        public User[] GetUsers()
+        {
+            var users = WexflowWindowsService.WexflowEngine.GetUsers();
+            DateTime baseDate = new DateTime(1970, 1, 1);
+
+            return users.Select(u => new User
+            {
+                Id = u.Id,
+                Username = u.Username,
+                Password = u.Password,
+                UserProfile = (UserProfile)((int)u.UserProfile),
+                Email = u.Email,
+                CreatedOn = (u.CreatedOn - baseDate).TotalMilliseconds,
+                ModifiedOn = (u.ModifiedOn - baseDate).TotalMilliseconds
+            }).ToArray();
+        }
+
+        [WebInvoke(Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "searchUsers?keyword={keyword}&uo={uo}")]
+        public User[] SearchUsers(string keyword, int uo)
+        {
+            var users = WexflowWindowsService.WexflowEngine.GetUsers(keyword, (UserOrderBy)uo);
+            DateTime baseDate = new DateTime(1970, 1, 1);
+
+            return users.Select(u => new User
+            {
+                Id = u.Id,
+                Username = u.Username,
+                Password = u.Password,
+                UserProfile = (UserProfile)((int)u.UserProfile),
+                Email = u.Email,
+                CreatedOn = (u.CreatedOn - baseDate).TotalMilliseconds,
+                ModifiedOn = (u.ModifiedOn - baseDate).TotalMilliseconds
+            }).ToArray();
+        }
+
+        [WebInvoke(Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "password?u={username}")]
+        public string GetPassword(string username)
+        {
+            return WexflowWindowsService.WexflowEngine.GetPassword(username);
+        }
 
         [WebInvoke(Method = "POST",
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "insertUser?username={username}&password={password}&up={userProfile}")]
-        public bool InsertUser(string username, string password, int userProfile)
+            UriTemplate = "insertUser?username={username}&password={password}&up={userProfile}&email={email}")]
+        public bool InsertUser(string username, string password, int userProfile, string email)
         {
             try
             {
-                WexflowWindowsService.WexflowEngine.InsertUser(username, password, (Core.Db.UserProfile)userProfile);
+                WexflowWindowsService.WexflowEngine.InsertUser(username, password, (Core.Db.UserProfile)userProfile, email);
                 return true;
             }
             catch (Exception e)
@@ -697,12 +755,12 @@ namespace Wexflow.Clients.WindowsService
 
         [WebInvoke(Method = "POST",
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "updateUser?username={username}&password={password}&up={userProfile}")]
-        public bool UpdateUser(string username, string password, int userProfile)
+            UriTemplate = "updateUser?userId={userId}&username={username}&password={password}&up={userProfile}&email={email}")]
+        public bool UpdateUser(int userId, string username, string password, int userProfile, string email)
         {
             try
             {
-                WexflowWindowsService.WexflowEngine.UpdateUser(username, password, (Core.Db.UserProfile)userProfile);
+                WexflowWindowsService.WexflowEngine.UpdateUser(userId, username, password, (Core.Db.UserProfile)userProfile, email);
                 return true;
             }
             catch (Exception e)
@@ -714,12 +772,29 @@ namespace Wexflow.Clients.WindowsService
 
         [WebInvoke(Method = "POST",
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "deleteUser?username={username}")]
-        public bool DeleteUser(string username)
+            UriTemplate = "updateUsernameAndEmailAndUserProfile?userId={userId}&username={username}&email={email}&up={up}")]
+        public bool UpdateUsernameAndEmailAndUserProfile(int userId, string username, string email, int up)
         {
             try
             {
-                WexflowWindowsService.WexflowEngine.DeleteUser(username);
+                WexflowWindowsService.WexflowEngine.UpdateUsernameAndEmailAndUserProfile(userId, username, email, up);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+        }
+
+        [WebInvoke(Method = "POST",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "deleteUser?username={username}&password={password}")]
+        public bool DeleteUser(string username, string password)
+        {
+            try
+            {
+                WexflowWindowsService.WexflowEngine.DeleteUser(username, password);
                 return true;
             }
             catch (Exception e)
@@ -801,7 +876,7 @@ namespace Wexflow.Clients.WindowsService
             DateTime toDate = baseDate.AddMilliseconds(to);
 
             var entries = WexflowWindowsService.WexflowEngine.GetHistoryEntries(keyword, fromDate, toDate, page,
-                entriesCount, (Core.Db.HistoryEntryOrderBy) heo);
+                entriesCount, (Core.Db.EntryOrderBy) heo);
 
             return entries.Select(e =>
                 new HistoryEntry
@@ -828,7 +903,7 @@ namespace Wexflow.Clients.WindowsService
             DateTime toDate = baseDate.AddMilliseconds(to);
 
             var entries = WexflowWindowsService.WexflowEngine.GetEntries(keyword, fromDate, toDate, page, entriesCount,
-                (Core.Db.HistoryEntryOrderBy) heo);
+                (Core.Db.EntryOrderBy) heo);
 
             return entries.Select(e =>
                 new Entry
@@ -914,29 +989,6 @@ namespace Wexflow.Clients.WindowsService
             var date = WexflowWindowsService.WexflowEngine.GetEntryStatusDateMax();
             DateTime baseDate = new DateTime(1970, 1, 1);
             return (date - baseDate).TotalMilliseconds;
-        }
-
-        [WebInvoke(Method = "GET",
-            ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "password?u={username}")]
-        public string GetPassword(string username)
-        {
-            return WexflowWindowsService.WexflowEngine.GetPassword(username);
-        }
-
-        [WebInvoke(Method = "GET",
-            ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "users")]
-        public User[] GetUsers()
-        {
-            var users = WexflowWindowsService.WexflowEngine.GetUsers();
-
-            return users.Select(u => new User
-            {
-                Username = u.Username,
-                Password = u.Password,
-                UserProfile = (UserProfile) ((int) u.UserProfile)
-            }).ToArray();
         }
 
     }

@@ -74,13 +74,25 @@ namespace Wexflow.Clients.WindowsService
         User GetUser(string username);
 
         [OperationContract]
-        bool InsertUser(string username, string password, int userProfile);
+        User[] GetUsers();
 
         [OperationContract]
-        bool UpdateUser(string username, string password, int userProfile);
+        User[] SearchUsers(string keyword, int uo);
 
         [OperationContract]
-        bool DeleteUser(string username);
+        string GetPassword(string username);
+
+        [OperationContract]
+        bool InsertUser(string username, string password, int userProfile, string email);
+
+        [OperationContract]
+        bool UpdateUser(int userId, string username, string password, int userProfile, string email);
+
+        [OperationContract]
+        bool UpdateUsernameAndEmailAndUserProfile(int userId, string username, string email, int up);
+
+        [OperationContract]
+        bool DeleteUser(string username, string password);
 
         [OperationContract]
         HistoryEntry[] GetHistoryEntries();
@@ -117,11 +129,5 @@ namespace Wexflow.Clients.WindowsService
 
         [OperationContract]
         double GetEntryStatusDateMax();
-
-        [OperationContract]
-        string GetPassword(string username);
-
-        [OperationContract]
-        User[] GetUsers();
     }
 }

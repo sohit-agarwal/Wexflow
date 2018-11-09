@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Wexflow.Core.Db
 {
-    public enum HistoryEntryOrderBy
+    public enum EntryOrderBy
     {
         StatusDateAscending,
         StatusDateDescending,
@@ -22,6 +22,12 @@ namespace Wexflow.Core.Db
         DescriptionDescending,
         StatusAscending,
         StatusDescending
+    }
+
+    public enum UserOrderBy
+    {
+        UsernameAscending,
+        UsernameDescending
     }
 
     public class Db
@@ -370,8 +376,9 @@ namespace Wexflow.Core.Db
             using (var db = new LiteDatabase(ConnectionString))
             {
                 var col = db.GetCollection<User>("users");
+                user.CreatedOn = DateTime.Now;
                 col.Insert(user);
-                col.EnsureIndex(u => u.Username);
+                col.EnsureIndex(u => u.Username, "LOWER($.Username)");
                 col.EnsureIndex(u => u.UserProfile);
             }
         }
@@ -381,19 +388,44 @@ namespace Wexflow.Core.Db
             using (var db = new LiteDatabase(ConnectionString))
             {
                 var col = db.GetCollection<User>("users");
-                var dbUser = col.FindOne(u => u.Username == user.Username);
+                var dbUser = col.FindOne(u => u.Id == user.Id);
+                dbUser.ModifiedOn = DateTime.Now;
+                dbUser.Username = user.Username;
                 dbUser.Password = user.Password;
                 dbUser.UserProfile = user.UserProfile;
+                dbUser.Email = user.Email;
                 col.Update(dbUser);
             }
         }
 
-        public void DeleteUser(string username)
+        public void UpdateUsernameAndEmailAndUserProfile(int userId, string username, string email, UserProfile up)
         {
             using (var db = new LiteDatabase(ConnectionString))
             {
                 var col = db.GetCollection<User>("users");
-                col.Delete(u => u.Username == username);
+                var dbUser = col.FindOne(u => u.Id == userId);
+                dbUser.ModifiedOn = DateTime.Now;
+                dbUser.Username = username;
+                dbUser.Email = email;
+                dbUser.UserProfile = up;
+                col.Update(dbUser);
+            }
+        }
+
+        public void DeleteUser(string username, string password)
+        {
+            using (var db = new LiteDatabase(ConnectionString))
+            {
+                var col = db.GetCollection<User>("users");
+                var user = col.FindOne(u => u.Username == username);
+                if (user != null && user.Password == password)
+                {
+                    col.Delete(u => u.Username == username);
+                }
+                else
+                {
+                    throw new Exception("The password is incorrect.");
+                }
             }
         }
 
@@ -448,6 +480,48 @@ namespace Wexflow.Core.Db
             {
                 var col = db.GetCollection<User>("users");
                 return col.FindAll();
+            }
+        }
+
+        public IEnumerable<User> GetUsers(string keyword, UserOrderBy uo)
+        {
+            using (var db = new LiteDatabase(ConnectionString))
+            {
+                var col = db.GetCollection<User>("users");
+                var keywordToLower = keyword.ToLower();
+                Query query = null;
+
+                if (!string.IsNullOrEmpty(keyword))
+                {
+                    query = Query.Contains("Username", keywordToLower);
+                }
+
+                switch (uo)
+                {
+                    case UserOrderBy.UsernameAscending:
+                        if (query != null)
+                        {
+                            return col.Find(Query.And(Query.All("Username"), query));
+                        }
+                        else
+                        {
+                            return col.Find(Query.All("Username"));
+                        }
+
+                    case UserOrderBy.UsernameDescending:
+
+                        if (query != null)
+                        {
+                            return col.Find(Query.And(Query.All("Username", Query.Descending), query));
+                        }
+                        else
+                        {
+                            return col.Find(Query.All("Username", Query.Descending));
+                        }
+                }
+
+                return new User[]{};
+
             }
         }
 
@@ -514,7 +588,7 @@ namespace Wexflow.Core.Db
             }
         }
 
-        public IEnumerable<HistoryEntry> GetHistoryEntries(string keyword, DateTime from, DateTime to, int page, int entriesCount, HistoryEntryOrderBy heo)
+        public IEnumerable<HistoryEntry> GetHistoryEntries(string keyword, DateTime from, DateTime to, int page, int entriesCount, EntryOrderBy heo)
         {
             using (var db = new LiteDatabase(ConnectionString))
             {
@@ -535,7 +609,7 @@ namespace Wexflow.Core.Db
 
                 switch (heo)
                 {
-                    case HistoryEntryOrderBy.StatusDateAscending:
+                    case EntryOrderBy.StatusDateAscending:
 
                         return col.Find(
                             Query.And(
@@ -546,7 +620,7 @@ namespace Wexflow.Core.Db
                             , entriesCount
                         );
 
-                    case HistoryEntryOrderBy.StatusDateDescending:
+                    case EntryOrderBy.StatusDateDescending:
 
                         return col.Find(
                             Query.And(
@@ -557,7 +631,7 @@ namespace Wexflow.Core.Db
                             , entriesCount
                         );
 
-                    case HistoryEntryOrderBy.WorkflowIdAscending:
+                    case EntryOrderBy.WorkflowIdAscending:
 
                         return col.Find(
                             Query.And(
@@ -568,7 +642,7 @@ namespace Wexflow.Core.Db
                             , entriesCount
                         );
 
-                    case HistoryEntryOrderBy.WorkflowIdDescending:
+                    case EntryOrderBy.WorkflowIdDescending:
 
                         return col.Find(
                             Query.And(
@@ -579,7 +653,7 @@ namespace Wexflow.Core.Db
                             , entriesCount
                         );
 
-                    case HistoryEntryOrderBy.NameAscending:
+                    case EntryOrderBy.NameAscending:
 
                         return col.Find(
                             Query.And(
@@ -590,7 +664,7 @@ namespace Wexflow.Core.Db
                             , entriesCount
                         );
 
-                    case HistoryEntryOrderBy.NameDescending:
+                    case EntryOrderBy.NameDescending:
 
                         return col.Find(
                             Query.And(
@@ -601,7 +675,7 @@ namespace Wexflow.Core.Db
                             , entriesCount
                         );
 
-                    case HistoryEntryOrderBy.LaunchTypeAscending:
+                    case EntryOrderBy.LaunchTypeAscending:
 
                         return col.Find(
                             Query.And(
@@ -612,7 +686,7 @@ namespace Wexflow.Core.Db
                             , entriesCount
                         );
 
-                    case HistoryEntryOrderBy.LaunchTypeDescending:
+                    case EntryOrderBy.LaunchTypeDescending:
 
                         return col.Find(
                             Query.And(
@@ -623,7 +697,7 @@ namespace Wexflow.Core.Db
                             , entriesCount
                         );
 
-                    case HistoryEntryOrderBy.DescriptionAscending:
+                    case EntryOrderBy.DescriptionAscending:
 
                         return col.Find(
                             Query.And(
@@ -634,7 +708,7 @@ namespace Wexflow.Core.Db
                             , entriesCount
                         );
 
-                    case HistoryEntryOrderBy.DescriptionDescending:
+                    case EntryOrderBy.DescriptionDescending:
 
                         return col.Find(
                             Query.And(
@@ -645,7 +719,7 @@ namespace Wexflow.Core.Db
                             , entriesCount
                         );
 
-                    case HistoryEntryOrderBy.StatusAscending:
+                    case EntryOrderBy.StatusAscending:
 
                         return col.Find(
                             Query.And(
@@ -656,7 +730,7 @@ namespace Wexflow.Core.Db
                             , entriesCount
                         );
 
-                    case HistoryEntryOrderBy.StatusDescending:
+                    case EntryOrderBy.StatusDescending:
 
                         return col.Find(
                             Query.And(
@@ -672,7 +746,7 @@ namespace Wexflow.Core.Db
             }
         }
 
-        public IEnumerable<Entry> GetEntries(string keyword, DateTime from, DateTime to, int page, int entriesCount, HistoryEntryOrderBy heo)
+        public IEnumerable<Entry> GetEntries(string keyword, DateTime from, DateTime to, int page, int entriesCount, EntryOrderBy heo)
         {
             using (var db = new LiteDatabase(ConnectionString))
             {
@@ -693,7 +767,7 @@ namespace Wexflow.Core.Db
 
                 switch (heo)
                 {
-                    case HistoryEntryOrderBy.StatusDateAscending:
+                    case EntryOrderBy.StatusDateAscending:
 
                         return col.Find(
                             Query.And(
@@ -704,7 +778,7 @@ namespace Wexflow.Core.Db
                             , entriesCount
                         );
 
-                    case HistoryEntryOrderBy.StatusDateDescending:
+                    case EntryOrderBy.StatusDateDescending:
 
                         return col.Find(
                             Query.And(
@@ -715,7 +789,7 @@ namespace Wexflow.Core.Db
                             , entriesCount
                         );
 
-                    case HistoryEntryOrderBy.WorkflowIdAscending:
+                    case EntryOrderBy.WorkflowIdAscending:
 
                         return col.Find(
                             Query.And(
@@ -726,7 +800,7 @@ namespace Wexflow.Core.Db
                             , entriesCount
                         );
 
-                    case HistoryEntryOrderBy.WorkflowIdDescending:
+                    case EntryOrderBy.WorkflowIdDescending:
 
                         return col.Find(
                             Query.And(
@@ -737,7 +811,7 @@ namespace Wexflow.Core.Db
                             , entriesCount
                         );
 
-                    case HistoryEntryOrderBy.NameAscending:
+                    case EntryOrderBy.NameAscending:
 
                         return col.Find(
                             Query.And(
@@ -748,7 +822,7 @@ namespace Wexflow.Core.Db
                             , entriesCount
                         );
 
-                    case HistoryEntryOrderBy.NameDescending:
+                    case EntryOrderBy.NameDescending:
 
                         return col.Find(
                             Query.And(
@@ -759,7 +833,7 @@ namespace Wexflow.Core.Db
                             , entriesCount
                         );
 
-                    case HistoryEntryOrderBy.LaunchTypeAscending:
+                    case EntryOrderBy.LaunchTypeAscending:
 
                         return col.Find(
                             Query.And(
@@ -770,7 +844,7 @@ namespace Wexflow.Core.Db
                             , entriesCount
                         );
 
-                    case HistoryEntryOrderBy.LaunchTypeDescending:
+                    case EntryOrderBy.LaunchTypeDescending:
 
                         return col.Find(
                             Query.And(
@@ -781,7 +855,7 @@ namespace Wexflow.Core.Db
                             , entriesCount
                         );
 
-                    case HistoryEntryOrderBy.DescriptionAscending:
+                    case EntryOrderBy.DescriptionAscending:
 
                         return col.Find(
                             Query.And(
@@ -792,7 +866,7 @@ namespace Wexflow.Core.Db
                             , entriesCount
                         );
 
-                    case HistoryEntryOrderBy.DescriptionDescending:
+                    case EntryOrderBy.DescriptionDescending:
 
                         return col.Find(
                             Query.And(
@@ -803,7 +877,7 @@ namespace Wexflow.Core.Db
                             , entriesCount
                         );
 
-                    case HistoryEntryOrderBy.StatusAscending:
+                    case EntryOrderBy.StatusAscending:
 
                         return col.Find(
                             Query.And(
@@ -814,7 +888,7 @@ namespace Wexflow.Core.Db
                             , entriesCount
                         );
 
-                    case HistoryEntryOrderBy.StatusDescending:
+                    case EntryOrderBy.StatusDescending:
 
                         return col.Find(
                             Query.And(

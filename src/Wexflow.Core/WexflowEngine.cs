@@ -445,29 +445,55 @@ namespace Wexflow.Core
         /// <param name="username">Username.</param>
         /// <param name="password">Password.</param>
         /// <param name="userProfile">User profile.</param>
-        public void InsertUser(string username, string password, UserProfile userProfile)
+        /// <param name="email">Email.</param>
+        public void InsertUser(string username, string password, UserProfile userProfile, string email)
         {
-            Database.InsertUser(new User { Username = username, Password = password, UserProfile = userProfile});
+            Database.InsertUser(new User
+            {
+                Username = username, Password = password, UserProfile = userProfile, Email = email
+            });
         }
 
         /// <summary>
         /// Updates a user.
         /// </summary>
+        /// <param name="userId">User's id.</param>
         /// <param name="username">Username.</param>
         /// <param name="password">Password.</param>
-        /// <param name="userProfile">User profile.</param>
-        public void UpdateUser(string username, string password, UserProfile userProfile)
+        /// <param name="userProfile">User's profile.</param>
+        /// <param name="email">User's email.</param>
+        public void UpdateUser(int userId, string username, string password, UserProfile userProfile, string email)
         {
-            Database.UpdateUser(new User { Username = username, Password = password, UserProfile = userProfile });
+            Database.UpdateUser(new User
+            {
+                Id =  userId,
+                Username = username,
+                Password = password,
+                UserProfile = userProfile,
+                Email = email
+            });
+        }
+
+        /// <summary>
+        /// Updates username and email.
+        /// </summary>
+        /// <param name="userId">User Id.</param>
+        /// <param name="username">New username.</param>
+        /// <param name="email">New email.</param>
+        /// <param name="up">User profile.</param>
+        public void UpdateUsernameAndEmailAndUserProfile(int userId, string username, string email, int up)
+        {
+            Database.UpdateUsernameAndEmailAndUserProfile(userId, username, email,(UserProfile)up);
         }
 
         /// <summary>
         /// Deletes a user.
         /// </summary>
         /// <param name="username">Username.</param>
-        public void DeleteUser(string username)
+        /// <param name="password">Password.</param>
+        public void DeleteUser(string username, string password)
         {
-            Database.DeleteUser(username);
+            Database.DeleteUser(username, password);
         }
 
         /// <summary>
@@ -503,6 +529,21 @@ namespace Wexflow.Core
             }
 
             return new User[]{};
+        }
+
+        /// <summary>
+        /// Search for users.
+        /// </summary>
+        /// <returns>All the users.</returns>
+        public User[] GetUsers(string keyword, UserOrderBy uo)
+        {
+            var q = Database.GetUsers(keyword, uo);
+            if (q.Any())
+            {
+                return q.ToArray();
+            }
+
+            return new User[] { };
         }
 
         /// <summary>
@@ -544,9 +585,9 @@ namespace Wexflow.Core
         /// <param name="to">Date To.</param>
         /// <param name="page">Page number.</param>
         /// <param name="entriesCount">Number of entries.</param>
-        /// <param name="heo">HistoryEntryOrderBy</param>
+        /// <param name="heo">EntryOrderBy</param>
         /// <returns>Returns all the entries</returns>
-        public HistoryEntry[] GetHistoryEntries(string keyword, DateTime from, DateTime to, int page, int entriesCount, HistoryEntryOrderBy heo)
+        public HistoryEntry[] GetHistoryEntries(string keyword, DateTime from, DateTime to, int page, int entriesCount, EntryOrderBy heo)
         {
             var col = Database.GetHistoryEntries(keyword, from, to, page, entriesCount, heo);
 
@@ -568,9 +609,9 @@ namespace Wexflow.Core
         /// <param name="to">Date To.</param>
         /// <param name="page">Page number.</param>
         /// <param name="entriesCount">Number of entries.</param>
-        /// <param name="heo">HistoryEntryOrderBy</param>
+        /// <param name="heo">EntryOrderBy</param>
         /// <returns>Returns all the entries</returns>
-        public Entry[] GetEntries(string keyword, DateTime from, DateTime to, int page, int entriesCount, HistoryEntryOrderBy heo)
+        public Entry[] GetEntries(string keyword, DateTime from, DateTime to, int page, int entriesCount, EntryOrderBy heo)
         {
             var col = Database.GetEntries(keyword, from, to, page, entriesCount, heo);
 

@@ -1,7 +1,4 @@
-﻿body {
-}
-
-#header{
+﻿#header{
     position: absolute;
     top: 0;
     right: 0;
@@ -42,10 +39,12 @@
     #users-search #users-search-action {
         margin-top: -5px;
         margin-left: 5px;
+        width: 75px;
     }
 
     #users-search #users-search-text {
         margin-left: 10px;
+        width: 250px;
     }
 
 #users-container {
@@ -53,7 +52,15 @@
     top: 10px;
     bottom: 0;
     left: 0;
-    width: 250px;
+    width: 360px;
+}
+
+#users-table {
+    position: absolute;
+    top: 38px;
+    left: 10px;
+    bottom: 0;
+    width: 340px;
     overflow: auto;
 }
 
@@ -65,16 +72,25 @@
     background-color: #ffb347;
 }
 
+    #users-table #wf-users-table #th-username {
+        cursor: pointer;
+    }
+
+    #users-table #wf-users-table #th-id, #users-table #wf-users-table .userid {
+        display: none;
+    }
+
+
 #right-panel {
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
-    left: 260px;
+    left: 360px;
 }
 
     #right-panel #new-user-action, #save-action, #delete-action {
-        margin-top: 10px;
+        margin-top: 9px;
         width: 75px;
     }
 
@@ -104,5 +120,13 @@
     position: absolute;
     right: 0;
     top: 0px;
+    display: none;
+}
+
+.username-td {
+    width: 145px;
+}
+
+#old-password-tr, #new-password-tr, #confirm-password-tr {
     display: none;
 }

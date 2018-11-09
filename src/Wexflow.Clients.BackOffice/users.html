@@ -40,8 +40,32 @@
             </div>
             <div id="user-profile">
                 <table>
-                    <tr>
+                    <tr id ="tr-id">
                         <td>
+                            <label>Id</label>
+                        </td>
+                        <td>
+                            <input id="txt-id" type="text" disabled="disabled" />
+                        </td>
+                    </tr>
+                    <tr id="tr-createdOn">
+                        <td>
+                            <label>Created on</label>
+                        </td>
+                        <td>
+                            <input id="txt-createdOn" type="text" disabled="disabled" />
+                        </td>
+                    </tr>
+                    <tr id="tr-modifiedOn">
+                        <td>
+                            <label>Modified on</label>
+                        </td>
+                        <td>
+                            <input id="txt-modifiedOn" type="text" disabled="disabled" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="username-td">
                             <label>Username</label>
                         </td>
                         <td>
@@ -60,6 +84,20 @@
                             </select>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            <label>Email</label>
+                        </td>
+                        <td>
+                            <input id="email-text" type="text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <a id="change-password" href="#">Change password</a>
+                        </td>
+                    </tr>
                     <tr id="old-password-tr">
                         <td>
                             <label>Old password </label>
@@ -68,7 +106,7 @@
                             <input id="old-password-text" type="password">
                         </td>
                     </tr>
-                    <tr>
+                    <tr id="new-password-tr">
                         <td>
                             <label id="lbl-new-password">New password </label>
                         </td>
@@ -76,7 +114,7 @@
                             <input id="new-password-text" type="password">
                         </td>
                     </tr>
-                    <tr>
+                    <tr id="confirm-password-tr">
                         <td>
                             <label>Confirm password </label>
                         </td>
