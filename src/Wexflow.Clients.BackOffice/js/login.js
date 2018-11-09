@@ -28,7 +28,7 @@ function Login(){
         } else {
             Common.get(uri + "/user?username=" + encodeURIComponent(username), function (user) {
                 if (typeof user === "undefined" || user === null) {
-                    alert("The user " + username + " does not exist. Sign up to sign in.");
+                    alert("The user " + username + " does not exist.");
                 } else {
                     if (passwordHash === user.Password) {
                         authorize(username, passwordHash, user.UserProfile);
