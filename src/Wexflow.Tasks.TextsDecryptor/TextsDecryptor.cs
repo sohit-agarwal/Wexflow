@@ -29,7 +29,7 @@ namespace Wexflow.Tasks.TextsDecryptor
                 foreach (var file in files)
                 {
                     string destPath = Path.Combine(Workflow.WorkflowTempFolder, file.FileName);
-                    succeeded &= Decrypt(file.Path, destPath, Workflow.Passphrase);
+                    succeeded &= Decrypt(file.Path, destPath, Workflow.PassPhrase);
                     if (!atLeastOneSuccess && succeeded) atLeastOneSuccess = true;
                 }
 
@@ -61,7 +61,7 @@ namespace Wexflow.Tasks.TextsDecryptor
             try
             {
                 string srcStr = File.ReadAllText(inputFile);
-                string destStr = Decrypt(srcStr, Workflow.Passphrase, Workflow.KeySize, Workflow.DerivationIterations);
+                string destStr = Decrypt(srcStr, Workflow.PassPhrase, Workflow.KeySize, Workflow.DerivationIterations);
                 File.WriteAllText(outputFile, destStr);
                 InfoFormat("The file {0} has been decrypted -> {1}", inputFile, outputFile);
                 Files.Add(new FileInf(outputFile, Id));

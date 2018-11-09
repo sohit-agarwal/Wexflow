@@ -33,6 +33,10 @@ namespace Wexflow.Core
         /// </summary>
         public string TempFolder { get; private set; }
         /// <summary>
+        /// Workflows temp folder used for global variables parsing.
+        /// </summary>
+        public string WorkflowsTempFolder { get; private set; }
+        /// <summary>
         /// XSD path.
         /// </summary>
         public string XsdPath { get; private set; }
@@ -53,6 +57,15 @@ namespace Wexflow.Core
         /// </summary>
         public string ConnectionString { get; private set; }
         /// <summary>
+        /// Global variables file.
+        /// </summary>
+        public string GlobalVariablesFile { get; private set; }
+        /// <summary>
+        /// Global variables.
+        /// </summary>
+        public Variable[] GlobalVariables { get; private set; }
+
+        /// <summary>
         /// Database
         /// </summary>
         public Db.Db Database { get; private set; }
@@ -61,7 +74,7 @@ namespace Wexflow.Core
         // Quartz scheduler
         //
         private static readonly ISchedulerFactory SchedulerFactory = new StdSchedulerFactory();
-        private static readonly IScheduler Quartzcheduler = SchedulerFactory.GetScheduler();
+        private static readonly IScheduler QuartzScheduler = SchedulerFactory.GetScheduler();
 
         /// <summary>
         /// Creates a new instance of Wexflow engine.
@@ -79,6 +92,8 @@ namespace Wexflow.Core
 
             Database = new Db.Db(ConnectionString);
             Database.Init();
+
+            LoadGlobalVariables();
 
             LoadWorkflows(); 
         }
@@ -101,10 +116,31 @@ namespace Wexflow.Core
             TrashFolder = GetWexflowSetting(xdoc, "trashFolder");
             TempFolder = GetWexflowSetting(xdoc, "tempFolder");
             if (!Directory.Exists(TempFolder)) Directory.CreateDirectory(TempFolder);
+            WorkflowsTempFolder = Path.Combine(TempFolder, "Workflows");
+            if (!Directory.Exists(WorkflowsTempFolder)) Directory.CreateDirectory(WorkflowsTempFolder);
             XsdPath = GetWexflowSetting(xdoc, "xsd");
             TasksNamesFile = GetWexflowSetting(xdoc, "tasksNamesFile");
             TasksSettingsFile = GetWexflowSetting(xdoc, "tasksSettingsFile");
             ConnectionString = GetWexflowSetting(xdoc, "connectionString");
+            GlobalVariablesFile = GetWexflowSetting(xdoc, "globalVariablesFile");
+        }
+
+        void LoadGlobalVariables()
+        {
+            List<Variable> variables = new List<Variable>();
+            XDocument xdoc = XDocument.Load(GlobalVariablesFile);
+
+            foreach (var xvariable in xdoc.Descendants("Variable"))
+            {
+                Variable variable = new Variable
+                {
+                    Key = xvariable.Attribute("name").Value,
+                    Value = xvariable.Attribute("value").Value
+                };
+                variables.Add(variable);
+            }
+
+            GlobalVariables = variables.ToArray();
         }
 
         string GetWexflowSetting(XDocument xdoc, string name)
@@ -211,9 +247,9 @@ namespace Wexflow.Core
         {
             string jobIdentity = "Workflow Job " + workflowId;
             var jobKey = new JobKey(jobIdentity);
-            if (Quartzcheduler.CheckExists(jobKey))
+            if (QuartzScheduler.CheckExists(jobKey))
             {
-                Quartzcheduler.DeleteJob(jobKey);
+                QuartzScheduler.DeleteJob(jobKey);
             }
         }
 
@@ -221,7 +257,7 @@ namespace Wexflow.Core
         {
             try
             {
-                var wf = new Workflow(file, TempFolder, XsdPath, Database);
+                var wf = new Workflow(file, TempFolder, WorkflowsTempFolder, XsdPath, Database, GlobalVariables);
                 Logger.InfoFormat("Workflow loaded: {0} ({1})", wf, file);
                 return wf;
             }
@@ -242,9 +278,9 @@ namespace Wexflow.Core
                 ScheduleWorkflow(workflow);
             }
 
-            if (!Quartzcheduler.IsStarted)
+            if (!QuartzScheduler.IsStarted)
             {
-                Quartzcheduler.Start();
+                QuartzScheduler.Start();
             }
         }
 
@@ -275,12 +311,12 @@ namespace Wexflow.Core
                         .Build();
 
                     var jobKey = new JobKey(jobIdentity);
-                    if (Quartzcheduler.CheckExists(jobKey))
+                    if (QuartzScheduler.CheckExists(jobKey))
                     {
-                        Quartzcheduler.DeleteJob(jobKey);
+                        QuartzScheduler.DeleteJob(jobKey);
                     }
 
-                    Quartzcheduler.ScheduleJob(jobDetail, trigger);
+                    QuartzScheduler.ScheduleJob(jobDetail, trigger);
 
                 }
                 else if (wf.LaunchType == LaunchType.Cron)
@@ -302,12 +338,12 @@ namespace Wexflow.Core
                         .Build();
 
                     var jobKey = new JobKey(jobIdentity);
-                    if (Quartzcheduler.CheckExists(jobKey))
+                    if (QuartzScheduler.CheckExists(jobKey))
                     {
-                        Quartzcheduler.DeleteJob(jobKey);
+                        QuartzScheduler.DeleteJob(jobKey);
                     }
 
-                    Quartzcheduler.ScheduleJob(jobDetail, trigger);
+                    QuartzScheduler.ScheduleJob(jobDetail, trigger);
                 }
             }
         }
@@ -321,7 +357,7 @@ namespace Wexflow.Core
         {
             if (stopQuartzScheduler)
             {
-                Quartzcheduler.Shutdown();
+                QuartzScheduler.Shutdown();
             }
 
             foreach (var wf in Workflows)

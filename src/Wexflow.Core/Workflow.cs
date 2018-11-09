@@ -34,7 +34,7 @@ namespace Wexflow.Core
         /// <summary>
         /// Passphrase.
         /// </summary>
-        public static readonly string Passphrase = "FHMWW-EORNR-XXF0Q-E8Q#G-YC!RG-KV=TN-M9MQJ-AySDI-LAC5Q-UV==QE-VSVNL-OV1IZ";
+        public static readonly string PassPhrase = "FHMWW-EORNR-XXF0Q-E8Q#G-YC!RG-KV=TN-M9MQJ-AySDI-LAC5Q-UV==QE-VSVNL-OV1IZ";
 
         /// <summary>
         /// Default parent node id to start with in the execution graph.
@@ -49,6 +49,10 @@ namespace Wexflow.Core
         /// Wexflow temp folder.
         /// </summary>
         public string WexflowTempFolder { get; private set; }
+        /// <summary>
+        /// Workflows temp folder used for global variables parsing.
+        /// </summary>
+        public string WorkflowsTempFolder { get; private set; }
         /// <summary>
         /// Workflow temp folder.
         /// </summary>
@@ -141,6 +145,10 @@ namespace Wexflow.Core
         /// Database.
         /// </summary>
         public Db.Db Database { get; private set; }
+        /// <summary>
+        /// Global variables.
+        /// </summary>
+        public Variable[] GlobalVariables { get; private set; }
 
         private Thread _thread;
         private HistoryEntry _historyEntry;
@@ -152,17 +160,19 @@ namespace Wexflow.Core
         /// <param name="wexflowTempFolder">Wexflow temp folder.</param>
         /// <param name="xsdPath">XSD path.</param>
         /// <param name="database">Database.</param>
-        public Workflow(string path, string wexflowTempFolder, string xsdPath, Db.Db database)
+        public Workflow(string path, string wexflowTempFolder, string workflowsTempFolder, string xsdPath, Db.Db database, Variable[] globalVariables)
         {
             JobId = 1;
             _thread = null;
             WorkflowFilePath = path;
             WexflowTempFolder = wexflowTempFolder;
+            WorkflowsTempFolder = workflowsTempFolder;
             XsdPath = xsdPath;
             Database = database;
             FilesPerTask = new Dictionary<int, List<FileInf>>();
             EntitiesPerTask = new Dictionary<int, List<Entity>>();
             Hashtable = new Hashtable();
+            GlobalVariables = globalVariables;
             Check();
             Load();
 
@@ -199,9 +209,31 @@ namespace Wexflow.Core
             }
         }
 
+        void Parse(string src, string dest)
+        {
+            using (StreamReader sr = new StreamReader(src))
+            using (StreamWriter sw = new StreamWriter(dest, false))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    foreach (var variable in GlobalVariables)
+                    {
+                        line = line.Replace("$" + variable.Key, variable.Value);
+                    }
+                    sw.WriteLine(line);
+                }
+            }
+        }
+
         void Load()
         {
-            using (var xmlReader = XmlReader.Create(WorkflowFilePath))
+            string src = WorkflowFilePath;
+            string dest = Path.Combine(WorkflowsTempFolder, Path.GetFileName(WorkflowFilePath));
+
+            Parse(src, dest);
+
+            using (var xmlReader = XmlReader.Create(dest))
             {
                 var xmlNameTable = xmlReader.NameTable;
                 if (xmlNameTable != null)
@@ -215,7 +247,7 @@ namespace Wexflow.Core
                 }
 
                 // Loading settings
-                var xdoc = XDocument.Load(WorkflowFilePath);
+                var xdoc = XDocument.Load(dest);
                 XDoc = xdoc;
                 XNamespaceWf = "urn:wexflow-schema";
 

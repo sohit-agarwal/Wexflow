@@ -29,7 +29,7 @@ namespace Wexflow.Tasks.TextsEncryptor
                 foreach (var file in files)
                 {
                     string destPath = Path.Combine(Workflow.WorkflowTempFolder, file.FileName);
-                    succeeded &= Encrypt(file.Path, destPath, Workflow.Passphrase);
+                    succeeded &= Encrypt(file.Path, destPath, Workflow.PassPhrase);
                     if (!atLeastOneSuccess && succeeded) atLeastOneSuccess = true;
                 }
 
@@ -61,7 +61,7 @@ namespace Wexflow.Tasks.TextsEncryptor
             try
             {
                 string srcStr = File.ReadAllText(inputFile);
-                string destStr = EncryptString(srcStr, Workflow.Passphrase, Workflow.KeySize, Workflow.DerivationIterations);
+                string destStr = EncryptString(srcStr, Workflow.PassPhrase, Workflow.KeySize, Workflow.DerivationIterations);
                 File.WriteAllText(outputFile, destStr);
                 InfoFormat("The file {0} has been encrypted -> {1}", inputFile, outputFile);
                 Files.Add(new FileInf(outputFile, Id));

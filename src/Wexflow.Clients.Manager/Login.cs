@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
@@ -17,7 +12,7 @@ namespace Wexflow.Clients.Manager
     {
         private static readonly string WexflowWebServiceUri = ConfigurationManager.AppSettings["WexflowWebServiceUri"];
 
-        private WexflowServiceClient _wexflowServiceClient;
+        private readonly WexflowServiceClient _wexflowServiceClient;
 
         public Login()
         {

@@ -7,4 +7,5 @@
   <Setting name="tasksNamesFile" value="C:\Wexflow\TasksNames.json" />
   <Setting name="tasksSettingsFile" value="C:\Wexflow\TasksSettings.json" />
   <Setting name="connectionString" value="C:\Wexflow\Database\Wexflow.db" />
+  <Setting name="globalVariablesFile" value="C:\Wexflow\GlobalVariables.xml" />
 </Wexflow>
