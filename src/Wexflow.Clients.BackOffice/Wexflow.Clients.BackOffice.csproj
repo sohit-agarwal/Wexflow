@@ -67,7 +67,6 @@
     <Content Include="css\history.min.css" />
     <Content Include="css\login.min.css" />
     <Content Include="css\manager.min.css" />
-    <Content Include="css\subscribe.min.css" />
     <Content Include="css\users.css" />
     <Content Include="forgot-password.html" />
     <Content Include="js\dashboard.min.js" />
@@ -75,16 +74,13 @@
     <Content Include="js\forgot-password.js" />
     <Content Include="js\history.min.js" />
     <Content Include="js\manager.min.js" />
-    <Content Include="js\subscribe.min.js" />
     <Content Include="js\uglify-login.bat" />
-    <Content Include="js\uglify-subscribe.bat" />
     <Content Include="js\uglify-dashboard.bat" />
     <Content Include="js\uglify-manager.bat" />
     <Content Include="js\uglify-designer.bat" />
     <Content Include="js\uglify-history.bat" />
     <Content Include="js\uglify-all.bat" />
     <Content Include="css\uglify-login.bat" />
-    <Content Include="css\uglify-subscribe.bat" />
     <Content Include="css\uglify-dashboard.bat" />
     <Content Include="css\uglify-manager.bat" />
     <Content Include="css\uglify-designer.bat" />
@@ -109,7 +105,6 @@
     <Content Include="css\jquery-ui.min.css" />
     <Content Include="css\login.css" />
     <Content Include="css\manager.css" />
-    <Content Include="css\subscribe.css" />
     <Content Include="css\vs2015.css" />
     <Content Include="dashboard.html" />
     <Content Include="designer.html" />
@@ -143,10 +138,8 @@
     <Content Include="js\manager.js" />
     <Content Include="js\md5.js" />
     <Content Include="js\settings.js" />
-    <Content Include="js\subscribe.js" />
     <Content Include="js\users.js" />
     <Content Include="manager.html" />
-    <Content Include="subscribe.html" />
     <Content Include="users.html" />
     <Content Include="Web.config" />
   </ItemGroup>

@@ -1,1 +1,0 @@
-uglifyjs common.js md5.js authenticate.js subscribe.js -o subscribe.min.js -c -m
