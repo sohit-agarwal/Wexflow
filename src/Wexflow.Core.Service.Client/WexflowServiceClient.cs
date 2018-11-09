@@ -88,7 +88,7 @@ namespace Wexflow.Core.Service.Client
 
         public User GetUser(string username)
         {
-            string uri = Uri + "/user/" + username;
+            string uri = Uri + "/user?username=" + username;
             var webClient = new WebClient();
             var response = webClient.DownloadString(uri);
             var user = JsonConvert.DeserializeObject<User>(response);
