@@ -1,0 +1,1 @@
+uglifyjs common.js md5.js authenticate.js users.js -o users.min.js -c -m

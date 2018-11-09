@@ -1,5 +1,5 @@
 #define MyAppName "Wexflow"
-#define MyAppVersion "3.0"
+#define MyAppVersion "3.1"
 #define MyAppPublisher "Akram El Assas"
 #define MyAppPublisherURL "https://wexflow.github.io/"
 #define MyAppExeName "Wexflow.Clients.Manager.exe"
@@ -213,29 +213,32 @@ Source: "..\src\Wexflow.Clients.Manager\bin\Release\Wexflow.Core.Service.Contrac
 
 ; Wexflow Back office
 Source: "..\src\Wexflow.Clients.BackOffice\index.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.BackOffice\subscribe.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.BackOffice\forgot-password.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.BackOffice\dashboard.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.BackOffice\manager.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.BackOffice\designer.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.BackOffice\history.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.BackOffice\users.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
 
 Source: "..\src\Wexflow.Clients.BackOffice\images\*"; DestDir: "{app}\Back office\images"; Flags: ignoreversion
 
 Source: "..\src\Wexflow.Clients.BackOffice\css\images\*"; DestDir: "{app}\Back office\css\images"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.BackOffice\css\login.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.BackOffice\css\subscribe.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.BackOffice\css\forgot-password.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.BackOffice\css\dashboard.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.BackOffice\css\manager.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.BackOffice\css\designer.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.BackOffice\css\history.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.BackOffice\css\users.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
 
 Source: "..\src\Wexflow.Clients.BackOffice\js\settings.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.BackOffice\js\login.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.BackOffice\js\subscribe.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.BackOffice\js\forgot-password.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.BackOffice\js\dashboard.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.BackOffice\js\manager.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.BackOffice\js\designer.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
 Source: "..\src\Wexflow.Clients.BackOffice\js\history.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
+Source: "..\src\Wexflow.Clients.BackOffice\js\users.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
 
 ; Wexflow's Documentation
 Source: "..\src\Wexflow.Core\Workflow.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
@@ -339,6 +342,7 @@ Source: "..\LICENSE.txt"; DestDir: "{app}\"; Flags: ignoreversion recursesubdirs
 Source: "..\samples\Wexflow\*"; DestDir: "C:\Wexflow\"; Flags: ignoreversion recursesubdirs uninsneveruninstall
 Source: "..\src\Wexflow.Core\Wexflow.xml"; DestDir: "C:\Wexflow\"; Flags: ignoreversion recursesubdirs uninsneveruninstall
 Source: "..\src\Wexflow.Core\Workflow.xsd"; DestDir: "C:\Wexflow\"; Flags: ignoreversion recursesubdirs uninsneveruninstall
+Source: "..\src\Wexflow.Core\GlobalVariables.xml"; DestDir: "C:\Wexflow\"; Flags: ignoreversion recursesubdirs uninsneveruninstall
 Source: "..\samples\WexflowTesting\*"; DestDir: "C:\WexflowTesting\"; Flags: ignoreversion recursesubdirs uninsneveruninstall
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
@@ -373,6 +377,9 @@ Filename: "{sys}\sc.exe"; Parameters: "delete Wexflow"; Flags: runhidden waitunt
 
 [UninstallDelete]
 Type: files; Name: "{app}\chromedriver.exe"
+
+[InstallDelete]
+Type: files; Name: "C:\Wexflow\Database\Wexflow.db"
 
 [Code]
 procedure InitializeWizard();

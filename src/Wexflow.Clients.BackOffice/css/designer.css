@@ -59,7 +59,7 @@ body{
     }
 
         #wf-search #wf-search-text-container #wf-search-text {
-            width: 197px;
+            width: 230px;
         }
 
     #wf-search #wf-search-action {
@@ -106,7 +106,7 @@ body{
     top: 63px;
     right: 0;
     bottom: 0;
-    left: 320px;
+    left: 347px;
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -206,7 +206,7 @@ body{
     position: absolute;
     top: 10px;
     right: 0;
-    left: 313px;
+    left: 343px;
     padding: 7px;
     display: none;
 }

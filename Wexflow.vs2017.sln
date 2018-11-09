@@ -176,6 +176,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{
 		samples\Wexflow\Workflows\Workflow_FilesExist.xml = samples\Wexflow\Workflows\Workflow_FilesExist.xml
 		samples\Wexflow\Workflows\Workflow_FilesInfo.xml = samples\Wexflow\Workflows\Workflow_FilesInfo.xml
 		samples\Wexflow\Workflows\Workflow_FilesLoader.xml = samples\Wexflow\Workflows\Workflow_FilesLoader.xml
+		samples\Wexflow\Workflows\Workflow_FilesLoaderGlobalVariables.xml = samples\Wexflow\Workflows\Workflow_FilesLoaderGlobalVariables.xml
 		samples\Wexflow\Workflows\Workflow_FilesMover.xml = samples\Wexflow\Workflows\Workflow_FilesMover.xml
 		samples\Wexflow\Workflows\Workflow_FilesRemover.xml = samples\Wexflow\Workflows\Workflow_FilesRemover.xml
 		samples\Wexflow\Workflows\Workflow_FilesRenamer.xml = samples\Wexflow\Workflows\Workflow_FilesRenamer.xml

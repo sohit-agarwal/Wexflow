@@ -62,17 +62,21 @@
     <Content Include="css\dashboard.min.css" />
     <Content Include="css\designer.min.css" />
     <Content Include="css\forgot-password.css" />
+    <Content Include="css\forgot-password.min.css" />
     <Content Include="css\history.css" />
     <Content Include="css\bootstrap.min.css.map" />
     <Content Include="css\history.min.css" />
     <Content Include="css\login.min.css" />
     <Content Include="css\manager.min.css" />
     <Content Include="css\users.css" />
+    <Content Include="css\users.min.css" />
     <Content Include="forgot-password.html" />
     <Content Include="js\dashboard.min.js" />
     <Content Include="js\designer.min.js" />
     <Content Include="js\forgot-password.js" />
+    <Content Include="js\forgot-password.min.js" />
     <Content Include="js\history.min.js" />
+    <Content Include="js\login.min.css" />
     <Content Include="js\manager.min.js" />
     <Content Include="js\uglify-login.bat" />
     <Content Include="js\uglify-dashboard.bat" />
@@ -86,6 +90,10 @@
     <Content Include="css\uglify-designer.bat" />
     <Content Include="css\uglify-history.bat" />
     <Content Include="css\uglify-all.bat" />
+    <Content Include="js\uglify-forgot-password.bat" />
+    <Content Include="js\uglify-users.bat" />
+    <Content Include="css\uglify-forgot-password.bat" />
+    <Content Include="css\uglify-users.bat" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -139,6 +147,7 @@
     <Content Include="js\md5.js" />
     <Content Include="js\settings.js" />
     <Content Include="js\users.js" />
+    <Content Include="js\users.min.js" />
     <Content Include="manager.html" />
     <Content Include="users.html" />
     <Content Include="Web.config" />
