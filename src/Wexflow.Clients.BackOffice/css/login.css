@@ -40,8 +40,11 @@
 	width: 170px;
 }
 
-#login-action{
-	
+#login-action {
+    position: absolute;
+    right: 21px;
+    top: 73px;
+    left: 0;
 }
 
 #login-action input{
@@ -52,3 +55,9 @@
 #login-action #btn-login{
 	margin-left: 11px;
 }
+
+    #login-action #forgot-password {
+        font-weight: bold;
+        position: absolute;
+        top: 7px;
+    }

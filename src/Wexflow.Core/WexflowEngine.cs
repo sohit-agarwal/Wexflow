@@ -547,6 +547,16 @@ namespace Wexflow.Core
         }
 
         /// <summary>
+        /// Updates user password.
+        /// </summary>
+        /// <param name="username">Username.</param>
+        /// <param name="password">Password.</param>
+        public void UpdatePassword(string username, string password)
+        {
+            Database.UpdatePassword(username, password);
+        }
+
+        /// <summary>
         /// Returns all the entries.
         /// </summary>
         /// <returns>Returns all the entries</returns>

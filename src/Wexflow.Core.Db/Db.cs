@@ -383,6 +383,17 @@ namespace Wexflow.Core.Db
             }
         }
 
+        public void UpdatePassword(string username, string password)
+        {
+            using (var db = new LiteDatabase(ConnectionString))
+            {
+                var col = db.GetCollection<User>("users");
+                var dbUser = col.FindOne(u => u.Username == username);
+                dbUser.Password = password;
+                col.Update(dbUser);
+            }
+        }
+
         public void UpdateUser(User user)
         {
             using (var db = new LiteDatabase(ConnectionString))
@@ -436,7 +447,7 @@ namespace Wexflow.Core.Db
             InsertUser(user);
         }
 
-        private string GetMd5(string input)
+        public static string GetMd5(string input)
         {
             // Use input string to calculate MD5 hash
             using (MD5 md5 = MD5.Create())

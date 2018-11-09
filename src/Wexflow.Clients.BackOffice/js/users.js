@@ -135,7 +135,7 @@
                     } else {
                         uo = 0;
                     }
-                    loadUsers();
+                    loadUsers(selectedUsername, true);
                 };
 
                 if (uo === 0) {
@@ -426,6 +426,8 @@
                                                                 txtUsername.disabled = true;
                                                                 emailText.disabled = true;
                                                                 changePass.style.display = "none";
+                                                                newPasswordTr.style.display = "none";
+                                                                confirmPasswordTr.style.display = "none";
 
                                                             }
 

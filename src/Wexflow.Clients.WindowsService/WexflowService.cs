@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Xml.Linq;
@@ -801,6 +803,65 @@ namespace Wexflow.Clients.WindowsService
             {
                 Console.WriteLine(e);
                 return false;
+            }
+        }
+
+        [WebInvoke(Method = "POST",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "resetPassword?username={username}&email={email}&host={host}&port={port}&enableSsl={enableSsl}&smtpUser={smtpUser}&smtpPassword={smtpPassword}&from={from}")]
+        public bool ResetPassword(string username, string email, string host, int port, bool enableSsl, string smtpUser, string smtpPassword, string from)
+        {
+            try
+            {
+                string newPassword = "wexflow" + GenerateRandomNumber();
+                string newPasswordHash = Db.GetMd5(newPassword);
+
+                // Send email
+                string subject = "Wexflow - Password reset of user " + username;
+                string body = "Your new password is: " + newPassword;
+
+                Send(host, port, enableSsl, smtpUser, smtpPassword, email, from, subject, body);
+
+                // Update password
+                WexflowWindowsService.WexflowEngine.UpdatePassword(username, newPasswordHash);
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+        }
+
+        private int GenerateRandomNumber()
+        {
+            int _min = 1000;
+            int _max = 9999;
+            Random _rdm = new Random();
+            return _rdm.Next(_min, _max);
+        }
+
+        private void Send(string host, int port, bool enableSsl, string user, string password, string to, string from, string subject, string body)
+        {
+            var smtp = new SmtpClient
+            {
+                Host = host,
+                Port = port,
+                EnableSsl = enableSsl,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(user, password)
+            };
+
+            using (var msg = new MailMessage())
+            {
+                msg.From = new MailAddress(from);
+                msg.To.Add(new MailAddress(to));
+                msg.Subject = subject;
+                msg.Body = body;
+
+                smtp.Send(msg);
             }
         }
 

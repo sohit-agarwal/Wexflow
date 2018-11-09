@@ -116,6 +116,10 @@
     font-weight: bold;
 }
 
+    #user-profile input[type=text], #user-profile input[type=password] {
+        width: 250px;
+    }
+
 #user-actions {
     position: absolute;
     right: 0;
