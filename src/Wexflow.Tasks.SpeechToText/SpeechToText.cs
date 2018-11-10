@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
-using System.Speech.AudioFormat;
 using System.Speech.Recognition;
 using System.Threading;
 using System.Xml.Linq;
@@ -45,6 +44,7 @@ namespace Wexflow.Tasks.SpeechToText
                         File.WriteAllText(destFile, text);
                         Files.Add(new FileInf(destFile, Id));
                         InfoFormat("The file {0} was converted to a text file with success -> {1}", file.Path, destFile);
+                        if (!atLeastOneSucceed) atLeastOneSucceed = true;
                     }   
                 }
                 catch (ThreadAbortException)

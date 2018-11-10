@@ -37,6 +37,7 @@ namespace Wexflow.Tasks.TextToSpeech
                         File.WriteAllBytes(destFile, bytes);
                         Files.Add(new FileInf(destFile, Id));
                         InfoFormat("The file {0} was converted to speech with success -> {1}", file.Path, destFile);
+                        if (!atLeastOneSucceed) atLeastOneSucceed = true;
                     }
                 }
                 catch (ThreadAbortException)
