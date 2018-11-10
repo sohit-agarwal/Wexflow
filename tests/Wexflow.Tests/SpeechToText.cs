@@ -7,7 +7,7 @@ namespace Wexflow.Tests
     public class SpeechToText
     {
         private static readonly string DestDir = @"C:\WexflowTesting\SpeechToText_dest";
-        private static readonly string WavFile = @"C:\WexflowTesting\SpeechToText_dest\file.txt";
+        private static readonly string TextFile = @"C:\WexflowTesting\SpeechToText_dest\file.txt";
 
         [TestInitialize]
         public void TestInitialize()
@@ -24,9 +24,9 @@ namespace Wexflow.Tests
         [TestMethod]
         public void SpeechToTextTest()
         {
-            Assert.AreEqual(false, File.Exists(WavFile));
+            Assert.AreEqual(false, File.Exists(TextFile));
             Helper.StartWorkflow(91);
-            Assert.AreEqual(true, File.Exists(WavFile));
+            Assert.AreEqual(true, File.Exists(TextFile));
         }
     }
 }
