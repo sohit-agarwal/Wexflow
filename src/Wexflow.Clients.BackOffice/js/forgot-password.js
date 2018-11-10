@@ -26,15 +26,15 @@
                 if (email === "" || email === null || typeof email === "undefined") {
                     alert("The user " + txtUsername.value + " does not have an email.");
                 } else {
-                    Common.post(uri + "/resetPassword?username=" + encodeURIComponent(u.Username) + "&email=" + encodeURIComponent(email) + "&host=" + encodeURIComponent(Settings.Smtp.Host) + "&port=" + Settings.Smtp.Port + "&enableSsl=" + Settings.Smtp.EnableSsl + "&smtpUser=" + Settings.Smtp.User + "&smtpPassword=" + encodeURIComponent(Settings.Smtp.Password) + "&from=" + encodeURIComponent(Settings.Smtp.From), function(val) {
+                    Common.post(uri + "/resetPassword?username=" + encodeURIComponent(u.Username) + "&email=" + encodeURIComponent(email), function (val) {
                         if (val === true) {
                             alert("An email with a new password was sent to: " + u.Email);
+                            Common.redirectToLoginPage();
                         } else {
                             alert("An error occured while sending the email.");
                         }
                     });
                 }
-                
             }
 
         });

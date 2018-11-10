@@ -19,6 +19,7 @@ using LaunchType = Wexflow.Core.Service.Contracts.LaunchType;
 using StatusCount = Wexflow.Core.Service.Contracts.StatusCount;
 using User = Wexflow.Core.Service.Contracts.User;
 using UserProfile = Wexflow.Core.Service.Contracts.UserProfile;
+using System.Configuration;
 
 namespace Wexflow.Clients.WindowsService
 {
@@ -808,8 +809,8 @@ namespace Wexflow.Clients.WindowsService
 
         [WebInvoke(Method = "POST",
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "resetPassword?username={username}&email={email}&host={host}&port={port}&enableSsl={enableSsl}&smtpUser={smtpUser}&smtpPassword={smtpPassword}&from={from}")]
-        public bool ResetPassword(string username, string email, string host, int port, bool enableSsl, string smtpUser, string smtpPassword, string from)
+            UriTemplate = "resetPassword?username={username}&email={email}")]
+        public bool ResetPassword(string username, string email)
         {
             try
             {
@@ -819,6 +820,13 @@ namespace Wexflow.Clients.WindowsService
                 // Send email
                 string subject = "Wexflow - Password reset of user " + username;
                 string body = "Your new password is: " + newPassword;
+
+                string host = ConfigurationManager.AppSettings["Smtp.Host"];
+                int port = int.Parse(ConfigurationManager.AppSettings["Smtp.Port"]);
+                bool enableSsl = bool.Parse(ConfigurationManager.AppSettings["Smtp.EnableSsl"]);
+                string smtpUser = ConfigurationManager.AppSettings["Smtp.User"];
+                string smtpPassword = ConfigurationManager.AppSettings["Smtp.Password"];
+                string from = ConfigurationManager.AppSettings["Smtp.From"];
 
                 Send(host, port, enableSsl, smtpUser, smtpPassword, email, from, subject, body);
 

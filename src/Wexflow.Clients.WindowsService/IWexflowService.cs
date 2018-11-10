@@ -95,7 +95,7 @@ namespace Wexflow.Clients.WindowsService
         bool DeleteUser(string username, string password);
 
         [OperationContract]
-        bool ResetPassword(string username, string email, string host, int port, bool enableSsl, string smtpUser, string smtpPassword, string from);
+        bool ResetPassword(string username, string email);
 
         [OperationContract]
         HistoryEntry[] GetHistoryEntries();
