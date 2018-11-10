@@ -12,7 +12,7 @@
     <!--<iconUrl></iconUrl>-->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Core assembly of Wexflow workflow engine.</description>
-    <releaseNotes>Created Wexflow.Core.Db.</releaseNotes>
+    <releaseNotes>Added global variables and updated Wexflow.Core.Db.</releaseNotes>
     <copyright>Copyright 2018 Akram El Assas.</copyright>
     <tags>Wexflow Workflow</tags>
   </metadata>
