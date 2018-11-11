@@ -41,42 +41,50 @@ namespace Wexflow.Clients.Manager
 
         private void Authenticate()
         {
-            string username = txtUserName.Text;
-            if (string.IsNullOrEmpty(username))
+            try
             {
-                MessageBox.Show("Type a username.");
-            }
-            else
-            {
-                User user = _wexflowServiceClient.GetUser(username);
-                string password = GetMd5(txtPassword.Text);
-
-                if (user == null)
+                string username = txtUserName.Text;
+                if (string.IsNullOrEmpty(username))
                 {
-                    MessageBox.Show("The user " + txtUserName.Text + " does not exist.");
+                    MessageBox.Show("Type a username.");
                 }
                 else
                 {
-                    if (user.UserProfile == UserProfile.Restricted)
+                    User user = _wexflowServiceClient.GetUser(username);
+                    string password = GetMd5(txtPassword.Text);
+
+                    if (user == null)
                     {
-                        MessageBox.Show("You do not have enough rights to access Wexflow Manager.");
+                        MessageBox.Show("The user " + txtUserName.Text + " does not exist.");
                     }
                     else
                     {
-                        if (user.Password == password)
+                        if (user.UserProfile == UserProfile.Restricted)
                         {
-                            Form1 form1 = new Form1();
-                            form1.Show();
-                            Hide();
+                            MessageBox.Show("You do not have enough rights to access Wexflow Manager.");
                         }
                         else
                         {
-                            MessageBox.Show("The password is incorrect.");
+                            if (user.Password == password)
+                            {
+                                Form1 form1 = new Form1();
+                                form1.Show();
+                                Hide();
+                            }
+                            else
+                            {
+                                MessageBox.Show("The password is incorrect.");
+                            }
                         }
+
                     }
-                    
                 }
             }
+            catch (Exception)
+            {
+                MessageBox.Show(@"An error occured during the authentication.", "Wexflow", MessageBoxButtons.OK);
+            }
+            
         }
 
         public static string GetMd5(string input)

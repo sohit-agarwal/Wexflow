@@ -123,9 +123,7 @@ namespace Wexflow.Clients.Manager
 
         private void ShowError()
         {
-            MessageBox.Show(
-                    @"An error occured while retrieving workflows. Check that Wexflow Windows Service is running and check Wexflow Web Service Uri in the settings.",
-                    @"Wexflow", MessageBoxButtons.OK);
+            MessageBox.Show(@"An error occured while retrieving workflows.", "Wexflow", MessageBoxButtons.OK);
         }
 
         void BackgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
