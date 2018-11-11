@@ -16,6 +16,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import org.json.JSONException;
+
 import java.security.*;
 
 /**
@@ -71,14 +74,25 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login() {
-        UserLoginTask task = new UserLoginTask(mUsernameView.getText().toString(), mPasswordView.getText().toString());
-        task.execute();
+        String username = mUsernameView.getText().toString();
+        String password = mPasswordView.getText().toString();
+
+        if(username == null || username.isEmpty()){
+            mUsernameView.setError(getString(R.string.error_field_required));
+        }
+
+        if(password == null || password.isEmpty()){
+            mPasswordView.setError(getString(R.string.error_field_required));
+        }
+
+        if(username != null && !username.isEmpty() && password != null && !password.isEmpty()){
+            UserLoginTask task = new UserLoginTask(username, password);
+            task.execute();
+        }
     }
 
-
-
     /**
-     * Represents an asynchronous login/registration task used to authenticate
+     * Represents an asynchronous login task used to authenticate
      * the user.
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
@@ -87,11 +101,16 @@ public class LoginActivity extends AppCompatActivity {
         private final String mUsername;
         private final String mPassword;
         private WexflowServiceClient client;
-        private Boolean restrictedAccess = false;
+        private Boolean restrictedAccess;
+        private Boolean errorOccurred;
+        private Boolean userNotFound;
 
         UserLoginTask(String username, String password) {
             mUsername = username;
             mPassword = password;
+            restrictedAccess = false;
+            errorOccurred = false;
+            userNotFound = false;
         }
 
         @Override
@@ -118,7 +137,11 @@ public class LoginActivity extends AppCompatActivity {
                     return false;
                 }
 
+            }catch (JSONException e){
+                userNotFound = true;
+                return false;
             } catch (Exception e) {
+                errorOccurred = true;
                 return false;
             }
 
@@ -131,13 +154,21 @@ public class LoginActivity extends AppCompatActivity {
                 LoginActivity.this.startActivity(intent);
             } else {
 
-                if(restrictedAccess)
-                    mPasswordView.setError(getString(R.string.error_restricted_access));
-                else {
-                    mPasswordView.setError(getString(R.string.error_incorrect_password));
+                if(userNotFound) {
+                    mUsernameView.setError(getString(R.string.error_user_not_found));
+                    mUsernameView.requestFocus();
+                }else{
+                    if(errorOccurred){
+                        mPasswordView.setError(getString(R.string.error_exception));
+                    }else{
+                        if(restrictedAccess)
+                            mPasswordView.setError(getString(R.string.error_restricted_access));
+                        else {
+                            mPasswordView.setError(getString(R.string.error_incorrect_password));
+                        }
+                    }
+                    mPasswordView.requestFocus();
                 }
-
-                mPasswordView.requestFocus();
             }
         }
 

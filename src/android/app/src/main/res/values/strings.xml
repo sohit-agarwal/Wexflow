@@ -20,8 +20,9 @@
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_incorrect_password">This password is incorrect.</string>
     <string name="error_restricted_access">This user has not enough rights to access this application.</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing emailcompletions."</string>
+    <string name="error_exception">An error occurred during authentication.</string>
+    <string name="error_field_required">This field is required.</string>
+    <string name="error_user_not_found">This user does not exist.</string>
 
     <string name="action_settings">Settings</string>
 </resources>
