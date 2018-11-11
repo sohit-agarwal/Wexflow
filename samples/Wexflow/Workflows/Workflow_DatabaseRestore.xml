@@ -5,7 +5,7 @@
 	</Settings>
 	<Tasks>
 		<Task id="1" name="DatabaseRestore" description="Restoring database" enabled="true">
-			<Setting name="serverConnection" value="localhost" />
+			<Setting name="serverConnection" value="AELASSAS-PC\SQLEXPRESS01" />
 			<Setting name="databaseName" value="HELLOWORLD" />
 			<Setting name="backupFilePath" value="C:\WexflowTesting\DatabaseRestore\HELLOWORLD.bak" />
 		</Task>
