@@ -109,6 +109,12 @@ class WexflowServiceClient {
         return Workflow.fromJSONObject(jsonObject);
     }
 
+    User getUser(String username)throws IOException, JSONException {
+        String uri = this.uri + "/user?username=" + username;
+        JSONObject jsonObject = getJSONObject(uri);
+        return User.fromJSONObject(jsonObject);
+    }
+
     void start(int id) throws IOException {
         String uri = this.uri + "/start/" + id;
         post(uri);
