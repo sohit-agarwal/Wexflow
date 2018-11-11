@@ -18,7 +18,7 @@ Wexflow aims to make automations, workflow processes, long-running processes and
 
 Wexflow makes use of [Quartz.NET](https://www.quartz-scheduler.net/) open source job scheduling system that is used in large scale entreprise systems. Thus, Wexflow offers felixibility in planning workflow jobs such as [cron workflows](https://github.com/aelassas/Wexflow/wiki/Cron-scheduling).
 
-Furthermore, Wexflow makes use of [LiteDB](http://www.litedb.org/) NoSQL Document Store database in its server and back office which enhance end improve the performance of this workflow engine.
+Furthermore, Wexflow makes use of [LiteDB](http://www.litedb.org/) NoSQL Document Store database in its server and back office which enhance and improve the performance of this workflow engine.
 
 # Features
 
