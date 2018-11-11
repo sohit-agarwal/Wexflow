@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Configuration;
+using System.Diagnostics;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
@@ -12,12 +14,15 @@ namespace Wexflow.Clients.Manager
     {
         private static readonly string WexflowWebServiceUri = ConfigurationManager.AppSettings["WexflowWebServiceUri"];
 
+        private const string ForgotPasswordPage = @"..\Back office\forgot-password.html";
+
         private readonly WexflowServiceClient _wexflowServiceClient;
 
         public Login()
         {
             InitializeComponent();
             txtPassword.PasswordChar = '*';
+            lnkForgotPassword.Visible = File.Exists(ForgotPasswordPage);
             _wexflowServiceClient = new WexflowServiceClient(WexflowWebServiceUri);
         }
 
@@ -52,16 +57,24 @@ namespace Wexflow.Clients.Manager
                 }
                 else
                 {
-                    if (user.Password == password)
+                    if (user.UserProfile == UserProfile.Restricted)
                     {
-                        Form1 form1 = new Form1();
-                        form1.Show();
-                        Hide();
+                        MessageBox.Show("You do not have enough rights to access Wexflow Manager.");
                     }
                     else
                     {
-                        MessageBox.Show("The password is incorrect.");
+                        if (user.Password == password)
+                        {
+                            Form1 form1 = new Form1();
+                            form1.Show();
+                            Hide();
+                        }
+                        else
+                        {
+                            MessageBox.Show("The password is incorrect.");
+                        }
                     }
+                    
                 }
             }
         }
@@ -84,5 +97,12 @@ namespace Wexflow.Clients.Manager
             }
         }
 
+        private void lnkForgotPassword_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (File.Exists(ForgotPasswordPage))
+            {
+                Process.Start(ForgotPasswordPage, "");
+            }
+        }
     }
 }
