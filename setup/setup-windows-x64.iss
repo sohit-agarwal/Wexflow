@@ -1,5 +1,5 @@
 #define MyAppName "Wexflow"
-#define MyAppVersion "3.2"
+#define MyAppVersion "3.3"
 #define MyAppPublisher "Akram El Assas"
 #define MyAppPublisherURL "https://wexflow.github.io/"
 #define MyAppExeName "Wexflow.Clients.Manager.exe"
@@ -20,7 +20,7 @@ DefaultDirName={pf}\{#MyAppName}
 DisableProgramGroupPage=yes
 OutputDir=.
 OutputBaseFilename=wexflow-{#MyAppVersion}-windows-x64
-SetupIconFile="..\src\Wexflow.Clients.Manager\Wexflow.ico"
+SetupIconFile="..\src\dotnet\Wexflow.Clients.Manager\Wexflow.ico"
 Compression=lzma
 SolidCompression=yes
 ; "ArchitecturesInstallIn64BitMode=x64" requests that the install be
@@ -39,8 +39,8 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 ; Wexflow Windows Service
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Clients.WindowsService.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Clients.WindowsService.exe.config"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Clients.WindowsService.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Clients.WindowsService.exe.config"; DestDir: "{app}"; Flags: ignoreversion
 
 Source: "..\libs\FluentFTP.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Hammock.ClientProfile.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -100,255 +100,255 @@ Source: "..\libs\x64\libsass.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\YamlDotNet.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\LiteDB.dll"; DestDir: "{app}"; Flags: ignoreversion
 
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Core.Db.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Core.Service.Client.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Core.Service.Contracts.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Core.Service.Cross.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Core.xml"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Core.Db.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Core.Service.Client.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Core.Service.Contracts.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Core.Service.Cross.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\Debug\Wexflow.Core.xml"; DestDir: "{app}"; Flags: ignoreversion
 
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.CsvToXml.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FilesConcat.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FilesInfo.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FilesCopier.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FilesLoader.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FilesMover.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FilesRemover.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.ListEntities.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.ListFiles.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.MailsSender.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Md5.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.MediaInfo.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Mkdir.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.ProcessLauncher.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Rmdir.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Sha1.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Sha256.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Sha512.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Touch.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Twitter.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.XmlToCsv.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Xslt.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Zip.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Tar.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Tgz.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Sql.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Wmi.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.ImagesTransformer.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Http.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Sync.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Ftp.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FilesRenamer.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Wait.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FilesExist.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FileExists.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Movedir.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Now.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Workflow.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.MailsReceiver.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FilesSplitter.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.ProcessKiller.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Unzip.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Untar.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Untgz.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.ProcessInfo.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.TextToPdf.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.HtmlToPdf.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.SqlToXml.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.SqlToCsv.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Guid.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FilesEqual.dll"; DestDir: "{app}"; Flags: ignoreversion
-; Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.YouTube.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FilesDiff.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Torrent.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.ImagesResizer.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.ImagesCropper.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.CsvToSql.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.ImagesConcat.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.ImagesOverlay.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Unrar.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.UnSevenZip.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FilesEncryptor.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FilesDecryptor.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.TextsEncryptor.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.TextsDecryptor.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.DatabaseBackup.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.DatabaseRestore.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.IsoCreator.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.IsoExtractor.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.SevenZip.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.TextToSpeech.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.SpeechToText.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FileMatch.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Ping.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.WebToScreenshot.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.WebToHtml.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.ExecCs.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.ExecVb.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.HttpPost.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.HttpPut.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.HttpPatch.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.HttpDelete.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.UglifyJs.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.UglifyCss.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.UglifyHtml.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.HtmlToText.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.HttpGet.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.ScssToCss.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.YamlToJson.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.JsonToYaml.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.CsvToJson.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.CsvToYaml.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.CsvToXml.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FilesConcat.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FilesInfo.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FilesCopier.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FilesLoader.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FilesMover.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FilesRemover.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.ListEntities.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.ListFiles.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.MailsSender.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Md5.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.MediaInfo.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Mkdir.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.ProcessLauncher.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Rmdir.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Sha1.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Sha256.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Sha512.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Touch.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Twitter.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.XmlToCsv.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Xslt.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Zip.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Tar.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Tgz.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Sql.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Wmi.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.ImagesTransformer.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Http.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Sync.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Ftp.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FilesRenamer.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Wait.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FilesExist.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FileExists.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Movedir.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Now.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Workflow.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.MailsReceiver.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FilesSplitter.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.ProcessKiller.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Unzip.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Untar.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Untgz.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.ProcessInfo.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.TextToPdf.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.HtmlToPdf.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.SqlToXml.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.SqlToCsv.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Guid.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FilesEqual.dll"; DestDir: "{app}"; Flags: ignoreversion
+; Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.YouTube.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FilesDiff.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Torrent.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.ImagesResizer.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.ImagesCropper.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.CsvToSql.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.ImagesConcat.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.ImagesOverlay.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Unrar.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.UnSevenZip.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FilesEncryptor.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FilesDecryptor.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.TextsEncryptor.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.TextsDecryptor.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.DatabaseBackup.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.DatabaseRestore.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.IsoCreator.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.IsoExtractor.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.SevenZip.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.TextToSpeech.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.SpeechToText.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.FileMatch.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.Ping.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.WebToScreenshot.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.WebToHtml.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.ExecCs.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.ExecVb.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.HttpPost.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.HttpPut.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.HttpPatch.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.HttpDelete.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.UglifyJs.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.UglifyCss.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.UglifyHtml.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.HtmlToText.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.HttpGet.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.ScssToCss.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.YamlToJson.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.JsonToYaml.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.CsvToJson.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.WindowsService\bin\x64\Release\Wexflow.Tasks.CsvToYaml.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 ; Wexflow Manager
-Source: "..\src\Wexflow.Clients.Manager\bin\x64\Release\Wexflow.Clients.Manager.exe"; DestDir: "{app}\Manager"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.Manager\bin\x64\Release\Wexflow.Clients.Manager.exe.config"; DestDir: "{app}\Manager"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.Manager\bin\x64\Release\Wexflow.Core.Service.Client.dll"; DestDir: "{app}\Manager"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.Manager\bin\x64\Release\Newtonsoft.Json.dll"; DestDir: "{app}\Manager"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.Manager\bin\x64\Release\Wexflow.Core.Service.Contracts.dll"; DestDir: "{app}\Manager"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.Manager\bin\x64\Release\Wexflow.Clients.Manager.exe"; DestDir: "{app}\Manager"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.Manager\bin\x64\Release\Wexflow.Clients.Manager.exe.config"; DestDir: "{app}\Manager"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.Manager\bin\x64\Release\Wexflow.Core.Service.Client.dll"; DestDir: "{app}\Manager"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.Manager\bin\x64\Release\Newtonsoft.Json.dll"; DestDir: "{app}\Manager"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.Manager\bin\x64\Release\Wexflow.Core.Service.Contracts.dll"; DestDir: "{app}\Manager"; Flags: ignoreversion
 
 ; Wexflow Web Manager
-;Source: "..\src\Wexflow.Clients.WebManager\index.html"; DestDir: "{app}\Web Manager"; Flags: ignoreversion
-;Source: "..\src\Wexflow.Clients.WebManager\js\wexflow-manager.min.js"; DestDir: "{app}\Web Manager\js"; Flags: ignoreversion
-;Source: "..\src\Wexflow.Clients.WebManager\css\wexflow-manager.min.css"; DestDir: "{app}\Web Manager\css"; Flags: ignoreversion
+;Source: "..\src\dotnet\Wexflow.Clients.WebManager\index.html"; DestDir: "{app}\Web Manager"; Flags: ignoreversion
+;Source: "..\src\dotnet\Wexflow.Clients.WebManager\js\wexflow-manager.min.js"; DestDir: "{app}\Web Manager\js"; Flags: ignoreversion
+;Source: "..\src\dotnet\Wexflow.Clients.WebManager\css\wexflow-manager.min.css"; DestDir: "{app}\Web Manager\css"; Flags: ignoreversion
 
 ; Wexflow Web Designer
-;Source: "..\src\Wexflow.Clients.WebDesigner\index.html"; DestDir: "{app}\Web Designer"; Flags: ignoreversion
-;Source: "..\src\Wexflow.Clients.WebDesigner\js\wexflow-designer.min.js"; DestDir: "{app}\Web Designer\js"; Flags: ignoreversion
-;Source: "..\src\Wexflow.Clients.WebDesigner\css\wexflow-designer.min.css"; DestDir: "{app}\Web Designer\css"; Flags: ignoreversion
+;Source: "..\src\dotnet\Wexflow.Clients.WebDesigner\index.html"; DestDir: "{app}\Web Designer"; Flags: ignoreversion
+;Source: "..\src\dotnet\Wexflow.Clients.WebDesigner\js\wexflow-designer.min.js"; DestDir: "{app}\Web Designer\js"; Flags: ignoreversion
+;Source: "..\src\dotnet\Wexflow.Clients.WebDesigner\css\wexflow-designer.min.css"; DestDir: "{app}\Web Designer\css"; Flags: ignoreversion
 
 ; Wexflow Back office
-Source: "..\src\Wexflow.Clients.BackOffice\index.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.BackOffice\forgot-password.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.BackOffice\dashboard.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.BackOffice\manager.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.BackOffice\designer.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.BackOffice\history.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.BackOffice\users.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.BackOffice\index.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.BackOffice\forgot-password.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.BackOffice\dashboard.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.BackOffice\manager.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.BackOffice\designer.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.BackOffice\history.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.BackOffice\users.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
 
-Source: "..\src\Wexflow.Clients.BackOffice\images\*"; DestDir: "{app}\Back office\images"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.BackOffice\images\*"; DestDir: "{app}\Back office\images"; Flags: ignoreversion
 
-Source: "..\src\Wexflow.Clients.BackOffice\css\images\*"; DestDir: "{app}\Back office\css\images"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.BackOffice\css\login.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.BackOffice\css\forgot-password.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.BackOffice\css\dashboard.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.BackOffice\css\manager.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.BackOffice\css\designer.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.BackOffice\css\history.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.BackOffice\css\users.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.BackOffice\css\images\*"; DestDir: "{app}\Back office\css\images"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.BackOffice\css\login.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.BackOffice\css\forgot-password.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.BackOffice\css\dashboard.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.BackOffice\css\manager.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.BackOffice\css\designer.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.BackOffice\css\history.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.BackOffice\css\users.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
 
-Source: "..\src\Wexflow.Clients.BackOffice\js\settings.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.BackOffice\js\login.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.BackOffice\js\forgot-password.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.BackOffice\js\dashboard.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.BackOffice\js\manager.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.BackOffice\js\designer.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.BackOffice\js\history.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
-Source: "..\src\Wexflow.Clients.BackOffice\js\users.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.BackOffice\js\settings.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.BackOffice\js\login.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.BackOffice\js\forgot-password.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.BackOffice\js\dashboard.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.BackOffice\js\manager.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.BackOffice\js\designer.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.BackOffice\js\history.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.BackOffice\js\users.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
 
 ; Wexflow's Documentation
-Source: "..\src\Wexflow.Core\Workflow.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.CsvToXml\CsvToXml.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.FileExists\FileExists.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.FilesConcat\FilesConcat.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.FilesCopier\FilesCopier.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.FilesExist\FilesExist.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.FilesInfo\FilesInfo.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.FilesLoader\FilesLoader.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.FilesMover\FilesMover.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.FilesRemover\FilesRemover.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.FilesRenamer\FilesRenamer.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.Ftp\Ftp.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.Http\Http.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.ImagesTransformer\ImagesTransformer.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.ListEntities\ListEntities.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.ListFiles\ListFiles.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.MailsReceiver\MailsReceiver.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.MailsSender\MailsSender.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.Md5\Md5.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.MediaInfo\MediaInfo.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.Mkdir\Mkdir.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.Movedir\Movedir.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.ProcessLauncher\ProcessLauncher.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.Rmdir\Rmdir.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.Sha1\Sha1.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.Sha256\Sha256.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.Sha512\Sha512.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.Sql\Sql.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.Sync\Sync.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.Tar\Tar.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.Template\Template.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.Tgz\Tgz.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.Touch\Touch.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.Twitter\Twitter.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.Wait\Wait.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.Wmi\Wmi.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.XmlToCsv\XmlToCsv.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.Xslt\Xslt.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.Zip\Zip.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.Now\Now.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.Workflow\Workflow.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.FilesSplitter\FilesSplitter.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.ProcessKiller\ProcessKiller.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.Unzip\Unzip.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.Untar\Untar.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.Untgz\Untgz.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.ProcessInfo\ProcessInfo.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.TextToPdf\TextToPdf.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.HtmlToPdf\HtmlToPdf.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.SqlToXml\SqlToXml.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.SqlToCsv\SqlToCsv.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.Guid\Guid.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.FilesEqual\FilesEqual.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-; Source: "..\src\Wexflow.Tasks.YouTube\YouTube.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.FilesDiff\FilesDiff.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.Torrent\Torrent.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.ImagesResizer\ImagesResizer.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.ImagesCropper\ImagesCropper.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.CsvToSql\CsvToSql.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.ImagesConcat\ImagesConcat.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.ImagesOverlay\ImagesOverlay.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.Unrar\Unrar.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.UnSevenZip\UnSevenZip.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.FilesEncryptor\FilesEncryptor.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.FilesDecryptor\FilesDecryptor.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.TextsEncryptor\TextsEncryptor.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.TextsDecryptor\TextsDecryptor.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.DatabaseBackup\DatabaseBackup.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.DatabaseRestore\DatabaseRestore.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.IsoCreator\IsoCreator.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.IsoExtractor\IsoExtractor.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.SevenZip\SevenZip.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.TextToSpeech\TextToSpeech.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.SpeechToText\SpeechToText.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.FileMatch\FileMatch.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.Ping\Ping.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.WebToScreenshot\WebToScreenshot.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.WebToHtml\WebToHtml.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.ExecCs\ExecCs.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.ExecVb\ExecVb.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.HttpPost\HttpPost.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.HttpPut\HttpPut.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.HttpPatch\HttpPatch.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.HttpDelete\HttpDelete.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.UglifyJs\UglifyJs.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.UglifyCss\UglifyCss.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.UglifyHtml\UglifyHtml.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.HtmlToText\HtmlToText.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.HttpGet\HttpGet.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.ScssToCss\ScssToCss.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.YamlToJson\YamlToJson.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.JsonToYaml\JsonToYaml.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.CsvToJson\CsvToJson.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
-Source: "..\src\Wexflow.Tasks.CsvToYaml\CsvToYaml.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Core\Workflow.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.CsvToXml\CsvToXml.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.FileExists\FileExists.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.FilesConcat\FilesConcat.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.FilesCopier\FilesCopier.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.FilesExist\FilesExist.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.FilesInfo\FilesInfo.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.FilesLoader\FilesLoader.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.FilesMover\FilesMover.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.FilesRemover\FilesRemover.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.FilesRenamer\FilesRenamer.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Ftp\Ftp.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Http\Http.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.ImagesTransformer\ImagesTransformer.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.ListEntities\ListEntities.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.ListFiles\ListFiles.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.MailsReceiver\MailsReceiver.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.MailsSender\MailsSender.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Md5\Md5.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.MediaInfo\MediaInfo.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Mkdir\Mkdir.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Movedir\Movedir.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.ProcessLauncher\ProcessLauncher.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Rmdir\Rmdir.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Sha1\Sha1.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Sha256\Sha256.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Sha512\Sha512.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Sql\Sql.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Sync\Sync.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Tar\Tar.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Template\Template.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Tgz\Tgz.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Touch\Touch.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Twitter\Twitter.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Wait\Wait.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Wmi\Wmi.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.XmlToCsv\XmlToCsv.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Xslt\Xslt.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Zip\Zip.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Now\Now.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Workflow\Workflow.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.FilesSplitter\FilesSplitter.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.ProcessKiller\ProcessKiller.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Unzip\Unzip.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Untar\Untar.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Untgz\Untgz.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.ProcessInfo\ProcessInfo.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.TextToPdf\TextToPdf.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.HtmlToPdf\HtmlToPdf.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.SqlToXml\SqlToXml.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.SqlToCsv\SqlToCsv.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Guid\Guid.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.FilesEqual\FilesEqual.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+; Source: "..\src\dotnet\Wexflow.Tasks.YouTube\YouTube.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.FilesDiff\FilesDiff.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Torrent\Torrent.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.ImagesResizer\ImagesResizer.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.ImagesCropper\ImagesCropper.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.CsvToSql\CsvToSql.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.ImagesConcat\ImagesConcat.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.ImagesOverlay\ImagesOverlay.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Unrar\Unrar.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.UnSevenZip\UnSevenZip.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.FilesEncryptor\FilesEncryptor.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.FilesDecryptor\FilesDecryptor.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.TextsEncryptor\TextsEncryptor.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.TextsDecryptor\TextsDecryptor.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.DatabaseBackup\DatabaseBackup.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.DatabaseRestore\DatabaseRestore.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.IsoCreator\IsoCreator.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.IsoExtractor\IsoExtractor.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.SevenZip\SevenZip.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.TextToSpeech\TextToSpeech.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.SpeechToText\SpeechToText.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.FileMatch\FileMatch.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Ping\Ping.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.WebToScreenshot\WebToScreenshot.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.WebToHtml\WebToHtml.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.ExecCs\ExecCs.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.ExecVb\ExecVb.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.HttpPost\HttpPost.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.HttpPut\HttpPut.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.HttpPatch\HttpPatch.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.HttpDelete\HttpDelete.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.UglifyJs\UglifyJs.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.UglifyCss\UglifyCss.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.UglifyHtml\UglifyHtml.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.HtmlToText\HtmlToText.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.HttpGet\HttpGet.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.ScssToCss\ScssToCss.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.YamlToJson\YamlToJson.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.JsonToYaml\JsonToYaml.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.CsvToJson\CsvToJson.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.CsvToYaml\CsvToYaml.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 
 Source: "..\LICENSE.txt"; DestDir: "{app}\"; Flags: ignoreversion recursesubdirs
 
 ; Wexflow's configuration
 Source: "..\samples\Wexflow\*"; DestDir: "C:\Wexflow\"; Flags: ignoreversion recursesubdirs uninsneveruninstall
-Source: "..\src\Wexflow.Core\Wexflow.xml"; DestDir: "C:\Wexflow\"; Flags: ignoreversion recursesubdirs uninsneveruninstall
-Source: "..\src\Wexflow.Core\Workflow.xsd"; DestDir: "C:\Wexflow\"; Flags: ignoreversion recursesubdirs uninsneveruninstall
-Source: "..\src\Wexflow.Core\GlobalVariables.xml"; DestDir: "C:\Wexflow\"; Flags: ignoreversion recursesubdirs uninsneveruninstall
+Source: "..\src\dotnet\Wexflow.Core\Wexflow.xml"; DestDir: "C:\Wexflow\"; Flags: ignoreversion recursesubdirs uninsneveruninstall
+Source: "..\src\dotnet\Wexflow.Core\Workflow.xsd"; DestDir: "C:\Wexflow\"; Flags: ignoreversion recursesubdirs uninsneveruninstall
+Source: "..\src\dotnet\Wexflow.Core\GlobalVariables.xml"; DestDir: "C:\Wexflow\"; Flags: ignoreversion recursesubdirs uninsneveruninstall
 Source: "..\samples\WexflowTesting\*"; DestDir: "C:\WexflowTesting\"; Flags: ignoreversion recursesubdirs uninsneveruninstall
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
