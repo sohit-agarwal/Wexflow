@@ -67,8 +67,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SharpScss">
-      <HintPath>..\..\libs\SharpScss.dll</HintPath>
+    <Reference Include="SharpScss, Version=1.4.0.0, Culture=neutral, PublicKeyToken=b9d29176e3cc094c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\libs\SharpScss.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

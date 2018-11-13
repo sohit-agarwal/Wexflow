@@ -67,14 +67,17 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DiscUtils.Core">
-      <HintPath>..\..\libs\DiscUtils.Core.dll</HintPath>
+    <Reference Include="DiscUtils.Core, Version=0.13.0.0, Culture=neutral, PublicKeyToken=5fa5b410cc9c6289, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\libs\DiscUtils.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DiscUtils.Iso9660">
-      <HintPath>..\..\libs\DiscUtils.Iso9660.dll</HintPath>
+    <Reference Include="DiscUtils.Iso9660, Version=0.13.0.0, Culture=neutral, PublicKeyToken=5fa5b410cc9c6289, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\libs\DiscUtils.Iso9660.dll</HintPath>
     </Reference>
-    <Reference Include="DiscUtils.Streams">
-      <HintPath>..\..\libs\DiscUtils.Streams.dll</HintPath>
+    <Reference Include="DiscUtils.Streams, Version=0.13.0.0, Culture=neutral, PublicKeyToken=5fa5b410cc9c6289, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\libs\DiscUtils.Streams.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
