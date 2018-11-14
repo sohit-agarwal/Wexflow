@@ -126,13 +126,11 @@ namespace Wexflow.Clients.WindowsService
                             attributeInfos.Add(attributeInfo);
                         }
 
-                        SettingInfo settingInfo =
-                            new SettingInfo(setting.Name, setting.Value, attributeInfos.ToArray());
+                        SettingInfo settingInfo = new SettingInfo(setting.Name, setting.Value, attributeInfos.ToArray());
                         settingInfos.Add(settingInfo);
                     }
 
-                    TaskInfo taskInfo = new TaskInfo(task.Id, task.Name, task.Description, task.IsEnabled,
-                        settingInfos.ToArray());
+                    TaskInfo taskInfo = new TaskInfo(task.Id, task.Name, task.Description, task.IsEnabled, settingInfos.ToArray());
 
                     taskInfos.Add(taskInfo);
                 }
@@ -155,6 +153,49 @@ namespace Wexflow.Clients.WindowsService
             }
 
             return string.Empty;
+        }
+
+        [WebInvoke(Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "taskNames")]
+        public string[] GetTaskNames()
+        {
+            try
+            {
+                JArray array = JArray.Parse(File.ReadAllText(WexflowWindowsService.WexflowEngine.TasksNamesFile));
+                return array.ToObject<string[]>().OrderBy(x => x).ToArray();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return new [] { "TasksNames.json is not valid." };
+            }
+        }
+
+        [WebInvoke(Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "settings/{taskName}")]
+        public string[] GetSettings(string taskName)
+        {
+            try
+            {
+                JObject o = JObject.Parse(File.ReadAllText(WexflowWindowsService.WexflowEngine.TasksSettingsFile));
+                var token = o.SelectToken(taskName);
+                return token != null ? token.ToObject<string[]>().OrderBy(x => x).ToArray() : new string[] { };
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return new [] { "TasksSettings.json is not valid." };
+            }
+        }
+
+        [WebInvoke(Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "workflowsFolder")]
+        public string GetWorkflowsFolder()
+        {
+            return WexflowWindowsService.WexflowEngine.WorkflowsFolder;
         }
 
         [WebInvoke(Method = "POST",
@@ -228,6 +269,39 @@ namespace Wexflow.Clients.WindowsService
                 Console.WriteLine(e);
                 return string.Empty;
             }
+        }
+
+        [WebInvoke(Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "isWorkflowIdValid/{id}")]
+        public bool IsWorkflowIdValid(string id)
+        {
+            var workflowId = int.Parse(id);
+            foreach (var workflow in WexflowWindowsService.WexflowEngine.Workflows)
+            {
+                if (workflow.Id == workflowId) return false;
+            }
+
+            return true;
+        }
+
+        [WebInvoke(Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "isCronExpressionValid?e={expression}")]
+        public bool IsCronExpressionValid(string expression)
+        {
+            var res = WexflowEngine.IsCronExpressionValid(expression);
+            return res;
+        }
+
+        [WebInvoke(Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "isPeriodValid/{period}")]
+        public bool IsPeriodValid(string period)
+        {
+            TimeSpan ts;
+            var res = TimeSpan.TryParse(period, out ts);
+            return res;
         }
 
         [WebInvoke(Method = "POST",
@@ -486,64 +560,6 @@ namespace Wexflow.Clients.WindowsService
             }
         }
 
-        [WebInvoke(Method = "GET",
-            ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "taskNames")]
-        public string[] GetTaskNames()
-        {
-            try
-            {
-                JArray array = JArray.Parse(File.ReadAllText(WexflowWindowsService.WexflowEngine.TasksNamesFile));
-                return array.ToObject<string[]>().OrderBy(x => x).ToArray();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return new string[] {"TasksNames.json is not valid."};
-            }
-        }
-
-        [WebInvoke(Method = "GET",
-            ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "workflowsFolder")]
-        public string GetWorkflowsFolder()
-        {
-            return WexflowWindowsService.WexflowEngine.WorkflowsFolder;
-        }
-
-        [WebInvoke(Method = "GET",
-            ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "isWorkflowIdValid/{id}")]
-        public bool IsWorkflowIdValid(string id)
-        {
-            var workflowId = int.Parse(id);
-            foreach (var workflow in WexflowWindowsService.WexflowEngine.Workflows)
-            {
-                if (workflow.Id == workflowId) return false;
-            }
-
-            return true;
-        }
-
-        [WebInvoke(Method = "GET",
-            ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "isCronExpressionValid?e={expression}")]
-        public bool IsCronExpressionValid(string expression)
-        {
-            var res = WexflowEngine.IsCronExpressionValid(expression);
-            return res;
-        }
-
-        [WebInvoke(Method = "GET",
-            ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "isPeriodValid/{period}")]
-        public bool IsPeriodValid(string period)
-        {
-            TimeSpan ts;
-            var res = TimeSpan.TryParse(period, out ts);
-            return res;
-        }
-
         [WebInvoke(Method = "POST",
             ResponseFormat = WebMessageFormat.Json,
             UriTemplate = "delete/{id}")]
@@ -554,8 +570,7 @@ namespace Wexflow.Clients.WindowsService
                 var wf = WexflowWindowsService.WexflowEngine.GetWorkflow(int.Parse(id));
                 if (wf != null)
                 {
-                    string destPath = Path.Combine(WexflowWindowsService.WexflowEngine.TrashFolder,
-                        Path.GetFileName(wf.WorkflowFilePath));
+                    string destPath = Path.Combine(WexflowWindowsService.WexflowEngine.TrashFolder, Path.GetFileName(wf.WorkflowFilePath));
                     if (File.Exists(destPath))
                     {
                         destPath = Path.Combine(WexflowWindowsService.WexflowEngine.TrashFolder
@@ -570,24 +585,6 @@ namespace Wexflow.Clients.WindowsService
             catch (Exception)
             {
                 return false;
-            }
-        }
-
-        [WebInvoke(Method = "GET",
-            ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "settings/{taskName}")]
-        public string[] GetSettings(string taskName)
-        {
-            try
-            {
-                JObject o = JObject.Parse(File.ReadAllText(WexflowWindowsService.WexflowEngine.TasksSettingsFile));
-                var token = o.SelectToken(taskName);
-                return token != null ? token.ToObject<string[]>().OrderBy(x => x).ToArray() : new string[] { };
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return new string[] {"TasksSettings.json is not valid."};
             }
         }
 
@@ -971,8 +968,7 @@ namespace Wexflow.Clients.WindowsService
             DateTime fromDate = baseDate.AddMilliseconds(from);
             DateTime toDate = baseDate.AddMilliseconds(to);
 
-            var entries = WexflowWindowsService.WexflowEngine.GetEntries(keyword, fromDate, toDate, page, entriesCount,
-                (Core.Db.EntryOrderBy) heo);
+            var entries = WexflowWindowsService.WexflowEngine.GetEntries(keyword, fromDate, toDate, page, entriesCount, (EntryOrderBy) heo);
 
             return entries.Select(e =>
                 new Entry

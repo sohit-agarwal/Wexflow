@@ -16,11 +16,13 @@ namespace Wexflow.Server
 {
     class Program
     {
+        public static IConfiguration Config;
         public static WexflowEngine WexflowEngine;
+        
 
         static void Main(string[] args)
         {
-            IConfiguration config = new ConfigurationBuilder()
+            Config = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .Build();
 
@@ -29,7 +31,7 @@ namespace Wexflow.Server
             var repo = LogManager.CreateRepository(Assembly.GetEntryAssembly(), typeof(log4net.Repository.Hierarchy.Hierarchy));
             XmlConfigurator.Configure(repo, log4netConfig["log4net"]);
 
-            string wexflowSettingsFile = config["WexflowSettingsFile"];
+            string wexflowSettingsFile = Config["WexflowSettingsFile"];
             WexflowEngine = new WexflowEngine(wexflowSettingsFile);
             WexflowEngine.Run();
 

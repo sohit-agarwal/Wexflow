@@ -980,7 +980,7 @@ namespace Wexflow.Core.Db
                     return q.Select(e=>e.StatusDate).First();
                 }
 
-                return DateTime.MinValue;
+                return DateTime.Now;
             }
         }
 
@@ -995,7 +995,7 @@ namespace Wexflow.Core.Db
                     return q.Select(e => e.StatusDate).First();
                 }
 
-                return DateTime.MaxValue;
+                return DateTime.Now;
             }
         }
 
@@ -1010,7 +1010,7 @@ namespace Wexflow.Core.Db
                     return q.Select(e => e.StatusDate).First();
                 }
 
-                return DateTime.MinValue;
+                return DateTime.Now;
             }
         }
 
@@ -1025,7 +1025,7 @@ namespace Wexflow.Core.Db
                     return q.Select(e => e.StatusDate).First();
                 }
 
-                return DateTime.MaxValue;
+                return DateTime.Now;
             }
         }
     }

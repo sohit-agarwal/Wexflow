@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="WexflowService.cs~RF63476ca.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Owin" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.1.1" />
     <PackageReference Include="Nancy" Version="2.0.0-clinteastwood" />
@@ -14,8 +18,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Wexflow.Core\Wexflow.Core.csproj" />
+    <ProjectReference Include="..\Wexflow.Tasks.FileExists\Wexflow.Tasks.FileExists.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.FilesLoader\Wexflow.Tasks.FilesLoader.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.ListFiles\Wexflow.Tasks.ListFiles.csproj" />
+    <ProjectReference Include="..\Wexflow.Tasks.Now\Wexflow.Tasks.Now.csproj" />
+    <ProjectReference Include="..\Wexflow.Tasks.Wait\Wexflow.Tasks.Wait.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,23 +1,20 @@
-﻿using System.Runtime.Serialization;
-
-namespace Wexflow.Server.Contracts
+﻿namespace Wexflow.Server.Contracts
 {
-    [DataContract]
     public class StatusCount
     {
-        [DataMember]
+        
         public int PendingCount { get; set; }
-        [DataMember]
+        
         public int RunningCount { get; set; }
-        [DataMember]
+        
         public int DoneCount { get; set; }
-        [DataMember]
+        
         public int FailedCount { get; set; }
-        [DataMember]
+        
         public int WarningCount { get; set; }
-        [DataMember]
+        
         public int DisabledCount { get; set; }
-        [DataMember]
+        
         public int StoppedCount { get; set; }
     }
 }
