@@ -1,7 +1,4 @@
-﻿using System;
-using System.Runtime.Serialization;
-
-namespace Wexflow.Server.Contracts
+﻿namespace Wexflow.Server.Contracts
 {
     public class HistoryEntry
     {
