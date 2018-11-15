@@ -33,6 +33,7 @@ _ReSharper*/
 $tf*/
 .vs/
 setup/*.tar.gz
+setup/*.zip
 setup/Wexflow.app/
 *.nupkg
 Wexflow_coverage.xml
