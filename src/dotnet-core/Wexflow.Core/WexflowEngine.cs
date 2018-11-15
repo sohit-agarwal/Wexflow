@@ -6,6 +6,7 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using Wexflow.Core.Db;
@@ -74,22 +75,13 @@ namespace Wexflow.Core
         //
         // Quartz scheduler
         //
-        //private static readonly  NameValueCollection QuartzProperties = new NameValueCollection
-        //{
-        //    // json serialization is the one supported under .NET Core (binary isn't)
-        //    ["quartz.serializer.type"] = "json",
+        private static readonly NameValueCollection QuartzProperties = new NameValueCollection
+        {
+            // JSON serialization is the one supported under .NET Core (binary isn't)
+            ["quartz.serializer.type"] = "json"
+        };
 
-        //    // the following setup of job store is just for example and it didn't change from v2
-        //    ["quartz.jobStore.type"] = "Quartz.Impl.AdoJobStore.JobStoreTX, Quartz",
-        //    ["quartz.jobStore.useProperties"] = "false",
-        //    ["quartz.jobStore.dataSource"] = "default",
-        //    ["quartz.jobStore.tablePrefix"] = "QRTZ_",
-        //    ["quartz.jobStore.driverDelegateType"] = "Quartz.Impl.AdoJobStore.SqlServerDelegate, Quartz",
-        //    ["quartz.dataSource.default.provider"] = "SqlServer-41", // SqlServer-41 is the new provider for .NET Core
-        //    ["quartz.dataSource.default.connectionString"] = @"Server=(localdb)\MSSQLLocalDB;Database=Quartz;Integrated Security=true"
-        //};
-
-        private static readonly ISchedulerFactory SchedulerFactory = new StdSchedulerFactory();
+        private static readonly ISchedulerFactory SchedulerFactory = new StdSchedulerFactory(QuartzProperties);
         private static readonly IScheduler QuartzScheduler = SchedulerFactory.GetScheduler().Result;
 
         /// <summary>
@@ -111,7 +103,11 @@ namespace Wexflow.Core
 
             LoadGlobalVariables();
 
-            LoadWorkflows(); 
+            LoadWorkflows();
+
+            //Task<IScheduler> ischeduler = SchedulerFactory.GetScheduler();
+            //ischeduler.Wait();
+            //QuartzScheduler = ischeduler.Result;
         }
 
         /// <summary>
@@ -296,7 +292,7 @@ namespace Wexflow.Core
 
             if (!QuartzScheduler.IsStarted)
             {
-                QuartzScheduler.Start();
+                QuartzScheduler.Start().Wait();
             }
         }
 
@@ -332,7 +328,7 @@ namespace Wexflow.Core
                         QuartzScheduler.DeleteJob(jobKey);
                     }
 
-                    QuartzScheduler.ScheduleJob(jobDetail, trigger);
+                    QuartzScheduler.ScheduleJob(jobDetail, trigger).Wait();
 
                 }
                 else if (wf.LaunchType == LaunchType.Cron)
@@ -359,7 +355,7 @@ namespace Wexflow.Core
                         QuartzScheduler.DeleteJob(jobKey);
                     }
 
-                    QuartzScheduler.ScheduleJob(jobDetail, trigger);
+                    QuartzScheduler.ScheduleJob(jobDetail, trigger).Wait();
                 }
             }
         }
@@ -373,7 +369,7 @@ namespace Wexflow.Core
         {
             if (stopQuartzScheduler)
             {
-                QuartzScheduler.Shutdown();
+                QuartzScheduler.Shutdown().Wait();
             }
 
             foreach (var wf in Workflows)

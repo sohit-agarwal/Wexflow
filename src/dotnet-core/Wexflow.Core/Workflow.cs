@@ -24,7 +24,7 @@ namespace Wexflow.Core
         /// This constant is used to determine the keysize of the encryption algorithm in bits.
         /// We divide this by 8 within the code below to get the equivalent number of bytes.
         /// </summary>
-        public static readonly int KeySize = 256;
+        public static readonly int KeySize = 128;
 
         /// <summary>
         /// This constant determines the number of iterations for the password bytes generation function. 
