@@ -89,8 +89,6 @@
     <!-- You can add as many selecteFiles as you want.-->
     <!-- The XSLT file path. Example: C:\Wexflow\Xslt\Products.xslt-->
     <Setting name="xsltPath" value="$string" />
-    <!-- The version of the XSLT processor to use. Possible options: 1.0|2.0-->
-    <Setting name="version" value="1.0|2.0" />
     <!-- Optional and defaults to true. If it is set to false, <WexflowProcessing> nodes will not be removed
          from the output XML document.-->
     <Setting name="removeWexflowProcessingNodes" value="true|false" />
