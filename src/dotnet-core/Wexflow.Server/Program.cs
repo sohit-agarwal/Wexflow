@@ -26,22 +26,23 @@ namespace Wexflow.Server
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .Build();
 
-            XmlDocument log4netConfig = new XmlDocument();
-            log4netConfig.Load(File.OpenRead("log4net.config"));
+            XmlDocument log4NetConfig = new XmlDocument();
+            log4NetConfig.Load(File.OpenRead("log4net.config"));
             var repo = LogManager.CreateRepository(Assembly.GetEntryAssembly(), typeof(log4net.Repository.Hierarchy.Hierarchy));
-            XmlConfigurator.Configure(repo, log4netConfig["log4net"]);
+            XmlConfigurator.Configure(repo, log4NetConfig["log4net"]);
 
             string wexflowSettingsFile = Config["WexflowSettingsFile"];
             WexflowEngine = new WexflowEngine(wexflowSettingsFile);
             WexflowEngine.Run();
 
+            int port = int.Parse(Config["WexflowServicePort"]);
+
             var host = new WebHostBuilder()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseKestrel((context, options) =>
                 {
-                    options.ListenAnyIP(8000);
+                    options.ListenAnyIP(port);
                 })
-                .UseUrls("http://localhost:8000/wexflow/")
                 .UseStartup<Startup>()
                 .Build();
 
@@ -54,6 +55,7 @@ namespace Wexflow.Server
         public void ConfigureServices(IServiceCollection services)
         {
         }
+
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
         }
