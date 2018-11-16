@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Wexflow</id>
-    <version>3.0.2</version>
+    <version>3.3.0</version>
     <title>Wexflow</title>
     <authors>Akram El Assas</authors>
     <owners>Akram El Assas</owners>
@@ -12,7 +12,7 @@
     <!--<iconUrl></iconUrl>-->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Core assembly of Wexflow workflow engine.</description>
-    <releaseNotes>Added global variables and updated Wexflow.Core.Db.</releaseNotes>
+    <releaseNotes>Updated Wexflow.Core.Db.</releaseNotes>
     <copyright>Copyright 2018 Akram El Assas.</copyright>
     <tags>Wexflow Workflow</tags>
   </metadata>
@@ -20,16 +20,15 @@
     <!--<file src=".\bin\Debug\Wexflow.Core.dll" target="lib\net40\Wexflow.Core.dll"/>
     <file src=".\bin\Debug\Wexflow.Core.xml" target="lib\net40\Wexflow.Core.xml"/>-->
     <file src=".\bin\Debug\Wexflow.Core.Db.dll" target="lib\net40\Wexflow.Core.Db.dll"/>
-    <file src="..\..\libs\log4net.dll" target="lib\net40\log4net.dll"/>
-    <file src="..\..\libs\log4net.xml" target="lib\net40\log4net.xml"/>
-    <file src="..\..\libs\Quartz.dll" target="lib\net40\Quartz.dll"/>
-    <file src="..\..\libs\Quartz.xml" target="lib\net40\Quartz.xml"/>
-    <file src="..\..\libs\Common.Logging.Core.dll" target="lib\net40\Common.Logging.Core.dll"/>
-    <file src="..\..\libs\Common.Logging.Core.xml" target="lib\net40\Common.Logging.Core.xml"/>
-    <file src="..\..\libs\Common.Logging.dll" target="lib\net40\Common.Logging.dll"/>
-    <file src="..\..\libs\Common.Logging.xml" target="lib\net40\Common.Logging.xml"/>
-    <file src="..\..\libs\LiteDB.dll" target="lib\net40\LiteDB.dll"/>
-    <file src="..\..\libs\LiteDB.xml" target="lib\net40\LiteDB.xml"/>
-    
+    <file src="..\..\..\libs\log4net.dll" target="lib\net40\log4net.dll"/>
+    <file src="..\..\..\libs\log4net.xml" target="lib\net40\log4net.xml"/>
+    <file src="..\..\..\libs\Quartz.dll" target="lib\net40\Quartz.dll"/>
+    <file src="..\..\..\libs\Quartz.xml" target="lib\net40\Quartz.xml"/>
+    <file src="..\..\..\libs\Common.Logging.Core.dll" target="lib\net40\Common.Logging.Core.dll"/>
+    <file src="..\..\..\libs\Common.Logging.Core.xml" target="lib\net40\Common.Logging.Core.xml"/>
+    <file src="..\..\..\libs\Common.Logging.dll" target="lib\net40\Common.Logging.dll"/>
+    <file src="..\..\..\libs\Common.Logging.xml" target="lib\net40\Common.Logging.xml"/>
+    <file src="..\..\..\libs\LiteDB.dll" target="lib\net40\LiteDB.dll"/>
+    <file src="..\..\..\libs\LiteDB.xml" target="lib\net40\LiteDB.xml"/> 
   </files>
 </package>
