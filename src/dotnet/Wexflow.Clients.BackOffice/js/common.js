@@ -96,6 +96,20 @@
         return ("0" + d.getDate()).slice(-2) + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" +
             d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2) + ":" + ("0" + d.getSeconds()).slice(-2);
 
+    },
+
+    os: function () {
+        var osName = "Unknown";
+        if (window.navigator.userAgent.indexOf("Windows NT 10.0") !== -1) osName = "Windows 10";
+        if (window.navigator.userAgent.indexOf("Windows NT 6.2") !== -1) osName = "Windows 8";
+        if (window.navigator.userAgent.indexOf("Windows NT 6.1") !== -1) osName = "Windows 7";
+        if (window.navigator.userAgent.indexOf("Windows NT 6.0") !== -1) osName = "Windows Vista";
+        if (window.navigator.userAgent.indexOf("Windows NT 5.1") !== -1) osName = "Windows XP";
+        if (window.navigator.userAgent.indexOf("Windows NT 5.0") !== -1) osName = "Windows 2000";
+        if (window.navigator.userAgent.indexOf("Mac") !== -1) osName = "Mac/iOS";
+        if (window.navigator.userAgent.indexOf("X11") !== -1) osName = "UNIX";
+        if (window.navigator.userAgent.indexOf("Linux") !== -1) osName = "Linux";
+        return osName;
     }
 
 };

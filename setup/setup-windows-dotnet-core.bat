@@ -66,3 +66,5 @@ copy dotnet-core\windows\install.bat %dstDir%
 
 :: Cleanup
 rmdir /s /q %dstDir%
+
+pause

@@ -180,82 +180,9 @@ namespace Wexflow.Core
                     Workflows.Add(workflow);
                 }
             }
-
-            var watcher = new FileSystemWatcher(WorkflowsFolder, "*.xml")
-            {
-                EnableRaisingEvents = true,
-                IncludeSubdirectories = false
-            };
-
-            watcher.Created += (_, args) =>
-            {
-                var workflow = LoadWorkflowFromFile(args.FullPath);
-                if (workflow != null)
-                {
-                    Workflows.Add(workflow);
-                    ScheduleWorkflow(workflow);
-                }
-            };
-
-            watcher.Deleted += (_, args) =>
-            {
-                var removedWorkflow = Workflows.SingleOrDefault(wf => wf.WorkflowFilePath == args.FullPath);
-                if (removedWorkflow != null)
-                {
-                    Logger.InfoFormat("Workflow {0} is stopped and removed because its definition file {1} was deleted.",
-                        removedWorkflow.Name, removedWorkflow.WorkflowFilePath);
-                    removedWorkflow.Stop();
-                    
-                    StopCronJobs(removedWorkflow.Id);
-                    Workflows.Remove(removedWorkflow);
-                }
-            };
-
-            watcher.Changed += (_, args) =>
-            {
-                try
-                {
-                    if (Workflows != null)
-                    {
-                        var changedWorkflow = Workflows.SingleOrDefault(wf => wf.WorkflowFilePath == args.FullPath);
-
-                        if (changedWorkflow != null)
-                        {
-                            // the existing file might have caused an error during loading, so there may be no corresponding
-                            // workflow to the changed file
-                            changedWorkflow.Stop();
-                            
-                            StopCronJobs(changedWorkflow.Id);
-                            Workflows.Remove(changedWorkflow);
-                            Logger.InfoFormat("A change in the definition file {0} of workflow {1} has been detected. The workflow will be reloaded.", changedWorkflow.WorkflowFilePath, changedWorkflow.Name);
-                        }
-                    }
-                }
-                catch (Exception e)
-                {
-                    Logger.Error("Error during workflow reload", e);
-                }
-
-                var reloaded = LoadWorkflowFromFile(args.FullPath);
-                if (reloaded != null)
-                {
-                    var duplicateId = Workflows.SingleOrDefault(wf => wf.Id == reloaded.Id);
-                    if (duplicateId != null)
-                    {
-                        Logger.ErrorFormat(
-                            "An error occured while loading the workflow : {0}. The workflow Id {1} is already assgined in {2}",
-                            args.FullPath, reloaded.Id, duplicateId.WorkflowFilePath);
-                    }
-                    else
-                    {
-                        Workflows.Add(reloaded);
-                        ScheduleWorkflow(reloaded);
-                    }
-                }
-            };
         }
 
-        private void StopCronJobs(int workflowId)
+        public void StopCronJobs(int workflowId)
         {
             string jobIdentity = "Workflow Job " + workflowId;
             var jobKey = new JobKey(jobIdentity);
@@ -265,7 +192,7 @@ namespace Wexflow.Core
             }
         }
 
-        Workflow LoadWorkflowFromFile(string file)
+        public Workflow LoadWorkflowFromFile(string file)
         {
             try
             {
@@ -296,7 +223,7 @@ namespace Wexflow.Core
             }
         }
 
-        private void ScheduleWorkflow(Workflow wf)
+        public void ScheduleWorkflow(Workflow wf)
         {
             if (wf.IsEnabled)
             {

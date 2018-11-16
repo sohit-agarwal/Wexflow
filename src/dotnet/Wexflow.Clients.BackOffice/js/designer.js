@@ -9,6 +9,7 @@
     var lnkDesigner = document.getElementById("lnk-designer");
     var lnkUsers = document.getElementById("lnk-users");
     var suser = getUser();
+    var osname = Common.os();
 
     if (suser === null || suser === "") {
         Common.redirectToLoginPage();
@@ -171,8 +172,14 @@
                 if (this.value !== "" && saveCalled === false) {
                     Common.get(uri + "/workflowsFolder",
                         function (workflowsFolder) {
-                            workflowInfos[workflowId].Path = Common.trimEnd(workflowsFolder, "\\") + "\\" + that.value + ".xml";
-                            document.getElementById("wf-path").innerHTML = workflowInfos[workflowId].Path;
+
+                            if (osname === "Linux" || osname === "UNIX" || osname === "Mac/iOS") {
+                                workflowInfos[workflowId].Path = Common.trimEnd(workflowsFolder, "/") + "/" + that.value + ".xml";
+                                document.getElementById("wf-path").innerHTML = workflowInfos[workflowId].Path;
+                            } else {
+                                workflowInfos[workflowId].Path = Common.trimEnd(workflowsFolder, "\\") + "\\" + that.value + ".xml";
+                                document.getElementById("wf-path").innerHTML = workflowInfos[workflowId].Path;
+                            }
                         },
                         function () {
                             alert("An error occured while retrieving workflowsFolder.");
@@ -326,13 +333,67 @@
                         }
                     });
             } else {
-                save(workflowId,
-                    selectedId === -1 ? workflowId : selectedId,
-                    function () {
-                        saveCalled = true;
-                        workflowInfos[workflowId].IsNew = false;
-                        document.getElementById("wf-delete").style.display = "inline-block";
-                    });
+
+                if (document.getElementById("wf-name").value === "") {
+                    alert("Enter a name for this workflow.");
+                } else {
+                    var lt = document.getElementById("wf-launchType").value;
+                    if (lt === "") {
+                        alert("Select a launchType for this workflow.");
+                    } else {
+                        if (lt === "periodic" && document.getElementById("wf-period").value === "") {
+                            alert("Enter a period for this workflow.");
+                        } else {
+                            if (lt === "cron" && document.getElementById("wf-cron").value === "") {
+                                alert("Enter a cron expression for this workflow.");
+                            } else {
+                                var saveFunc = function () {
+                                    save(workflowId,
+                                        selectedId === -1 ? workflowId : selectedId,
+                                        function () {
+                                            saveCalled = true;
+                                            workflowInfos[workflowId].IsNew = false;
+                                            document.getElementById("wf-delete").style.display = "inline-block";
+                                        });
+                                };
+
+                                // Period validation
+                                if (lt === "periodic" && document.getElementById("wf-period").value !== "") {
+                                    var period = document.getElementById("wf-period").value;
+                                    Common.get(uri + "/isPeriodValid/" + period,
+                                        function (res) {
+                                            if (res === true) {
+                                                saveFunc();
+                                            } else {
+                                                alert("The period format is not valid. The valid format is: dd.hh:mm:ss");
+                                            }
+                                        }
+                                    );
+                                } // Cron expression validation
+                                else if (lt === "cron" && document.getElementById("wf-cron").value !== "") {
+                                    var expression = document.getElementById("wf-cron").value;
+                                    var expressionEncoded = encodeURIComponent(expression);
+
+                                    Common.get(uri + "/isCronExpressionValid?e=" + expressionEncoded,
+                                        function (res) {
+                                            if (res === true) {
+                                                saveFunc();
+                                            } else {
+                                                if (confirm("The cron expression format is not valid.\nRead the documentation?")) {
+                                                    openInNewTab("https://github.com/aelassas/Wexflow/wiki/Cron-scheduling");
+                                                }
+                                            }
+                                        }
+                                    );
+                                } else {
+                                    saveFunc();
+                                }
+
+                            }
+                        }
+                    }
+                }
+
             }
 
         } else {
