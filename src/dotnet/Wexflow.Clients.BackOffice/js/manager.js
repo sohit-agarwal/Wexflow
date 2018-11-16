@@ -246,8 +246,12 @@
 
             suspendButton.onclick = function () {
                 var suspendUri = uri + "/suspend/" + selectedId;
-                Common.post(suspendUri, function () {
-                    updateButtons(selectedId, true);
+                Common.post(suspendUri, function (res) {
+                    if (res === true) {
+                        updateButtons(selectedId, true);
+                    } else{
+                        alert("This operation is not supported.");
+                    }
                 });
             };
 
@@ -259,8 +263,12 @@
             stopButton.onclick = function () {
                 var stopUri = uri + "/stop/" + selectedId;
                 Common.post(stopUri,
-                    function () {
-                        updateButtons(selectedId, true);
+                    function (res) {
+                        if (res === true) {
+                            updateButtons(selectedId, true);
+                        } else {
+                            alert("This operation is not supported.");
+                        }
                     });
             };
 

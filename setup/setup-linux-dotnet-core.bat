@@ -50,12 +50,12 @@ copy "..\src\dotnet\Wexflow.Clients.BackOffice\js\forgot-password.min.js" %dstDi
 copy "..\src\dotnet\Wexflow.Clients.BackOffice\js\dashboard.min.js" %dstDir%\%backOffice%\js
 copy "..\src\dotnet\Wexflow.Clients.BackOffice\js\manager.min.js" %dstDir%\%backOffice%\js
 
-::copy "..\src\dotnet\Wexflow.Clients.BackOffice\js\designer.min.js" %dstDir%\%backOffice%\js
-copy "..\src\dotnet\Wexflow.Clients.BackOffice\js\common.js" %dstDir%\%backOffice%\js
-copy "..\src\dotnet\Wexflow.Clients.BackOffice\js\authenticate.js" %dstDir%\%backOffice%\js
-copy "..\src\dotnet\Wexflow.Clients.BackOffice\js\cytoscape-dagre.min.js" %dstDir%\%backOffice%\js
-copy "..\src\dotnet\Wexflow.Clients.BackOffice\js\highlight.pack.js" %dstDir%\%backOffice%\js
-copy "..\src\dotnet\Wexflow.Clients.BackOffice\js\designer.js" %dstDir%\%backOffice%\js
+copy "..\src\dotnet\Wexflow.Clients.BackOffice\js\designer.min.js" %dstDir%\%backOffice%\js
+::copy "..\src\dotnet\Wexflow.Clients.BackOffice\js\common.js" %dstDir%\%backOffice%\js
+::copy "..\src\dotnet\Wexflow.Clients.BackOffice\js\authenticate.js" %dstDir%\%backOffice%\js
+::copy "..\src\dotnet\Wexflow.Clients.BackOffice\js\cytoscape-dagre.min.js" %dstDir%\%backOffice%\js
+::copy "..\src\dotnet\Wexflow.Clients.BackOffice\js\highlight.pack.js" %dstDir%\%backOffice%\js
+::copy "..\src\dotnet\Wexflow.Clients.BackOffice\js\designer.js" %dstDir%\%backOffice%\js
 
 copy "..\src\dotnet\Wexflow.Clients.BackOffice\js\history.min.js" %dstDir%\%backOffice%\js
 copy "..\src\dotnet\Wexflow.Clients.BackOffice\js\users.min.js" %dstDir%\%backOffice%\js

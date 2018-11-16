@@ -77,33 +77,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.FilesExist", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.FileExists", "src\dotnet\Wexflow.Tasks.FileExists\Wexflow.Tasks.FileExists.csproj", "{8ED85A48-A8E3-4565-A874-3562F081D14C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Clients.WebManager", "src\dotnet\Wexflow.Clients.WebManager\Wexflow.Clients.WebManager.csproj", "{59410829-C439-4683-818E-AC99F94D1EBA}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Clients.Eto.Manager", "src\dotnet\Wexflow.Clients.Eto.Manager\Wexflow.Clients.Eto.Manager.csproj", "{120B41DA-F306-4B3C-A6C3-D99E8142B47F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Core.Service.Cross", "src\dotnet\Wexflow.Core.Service.Cross\Wexflow.Core.Service.Cross.csproj", "{391DE15B-D5A2-462C-8E40-9DB3CE5CB83D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Movedir", "src\dotnet\Wexflow.Tasks.Movedir\Wexflow.Tasks.Movedir.csproj", "{BBCA7CF8-635A-4ABE-B3C5-81C584DB0D46}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{30035A14-29A3-4EEA-A6BC-D790771D8F20}"
-	ProjectSection(SolutionItems) = preProject
-		.gitignore = .gitignore
-		.tfignore = .tfignore
-		appveyor.yml = appveyor.yml
-		LICENSE.txt = LICENSE.txt
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Now", "src\dotnet\Wexflow.Tasks.Now\Wexflow.Tasks.Now.csproj", "{F2F1E7E2-2707-40A7-A98D-B5BBD27C0787}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Setup", "Setup", "{5365A7ED-4B67-4FF0-9FB2-F7316A6D3469}"
-	ProjectSection(SolutionItems) = preProject
-		setup\setup-linux.bat = setup\setup-linux.bat
-		setup\setup-mac.bat = setup\setup-mac.bat
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Workflow", "src\dotnet\Wexflow.Tasks.Workflow\Wexflow.Tasks.Workflow.csproj", "{10F39219-FE79-4191-B63E-59FF217EFC47}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Clients.WebDesigner", "src\dotnet\Wexflow.Clients.WebDesigner\Wexflow.Clients.WebDesigner.csproj", "{76F89165-83B9-4048-93A9-A93FF81D12EE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Sha1", "src\dotnet\Wexflow.Tasks.Sha1\Wexflow.Tasks.Sha1.csproj", "{58E208F5-9943-48E5-86DF-56F1CCFA8E75}"
 EndProject
@@ -140,129 +122,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.SqlToCsv", "src\dotnet\Wexflow.Tasks.SqlToCsv\Wexflow.Tasks.SqlToCsv.csproj", "{FE20EFFB-272E-4673-86AA-A8C62E043450}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.Guid", "src\dotnet\Wexflow.Tasks.Guid\Wexflow.Tasks.Guid.csproj", "{EB130173-426E-45E6-A852-60215E46FDF8}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{DB08CB74-8778-4B9A-A26B-7D3E3E7EDA8F}"
-	ProjectSection(SolutionItems) = preProject
-		samples\Wexflow\Workflows\Workflow_Cron.xml = samples\Wexflow\Workflows\Workflow_Cron.xml
-		samples\Wexflow\Workflows\Workflow_CsvToJson.xml = samples\Wexflow\Workflows\Workflow_CsvToJson.xml
-		samples\Wexflow\Workflows\Workflow_CsvToSql.xml = samples\Wexflow\Workflows\Workflow_CsvToSql.xml
-		samples\Wexflow\Workflows\Workflow_CsvToXml.xml = samples\Wexflow\Workflows\Workflow_CsvToXml.xml
-		samples\Wexflow\Workflows\Workflow_CsvToYaml.xml = samples\Wexflow\Workflows\Workflow_CsvToYaml.xml
-		samples\Wexflow\Workflows\Workflow_DatabaseBackup.xml = samples\Wexflow\Workflows\Workflow_DatabaseBackup.xml
-		samples\Wexflow\Workflows\Workflow_DatabaseRestore.xml = samples\Wexflow\Workflows\Workflow_DatabaseRestore.xml
-		samples\Wexflow\Workflows\Workflow_ExecCs.xml = samples\Wexflow\Workflows\Workflow_ExecCs.xml
-		samples\Wexflow\Workflows\Workflow_ExecutionGraph.xml = samples\Wexflow\Workflows\Workflow_ExecutionGraph.xml
-		samples\Wexflow\Workflows\Workflow_ExecVb.xml = samples\Wexflow\Workflows\Workflow_ExecVb.xml
-		samples\Wexflow\Workflows\Workflow_ffmpeg.xml = samples\Wexflow\Workflows\Workflow_ffmpeg.xml
-		samples\Wexflow\Workflows\Workflow_FileExists1.xml = samples\Wexflow\Workflows\Workflow_FileExists1.xml
-		samples\Wexflow\Workflows\Workflow_FileExists2.xml = samples\Wexflow\Workflows\Workflow_FileExists2.xml
-		samples\Wexflow\Workflows\Workflow_FileMatch1.xml = samples\Wexflow\Workflows\Workflow_FileMatch1.xml
-		samples\Wexflow\Workflows\Workflow_FileMatch2.xml = samples\Wexflow\Workflows\Workflow_FileMatch2.xml
-		samples\Wexflow\Workflows\Workflow_FilesConcat.xml = samples\Wexflow\Workflows\Workflow_FilesConcat.xml
-		samples\Wexflow\Workflows\Workflow_FilesCopier.xml = samples\Wexflow\Workflows\Workflow_FilesCopier.xml
-		samples\Wexflow\Workflows\Workflow_FilesDecryptor.xml = samples\Wexflow\Workflows\Workflow_FilesDecryptor.xml
-		samples\Wexflow\Workflows\Workflow_FilesDiff.xml = samples\Wexflow\Workflows\Workflow_FilesDiff.xml
-		samples\Wexflow\Workflows\Workflow_FilesEncryptor.xml = samples\Wexflow\Workflows\Workflow_FilesEncryptor.xml
-		samples\Wexflow\Workflows\Workflow_FilesEquals.xml = samples\Wexflow\Workflows\Workflow_FilesEquals.xml
-		samples\Wexflow\Workflows\Workflow_FilesExist.xml = samples\Wexflow\Workflows\Workflow_FilesExist.xml
-		samples\Wexflow\Workflows\Workflow_FilesInfo.xml = samples\Wexflow\Workflows\Workflow_FilesInfo.xml
-		samples\Wexflow\Workflows\Workflow_FilesLoader.xml = samples\Wexflow\Workflows\Workflow_FilesLoader.xml
-		samples\Wexflow\Workflows\Workflow_FilesLoaderGlobalVariables.xml = samples\Wexflow\Workflows\Workflow_FilesLoaderGlobalVariables.xml
-		samples\Wexflow\Workflows\Workflow_FilesMover.xml = samples\Wexflow\Workflows\Workflow_FilesMover.xml
-		samples\Wexflow\Workflows\Workflow_FilesRemover.xml = samples\Wexflow\Workflows\Workflow_FilesRemover.xml
-		samples\Wexflow\Workflows\Workflow_FilesRenamer.xml = samples\Wexflow\Workflows\Workflow_FilesRenamer.xml
-		samples\Wexflow\Workflows\Workflow_FilesSplitter.xml = samples\Wexflow\Workflows\Workflow_FilesSplitter.xml
-		samples\Wexflow\Workflows\Workflow_Ftp.xml = samples\Wexflow\Workflows\Workflow_Ftp.xml
-		samples\Wexflow\Workflows\Workflow_Ftp_delete.xml = samples\Wexflow\Workflows\Workflow_Ftp_delete.xml
-		samples\Wexflow\Workflows\Workflow_Ftp_download.xml = samples\Wexflow\Workflows\Workflow_Ftp_download.xml
-		samples\Wexflow\Workflows\Workflow_Ftp_download_tag.xml = samples\Wexflow\Workflows\Workflow_Ftp_download_tag.xml
-		samples\Wexflow\Workflows\Workflow_Ftp_upload.xml = samples\Wexflow\Workflows\Workflow_Ftp_upload.xml
-		samples\Wexflow\Workflows\Workflow_Ftp_upload_rename.xml = samples\Wexflow\Workflows\Workflow_Ftp_upload_rename.xml
-		samples\Wexflow\Workflows\Workflow_Ftps_delete.xml = samples\Wexflow\Workflows\Workflow_Ftps_delete.xml
-		samples\Wexflow\Workflows\Workflow_Ftps_download.xml = samples\Wexflow\Workflows\Workflow_Ftps_download.xml
-		samples\Wexflow\Workflows\Workflow_Ftps_upload.xml = samples\Wexflow\Workflows\Workflow_Ftps_upload.xml
-		samples\Wexflow\Workflows\Workflow_Ftps_upload_rename.xml = samples\Wexflow\Workflows\Workflow_Ftps_upload_rename.xml
-		samples\Wexflow\Workflows\Workflow_Guid.xml = samples\Wexflow\Workflows\Workflow_Guid.xml
-		samples\Wexflow\Workflows\Workflow_HtmlToPdf.xml = samples\Wexflow\Workflows\Workflow_HtmlToPdf.xml
-		samples\Wexflow\Workflows\Workflow_HtmlToText.xml = samples\Wexflow\Workflows\Workflow_HtmlToText.xml
-		samples\Wexflow\Workflows\Workflow_Http.xml = samples\Wexflow\Workflows\Workflow_Http.xml
-		samples\Wexflow\Workflows\Workflow_HttpDelete.xml = samples\Wexflow\Workflows\Workflow_HttpDelete.xml
-		samples\Wexflow\Workflows\Workflow_HttpGet.xml = samples\Wexflow\Workflows\Workflow_HttpGet.xml
-		samples\Wexflow\Workflows\Workflow_HttpPatch.xml = samples\Wexflow\Workflows\Workflow_HttpPatch.xml
-		samples\Wexflow\Workflows\Workflow_HttpPost.xml = samples\Wexflow\Workflows\Workflow_HttpPost.xml
-		samples\Wexflow\Workflows\Workflow_HttpPut.xml = samples\Wexflow\Workflows\Workflow_HttpPut.xml
-		samples\Wexflow\Workflows\Workflow_ImagesConcat.xml = samples\Wexflow\Workflows\Workflow_ImagesConcat.xml
-		samples\Wexflow\Workflows\Workflow_ImagesCropper.xml = samples\Wexflow\Workflows\Workflow_ImagesCropper.xml
-		samples\Wexflow\Workflows\Workflow_ImagesOverlay.xml = samples\Wexflow\Workflows\Workflow_ImagesOverlay.xml
-		samples\Wexflow\Workflows\Workflow_ImagesResizer.xml = samples\Wexflow\Workflows\Workflow_ImagesResizer.xml
-		samples\Wexflow\Workflows\Workflow_ImagesTransformer.xml = samples\Wexflow\Workflows\Workflow_ImagesTransformer.xml
-		samples\Wexflow\Workflows\Workflow_IsoCreator.xml = samples\Wexflow\Workflows\Workflow_IsoCreator.xml
-		samples\Wexflow\Workflows\Workflow_IsoExtractor.xml = samples\Wexflow\Workflows\Workflow_IsoExtractor.xml
-		samples\Wexflow\Workflows\Workflow_JsonToYaml.xml = samples\Wexflow\Workflows\Workflow_JsonToYaml.xml
-		samples\Wexflow\Workflows\Workflow_ListEntities.xml = samples\Wexflow\Workflows\Workflow_ListEntities.xml
-		samples\Wexflow\Workflows\Workflow_ListFiles.xml = samples\Wexflow\Workflows\Workflow_ListFiles.xml
-		samples\Wexflow\Workflows\Workflow_MailsReceiver.xml = samples\Wexflow\Workflows\Workflow_MailsReceiver.xml
-		samples\Wexflow\Workflows\Workflow_MailsSender.xml = samples\Wexflow\Workflows\Workflow_MailsSender.xml
-		samples\Wexflow\Workflows\Workflow_Md5.xml = samples\Wexflow\Workflows\Workflow_Md5.xml
-		samples\Wexflow\Workflows\Workflow_MediaInfo.xml = samples\Wexflow\Workflows\Workflow_MediaInfo.xml
-		samples\Wexflow\Workflows\Workflow_Mkdir.xml = samples\Wexflow\Workflows\Workflow_Mkdir.xml
-		samples\Wexflow\Workflows\Workflow_Movedir.xml = samples\Wexflow\Workflows\Workflow_Movedir.xml
-		samples\Wexflow\Workflows\Workflow_Now.xml = samples\Wexflow\Workflows\Workflow_Now.xml
-		samples\Wexflow\Workflows\Workflow_Periodic.xml = samples\Wexflow\Workflows\Workflow_Periodic.xml
-		samples\Wexflow\Workflows\Workflow_Ping1.xml = samples\Wexflow\Workflows\Workflow_Ping1.xml
-		samples\Wexflow\Workflows\Workflow_Ping2.xml = samples\Wexflow\Workflows\Workflow_Ping2.xml
-		samples\Wexflow\Workflows\Workflow_ProcessInfo.xml = samples\Wexflow\Workflows\Workflow_ProcessInfo.xml
-		samples\Wexflow\Workflows\Workflow_ProcessKiller.xml = samples\Wexflow\Workflows\Workflow_ProcessKiller.xml
-		samples\Wexflow\Workflows\Workflow_Rmdir.xml = samples\Wexflow\Workflows\Workflow_Rmdir.xml
-		samples\Wexflow\Workflows\Workflow_ScssToCss.xml = samples\Wexflow\Workflows\Workflow_ScssToCss.xml
-		samples\Wexflow\Workflows\Workflow_SevenZip.xml = samples\Wexflow\Workflows\Workflow_SevenZip.xml
-		samples\Wexflow\Workflows\Workflow_Sftp_delete.xml = samples\Wexflow\Workflows\Workflow_Sftp_delete.xml
-		samples\Wexflow\Workflows\Workflow_Sftp_download.xml = samples\Wexflow\Workflows\Workflow_Sftp_download.xml
-		samples\Wexflow\Workflows\Workflow_Sftp_upload.xml = samples\Wexflow\Workflows\Workflow_Sftp_upload.xml
-		samples\Wexflow\Workflows\Workflow_Sftp_upload_rename.xml = samples\Wexflow\Workflows\Workflow_Sftp_upload_rename.xml
-		samples\Wexflow\Workflows\Workflow_Sha1.xml = samples\Wexflow\Workflows\Workflow_Sha1.xml
-		samples\Wexflow\Workflows\Workflow_Sha256.xml = samples\Wexflow\Workflows\Workflow_Sha256.xml
-		samples\Wexflow\Workflows\Workflow_Sha512.xml = samples\Wexflow\Workflows\Workflow_Sha512.xml
-		samples\Wexflow\Workflows\Workflow_SpeechToText.xml = samples\Wexflow\Workflows\Workflow_SpeechToText.xml
-		samples\Wexflow\Workflows\Workflow_Sql.xml = samples\Wexflow\Workflows\Workflow_Sql.xml
-		samples\Wexflow\Workflows\Workflow_SqlToCsv.xml = samples\Wexflow\Workflows\Workflow_SqlToCsv.xml
-		samples\Wexflow\Workflows\Workflow_SqlToXml.xml = samples\Wexflow\Workflows\Workflow_SqlToXml.xml
-		samples\Wexflow\Workflows\Workflow_Startup.xml = samples\Wexflow\Workflows\Workflow_Startup.xml
-		samples\Wexflow\Workflows\Workflow_Sync.xml = samples\Wexflow\Workflows\Workflow_Sync.xml
-		samples\Wexflow\Workflows\Workflow_Tar.xml = samples\Wexflow\Workflows\Workflow_Tar.xml
-		samples\Wexflow\Workflows\Workflow_TextsDecryptor.xml = samples\Wexflow\Workflows\Workflow_TextsDecryptor.xml
-		samples\Wexflow\Workflows\Workflow_TextsEncryptor.xml = samples\Wexflow\Workflows\Workflow_TextsEncryptor.xml
-		samples\Wexflow\Workflows\Workflow_TextToPdf.xml = samples\Wexflow\Workflows\Workflow_TextToPdf.xml
-		samples\Wexflow\Workflows\Workflow_TextToSpeech.xml = samples\Wexflow\Workflows\Workflow_TextToSpeech.xml
-		samples\Wexflow\Workflows\Workflow_Tgz.xml = samples\Wexflow\Workflows\Workflow_Tgz.xml
-		samples\Wexflow\Workflows\Workflow_Torrent.xml = samples\Wexflow\Workflows\Workflow_Torrent.xml
-		samples\Wexflow\Workflows\Workflow_Touch.xml = samples\Wexflow\Workflows\Workflow_Touch.xml
-		samples\Wexflow\Workflows\Workflow_Twitter.xml = samples\Wexflow\Workflows\Workflow_Twitter.xml
-		samples\Wexflow\Workflows\Workflow_UglifyCss.xml = samples\Wexflow\Workflows\Workflow_UglifyCss.xml
-		samples\Wexflow\Workflows\Workflow_UglifyHtml.xml = samples\Wexflow\Workflows\Workflow_UglifyHtml.xml
-		samples\Wexflow\Workflows\Workflow_UglifyJs.xml = samples\Wexflow\Workflows\Workflow_UglifyJs.xml
-		samples\Wexflow\Workflows\Workflow_Unrar.xml = samples\Wexflow\Workflows\Workflow_Unrar.xml
-		samples\Wexflow\Workflows\Workflow_UnSevenZip.xml = samples\Wexflow\Workflows\Workflow_UnSevenZip.xml
-		samples\Wexflow\Workflows\Workflow_Untar.xml = samples\Wexflow\Workflows\Workflow_Untar.xml
-		samples\Wexflow\Workflows\Workflow_Untgz.xml = samples\Wexflow\Workflows\Workflow_Untgz.xml
-		samples\Wexflow\Workflows\Workflow_Unzip.xml = samples\Wexflow\Workflows\Workflow_Unzip.xml
-		samples\Wexflow\Workflows\Workflow_vlc.xml = samples\Wexflow\Workflows\Workflow_vlc.xml
-		samples\Wexflow\Workflows\Workflow_Wait.xml = samples\Wexflow\Workflows\Workflow_Wait.xml
-		samples\Wexflow\Workflows\Workflow_WebToHtml.xml = samples\Wexflow\Workflows\Workflow_WebToHtml.xml
-		samples\Wexflow\Workflows\Workflow_WebToScreenshot.xml = samples\Wexflow\Workflows\Workflow_WebToScreenshot.xml
-		samples\Wexflow\Workflows\Workflow_Wmi.xml = samples\Wexflow\Workflows\Workflow_Wmi.xml
-		samples\Wexflow\Workflows\Workflow_Workflow.xml = samples\Wexflow\Workflows\Workflow_Workflow.xml
-		samples\Wexflow\Workflows\Workflow_XmlToCsv.xml = samples\Wexflow\Workflows\Workflow_XmlToCsv.xml
-		samples\Wexflow\Workflows\Workflow_Xslt.xml = samples\Wexflow\Workflows\Workflow_Xslt.xml
-		samples\Wexflow\Workflows\Workflow_YamlToJson.xml = samples\Wexflow\Workflows\Workflow_YamlToJson.xml
-		samples\Wexflow\Workflows\Workflow_Zip.xml = samples\Wexflow\Workflows\Workflow_Zip.xml
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xslt", "Xslt", "{724B5440-6697-4F79-A865-06F9C0B2BD8C}"
-	ProjectSection(SolutionItems) = preProject
-		samples\Wexflow\Xslt\ListFiles.xslt = samples\Wexflow\Xslt\ListFiles.xslt
-		samples\Wexflow\Xslt\Products.xslt = samples\Wexflow\Xslt\Products.xslt
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.FilesEqual", "src\dotnet\Wexflow.Tasks.FilesEqual\Wexflow.Tasks.FilesEqual.csproj", "{A3D7F9D8-8359-4302-91A0-D00D4C1EDA9B}"
 EndProject
@@ -887,21 +746,6 @@ Global
 		{8ED85A48-A8E3-4565-A874-3562F081D14C}.Release|x64.ActiveCfg = Release|x64
 		{8ED85A48-A8E3-4565-A874-3562F081D14C}.Release|x64.Build.0 = Release|x64
 		{8ED85A48-A8E3-4565-A874-3562F081D14C}.Release|x86.ActiveCfg = Release|Any CPU
-		{59410829-C439-4683-818E-AC99F94D1EBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{59410829-C439-4683-818E-AC99F94D1EBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{59410829-C439-4683-818E-AC99F94D1EBA}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{59410829-C439-4683-818E-AC99F94D1EBA}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{59410829-C439-4683-818E-AC99F94D1EBA}.Debug|x64.ActiveCfg = Debug|x64
-		{59410829-C439-4683-818E-AC99F94D1EBA}.Debug|x64.Build.0 = Debug|x64
-		{59410829-C439-4683-818E-AC99F94D1EBA}.Debug|x86.ActiveCfg = Debug|x86
-		{59410829-C439-4683-818E-AC99F94D1EBA}.Debug|x86.Build.0 = Debug|x86
-		{59410829-C439-4683-818E-AC99F94D1EBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{59410829-C439-4683-818E-AC99F94D1EBA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{59410829-C439-4683-818E-AC99F94D1EBA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{59410829-C439-4683-818E-AC99F94D1EBA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{59410829-C439-4683-818E-AC99F94D1EBA}.Release|x64.ActiveCfg = Release|x64
-		{59410829-C439-4683-818E-AC99F94D1EBA}.Release|x64.Build.0 = Release|x64
-		{59410829-C439-4683-818E-AC99F94D1EBA}.Release|x86.ActiveCfg = Release|Any CPU
 		{120B41DA-F306-4B3C-A6C3-D99E8142B47F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{120B41DA-F306-4B3C-A6C3-D99E8142B47F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{120B41DA-F306-4B3C-A6C3-D99E8142B47F}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
@@ -979,21 +823,6 @@ Global
 		{10F39219-FE79-4191-B63E-59FF217EFC47}.Release|x64.ActiveCfg = Release|x64
 		{10F39219-FE79-4191-B63E-59FF217EFC47}.Release|x64.Build.0 = Release|x64
 		{10F39219-FE79-4191-B63E-59FF217EFC47}.Release|x86.ActiveCfg = Release|Any CPU
-		{76F89165-83B9-4048-93A9-A93FF81D12EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{76F89165-83B9-4048-93A9-A93FF81D12EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{76F89165-83B9-4048-93A9-A93FF81D12EE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{76F89165-83B9-4048-93A9-A93FF81D12EE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{76F89165-83B9-4048-93A9-A93FF81D12EE}.Debug|x64.ActiveCfg = Debug|x64
-		{76F89165-83B9-4048-93A9-A93FF81D12EE}.Debug|x64.Build.0 = Debug|x64
-		{76F89165-83B9-4048-93A9-A93FF81D12EE}.Debug|x86.ActiveCfg = Debug|x86
-		{76F89165-83B9-4048-93A9-A93FF81D12EE}.Debug|x86.Build.0 = Debug|x86
-		{76F89165-83B9-4048-93A9-A93FF81D12EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{76F89165-83B9-4048-93A9-A93FF81D12EE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{76F89165-83B9-4048-93A9-A93FF81D12EE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{76F89165-83B9-4048-93A9-A93FF81D12EE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{76F89165-83B9-4048-93A9-A93FF81D12EE}.Release|x64.ActiveCfg = Release|x64
-		{76F89165-83B9-4048-93A9-A93FF81D12EE}.Release|x64.Build.0 = Release|x64
-		{76F89165-83B9-4048-93A9-A93FF81D12EE}.Release|x86.ActiveCfg = Release|Any CPU
 		{58E208F5-9943-48E5-86DF-56F1CCFA8E75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{58E208F5-9943-48E5-86DF-56F1CCFA8E75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58E208F5-9943-48E5-86DF-56F1CCFA8E75}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
@@ -2044,9 +1873,7 @@ Global
 		{09607358-CFC4-4365-9BDB-57C9CE6CE741} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{81032249-78D9-4B89-8E22-A3C32562EA69} = {67871E52-CB11-4EDF-B036-15F359EF6B66}
 		{D559C35B-BFF5-49C2-9490-818314C88A76} = {67871E52-CB11-4EDF-B036-15F359EF6B66}
-		{59410829-C439-4683-818E-AC99F94D1EBA} = {67871E52-CB11-4EDF-B036-15F359EF6B66}
 		{120B41DA-F306-4B3C-A6C3-D99E8142B47F} = {67871E52-CB11-4EDF-B036-15F359EF6B66}
-		{76F89165-83B9-4048-93A9-A93FF81D12EE} = {67871E52-CB11-4EDF-B036-15F359EF6B66}
 		{C181F37A-30A6-45C6-A191-5672DE38F51F} = {67871E52-CB11-4EDF-B036-15F359EF6B66}
 	EndGlobalSection
 EndGlobal

@@ -1144,7 +1144,7 @@ namespace Wexflow.Core
         /// <summary>
         /// Stops this workflow.
         /// </summary>
-        public void Stop()
+        public bool Stop()
         {
             if (IsRunning)
             {
@@ -1160,18 +1160,21 @@ namespace Wexflow.Core
                     _historyEntry.Status = Db.Status.Stopped;
                     _historyEntry.StatusDate = DateTime.Now;
                     Database.InsertHistoryEntry(_historyEntry);
+                    return true;
                 }
                 catch (Exception e)
                 {
                     Logger.ErrorFormat("An error occured while stopping the workflow : {0}", e, this);
                 }
             }
+
+            return false;
         }
 
         /// <summary>
         /// Suspends this workflow.
         /// </summary>
-        public void Suspend()
+        public bool Suspend()
         {
             if (IsRunning)
             {
@@ -1187,12 +1190,15 @@ namespace Wexflow.Core
                     entry.Status = Db.Status.Pending;
                     entry.StatusDate = DateTime.Now;
                     Database.UpdateEntry(entry);
+                    return true;
                 }
                 catch (Exception e)
                 {
                     Logger.ErrorFormat("An error occured while suspending the workflow : {0}", e, this);
                 }
             }
+
+            return false;
         }
 
         /// <summary>

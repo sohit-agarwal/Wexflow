@@ -65,17 +65,17 @@ namespace Wexflow.Clients.WindowsService
         [WebInvoke(Method = "POST",
             ResponseFormat = WebMessageFormat.Json,
             UriTemplate = "stop/{id}")]
-        public void StopWorkflow(string id)
+        public bool StopWorkflow(string id)
         {
-            WexflowWindowsService.WexflowEngine.StopWorkflow(int.Parse(id));
+            return WexflowWindowsService.WexflowEngine.StopWorkflow(int.Parse(id));
         }
 
         [WebInvoke(Method = "POST",
             ResponseFormat = WebMessageFormat.Json,
             UriTemplate = "suspend/{id}")]
-        public void SuspendWorkflow(string id)
+        public bool SuspendWorkflow(string id)
         {
-            WexflowWindowsService.WexflowEngine.SuspendWorkflow(int.Parse(id));
+            return WexflowWindowsService.WexflowEngine.SuspendWorkflow(int.Parse(id));
         }
 
         [WebInvoke(Method = "POST",

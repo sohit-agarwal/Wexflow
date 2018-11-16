@@ -346,7 +346,7 @@ namespace Wexflow.Core
         /// Stops a workflow.
         /// </summary>
         /// <param name="workflowId">Workflow Id.</param>
-        public void StopWorkflow(int workflowId)
+        public bool StopWorkflow(int workflowId)
         {
             var wf = GetWorkflow(workflowId);
 
@@ -356,15 +356,17 @@ namespace Wexflow.Core
             }
             else
             {
-                if (wf.IsEnabled) wf.Stop();
+                if (wf.IsEnabled) return wf.Stop();
             }
+
+            return false;
         }
 
         /// <summary>
         /// Suspends a workflow.
         /// </summary>
         /// <param name="workflowId">Workflow Id.</param>
-        public void SuspendWorkflow(int workflowId)
+        public bool SuspendWorkflow(int workflowId)
         {
             var wf = GetWorkflow(workflowId);
 
@@ -374,8 +376,10 @@ namespace Wexflow.Core
             }
             else
             {
-                if (wf.IsEnabled) wf.Suspend();
+                if (wf.IsEnabled) return wf.Suspend();
             }
+
+            return false;
         }
 
         /// <summary>

@@ -17,10 +17,10 @@ namespace Wexflow.Clients.WindowsService
         void StartWorkflow(string id);
 
         [OperationContract]
-        void StopWorkflow(string id);
+        bool StopWorkflow(string id);
 
         [OperationContract]
-        void SuspendWorkflow(string id);
+        bool SuspendWorkflow(string id);
 
         [OperationContract]
         void ResumeWorkflow(string id);

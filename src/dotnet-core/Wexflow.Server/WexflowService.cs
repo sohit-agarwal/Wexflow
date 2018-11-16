@@ -189,11 +189,15 @@ namespace Wexflow.Server
         {
             Post(Root + "stop/{id}", args =>
             {
-                Program.WexflowEngine.StopWorkflow(args.id);
+                bool res = Program.WexflowEngine.StopWorkflow(args.id);
 
-                return new Response
+                var resStr = JsonConvert.SerializeObject(res);
+                var resBytes = Encoding.UTF8.GetBytes(resStr);
+
+                return new Response()
                 {
-                    ContentType = "application/json"
+                    ContentType = "application/json",
+                    Contents = s => s.Write(resBytes, 0, resBytes.Length)
                 };
             });
         }
@@ -205,11 +209,15 @@ namespace Wexflow.Server
         {
             Post(Root + "suspend/{id}", args =>
             {
-                Program.WexflowEngine.SuspendWorkflow(args.id);
+                bool res = Program.WexflowEngine.SuspendWorkflow(args.id);
 
-                return new Response
+                var resStr = JsonConvert.SerializeObject(res);
+                var resBytes = Encoding.UTF8.GetBytes(resStr);
+
+                return new Response()
                 {
-                    ContentType = "application/json"
+                    ContentType = "application/json",
+                    Contents = s => s.Write(resBytes, 0, resBytes.Length)
                 };
             });
         }
