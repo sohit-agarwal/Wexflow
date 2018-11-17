@@ -6,7 +6,7 @@ namespace Wexflow.Server
 {
     public class Bootstrapper : DefaultNancyBootstrapper
     {
-        private readonly IAppConfiguration appConfig;
+        private readonly IAppConfiguration _appConfig;
 
         public Bootstrapper()
         {
@@ -14,14 +14,14 @@ namespace Wexflow.Server
 
         public Bootstrapper(IAppConfiguration appConfig)
         {
-            this.appConfig = appConfig;
+            _appConfig = appConfig;
         }
 
         protected override void ConfigureApplicationContainer(TinyIoCContainer container)
         {
             base.ConfigureApplicationContainer(container);
 
-            container.Register(appConfig);
+            container.Register(_appConfig);
         }
 
         protected override void RequestStartup(TinyIoCContainer container, IPipelines pipelines, NancyContext context)

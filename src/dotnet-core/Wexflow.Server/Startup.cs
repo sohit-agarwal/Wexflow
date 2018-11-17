@@ -7,7 +7,7 @@ namespace Wexflow.Server
 {
     public class Startup
     {
-        private readonly IConfiguration config;
+        private readonly IConfiguration _config;
 
         public Startup(IHostingEnvironment env)
         {
@@ -15,13 +15,13 @@ namespace Wexflow.Server
                 .AddJsonFile("appsettings.json")
                 .SetBasePath(env.ContentRootPath);
 
-            config = builder.Build();
+            _config = builder.Build();
         }
 
         public void Configure(IApplicationBuilder app)
         {
             var appConfig = new AppConfiguration();
-            ConfigurationBinder.Bind(config, appConfig);
+            ConfigurationBinder.Bind(_config, appConfig);
 
             app.UseOwin(x => x.UseNancy(opt => opt.Bootstrapper = new Bootstrapper(appConfig)));
         }
