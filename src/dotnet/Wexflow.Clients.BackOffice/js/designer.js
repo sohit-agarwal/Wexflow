@@ -101,7 +101,7 @@
         loadWorkflows();
     };
 
-    searchText.onkeyup = function (e) {
+    searchText.onkeyup = function (event) {
         event.preventDefault();
 
         if (event.keyCode === 13) { // Enter

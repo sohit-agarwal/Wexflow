@@ -6,7 +6,39 @@
     var lnkManager = document.getElementById("lnk-manager");
     var lnkDesigner = document.getElementById("lnk-designer");
     var lnkUsers = document.getElementById("lnk-users");
+    var selectedId = -1;
+    var workflows = {};
+    var timer = null;
+    var timerInterval = 500; // ms
 
+    var html = "<div id='wf-container'>"
+        + "<div id='wf-cmd'>"
+        + "<button id='wf-start' type='button' class='btn btn-primary btn-sm'>Start</button>"
+        + "<button id='wf-pause' type='button' class='btn btn-secondary btn-sm'>Suspend</button>"
+        + "<button id='wf-resume' type='button' class='btn btn-secondary btn-sm'>Resume</button>"
+        + "<button id='wf-stop' type='button' class='btn btn-danger btn-sm'>Stop</button>"
+        + "</div>"
+        + "<div id='wf-notifier'>"
+        + "<input id='wf-notifier-text' type='text' name='fname' readonly>"
+        + "</div>"
+        + "<div id='wf-search'>"
+        + "<div id='wf-search-text-container'>"
+        + "<input id='wf-search-text' type='text' name='fname'>"
+        + "</div>"
+        + "<button id='wf-search-action' type='button' class='btn btn-primary btn-sm'>Search</button>"
+        + "</div>"
+        + "<div id='wf-workflows'>"
+        + "</div>"
+        + "</div>";
+
+    document.getElementById(id).innerHTML = html;
+
+    var startButton = document.getElementById("wf-start");
+    var suspendButton = document.getElementById("wf-pause");
+    var resumeButton = document.getElementById("wf-resume");
+    var stopButton = document.getElementById("wf-stop");
+    var searchButton = document.getElementById("wf-search-action");
+    var searchText = document.getElementById("wf-search-text");
     var suser = getUser();
 
 
@@ -48,7 +80,7 @@
                         Common.disableButton(stopButton, true);
                     };
 
-                    searchText.onkeyup = function (e) {
+                    searchText.onkeyup = function (event) {
                         event.preventDefault();
 
                         if (event.keyCode === 13) { // Enter
@@ -70,39 +102,7 @@
         });
     }
 
-    var selectedId = -1;
-    var workflows = {};
-    var timer = null;
-    var timerInterval = 500; // ms
-
-    var html = "<div id='wf-container'>"
-        + "<div id='wf-cmd'>"
-        + "<button id='wf-start' type='button' class='btn btn-primary btn-sm'>Start</button>"
-        + "<button id='wf-pause' type='button' class='btn btn-secondary btn-sm'>Suspend</button>"
-        + "<button id='wf-resume' type='button' class='btn btn-secondary btn-sm'>Resume</button>"
-        + "<button id='wf-stop' type='button' class='btn btn-danger btn-sm'>Stop</button>"
-        + "</div>"
-        + "<div id='wf-notifier'>"
-        + "<input id='wf-notifier-text' type='text' name='fname' readonly>"
-        + "</div>"
-        + "<div id='wf-search'>"
-        + "<div id='wf-search-text-container'>"
-        + "<input id='wf-search-text' type='text' name='fname'>"
-        + "</div>"
-        + "<button id='wf-search-action' type='button' class='btn btn-primary btn-sm'>Search</button>"
-        + "</div>"
-        + "<div id='wf-workflows'>"
-        + "</div>"
-        + "</div>";
-
-    document.getElementById(id).innerHTML = html;
-
-    var startButton = document.getElementById("wf-start");
-    var suspendButton = document.getElementById("wf-pause");
-    var resumeButton = document.getElementById("wf-resume");
-    var stopButton = document.getElementById("wf-stop");
-    var searchButton = document.getElementById("wf-search-action");
-    var searchText = document.getElementById("wf-search-text");
+   
 
     function compareById(wf1, wf2) {
         if (wf1.Id < wf2.Id) {
