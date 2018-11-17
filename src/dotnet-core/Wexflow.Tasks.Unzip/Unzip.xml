@@ -13,7 +13,5 @@
     <!-- You can add as many selectFiles as you want.-->
     <!-- Required. Destination directory where the archives will be extracted.-->
     <Setting name="destDir" value="$string" />
-    <!-- Optional. The ZIP archive password if necessary.-->
-    <Setting name="password" value="$string" />
   </Task>
 </Tasks>

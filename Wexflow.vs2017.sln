@@ -333,6 +333,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wexflow.Tasks.XmlToCsv", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wexflow.Tasks.Zip", "src\dotnet-core\Wexflow.Tasks.Zip\Wexflow.Tasks.Zip.csproj", "{CFC5C33B-7199-4FCA-88A6-08D41386D46E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wexflow.Tasks.Unzip", "src\dotnet-core\Wexflow.Tasks.Unzip\Wexflow.Tasks.Unzip.csproj", "{BE1A4F53-0CC0-4C49-828F-AAF051960E89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -2841,6 +2843,22 @@ Global
 		{CFC5C33B-7199-4FCA-88A6-08D41386D46E}.Release|x64.Build.0 = Release|Any CPU
 		{CFC5C33B-7199-4FCA-88A6-08D41386D46E}.Release|x86.ActiveCfg = Release|Any CPU
 		{CFC5C33B-7199-4FCA-88A6-08D41386D46E}.Release|x86.Build.0 = Release|Any CPU
+		{BE1A4F53-0CC0-4C49-828F-AAF051960E89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE1A4F53-0CC0-4C49-828F-AAF051960E89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE1A4F53-0CC0-4C49-828F-AAF051960E89}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{BE1A4F53-0CC0-4C49-828F-AAF051960E89}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{BE1A4F53-0CC0-4C49-828F-AAF051960E89}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BE1A4F53-0CC0-4C49-828F-AAF051960E89}.Debug|x64.Build.0 = Debug|Any CPU
+		{BE1A4F53-0CC0-4C49-828F-AAF051960E89}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BE1A4F53-0CC0-4C49-828F-AAF051960E89}.Debug|x86.Build.0 = Debug|Any CPU
+		{BE1A4F53-0CC0-4C49-828F-AAF051960E89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE1A4F53-0CC0-4C49-828F-AAF051960E89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE1A4F53-0CC0-4C49-828F-AAF051960E89}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BE1A4F53-0CC0-4C49-828F-AAF051960E89}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{BE1A4F53-0CC0-4C49-828F-AAF051960E89}.Release|x64.ActiveCfg = Release|Any CPU
+		{BE1A4F53-0CC0-4C49-828F-AAF051960E89}.Release|x64.Build.0 = Release|Any CPU
+		{BE1A4F53-0CC0-4C49-828F-AAF051960E89}.Release|x86.ActiveCfg = Release|Any CPU
+		{BE1A4F53-0CC0-4C49-828F-AAF051960E89}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3009,6 +3027,7 @@ Global
 		{301F6ECB-71EE-4B90-9AC8-84069B499850} = {6CC60633-28FB-45F3-8434-A79D00150CB2}
 		{32BE5F95-BC9C-45E4-9640-AE19E8460D62} = {6CC60633-28FB-45F3-8434-A79D00150CB2}
 		{CFC5C33B-7199-4FCA-88A6-08D41386D46E} = {6CC60633-28FB-45F3-8434-A79D00150CB2}
+		{BE1A4F53-0CC0-4C49-828F-AAF051960E89} = {6CC60633-28FB-45F3-8434-A79D00150CB2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {694D69C8-AA13-4F54-BAAA-5B967F1A8F9C}
