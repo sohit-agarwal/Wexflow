@@ -8,13 +8,13 @@ namespace Wexflow.Tasks.Now
 {
     public class Now : Task
     {
-        public string Cultre { get; private set; }
+        public string Culture { get; private set; }
         public string Format { get; private set; }
 
         public Now(XElement xe, Workflow wf)
             : base(xe, wf)
         {
-            Cultre = GetSetting("culture");
+            Culture = GetSetting("culture");
             Format = GetSetting("format");
         }
 
@@ -25,7 +25,7 @@ namespace Wexflow.Tasks.Now
             bool succeeded = false;
             try
             {
-                value = string.Format(new CultureInfo(Cultre), "{0:"+Format+"}", DateTime.Now);
+                value = string.Format(new CultureInfo(Culture), "{0:" + Format + "}", DateTime.Now);
                 InfoFormat("The value is: {0}", value);
                 succeeded = true;
             }
