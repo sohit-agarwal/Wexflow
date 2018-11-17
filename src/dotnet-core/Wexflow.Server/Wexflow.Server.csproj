@@ -35,6 +35,7 @@
     <ProjectReference Include="..\Wexflow.Tasks.FilesRemover\Wexflow.Tasks.FilesRemover.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.FilesRenamer\Wexflow.Tasks.FilesRenamer.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.FilesSplitter\Wexflow.Tasks.FilesSplitter.csproj" />
+    <ProjectReference Include="..\Wexflow.Tasks.Ftp\Wexflow.Tasks.Ftp.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.Guid\Wexflow.Tasks.Guid.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.HttpDelete\Wexflow.Tasks.HttpDelete.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.HttpGet\Wexflow.Tasks.HttpGet.csproj" />
