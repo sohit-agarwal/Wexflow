@@ -67,6 +67,7 @@
     <ProjectReference Include="..\Wexflow.Tasks.Wait\Wexflow.Tasks.Wait.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.XmlToCsv\Wexflow.Tasks.XmlToCsv.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.Xslt\Wexflow.Tasks.Xslt.csproj" />
+    <ProjectReference Include="..\Wexflow.Tasks.Zip\Wexflow.Tasks.Zip.csproj" />
   </ItemGroup>
 
   <ItemGroup>

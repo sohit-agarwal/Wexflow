@@ -331,6 +331,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wexflow.Tasks.Touch", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wexflow.Tasks.XmlToCsv", "src\dotnet-core\Wexflow.Tasks.XmlToCsv\Wexflow.Tasks.XmlToCsv.csproj", "{32BE5F95-BC9C-45E4-9640-AE19E8460D62}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wexflow.Tasks.Zip", "src\dotnet-core\Wexflow.Tasks.Zip\Wexflow.Tasks.Zip.csproj", "{CFC5C33B-7199-4FCA-88A6-08D41386D46E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -2823,6 +2825,22 @@ Global
 		{32BE5F95-BC9C-45E4-9640-AE19E8460D62}.Release|x64.Build.0 = Release|x64
 		{32BE5F95-BC9C-45E4-9640-AE19E8460D62}.Release|x86.ActiveCfg = Release|x86
 		{32BE5F95-BC9C-45E4-9640-AE19E8460D62}.Release|x86.Build.0 = Release|x86
+		{CFC5C33B-7199-4FCA-88A6-08D41386D46E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFC5C33B-7199-4FCA-88A6-08D41386D46E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFC5C33B-7199-4FCA-88A6-08D41386D46E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{CFC5C33B-7199-4FCA-88A6-08D41386D46E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{CFC5C33B-7199-4FCA-88A6-08D41386D46E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CFC5C33B-7199-4FCA-88A6-08D41386D46E}.Debug|x64.Build.0 = Debug|Any CPU
+		{CFC5C33B-7199-4FCA-88A6-08D41386D46E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CFC5C33B-7199-4FCA-88A6-08D41386D46E}.Debug|x86.Build.0 = Debug|Any CPU
+		{CFC5C33B-7199-4FCA-88A6-08D41386D46E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFC5C33B-7199-4FCA-88A6-08D41386D46E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFC5C33B-7199-4FCA-88A6-08D41386D46E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{CFC5C33B-7199-4FCA-88A6-08D41386D46E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{CFC5C33B-7199-4FCA-88A6-08D41386D46E}.Release|x64.ActiveCfg = Release|Any CPU
+		{CFC5C33B-7199-4FCA-88A6-08D41386D46E}.Release|x64.Build.0 = Release|Any CPU
+		{CFC5C33B-7199-4FCA-88A6-08D41386D46E}.Release|x86.ActiveCfg = Release|Any CPU
+		{CFC5C33B-7199-4FCA-88A6-08D41386D46E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -2990,6 +3008,7 @@ Global
 		{D0471005-13D7-439A-BD65-3DBA5BF36BDE} = {6CC60633-28FB-45F3-8434-A79D00150CB2}
 		{301F6ECB-71EE-4B90-9AC8-84069B499850} = {6CC60633-28FB-45F3-8434-A79D00150CB2}
 		{32BE5F95-BC9C-45E4-9640-AE19E8460D62} = {6CC60633-28FB-45F3-8434-A79D00150CB2}
+		{CFC5C33B-7199-4FCA-88A6-08D41386D46E} = {6CC60633-28FB-45F3-8434-A79D00150CB2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {694D69C8-AA13-4F54-BAAA-5B967F1A8F9C}
