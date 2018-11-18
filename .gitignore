@@ -34,6 +34,7 @@ $tf*/
 .vs/
 setup/*.tar.gz
 setup/*.zip
+setup/*.zip.tmp
 setup/Wexflow.app/
 *.nupkg
 Wexflow_coverage.xml
