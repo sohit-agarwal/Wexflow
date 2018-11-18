@@ -8,6 +8,7 @@
  <xsd:complexType name="workflowType">
    <xsd:sequence>
      <xsd:element name="Settings" type="settingsType" maxOccurs="1"/>
+     <xsd:element name="LocalVariables" type="localVariablesType" minOccurs="0" maxOccurs="1"/>
      <xsd:element name="Tasks"  type="tasksType" maxOccurs="1"/>
      <xsd:element name="ExecutionGraph"  type="executionGraphType" minOccurs="0"/>
    </xsd:sequence>
@@ -21,7 +22,19 @@
      <xsd:element name="Setting" type="settingType"/>
    </xsd:sequence>
  </xsd:complexType>
- 
+
+  <xsd:complexType name="localVariablesType">
+    <xsd:sequence maxOccurs="unbounded">
+      <xsd:element name="Variable" type="variableType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="variableType">
+    <xsd:attribute name="name" type="xsd:string" use="required"/>
+    <xsd:attribute name="value" type="xsd:string" use="optional"/>
+    <xsd:anyAttribute processContents="skip" />
+  </xsd:complexType>
+
  <xsd:complexType name="settingType">
    <xsd:attribute name="name" type="xsd:string" use="required"/>
    <xsd:attribute name="value" type="xsd:string" use="optional"/>

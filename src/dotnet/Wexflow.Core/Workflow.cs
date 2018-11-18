@@ -16,12 +16,12 @@ using Wexflow.Core.ExecutionGraph.Flowchart;
 namespace Wexflow.Core
 {
     /// <summary>
-    /// Worflow.
+    /// Workflow.
     /// </summary>
     public class Workflow
     {
         /// <summary>
-        /// This constant is used to determine the keysize of the encryption algorithm in bits.
+        /// This constant is used to determine the key size of the encryption algorithm in bits.
         /// We divide this by 8 within the code below to get the equivalent number of bytes.
         /// </summary>
         public static readonly int KeySize = 256;
@@ -32,7 +32,7 @@ namespace Wexflow.Core
         public static readonly int DerivationIterations = 1000;
 
         /// <summary>
-        /// Passphrase.
+        /// PassPhrase.
         /// </summary>
         public static readonly string PassPhrase = "FHMWW-EORNR-XXF0Q-E8Q#G-YC!RG-KV=TN-M9MQJ-AySDI-LAC5Q-UV==QE-VSVNL-OV1IZ";
 
@@ -149,6 +149,10 @@ namespace Wexflow.Core
         /// Global variables.
         /// </summary>
         public Variable[] GlobalVariables { get; private set; }
+        /// <summary>
+        /// Local variables.
+        /// </summary>
+        public Variable[] LocalVariables { get; private set; }
 
         private Thread _thread;
         private HistoryEntry _historyEntry;
@@ -211,6 +215,9 @@ namespace Wexflow.Core
 
         void Parse(string src, string dest)
         {
+            //
+            // Parse global variables.
+            //
             using (StreamReader sr = new StreamReader(src))
             using (StreamWriter sw = new StreamWriter(dest, false))
             {
@@ -224,6 +231,64 @@ namespace Wexflow.Core
                     sw.WriteLine(line);
                 }
             }
+
+            //
+            // Load local variables.
+            //
+            using (var xmlReader = XmlReader.Create(dest))
+            {
+                var xmlNameTable = xmlReader.NameTable;
+                if (xmlNameTable != null)
+                {
+                    XmlNamespaceManager = new XmlNamespaceManager(xmlNameTable);
+                    XmlNamespaceManager.AddNamespace("wf", "urn:wexflow-schema");
+                }
+                else
+                {
+                    throw new Exception("xmlNameTable of " + WorkflowFilePath + " is null");
+                }
+
+                var xdoc = XDocument.Load(dest);
+                List<Variable> localVariables = new List<Variable>();
+
+                foreach (var xvariable in xdoc.XPathSelectElements("/wf:Workflow/wf:LocalVariables/wf:Variable",
+                    XmlNamespaceManager))
+                {
+                    string key = xvariable.Attribute("name").Value;
+                    string value = xvariable.Attribute("value").Value;
+
+                    Variable variable = new Variable
+                    {
+                        Key = key,
+                        Value = value
+                    };
+
+                    localVariables.Add(variable);
+                }
+
+                LocalVariables = localVariables.ToArray();
+            }
+
+            //
+            // Parse local variables.
+            //
+            string tmpDest = Path.Combine(Path.GetDirectoryName(dest), Path.GetFileNameWithoutExtension(dest) + "_" + Guid.NewGuid() + ".xml");
+            using (StreamReader sr = new StreamReader(dest))
+            using (StreamWriter sw = new StreamWriter(tmpDest, false))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    foreach (var variable in LocalVariables)
+                    {
+                        line = line.Replace("$" + variable.Key, variable.Value);
+                    }
+                    sw.WriteLine(line);
+                }
+            }
+            File.Delete(dest);
+            File.Move(tmpDest, dest);
+            
         }
 
         void Load()
