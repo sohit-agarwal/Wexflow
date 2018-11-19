@@ -1,6 +1,6 @@
 ::@echo off
 
-set version=3.4
+set version=3.5
 set dst=wexflow-%version%-windows-dotnet-core
 set dstDir=.\%dst%
 set backOffice=Back-office

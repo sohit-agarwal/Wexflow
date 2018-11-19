@@ -21,6 +21,7 @@
     <ProjectReference Include="..\Wexflow.Core\Wexflow.Core.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.CsvToSql\Wexflow.Tasks.CsvToSql.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.CsvToXml\Wexflow.Tasks.CsvToXml.csproj" />
+    <ProjectReference Include="..\Wexflow.Tasks.EnvironmentVariable\Wexflow.Tasks.EnvironmentVariable.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.FileExists\Wexflow.Tasks.FileExists.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.FileMatch\Wexflow.Tasks.FileMatch.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.FilesConcat\Wexflow.Tasks.FilesConcat.csproj" />

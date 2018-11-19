@@ -1,6 +1,7 @@
 [
 	"CsvToSql",
 	"CsvToXml",
+	"EnvironmentVariable",
 	"FileExists",
 	"FileMatch",
 	"FilesCopier",

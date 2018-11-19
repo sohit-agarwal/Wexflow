@@ -11,8 +11,7 @@ namespace Wexflow.Tasks.Now
         public string Cultre { get; private set; }
         public string Format { get; private set; }
 
-        public Now(XElement xe, Workflow wf)
-            : base(xe, wf)
+        public Now(XElement xe, Workflow wf) : base(xe, wf)
         {
             Cultre = GetSetting("culture");
             Format = GetSetting("format");

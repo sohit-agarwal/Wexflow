@@ -5,6 +5,7 @@
 	"CsvToYaml",
 	"DatabaseBackup",
 	"DatabaseRestore",
+	"EnvironmentVariable",
 	"ExecCs",
 	"ExecVb",
 	"FileExists",

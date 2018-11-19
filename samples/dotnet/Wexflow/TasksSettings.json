@@ -5,6 +5,7 @@
 	"CsvToYaml": [ "selectFiles", "separator" ],
 	"DatabaseBackup": [ "serverConnection", "databaseName", "backupFilePath", "overwrite" ],
 	"DatabaseRestore": [ "serverConnection", "databaseName", "backupFilePath" ],
+	"EnvironmentVariable": [ "name" ],
 	"ExecCs": [ "selectFiles" ],
 	"ExecVb": [ "selectFiles" ],
 	"FileExists": [ "file" ],

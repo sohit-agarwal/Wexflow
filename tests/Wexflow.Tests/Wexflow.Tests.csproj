@@ -98,6 +98,7 @@
     <Compile Include="HtmlToText.cs" />
     <Compile Include="JsonToYaml.cs" />
     <Compile Include="CsvToJson.cs" />
+    <Compile Include="EnvironmentVariable.cs" />
     <Compile Include="YamlToJson.cs" />
     <Compile Include="ScssToCss.cs" />
     <Compile Include="UglifyHtml.cs" />
@@ -224,6 +225,10 @@
     <ProjectReference Include="..\..\src\dotnet\Wexflow.Tasks.DatabaseRestore\Wexflow.Tasks.DatabaseRestore.csproj">
       <Project>{f42fbcd6-6d25-4a28-be88-57025f181c1c}</Project>
       <Name>Wexflow.Tasks.DatabaseRestore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\dotnet\Wexflow.Tasks.EnvironmentVariable\Wexflow.Tasks.EnvironmentVariable.csproj">
+      <Project>{4d6b8683-6296-4703-9dc8-ab911875a703}</Project>
+      <Name>Wexflow.Tasks.EnvironmentVariable</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\dotnet\Wexflow.Tasks.ExecCs\Wexflow.Tasks.ExecCs.csproj">
       <Project>{485bbbd8-4ad9-4088-a91d-2766cc5cfa0e}</Project>
