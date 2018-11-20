@@ -111,7 +111,7 @@ body{
     overflow-x: hidden;
 }
 
-#wf-tasks, .wf-task, .wf-add-setting-title {
+#wf-local-vars, #wf-tasks, .wf-task, .wf-add-setting-title {
     margin-top: 10px;
 }
 .wf-add-setting-title {
@@ -149,6 +149,7 @@ body{
     border-right: #ddd 1px solid;
     border-left: #ddd 1px solid;
 }
+
 
 .wf-value, .wf-value> input {
     width: 100%;

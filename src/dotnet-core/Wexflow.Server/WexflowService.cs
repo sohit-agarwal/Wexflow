@@ -96,7 +96,9 @@ namespace Wexflow.Server
                 var workflows = Program.WexflowEngine.Workflows.Select(wf => new WorkflowInfo(wf.Id, wf.Name,
                         (LaunchType) wf.LaunchType, wf.IsEnabled, wf.Description, wf.IsRunning, wf.IsPaused,
                         wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression, wf.WorkflowFilePath,
-                        wf.IsExecutionGraphEmpty))
+                        wf.IsExecutionGraphEmpty
+                        , wf.LocalVariables.Select(v => new Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()
+                        ))
                     .ToArray();
                 var workflowsStr = JsonConvert.SerializeObject(workflows);
                 var workflowsBytes = Encoding.UTF8.GetBytes(workflowsStr);
@@ -123,7 +125,9 @@ namespace Wexflow.Server
                     .Select(wf => new WorkflowInfo(wf.Id, wf.Name,
                         (LaunchType) wf.LaunchType, wf.IsEnabled, wf.Description, wf.IsRunning, wf.IsPaused,
                         wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression, wf.WorkflowFilePath,
-                        wf.IsExecutionGraphEmpty))
+                        wf.IsExecutionGraphEmpty
+                        , wf.LocalVariables.Select(v => new Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()
+                        ))
                     .ToArray();
                 var workflowsStr = JsonConvert.SerializeObject(workflows);
                 var workflowsBytes = Encoding.UTF8.GetBytes(workflowsStr);
@@ -143,12 +147,14 @@ namespace Wexflow.Server
         {
             Get(Root + "workflow/{id}", args =>
             {
-                var wf = Program.WexflowEngine.GetWorkflow(args.id);
+                Workflow wf = Program.WexflowEngine.GetWorkflow(args.id);
                 if (wf != null)
                 {
                     var workflow = new WorkflowInfo(wf.Id, wf.Name, (LaunchType)wf.LaunchType, wf.IsEnabled, wf.Description,
                         wf.IsRunning, wf.IsPaused, wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
-                        wf.WorkflowFilePath, wf.IsExecutionGraphEmpty);
+                        wf.WorkflowFilePath, wf.IsExecutionGraphEmpty
+                        , wf.LocalVariables.Select(v => new Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()
+                        );
                     var workflowStr = JsonConvert.SerializeObject(workflow);
                     var workflowBytes = Encoding.UTF8.GetBytes(workflowStr);
 

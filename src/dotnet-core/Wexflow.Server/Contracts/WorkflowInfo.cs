@@ -34,7 +34,9 @@ namespace Wexflow.Server.Contracts
         
         public bool IsExecutionGraphEmpty { get; set; }
 
-        public WorkflowInfo(int id, string name, LaunchType launchType, bool isEnabled, string desc, bool isRunning, bool isPaused, string period, string cronExpression, string path, bool isExecutionGraphEmpty)
+        public Variable[] LocalVariables { get; set; }
+
+        public WorkflowInfo(int id, string name, LaunchType launchType, bool isEnabled, string desc, bool isRunning, bool isPaused, string period, string cronExpression, string path, bool isExecutionGraphEmpty, Variable[] localVariables)
         {
             Id = id;
             Name = name;
@@ -47,6 +49,7 @@ namespace Wexflow.Server.Contracts
             CronExpression = cronExpression;
             Path = path;
             IsExecutionGraphEmpty = isExecutionGraphEmpty;
+            LocalVariables = localVariables;
         }
 
         public int CompareTo(object obj)

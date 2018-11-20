@@ -215,27 +215,11 @@ namespace Wexflow.Core
 
         void Parse(string src, string dest)
         {
-            //
-            // Parse global variables.
-            //
-            using (StreamReader sr = new StreamReader(src))
-            using (StreamWriter sw = new StreamWriter(dest, false))
-            {
-                string line;
-                while ((line = sr.ReadLine()) != null)
-                {
-                    foreach (var variable in GlobalVariables)
-                    {
-                        line = line.Replace("$" + variable.Key, variable.Value);
-                    }
-                    sw.WriteLine(line);
-                }
-            }
 
             //
             // Load local variables.
             //
-            using (var xmlReader = XmlReader.Create(dest))
+            using (var xmlReader = XmlReader.Create(src))
             {
                 var xmlNameTable = xmlReader.NameTable;
                 if (xmlNameTable != null)
@@ -248,7 +232,7 @@ namespace Wexflow.Core
                     throw new Exception("xmlNameTable of " + WorkflowFilePath + " is null");
                 }
 
-                var xdoc = XDocument.Load(dest);
+                var xdoc = XDocument.Load(src);
                 List<Variable> localVariables = new List<Variable>();
 
                 foreach (var xvariable in xdoc.XPathSelectElements("/wf:Workflow/wf:LocalVariables/wf:Variable",
@@ -270,6 +254,58 @@ namespace Wexflow.Core
             }
 
             //
+            // Parse global variables.
+            //
+            using (StreamReader sr = new StreamReader(src))
+            using (StreamWriter sw = new StreamWriter(dest, false))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    foreach (var variable in GlobalVariables)
+                    {
+                        line = line.Replace("$" + variable.Key, variable.Value);
+                    }
+                    sw.WriteLine(line);
+                }
+            }
+
+            //
+            // Load local variables with their final values (parsed)
+            //
+            List<Variable> localVariablesParsed = new List<Variable>();
+            using (var xmlReader = XmlReader.Create(dest))
+            {
+                var xmlNameTable = xmlReader.NameTable;
+                if (xmlNameTable != null)
+                {
+                    XmlNamespaceManager = new XmlNamespaceManager(xmlNameTable);
+                    XmlNamespaceManager.AddNamespace("wf", "urn:wexflow-schema");
+                }
+                else
+                {
+                    throw new Exception("xmlNameTable of " + WorkflowFilePath + " is null");
+                }
+
+                var xdoc = XDocument.Load(dest);
+
+                foreach (var xvariable in xdoc.XPathSelectElements("/wf:Workflow/wf:LocalVariables/wf:Variable",
+                    XmlNamespaceManager))
+                {
+                    string key = xvariable.Attribute("name").Value;
+                    string value = xvariable.Attribute("value").Value;
+
+                    Variable variable = new Variable
+                    {
+                        Key = key,
+                        Value = value
+                    };
+
+                    localVariablesParsed.Add(variable);
+                }
+            }
+
+            //
             // Parse local variables.
             //
             string tmpDest = Path.Combine(Path.GetDirectoryName(dest), Path.GetFileNameWithoutExtension(dest) + "_" + Guid.NewGuid() + ".xml");
@@ -279,7 +315,7 @@ namespace Wexflow.Core
                 string line;
                 while ((line = sr.ReadLine()) != null)
                 {
-                    foreach (var variable in LocalVariables)
+                    foreach (var variable in localVariablesParsed)
                     {
                         line = line.Replace("$" + variable.Key, variable.Value);
                     }

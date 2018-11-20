@@ -34,7 +34,9 @@ namespace Wexflow.Clients.WindowsService
             return WexflowWindowsService.WexflowEngine.Workflows.Select(wf => new WorkflowInfo(wf.Id, wf.Name,
                     (LaunchType) wf.LaunchType, wf.IsEnabled, wf.Description, wf.IsRunning, wf.IsPaused,
                     wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression, wf.WorkflowFilePath,
-                    wf.IsExecutionGraphEmpty))
+                    wf.IsExecutionGraphEmpty
+                    , wf.LocalVariables.Select(v => new Core.Service.Contracts.Variable{Key = v.Key, Value = v.Value }).ToArray()
+                    ))
                 .ToArray();
         }
 
@@ -50,7 +52,8 @@ namespace Wexflow.Clients.WindowsService
                 .Select(wf => new WorkflowInfo(wf.Id, wf.Name,
                     (LaunchType) wf.LaunchType, wf.IsEnabled, wf.Description, wf.IsRunning, wf.IsPaused,
                     wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression, wf.WorkflowFilePath,
-                    wf.IsExecutionGraphEmpty))
+                    wf.IsExecutionGraphEmpty
+                   , wf.LocalVariables.Select(v => new Core.Service.Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()))
                 .ToArray();
         }
 
@@ -96,7 +99,9 @@ namespace Wexflow.Clients.WindowsService
             {
                 return new WorkflowInfo(wf.Id, wf.Name, (LaunchType) wf.LaunchType, wf.IsEnabled, wf.Description,
                     wf.IsRunning, wf.IsPaused, wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
-                    wf.WorkflowFilePath, wf.IsExecutionGraphEmpty);
+                    wf.WorkflowFilePath, wf.IsExecutionGraphEmpty
+                        , wf.LocalVariables.Select(v => new Core.Service.Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()
+                    );
             }
 
             return null;
