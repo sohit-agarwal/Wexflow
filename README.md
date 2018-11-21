@@ -32,14 +32,14 @@ Wexflow provides the following features:
 - [x] [Modular](https://github.com/aelassas/Wexflow/wiki/Modular).
 - [x] [Well documented](https://github.com/aelassas/Wexflow/wiki/).
 - [x] [User driven](https://github.com/aelassas/Wexflow/wiki/User-driven).
-- [x] [Sequential workflows](https://github.com/aelassas/Wexflow/wiki/Samples#sequential-workflows).
-- [x] [Flowchart workflows](https://github.com/aelassas/Wexflow/wiki/Samples#flowchart-workflows).
-- [x] [Workflow events](https://github.com/aelassas/Wexflow/wiki/Samples#workflow-events).
-- [x] [Cron scheduling](https://github.com/aelassas/Wexflow/wiki/Cron-scheduling).
 - [x] [A cross-platform workflow server](https://github.com/aelassas/Wexflow/wiki/Workflow-server).
 - [x] [A cross-platform application for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#wexflow-manager-1).
 - [x] [A cross-platform application for designing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#wexflow-designer).
 - [x] [An Android application for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#wexflow-android-manager).
+- [x] [Sequential workflows](https://github.com/aelassas/Wexflow/wiki/Samples#sequential-workflows).
+- [x] [Flowchart workflows](https://github.com/aelassas/Wexflow/wiki/Samples#flowchart-workflows).
+- [x] [Workflow events](https://github.com/aelassas/Wexflow/wiki/Samples#workflow-events).
+- [x] [Cron scheduling](https://github.com/aelassas/Wexflow/wiki/Cron-scheduling).
 - [x] [Extensive logging and incident reporting](https://github.com/aelassas/Wexflow/wiki/Logging).
 - [x] [Real-time statistics on workflows](https://github.com/aelassas/Wexflow/wiki/Usage#wexflow-dashboard).
 - [x] [91 built-in tasks](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation)!
