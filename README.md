@@ -16,9 +16,11 @@ Wexflow is a high performance, extensible, modular and cross-platform workflow e
 
 Wexflow aims to make automations, workflow processes, long-running processes and interactions between systems, applications and folks easy, straightforward and clean. The communication between systems or applications becomes easy through this powerful workflow engine.
 
-Wexflow makes use of [Quartz.NET](https://www.quartz-scheduler.net/) open source job scheduling system that is used in large scale entreprise systems. Thus, Wexflow offers felixibility in planning workflow jobs such as [cron workflows](https://github.com/aelassas/Wexflow/wiki/Cron-scheduling).
+Wexflow makes use of [.NET Core](https://www.microsoft.com/net/download), a cross-platform version of .NET for building websites, services, and console apps. Thus, Wexflow provides a cross-platform workflow server and a cross-platform backend for managing, designing and tracking workflows with ease and flexibility. Wexflow server and its backend run on Windows, Linux and macOS.
 
-Furthermore, Wexflow makes use of [LiteDB](http://www.litedb.org/) NoSQL Document Store database in its server and back office which enhance and improve the performance of this workflow engine.
+Wexflow also makes use of [Quartz.NET](https://www.quartz-scheduler.net/) open source job scheduling system that is used in large scale entreprise systems. Thus, Wexflow offers felixibility in planning workflow jobs such as [cron workflows](https://github.com/aelassas/Wexflow/wiki/Cron-scheduling).
+
+Furthermore, Wexflow makes use of [LiteDB](http://www.litedb.org/) NoSQL Document Store database in its server and backend which enhance and improve the performance of this workflow engine.
 
 # Features
 
@@ -34,6 +36,7 @@ Wexflow provides the following features:
 - [x] [Flowchart workflows](https://github.com/aelassas/Wexflow/wiki/Samples#flowchart-workflows).
 - [x] [Workflow events](https://github.com/aelassas/Wexflow/wiki/Samples#workflow-events).
 - [x] [Cron scheduling](https://github.com/aelassas/Wexflow/wiki/Cron-scheduling).
+- [x] [A cross-platform workflow server](https://github.com/aelassas/Wexflow/wiki/Workflow-server).
 - [x] [A cross-platform application for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#wexflow-manager-1).
 - [x] [A cross-platform application for designing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#wexflow-designer).
 - [x] [An Android application for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#wexflow-android-manager).
