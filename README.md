@@ -49,7 +49,7 @@ Wexflow provides the following features:
 - [x] [Monitoring](https://github.com/aelassas/Wexflow/wiki/Monitoring).
 - [x] [Extensible](https://github.com/aelassas/Wexflow/wiki/Extensible).
 
-Wexflow comes with a back office too, so you can search and filter among all your workflows, have real-time statistics on your workflows, manage your workflows with ease, design your workflows with ease, and track your workflows with ease:
+Wexflow comes with a backend too, so you can search and filter among all your workflows, have real-time statistics on your workflows, manage your workflows with ease, design your workflows with ease, and track your workflows with ease:
 
 ![Dashboard](https://aelassas.github.io/wexflow/images/wbo-dashboard-3.2.png)
 
