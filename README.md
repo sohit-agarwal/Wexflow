@@ -93,7 +93,7 @@ Here are the benefits of using Wexflow:
 |  Server | Platform | Status |
 ----------|--------|----------|
 | [AppVeyor](https://www.appveyor.com/) (.NET)| Windows |[![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow)|
-|[Bitrise](https://www.bitrise.io/) (Android)| Linux|[![Build Status](https://app.bitrise.io/app/64ffd1e1bc4fab82/status.svg?token=Hx7assKeGp_-NJGWGF_gBA)](https://app.bitrise.io/app/64ffd1e1bc4fab82)|
+|[Bitrise](https://www.bitrise.io/) (Android)| Linux|[![Build Status](https://app.bitrise.io/app/dba3b2d20b9fa08f/status.svg?token=y-XB39RvGk5hta1p-YS2NA&branch=master)](https://app.bitrise.io/app/dba3b2d20b9fa08f)|
 |[codecov.io](https://codecov.io)|Windows|[![codecov](https://codecov.io/gh/aelassas/Wexflow/branch/master/graph/badge.svg)](https://codecov.io/gh/aelassas/Wexflow)|
 
 # Get started
