@@ -26,14 +26,14 @@
           - An id which is an integer that must be unique.
           - A name which is one of the options described in the tasks documentation.
           - A description which is a string.
-          - The enable option which allows to enable or disable a task. The possible 
+          - The enabled option which allows to enable or disable a task. The possible 
             values are true or false.
           - A collection of settings.
         - An ExecutionGraph section which contains the execution graph of the workflow.
 -->
 <Workflow xmlns="urn:wexflow-schema" id="$int" name="$string" description="$string">
   <Settings>
-    <Setting name="launchType" value="startup|trigger|periodic" />
+    <Setting name="launchType" value="startup|trigger|periodic|cron" />
     <Setting name="period" value="dd.hh:mm:ss" />
     <Setting name="cronExpression" value="$string" />
     <Setting name="enabled" value="true|false" />
