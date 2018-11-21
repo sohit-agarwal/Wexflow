@@ -34,8 +34,8 @@ Wexflow provides the following features:
 - [x] [Flowchart workflows](https://github.com/aelassas/Wexflow/wiki/Samples#flowchart-workflows).
 - [x] [Workflow events](https://github.com/aelassas/Wexflow/wiki/Samples#workflow-events).
 - [x] [Cron scheduling](https://github.com/aelassas/Wexflow/wiki/Cron-scheduling).
-- [x] [A cross-platform application for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#wexflow-back-office).
-- [x] [A cross-platform application for designing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#wexflow-back-office).
+- [x] [A cross-platform application for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#wexflow-manager-1).
+- [x] [A cross-platform application for designing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#wexflow-designer).
 - [x] [An Android application for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#wexflow-android-manager).
 - [x] [Extensive logging and incident reporting](https://github.com/aelassas/Wexflow/wiki/Logging).
 - [x] [Real-time statistics on workflows](https://github.com/aelassas/Wexflow/wiki/Usage#wexflow-dashboard).
