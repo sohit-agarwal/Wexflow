@@ -148,7 +148,7 @@ Wexflow is licensed under the [MIT License](https://github.com/aelassas/Wexflow/
 Wexflow contains other libraries with their individual licenses. More details about these licenses can be found in the [wiki](https://github.com/aelassas/Wexflow/wiki/License).
 
 # Developers
-- [Akram El Assas](https://github.com/aelassas) (Project founder)
+- [Akram El Assas](https://github.com/aelassas) (Project founder and maintainer)
 - [Hans Meyer](https://github.com/HaMster21) 
 - [Jan Borup Coyle](https://github.com/janborup) 
 - [Alex Higgins](https://github.com/alexhiggins732)
