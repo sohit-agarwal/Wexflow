@@ -231,7 +231,7 @@ namespace Wexflow.Core
                     if (duplicateId != null)
                     {
                         Logger.ErrorFormat(
-                            "An error occured while loading the workflow : {0}. The workflow Id {1} is already assgined in {2}",
+                            "An error occured while loading the workflow : {0}. The workflow Id {1} is already assigned in {2}",
                             args.FullPath, reloaded.Id, duplicateId.WorkflowFilePath);
                     }
                     else
