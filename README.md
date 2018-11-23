@@ -1,7 +1,7 @@
 <!--[![Logo](https://aelassas.github.io/wexflow/images/wexflow.png "Logo")](https://wexflow.github.io/)-->
 # <a href="https://wexflow.github.io/"><img alt="Wexflow" src="https://aelassas.github.io/wexflow/images/wexflow.png" width="100%"></a>
 
-[![Release](http://img.shields.io/badge/release-v3.4-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/latest) [![Nuget](http://img.shields.io/badge/nuget-v3.4.0-blue.svg)](https://www.nuget.org/packages/Wexflow) [![GitHub Downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://www.somsubhra.com/github-release-stats/?username=aelassas&repository=Wexflow) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby) [![Release](http://img.shields.io/badge/prs-welcome-brightgreen.svg)](https://github.com/aelassas/Wexflow#contribute) [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Wexflow%20-%20Open%20source%20workflow%20engine&url=https://wexflow.github.io&via=aelassas_dev&hashtags=wexflow,workflow)
+[![Release](http://img.shields.io/badge/release-v3.5-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/latest) [![Nuget](http://img.shields.io/badge/nuget-v3.5.0-blue.svg)](https://www.nuget.org/packages/Wexflow) [![GitHub Downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://www.somsubhra.com/github-release-stats/?username=aelassas&repository=Wexflow) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby) [![Release](http://img.shields.io/badge/prs-welcome-brightgreen.svg)](https://github.com/aelassas/Wexflow#contribute) [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Wexflow%20-%20Open%20source%20workflow%20engine&url=https://wexflow.github.io&via=aelassas_dev&hashtags=wexflow,workflow)
 
 <!--
 [![NuGet Downloads](https://img.shields.io/nuget/dt/Wexflow.svg)](https://www.nuget.org/packages/Wexflow/)
@@ -44,7 +44,7 @@ Wexflow provides the following features:
 - [x] [Cron scheduling](https://github.com/aelassas/Wexflow/wiki/Cron-scheduling).
 - [x] [Extensive logging and incident reporting](https://github.com/aelassas/Wexflow/wiki/Logging).
 - [x] [Real-time statistics on workflows](https://github.com/aelassas/Wexflow/wiki/Usage#dashboard).
-- [x] [91 built-in tasks](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation)!
+- [x] [92 built-in tasks](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation).
 - [x] [RESTful API](https://github.com/aelassas/Wexflow/wiki/RESTful-API).
 - [x] [Hot reloading](https://github.com/aelassas/Wexflow/wiki/Hot-reloading).
 - [x] [Automation](https://github.com/aelassas/Wexflow/wiki/Automation).
@@ -65,6 +65,7 @@ Discover more about the features in [details](https://github.com/aelassas/Wexflo
 
 Here are some examples of using Wexflow:
 
+- Orchestration engine.
 - Batch recording live video feeds.
 - Batch transcoding audio and video files.
 - Batch uploading videos and their metadata to YouTube SFTP dropbox.
