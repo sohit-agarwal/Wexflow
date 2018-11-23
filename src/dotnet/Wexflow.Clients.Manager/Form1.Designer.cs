@@ -42,7 +42,7 @@
             this.buttonRestart = new System.Windows.Forms.Button();
             this.buttonRefresh = new System.Windows.Forms.Button();
             this.buttonLogs = new System.Windows.Forms.Button();
-            this.buttonBackOffice = new System.Windows.Forms.Button();
+            this.buttonBackend = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
@@ -164,7 +164,7 @@
             this.panel1.Controls.Add(this.buttonRestart);
             this.panel1.Controls.Add(this.buttonRefresh);
             this.panel1.Controls.Add(this.buttonLogs);
-            this.panel1.Controls.Add(this.buttonBackOffice);
+            this.panel1.Controls.Add(this.buttonBackend);
             this.panel1.Controls.Add(this.buttonStart);
             this.panel1.Controls.Add(this.buttonPause);
             this.panel1.Controls.Add(this.buttonStop);
@@ -208,17 +208,17 @@
             this.buttonLogs.UseVisualStyleBackColor = true;
             this.buttonLogs.Click += new System.EventHandler(this.ButtonLog_Click);
             // 
-            // buttonBackOffice
+            // buttonBackend
             // 
-            this.buttonBackOffice.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonBackOffice.Enabled = false;
-            this.buttonBackOffice.Location = new System.Drawing.Point(446, 10);
-            this.buttonBackOffice.Name = "buttonBackOffice";
-            this.buttonBackOffice.Size = new System.Drawing.Size(82, 23);
-            this.buttonBackOffice.TabIndex = 5;
-            this.buttonBackOffice.Text = "Back office";
-            this.buttonBackOffice.UseVisualStyleBackColor = true;
-            this.buttonBackOffice.Click += new System.EventHandler(this.ButtonBackOffice_Click);
+            this.buttonBackend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonBackend.Enabled = false;
+            this.buttonBackend.Location = new System.Drawing.Point(446, 10);
+            this.buttonBackend.Name = "buttonBackend";
+            this.buttonBackend.Size = new System.Drawing.Size(82, 23);
+            this.buttonBackend.TabIndex = 5;
+            this.buttonBackend.Text = "Backend";
+            this.buttonBackend.UseVisualStyleBackColor = true;
+            this.buttonBackend.Click += new System.EventHandler(this.ButtonBackend_Click);
             // 
             // backgroundWorker1
             // 
@@ -323,7 +323,7 @@
         private System.Windows.Forms.TextBox textBoxInfo;
         private System.Windows.Forms.Panel panel1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.Button buttonBackOffice;
+        private System.Windows.Forms.Button buttonBackend;
         private System.Windows.Forms.Button buttonLogs;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.MenuStrip menuStrip2;

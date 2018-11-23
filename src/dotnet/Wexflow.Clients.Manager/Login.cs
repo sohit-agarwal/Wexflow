@@ -14,7 +14,7 @@ namespace Wexflow.Clients.Manager
     {
         private static readonly string WexflowWebServiceUri = ConfigurationManager.AppSettings["WexflowWebServiceUri"];
 
-        private const string ForgotPasswordPage = @"..\Back office\forgot-password.html";
+        private const string ForgotPasswordPage = @"..\Backend\forgot-password.html";
 
         private readonly WexflowServiceClient _wexflowServiceClient;
 

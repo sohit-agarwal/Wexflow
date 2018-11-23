@@ -205,7 +205,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.CsvToJson", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.CsvToYaml", "src\dotnet\Wexflow.Tasks.CsvToYaml\Wexflow.Tasks.CsvToYaml.csproj", "{09607358-CFC4-4365-9BDB-57C9CE6CE741}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Clients.BackOffice", "src\dotnet\Wexflow.Clients.BackOffice\Wexflow.Clients.BackOffice.csproj", "{C181F37A-30A6-45C6-A191-5672DE38F51F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Clients.Backend", "src\dotnet\Wexflow.Clients.Backend\Wexflow.Clients.Backend.csproj", "{C181F37A-30A6-45C6-A191-5672DE38F51F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Core.Db", "src\dotnet\Wexflow.Core.Db\Wexflow.Core.Db.csproj", "{2BBB9F04-49D7-49A7-A065-4B2C81E66307}"
 EndProject

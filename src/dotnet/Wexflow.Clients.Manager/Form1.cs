@@ -20,7 +20,7 @@ namespace Wexflow.Clients.Manager
         private const string ColumnId = "Id";
         private const string ColumnEnabled = "Enabled";
         private const string WexflowWindowsServicePath = @"..\Wexflow.Clients.WindowsService.exe.config";
-        private const string BackOfficeWebFile = @"..\Back office\index.html";
+        private const string Backend = @"..\Backend\index.html";
 
         private WexflowServiceClient _wexflowServiceClient;
         private WorkflowInfo[] _workflows;
@@ -53,7 +53,7 @@ namespace Wexflow.Clients.Manager
             }
 
             buttonLogs.Enabled = !string.IsNullOrEmpty(_logfile);
-            buttonBackOffice.Enabled = File.Exists(BackOfficeWebFile);
+            buttonBackend.Enabled = File.Exists(Backend);
             buttonRestart.Enabled = !Program.DebugMode;
 
             dataGridViewWorkflows.MouseWheel += new MouseEventHandler(MouseWheelEvt);
@@ -384,11 +384,11 @@ namespace Wexflow.Clients.Manager
             }
         }
 
-        private void ButtonBackOffice_Click(object sender, EventArgs e)
+        private void ButtonBackend_Click(object sender, EventArgs e)
         {
-            if (File.Exists(BackOfficeWebFile))
+            if (File.Exists(Backend))
             {
-                Process.Start(BackOfficeWebFile, "");
+                Process.Start(Backend, "");
             }
         }
 

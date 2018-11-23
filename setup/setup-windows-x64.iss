@@ -218,34 +218,34 @@ Source: "..\src\dotnet\Wexflow.Clients.Manager\bin\x64\Release\Wexflow.Core.Serv
 ;Source: "..\src\dotnet\Wexflow.Clients.WebDesigner\js\wexflow-designer.min.js"; DestDir: "{app}\Web Designer\js"; Flags: ignoreversion
 ;Source: "..\src\dotnet\Wexflow.Clients.WebDesigner\css\wexflow-designer.min.css"; DestDir: "{app}\Web Designer\css"; Flags: ignoreversion
 
-; Wexflow Back office
-Source: "..\src\dotnet\Wexflow.Clients.BackOffice\index.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
-Source: "..\src\dotnet\Wexflow.Clients.BackOffice\forgot-password.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
-Source: "..\src\dotnet\Wexflow.Clients.BackOffice\dashboard.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
-Source: "..\src\dotnet\Wexflow.Clients.BackOffice\manager.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
-Source: "..\src\dotnet\Wexflow.Clients.BackOffice\designer.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
-Source: "..\src\dotnet\Wexflow.Clients.BackOffice\history.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
-Source: "..\src\dotnet\Wexflow.Clients.BackOffice\users.html"; DestDir: "{app}\Back office"; Flags: ignoreversion
+; Wexflow Backend
+Source: "..\src\dotnet\Wexflow.Clients.Backend\index.html"; DestDir: "{app}\Backend"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.Backend\forgot-password.html"; DestDir: "{app}\Backend"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.Backend\dashboard.html"; DestDir: "{app}\Backend"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.Backend\manager.html"; DestDir: "{app}\Backend"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.Backend\designer.html"; DestDir: "{app}\Backend"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.Backend\history.html"; DestDir: "{app}\Backend"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.Backend\users.html"; DestDir: "{app}\Backend"; Flags: ignoreversion
 
-Source: "..\src\dotnet\Wexflow.Clients.BackOffice\images\*"; DestDir: "{app}\Back office\images"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.Backend\images\*"; DestDir: "{app}\Backend\images"; Flags: ignoreversion
 
-Source: "..\src\dotnet\Wexflow.Clients.BackOffice\css\images\*"; DestDir: "{app}\Back office\css\images"; Flags: ignoreversion
-Source: "..\src\dotnet\Wexflow.Clients.BackOffice\css\login.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
-Source: "..\src\dotnet\Wexflow.Clients.BackOffice\css\forgot-password.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
-Source: "..\src\dotnet\Wexflow.Clients.BackOffice\css\dashboard.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
-Source: "..\src\dotnet\Wexflow.Clients.BackOffice\css\manager.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
-Source: "..\src\dotnet\Wexflow.Clients.BackOffice\css\designer.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
-Source: "..\src\dotnet\Wexflow.Clients.BackOffice\css\history.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
-Source: "..\src\dotnet\Wexflow.Clients.BackOffice\css\users.min.css"; DestDir: "{app}\Back office\css"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.Backend\css\images\*"; DestDir: "{app}\Backend\css\images"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.Backend\css\login.min.css"; DestDir: "{app}\Backend\css"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.Backend\css\forgot-password.min.css"; DestDir: "{app}\Backend\css"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.Backend\css\dashboard.min.css"; DestDir: "{app}\Backend\css"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.Backend\css\manager.min.css"; DestDir: "{app}\Backend\css"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.Backend\css\designer.min.css"; DestDir: "{app}\Backend\css"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.Backend\css\history.min.css"; DestDir: "{app}\Backend\css"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.Backend\css\users.min.css"; DestDir: "{app}\Backend\css"; Flags: ignoreversion
 
-Source: "..\src\dotnet\Wexflow.Clients.BackOffice\js\settings.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
-Source: "..\src\dotnet\Wexflow.Clients.BackOffice\js\login.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
-Source: "..\src\dotnet\Wexflow.Clients.BackOffice\js\forgot-password.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
-Source: "..\src\dotnet\Wexflow.Clients.BackOffice\js\dashboard.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
-Source: "..\src\dotnet\Wexflow.Clients.BackOffice\js\manager.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
-Source: "..\src\dotnet\Wexflow.Clients.BackOffice\js\designer.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
-Source: "..\src\dotnet\Wexflow.Clients.BackOffice\js\history.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
-Source: "..\src\dotnet\Wexflow.Clients.BackOffice\js\users.min.js"; DestDir: "{app}\Back office\js"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.Backend\js\settings.js"; DestDir: "{app}\Backend\js"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.Backend\js\login.min.js"; DestDir: "{app}\Backend\js"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.Backend\js\forgot-password.min.js"; DestDir: "{app}\Backend\js"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.Backend\js\dashboard.min.js"; DestDir: "{app}\Backend\js"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.Backend\js\manager.min.js"; DestDir: "{app}\Backend\js"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.Backend\js\designer.min.js"; DestDir: "{app}\Backend\js"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.Backend\js\history.min.js"; DestDir: "{app}\Backend\js"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.Backend\js\users.min.js"; DestDir: "{app}\Backend\js"; Flags: ignoreversion
 
 ; Wexflow's Documentation
 Source: "..\src\dotnet\Wexflow.Core\Workflow.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
@@ -357,9 +357,7 @@ Source: "..\samples\WexflowTesting\*"; DestDir: "C:\WexflowTesting\"; Flags: ign
 
 [Icons]
 Name: "{commonprograms}\{#MyAppName}\Manager"; Filename: "{app}\Manager\{#MyAppExeName}";
-;Name: "{commonprograms}\{#MyAppName}\Web Manager"; Filename: "{app}\Web Manager\index.html";
-;Name: "{commonprograms}\{#MyAppName}\Web Designer"; Filename: "{app}\Web Designer\index.html";
-Name: "{commonprograms}\{#MyAppName}\Back office"; Filename: "{app}\Back office\index.html";
+Name: "{commonprograms}\{#MyAppName}\Backend"; Filename: "{app}\Backend\index.html";
 ;Name: "{commonprograms}\{#MyAppName}\Start Wexflow Windows Service"; Filename: {sys}\sc.exe; Parameters: "start Wexflow" ; IconFilename: "{app}\Wexflow.ico";
 ;Name: "{commonprograms}\{#MyAppName}\Stop Wexflow Windows Service"; Filename: {sys}\sc.exe; Parameters: "stop Wexflow" ; IconFilename: "{app}\Wexflow.ico";
 Name: "{commonprograms}\{#MyAppName}\Configuration"; Filename: "C:\Wexflow\";

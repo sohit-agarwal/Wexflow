@@ -3,17 +3,17 @@
 set version=3.5
 set dst=wexflow-%version%-windows-dotnet-core
 set dstDir=.\%dst%
-set backOffice=Back-office
+set backend=Backend
 
 if exist %dstDir% rmdir /s /q %dstDir%
 mkdir %dstDir%
 mkdir %dstDir%\Wexflow-dotnet-core\
 mkdir %dstDir%\WexflowTesting\
-mkdir %dstDir%\%backOffice%\
-mkdir %dstDir%\%backOffice%\images\
-mkdir %dstDir%\%backOffice%\css\
-mkdir %dstDir%\%backOffice%\css\images\
-mkdir %dstDir%\%backOffice%\js\
+mkdir %dstDir%\%backend%\
+mkdir %dstDir%\%backend%\images\
+mkdir %dstDir%\%backend%\css\
+mkdir %dstDir%\%backend%\css\images\
+mkdir %dstDir%\%backend%\js\
 
 :: WexflowTesting
 xcopy ..\samples\WexflowTesting\* %dstDir%\WexflowTesting\ /s /e
@@ -24,34 +24,34 @@ copy ..\src\dotnet-core\Wexflow.Core\GlobalVariables.xml %dstDir%\Wexflow-dotnet
 copy ..\src\dotnet-core\Wexflow.Core\Wexflow.xml %dstDir%\Wexflow-dotnet-core\
 copy ..\src\dotnet-core\Wexflow.Core\Workflow.xsd %dstDir%\Wexflow-dotnet-core\
 
-:: Wexflow back office
-copy "..\src\dotnet\Wexflow.Clients.BackOffice\index.html" %dstDir%\%backOffice%\
-copy "..\src\dotnet\Wexflow.Clients.BackOffice\forgot-password.html" %dstDir%\%backOffice%\
-copy "..\src\dotnet\Wexflow.Clients.BackOffice\dashboard.html" %dstDir%\%backOffice%\
-copy "..\src\dotnet\Wexflow.Clients.BackOffice\manager.html" %dstDir%\%backOffice%\
-copy "..\src\dotnet\Wexflow.Clients.BackOffice\designer.html" %dstDir%\%backOffice%\
-copy "..\src\dotnet\Wexflow.Clients.BackOffice\history.html" %dstDir%\%backOffice%\
-copy "..\src\dotnet\Wexflow.Clients.BackOffice\users.html" %dstDir%\%backOffice%\
+:: Wexflow backend
+copy "..\src\dotnet\Wexflow.Clients.Backend\index.html" %dstDir%\%backend%\
+copy "..\src\dotnet\Wexflow.Clients.Backend\forgot-password.html" %dstDir%\%backend%\
+copy "..\src\dotnet\Wexflow.Clients.Backend\dashboard.html" %dstDir%\%backend%\
+copy "..\src\dotnet\Wexflow.Clients.Backend\manager.html" %dstDir%\%backend%\
+copy "..\src\dotnet\Wexflow.Clients.Backend\designer.html" %dstDir%\%backend%\
+copy "..\src\dotnet\Wexflow.Clients.Backend\history.html" %dstDir%\%backend%\
+copy "..\src\dotnet\Wexflow.Clients.Backend\users.html" %dstDir%\%backend%\
 
-xcopy "..\src\dotnet\Wexflow.Clients.BackOffice\images\*" %dstDir%\%backOffice%\images /s /e
+xcopy "..\src\dotnet\Wexflow.Clients.Backend\images\*" %dstDir%\%backend%\images /s /e
 
-xcopy "..\src\dotnet\Wexflow.Clients.BackOffice\css\images\*" %dstDir%\%backOffice%\css\images /s /e
-copy "..\src\dotnet\Wexflow.Clients.BackOffice\css\login.min.css" %dstDir%\%backOffice%\css
-copy "..\src\dotnet\Wexflow.Clients.BackOffice\css\forgot-password.min.css" %dstDir%\%backOffice%\css
-copy "..\src\dotnet\Wexflow.Clients.BackOffice\css\dashboard.min.css" %dstDir%\%backOffice%\css
-copy "..\src\dotnet\Wexflow.Clients.BackOffice\css\manager.min.css" %dstDir%\%backOffice%\css
-copy "..\src\dotnet\Wexflow.Clients.BackOffice\css\designer.min.css" %dstDir%\%backOffice%\css
-copy "..\src\dotnet\Wexflow.Clients.BackOffice\css\history.min.css" %dstDir%\%backOffice%\css
-copy "..\src\dotnet\Wexflow.Clients.BackOffice\css\users.min.css" %dstDir%\%backOffice%\css
+xcopy "..\src\dotnet\Wexflow.Clients.Backend\css\images\*" %dstDir%\%backend%\css\images /s /e
+copy "..\src\dotnet\Wexflow.Clients.Backend\css\login.min.css" %dstDir%\%backend%\css
+copy "..\src\dotnet\Wexflow.Clients.Backend\css\forgot-password.min.css" %dstDir%\%backend%\css
+copy "..\src\dotnet\Wexflow.Clients.Backend\css\dashboard.min.css" %dstDir%\%backend%\css
+copy "..\src\dotnet\Wexflow.Clients.Backend\css\manager.min.css" %dstDir%\%backend%\css
+copy "..\src\dotnet\Wexflow.Clients.Backend\css\designer.min.css" %dstDir%\%backend%\css
+copy "..\src\dotnet\Wexflow.Clients.Backend\css\history.min.css" %dstDir%\%backend%\css
+copy "..\src\dotnet\Wexflow.Clients.Backend\css\users.min.css" %dstDir%\%backend%\css
 
-copy "..\src\dotnet\Wexflow.Clients.BackOffice\js\settings.js" %dstDir%\%backOffice%\js
-copy "..\src\dotnet\Wexflow.Clients.BackOffice\js\login.min.js" %dstDir%\%backOffice%\js
-copy "..\src\dotnet\Wexflow.Clients.BackOffice\js\forgot-password.min.js" %dstDir%\%backOffice%\js
-copy "..\src\dotnet\Wexflow.Clients.BackOffice\js\dashboard.min.js" %dstDir%\%backOffice%\js
-copy "..\src\dotnet\Wexflow.Clients.BackOffice\js\manager.min.js" %dstDir%\%backOffice%\js
-copy "..\src\dotnet\Wexflow.Clients.BackOffice\js\designer.min.js" %dstDir%\%backOffice%\js
-copy "..\src\dotnet\Wexflow.Clients.BackOffice\js\history.min.js" %dstDir%\%backOffice%\js
-copy "..\src\dotnet\Wexflow.Clients.BackOffice\js\users.min.js" %dstDir%\%backOffice%\js
+copy "..\src\dotnet\Wexflow.Clients.Backend\js\settings.js" %dstDir%\%backend%\js
+copy "..\src\dotnet\Wexflow.Clients.Backend\js\login.min.js" %dstDir%\%backend%\js
+copy "..\src\dotnet\Wexflow.Clients.Backend\js\forgot-password.min.js" %dstDir%\%backend%\js
+copy "..\src\dotnet\Wexflow.Clients.Backend\js\dashboard.min.js" %dstDir%\%backend%\js
+copy "..\src\dotnet\Wexflow.Clients.Backend\js\manager.min.js" %dstDir%\%backend%\js
+copy "..\src\dotnet\Wexflow.Clients.Backend\js\designer.min.js" %dstDir%\%backend%\js
+copy "..\src\dotnet\Wexflow.Clients.Backend\js\history.min.js" %dstDir%\%backend%\js
+copy "..\src\dotnet\Wexflow.Clients.Backend\js\users.min.js" %dstDir%\%backend%\js
 
 :: Wexflow server
 dotnet publish  ..\src\dotnet-core\Wexflow.Server\Wexflow.Server.csproj --force --output %~dp0\%dstDir%\Wexflow.Server
