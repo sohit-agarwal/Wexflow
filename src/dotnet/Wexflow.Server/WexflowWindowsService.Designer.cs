@@ -1,4 +1,4 @@
-﻿namespace Wexflow.Clients.WindowsService
+﻿namespace Wexflow.Server
 {
     partial class WexflowWindowsService
     {
@@ -28,8 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            this.ServiceName = "Service1";
+            // 
+            // WexflowWindowsService
+            // 
+            this.ServiceName = "Wexflow";
+
         }
 
         #endregion

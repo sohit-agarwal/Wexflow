@@ -1,6 +1,6 @@
 ﻿namespace Wexflow.Clients.Manager
 {
-    partial class Form1
+    partial class Manager
     {
         /// <summary>
         /// Variable nécessaire au concepteur.
@@ -31,7 +31,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Manager));
             this.dataGridViewWorkflows = new System.Windows.Forms.DataGridView();
             this.buttonStart = new System.Windows.Forms.Button();
             this.buttonPause = new System.Windows.Forms.Button();

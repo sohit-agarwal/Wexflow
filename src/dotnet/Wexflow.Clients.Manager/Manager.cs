@@ -13,7 +13,7 @@ using Wexflow.Core.Service.Contracts;
 
 namespace Wexflow.Clients.Manager
 {
-    public partial class Form1 : Form
+    public partial class Manager : Form
     {
         private static readonly string WexflowWebServiceUri = ConfigurationManager.AppSettings["WexflowWebServiceUri"];
 
@@ -29,10 +29,10 @@ namespace Wexflow.Clients.Manager
         private Timer _timer;
         private Exception _exception;
         private readonly string _logfile;
-        private readonly ResourceManager _resources = new ResourceManager(typeof(Form1));
+        private readonly ResourceManager _resources = new ResourceManager(typeof(Manager));
         private bool _serviceRestarted;
 
-        public Form1()
+        public Manager()
         {
             InitializeComponent();
 

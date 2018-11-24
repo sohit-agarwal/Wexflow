@@ -2,7 +2,7 @@
 using System.ServiceModel;
 using Wexflow.Core.Service.Contracts;
 
-namespace Wexflow.Clients.WindowsService
+namespace Wexflow.Server
 {
     [ServiceContract(Namespace = "http://wexflow.com/")]
     public interface IWexflowService

@@ -3,7 +3,7 @@ using Wexflow.Core;
 using System.Configuration;
 using System.ServiceModel;
 
-namespace Wexflow.Clients.WindowsService
+namespace Wexflow.Server
 {
     public partial class WexflowWindowsService : ServiceBase
     {

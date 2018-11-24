@@ -8,8 +8,8 @@
     <ProjectGuid>{D559C35B-BFF5-49C2-9490-818314C88A76}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Wexflow.Clients.WindowsService</RootNamespace>
-    <AssemblyName>Wexflow.Clients.WindowsService</AssemblyName>
+    <RootNamespace>Wexflow.Server</RootNamespace>
+    <AssemblyName>Wexflow.Server</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -43,7 +43,7 @@
     <ApplicationIcon>Wexflow.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Wexflow.Clients.WindowsService.Program</StartupObject>
+    <StartupObject>Wexflow.Server.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -513,6 +513,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Wexflow.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="WexflowWindowsService.resx">
+      <DependentUpon>WexflowWindowsService.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

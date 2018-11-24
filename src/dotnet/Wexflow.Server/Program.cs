@@ -2,11 +2,11 @@
 using System.Reflection;
 using System.ServiceProcess;
 
-namespace Wexflow.Clients.WindowsService
+namespace Wexflow.Server
 {
-    static class Program
+    public static class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             // Initialize the service to start
             var servicesToRun = new ServiceBase[]

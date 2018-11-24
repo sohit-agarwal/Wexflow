@@ -162,8 +162,10 @@ namespace Wexflow.Core
         /// </summary>
         /// <param name="path">Workflow file path.</param>
         /// <param name="wexflowTempFolder">Wexflow temp folder.</param>
+        /// <param name="workflowsTempFolder">Workflows temp folder.</param>
         /// <param name="xsdPath">XSD path.</param>
         /// <param name="database">Database.</param>
+        /// <param name="globalVariables">Global variables.</param>
         public Workflow(string path, string wexflowTempFolder, string workflowsTempFolder, string xsdPath, Db.Db database, Variable[] globalVariables)
         {
             JobId = 1;

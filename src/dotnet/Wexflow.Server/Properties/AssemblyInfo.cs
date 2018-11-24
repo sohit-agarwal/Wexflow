@@ -4,12 +4,12 @@ using System.Runtime.InteropServices;
 // Les informations générales relatives à un assembly dépendent de 
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
 // associées à un assembly.
-[assembly: AssemblyTitle("Wexflow.Clients.WindowsService")]
+[assembly: AssemblyTitle("Wexflow.Server")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("EL ASSAS")]
-[assembly: AssemblyProduct("Wexflow.Clients.WindowsService")]
-[assembly: AssemblyCopyright("Copyright © EL ASSAS 2017")]
+[assembly: AssemblyCompany("Akram El Assas")]
+[assembly: AssemblyProduct("Wexflow.Server")]
+[assembly: AssemblyCopyright("Copyright © Akram El Assas 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 // Vous pouvez spécifier toutes les valeurs ou indiquer les numéros de build et de révision par défaut 
 // en utilisant '*', comme indiqué ci-dessous :
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("3.6.0.0")]
+[assembly: AssemblyFileVersion("3.6.0.0")]

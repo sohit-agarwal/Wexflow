@@ -21,7 +21,7 @@ using User = Wexflow.Core.Service.Contracts.User;
 using UserProfile = Wexflow.Core.Service.Contracts.UserProfile;
 using System.Configuration;
 
-namespace Wexflow.Clients.WindowsService
+namespace Wexflow.Server
 {
     [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
     public class WexflowService : IWexflowService

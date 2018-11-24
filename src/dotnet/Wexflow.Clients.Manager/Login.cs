@@ -67,8 +67,8 @@ namespace Wexflow.Clients.Manager
                         {
                             if (user.Password == password)
                             {
-                                Form1 form1 = new Form1();
-                                form1.Show();
+                                Manager manager = new Manager();
+                                manager.Show();
                                 Hide();
                             }
                             else
@@ -80,7 +80,7 @@ namespace Wexflow.Clients.Manager
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 MessageBox.Show(@"An error occured during the authentication.", "Wexflow", MessageBoxButtons.OK);
             }
