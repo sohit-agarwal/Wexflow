@@ -77,7 +77,6 @@
     <Content Include="js\forgot-password.js" />
     <Content Include="js\forgot-password.min.js" />
     <Content Include="js\history.min.js" />
-    <Content Include="js\login.min.css" />
     <Content Include="js\manager.min.js" />
     <Content Include="js\uglify-login.bat" />
     <Content Include="js\uglify-dashboard.bat" />
