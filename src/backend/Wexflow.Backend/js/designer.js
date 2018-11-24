@@ -599,23 +599,28 @@
         var index = getElementIndex(wfTask);
 
         var wfTaskId = wfTask.getElementsByClassName("wf-task-id")[0];
-        wfTaskId.onkeyup = function () {
+        wfTaskId.onkeyup = function() {
             workflowTasks[workflowId][index].Id = wfTaskId.value;
-            this.parentElement.parentElement.parentElement.parentElement.parentElement.getElementsByClassName("wf-task-title-label")[0].innerHTML = "Task " + wfTaskId.value;
+            this.parentElement.parentElement.parentElement.parentElement.parentElement.getElementsByClassName(
+                "wf-task-title-label")[0].innerHTML = "Task " + wfTaskId.value;
             loadExecutionGraph();
-        }
+        };
 
         var wfTaskName = wfTask.getElementsByClassName("wf-task-name")[0];
-        wfTaskName.onchange = function () {
-            var wfSettingsTable = wfTaskName.parentElement.parentElement.parentElement.parentElement.parentElement.getElementsByClassName("wf-settings")[0];
+        wfTaskName.onchange = function() {
+            var wfSettingsTable =
+                wfTaskName.parentElement.parentElement.parentElement.parentElement.parentElement.getElementsByClassName(
+                    "wf-settings")[0];
 
             workflowTasks[workflowId][index].Name = wfTaskName.value;
 
             if (wfTaskName.value !== "") {
                 Common.get(uri + "/settings/" + wfTaskName.value,
-                    function (settings) {
+                    function(settings) {
 
-                        var wfAddSetting = wfTaskName.parentElement.parentElement.parentElement.parentElement.parentElement.getElementsByClassName("wf-add-setting")[0];
+                        var wfAddSetting =
+                            wfTaskName.parentElement.parentElement.parentElement.parentElement.parentElement
+                                .getElementsByClassName("wf-add-setting")[0];
                         workflowTasks[workflowId][index].Settings = [];
                         wfSettingsTable.innerHTML = "";
                         for (var i = 0; i < settings.length; i++) {
@@ -623,25 +628,25 @@
                             addSetting(workflowId, wfAddSetting, settingName);
                         }
                     },
-                    function () {
+                    function() {
                         alert("An error occured while retrieving settings.");
                     });
             } else {
                 workflowTasks[workflowId][index].Settings = [];
                 wfSettingsTable.innerHTML = "";
             }
-        }
+        };
 
         var wfTaskDesc = wfTask.getElementsByClassName("wf-task-desc")[0];
-        wfTaskDesc.onkeyup = function () {
+        wfTaskDesc.onkeyup = function() {
             workflowTasks[workflowId][index].Description = wfTaskDesc.value;
             loadExecutionGraph();
-        }
+        };
 
         var wfTaskEnabled = wfTask.getElementsByClassName("wf-task-enabled")[0];
-        wfTaskEnabled.onchange = function () {
+        wfTaskEnabled.onchange = function() {
             workflowTasks[workflowId][index].IsEnabled = wfTaskEnabled.checked;
-        }
+        };
 
         var wfAddSetting = wfTask.getElementsByClassName("wf-add-setting")[0];
         wfAddSetting.onclick = function () {
@@ -717,17 +722,18 @@
 
                 var index = task.Settings.length - 1;
                 var wfSettingName = wfSettingsTable.getElementsByClassName("wf-setting-name")[index];
-                wfSettingName.onchange = function () {
+                wfSettingName.onchange = function() {
                     var index2 = getElementIndex(wfSettingName.parentElement.parentElement);
                     task.Settings[index2].Name = wfSettingName.value;
 
-                    var wfAddAttributeTd = wfSettingName.parentElement.parentElement.getElementsByClassName("wf-add-attribute-td")[0];
+                    var wfAddAttributeTd =
+                        wfSettingName.parentElement.parentElement.getElementsByClassName("wf-add-attribute-td")[0];
                     if (wfSettingName.value === "selectFiles" || wfSettingName.value === "selectAttachments") {
                         wfAddAttributeTd.style.display = "block";
                     } else {
                         wfAddAttributeTd.style.display = "none";
                     }
-                }
+                };
 
                 if (sn === "selectFiles" || sn === "selectAttachments") {
                     var wfAddAttributeTd = wfSettingName.parentElement.parentElement.getElementsByClassName("wf-add-attribute-td")[0];
@@ -740,10 +746,10 @@
 
                 var wfSettingValue = wfSettingsTable.getElementsByClassName("wf-setting-value")[index];
                 if (typeof wfSettingValue !== "undefined" && wfSettingValue !== null) {
-                    wfSettingValue.onkeyup = function () {
+                    wfSettingValue.onkeyup = function() {
                         var index2 = getElementIndex(wfSettingValue.parentElement.parentElement);
                         task.Settings[index2].Value = wfSettingValue.value;
-                    }
+                    };
                 }
 
                 // Add an attribute
@@ -1369,8 +1375,36 @@
 
                                 var bindWfTaskName = function(m) {
                                     var wfTaskName = document.getElementsByClassName("wf-task-name")[m];
-                                    wfTaskName.onchange = function() {
+                                    wfTaskName.onchange = function () {
+
+                                        // Reset settings
+                                        var wfSettingsTable =
+                                            wfTaskName.parentElement.parentElement.parentElement.parentElement.parentElement.getElementsByClassName("wf-settings")[0];
+
                                         workflowTasks[workflowId][m].Name = wfTaskName.value;
+
+                                        if (wfTaskName.value !== "") {
+                                            Common.get(uri + "/settings/" + wfTaskName.value,
+                                                function (settings) {
+
+                                                    var wfAddSetting =
+                                                        wfTaskName.parentElement.parentElement.parentElement.parentElement.parentElement
+                                                            .getElementsByClassName("wf-add-setting")[0];
+                                                    workflowTasks[workflowId][m].Settings = [];
+                                                    wfSettingsTable.innerHTML = "";
+                                                    for (var i = 0; i < settings.length; i++) {
+                                                        var settingName = settings[i];
+                                                        addSetting(workflowId, wfAddSetting, settingName);
+                                                    }
+                                                },
+                                                function () {
+                                                    alert("An error occured while retrieving settings.");
+                                                });
+                                        } else {
+                                            workflowTasks[workflowId][m].Settings = [];
+                                            wfSettingsTable.innerHTML = "";
+                                        }
+
                                     };
                                 };
 
