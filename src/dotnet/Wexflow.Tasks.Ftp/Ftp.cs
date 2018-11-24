@@ -21,10 +21,10 @@ namespace Wexflow.Tasks.Ftp
 
     public class Ftp: Task
     {
-        readonly PluginBase _plugin;
-        readonly FtpCommad _cmd;
-        readonly int _retryCount;
-        readonly int _retryTimeout;
+        private readonly PluginBase _plugin;
+        private readonly FtpCommad _cmd;
+        private readonly int _retryCount;
+        private readonly int _retryTimeout;
 
         public Ftp(XElement xe, Workflow wf): base(xe, wf)
         {

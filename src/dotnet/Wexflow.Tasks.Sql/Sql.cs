@@ -102,7 +102,7 @@ namespace Wexflow.Tasks.Sql
             return new TaskStatus(status, false);
         }
 
-        void ExecuteSql(string sql)
+        private void ExecuteSql(string sql)
         {
             switch (DbType)
             {
@@ -158,7 +158,7 @@ namespace Wexflow.Tasks.Sql
             }
         }
 
-        void ExecSql(DbConnection conn, DbCommand comm)
+        private void ExecSql(DbConnection conn, DbCommand comm)
         {
             conn.Open();
             comm.ExecuteNonQuery();

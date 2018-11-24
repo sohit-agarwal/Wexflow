@@ -15,10 +15,10 @@ namespace Wexflow.Tasks.ProcessLauncher
         public bool HideGui { get; set; }
         public bool GeneratesFiles { get; set; }
 
-        const string VarFilePath = "$filePath";
-        const string VarFileName = "$fileName";
-        const string VarFileNameWithoutExtension = "$fileNameWithoutExtension";
-        const string VarOutput = "$output";
+        private const string VarFilePath = "$filePath";
+        private const string VarFileName = "$fileName";
+        private const string VarFileNameWithoutExtension = "$fileNameWithoutExtension";
+        private const string VarOutput = "$output";
 
         public ProcessLauncher(XElement xe, Workflow wf)
             : base(xe, wf)
@@ -120,7 +120,7 @@ namespace Wexflow.Tasks.ProcessLauncher
             return new TaskStatus(status, false);
         }
 
-        TaskStatus StartProcess(string processPath, string processCmd, bool hideGui)
+        private TaskStatus StartProcess(string processPath, string processCmd, bool hideGui)
         {
             try
             {
@@ -153,12 +153,12 @@ namespace Wexflow.Tasks.ProcessLauncher
             }
         }
 
-        void OutputHandler(object sendingProcess, DataReceivedEventArgs outLine)
+        private void OutputHandler(object sendingProcess, DataReceivedEventArgs outLine)
         {
             InfoFormat("{0}", outLine.Data);
         }
 
-        void ErrorHandler(object sendingProcess, DataReceivedEventArgs outLine)
+        private void ErrorHandler(object sendingProcess, DataReceivedEventArgs outLine)
         {
             ErrorFormat("{0}", outLine.Data);
         }

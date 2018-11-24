@@ -10,7 +10,7 @@ namespace Wexflow.Server
         public static string SettingsFile = ConfigurationManager.AppSettings["WexflowSettingsFile"];
         public static WexflowEngine WexflowEngine = new WexflowEngine(SettingsFile);
 
-        ServiceHost _serviceHost;
+        private ServiceHost _serviceHost;
         
         public WexflowWindowsService()
         {

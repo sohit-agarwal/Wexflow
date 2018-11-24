@@ -9,8 +9,8 @@ namespace Wexflow.Core
     /// </summary>
     public class FileInf
     {
-        string _path;
-        string _renameTo;
+        private string _path;
+        private string _renameTo;
 
         /// <summary>
         /// File path.

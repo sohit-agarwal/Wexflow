@@ -16,7 +16,7 @@ using Wexflow.Core;
 
 namespace Wexflow.Tasks.YouTube
 {
-    enum PrivacyStatus
+    internal enum PrivacyStatus
     {
         Unlisted,
         Private,

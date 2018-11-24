@@ -13,7 +13,7 @@ namespace Wexflow.Clients.Eto.Manager
 {
     public class Form1 : Form
     {
-		static readonly string WexflowWebServiceUri = ConfigurationManager.AppSettings["WexflowWebServiceUri"];
+        private static readonly string WexflowWebServiceUri = ConfigurationManager.AppSettings["WexflowWebServiceUri"];
 
         private readonly Button _startButton;
         private readonly Button _suspendButton;

@@ -195,7 +195,7 @@ namespace Wexflow.Core
             return string.Format("{{id: {0}, name: {1}, enabled: {2}, launchType: {3}}}", Id, Name, IsEnabled, LaunchType);
         }
 
-        void Check()
+        private void Check()
         {
             var schemas = new XmlSchemaSet();
             schemas.Add("urn:wexflow-schema", XsdPath);
@@ -213,7 +213,7 @@ namespace Wexflow.Core
             }
         }
 
-        void Parse(string src, string dest)
+        private void Parse(string src, string dest)
         {
 
             //
@@ -327,7 +327,7 @@ namespace Wexflow.Core
 
         }
 
-        void Load()
+        private void Load()
         {
             string src = WorkflowFilePath;
             string dest = Path.Combine(WorkflowsTempFolder, Path.GetFileName(WorkflowFilePath));
@@ -453,7 +453,7 @@ namespace Wexflow.Core
             }
         }
 
-        Node[] GetTaskNodes(XElement xExectionGraph)
+        private Node[] GetTaskNodes(XElement xExectionGraph)
         {
             var nodes = xExectionGraph
                 .Elements()
@@ -464,7 +464,7 @@ namespace Wexflow.Core
             return nodes;
         }
 
-        If XIfToIf(XElement xIf)
+        private If XIfToIf(XElement xIf)
         {
             var xId = xIf.Attribute("id");
             if (xId == null) throw new Exception("If id attribute not found.");
@@ -504,7 +504,7 @@ namespace Wexflow.Core
             return new If(id, parentId, ifId, doNodes, elseNodes);
         }
 
-        While XWhileToWhile(XElement xWhile)
+        private While XWhileToWhile(XElement xWhile)
         {
             var xId = xWhile.Attribute("id");
             if (xId == null) throw new Exception("While Id attribute not found.");
@@ -528,7 +528,7 @@ namespace Wexflow.Core
             return new While(id, parentId, whileId, doNodes);
         }
 
-        Switch XSwitchToSwitch(XElement xSwitch)
+        private Switch XSwitchToSwitch(XElement xSwitch)
         {
             var xId = xSwitch.Attribute("id");
             if (xId == null) throw new Exception("Switch Id attribute not found.");
@@ -579,7 +579,7 @@ namespace Wexflow.Core
             return new Switch(id, parentId, switchId, cases, @default);
         }
 
-        Node XNodeToNode(XElement xNode)
+        private Node XNodeToNode(XElement xNode)
         {
             switch (xNode.Name.LocalName)
             {
@@ -607,13 +607,13 @@ namespace Wexflow.Core
             }
         }
 
-        void CheckStartupNode(Node[] nodes, string errorMsg)
+        private void CheckStartupNode(Node[] nodes, string errorMsg)
         {
             if (nodes == null) throw new ArgumentNullException(); // new ArgumentNullException(nameof(nodes))
             if (nodes.All(n => n.ParentId != StartId)) throw new Exception(errorMsg);
         }
 
-        void CheckParallelTasks(Node[] taskNodes, string errorMsg)
+        private void CheckParallelTasks(Node[] taskNodes, string errorMsg)
         {
             bool parallelTasksDetected = false;
             foreach (var taskNode in taskNodes)
@@ -631,7 +631,7 @@ namespace Wexflow.Core
             }
         }
 
-        void CheckInfiniteLoop(Node[] taskNodes, string errorMsg)
+        private void CheckInfiniteLoop(Node[] taskNodes, string errorMsg)
         {
             var startNode = taskNodes.FirstOrDefault(n => n.ParentId == StartId);
 
@@ -656,7 +656,7 @@ namespace Wexflow.Core
             }
         }
 
-        bool CheckInfiniteLoop(Node startNode, Node[] taskNodes)
+        private bool CheckInfiniteLoop(Node startNode, Node[] taskNodes)
         {
             foreach (var taskNode in taskNodes.Where(n => n.ParentId != startNode.ParentId))
             {
@@ -669,7 +669,7 @@ namespace Wexflow.Core
             return false;
         }
 
-        string GetWorkflowAttribute(XDocument xdoc, string attr)
+        private string GetWorkflowAttribute(XDocument xdoc, string attr)
         {
             var xAttribute = xdoc.XPathSelectElement("/wf:Workflow", XmlNamespaceManager).Attribute(attr);
             if (xAttribute != null)
@@ -680,7 +680,7 @@ namespace Wexflow.Core
             throw new Exception("Workflow attribute " + attr + "not found.");
         }
 
-        string GetWorkflowSetting(XDocument xdoc, string name)
+        private string GetWorkflowSetting(XDocument xdoc, string name)
         {
             var xAttribute = xdoc
                 .XPathSelectElement(
@@ -853,7 +853,7 @@ namespace Wexflow.Core
             thread.Start();
         }
 
-        Task[] NodesToTasks(Node[] nodes)
+        private Task[] NodesToTasks(Node[] nodes)
         {
             var tasks = new List<Task>();
 
@@ -909,7 +909,7 @@ namespace Wexflow.Core
             return tasks.ToArray();
         }
 
-        Status RunTasks(Node[] nodes, Task[] tasks)
+        private Status RunTasks(Node[] nodes, Task[] tasks)
         {
             var success = true;
             var warning = false;
@@ -964,7 +964,7 @@ namespace Wexflow.Core
             }
         }
 
-        void RunTasks(Task[] tasks, Node[] nodes, Node node, ref bool success, ref bool warning, ref bool atLeastOneSucceed)
+        private void RunTasks(Task[] tasks, Node[] nodes, Node node, ref bool success, ref bool warning, ref bool atLeastOneSucceed)
         {
             if (node != null)
             {
@@ -1074,7 +1074,7 @@ namespace Wexflow.Core
             }
         }
 
-        void RunIf(Task[] tasks, Node[] nodes, If @if, ref bool success, ref bool warning, ref bool atLeastOneSucceed)
+        private void RunIf(Task[] tasks, Node[] nodes, If @if, ref bool success, ref bool warning, ref bool atLeastOneSucceed)
         {
             var ifTask = GetTask(@if.IfId);
 
@@ -1133,7 +1133,7 @@ namespace Wexflow.Core
             }
         }
 
-        void RunWhile(Task[] tasks, Node[] nodes, While @while, ref bool success, ref bool warning, ref bool atLeastOneSucceed)
+        private void RunWhile(Task[] tasks, Node[] nodes, While @while, ref bool success, ref bool warning, ref bool atLeastOneSucceed)
         {
             var whileTask = GetTask(@while.WhileId);
 
@@ -1183,7 +1183,7 @@ namespace Wexflow.Core
             }
         }
 
-        void RunSwitch(Task[] tasks, Node[] nodes, Switch @switch, ref bool success, ref bool warning, ref bool atLeastOneSucceed)
+        private void RunSwitch(Task[] tasks, Node[] nodes, Switch @switch, ref bool success, ref bool warning, ref bool atLeastOneSucceed)
         {
             var switchTask = GetTask(@switch.SwitchId);
 
@@ -1331,7 +1331,7 @@ namespace Wexflow.Core
             }
         }
 
-        void CreateTempFolder()
+        private void CreateTempFolder()
         {
             // WorkflowId/dd-MM-yyyy/HH-mm-ss-fff
             var wfTempFolder = Path.Combine(WexflowTempFolder, Id.ToString(CultureInfo.CurrentCulture));
@@ -1346,17 +1346,17 @@ namespace Wexflow.Core
             WorkflowTempFolder = wfJobTempFolder;
         }
 
-        Node GetStartupNode(IEnumerable<Node> nodes)
+        private Node GetStartupNode(IEnumerable<Node> nodes)
         {
             return nodes.First(n => n.ParentId == StartId);
         }
 
-        Task GetTask(int id)
+        private Task GetTask(int id)
         {
             return Taks.FirstOrDefault(t => t.Id == id);
         }
 
-        Task GetTask(IEnumerable<Task> tasks, int id)
+        private Task GetTask(IEnumerable<Task> tasks, int id)
         {
             return tasks.FirstOrDefault(t => t.Id == id);
         }

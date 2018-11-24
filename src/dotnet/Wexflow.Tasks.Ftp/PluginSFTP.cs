@@ -18,7 +18,7 @@ namespace Wexflow.Tasks.Ftp
             Passphrase = passphrase;
         }
 
-        ConnectionInfo GetConnectionInfo()
+        private ConnectionInfo GetConnectionInfo()
         {
             // Setup Credentials and Server Information
             ConnectionInfo connInfo;

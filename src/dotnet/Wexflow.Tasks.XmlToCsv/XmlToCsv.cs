@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Wexflow.Core;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -66,7 +64,7 @@ namespace Wexflow.Tasks.XmlToCsv
             return new TaskStatus(status, false);
         }
 
-        void CreateCsv(string xmlPath, string csvPath)
+        private void CreateCsv(string xmlPath, string csvPath)
         {
             var xdoc = XDocument.Load(xmlPath);
 

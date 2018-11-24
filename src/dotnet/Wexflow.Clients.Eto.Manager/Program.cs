@@ -3,7 +3,7 @@ using Eto.Forms;
 
 namespace Wexflow.Clients.Eto.Manager
 {
-    class Program
+    internal class Program
     {
         [STAThread]
         public static void Main()

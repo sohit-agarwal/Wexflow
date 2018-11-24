@@ -75,7 +75,7 @@ namespace Wexflow.Tasks.Md5
             return new TaskStatus(status, false);
         }
 
-        string GetMd5(string filePath)
+        private string GetMd5(string filePath)
         {
             var sb = new StringBuilder();
             using (MD5 md5 = MD5.Create())

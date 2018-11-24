@@ -10,7 +10,7 @@ namespace Wexflow.Core
     /// </summary>
     public static class Logger
     {
-        static readonly ILog Ilogger = LogManager.GetLogger(typeof(Logger));
+        private static readonly ILog Ilogger = LogManager.GetLogger(typeof(Logger));
 
         /// <summary>
         /// Logs an information message.

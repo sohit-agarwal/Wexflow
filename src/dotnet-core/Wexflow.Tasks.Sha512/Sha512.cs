@@ -75,7 +75,7 @@ namespace Wexflow.Tasks.Sha512
             return new TaskStatus(status, false);
         }
 
-        string GetSha1(string filePath)
+        private string GetSha1(string filePath)
         {
             var sb = new StringBuilder();
             using (SHA512Managed sha1 = new SHA512Managed())

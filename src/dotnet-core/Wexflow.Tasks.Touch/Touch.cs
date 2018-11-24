@@ -59,7 +59,7 @@ namespace Wexflow.Tasks.Touch
             return new TaskStatus(status, false);
         }
 
-        void TouchFile(string file)
+        private void TouchFile(string file)
         {
             using (File.Create(file)) { }
         }

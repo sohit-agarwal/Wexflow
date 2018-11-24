@@ -12,9 +12,9 @@ namespace Wexflow.Clients.Manager
     /// <typeparam name="T">The type of elements in the list.</typeparam>
     public class SortableBindingList<T> : BindingList<T> where T : class
     {
-        bool _isSorted;
-        ListSortDirection _sortDirection = ListSortDirection.Ascending;
-        PropertyDescriptor _sortProperty;
+        private bool _isSorted;
+        private ListSortDirection _sortDirection = ListSortDirection.Ascending;
+        private PropertyDescriptor _sortProperty;
  
         /// <summary>
         /// Initializes a new instance of the <see cref="SortableBindingList{T}"/> class.
@@ -93,8 +93,8 @@ namespace Wexflow.Clients.Manager
             //fire an event that the list has been changed.
             OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, -1));
         }
-  
-        int Compare(T lhs, T rhs)
+
+        private int Compare(T lhs, T rhs)
         {
             var result = OnComparison(lhs, rhs);
             //invert if descending
@@ -102,8 +102,8 @@ namespace Wexflow.Clients.Manager
                 result = -result;
             return result;
         }
- 
-        int OnComparison(T lhs, T rhs)
+
+        private int OnComparison(T lhs, T rhs)
         {
             object lhsValue = lhs == null ? null : _sortProperty.GetValue(lhs);
             object rhsValue = rhs == null ? null : _sortProperty.GetValue(rhs);

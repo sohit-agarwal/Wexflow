@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using Wexflow.Core.Db;
@@ -109,7 +108,7 @@ namespace Wexflow.Core
             return res;
         }
 
-        void LoadSettings()
+        private void LoadSettings()
         {
             var xdoc = XDocument.Load(SettingsFile);
             WorkflowsFolder = GetWexflowSetting(xdoc, "workflowsFolder");
@@ -125,7 +124,7 @@ namespace Wexflow.Core
             GlobalVariablesFile = GetWexflowSetting(xdoc, "globalVariablesFile");
         }
 
-        void LoadGlobalVariables()
+        private void LoadGlobalVariables()
         {
             List<Variable> variables = new List<Variable>();
             XDocument xdoc = XDocument.Load(GlobalVariablesFile);
@@ -143,7 +142,7 @@ namespace Wexflow.Core
             GlobalVariables = variables.ToArray();
         }
 
-        string GetWexflowSetting(XDocument xdoc, string name)
+        private string GetWexflowSetting(XDocument xdoc, string name)
         {
             try
             {
@@ -158,7 +157,7 @@ namespace Wexflow.Core
             }
         }
 
-        void LoadWorkflows()
+        private void LoadWorkflows()
         {
             foreach (string file in Directory.GetFiles(WorkflowsFolder))
             {
@@ -253,7 +252,7 @@ namespace Wexflow.Core
             }
         }
 
-        Workflow LoadWorkflowFromFile(string file)
+        private Workflow LoadWorkflowFromFile(string file)
         {
             try
             {

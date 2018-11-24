@@ -6,7 +6,7 @@ namespace Wexflow.Core.Service.Cross
 {
     public class CustomHeaderMessageInspector : IDispatchMessageInspector
     {
-		readonly Dictionary<string, string> _requiredHeaders;
+        private readonly Dictionary<string, string> _requiredHeaders;
 
         public CustomHeaderMessageInspector(Dictionary<string, string> headers)
         {

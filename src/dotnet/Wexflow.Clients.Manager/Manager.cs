@@ -87,7 +87,7 @@ namespace Wexflow.Clients.Manager
             backgroundWorker1.RunWorkerAsync();
         }
 
-        void BackgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        private void BackgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             try
             {
@@ -126,7 +126,7 @@ namespace Wexflow.Clients.Manager
             MessageBox.Show(@"An error occured while retrieving workflows.", "Wexflow", MessageBoxButtons.OK);
         }
 
-        void BackgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void BackgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             BindDataGridView();
 
@@ -138,7 +138,7 @@ namespace Wexflow.Clients.Manager
             }
         }
 
-        void BindDataGridView()
+        private void BindDataGridView()
         {
             if (_exception != null)
             {
@@ -172,7 +172,7 @@ namespace Wexflow.Clients.Manager
             dataGridViewWorkflows.Sort(dataGridViewWorkflows.Columns[0], ListSortDirection.Ascending);
         }
 
-        int GetSlectedWorkflowId()
+        private int GetSlectedWorkflowId()
         {
             var wfId = -1;
             if (dataGridViewWorkflows.SelectedRows.Count > 0)
@@ -189,7 +189,7 @@ namespace Wexflow.Clients.Manager
             return wfId;
         }
 
-        WorkflowInfo GetWorkflow(int id)
+        private WorkflowInfo GetWorkflow(int id)
         {
             if (Program.DebugMode || Program.IsWexflowWindowsServiceRunning())
             {
@@ -208,13 +208,13 @@ namespace Wexflow.Clients.Manager
             return null;
         }
 
-        void HandleNonRunningWindowsService()
+        private void HandleNonRunningWindowsService()
         {
             buttonStart.Enabled = buttonPause.Enabled = buttonResume.Enabled = buttonStop.Enabled = false;
             textBoxInfo.Text = @"Wexflow Windows Service is not running.";
         }
 
-        void ButtonStart_Click(object sender, EventArgs e)
+        private void ButtonStart_Click(object sender, EventArgs e)
         {
             var wfId = GetSlectedWorkflowId();
             if (wfId > -1)
@@ -223,7 +223,7 @@ namespace Wexflow.Clients.Manager
             }
         }
 
-        void ButtonPause_Click(object sender, EventArgs e)
+        private void ButtonPause_Click(object sender, EventArgs e)
         {
             var wfId = GetSlectedWorkflowId();
             if (wfId > -1)
@@ -233,7 +233,7 @@ namespace Wexflow.Clients.Manager
             }
         }
 
-        void ButtonResume_Click(object sender, EventArgs e)
+        private void ButtonResume_Click(object sender, EventArgs e)
         {
             var wfId = GetSlectedWorkflowId();
             if (wfId > -1)
@@ -242,7 +242,7 @@ namespace Wexflow.Clients.Manager
             }
         }
 
-        void ButtonStop_Click(object sender, EventArgs e)
+        private void ButtonStop_Click(object sender, EventArgs e)
         {
             var wfId = GetSlectedWorkflowId();
             if (wfId > -1)
@@ -252,7 +252,7 @@ namespace Wexflow.Clients.Manager
             }
         }
 
-        void DataGridViewWorkflows_SelectionChanged(object sender, EventArgs e)
+        private void DataGridViewWorkflows_SelectionChanged(object sender, EventArgs e)
         {
             var wfId = GetSlectedWorkflowId();
 
@@ -281,7 +281,7 @@ namespace Wexflow.Clients.Manager
             }
         }
 
-        bool WorkflowStatusChanged(WorkflowInfo workflow)
+        private bool WorkflowStatusChanged(WorkflowInfo workflow)
         {
             if (_workflowsPerId.ContainsKey(workflow.Id))
             {
@@ -294,7 +294,7 @@ namespace Wexflow.Clients.Manager
             return false;
         }
 
-        void UpdateButtons(int wfId, bool force)
+        private void UpdateButtons(int wfId, bool force)
         {
             if (wfId > -1)
             {
@@ -345,7 +345,7 @@ namespace Wexflow.Clients.Manager
             }
         }
 
-        void DataGridViewWorkflows_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridViewWorkflows_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             var wfId = GetSlectedWorkflowId();
             if (wfId > -1)
@@ -366,7 +366,7 @@ namespace Wexflow.Clients.Manager
             }
         }
 
-        void DataGridViewWorkflows_ColumnDividerDoubleClick(object sender, DataGridViewColumnDividerDoubleClickEventArgs e)
+        private void DataGridViewWorkflows_ColumnDividerDoubleClick(object sender, DataGridViewColumnDividerDoubleClickEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {

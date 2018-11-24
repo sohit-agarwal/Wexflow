@@ -30,7 +30,7 @@ namespace Wexflow.Server
         /// <summary>
         /// Run services in interactive mode
         /// </summary>
-        static void RunInteractiveServices(ServiceBase[] servicesToRun)
+        private static void RunInteractiveServices(ServiceBase[] servicesToRun)
         {
             Console.WriteLine();
             Console.WriteLine("Start the services in interactive mode.");

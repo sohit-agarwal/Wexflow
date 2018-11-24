@@ -115,7 +115,7 @@ namespace Wexflow.Tasks.SqlToCsv
             return new TaskStatus(status, false);
         }
 
-        void ExecuteSql(string sql)
+        private void ExecuteSql(string sql)
         {
             switch (DbType)
             {

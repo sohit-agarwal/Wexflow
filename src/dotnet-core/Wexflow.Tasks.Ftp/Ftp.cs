@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace Wexflow.Tasks.Ftp
 {
-    public enum FtpCommad
+    public enum FtpCommand
     { 
         List,
         Upload,
@@ -21,10 +21,10 @@ namespace Wexflow.Tasks.Ftp
 
     public class Ftp: Task
     {
-        readonly PluginBase _plugin;
-        readonly FtpCommad _cmd;
-        readonly int _retryCount;
-        readonly int _retryTimeout;
+        private readonly PluginBase _plugin;
+        private readonly FtpCommand _cmd;
+        private readonly int _retryCount;
+        private readonly int _retryTimeout;
 
         public Ftp(XElement xe, Workflow wf): base(xe, wf)
         {
@@ -49,7 +49,7 @@ namespace Wexflow.Tasks.Ftp
                     _plugin = new PluginSftp(this, server, port, user, password, path, privateKeyPath, passphrase);
                     break;
             }
-            _cmd = (FtpCommad)Enum.Parse(typeof(FtpCommad), GetSetting("command"), true);
+            _cmd = (FtpCommand)Enum.Parse(typeof(FtpCommand), GetSetting("command"), true);
             _retryCount = int.Parse(GetSetting("retryCount", "3"));
             _retryTimeout = int.Parse(GetSetting("retryTimeout", "1500"));
         }
@@ -61,7 +61,7 @@ namespace Wexflow.Tasks.Ftp
             bool success = true;
             bool atLeastOneSucceed = false;
 
-            if (_cmd == FtpCommad.List)
+            if (_cmd == FtpCommand.List)
             {
                 int r = 0;
                 while (r <= _retryCount)
@@ -108,13 +108,13 @@ namespace Wexflow.Tasks.Ftp
                         {
                             switch (_cmd)
                             {
-                                case FtpCommad.Upload:
+                                case FtpCommand.Upload:
                                     _plugin.Upload(file);
                                     break;
-                                case FtpCommad.Download:
+                                case FtpCommand.Download:
                                     _plugin.Download(file);
                                     break;
-                                case FtpCommad.Delete:
+                                case FtpCommand.Delete:
                                     _plugin.Delete(file);
                                     Workflow.FilesPerTask[file.TaskId].Remove(file);
                                     break;

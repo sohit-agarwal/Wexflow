@@ -57,7 +57,7 @@ namespace Wexflow.Tasks.CsvToXml
             return new TaskStatus(status, false);
         }
 
-        void CreateXml(string csvPath, string xmlPath)
+        private void CreateXml(string csvPath, string xmlPath)
         {
             var xdoc = new XDocument(new XElement("Lines"));
 

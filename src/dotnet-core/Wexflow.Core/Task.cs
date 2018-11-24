@@ -63,7 +63,7 @@ namespace Wexflow.Core
             get { return Workflow.Hashtable; }
         }
 
-        readonly XElement _xElement;
+        private readonly XElement _xElement;
 
         /// <summary>
         /// Creates a new task.

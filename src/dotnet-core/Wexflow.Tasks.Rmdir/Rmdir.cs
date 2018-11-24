@@ -58,7 +58,7 @@ namespace Wexflow.Tasks.Rmdir
             return new TaskStatus(status, false);
         }
 
-        void RmdirRec(string folder)
+        private void RmdirRec(string folder)
         {
             foreach (string file in Directory.GetFiles(folder)) File.Delete(file);
             foreach (string dir in Directory.GetDirectories(folder)) RmdirRec(dir);

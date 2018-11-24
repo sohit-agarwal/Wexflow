@@ -7,7 +7,7 @@ namespace Wexflow.Tasks.Ftp
 {
     public class PluginFtps: PluginBase
     {
-		readonly FtpEncryptionMode _encryptionMode;
+        private readonly FtpEncryptionMode _encryptionMode;
 
         public PluginFtps(Task task, string server, int port, string user, string password, string path, EncryptionMode encryptionMode)
             :base(task, server, port, user, password, path)
@@ -66,7 +66,7 @@ namespace Wexflow.Tasks.Ftp
             client.Disconnect();
         }
 
-        static void OnValidateCertificate(FtpClient control, FtpSslValidationEventArgs e)
+        private static void OnValidateCertificate(FtpClient control, FtpSslValidationEventArgs e)
         {
             e.Accept = true;
         }

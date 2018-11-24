@@ -11,7 +11,7 @@ namespace Wexflow.Clients.Manager
         public static bool DebugMode = false;
 
         [STAThread]
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             if (Environment.UserInteractive && System.Diagnostics.Debugger.IsAttached)
             {
@@ -21,7 +21,7 @@ namespace Wexflow.Clients.Manager
             RunForm();
         }
 
-        static void RunForm()
+        private static void RunForm()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
