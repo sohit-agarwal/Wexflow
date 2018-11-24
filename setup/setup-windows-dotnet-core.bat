@@ -55,8 +55,8 @@ copy "..\src\backend\Wexflow.Backend\js\users.min.js" %dstDir%\%backend%\js
 
 :: Wexflow server
 dotnet publish  ..\src\dotnet-core\Wexflow.Server\Wexflow.Server.csproj --force --output %~dp0\%dstDir%\Wexflow.Server
-copy dotnet-core\windows\run.bat %dstDir%
 copy dotnet-core\windows\install.bat %dstDir%
+copy dotnet-core\windows\run.bat %dstDir%
 
 :: License
 :: copy ..\LICENSE.txt %dstDir%

@@ -24,7 +24,7 @@ xcopy ..\samples\WexflowTesting\* %dstDir%\WexflowTesting\ /s /e
 xcopy ..\samples\dotnet-core\linux\* %dstDir%\Wexflow\ /s /e
 copy ..\src\dotnet-core\Wexflow.Core\Workflow.xsd %dstDir%\Wexflow\
 
-:: Wexflow back office
+:: Wexflow backend
 copy "..\src\backend\Wexflow.Backend\index.html" %dstDir%\%backend%\
 copy "..\src\backend\Wexflow.Backend\forgot-password.html" %dstDir%\%backend%\
 copy "..\src\backend\Wexflow.Backend\dashboard.html" %dstDir%\%backend%\
