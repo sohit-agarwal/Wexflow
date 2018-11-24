@@ -80,7 +80,7 @@ namespace Wexflow.Clients.Manager
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 MessageBox.Show(@"An error occured during the authentication.", "Wexflow", MessageBoxButtons.OK);
             }
