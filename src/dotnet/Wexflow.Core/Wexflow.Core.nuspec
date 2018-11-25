@@ -12,7 +12,7 @@
     <!--<iconUrl></iconUrl>-->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Core assembly of Wexflow workflow engine.</description>
-    <releaseNotes>Updated the documentation.</releaseNotes>
+    <releaseNotes>Fixed some issues in the designer and updated the documentation.</releaseNotes>
     <copyright>Copyright (c) 2018 Akram El Assas.</copyright>
     <tags>Wexflow Workflow</tags>
   </metadata>

@@ -1164,7 +1164,7 @@
                         varsHtml += "<td class='wf-value'><input type='text' value='" + varValue + "' readonly></td>";
                         varsHtml += "</tr>";
                     }
-                    varsHtml += "</table>"
+                    varsHtml += "</table>";
                     document.getElementById("wf-local-vars").innerHTML = varsHtml;
                 } else {
                     document.getElementById("wf-local-vars").innerHTML = "";
@@ -1280,12 +1280,11 @@
                                     document.getElementById("wf-add-task").style.display = "none";
                                 }
 
-                                var wfAddAttributsTds = document.getElementsByClassName("wf-add-attribute-td");
-                                for (var i3 = 0; i3 < wfAddAttributsTds.length; i3++) {
-                                    var wfAddAttributeTd = wfAddAttributsTds[i3];
-                                    var settingValue =
-                                        wfAddAttributeTd.parentElement.getElementsByClassName("wf-setting-name")[0].value;
-                                    if (settingValue === "selectFiles" || settingValue === "selectetAttachments") {
+                                var wfAddAttributesTds = document.getElementsByClassName("wf-add-attribute-td");
+                                for (var i3 = 0; i3 < wfAddAttributesTds.length; i3++) {
+                                    var wfAddAttributeTd = wfAddAttributesTds[i3];
+                                    var settingValue = wfAddAttributeTd.parentElement.getElementsByClassName("wf-setting-name")[0].value;
+                                    if (settingValue === "selectFiles" || settingValue === "selectAttachments") {
                                         wfAddAttributeTd.style.display = "block";
                                     }
                                 }

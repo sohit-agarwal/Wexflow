@@ -180,7 +180,8 @@ namespace Wexflow.Core
             Hashtable = new Hashtable();
             GlobalVariables = globalVariables;
             Check();
-            Load();
+            LoadLocalVariables();
+            Load(WorkflowFilePath);
 
             if (!IsEnabled)
             {
@@ -215,12 +216,9 @@ namespace Wexflow.Core
             }
         }
 
-        private void Parse(string src, string dest)
+        private void LoadLocalVariables()
         {
-            //
-            // Load local variables.
-            //
-            using (var xmlReader = XmlReader.Create(src))
+            using (var xmlReader = XmlReader.Create(WorkflowFilePath))
             {
                 var xmlNameTable = xmlReader.NameTable;
                 if (xmlNameTable != null)
@@ -233,7 +231,7 @@ namespace Wexflow.Core
                     throw new Exception("xmlNameTable of " + WorkflowFilePath + " is null");
                 }
 
-                var xdoc = XDocument.Load(src);
+                var xdoc = XDocument.Load(WorkflowFilePath);
                 List<Variable> localVariables = new List<Variable>();
 
                 foreach (var xvariable in xdoc.XPathSelectElements("/wf:Workflow/wf:LocalVariables/wf:Variable",
@@ -253,7 +251,10 @@ namespace Wexflow.Core
 
                 LocalVariables = localVariables.ToArray();
             }
+        }
 
+        private void Parse(string src, string dest)
+        {
             //
             // Parse global variables.
             //
@@ -328,14 +329,12 @@ namespace Wexflow.Core
             
         }
 
-        private void Load()
+        private void Load(string workflowFilePath)
         {
-            string src = WorkflowFilePath;
-            string dest = Path.Combine(WorkflowsTempFolder, Path.GetFileName(WorkflowFilePath));
+            FilesPerTask.Clear();
+            EntitiesPerTask.Clear();
 
-            Parse(src, dest);
-
-            using (var xmlReader = XmlReader.Create(dest))
+            using (var xmlReader = XmlReader.Create(workflowFilePath))
             {
                 var xmlNameTable = xmlReader.NameTable;
                 if (xmlNameTable != null)
@@ -349,7 +348,7 @@ namespace Wexflow.Core
                 }
 
                 // Loading settings
-                var xdoc = XDocument.Load(dest);
+                var xdoc = XDocument.Load(workflowFilePath);
                 XDoc = xdoc;
                 XNamespaceWf = "urn:wexflow-schema";
 
@@ -373,6 +372,7 @@ namespace Wexflow.Core
                     var xExecutionGraph = xdoc.Root.Element(XNamespaceWf + "ExecutionGraph");
                     IsExecutionGraphEmpty = xExecutionGraph == null || !xExecutionGraph.Elements().Any();
                 }
+
                 // Loading tasks
                 var tasks = new List<Task>();
                 foreach (var xTask in xdoc.XPathSelectElements("/wf:Workflow/wf:Tasks/wf:Task", XmlNamespaceManager))
@@ -703,6 +703,14 @@ namespace Wexflow.Core
         {
             if (IsRunning) return;
 
+            //
+            // Parse the workflow file (Global variables and local variables.)
+            //
+            string src = WorkflowFilePath;
+            string dest = Path.Combine(WorkflowsTempFolder, Path.GetFileName(WorkflowFilePath));
+            Parse(src, dest);
+            Load(dest);
+
             Database.IncrementRunningCount();
 
             var entry = Database.GetEntry(Id);
@@ -838,6 +846,8 @@ namespace Wexflow.Core
                     }
                     finally
                     {
+                        Load(WorkflowFilePath); // Reload the original workflow
+
                         // Cleanup
                         foreach (List<FileInf> files in FilesPerTask.Values) files.Clear();
                         foreach (List<Entity> entities in EntitiesPerTask.Values) entities.Clear();
