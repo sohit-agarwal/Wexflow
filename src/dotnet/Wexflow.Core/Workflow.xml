@@ -28,7 +28,7 @@
           - The enabled option which allows to enable or disable a task. The possible 
             values are true or false.
           - A collection of settings.
-        - An ExecutionGraph section which contains the execution graph of the workflow.
+      - An ExecutionGraph section which contains the execution graph of the workflow.
 -->
 <Workflow xmlns="urn:wexflow-schema" id="$int" name="$string" description="$string">
   <Settings>
