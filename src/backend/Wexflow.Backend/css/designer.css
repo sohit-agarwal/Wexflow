@@ -114,9 +114,15 @@ body{
 #wf-local-vars, #wf-tasks, .wf-task, .wf-add-setting-title {
     margin-top: 10px;
 }
+
+#wf-local-vars h5 button {
+    float: right;
+}
+
 .wf-add-setting-title {
     margin-bottom: 10px;
 }
+
 .wf-designer-table {
     border-spacing: 0;
     border: #ddd solid 1px;

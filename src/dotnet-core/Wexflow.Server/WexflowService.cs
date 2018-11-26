@@ -600,6 +600,22 @@ namespace Wexflow.Server
                         bool isWorkflowEnabled = (bool)wi.SelectToken("IsEnabled");
                         string workflowDesc = (string)wi.SelectToken("Description");
 
+                        // Local variables
+                        var xLocalVariables = new XElement(xn + "LocalVariables");
+                        var variables = wi.SelectToken("LocalVariables");
+                        foreach (var variable in variables)
+                        {
+                            string key = (string)variable.SelectToken("Key");
+                            string value = (string)variable.SelectToken("Value");
+
+                            var xVariable = new XElement(xn + "Variable"
+                                    , new XAttribute("name", key)
+                                    , new XAttribute("value", value)
+                            );
+
+                            xLocalVariables.Add(xVariable);
+                        }
+
                         // tasks
                         var xtasks = new XElement(xn + "Tasks");
                         var tasks = o.SelectToken("Tasks");
@@ -677,6 +693,7 @@ namespace Wexflow.Server
                                     , new XAttribute("name", "cronExpression")
                                     , new XAttribute("value", cronExpression))
                             )
+                            , xLocalVariables
                             , xtasks
                         );
 
@@ -750,6 +767,33 @@ namespace Wexflow.Server
                                 xdoc.Root.XPathSelectElement("wf:Settings", wf.XmlNamespaceManager)
                                     .Add(new XElement(wf.XNamespaceWf + "Setting", new XAttribute("name", "cronExpression"),
                                         new XAttribute("value", cronExpression)));
+                            }
+
+                            // Local variables
+                            var xLocalVariables = xdoc.Root.Element(wf.XNamespaceWf + "LocalVariables");
+                            if (xLocalVariables != null)
+                            {
+                                var allVariables = xLocalVariables.Elements(wf.XNamespaceWf + "Variable");
+                                allVariables.Remove();
+                            }
+                            else
+                            {
+                                xLocalVariables = new XElement(wf.XNamespaceWf + "LocalVariables");
+                                xdoc.Root.Element(wf.XNamespaceWf + "Tasks").AddBeforeSelf(xLocalVariables);
+                            }
+
+                            var variables = wi.SelectToken("LocalVariables");
+                            foreach (var variable in variables)
+                            {
+                                string key = (string)variable.SelectToken("Key");
+                                string value = (string)variable.SelectToken("Value");
+
+                                var xVariable = new XElement(wf.XNamespaceWf + "Variable"
+                                        , new XAttribute("name", key)
+                                        , new XAttribute("value", value)
+                                );
+
+                                xLocalVariables.Add(xVariable);
                             }
 
                             var xtasks = xdoc.Root.Element(wf.XNamespaceWf + "Tasks");

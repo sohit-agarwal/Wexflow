@@ -24,7 +24,7 @@
  </xsd:complexType>
 
   <xsd:complexType name="localVariablesType">
-    <xsd:sequence maxOccurs="unbounded">
+    <xsd:sequence minOccurs="0" maxOccurs="unbounded">
       <xsd:element name="Variable" type="variableType"/>
     </xsd:sequence>
   </xsd:complexType>

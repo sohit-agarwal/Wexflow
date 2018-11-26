@@ -68,6 +68,12 @@
         "</tbody>" +
         "</table>" +
         "<div id='wf-local-vars'>" +
+        "<h5 class='wf-task-title'>Local variables" +
+        "<button id='wf-add-var' type='button' class='btn btn-dark btn-sm'>New variable</button>" +
+        "</h5>" +
+        "<table class='wf-designer-table wf-local-vars' style='display: none;'>" +
+        "<tr><th>Name</th><th>Value</th><th style='width:100%'></th></tr>" +
+        "</table>" +
         "</div>" +
         "<div id='wf-tasks'>" +
         "</div>" +
@@ -111,6 +117,45 @@
         }
     };
 
+    // local variables
+    var addVar = function (workflowId) {
+        var wfVarsTable = document.getElementsByClassName("wf-local-vars")[0];
+
+        var row = wfVarsTable.insertRow(-1);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+
+        cell1.innerHTML = "<input class='wf-var-key' type='text'>";
+        cell2.innerHTML = "<input class='wf-var-value' type='text'>";
+        cell2.className = "wf-value";
+        cell3.innerHTML = "<button type='button' class='wf-remove-var btn btn-danger btn-sm'>Delete</button>";
+
+        workflowInfos[workflowId].LocalVariables.push({ "Key": "", "Value": "" });
+
+        // events
+        var index = workflowInfos[workflowId].LocalVariables.length - 1;
+
+        var wfVarKey = wfVarsTable.getElementsByClassName("wf-var-key")[index];
+        wfVarKey.onkeyup = function () {
+            index = getElementIndex(wfVarValue.parentElement.parentElement) - 1;
+            workflowInfos[workflowId].LocalVariables[index].Key = this.value;
+        };
+
+        var wfVarValue = wfVarsTable.getElementsByClassName("wf-var-value")[index];
+        wfVarValue.onkeyup = function () {
+            index = getElementIndex(wfVarValue.parentElement.parentElement) - 1;
+            workflowInfos[workflowId].LocalVariables[index].Value = this.value;
+        };
+
+        var btnVarDelete = wfVarsTable.getElementsByClassName("wf-remove-var")[index];
+        btnVarDelete.onclick = function () {
+            index = getElementIndex(wfVarValue.parentElement.parentElement) - 1;
+            workflowInfos[workflowId].LocalVariables = deleteRow(workflowInfos[workflowId].LocalVariables, index);
+            this.parentElement.parentElement.remove();
+        };
+    };
+
     document.getElementById("wf-add-workflow").onclick = function () {
         saveCalled = false;
         var wfRightPanel = document.getElementById("wf-designer-right-panel");
@@ -151,7 +196,8 @@
                     "IsEnabled": document.getElementById("wf-enabled").checked,
                     "Description": document.getElementById("wf-desc").value,
                     "Path": "",
-                    "IsNew": true
+                    "IsNew": true,
+                    "LocalVariables": []
                 };
 
                 workflowTasks[workflowId] = [];
@@ -234,6 +280,18 @@
 
         document.getElementById("wf-save").onclick = function () {
             saveClick(true);
+        };
+
+        // Local variables
+        document.getElementById("wf-add-var").onclick = function () {
+            var wfIdStr = document.getElementById("wf-id").value;
+            if (isInt(wfIdStr)) {
+                var workflowId = parseInt(wfIdStr);
+                document.getElementsByClassName("wf-local-vars")[0].style.display = "table";
+                addVar(workflowId);
+            } else {
+                alert("Please enter a valid workflow id.");
+            }
         };
 
         Common.get(uri + "/taskNames",
@@ -1152,22 +1210,82 @@
 
                 // Local variables
                 if (workflow.LocalVariables.length > 0) {
-                    var varsHtml = "<h5 class='wf-task-title'>Local variables</h5>" +
+                    var varsHtml = "<h5 class='wf-task-title'>Local variables" +
+                        "<button id='wf-add-var' type='button' class='btn btn-dark btn-sm'>New variable</button>" +
+                        "</h5>" +
                         "<table class='wf-designer-table wf-local-vars'>" +
-                        "<tr><th>Name</th><th>Value</th></tr>";
+                        "<tr><th>Name</th><th>Value</th><th style='width:100%'></th></tr>";
                     for (var q = 0; q < workflow.LocalVariables.length; q++) {
                         var variable = workflow.LocalVariables[q];
                         var varKey = variable.Key;
                         var varValue = variable.Value;
                         varsHtml += "<tr>";
-                        varsHtml += "<td><input type='text' value='" + varKey + "' readonly></td>";
-                        varsHtml += "<td class='wf-value'><input type='text' value='" + varValue + "' readonly></td>";
+                        varsHtml += "<td><input class='wf-var-key' type='text' value='" + varKey + "'></td>";
+                        varsHtml += "<td class='wf-value'><input class='wf-var-value' type='text' value='" + varValue + "'></td>";
+                        varsHtml += "<td><button type='button' class='wf-remove-var btn btn-danger btn-sm'>Delete</button></td>"
                         varsHtml += "</tr>";
                     }
                     varsHtml += "</table>";
                     document.getElementById("wf-local-vars").innerHTML = varsHtml;
+
+                    // Bind keys modifications
+                    var bindVarKey = function (index) {
+                        var wfVarKey = document.getElementsByClassName("wf-var-key")[index];
+                        wfVarKey.onkeyup = function () {
+                            workflowInfos[workflowId].LocalVariables[index].Key = wfVarKey.value;
+                        };
+                    };
+
+                    var wfVarKeys = document.getElementsByClassName("wf-var-key");
+                    for (var r = 0; r < wfVarKeys.length; r++) {
+                        bindVarKey(r);
+                    }
+
+                    // Bind values modifications
+                    var bindVarValue = function (index) {
+                        var wfVarValue = document.getElementsByClassName("wf-var-value")[index];
+                        wfVarValue.onkeyup = function () {
+                            workflowInfos[workflowId].LocalVariables[index].Value = wfVarValue.value;
+                        };
+                    };
+
+                    var wfVarValues = document.getElementsByClassName("wf-var-value");
+                    for (var s = 0; s < wfVarValues.length; s++) {
+                        bindVarValue(s);
+                    }
+
+                    // Bind delete variables
+                    var bindDeleteVar = function(index) {
+                        var wfVarDelete = document.getElementsByClassName("wf-remove-var")[index];
+                        wfVarDelete.onclick = function () {
+                            index = getElementIndex(wfVarDelete.parentElement.parentElement) - 1;
+                            workflowInfos[workflowId].LocalVariables = deleteRow(workflowInfos[workflowId].LocalVariables, index);
+                            wfVarDelete.parentElement.parentElement.remove();
+                        };
+                    };
+
+                    var wfVarDeleteBtns = document.getElementsByClassName("wf-remove-var");
+                    for (var t = 0; t < wfVarDeleteBtns.length; t++) {
+                        bindDeleteVar(t);
+                    }
+
+                    // Bind add variables
+                    document.getElementById("wf-add-var").onclick = function () {
+                        addVar(workflowId);
+                    };
+
                 } else {
-                    document.getElementById("wf-local-vars").innerHTML = "";
+                    document.getElementById("wf-local-vars").innerHTML = "<h5 class='wf-task-title'>Local variables" +
+                        "<button id='wf-add-var' type='button' class='btn btn-dark btn-sm'>New variable</button>" +
+                        "</h5>" +
+                        "<table class='wf-designer-table wf-local-vars' style='display: none;'>" +
+                        "<tr><th>Name</th><th>Value</th><th style='width:100%'></th></tr>" + 
+                        "</table>";
+
+                    document.getElementById("wf-add-var").onclick = function () {
+                        document.getElementsByClassName("wf-local-vars")[0].style.display = "table";
+                        addVar(workflowId);
+                    };
                 }
 
                 // Tasks
