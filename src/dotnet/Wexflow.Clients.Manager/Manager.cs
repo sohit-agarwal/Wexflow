@@ -19,7 +19,7 @@ namespace Wexflow.Clients.Manager
 
         private const string ColumnId = "Id";
         private const string ColumnEnabled = "Enabled";
-        private const string WexflowWindowsServicePath = @"..\Wexflow.Clients.WindowsService.exe.config";
+        private const string WexflowServerPath = @"..\Wexflow.Server.exe.config";
         private const string Backend = @"..\Backend\index.html";
 
         private WexflowServiceClient _wexflowServiceClient;
@@ -38,10 +38,10 @@ namespace Wexflow.Clients.Manager
 
             LoadWorkflows();
 
-            if (File.Exists(WexflowWindowsServicePath))
+            if (File.Exists(WexflowServerPath))
             {
                 XmlDocument doc = new XmlDocument();
-                doc.Load(WexflowWindowsServicePath);
+                doc.Load(WexflowServerPath);
                 XmlElement root = doc.DocumentElement;
                 if (root != null)
                 {
