@@ -1222,7 +1222,7 @@
                         varsHtml += "<tr>";
                         varsHtml += "<td><input class='wf-var-key' type='text' value='" + varKey + "'></td>";
                         varsHtml += "<td class='wf-value'><input class='wf-var-value' type='text' value='" + varValue + "'></td>";
-                        varsHtml += "<td><button type='button' class='wf-remove-var btn btn-danger btn-sm'>Delete</button></td>"
+                        varsHtml += "<td><button type='button' class='wf-remove-var btn btn-danger btn-sm'>Delete</button></td>";
                         varsHtml += "</tr>";
                     }
                     varsHtml += "</table>";
