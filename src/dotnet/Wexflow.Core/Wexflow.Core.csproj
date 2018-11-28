@@ -136,7 +136,9 @@
     <Content Include="Workflow.xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Wexflow.Core.nuspec" />
+    <None Include="Wexflow.Core.nuspec">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Workflow.xsd">
       <SubType>Designer</SubType>
     </None>
