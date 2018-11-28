@@ -3,6 +3,7 @@
   <Setting name="workflowsFolder" value="/opt/wexflow/Wexflow/Workflows" />
   <Setting name="trashFolder" value="/opt/wexflow/Wexflow/Trash" />
   <Setting name="tempFolder" value="/opt/wexflow/Wexflow/Temp" />
+  <Setting name="tasksFolder" value="/opt/wexflow/Wexflow/Tasks" />
   <Setting name="xsd" value="/opt/wexflow/Wexflow/Workflow.xsd" />
   <Setting name="tasksNamesFile" value="/opt/wexflow/Wexflow/TasksNames.json" />
   <Setting name="tasksSettingsFile" value="/opt/wexflow/Wexflow/TasksSettings.json" />

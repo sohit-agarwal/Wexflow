@@ -33,6 +33,10 @@ namespace Wexflow.Core
         /// </summary>
         public string TempFolder { get; private set; }
         /// <summary>
+        /// Tasks folder path.
+        /// </summary>
+        public string TasksFolder { get; private set; }
+        /// <summary>
         /// Workflows temp folder used for global variables parsing.
         /// </summary>
         public string WorkflowsTempFolder { get; private set; }
@@ -125,6 +129,7 @@ namespace Wexflow.Core
             WorkflowsFolder = GetWexflowSetting(xdoc, "workflowsFolder");
             TrashFolder = GetWexflowSetting(xdoc, "trashFolder");
             TempFolder = GetWexflowSetting(xdoc, "tempFolder");
+            TasksFolder = GetWexflowSetting(xdoc, "tasksFolder");
             if (!Directory.Exists(TempFolder)) Directory.CreateDirectory(TempFolder);
             WorkflowsTempFolder = Path.Combine(TempFolder, "Workflows");
             if (!Directory.Exists(WorkflowsTempFolder)) Directory.CreateDirectory(WorkflowsTempFolder);
@@ -194,7 +199,7 @@ namespace Wexflow.Core
         {
             try
             {
-                var wf = new Workflow(file, TempFolder, WorkflowsTempFolder, XsdPath, Database, GlobalVariables);
+                var wf = new Workflow(file, TempFolder, WorkflowsTempFolder, TasksFolder, XsdPath, Database, GlobalVariables);
                 Logger.InfoFormat("Workflow loaded: {0} ({1})", wf, file);
                 return wf;
             }

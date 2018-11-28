@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Xml;
 using System.Xml.Linq;
@@ -153,6 +154,10 @@ namespace Wexflow.Core
         /// Local variables.
         /// </summary>
         public Variable[] LocalVariables { get; private set; }
+        /// <summary>
+        /// Tasks folder.
+        /// </summary>
+        public string TasksFolder { get; private set; }
 
         private Thread _thread;
         private HistoryEntry _historyEntry;
@@ -164,13 +169,20 @@ namespace Wexflow.Core
         /// <param name="wexflowTempFolder">Wexflow temp folder.</param>
         /// <param name="xsdPath">XSD path.</param>
         /// <param name="database">Database.</param>
-        public Workflow(string path, string wexflowTempFolder, string workflowsTempFolder, string xsdPath, Db.Db database, Variable[] globalVariables)
+        public Workflow(string path
+            , string wexflowTempFolder
+            , string workflowsTempFolder
+            , string tasksFolder
+            , string xsdPath
+            , Db.Db database
+            , Variable[] globalVariables)
         {
             JobId = 1;
             _thread = null;
             WorkflowFilePath = path;
             WexflowTempFolder = wexflowTempFolder;
             WorkflowsTempFolder = workflowsTempFolder;
+            TasksFolder = tasksFolder;
             XsdPath = xsdPath;
             Database = database;
             FilesPerTask = new Dictionary<int, List<FileInf>>();
@@ -377,10 +389,24 @@ namespace Wexflow.Core
                     var xAttribute = xTask.Attribute("name");
                     if (xAttribute != null)
                     {
+                        Type type = null;
                         var name = xAttribute.Value;
                         var assemblyName = "Wexflow.Tasks." + name;
                         var typeName = "Wexflow.Tasks." + name + "." + name + ", " + assemblyName;
-                        var type = Type.GetType(typeName);
+
+                        // Try to load from root
+                        type = Type.GetType(typeName);
+
+                        if (type == null) // Try to load from Tasks folder
+                        {
+                            var taskAssemblyFile = Path.Combine(TasksFolder, assemblyName + ".dll");
+                            if (File.Exists(taskAssemblyFile))
+                            {
+                                var taskAssembly = Assembly.LoadFile(taskAssemblyFile);
+                                var typeFullName = "Wexflow.Tasks." + name + "." + name;
+                                type = taskAssembly.GetType(typeFullName);
+                            }
+                        }
 
                         if (type != null)
                         {

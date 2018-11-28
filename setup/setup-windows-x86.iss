@@ -1,5 +1,5 @@
 #define MyAppName "Wexflow"
-#define MyAppVersion "3.6"
+#define MyAppVersion "3.7"
 #define MyAppPublisher "Akram El Assas"
 #define MyAppPublisherURL "https://wexflow.github.io/"
 #define MyAppExeName "Wexflow.Clients.Manager.exe"
@@ -377,6 +377,7 @@ procedure InitializeWizard();
 begin
   CreateDir('C:\Wexflow');
   CreateDir('C:\Wexflow\Trash');
+  CreateDir('C:\Wexflow\Tasks');
   CreateDir('C:\Wexflow\Database');
   CreateDir('C:\WexflowTesting');
 end;
