@@ -37,7 +37,7 @@ Wexflow provides the following features:
 - [x] [A cross-platform backend](https://github.com/aelassas/Wexflow/wiki/Usage#backend).
 - [x] [A cross-platform application for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#manager).
 - [x] [A cross-platform application for designing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#designer).
-- [x] [An Android application for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#wexflow-android-manager).
+- [x] [An Android application for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#android-manager).
 - [x] [User management](https://github.com/aelassas/Wexflow/wiki/Usage#users).
 - [x] [Sequential workflows](https://github.com/aelassas/Wexflow/wiki/Samples#sequential-workflows).
 - [x] [Flowchart workflows](https://github.com/aelassas/Wexflow/wiki/Samples#flowchart-workflows).
