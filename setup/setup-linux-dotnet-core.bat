@@ -1,6 +1,6 @@
 ::@echo off
 
-set version=3.7
+set version=3.8
 set dst=wexflow
 set zip=wexflow-%version%-linux-dotnet-core.zip
 set dstDir=.\%dst%
