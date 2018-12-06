@@ -7,6 +7,6 @@
   <Setting name="xsd" value="/Applications/wexflow/Wexflow/Workflow.xsd" />
   <Setting name="tasksNamesFile" value="/Applications/wexflow/Wexflow/TasksNames.json" />
   <Setting name="tasksSettingsFile" value="/Applications/wexflow/Wexflow/TasksSettings.json" />
-  <Setting name="connectionString" value="/Applications/wexflow/Wexflow/Database/Wexflow.db" />
+  <Setting name="connectionString" value="Filename=/Applications/wexflow/Wexflow/Database/Wexflow.db; Mode=Exclusive" />
   <Setting name="globalVariablesFile" value="/Applications/wexflow/Wexflow/GlobalVariables.xml" />
 </Wexflow>
