@@ -44,7 +44,7 @@ namespace Wexflow.Tasks.SqlToCsv
             ConnectionString = GetSetting("connectionString");
             SqlScript = GetSetting("sql", string.Empty);
             QuoteString = GetSetting("quote", string.Empty);
-            EndOfLine = "\r\n";
+            EndOfLine = GetSetting("endline", "\r\n");
             Separator = QuoteString + GetSetting("separator", ";") + QuoteString;
             bool result1;
             if (bool.TryParse(GetSetting("headers", bool.TrueString), out result1)) Headers = result1;
