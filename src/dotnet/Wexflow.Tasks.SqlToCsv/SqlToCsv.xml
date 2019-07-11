@@ -31,5 +31,7 @@
     <Setting name="quote" value="$string" />
     <!-- Optional and defaults to true. True to include the headers, False otherwise.-->
     <Setting name="headers" value="$bool" />
+    <!-- Optional and defaults to \r\n. End of line string.-->
+    <Setting name="endline" value="$string" />
   </Task>
 </Tasks>
