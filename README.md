@@ -84,6 +84,7 @@ Here are some examples of using Wexflow:
 - Database administration and maintenance.
 - Synchronizing the content of local or remote directories.
 - Batch sending tweets.
+- Optimizing PDF files.
 - etc.
 
 # Benefits
