@@ -18,6 +18,8 @@
 [![forthebadge](http://aelassas.github.io/wexflow/images/built-with-love.svg)](http://forthebadge.com)
 -->
 
+[![Logo](https://aelassas.github.io/wexflow/images/wexflow-3.6-2.jpg)](https://wexflow.github.io/)
+
 Wexflow is a high-performance, extensible, modular and cross-platform workflow engine. The goal of Wexflow is to automate recurring tasks without user intervention. With the help of Wexflow, building automation and workflow processes become easy. Wexflow also helps in making the long-running processes straightforward. 
 
 Wexflow aims to make automations, workflow processes, long-running processes and interactions between systems, applications and folks easy, straightforward and clean. The communication between systems or applications becomes easy through this powerful workflow engine.
