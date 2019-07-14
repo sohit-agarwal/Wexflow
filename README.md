@@ -4,9 +4,9 @@
 <!--
 # <a href="https://wexflow.github.io/"><img alt="Wexflow" src="https://aelassas.github.io/wexflow/images/wexflow-3.6-2.jpg" width="100%"></a>
 -->
-<!--
+
 # [![Logo](https://aelassas.github.io/wexflow/images/wexflow-logo-2.png)](https://wexflow.github.io/)
--->
+
 [![Release](http://img.shields.io/badge/release-v3.9-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/latest) [![Nuget](http://img.shields.io/badge/nuget-v3.8.0-blue.svg)](https://www.nuget.org/packages/Wexflow) [![GitHub Downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://www.somsubhra.com/github-release-stats/?username=aelassas&repository=Wexflow) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby) [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Wexflow%20-%20Open%20source%20workflow%20engine&url=https://wexflow.github.io&via=aelassas_dev&hashtags=wexflow,workflow) [![Twitter URL](https://img.shields.io/twitter/url/https/twitter.com/fold_left.svg?style=social&label=Follow)](https://twitter.com/aelassas_dev)
 
 <!--
@@ -17,9 +17,9 @@
 [![forthebadge](http://aelassas.github.io/wexflow/images/made-with-c-sharp.svg)](http://forthebadge.com)
 [![forthebadge](http://aelassas.github.io/wexflow/images/built-with-love.svg)](http://forthebadge.com)
 -->
-
+<!--
 [![Logo](https://aelassas.github.io/wexflow/images/wexflow-3.6-2.jpg)](https://wexflow.github.io/)
-
+-->
 Wexflow is a high-performance, extensible, modular and cross-platform workflow engine. The goal of Wexflow is to automate recurring tasks without user intervention. With the help of Wexflow, building automation and workflow processes become easy. Wexflow also helps in making the long-running processes straightforward. 
 
 Wexflow aims to make automations, workflow processes, long-running processes and interactions between systems, applications and folks easy, straightforward and clean. The communication between systems or applications becomes easy through this powerful workflow engine.
