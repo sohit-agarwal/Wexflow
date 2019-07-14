@@ -8,9 +8,12 @@
 # [![Logo](https://aelassas.github.io/wexflow/images/wexflow-logo-2.png)](https://wexflow.github.io/)
 -->
 <!--
+[![Release](http://img.shields.io/badge/release-v3.9-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/latest)
+[![Nuget](http://img.shields.io/badge/nuget-v3.8.0-blue.svg)](https://www.nuget.org/packages/Wexflow)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby)
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)
 -->
-# Wexflow [![Release](http://img.shields.io/badge/release-v3.9-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/latest) [![Nuget](http://img.shields.io/badge/nuget-v3.8.0-blue.svg)](https://www.nuget.org/packages/Wexflow) [![GitHub Downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://www.somsubhra.com/github-release-stats/?username=aelassas&repository=Wexflow) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Wexflow%20-%20Open%20source%20workflow%20engine&url=https://wexflow.github.io&via=aelassas_dev&hashtags=wexflow,workflow) [![Twitter URL](https://img.shields.io/twitter/url/https/twitter.com/fold_left.svg?style=social&label=Follow)](https://twitter.com/aelassas_dev)
+# Wexflow [![GitHub Downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://www.somsubhra.com/github-release-stats/?username=aelassas&repository=Wexflow) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Wexflow%20-%20Open%20source%20workflow%20engine&url=https://wexflow.github.io&via=aelassas_dev&hashtags=wexflow,workflow) [![Twitter URL](https://img.shields.io/twitter/url/https/twitter.com/fold_left.svg?style=social&label=Follow)](https://twitter.com/aelassas_dev)
 
 <!--
 [![NuGet Downloads](https://img.shields.io/nuget/dt/Wexflow.svg)](https://www.nuget.org/packages/Wexflow/)
@@ -122,7 +125,7 @@ Here are the benefits of using Wexflow:
 # Download
 
 Download the latest release [here](https://github.com/aelassas/Wexflow/releases/latest).
-
+<!--
 # Awards
 
 - [Best C# Article of January 2017 : Second Prize on CodeProject](https://www.codeproject.com/Articles/1164009/Wexflow-Open-source-workflow-engine-in-Csharp).
@@ -150,7 +153,7 @@ To contribute to this project, proceed as follows:
   - Expected result.
  
 If you'd like to add a feature request please add some details how it is supposed to work.
-
+-->
 # Changelog
 
 The changelog is available in the [release history](https://github.com/aelassas/Wexflow/wiki/History).
@@ -161,17 +164,19 @@ Wexflow is licensed under the [MIT License](https://github.com/aelassas/Wexflow/
 
 Wexflow contains other libraries with their individual licenses. More details about these licenses can be found in the [wiki](https://github.com/aelassas/Wexflow/wiki/License).
 
+<!--
 # Developers
 - [Akram El Assas](https://github.com/aelassas) (Project founder and maintainer)
 - [Hans Meyer](https://github.com/HaMster21) 
 - [Jan Borup Coyle](https://github.com/janborup) 
 - [Alex Higgins](https://github.com/alexhiggins732)
 - [Igor Quirino](https://github.com/iquirino)
-
+-->
 # Credits
 
 Thanks to [JetBrains](https://www.jetbrains.com) for the free open source license of Resharper Ultimate.
-
+<!--
 Improved and optimized using:
 
 <a href="https://www.jetbrains.com/resharper/"><img src="https://aelassas.github.io/wexflow/images/logo_resharper.gif" alt="Resharper" width="100" /></a>
+-->
