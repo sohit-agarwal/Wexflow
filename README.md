@@ -28,7 +28,7 @@ Wexflow also makes use of [Quartz.NET](https://www.quartz-scheduler.net/) open s
 
 Furthermore, Wexflow makes use of [LiteDB](http://www.litedb.org/) NoSQL Document Store database in its server and backend which enhance and improve the performance of this workflow engine.
 
-# Major Features
+# Major features
 
 Wexflow provides the following features:
 
