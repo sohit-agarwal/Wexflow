@@ -6,551 +6,10 @@
     <members>
         <member name="T:FluentFTP.FtpClient">
             <summary>
-            FTP Control Connection. Speaks the FTP protocol with the server and
-            provides facilities for performing transactions.
+            A connection to a single FTP server. Interacts with any FTP/FTPS server and provides a high-level and low-level API to work with files and folders.
             
-            Debugging problems with FTP transactions is much easier to do when
-            you can see exactly what is sent to the server and the reply 
-            FluentFTP gets in return. Please review the Debug example
-            below for information on how to add <see cref="T:System.Diagnostics.TraceListener"/>s for capturing
-            the conversation between FluentFTP and the server.
+            Debugging problems with FTP is much easier when you enable logging. See the FAQ on our Github project page for more info.
             </summary>
-            <example>The following example illustrates how to assist in debugging
-            FluentFTP by getting a transaction log from the server.
-            <code source="..\Examples\Debug.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates adding a custom file
-            listing parser in the event that you encounter a list format
-            not already supported.
-            <code source="..\Examples\CustomParser.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to validate
-            a SSL certificate when using SSL/TLS.
-            <code source="..\Examples\ValidateCertificate.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to download a file.
-            <code source="..\Examples\OpenRead.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to download a file
-            using a URI object.
-            <code source="..\Examples\OpenReadURI.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to upload a file.
-            <code source="..\Examples\OpenWrite.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to upload a file
-            using a URI object.
-            <code source="..\Examples\OpenWriteURI.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to append to a file.
-            <code source="..\Examples\OpenAppend.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to append to a file
-            using a URI object.
-            <code source="..\Examples\OpenAppendURI.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to get a file
-            listing from the server.
-            <code source="..\Examples\GetListing.cs" lang="cs" />
-            </example>
-            <summary>
-            FTP Control Connection. Speaks the FTP protocol with the server and
-            provides facilities for performing transactions.
-            
-            Debugging problems with FTP transactions is much easier to do when
-            you can see exactly what is sent to the server and the reply 
-            FluentFTP gets in return. Please review the Debug example
-            below for information on how to add <see cref="T:System.Diagnostics.TraceListener"/>s for capturing
-            the conversation between FluentFTP and the server.
-            </summary>
-            <example>The following example illustrates how to assist in debugging
-            FluentFTP by getting a transaction log from the server.
-            <code source="..\Examples\Debug.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates adding a custom file
-            listing parser in the event that you encounter a list format
-            not already supported.
-            <code source="..\Examples\CustomParser.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to validate
-            a SSL certificate when using SSL/TLS.
-            <code source="..\Examples\ValidateCertificate.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to download a file.
-            <code source="..\Examples\OpenRead.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to download a file
-            using a URI object.
-            <code source="..\Examples\OpenReadURI.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to upload a file.
-            <code source="..\Examples\OpenWrite.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to upload a file
-            using a URI object.
-            <code source="..\Examples\OpenWriteURI.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to append to a file.
-            <code source="..\Examples\OpenAppend.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to append to a file
-            using a URI object.
-            <code source="..\Examples\OpenAppendURI.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to get a file
-            listing from the server.
-            <code source="..\Examples\GetListing.cs" lang="cs" />
-            </example>
-            <summary>
-            FTP Control Connection. Speaks the FTP protocol with the server and
-            provides facilities for performing transactions.
-            
-            Debugging problems with FTP transactions is much easier to do when
-            you can see exactly what is sent to the server and the reply 
-            FluentFTP gets in return. Please review the Debug example
-            below for information on how to add <see cref="T:System.Diagnostics.TraceListener"/>s for capturing
-            the conversation between FluentFTP and the server.
-            </summary>
-            <example>The following example illustrates how to assist in debugging
-            FluentFTP by getting a transaction log from the server.
-            <code source="..\Examples\Debug.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates adding a custom file
-            listing parser in the event that you encounter a list format
-            not already supported.
-            <code source="..\Examples\CustomParser.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to validate
-            a SSL certificate when using SSL/TLS.
-            <code source="..\Examples\ValidateCertificate.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to download a file.
-            <code source="..\Examples\OpenRead.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to download a file
-            using a URI object.
-            <code source="..\Examples\OpenReadURI.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to upload a file.
-            <code source="..\Examples\OpenWrite.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to upload a file
-            using a URI object.
-            <code source="..\Examples\OpenWriteURI.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to append to a file.
-            <code source="..\Examples\OpenAppend.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to append to a file
-            using a URI object.
-            <code source="..\Examples\OpenAppendURI.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to get a file
-            listing from the server.
-            <code source="..\Examples\GetListing.cs" lang="cs" />
-            </example>
-            <summary>
-            FTP Control Connection. Speaks the FTP protocol with the server and
-            provides facilities for performing transactions.
-            
-            Debugging problems with FTP transactions is much easier to do when
-            you can see exactly what is sent to the server and the reply 
-            FluentFTP gets in return. Please review the Debug example
-            below for information on how to add <see cref="T:System.Diagnostics.TraceListener"/>s for capturing
-            the conversation between FluentFTP and the server.
-            </summary>
-            <example>The following example illustrates how to assist in debugging
-            FluentFTP by getting a transaction log from the server.
-            <code source="..\Examples\Debug.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates adding a custom file
-            listing parser in the event that you encounter a list format
-            not already supported.
-            <code source="..\Examples\CustomParser.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to validate
-            a SSL certificate when using SSL/TLS.
-            <code source="..\Examples\ValidateCertificate.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to download a file.
-            <code source="..\Examples\OpenRead.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to download a file
-            using a URI object.
-            <code source="..\Examples\OpenReadURI.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to upload a file.
-            <code source="..\Examples\OpenWrite.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to upload a file
-            using a URI object.
-            <code source="..\Examples\OpenWriteURI.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to append to a file.
-            <code source="..\Examples\OpenAppend.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to append to a file
-            using a URI object.
-            <code source="..\Examples\OpenAppendURI.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to get a file
-            listing from the server.
-            <code source="..\Examples\GetListing.cs" lang="cs" />
-            </example>
-            <summary>
-            FTP Control Connection. Speaks the FTP protocol with the server and
-            provides facilities for performing transactions.
-            
-            Debugging problems with FTP transactions is much easier to do when
-            you can see exactly what is sent to the server and the reply 
-            FluentFTP gets in return. Please review the Debug example
-            below for information on how to add <see cref="T:System.Diagnostics.TraceListener"/>s for capturing
-            the conversation between FluentFTP and the server.
-            </summary>
-            <example>The following example illustrates how to assist in debugging
-            FluentFTP by getting a transaction log from the server.
-            <code source="..\Examples\Debug.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates adding a custom file
-            listing parser in the event that you encounter a list format
-            not already supported.
-            <code source="..\Examples\CustomParser.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to validate
-            a SSL certificate when using SSL/TLS.
-            <code source="..\Examples\ValidateCertificate.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to download a file.
-            <code source="..\Examples\OpenRead.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to download a file
-            using a URI object.
-            <code source="..\Examples\OpenReadURI.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to upload a file.
-            <code source="..\Examples\OpenWrite.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to upload a file
-            using a URI object.
-            <code source="..\Examples\OpenWriteURI.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to append to a file.
-            <code source="..\Examples\OpenAppend.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to append to a file
-            using a URI object.
-            <code source="..\Examples\OpenAppendURI.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to get a file
-            listing from the server.
-            <code source="..\Examples\GetListing.cs" lang="cs" />
-            </example>
-            <summary>
-            FTP Control Connection. Speaks the FTP protocol with the server and
-            provides facilities for performing transactions.
-            
-            Debugging problems with FTP transactions is much easier to do when
-            you can see exactly what is sent to the server and the reply 
-            FluentFTP gets in return. Please review the Debug example
-            below for information on how to add <see cref="T:System.Diagnostics.TraceListener"/>s for capturing
-            the conversation between FluentFTP and the server.
-            </summary>
-            <example>The following example illustrates how to assist in debugging
-            FluentFTP by getting a transaction log from the server.
-            <code source="..\Examples\Debug.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates adding a custom file
-            listing parser in the event that you encounter a list format
-            not already supported.
-            <code source="..\Examples\CustomParser.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to validate
-            a SSL certificate when using SSL/TLS.
-            <code source="..\Examples\ValidateCertificate.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to download a file.
-            <code source="..\Examples\OpenRead.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to download a file
-            using a URI object.
-            <code source="..\Examples\OpenReadURI.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to upload a file.
-            <code source="..\Examples\OpenWrite.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to upload a file
-            using a URI object.
-            <code source="..\Examples\OpenWriteURI.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to append to a file.
-            <code source="..\Examples\OpenAppend.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to append to a file
-            using a URI object.
-            <code source="..\Examples\OpenAppendURI.cs" lang="cs" />
-            </example>
-            <example>The following example demonstrates how to get a file
-            listing from the server.
-            <code source="..\Examples\GetListing.cs" lang="cs" />
-            </example>
-        </member>
-        <member name="F:FluentFTP.FtpClient.m_lock">
-            <summary>
-            Used for internally synchronizing access to this
-            object from multiple threads
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.Lock">
-            <summary>
-            For usage by FTP proxies only
-            </summary>
-        </member>
-        <member name="F:FluentFTP.FtpClient.m_asyncmethods">
-            <summary>
-            A list of asynchronous methods that are in progress
-            </summary>
-        </member>
-        <member name="F:FluentFTP.FtpClient.m_stream">
-            <summary>
-            Control connection socket stream
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.IsDisposed">
-            <summary>
-            Gets a value indicating if this object has already been disposed.
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.BaseStream">
-            <summary>
-            Gets the base stream for talking to the server via
-            the control connection.
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.InternetProtocolVersions">
-            <summary>
-            Flags specifying which versions of the internet protocol to
-            support when making a connection. All addresses returned during
-            name resolution are tried until a successful connection is made.
-            You can fine tune which versions of the internet protocol to use
-            by adding or removing flags here. I.e., setting this property
-            to FtpIpVersion.IPv4 will cause the connection process to
-            ignore IPv6 addresses. The default value is ANY version.
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.SocketPollInterval">
-            <summary>
-            Gets or sets the length of time in milliseconds
-            that must pass since the last socket activity
-            before calling <see cref="M:System.Net.Sockets.Socket.Poll(System.Int32,System.Net.Sockets.SelectMode)"/> 
-            on the socket to test for connectivity. 
-            Setting this interval too low will
-            have a negative impact on performance. Setting this
-            interval to 0 disables Polling all together.
-            The default value is 15 seconds.
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.StaleDataCheck">
-            <summary>
-            Gets or sets a value indicating whether a test should be performed to
-            see if there is stale (unrequested data) sitting on the socket. In some
-            cases the control connection may time out but before the server closes
-            the connection it might send a 4xx response that was unexpected and
-            can cause synchronization errors with transactions. To avoid this
-            problem the <see cref="o:Execute"/> method checks to see if there is any data
-            available on the socket before executing a command. On Azure hosting
-            platforms this check can cause an exception to be thrown. In order
-            to work around the exception you can set this property to false
-            which will skip the test entirely however doing so eliminates the
-            best effort attempt of detecting such scenarios. See this thread
-            for more details about the Azure problem:
-            https://netftp.codeplex.com/discussions/535879
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.IsConnected">
-            <summary>
-            Gets a value indicating if the connection is alive
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.EnableThreadSafeDataConnections">
-            <summary>
-            When this value is set to true (default) the control connection
-            is cloned and a new connection the server is established for the
-            data channel operation. This is a thread safe approach to make
-            asynchronous operations on a single control connection transparent
-            to the developer.
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.IsClone">
-            <summary>
-            Gets a value indicating if this control connection is a clone. This property
-            is used with data streams to determine if the connection should be closed
-            when the stream is closed. Servers typically only allow 1 data connection
-            per control connection. If you try to open multiple data connections this
-            object will be cloned for 2 or more resulting in N new connections to the
-            server.
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.Encoding">
-            <summary>
-            Gets or sets the text encoding being used when talking with the server. The default
-            value is <see cref="P:System.Text.Encoding.ASCII"/> however upon connection, the client checks
-            for UTF8 support and if it's there this property is switched over to
-            <see cref="P:System.Text.Encoding.UTF8"/>. Manually setting this value overrides automatic detection
-            based on the FEAT list; if you change this value it's always used
-            regardless of what the server advertises, if anything.
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.Host">
-            <summary>
-            The server to connect to
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.Port">
-            <summary>
-            The port to connect to. If this value is set to 0 (Default) the port used
-            will be determined by the type of SSL used or if no SSL is to be used it 
-            will automatically connect to port 21.
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.Credentials">
-            <summary>
-            Credentials used for authentication
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.MaximumDereferenceCount">
-            <summary>
-            Gets or sets a value that controls the maximum depth
-            of recursion that <see cref="o:DereferenceLink"/> will follow symbolic
-            links before giving up. You can also specify the value
-            to be used as one of the overloaded parameters to the
-            <see cref="o:DereferenceLink"/> method. The default value is 20. Specifying
-            -1 here means indefinitely try to resolve a link. This is
-            not recommended for obvious reasons (stack overflow).
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.ClientCertificates">
-            <summary>
-            Client certificates to be used in SSL authentication process
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.AddressResolver">
-            <summary>
-            Delegate used for resolving local address, used for active data connections
-            This can be used in case you're behind a router, but port forwarding is configured to forward the
-            ports from your router to your internal IP. In that case, we need to send the router's IP instead of our internal IP.
-            See example: FtpClient.GetPublicIP -> This uses Ipify api to find external IP
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.ActivePorts">
-            <summary>
-            Ports used for Active Data Connection
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.DataConnectionType">
-            <summary>
-            Data connection type, default is AutoPassive which tries
-            a connection with EPSV first and if it fails then tries
-            PASV before giving up. If you know exactly which kind of
-            connection you need you can slightly increase performance
-            by defining a specific type of passive or active data
-            connection here.
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.UngracefullDisconnection">
-            <summary>
-            Disconnect from the server without sending QUIT. This helps
-            work around IOExceptions caused by buggy connection resets
-            when closing the control connection.
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.ConnectTimeout">
-            <summary>
-            Gets or sets the length of time in milliseconds to wait for a connection 
-            attempt to succeed before giving up. Default is 15000 (15 seconds).
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.ReadTimeout">
-            <summary>
-            Gets or sets the length of time wait in milliseconds for data to be
-            read from the underlying stream. The default value is 15000 (15 seconds).
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.DataConnectionConnectTimeout">
-            <summary>
-            Gets or sets the length of time in milliseconds for a data connection
-            to be established before giving up. Default is 15000 (15 seconds).
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.DataConnectionReadTimeout">
-            <summary>
-            Gets or sets the length of time in milliseconds the data channel
-            should wait for the server to send data. Default value is 
-            15000 (15 seconds).
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.SocketKeepAlive">
-            <summary>
-            Gets or sets a value indicating if <see cref="F:System.Net.Sockets.SocketOptionName.KeepAlive"/> should be set on 
-            the underlying stream's socket. If the connection is alive, the option is
-            adjusted in real-time. The value is stored and the KeepAlive option is set
-            accordingly upon any new connections. The value set here is also applied to
-            all future data streams. It has no affect on cloned control connections or
-            data connections already in progress. The default value is false.
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.Capabilities">
-            <summary>
-            Gets the server capabilities represented by flags
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.HashAlgorithms">
-            <summary>
-            Get the hash types supported by the server, if any. This
-            is a recent extension to the protocol that is not fully
-            standardized and is not guaranteed to work. See here for
-            more details:
-            http://tools.ietf.org/html/draft-bryan-ftpext-hash-02
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.EncryptionMode">
-            <summary>
-            Type of SSL to use, or none. Default is none. Explicit is TLS, Implicit is SSL.
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.DataConnectionEncryption">
-            <summary>
-            Indicates if data channel transfers should be encrypted. Only valid if <see cref="P:FluentFTP.FtpClient.EncryptionMode"/>
-            property is not equal to <see cref="F:FluentFTP.FtpEncryptionMode.None"/>.
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.PlainTextEncryption">
-            <summary>
-            Indicates if the encryption should be disabled immediately after connecting using a CCC command.
-            This is useful when you have a FTP firewall that requires plaintext FTP, but your server mandates FTPS connections.
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.SslProtocols">
-            <summary>
-            Encryption protocols to use. Only valid if EncryptionMode property is not equal to <see cref="F:FluentFTP.FtpEncryptionMode.None"/>.
-            Default value is .NET Framework defaults from the <see cref="T:System.Net.Security.SslStream"/> class.
-            </summary>
-        </member>
-        <member name="E:FluentFTP.FtpClient.ValidateCertificate">
-            <summary>
-            Event is fired to validate SSL certificates. If this event is
-            not handled and there are errors validating the certificate
-            the connection will be aborted.
-            </summary>
-            <example><code source="..\Examples\ValidateCertificate.cs" lang="cs" /></example>
-        </member>
-        <member name="P:FluentFTP.FtpClient.SystemType">
-            <summary>
-            Gets the type of system/server that we're
-            connected to.
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.ConnectionType">
-            <summary> Gets the connection type </summary>
         </member>
         <member name="M:FluentFTP.FtpClient.#ctor">
             <summary>
@@ -606,42 +65,6 @@
             <returns>A new control connection with the same property settings as this one</returns>
             <example><code source="..\Examples\CloneConnection.cs" lang="cs" /></example>
         </member>
-        <member name="M:FluentFTP.FtpClient.Execute(System.String)">
-            <summary>
-            Executes a command
-            </summary>
-            <param name="command">The command to execute</param>
-            <returns>The servers reply to the command</returns>
-            <example><code source="..\Examples\Execute.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.BeginExecute(System.String,System.AsyncCallback,System.Object)">
-            <summary>
-            Performs execution of the specified command asynchronously
-            </summary>
-            <param name="command">The command to execute</param>
-            <param name="callback">The <see cref="T:System.AsyncCallback"/> method</param>
-            <param name="state">State object</param>
-            <returns>IAsyncResult</returns>
-            <example><code source="..\Examples\BeginExecute.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.EndExecute(System.IAsyncResult)">
-            <summary>
-            Ends an asynchronous command
-            </summary>
-            <param name="ar">IAsyncResult returned from BeginExecute</param>
-            <returns>FtpReply object (never null).</returns>
-            <example><code source="..\Examples\BeginExecute.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.GetReply">
-            <summary>
-            Retrieves a reply from the server. Do not execute this method
-            unless you are sure that a reply has been sent, i.e., you
-            executed a command. Doing so will cause the code to hang
-            indefinitely waiting for a server reply that is never coming.
-            </summary>
-            <returns>FtpReply representing the response from the server</returns>
-            <example><code source="..\Examples\BeginGetReply.cs" lang="cs" /></example>
-        </member>
         <member name="M:FluentFTP.FtpClient.Connect">
             <summary>
             Connect to the server
@@ -690,6 +113,29 @@
             <param name="ar"><see cref="T:System.IAsyncResult"/> returned from <see cref="M:FluentFTP.FtpClient.BeginConnect(System.AsyncCallback,System.Object)"/></param>
             <example><code source="..\Examples\BeginConnect.cs" lang="cs" /></example>
         </member>
+        <member name="M:FluentFTP.FtpClient.AutoDetect(System.Boolean)">
+            <summary>
+            Automatic FTP and FTPS connection negotiation.
+            This method tries every possible combination of the FTP connection properties, and returns the list of successful connection profiles.
+            You can configure it to stop after finding the first successful profile, or to collect all successful profiles.
+            You can then generate code for the profile using the FtpProfile.ToCode method.
+            If no successful profiles are found, a blank list is returned.
+            </summary>
+            <param name="firstOnly">Find all successful profiles (false) or stop after finding the first successful profile (true)?</param>
+            <returns></returns>
+        </member>
+        <member name="M:FluentFTP.FtpClient.Connect(FluentFTP.FtpProfile)">
+            <summary>
+            Connect to the given server profile.
+            </summary>
+        </member>
+        <member name="M:FluentFTP.FtpClient.AutoConnect">
+            <summary>
+            Automatic FTP and FTPS connection negotiation.
+            This method tries every possible combination of the FTP connection properties, and connects to the first successful profile.
+            Returns the FtpProfile if the connection succeeded, or null if it failed.
+            </summary>
+        </member>
         <member name="M:FluentFTP.FtpClient.Authenticate">
             <summary>
             Performs a login on the server. This method is overridable so
@@ -703,6 +149,10 @@
             that the login procedure can be changed to support, for example,
             a FTP proxy.
             </summary>
+            <exception cref="T:FluentFTP.FtpAuthenticationException">On authentication failures</exception>
+            <remarks>
+            To handle authentication failures without retries, catch FtpAuthenticationException.
+            </remarks>
         </member>
         <member name="M:FluentFTP.FtpClient.Disconnect">
             <summary>
@@ -778,125 +228,36 @@
             <param name="evenEncrypted">even read encrypted data?</param>
             <param name="traceData">trace data to logs?</param>
         </member>
-        <member name="M:FluentFTP.FtpClient.CalcChmod(FluentFTP.FtpPermission,FluentFTP.FtpPermission,FluentFTP.FtpPermission)">
+        <member name="M:FluentFTP.FtpClient.IsProxy">
             <summary>
-            Calculate the CHMOD integer value given a set of permissions.
+            Checks if this FTP/FTPS connection is made through a proxy.
             </summary>
         </member>
-        <member name="M:FluentFTP.FtpClient.Connect(System.Uri,System.Boolean)">
+        <member name="F:FluentFTP.FtpClient.OnLogEvent">
             <summary>
-            Connects to the specified URI. If the path specified by the URI ends with a
-            / then the working directory is changed to the path specified.
+            Add a custom listener here to get events every time a message is logged.
             </summary>
-            <param name="uri">The URI to parse</param>
-            <param name="checkcertificate">Indicates if a ssl certificate should be validated when using FTPS schemes</param>
-            <returns>FtpClient object</returns>
         </member>
-        <member name="M:FluentFTP.FtpClient.Connect(System.Uri)">
+        <member name="M:FluentFTP.FtpClient.LogFunc(System.String,System.Object[])">
             <summary>
-            Connects to the specified URI. If the path specified by the URI ends with a
-            / then the working directory is changed to the path specified.
+            Log a function call with relavent arguments
             </summary>
-            <param name="uri">The URI to parse</param>
-            <returns>FtpClient object</returns>
+            <param name="function">The name of the API function</param>
+            <param name="args">The args passed to the function</param>
         </member>
-        <member name="M:FluentFTP.FtpClient.OpenRead(System.Uri,System.Boolean,FluentFTP.FtpDataType,System.Int64)">
+        <member name="M:FluentFTP.FtpClient.LogLine(FluentFTP.FtpTraceLevel,System.String)">
             <summary>
-            Opens a stream to the file specified by the URI
+            Log a message
             </summary>
-            <param name="uri">FTP/FTPS URI pointing at a file</param>
-            <param name="checkcertificate">Indicates if a ssl certificate should be validated when using FTPS schemes</param>
-            <param name="datatype">ASCII/Binary mode</param>
-            <param name="restart">Restart location</param>
-            <returns>Stream object</returns>
-            <example><code source="..\Examples\OpenReadURI.cs" lang="cs" /></example>
+            <param name="eventType">The type of tracing event</param>
+            <param name="message">The message to write</param>
         </member>
-        <member name="M:FluentFTP.FtpClient.OpenRead(System.Uri,System.Boolean,FluentFTP.FtpDataType)">
+        <member name="M:FluentFTP.FtpClient.LogStatus(FluentFTP.FtpTraceLevel,System.String)">
             <summary>
-            Opens a stream to the file specified by the URI
+            Log a message, adding an automatic prefix to the message based on the `eventType`
             </summary>
-            <param name="uri">FTP/FTPS URI pointing at a file</param>
-            <param name="checkcertificate">Indicates if a ssl certificate should be validated when using FTPS schemes</param>
-            <param name="datatype">ASCII/Binary mode</param>
-            <returns>Stream object</returns>
-            <example><code source="..\Examples\OpenReadURI.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.OpenRead(System.Uri,System.Boolean)">
-            <summary>
-            Opens a stream to the file specified by the URI
-            </summary>
-            <param name="uri">FTP/FTPS URI pointing at a file</param>
-            <param name="checkcertificate">Indicates if a ssl certificate should be validated when using FTPS schemes</param>
-            <returns>Stream object</returns>
-            <example><code source="..\Examples\OpenReadURI.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.OpenRead(System.Uri)">
-            <summary>
-            Opens a stream to the file specified by the URI
-            </summary>
-            <param name="uri">FTP/FTPS URI pointing at a file</param>
-            <returns>Stream object</returns>
-            <example><code source="..\Examples\OpenReadURI.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.OpenWrite(System.Uri,System.Boolean,FluentFTP.FtpDataType)">
-            <summary>
-            Opens a stream to the file specified by the URI
-            </summary>
-            <param name="uri">FTP/FTPS URI pointing at a file</param>
-            <param name="checkcertificate">Indicates if a ssl certificate should be validated when using FTPS schemes</param>
-            <param name="datatype">ASCII/Binary mode</param> 
-            <returns>Stream object</returns>
-            <example><code source="..\Examples\OpenWriteURI.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.OpenWrite(System.Uri,System.Boolean)">
-            <summary>
-            Opens a stream to the file specified by the URI
-            </summary>
-            <param name="uri">FTP/FTPS URI pointing at a file</param>
-            <param name="checkcertificate">Indicates if a ssl certificate should be validated when using FTPS schemes</param>
-            <returns>Stream object</returns>
-            <example><code source="..\Examples\OpenWriteURI.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.OpenWrite(System.Uri)">
-            <summary>
-            Opens a stream to the file specified by the URI
-            </summary>
-            <param name="uri">FTP/FTPS URI pointing at a file</param>
-            <returns>Stream object</returns>
-            <example><code source="..\Examples\OpenWriteURI.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.OpenAppend(System.Uri,System.Boolean,FluentFTP.FtpDataType)">
-            <summary>
-            Opens a stream to the file specified by the URI
-            </summary>
-            <param name="uri">FTP/FTPS URI pointing at a file</param>
-            <param name="checkcertificate">Indicates if a ssl certificate should be validated when using FTPS schemes</param>
-            <param name="datatype">ASCII/Binary mode</param>
-            <returns>Stream object</returns>
-            <example><code source="..\Examples\OpenAppendURI.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.OpenAppend(System.Uri,System.Boolean)">
-            <summary>
-            Opens a stream to the file specified by the URI
-            </summary>
-            <param name="uri">FTP/FTPS URI pointing at a file</param>
-            <param name="checkcertificate">Indicates if a ssl certificate should be validated when using FTPS schemes</param>
-            <returns>Stream object</returns>
-            <example><code source="..\Examples\OpenAppendURI.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.OpenAppend(System.Uri)">
-            <summary>
-            Opens a stream to the file specified by the URI
-            </summary>
-            <param name="uri">FTP/FTPS URI pointing at a file</param>
-            <returns>Stream object</returns>
-            <example><code source="..\Examples\OpenAppendURI.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.GetPublicIP">
-            <summary>
-            Calculate you public internet IP using the ipify service. Returns null if cannot be calculated.
-            </summary>
-            <returns>Public IP Address</returns>
+            <param name="eventType">The type of tracing event</param>
+            <param name="message">The message to write</param>
         </member>
         <member name="M:FluentFTP.FtpClient.GetHashAlgorithm">
             <summary>
@@ -1232,41 +593,6 @@
             <param name="ar">IAsyncResult returned from <see cref="M:FluentFTP.FtpClient.BeginGetXSHA512(System.String,System.AsyncCallback,System.Object)"/></param>
             <returns>The SHA-512 hash of the specified file.</returns>
         </member>
-        <member name="P:FluentFTP.FtpClient.TransferChunkSize">
-            <summary>
-            Gets or sets the number of bytes transferred in a single chunk (a single FTP command).
-            Used by <see cref="o:UploadFile"/>/<see cref="o:UploadFileAsync"/> and <see cref="o:DownloadFile"/>/<see cref="o:DownloadFileAsync"/>
-            to transfer large files in multiple chunks.
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.RetryAttempts">
-            <summary>
-            Gets or sets the retry attempts allowed when a verification failure occurs during download or upload.
-            This value must be set to 1 or more.
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.UploadRateLimit">
-            <summary>
-            Rate limit for uploads in kbyte/s. Set this to 0 for unlimited speed.
-            Honored by high-level API such as Upload(), Download(), UploadFile(), DownloadFile()..
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.DownloadRateLimit">
-            <summary>
-            Rate limit for downloads in kbytes/s. Set this to 0 for unlimited speed.
-            Honored by high-level API such as Upload(), Download(), UploadFile(), DownloadFile()..
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.UploadDataType">
-            <summary>
-            Controls if the high-level API uploads files in Binary or ASCII mode.
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.DownloadDataType">
-            <summary>
-            Controls if the high-level API downloads files in Binary or ASCII mode.
-            </summary>
-        </member>
         <member name="M:FluentFTP.FtpClient.UploadFiles(System.Collections.Generic.IEnumerable{System.String},System.String,FluentFTP.FtpExists,System.Boolean,FluentFTP.FtpVerify,FluentFTP.FtpError)">
             <summary>
             Uploads the given file paths to a single folder on the server.
@@ -1314,7 +640,7 @@
             to propagate from this method.
             </remarks>
         </member>
-        <member name="M:FluentFTP.FtpClient.DownloadFiles(System.String,System.Collections.Generic.IEnumerable{System.String},System.Boolean,FluentFTP.FtpVerify,FluentFTP.FtpError)">
+        <member name="M:FluentFTP.FtpClient.DownloadFiles(System.String,System.Collections.Generic.IEnumerable{System.String},FluentFTP.FtpLocalExists,FluentFTP.FtpVerify,FluentFTP.FtpError)">
             <summary>
             Downloads the specified files into a local single directory.
             High-level API that takes care of various edge cases internally.
@@ -1323,7 +649,7 @@
             </summary>
             <param name="localDir">The full or relative path to the directory that files will be downloaded into.</param>
             <param name="remotePaths">The full or relative paths to the files on the server</param>
-            <param name="overwrite">True if you want the local file to be overwritten if it already exists. (Default value is true)</param>
+            <param name="existsMode">If the file exists on disk, should we skip it, resume the download or restart the download?</param>
             <param name="verifyOptions">Sets if checksum verification is required for a successful download and what to do if it fails verification (See Remarks)</param>
             <param name="errorHandling">Used to determine how errors are handled</param>
             <returns>The count of how many files were downloaded successfully. When existing files are skipped, they are not counted.</returns>
@@ -1335,7 +661,7 @@
             to propagate from this method.
             </remarks>
         </member>
-        <member name="M:FluentFTP.FtpClient.UploadFile(System.String,System.String,FluentFTP.FtpExists,System.Boolean,FluentFTP.FtpVerify,IProgress{System.Double})">
+        <member name="M:FluentFTP.FtpClient.UploadFile(System.String,System.String,FluentFTP.FtpExists,System.Boolean,FluentFTP.FtpVerify,IProgress{FluentFTP.FtpProgress})">
             <summary>
             Uploads the specified file directly onto the server.
             High-level API that takes care of various edge cases internally.
@@ -1355,7 +681,7 @@
             upload &amp; verification.  Additionally, if any verify option is set and a retry is attempted the existsMode will automatically be set to <see cref="F:FluentFTP.FtpExists.Overwrite"/>.
             </remarks>
         </member>
-        <member name="M:FluentFTP.FtpClient.Upload(System.IO.Stream,System.String,FluentFTP.FtpExists,System.Boolean,IProgress{System.Double})">
+        <member name="M:FluentFTP.FtpClient.Upload(System.IO.Stream,System.String,FluentFTP.FtpExists,System.Boolean,IProgress{FluentFTP.FtpProgress})">
             <summary>
             Uploads the specified stream as a file onto the server.
             High-level API that takes care of various edge cases internally.
@@ -1368,7 +694,7 @@
             <param name="createRemoteDir">Create the remote directory if it does not exist. Slows down upload due to additional checks required.</param>
             <param name="progress">Provide an implementation of IProgress to track upload progress. The value provided is in the range 0 to 100, indicating the percentage of the file transferred. If the progress is indeterminate, -1 is sent.</param>
         </member>
-        <member name="M:FluentFTP.FtpClient.Upload(System.Byte[],System.String,FluentFTP.FtpExists,System.Boolean,IProgress{System.Double})">
+        <member name="M:FluentFTP.FtpClient.Upload(System.Byte[],System.String,FluentFTP.FtpExists,System.Boolean,IProgress{FluentFTP.FtpProgress})">
             <summary>
             Uploads the specified byte array as a file onto the server.
             High-level API that takes care of various edge cases internally.
@@ -1381,13 +707,13 @@
             <param name="createRemoteDir">Create the remote directory if it does not exist. Slows down upload due to additional checks required.</param>
             <param name="progress">Provide an implementation of IProgress to track upload progress. The value provided is in the range 0 to 100, indicating the percentage of the file transferred. If the progress is indeterminate, -1 is sent.</param>
         </member>
-        <member name="M:FluentFTP.FtpClient.UploadFileInternal(System.IO.Stream,System.String,System.Boolean,FluentFTP.FtpExists,System.Boolean,System.Boolean,IProgress{System.Double})">
+        <member name="M:FluentFTP.FtpClient.UploadFileInternal(System.IO.Stream,System.String,System.Boolean,FluentFTP.FtpExists,System.Boolean,System.Boolean,IProgress{FluentFTP.FtpProgress})">
             <summary>
             Upload the given stream to the server as a new file. Overwrites the file if it exists.
             Writes data in chunks. Retries if server disconnects midway.
             </summary>
         </member>
-        <member name="M:FluentFTP.FtpClient.DownloadFile(System.String,System.String,System.Boolean,FluentFTP.FtpVerify,IProgress{System.Double})">
+        <member name="M:FluentFTP.FtpClient.DownloadFile(System.String,System.String,FluentFTP.FtpLocalExists,FluentFTP.FtpVerify,IProgress{FluentFTP.FtpProgress})">
             <summary>
             Downloads the specified file onto the local file system.
             High-level API that takes care of various edge cases internally.
@@ -1395,7 +721,7 @@
             </summary>
             <param name="localPath">The full or relative path to the file on the local file system</param>
             <param name="remotePath">The full or relative path to the file on the server</param>
-            <param name="overwrite">True if you want the local file to be overwritten if it already exists. (Default value is true)</param>
+            <param name="existsMode">If the file exists on disk, should we skip it, resume the download or restart the download?</param>
             <param name="verifyOptions">Sets if checksum verification is required for a successful download and what to do if it fails verification (See Remarks)</param>
             <param name="progress">Provide an implementation of IProgress to track download progress. The value provided is in the range 0 to 100, indicating the percentage of the file transferred. If the progress is indeterminate, -1 is sent.</param>
             <returns>If true then the file was downloaded, false otherwise.</returns>
@@ -1405,7 +731,7 @@
             upload &amp; verification.  Additionally, if any verify option is set and a retry is attempted then overwrite will automatically be set to true for subsequent attempts.
             </remarks>
         </member>
-        <member name="M:FluentFTP.FtpClient.Download(System.IO.Stream,System.String,IProgress{System.Double})">
+        <member name="M:FluentFTP.FtpClient.Download(System.IO.Stream,System.String,System.Int64,IProgress{FluentFTP.FtpProgress})">
             <summary>
             Downloads the specified file into the specified stream.
             High-level API that takes care of various edge cases internally.
@@ -1413,10 +739,11 @@
             </summary>
             <param name="outStream">The stream that the file will be written to. Provide a new MemoryStream if you only want to read the file into memory.</param>
             <param name="remotePath">The full or relative path to the file on the server</param>
+            <param name="restartPosition">The size of the existing file in bytes, or 0 if unknown. The download restarts from this byte index.</param>
             <param name="progress">Provide an implementation of IProgress to track download progress. The value provided is in the range 0 to 100, indicating the percentage of the file transferred. If the progress is indeterminate, -1 is sent.</param>
             <returns>If true then the file was downloaded, false otherwise.</returns>
         </member>
-        <member name="M:FluentFTP.FtpClient.Download(System.Byte[]@,System.String,IProgress{System.Double})">
+        <member name="M:FluentFTP.FtpClient.Download(System.Byte[]@,System.String,System.Int64,IProgress{FluentFTP.FtpProgress})">
             <summary>
             Downloads the specified file and return the raw byte array.
             High-level API that takes care of various edge cases internally.
@@ -1424,56 +751,19 @@
             </summary>
             <param name="outBytes">The variable that will receive the bytes.</param>
             <param name="remotePath">The full or relative path to the file on the server</param>
+            <param name="restartPosition">The size of the existing file in bytes, or 0 if unknown. The download restarts from this byte index.</param>
             <param name="progress">Provide an implementation of IProgress to track download progress. The value provided is in the range 0 to 100, indicating the percentage of the file transferred. If the progress is indeterminate, -1 is sent.</param>
             <returns>If true then the file was downloaded, false otherwise.</returns>
         </member>
-        <member name="M:FluentFTP.FtpClient.DownloadFileInternal(System.String,System.IO.Stream,IProgress{System.Double})">
+        <member name="M:FluentFTP.FtpClient.DownloadFileInternal(System.String,System.IO.Stream,System.Int64,IProgress{FluentFTP.FtpProgress})">
             <summary>
             Download a file from the server and write the data into the given stream.
             Reads data in chunks. Retries if server disconnects midway.
             </summary>
         </member>
-        <member name="M:FluentFTP.FtpClient.ReportProgress(IProgress{System.Double},System.Int64,System.Int64)">
+        <member name="M:FluentFTP.FtpClient.ReportProgress(IProgress{FluentFTP.FtpProgress},System.Int64,System.Int64,System.Int64,System.TimeSpan)">
             <summary>
             Sends progress to the user, either a value between 0-100 indicating percentage complete, or -1 for indeterminate.
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.ListingParser">
-            <summary>
-            File listing parser to be used. 
-            Automatically calculated based on the type of the server, unless changed.
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.ListingCulture">
-            <summary>
-            Culture used to parse file listings
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.TimeOffset">
-            <summary>
-            Time difference between server and client, in hours.
-            If the server is located in New York and you are in London then the time difference is -5 hours.
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.RecursiveList">
-            <summary>
-            Check if your server supports a recursive LIST command (LIST -R).
-            If you know for sure that this is unsupported, set it to false.
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.BulkListing">
-            <summary>
-            If true, increases performance of GetListing by reading multiple lines
-            of the file listing at once. If false then GetListing will read file
-            listings line-by-line. If GetListing is having issues with your server,
-            set it to false.
-            
-            The number of bytes read is based upon <see cref="P:FluentFTP.FtpClient.BulkListingLength"/>.
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpClient.BulkListingLength">
-            <summary>
-            Bytes to read during GetListing. Only honored if <see cref="P:FluentFTP.FtpClient.BulkListing"/> is true.
             </summary>
         </member>
         <member name="M:FluentFTP.FtpClient.GetObjectInfo(System.String,System.Boolean)">
@@ -1609,6 +899,16 @@
             <returns>An array of items retrieved in the listing</returns>
             <example><code source="..\Examples\BeginGetListing.cs" lang="cs" /></example>
         </member>
+        <member name="M:FluentFTP.FtpClient.GetListingRecursive(System.String,FluentFTP.FtpListOption)">
+            <summary>
+            Recursive method of GetListing, to recurse through directories on servers that do not natively support recursion.
+            Automatically called by GetListing where required.
+            Uses flat recursion instead of head recursion.
+            </summary>
+            <param name="path">The path of the directory to list</param>
+            <param name="options">Options that dictacte how a list is performed and what information is gathered.</param>
+            <returns>An array of FtpListItem objects</returns>
+        </member>
         <member name="M:FluentFTP.FtpClient.GetNameListing">
             <summary>
             Returns a file/directory listing using the NLST command.
@@ -1650,6 +950,42 @@
             <returns>An array of file and directory names if any were returned.</returns>
             <example><code source="..\Examples\BeginGetNameListing.cs" lang="cs" /></example>
         </member>
+        <member name="M:FluentFTP.FtpClient.Execute(System.String)">
+            <summary>
+            Executes a command
+            </summary>
+            <param name="command">The command to execute</param>
+            <returns>The servers reply to the command</returns>
+            <example><code source="..\Examples\Execute.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.BeginExecute(System.String,System.AsyncCallback,System.Object)">
+            <summary>
+            Performs execution of the specified command asynchronously
+            </summary>
+            <param name="command">The command to execute</param>
+            <param name="callback">The <see cref="T:System.AsyncCallback"/> method</param>
+            <param name="state">State object</param>
+            <returns>IAsyncResult</returns>
+            <example><code source="..\Examples\BeginExecute.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.EndExecute(System.IAsyncResult)">
+            <summary>
+            Ends an asynchronous command
+            </summary>
+            <param name="ar">IAsyncResult returned from BeginExecute</param>
+            <returns>FtpReply object (never null).</returns>
+            <example><code source="..\Examples\BeginExecute.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.GetReply">
+            <summary>
+            Retrieves a reply from the server. Do not execute this method
+            unless you are sure that a reply has been sent, i.e., you
+            executed a command. Doing so will cause the code to hang
+            indefinitely waiting for a server reply that is never coming.
+            </summary>
+            <returns>FtpReply representing the response from the server</returns>
+            <example><code source="..\Examples\BeginGetReply.cs" lang="cs" /></example>
+        </member>
         <member name="M:FluentFTP.FtpClient.OpenPassiveDataStream(FluentFTP.FtpDataConnectionType,System.String,System.Int64)">
             <summary>
             Opens the specified type of passive data stream
@@ -1688,6 +1024,12 @@
             Disconnects a data stream
             </summary>
             <param name="stream">The data stream to close</param>
+        </member>
+        <member name="M:FluentFTP.FtpClient.StartListeningOnPort(FluentFTP.FtpDataStream)">
+            <summary>
+            Open a local port on the given ActivePort or a random port.
+            </summary>
+            <param name="stream"></param>
         </member>
         <member name="M:FluentFTP.FtpClient.OpenRead(System.String)">
             <summary>
@@ -2485,65 +1827,420 @@
             <param name="ar">IAsyncResult returned from <see cref="M:FluentFTP.FtpClient.BeginSetModifiedTime(System.String,System.DateTime,FluentFTP.FtpDate,System.AsyncCallback,System.Object)"/></param>
             <returns>The modified time, or <see cref="F:System.DateTime.MinValue"/> if there was a problem</returns>
         </member>
+        <member name="F:FluentFTP.FtpClient.m_lock">
+            <summary>
+            Used for internally synchronizing access to this
+            object from multiple threads
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.Lock">
+            <summary>
+            For usage by FTP proxies only
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpClient.m_asyncmethods">
+            <summary>
+            A list of asynchronous methods that are in progress
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpClient.m_stream">
+            <summary>
+            Control connection socket stream
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.IsDisposed">
+            <summary>
+            Gets a value indicating if this object has already been disposed.
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.BaseStream">
+            <summary>
+            Gets the base stream for talking to the server via
+            the control connection.
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.InternetProtocolVersions">
+            <summary>
+            Flags specifying which versions of the internet protocol to
+            support when making a connection. All addresses returned during
+            name resolution are tried until a successful connection is made.
+            You can fine tune which versions of the internet protocol to use
+            by adding or removing flags here. I.e., setting this property
+            to FtpIpVersion.IPv4 will cause the connection process to
+            ignore IPv6 addresses. The default value is ANY version.
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.SocketPollInterval">
+            <summary>
+            Gets or sets the length of time in milliseconds
+            that must pass since the last socket activity
+            before calling <see cref="M:System.Net.Sockets.Socket.Poll(System.Int32,System.Net.Sockets.SelectMode)"/> 
+            on the socket to test for connectivity. 
+            Setting this interval too low will
+            have a negative impact on performance. Setting this
+            interval to 0 disables Polling all together.
+            The default value is 15 seconds.
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.StaleDataCheck">
+            <summary>
+            Gets or sets a value indicating whether a test should be performed to
+            see if there is stale (unrequested data) sitting on the socket. In some
+            cases the control connection may time out but before the server closes
+            the connection it might send a 4xx response that was unexpected and
+            can cause synchronization errors with transactions. To avoid this
+            problem the <see cref="o:Execute"/> method checks to see if there is any data
+            available on the socket before executing a command. On Azure hosting
+            platforms this check can cause an exception to be thrown. In order
+            to work around the exception you can set this property to false
+            which will skip the test entirely however doing so eliminates the
+            best effort attempt of detecting such scenarios. See this thread
+            for more details about the Azure problem:
+            https://netftp.codeplex.com/discussions/535879
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.IsConnected">
+            <summary>
+            Gets a value indicating if the connection is alive
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.EnableThreadSafeDataConnections">
+            <summary>
+            When this value is set to true (default) the control connection
+            is cloned and a new connection the server is established for the
+            data channel operation. This is a thread safe approach to make
+            asynchronous operations on a single control connection transparent
+            to the developer.
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.CheckCapabilities">
+            <summary>
+            When this value is set to true (default) the control connection
+            will set which features are avaiable by executing the FEAT command
+            when the connect method is called.
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.IsClone">
+            <summary>
+            Gets a value indicating if this control connection is a clone. This property
+            is used with data streams to determine if the connection should be closed
+            when the stream is closed. Servers typically only allow 1 data connection
+            per control connection. If you try to open multiple data connections this
+            object will be cloned for 2 or more resulting in N new connections to the
+            server.
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.Encoding">
+            <summary>
+            Gets or sets the text encoding being used when talking with the server. The default
+            value is <see cref="P:System.Text.Encoding.ASCII"/> however upon connection, the client checks
+            for UTF8 support and if it's there this property is switched over to
+            <see cref="P:System.Text.Encoding.UTF8"/>. Manually setting this value overrides automatic detection
+            based on the FEAT list; if you change this value it's always used
+            regardless of what the server advertises, if anything.
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.Host">
+            <summary>
+            The server to connect to
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.Port">
+            <summary>
+            The port to connect to. If this value is set to 0 (Default) the port used
+            will be determined by the type of SSL used or if no SSL is to be used it 
+            will automatically connect to port 21.
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.Credentials">
+            <summary>
+            Credentials used for authentication
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.MaximumDereferenceCount">
+            <summary>
+            Gets or sets a value that controls the maximum depth
+            of recursion that <see cref="o:DereferenceLink"/> will follow symbolic
+            links before giving up. You can also specify the value
+            to be used as one of the overloaded parameters to the
+            <see cref="o:DereferenceLink"/> method. The default value is 20. Specifying
+            -1 here means indefinitely try to resolve a link. This is
+            not recommended for obvious reasons (stack overflow).
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.ClientCertificates">
+            <summary>
+            Client certificates to be used in SSL authentication process
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.AddressResolver">
+            <summary>
+            Delegate used for resolving local address, used for active data connections
+            This can be used in case you're behind a router, but port forwarding is configured to forward the
+            ports from your router to your internal IP. In that case, we need to send the router's IP instead of our internal IP.
+            See example: FtpClient.GetPublicIP -> This uses Ipify api to find external IP
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.ActivePorts">
+            <summary>
+            Ports used for Active Data Connection
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.DataConnectionType">
+            <summary>
+            Data connection type, default is AutoPassive which tries
+            a connection with EPSV first and if it fails then tries
+            PASV before giving up. If you know exactly which kind of
+            connection you need you can slightly increase performance
+            by defining a specific type of passive or active data
+            connection here.
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.UngracefullDisconnection">
+            <summary>
+            Disconnect from the server without sending QUIT. This helps
+            work around IOExceptions caused by buggy connection resets
+            when closing the control connection.
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.ConnectTimeout">
+            <summary>
+            Gets or sets the length of time in milliseconds to wait for a connection 
+            attempt to succeed before giving up. Default is 15000 (15 seconds).
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.ReadTimeout">
+            <summary>
+            Gets or sets the length of time wait in milliseconds for data to be
+            read from the underlying stream. The default value is 15000 (15 seconds).
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.DataConnectionConnectTimeout">
+            <summary>
+            Gets or sets the length of time in milliseconds for a data connection
+            to be established before giving up. Default is 15000 (15 seconds).
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.DataConnectionReadTimeout">
+            <summary>
+            Gets or sets the length of time in milliseconds the data channel
+            should wait for the server to send data. Default value is 
+            15000 (15 seconds).
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.SocketKeepAlive">
+            <summary>
+            Gets or sets a value indicating if <see cref="F:System.Net.Sockets.SocketOptionName.KeepAlive"/> should be set on 
+            the underlying stream's socket. If the connection is alive, the option is
+            adjusted in real-time. The value is stored and the KeepAlive option is set
+            accordingly upon any new connections. The value set here is also applied to
+            all future data streams. It has no affect on cloned control connections or
+            data connections already in progress. The default value is false.
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.Capabilities">
+            <summary>
+            Gets the server capabilities represented by flags
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.HashAlgorithms">
+            <summary>
+            Get the hash types supported by the server, if any. This
+            is a recent extension to the protocol that is not fully
+            standardized and is not guaranteed to work. See here for
+            more details:
+            http://tools.ietf.org/html/draft-bryan-ftpext-hash-02
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.EncryptionMode">
+            <summary>
+            Type of SSL to use, or none. Default is none. Explicit is TLS, Implicit is SSL.
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.DataConnectionEncryption">
+            <summary>
+            Indicates if data channel transfers should be encrypted. Only valid if <see cref="P:FluentFTP.FtpClient.EncryptionMode"/>
+            property is not equal to <see cref="F:FluentFTP.FtpEncryptionMode.None"/>.
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.PlainTextEncryption">
+            <summary>
+            Indicates if the encryption should be disabled immediately after connecting using a CCC command.
+            This is useful when you have a FTP firewall that requires plaintext FTP, but your server mandates FTPS connections.
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.SslProtocols">
+            <summary>
+            Encryption protocols to use. Only valid if EncryptionMode property is not equal to <see cref="F:FluentFTP.FtpEncryptionMode.None"/>.
+            Default value is .NET Framework defaults from the <see cref="T:System.Net.Security.SslStream"/> class.
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.SslBuffering">
+            <summary>
+            Whether to use SSL Buffering to speed up data transfer during FTP operations
+            </summary>
+        </member>
+        <member name="E:FluentFTP.FtpClient.ValidateCertificate">
+            <summary>
+            Event is fired to validate SSL certificates. If this event is
+            not handled and there are errors validating the certificate
+            the connection will be aborted.
+            </summary>
+            <example><code source="..\Examples\ValidateCertificate.cs" lang="cs" /></example>
+        </member>
+        <member name="P:FluentFTP.FtpClient.SystemType">
+            <summary>
+            Gets the type of system/server that we're connected to. Typically begins with "WINDOWS" or "UNIX".
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.ServerType">
+            <summary>
+            Gets the type of the FTP server software that we're connected to.
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.ServerOS">
+            <summary>
+            Gets the operating system of the FTP server that we're connected to.
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.ConnectionType">
+            <summary> Gets the connection type </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.LastReply">
+            <summary> Gets the last reply recieved from the server</summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.ListingParser">
+            <summary>
+            File listing parser to be used. 
+            Automatically calculated based on the type of the server, unless changed.
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.ListingCulture">
+            <summary>
+            Culture used to parse file listings
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.TimeOffset">
+            <summary>
+            Time difference between server and client, in hours.
+            If the server is located in New York and you are in London then the time difference is -5 hours.
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.BulkListing">
+            <summary>
+            If true, increases performance of GetListing by reading multiple lines
+            of the file listing at once. If false then GetListing will read file
+            listings line-by-line. If GetListing is having issues with your server,
+            set it to false.
+            
+            The number of bytes read is based upon <see cref="P:FluentFTP.FtpClient.BulkListingLength"/>.
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.BulkListingLength">
+            <summary>
+            Bytes to read during GetListing. Only honored if <see cref="P:FluentFTP.FtpClient.BulkListing"/> is true.
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.TransferChunkSize">
+            <summary>
+            Gets or sets the number of bytes transferred in a single chunk (a single FTP command).
+            Used by <see cref="o:UploadFile"/>/<see cref="o:UploadFileAsync"/> and <see cref="o:DownloadFile"/>/<see cref="o:DownloadFileAsync"/>
+            to transfer large files in multiple chunks.
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.RetryAttempts">
+            <summary>
+            Gets or sets the retry attempts allowed when a verification failure occurs during download or upload.
+            This value must be set to 1 or more.
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.UploadRateLimit">
+            <summary>
+            Rate limit for uploads in kbyte/s. Set this to 0 for unlimited speed.
+            Honored by high-level API such as Upload(), Download(), UploadFile(), DownloadFile()..
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.DownloadRateLimit">
+            <summary>
+            Rate limit for downloads in kbytes/s. Set this to 0 for unlimited speed.
+            Honored by high-level API such as Upload(), Download(), UploadFile(), DownloadFile()..
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.UploadDataType">
+            <summary>
+            Controls if the high-level API uploads files in Binary or ASCII mode.
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.DownloadDataType">
+            <summary>
+            Controls if the high-level API downloads files in Binary or ASCII mode.
+            </summary>
+        </member>
+        <member name="M:FluentFTP.FtpClient.DetectFtpServer">
+            <summary>
+            Detect the FTP Server based on the welcome message sent by the server after getting the 220 connection command.
+            Its the primary method.
+            </summary>
+        </member>
+        <member name="M:FluentFTP.FtpClient.DetectFtpServerBySyst">
+            <summary>
+            Detect the FTP Server based on the response to the SYST connection command.
+            Its a fallback method if the server did not send an identifying welcome message.
+            </summary>
+        </member>
+        <member name="M:FluentFTP.FtpClient.GetFeatures(System.String[])">
+            <summary>
+            Populates the capabilities flags based on capabilities given in the list of strings.
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpClient.RecursiveList">
+            <summary>
+            Detect if your FTP server supports the recursive LIST command (LIST -R).
+            If you know for sure that this is supported, return true here.
+            </summary>
+        </member>
+        <member name="M:FluentFTP.FtpClient.AssumeCapabilities">
+            <summary>
+            Assume the FTP Server's capabilities if it does not support the FEAT command.
+            </summary>
+        </member>
+        <member name="M:FluentFTP.FtpClient.IsAbsolutePath(System.String)">
+            <summary>
+            Checks for server-specific absolute paths
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpClient.fileNotFoundStrings">
+            <summary>
+            Error messages returned by various when a file does not exist.
+            Instead of throwing an error, we use these to detect and handle the file detection properly.
+            </summary>
+        </member>
+        <member name="M:FluentFTP.FtpClient.Connect(System.Uri,System.Boolean)">
+            <summary>
+            Connects to the specified URI. If the path specified by the URI ends with a
+            / then the working directory is changed to the path specified.
+            </summary>
+            <param name="uri">The URI to parse</param>
+            <param name="checkcertificate">Indicates if a ssl certificate should be validated when using FTPS schemes</param>
+            <returns>FtpClient object</returns>
+        </member>
+        <member name="M:FluentFTP.FtpClient.Connect(System.Uri)">
+            <summary>
+            Connects to the specified URI. If the path specified by the URI ends with a
+            / then the working directory is changed to the path specified.
+            </summary>
+            <param name="uri">The URI to parse</param>
+            <returns>FtpClient object</returns>
+        </member>
+        <member name="M:FluentFTP.FtpClient.GetPublicIP">
+            <summary>
+            Calculate you public internet IP using the ipify service. Returns null if cannot be calculated.
+            </summary>
+            <returns>Public IP Address</returns>
+        </member>
         <member name="T:FluentFTP.IFtpClient">
             <summary>
             Interface for the FtpClient class. For detailed documentation of the methods, please see the FtpClient class.
-            </summary>
-        </member>
-        <member name="T:FluentFTP.FtpEncryptionMode">
-            <summary>
-            Defines the type of encryption to use
-            </summary>
-        </member>
-        <member name="F:FluentFTP.FtpEncryptionMode.None">
-            <summary>
-            Plain text.
-            </summary>
-        </member>
-        <member name="F:FluentFTP.FtpEncryptionMode.Implicit">
-            <summary>
-            FTPS encryption is used from the start of the connection, port 990.
-            </summary>
-        </member>
-        <member name="F:FluentFTP.FtpEncryptionMode.Explicit">
-            <summary>
-            Connection starts in plain text and FTPS encryption is enabled
-            with the AUTH command immediately after the server greeting.
-            </summary>
-        </member>
-        <member name="T:FluentFTP.FtpResponseType">
-            <summary>
-            The type of response the server responded with
-            </summary>
-        </member>
-        <member name="F:FluentFTP.FtpResponseType.None">
-            <summary>
-            No response
-            </summary>
-        </member>
-        <member name="F:FluentFTP.FtpResponseType.PositivePreliminary">
-            <summary>
-            Success
-            </summary>
-        </member>
-        <member name="F:FluentFTP.FtpResponseType.PositiveCompletion">
-            <summary>
-            Success
-            </summary>
-        </member>
-        <member name="F:FluentFTP.FtpResponseType.PositiveIntermediate">
-            <summary>
-            Success
-            </summary>
-        </member>
-        <member name="F:FluentFTP.FtpResponseType.TransientNegativeCompletion">
-            <summary>
-            Temporary failure
-            </summary>
-        </member>
-        <member name="F:FluentFTP.FtpResponseType.PermanentNegativeCompletion">
-            <summary>
-            Permanent failure
             </summary>
         </member>
         <member name="T:FluentFTP.FtpCapability">
@@ -2647,60 +2344,49 @@
             Support for the non-standard XSHA512 command
             </summary>
         </member>
-        <member name="T:FluentFTP.FtpHashAlgorithm">
+        <member name="F:FluentFTP.FtpCapability.EPSV">
             <summary>
-            Different types of hashing algorithms for computing checksums.
+            Support for the EPSV file-transfer command
             </summary>
         </member>
-        <member name="F:FluentFTP.FtpHashAlgorithm.NONE">
+        <member name="F:FluentFTP.FtpCapability.CPSV">
             <summary>
-            HASH command is not supported
+            Support for the CPSV command
             </summary>
         </member>
-        <member name="F:FluentFTP.FtpHashAlgorithm.SHA1">
+        <member name="F:FluentFTP.FtpCapability.NOOP">
             <summary>
-            SHA-1
+            Support for the NOOP command
             </summary>
         </member>
-        <member name="F:FluentFTP.FtpHashAlgorithm.SHA256">
+        <member name="F:FluentFTP.FtpCapability.CLNT">
             <summary>
-            SHA-256
+            Support for the CLNT command
             </summary>
         </member>
-        <member name="F:FluentFTP.FtpHashAlgorithm.SHA512">
+        <member name="F:FluentFTP.FtpCapability.SSCN">
             <summary>
-            SHA-512
+            Support for the SSCN command
             </summary>
         </member>
-        <member name="F:FluentFTP.FtpHashAlgorithm.MD5">
+        <member name="F:FluentFTP.FtpCapability.SITE_MKDIR">
             <summary>
-            MD5
+            Support for the SITE MKDIR server-specific command (ProFTPd)
             </summary>
         </member>
-        <member name="F:FluentFTP.FtpHashAlgorithm.CRC">
+        <member name="F:FluentFTP.FtpCapability.SITE_RMDIR">
             <summary>
-            CRC
+            Support for the SITE RMDIR server-specific command (ProFTPd)
             </summary>
         </member>
-        <member name="T:FluentFTP.FtpIpVersion">
+        <member name="F:FluentFTP.FtpCapability.SITE_UTIME">
             <summary>
-            IP Versions to allow when connecting
-            to a server.
+            Support for the SITE UTIME server-specific command (ProFTPd)
             </summary>
         </member>
-        <member name="F:FluentFTP.FtpIpVersion.IPv4">
+        <member name="F:FluentFTP.FtpCapability.SITE_SYMLINK">
             <summary>
-            Internet Protocol Version 4
-            </summary>
-        </member>
-        <member name="F:FluentFTP.FtpIpVersion.IPv6">
-            <summary>
-            Internet Protocol Version 6
-            </summary>
-        </member>
-        <member name="F:FluentFTP.FtpIpVersion.ANY">
-            <summary>
-            Allow any supported version
+            Support for the SITE SYMLINK server-specific command (ProFTPd)
             </summary>
         </member>
         <member name="T:FluentFTP.FtpDataConnectionType">
@@ -2804,6 +2490,115 @@
             Binary transfer
             </summary>
         </member>
+        <member name="T:FluentFTP.FtpDate">
+            <summary>
+            Defines if additional verification and actions upon failure that 
+            should be performed when uploading/downloading files using the high-level APIs.  Ignored if the 
+            FTP server does not support any hashing algorithms.
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpDate.Original">
+            <summary>
+            The date is whatever the server returns, with no conversion performed.
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpDate.Local">
+            <summary>
+            The date is converted to the local timezone, based on the TimeOffset property in FtpClient.
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpDate.UTC">
+            <summary>
+            The date is converted to UTC, based on the TimeOffset property in FtpClient.
+            </summary>
+        </member>
+        <member name="T:FluentFTP.FtpEncryptionMode">
+            <summary>
+            Defines the type of encryption to use
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpEncryptionMode.None">
+            <summary>
+            Plain text.
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpEncryptionMode.Implicit">
+            <summary>
+            FTPS encryption is used from the start of the connection, port 990.
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpEncryptionMode.Explicit">
+            <summary>
+            Connection starts in plain text and FTPS encryption is enabled
+            with the AUTH command immediately after the server greeting.
+            </summary>
+        </member>
+        <member name="T:FluentFTP.FtpError">
+            <summary>
+            Defines how multi-file processes should handle a processing error.
+            </summary>
+            <remarks><see cref="F:FluentFTP.FtpError.Stop"/> &amp; <see cref="F:FluentFTP.FtpError.Throw"/> Cannot Be Combined</remarks>
+        </member>
+        <member name="F:FluentFTP.FtpError.None">
+            <summary>
+            No action is taken upon errors.  The method absorbs the error and continues.
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpError.DeleteProcessed">
+            <summary>
+            If any files have completed successfully (or failed after a partial download/upload) then should be deleted.  
+            This will simulate an all-or-nothing transaction downloading or uploading multiple files.  If this option is not
+            combined with <see cref="F:FluentFTP.FtpError.Stop"/> or <see cref="F:FluentFTP.FtpError.Throw"/> then the method will
+            continue to process all items whether if they are successful or not and then delete everything if a failure was
+            encountered at any point.
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpError.Stop">
+            <summary>
+            The method should stop processing any additional files and immediately return upon encountering an error.
+            Cannot be combined with <see cref="F:FluentFTP.FtpError.Throw"/>
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpError.Throw">
+            <summary>
+            The method should stop processing any additional files and immediately throw the current error.
+            Cannot be combined with <see cref="F:FluentFTP.FtpError.Stop"/>
+            </summary>
+        </member>
+        <member name="T:FluentFTP.FtpExists">
+            <summary>
+            Defines the behavior for uploading/downloading files that already exist
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpExists.NoCheck">
+            <summary>
+            Do not check if the file exists. A bit faster than the other options.
+            Only use this if you are SURE that the file does not exist on the server.
+            Otherwise it can cause the UploadFile method to hang due to filesize mismatch.
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpExists.Skip">
+            <summary>
+            Skip the file if it exists, without any more checks.
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpExists.Overwrite">
+            <summary>
+            Overwrite the file if it exists.
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpExists.Append">
+            <summary>
+            Append to the file if it exists, by checking the length and adding the missing data.
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpExists.AppendNoCheck">
+            <summary>
+            Append to the file, but don't check if it exists and add missing data.
+            This might be required if you don't have permissions on the server to list files in the folder.
+            Only use this if you are SURE that the file does not exist on the server otherwise it can cause the UploadFile method to hang due to filesize mismatch.
+            </summary>
+        </member>
         <member name="T:FluentFTP.FtpFileSystemObjectType">
             <summary>
             Type of file system of object
@@ -2824,104 +2619,60 @@
             A symbolic link
             </summary>
         </member>
-        <member name="T:FluentFTP.FtpPermission">
+        <member name="T:FluentFTP.FtpHashAlgorithm">
             <summary>
-            Types of file permissions
+            Different types of hashing algorithms for computing checksums.
             </summary>
         </member>
-        <member name="F:FluentFTP.FtpPermission.None">
+        <member name="F:FluentFTP.FtpHashAlgorithm.NONE">
             <summary>
-            No access
+            HASH command is not supported
             </summary>
         </member>
-        <member name="F:FluentFTP.FtpPermission.Execute">
+        <member name="F:FluentFTP.FtpHashAlgorithm.SHA1">
             <summary>
-            Executable
+            SHA-1
             </summary>
         </member>
-        <member name="F:FluentFTP.FtpPermission.Write">
+        <member name="F:FluentFTP.FtpHashAlgorithm.SHA256">
             <summary>
-            Writable
+            SHA-256
             </summary>
         </member>
-        <member name="F:FluentFTP.FtpPermission.Read">
+        <member name="F:FluentFTP.FtpHashAlgorithm.SHA512">
             <summary>
-            Readable
+            SHA-512
             </summary>
         </member>
-        <member name="T:FluentFTP.FtpSpecialPermissions">
+        <member name="F:FluentFTP.FtpHashAlgorithm.MD5">
             <summary>
-            Types of special UNIX permissions
+            MD5
             </summary>
         </member>
-        <member name="F:FluentFTP.FtpSpecialPermissions.None">
+        <member name="F:FluentFTP.FtpHashAlgorithm.CRC">
             <summary>
-            No special permissions are set
+            CRC
             </summary>
         </member>
-        <member name="F:FluentFTP.FtpSpecialPermissions.Sticky">
+        <member name="T:FluentFTP.FtpIpVersion">
             <summary>
-            Sticky bit is set
+            IP Versions to allow when connecting
+            to a server.
             </summary>
         </member>
-        <member name="F:FluentFTP.FtpSpecialPermissions.SetGroupID">
+        <member name="F:FluentFTP.FtpIpVersion.IPv4">
             <summary>
-            SGID bit is set
+            Internet Protocol Version 4
             </summary>
         </member>
-        <member name="F:FluentFTP.FtpSpecialPermissions.SetUserID">
+        <member name="F:FluentFTP.FtpIpVersion.IPv6">
             <summary>
-            SUID bit is set
+            Internet Protocol Version 6
             </summary>
         </member>
-        <member name="T:FluentFTP.FtpParser">
+        <member name="F:FluentFTP.FtpIpVersion.ANY">
             <summary>
-            The type of response the server responded with
-            </summary>
-        </member>
-        <member name="F:FluentFTP.FtpParser.Legacy">
-            <summary>
-            Use the legacy parser (for older projects that depend on the pre-2017 parser routines).
-            </summary>
-        </member>
-        <member name="F:FluentFTP.FtpParser.Auto">
-            <summary>
-            Automatically detect the file listing parser to use based on the FTP server (SYST command).
-            </summary>
-        </member>
-        <member name="F:FluentFTP.FtpParser.Machine">
-            <summary>
-            Machine listing parser, works on any FTP server supporting the MLST/MLSD commands.
-            </summary>
-        </member>
-        <member name="F:FluentFTP.FtpParser.Windows">
-            <summary>
-            File listing parser for Windows/IIS.
-            </summary>
-        </member>
-        <member name="F:FluentFTP.FtpParser.Unix">
-            <summary>
-            File listing parser for Unix.
-            </summary>
-        </member>
-        <member name="F:FluentFTP.FtpParser.UnixAlt">
-            <summary>
-            Alternate parser for Unix. Use this if the default one does not work.
-            </summary>
-        </member>
-        <member name="F:FluentFTP.FtpParser.VMS">
-            <summary>
-            File listing parser for Vax/VMS/OpenVMS.
-            </summary>
-        </member>
-        <member name="F:FluentFTP.FtpParser.IBM">
-            <summary>
-            File listing parser for IBM OS400.
-            </summary>
-        </member>
-        <member name="F:FluentFTP.FtpParser.NonStop">
-            <summary>
-            File listing parser for Tandem/Nonstop Guardian OS.
+            Allow any supported version
             </summary>
         </member>
         <member name="T:FluentFTP.FtpListOption">
@@ -3014,30 +2765,300 @@
             items for some reason.
             </summary>
         </member>
-        <member name="T:FluentFTP.FtpExists">
+        <member name="T:FluentFTP.FtpLocalExists">
             <summary>
-            Defines the behavior for uploading/downloading files that already exist
+            Determines how we handle partially downloaded files
             </summary>
         </member>
-        <member name="F:FluentFTP.FtpExists.NoCheck">
+        <member name="F:FluentFTP.FtpLocalExists.Overwrite">
             <summary>
-            Do not check if the file exists. A bit faster than the other options. Only use this if you are SURE that the file does not exist on the server.
-            Otherwise it can cause the UploadFile method to hang due to filesize mismatch.
+            Restart the download of a file if it is partially downloaded.
+            Overwrites the file if it exists on disk.
             </summary>
         </member>
-        <member name="F:FluentFTP.FtpExists.Skip">
+        <member name="F:FluentFTP.FtpLocalExists.Append">
             <summary>
-            Skip the file if it exists, without any more checks.
+            Resume the download of a file if it is partially downloaded.
+            Appends to the file if it exists, by checking the length and adding the missing data.
+            If the file doesn't exist on disk, a new file is created.
             </summary>
         </member>
-        <member name="F:FluentFTP.FtpExists.Overwrite">
+        <member name="F:FluentFTP.FtpLocalExists.Skip">
             <summary>
-            Overwrite the file if it exists.
+            Blindly skip downloading the file if it exists on disk, without any more checks.
+            This is only included to be compatible with legacy behaviour.
             </summary>
         </member>
-        <member name="F:FluentFTP.FtpExists.Append">
+        <member name="T:FluentFTP.FtpOperatingSystem">
             <summary>
-            Append to the file if it exists, by checking the length and adding the missing data.
+            Defines the operating system of the FTP server.
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpOperatingSystem.Unknown">
+            <summary>
+            Unknown operating system
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpOperatingSystem.Windows">
+            <summary>
+            Definitely Windows or Windows Server
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpOperatingSystem.Unix">
+            <summary>
+            Definitely Unix or AIX-based server
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpOperatingSystem.VMS">
+            <summary>
+            Definitely VMS or OpenVMS server
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpOperatingSystem.IBMOS400">
+            <summary>
+            Definitely IBM OS/400 server
+            </summary>
+        </member>
+        <member name="T:FluentFTP.FtpParser">
+            <summary>
+            The type of response the server responded with
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpParser.Legacy">
+            <summary>
+            Use the legacy parser (for older projects that depend on the pre-2017 parser routines).
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpParser.Auto">
+            <summary>
+            Automatically detect the file listing parser to use based on the FTP server (SYST command).
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpParser.Machine">
+            <summary>
+            Machine listing parser, works on any FTP server supporting the MLST/MLSD commands.
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpParser.Windows">
+            <summary>
+            File listing parser for Windows/IIS.
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpParser.Unix">
+            <summary>
+            File listing parser for Unix.
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpParser.UnixAlt">
+            <summary>
+            Alternate parser for Unix. Use this if the default one does not work.
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpParser.VMS">
+            <summary>
+            File listing parser for Vax/VMS/OpenVMS.
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpParser.IBM">
+            <summary>
+            File listing parser for IBM OS400.
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpParser.NonStop">
+            <summary>
+            File listing parser for Tandem/Nonstop Guardian OS.
+            </summary>
+        </member>
+        <member name="T:FluentFTP.FtpPermission">
+            <summary>
+            Types of file permissions
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpPermission.None">
+            <summary>
+            No access
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpPermission.Execute">
+            <summary>
+            Executable
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpPermission.Write">
+            <summary>
+            Writable
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpPermission.Read">
+            <summary>
+            Readable
+            </summary>
+        </member>
+        <member name="T:FluentFTP.FtpResponseType">
+            <summary>
+            The type of response the server responded with
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpResponseType.None">
+            <summary>
+            No response
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpResponseType.PositivePreliminary">
+            <summary>
+            Success
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpResponseType.PositiveCompletion">
+            <summary>
+            Success
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpResponseType.PositiveIntermediate">
+            <summary>
+            Success
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpResponseType.TransientNegativeCompletion">
+            <summary>
+            Temporary failure
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpResponseType.PermanentNegativeCompletion">
+            <summary>
+            Permanent failure
+            </summary>
+        </member>
+        <member name="T:FluentFTP.FtpsBuffering">
+            <summary>
+            Determines how SSL Buffering is handled
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpsBuffering.Auto">
+            <summary>
+            Enables buffering in all cases except when using FTP proxies.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "F:FluentFTP.FtpsBuffering.Off" -->
+        <member name="F:FluentFTP.FtpsBuffering.On">
+            <summary>
+            Always enables SSL Buffering to massively speed up FTPS operations.
+            </summary>
+        </member>
+        <member name="T:FluentFTP.FtpServer">
+            <summary>
+            Defines the type of the FTP server software.
+            Add constants here as you add detection scripts for individual server types.
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpServer.Unknown">
+            <summary>
+            Unknown FTP server software
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpServer.PureFTPd">
+            <summary>
+            Definitely PureFTPd server
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpServer.VsFTPd">
+            <summary>
+            Definitely VsFTPd server
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpServer.ProFTPD">
+            <summary>
+            Definitely ProFTPD server
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpServer.FileZilla">
+            <summary>
+            Definitely FileZilla server
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpServer.OpenVMS">
+            <summary>
+            Definitely OpenVMS server
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpServer.WindowsCE">
+            <summary>
+            Definitely Windows CE FTP server
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpServer.WuFTPd">
+            <summary>
+            Definitely WuFTPd server
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpServer.GlobalScapeEFT">
+            <summary>
+            Definitely GlobalScape EFT server
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpServer.NonStopTandem">
+            <summary>
+            Definitely HP NonStop/Tandem server
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpServer.ServU">
+            <summary>
+            Definitely Serv-U server
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpServer.Cerberus">
+            <summary>
+            Definitely Cerberus FTP server
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpServer.WindowsServerIIS">
+            <summary>
+            Definitely Windows Server/IIS FTP server
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpServer.CrushFTP">
+            <summary>
+            Definitely CrushFTP server
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpServer.glFTPd">
+            <summary>
+            Definitely glFTPd server
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpServer.HomegateFTP">
+            <summary>
+            Definitely Homegate FTP server
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpServer.BFTPd">
+            <summary>
+            Definitely BFTPd server
+            </summary>
+        </member>
+        <member name="T:FluentFTP.FtpSpecialPermissions">
+            <summary>
+            Types of special UNIX permissions
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpSpecialPermissions.None">
+            <summary>
+            No special permissions are set
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpSpecialPermissions.Sticky">
+            <summary>
+            Sticky bit is set
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpSpecialPermissions.SetGroupID">
+            <summary>
+            SGID bit is set
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpSpecialPermissions.SetUserID">
+            <summary>
+            SUID bit is set
             </summary>
         </member>
         <member name="T:FluentFTP.FtpTraceLevel">
@@ -3064,38 +3085,6 @@
         <member name="F:FluentFTP.FtpTraceLevel.Error">
             <summary>
             Used for logging Error messages that may need investigation 
-            </summary>
-        </member>
-        <member name="T:FluentFTP.FtpError">
-            <summary>
-            Defines how multi-file processes should handle a processing error.
-            </summary>
-            <remarks><see cref="F:FluentFTP.FtpError.Stop"/> &amp; <see cref="F:FluentFTP.FtpError.Throw"/> Cannot Be Combined</remarks>
-        </member>
-        <member name="F:FluentFTP.FtpError.None">
-            <summary>
-            No action is taken upon errors.  The method absorbs the error and continues.
-            </summary>
-        </member>
-        <member name="F:FluentFTP.FtpError.DeleteProcessed">
-            <summary>
-            If any files have completed successfully (or failed after a partial download/upload) then should be deleted.  
-            This will simulate an all-or-nothing transaction downloading or uploading multiple files.  If this option is not
-            combined with <see cref="F:FluentFTP.FtpError.Stop"/> or <see cref="F:FluentFTP.FtpError.Throw"/> then the method will
-            continue to process all items whether if they are successful or not and then delete everything if a failure was
-            encountered at any point.
-            </summary>
-        </member>
-        <member name="F:FluentFTP.FtpError.Stop">
-            <summary>
-            The method should stop processing any additional files and immediately return upon encountering an error.
-            Cannot be combined with <see cref="F:FluentFTP.FtpError.Throw"/>
-            </summary>
-        </member>
-        <member name="F:FluentFTP.FtpError.Throw">
-            <summary>
-            The method should stop processing any additional files and immediately throw the current error.
-            Cannot be combined with <see cref="F:FluentFTP.FtpError.Stop"/>
             </summary>
         </member>
         <member name="T:FluentFTP.FtpVerify">
@@ -3140,27 +3129,16 @@
             If the checksum comparison fails then the method returns false and no other action is taken.
             </summary>
         </member>
-        <member name="T:FluentFTP.FtpDate">
+        <member name="T:FluentFTP.Exceptions.FtpMissingSocketException">
             <summary>
-            Defines if additional verification and actions upon failure that 
-            should be performed when uploading/downloading files using the high-level APIs.  Ignored if the 
-            FTP server does not support any hashing algorithms.
+            This exception is thrown by FtpSocketStream.
             </summary>
         </member>
-        <member name="F:FluentFTP.FtpDate.Original">
+        <member name="M:FluentFTP.Exceptions.FtpMissingSocketException.#ctor(System.Exception)">
             <summary>
-            The date is whatever the server returns, with no conversion performed.
+            Creates a new FtpMissingSocketException.
             </summary>
-        </member>
-        <member name="F:FluentFTP.FtpDate.Local">
-            <summary>
-            The date is converted to the local timezone, based on the TimeOffset property in FtpClient.
-            </summary>
-        </member>
-        <member name="F:FluentFTP.FtpDate.UTC">
-            <summary>
-            The date is converted to UTC, based on the TimeOffset property in FtpClient.
-            </summary>
+            <param name="innerException">The original exception.</param>
         </member>
         <member name="T:FluentFTP.FtpSslValidation">
             <summary>
@@ -3256,6 +3234,29 @@
             <param name="reply">The FtpReply to build the exception from</param>
         </member>
         <member name="M:FluentFTP.FtpCommandException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Must be implemented so every Serializer can Deserialize the Exception
+            </summary>
+        </member>
+        <member name="T:FluentFTP.FtpAuthenticationException">
+            <summary>
+            Exception triggered on authentication failures
+            </summary>
+        </member>
+        <member name="M:FluentFTP.FtpAuthenticationException.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of a FtpAuthenticationException
+            </summary>
+            <param name="code">Status code</param>
+            <param name="message">Associated message</param>
+        </member>
+        <member name="M:FluentFTP.FtpAuthenticationException.#ctor(FluentFTP.FtpReply)">
+            <summary>
+            Initializes a new instance of a FtpAuthenticationException
+            </summary>
+            <param name="reply">The FtpReply to build the exception from</param>
+        </member>
+        <member name="M:FluentFTP.FtpAuthenticationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
             <summary>
             Must be implemented so every Serializer can Deserialize the Exception
             </summary>
@@ -3550,7 +3551,7 @@
             Validate if the current parser is correct
             </summary>
         </member>
-        <member name="M:FluentFTP.FtpListParser.ParseLegacy(System.String,System.String,FluentFTP.FtpCapability)">
+        <member name="M:FluentFTP.FtpListParser.ParseLegacy(System.String,System.String,FluentFTP.FtpCapability,FluentFTP.FtpClient)">
             <summary>
             Parses a line from a file listing using the first successful match in the Parsers collection.
             </summary>
@@ -3601,7 +3602,7 @@
             </summary>
             <param name="parser">The parser delegate to remove</param>
         </member>
-        <member name="M:FluentFTP.FtpListParser.ParseUnixList(System.String,FluentFTP.FtpCapability)">
+        <member name="M:FluentFTP.FtpListParser.ParseUnixList(System.String,FluentFTP.FtpCapability,FluentFTP.FtpClient)">
             <summary>
             Parses LIST format listings
             </summary>
@@ -3609,7 +3610,7 @@
             <param name="capabilities">Server capabilities</param>
             <returns>FtpListItem if the item is able to be parsed</returns>
         </member>
-        <member name="M:FluentFTP.FtpListParser.ParseDosList(System.String,FluentFTP.FtpCapability)">
+        <member name="M:FluentFTP.FtpListParser.ParseDosList(System.String,FluentFTP.FtpCapability,FluentFTP.FtpClient)">
             <summary>
             Parses IIS DOS format listings
             </summary>
@@ -3625,7 +3626,7 @@
             <param name="capabilities">The server capabilities</param>
             <returns>FtpListItem if the line can be parsed, null otherwise</returns>
         </member>
-        <member name="M:FluentFTP.FtpListParser.ParseMachineList(System.String,FluentFTP.FtpCapability)">
+        <member name="M:FluentFTP.FtpListParser.ParseMachineList(System.String,FluentFTP.FtpCapability,FluentFTP.FtpClient)">
             <summary>
             Parses MLSD/MLST format listings
             </summary>
@@ -3683,6 +3684,36 @@
         <member name="M:FluentFTP.FtpListParser.FixDateVMS(System.String[])">
             <summary> Fix the date string to make the month camel case</summary>
             <param name="fields">array of fields</param>
+        </member>
+        <member name="T:FluentFTP.FtpProgress">
+            <summary>
+            Class to report Ftp Transfer Progress (Up and Donwload)
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpProgress.Progress">
+            <summary>
+            A value between 0-100 indicating percentage complete, or -1 for indeterminate.
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpProgress.TransferSpeed">
+            <summary>
+            A value representing the current Transfer Speed in Bytes per seconds
+            </summary>
+        </member>
+        <member name="P:FluentFTP.FtpProgress.ETA">
+            <summary>
+            A value representing the calculated 'Estimated time of arrival'
+            </summary>
+        </member>
+        <member name="M:FluentFTP.FtpProgress.#ctor(System.Double,System.Double,System.TimeSpan)">
+            <summary>
+            Contructor for the class
+            </summary>
+        </member>
+        <member name="M:FluentFTP.FtpProgress.TransferSpeedToString">
+            <summary>
+            Convert Transfer Speed (bytes per second) in human readable format
+            </summary>
         </member>
         <member name="T:FluentFTP.FtpReply">
             <summary>
@@ -3799,13 +3830,6 @@
             <param name="eventType">The type of tracing event</param>
             <param name="message">The message to write</param>
         </member>
-        <member name="M:FluentFTP.FtpTrace.WriteStatus(FluentFTP.FtpTraceLevel,System.Object)">
-            <summary>
-            Write to the TraceListeners, adding an automatic prefix to the message based on the `eventType`
-            </summary>
-            <param name="eventType">The type of tracing event</param>
-            <param name="message">The message to write</param>
-        </member>
         <member name="M:FluentFTP.FtpTrace.WriteFunc(System.String,System.Object[])">
             <summary>
             Write to the TraceListeners, for the purpose of logging a API function call
@@ -3819,6 +3843,26 @@
             </summary>
             <param name="eventType">The type of tracing event</param>
             <param name="message">A formattable string to write</param>
+        </member>
+        <member name="T:FluentFTP.Proxy.FtpClientBlueCoatProxy">
+            <summary> 
+            A FTP client with a user@host proxy identification, that works with Blue Coat FTP Service servers.
+            
+            The 'blue coat variant' forces the client to wait for a 220 FTP response code in 
+            the handshake phase.
+            </summary>
+        </member>
+        <member name="M:FluentFTP.Proxy.FtpClientBlueCoatProxy.#ctor(FluentFTP.Proxy.ProxyInfo)">
+            <summary> A FTP client with a user@host proxy identification. </summary>
+            <param name="proxy">Proxy information</param>
+        </member>
+        <member name="M:FluentFTP.Proxy.FtpClientBlueCoatProxy.Create">
+            <summary>
+            Creates a new instance of this class. Useful in FTP proxy classes.
+            </summary>
+        </member>
+        <member name="M:FluentFTP.Proxy.FtpClientBlueCoatProxy.Handshake">
+            <summary> Redefine the first dialog: auth with proxy information </summary>
         </member>
         <member name="T:FluentFTP.Proxy.FtpClientHttp11Proxy">
             <summary> A FTP client with a HTTP 1.1 proxy implementation. </summary>
@@ -3879,26 +3923,6 @@
             </summary>
         </member>
         <member name="M:FluentFTP.Proxy.FtpClientUserAtHostProxy.Handshake">
-            <summary> Redefine the first dialog: auth with proxy information </summary>
-        </member>
-        <member name="T:FluentFTP.Proxy.FtpClientUserAtHostProxyBlueCoat">
-            <summary> 
-            A FTP client with a user@host proxy identification, that works with Blue Coat FTP Service servers.
-            
-            The 'blue coat variant' forces the client to wait for a 220 FTP response code in 
-            the handshake phase.
-            </summary>
-        </member>
-        <member name="M:FluentFTP.Proxy.FtpClientUserAtHostProxyBlueCoat.#ctor(FluentFTP.Proxy.ProxyInfo)">
-            <summary> A FTP client with a user@host proxy identification. </summary>
-            <param name="proxy">Proxy information</param>
-        </member>
-        <member name="M:FluentFTP.Proxy.FtpClientUserAtHostProxyBlueCoat.Create">
-            <summary>
-            Creates a new instance of this class. Useful in FTP proxy classes.
-            </summary>
-        </member>
-        <member name="M:FluentFTP.Proxy.FtpClientUserAtHostProxyBlueCoat.Handshake">
             <summary> Redefine the first dialog: auth with proxy information </summary>
         </member>
         <member name="T:FluentFTP.Proxy.ProxyInfo">
@@ -4231,6 +4255,17 @@
             <param name="sslProtocols">A bitwise parameter for supported encryption protocols.</param>
             <exception cref="T:System.Security.Authentication.AuthenticationException">Thrown when authentication fails</exception>
         </member>
+        <member name="M:FluentFTP.FtpSocketStream.CreateBufferStream">
+            <summary>
+            Conditionally create a SSL BufferStream based on the configuration in FtpClient.SslBuffering.
+            </summary>
+        </member>
+        <member name="M:FluentFTP.FtpSocketStream.GetBufferStream">
+            <summary>
+            If SSL Buffering is enabled it returns the BufferStream, else returns the internal NetworkStream.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:FluentFTP.FtpSocketStream.DeactivateEncryption">
             <summary>
             Deactivates SSL on this stream using the specified protocols and reverts back to plain-text FTP.
@@ -4280,6 +4315,17 @@
         <member name="T:FluentFTP.FtpExtensions">
             <summary>
             Extension methods related to FTP tasks
+            </summary>
+        </member>
+        <member name="M:FluentFTP.FtpExtensions.ValidateFtpServer(System.Uri)">
+            <summary>
+            Ensures that the URI points to a server, and not a directory or invalid path.
+            </summary>
+            <param name="uri"></param>
+        </member>
+        <member name="M:FluentFTP.FtpExtensions.IsKnownError(System.String,System.String[])">
+            <summary>
+            Checks if the reply contains any of the known error strings
             </summary>
         </member>
         <member name="M:FluentFTP.FtpExtensions.GetFtpPath(System.String)">
@@ -4376,9 +4422,51 @@
             Adds a prefix to the given strings, returns a new array.
             </summary>
         </member>
+        <member name="M:FluentFTP.FtpExtensions.EnsurePrefix(System.String,System.String)">
+            <summary>
+            Ensure a string has the given prefix
+            </summary>
+        </member>
+        <member name="M:FluentFTP.FtpExtensions.EnsurePostfix(System.String,System.String)">
+            <summary>
+            Ensure a string has the given postfix
+            </summary>
+        </member>
         <member name="M:FluentFTP.FtpExtensions.ItemsToString(System.Object[])">
             <summary>
             Adds a prefix to the given strings, returns a new array.
+            </summary>
+        </member>
+        <member name="M:FluentFTP.FtpExtensions.FileExistsInNameListing(System.String[],System.String)">
+            <summary>
+            Checks if the given file exists in the given file listing.
+            Supports servers that return:  1) full paths,  2) only filenames,  3) full paths without slash prefixed
+            </summary>
+            <param name="fileList">The listing returned by GetNameListing</param>
+            <param name="path">The full file path you want to check</param>
+            <returns></returns>
+        </member>
+        <member name="M:FluentFTP.FtpExtensions.IsFtpRootDirectory(System.String)">
+            <summary>
+            Checks if the given path is a root directory or working directory path
+            </summary>
+            <param name="ftppath"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FluentFTP.FtpExtensions.CalcChmod(FluentFTP.FtpPermission,FluentFTP.FtpPermission,FluentFTP.FtpPermission)">
+            <summary>
+            Calculate the CHMOD integer value given a set of permissions.
+            </summary>
+        </member>
+        <member name="M:FluentFTP.FtpExtensions.HasPermission(FluentFTP.FtpPermission,FluentFTP.FtpPermission)">
+            <summary>
+            Checks if the permission value has the given flag
+            </summary>
+        </member>
+        <member name="M:FluentFTP.FtpExtensions.EscapeStringLiteral(System.String)">
+            <summary>
+            Escape a string into a valid C# string literal.
+            Implementation from StackOverflow - https://stackoverflow.com/a/14087738
             </summary>
         </member>
         <member name="T:IProgress`1">
