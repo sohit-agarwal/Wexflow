@@ -125,7 +125,7 @@ Here are the benefits of using Wexflow:
 - [Tasks documentation](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation)
 -->
 
-- [Download the latest release](https://github.com/aelassas/Wexflow/releases/latest)
+- [Download the latest stable release](https://github.com/aelassas/Wexflow/releases/latest)
 - [Installation guide](https://github.com/aelassas/Wexflow/wiki/Installation)
 - [Quick start](https://github.com/aelassas/Wexflow/wiki/Usage)
 - [Workflow samples](https://github.com/aelassas/Wexflow/wiki/Samples)
