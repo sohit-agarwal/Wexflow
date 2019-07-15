@@ -117,17 +117,25 @@ Here are the benefits of using Wexflow:
 -->
 
 # Get started
-
+<!--
 - [Features](https://github.com/aelassas/Wexflow/wiki)
 - [Installation guide](https://github.com/aelassas/Wexflow/wiki/Installation)
 - [Quick start](https://github.com/aelassas/Wexflow/wiki/Usage)
 - [Workflow samples](https://github.com/aelassas/Wexflow/wiki/Samples)
 - [Tasks documentation](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation)
+-->
 
+- [Download the latest release](https://github.com/aelassas/Wexflow/releases/latest)
+- [Installation guide](https://github.com/aelassas/Wexflow/wiki/Installation)
+- [Quick start](https://github.com/aelassas/Wexflow/wiki/Usage)
+- [Workflow samples](https://github.com/aelassas/Wexflow/wiki/Samples)
+- [Tasks documentation](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation)
+
+<!--
 # Download
 
 Download the latest release [here](https://github.com/aelassas/Wexflow/releases/latest).
-<!--
+
 # Awards
 
 - [Best C# Article of January 2017 : Second Prize on CodeProject](https://www.codeproject.com/Articles/1164009/Wexflow-Open-source-workflow-engine-in-Csharp).
