@@ -28,9 +28,7 @@ Wexflow also makes use of [Quartz.NET](https://www.quartz-scheduler.net/) open s
 
 Furthermore, Wexflow makes use of [LiteDB](http://www.litedb.org/) NoSQL Document Store database in its server and backend which enhance and improve the performance of this workflow engine.
 
-# Major features
-
-Wexflow provides the following features:
+# Why Wexflow?
 
 - [x] [Free and open-source](https://github.com/aelassas/Wexflow/wiki/Free-and-open-source).
 - [x] [Easy to install and effortless configuration](https://github.com/aelassas/Wexflow/wiki/Installation).
@@ -67,9 +65,7 @@ Just to give you an idea of what Wexflow does, this is a screenshot from the "De
 
 Discover more about the features in [details](https://github.com/aelassas/Wexflow/wiki).
 
-# Examples
-
-Here are some examples of using Wexflow:
+# Real life examples?
 
 - Orchestration engine.
 - Batch recording live video feeds.
@@ -85,11 +81,8 @@ Here are some examples of using Wexflow:
 - Synchronizing the content of local or remote directories.
 - Batch sending tweets.
 - [Optimizing PDF files](https://blogs.datalogics.com/2018/11/26/wexflow-automating-datalogics-pdf-tools/).
-- etc.
 
-# Benefits
-
-Here are the benefits of using Wexflow:
+# What benefits?
 
 - [x] Gain time by automating repetitive tasks.
 - [x] Save money by avoiding re-work and corrections.
