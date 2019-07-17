@@ -5,7 +5,7 @@
 # <a href="https://wexflow.github.io/"><img alt="Wexflow" src="https://aelassas.github.io/wexflow/images/wexflow-3.6-2.jpg" width="100%"></a>
 -->
 
-# [![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow) [![GitHub Downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://www.somsubhra.com/github-release-stats/?username=aelassas&repository=Wexflow) [![Release](http://img.shields.io/badge/release-v3.9-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/latest) [![Nuget](http://img.shields.io/badge/nuget-v3.8.0-blue.svg)](https://www.nuget.org/packages/Wexflow) [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby) [![Wiki](https://img.shields.io/badge/github-wiki-181717.svg?maxAge=60)](https://github.com/aelassas/Wexflow/wiki) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Wexflow%20-%20Open%20source%20workflow%20engine&url=https://wexflow.github.io&via=aelassas_dev) [![Twitter URL](https://img.shields.io/twitter/url/https/twitter.com/fold_left.svg?style=social&label=Follow)](https://twitter.com/aelassas_dev)
+# [![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow) [![codecov](https://codecov.io/gh/aelassas/Wexflow/branch/master/graph/badge.svg)](https://codecov.io/gh/aelassas/Wexflow) [![GitHub Downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://www.somsubhra.com/github-release-stats/?username=aelassas&repository=Wexflow) [![Release](http://img.shields.io/badge/release-v3.9-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/latest) [![Nuget](http://img.shields.io/badge/nuget-v3.8.0-blue.svg)](https://www.nuget.org/packages/Wexflow) [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby) [![Wiki](https://img.shields.io/badge/github-wiki-181717.svg?maxAge=60)](https://github.com/aelassas/Wexflow/wiki) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Wexflow%20-%20Open%20source%20workflow%20engine&url=https://wexflow.github.io&via=aelassas_dev) [![Twitter URL](https://img.shields.io/twitter/url/https/twitter.com/fold_left.svg?style=social&label=Follow)](https://twitter.com/aelassas_dev)
 
 <!--
 [![NuGet Downloads](https://img.shields.io/nuget/dt/Wexflow.svg)](https://www.nuget.org/packages/Wexflow/)
@@ -65,7 +65,7 @@ Just to give you an idea of what Wexflow does, this is a screenshot from the "De
 
 Discover more about the features in [details](https://github.com/aelassas/Wexflow/wiki).
 
-# Real life examples?
+# Real Life Examples
 
 - Orchestration engine.
 - Batch recording live video feeds.
@@ -82,7 +82,7 @@ Discover more about the features in [details](https://github.com/aelassas/Wexflo
 - Batch sending tweets.
 - [Optimizing PDF files](https://blogs.datalogics.com/2018/11/26/wexflow-automating-datalogics-pdf-tools/).
 
-# What benefits?
+# Benefits
 
 - [x] Gain time by automating repetitive tasks.
 - [x] Save money by avoiding re-work and corrections.
@@ -101,7 +101,7 @@ Discover more about the features in [details](https://github.com/aelassas/Wexflo
 |[codecov.io](https://codecov.io)|Windows|[![codecov](https://codecov.io/gh/aelassas/Wexflow/branch/master/graph/badge.svg)](https://codecov.io/gh/aelassas/Wexflow)|
 -->
 
-# Get started
+# Getting Started
 <!--
 - [Features](https://github.com/aelassas/Wexflow/wiki)
 - [Installation guide](https://github.com/aelassas/Wexflow/wiki/Installation)
