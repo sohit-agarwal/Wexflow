@@ -105,7 +105,7 @@ Discover more about the features in [details](https://github.com/aelassas/Wexflo
 |[codecov.io](https://codecov.io)|Windows|[![codecov](https://codecov.io/gh/aelassas/Wexflow/branch/master/graph/badge.svg)](https://codecov.io/gh/aelassas/Wexflow)|
 -->
 
-# Getting Started
+# Get Started
 <!--
 - [Features](https://github.com/aelassas/Wexflow/wiki)
 - [Installation guide](https://github.com/aelassas/Wexflow/wiki/Installation)
