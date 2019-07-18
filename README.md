@@ -1,5 +1,5 @@
 
-[![Logo](https://aelassas.github.io/wexflow/images/wexflow-2.jpg "Logo")](https://wexflow.github.io/)
+[![Logo](https://aelassas.github.io/wexflow/images/wexflow-2.jpg "Wexflow")](https://wexflow.github.io/)
 
 <!--
 # <a href="https://wexflow.github.io/"><img alt="Wexflow" src="https://aelassas.github.io/wexflow/images/wexflow-3.6-2.jpg" width="100%"></a>
