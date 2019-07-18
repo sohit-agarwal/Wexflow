@@ -32,6 +32,15 @@ Wexflow also makes use of [Quartz.NET](https://www.quartz-scheduler.net/) open s
 
 Furthermore, Wexflow makes use of [LiteDB](http://www.litedb.org/) NoSQL Document Store database in its server and backend which enhance and improve the performance of this workflow engine.
 
+# Table of Contents
+- [Why Wexflow?](https://github.com/aelassas/Wexflow#why-wexflow)
+- [Real Life Examples](https://github.com/aelassas/Wexflow#real-life-examples)
+- [Benefits](https://github.com/aelassas/Wexflow#benefits)
+- [Get Started](https://github.com/aelassas/Wexflow#get-started)
+- [Changelog](https://github.com/aelassas/Wexflow#changelog)
+- [License](https://github.com/aelassas/Wexflow#license)
+- [Credits](https://github.com/aelassas/Wexflow#credits)
+
 # Why Wexflow?
 
 - [x] [Free and open-source](https://github.com/aelassas/Wexflow/wiki/Free-and-open-source).
