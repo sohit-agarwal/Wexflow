@@ -94,6 +94,7 @@
   <ItemGroup>
     <Compile Include="CsvToYaml.cs" />
     <Compile Include="CsvToXml.cs" />
+    <Compile Include="MessageCorrect.cs" />
     <Compile Include="HttpGet.cs" />
     <Compile Include="HtmlToText.cs" />
     <Compile Include="JsonToYaml.cs" />
@@ -393,6 +394,10 @@
     <ProjectReference Include="..\..\src\dotnet\Wexflow.Tasks.MediaInfo\Wexflow.Tasks.MediaInfo.csproj">
       <Project>{31f725ce-5047-4afd-a21e-58828f7ccb08}</Project>
       <Name>Wexflow.Tasks.MediaInfo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\dotnet\Wexflow.Tasks.MessageCorrect\Wexflow.Tasks.MessageCorrect.csproj">
+      <Project>{84156eee-3f8f-432d-8846-ab01481c922a}</Project>
+      <Name>Wexflow.Tasks.MessageCorrect</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\dotnet\Wexflow.Tasks.Mkdir\Wexflow.Tasks.Mkdir.csproj">
       <Project>{ff5a22b8-b594-4d2b-a3fe-10bd28038005}</Project>
