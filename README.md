@@ -37,7 +37,6 @@ Furthermore, Wexflow makes use of [LiteDB](http://www.litedb.org/) NoSQL Documen
 - [Real Life Examples](https://github.com/aelassas/Wexflow#real-life-examples)
 - [Benefits](https://github.com/aelassas/Wexflow#benefits)
 - [Get Started](https://github.com/aelassas/Wexflow#get-started)
-- [Awards](https://github.com/aelassas/Wexflow#awards)
 - [Changelog](https://github.com/aelassas/Wexflow#changelog)
 - [License](https://github.com/aelassas/Wexflow#license)
 - [Credits](https://github.com/aelassas/Wexflow#credits)
@@ -129,10 +128,6 @@ Discover more about the features in [details](https://github.com/aelassas/Wexflo
 - 🚀 [Quick start](https://github.com/aelassas/Wexflow/wiki/Usage)
 - 📝 [Workflow samples](https://github.com/aelassas/Wexflow/wiki/Samples)
 - 📝 [Tasks documentation](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation)
-
-# Awards
-
-- ⭐ [Best C# Article of January 2017 on CodeProject: Second Prize](https://www.codeproject.com/Articles/1164009/Wexflow-Open-source-workflow-engine-in-Csharp)
 
 <!--
 # Contribute
