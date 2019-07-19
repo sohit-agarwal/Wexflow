@@ -4,6 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <Platforms>AnyCPU;x64;x86</Platforms>
+    <StartupObject>Wexflow.Server.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -54,6 +55,7 @@
     <ProjectReference Include="..\Wexflow.Tasks.ListFiles\Wexflow.Tasks.ListFiles.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.MailsSender\Wexflow.Tasks.MailsSender.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.Md5\Wexflow.Tasks.Md5.csproj" />
+    <ProjectReference Include="..\Wexflow.Tasks.MessageCorrect\Wexflow.Tasks.MessageCorrect.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.Mkdir\Wexflow.Tasks.Mkdir.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.Movedir\Wexflow.Tasks.Movedir.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.Now\Wexflow.Tasks.Now.csproj" />

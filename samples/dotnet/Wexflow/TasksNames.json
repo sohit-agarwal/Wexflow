@@ -47,6 +47,7 @@
 	"MailsSender",
 	"Md5",
 	"MediaInfo",
+	"MessageCorrect",
 	"Mkdir",
 	"Movedir",
 	"Now",

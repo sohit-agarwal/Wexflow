@@ -32,6 +32,7 @@
 	"ListFiles": [ ],
 	"MailsSender": [ "selectFiles", "selectAttachments", "host", "port", "enableSsl", "user", "password" ],
 	"Md5": [ "selectFiles" ],
+	"MessageCorrect": [ "checkString" ],
 	"Mkdir": [ "folder" ],
 	"Movedir": [ "folder", "destinationFolder", "overwrite" ],
 	"Now": [ "culture", "format" ],

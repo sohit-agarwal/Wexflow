@@ -32,6 +32,7 @@
 	"ListFiles",
 	"MailsSender",
 	"Md5",
+	"MessageCorrect",
 	"Mkdir",
 	"Movedir",
 	"Now",
