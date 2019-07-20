@@ -39,6 +39,7 @@ Furthermore, Wexflow makes use of [LiteDB](http://www.litedb.org/) NoSQL Documen
 - [Why Wexflow?](https://github.com/aelassas/Wexflow#why-wexflow)
 - [Real Life Examples](https://github.com/aelassas/Wexflow#real-life-examples)
 - [Benefits](https://github.com/aelassas/Wexflow#benefits)
+- [Who's Using Wexflow?]()
 - [Get Started](https://github.com/aelassas/Wexflow#get-started)
 - [Changelog](https://github.com/aelassas/Wexflow#changelog)
 - [License](https://github.com/aelassas/Wexflow#license)
@@ -106,6 +107,15 @@ Discover more about the features in [details](https://github.com/aelassas/Wexflo
 - [x] Become more efficient and effective in completing your tasks.
 - [x] Become more productive in what you do.
 - [x] Become consistent in what you do.
+
+# Who's Using Wexflow?
+
+[![Assurant](https://aelassas.github.io/wexflow/images/user_assurant-logo.png)](https://www.assurant.com)
+[![BHV-Automation](https://aelassas.github.io/wexflow/images/user_bhv-logo-neu.jpg)](http://www.bhv-automation.de)
+[![Datalogics](https://aelassas.github.io/wexflow/images/user_datalogics_logo.png)](https://www.datalogics.com)
+[![eandbsoftware](https://aelassas.github.io/wexflow/images/user_eandbsoftware.png)](https://www.eandbsoftware.org)
+[![glinksolutions](https://aelassas.github.io/wexflow/images/user_glinksolutions-logo.png)](https://glinksolutions.vn)
+[![Yandex](https://aelassas.github.io/wexflow/images/user_Yandex_logo_en.png)](https://yandex.com)
 
 <!--
 # Continuous integration
