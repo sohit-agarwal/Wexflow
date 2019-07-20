@@ -39,7 +39,7 @@ Furthermore, Wexflow makes use of [LiteDB](http://www.litedb.org/) NoSQL Documen
 - [Why Wexflow?](https://github.com/aelassas/Wexflow#why-wexflow)
 - [Real Life Examples](https://github.com/aelassas/Wexflow#real-life-examples)
 - [Benefits](https://github.com/aelassas/Wexflow#benefits)
-- [Who's Using Wexflow?]()
+- [Who's Using Wexflow?](https://github.com/aelassas/Wexflow#whos-using-wexflow)
 - [Get Started](https://github.com/aelassas/Wexflow#get-started)
 - [Changelog](https://github.com/aelassas/Wexflow#changelog)
 - [License](https://github.com/aelassas/Wexflow#license)
