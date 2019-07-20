@@ -129,8 +129,8 @@ Discover more about the features in [details](https://github.com/aelassas/Wexflo
 - 📦 [Download the latest stable release](https://github.com/aelassas/Wexflow/releases/latest)
 - 💽 [Installation guide](https://github.com/aelassas/Wexflow/wiki/Installation)
 - 🚀 [Quick start](https://github.com/aelassas/Wexflow/wiki/Usage)
-- 📝 [Workflow samples](https://github.com/aelassas/Wexflow/wiki/Samples)
-- 📝 [Tasks documentation](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation)
+- 📖 [Workflow samples](https://github.com/aelassas/Wexflow/wiki/Samples)
+- 📖 [Tasks documentation](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation)
 
 <!--
 # Contribute
