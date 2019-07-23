@@ -10,7 +10,7 @@
           - startup: The workflow is launched when Wexflow Engine starts.
           - trigger: The workflow is launched manually from Wexflow Manager.
           - periodic: The workflow is launched periodically.
-          - corn: The workflow is launched depending on a cron expression.
+          - cron: The workflow is launched depending on a cron expression.
         - A period which is necessary for the periodic launchType. It is 
           a timeSpan in this format dd.hh:mm:ss. For example the period
           00.00:02:00 will launch the workflow every 2 minutes.
