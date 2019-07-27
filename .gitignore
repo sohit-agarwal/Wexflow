@@ -38,3 +38,4 @@ setup/*.zip.tmp
 setup/Wexflow.app/
 *.nupkg
 Wexflow_coverage.xml
+packages/
