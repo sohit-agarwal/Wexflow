@@ -10,7 +10,7 @@ namespace Wexflow.Tasks.MessageCorrect
 
         public MessageCorrect(XElement xe, Workflow wf) : base(xe, wf)
         {
-            this.CheckString = GetSetting("checkString");
+            CheckString = GetSetting("checkString");
         }
 
         public override TaskStatus Run()
@@ -19,7 +19,7 @@ namespace Wexflow.Tasks.MessageCorrect
             {
                 var o = Hashtable["message"];
                 string message = o == null ? string.Empty : o.ToString();
-                bool result = message.IndexOf(this.CheckString) >= 0;
+                bool result = message.IndexOf(CheckString) >= 0;
                 Info("The result is " + result);
 
                 return new TaskStatus(result ? Status.Success : Status.Error, result, message);
