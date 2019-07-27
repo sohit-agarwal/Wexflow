@@ -10,6 +10,11 @@
             
             Debugging problems with FTP is much easier when you enable logging. See the FAQ on our Github project page for more info.
             </summary>
+            <summary>
+            A connection to a single FTP server. Interacts with any FTP/FTPS server and provides a high-level and low-level API to work with files and folders.
+            
+            Debugging problems with FTP is much easier when you enable logging. See the FAQ on our Github project page for more info.
+            </summary>
         </member>
         <member name="M:FluentFTP.FtpClient.#ctor">
             <summary>
@@ -189,75 +194,546 @@
             </summary>
             <param name="e">Event Args</param>
         </member>
-        <member name="M:FluentFTP.FtpClient.HasFeature(FluentFTP.FtpCapability)">
+        <member name="M:FluentFTP.FtpClient.DeleteFile(System.String)">
             <summary>
-            Performs a bitwise and to check if the specified
-            flag is set on the <see cref="P:FluentFTP.FtpClient.Capabilities"/>  property.
+            Deletes a file on the server
             </summary>
-            <param name="cap">The <see cref="T:FluentFTP.FtpCapability"/> to check for</param>
-            <returns>True if the feature was found, false otherwise</returns>
+            <param name="path">The full or relative path to the file</param>
+            <example><code source="..\Examples\DeleteFile.cs" lang="cs" /></example>
         </member>
-        <member name="M:FluentFTP.FtpClient.GetAsyncDelegate``1(System.IAsyncResult)">
+        <member name="M:FluentFTP.FtpClient.BeginDeleteFile(System.String,System.AsyncCallback,System.Object)">
             <summary>
-            Retrieves the delegate for the specified IAsyncResult and removes
-            it from the m_asyncmethods collection if the operation is successful
+            Begins an asynchronous operation to delete the specified file on the server
             </summary>
-            <typeparam name="T">Type of delegate to retrieve</typeparam>
-            <param name="ar">The IAsyncResult to retrieve the delegate for</param>
-            <returns>The delegate that generated the specified IAsyncResult</returns>
+            <param name="path">The full or relative path to the file</param>
+            <param name="callback">Async callback</param>
+            <param name="state">State object</param>
+            <returns>IAsyncResult</returns>
+            <example><code source="..\Examples\BeginDeleteFile.cs" lang="cs" /></example>
         </member>
-        <member name="M:FluentFTP.FtpClient.GetAbsolutePath(System.String)">
+        <member name="M:FluentFTP.FtpClient.EndDeleteFile(System.IAsyncResult)">
             <summary>
-            Ensure a relative path is absolute by appending the working dir
+            Ends a call to <see cref="M:FluentFTP.FtpClient.BeginDeleteFile(System.String,System.AsyncCallback,System.Object)"/>
+            </summary>
+            <param name="ar">IAsyncResult returned from BeginDeleteFile</param>
+            <example><code source="..\Examples\BeginDeleteFile.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.FileExists(System.String)">
+            <summary>
+            Checks if a file exists on the server.
+            </summary>
+            <param name="path">The full or relative path to the file</param>
+            <returns>True if the file exists</returns>
+            <example><code source="..\Examples\FileExists.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.BeginFileExists(System.String,System.AsyncCallback,System.Object)">
+            <summary>
+            Begins an asynchronous operation to check if a file exists on the 
+            server by taking a  file listing of the parent directory in the path
+            and comparing the results the path supplied.
+            </summary>
+            <param name="path">The full or relative path to the file</param>
+            <param name="callback">Async callback</param>
+            <param name="state">State object</param>
+            <returns>IAsyncResult</returns>
+            <example><code source="..\Examples\BeginFileExists.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.EndFileExists(System.IAsyncResult)">
+            <summary>
+            Ends a call to <see cref="o:BeginFileExists"/>
+            </summary>
+            <param name="ar">IAsyncResult returned from <see cref="o:BeginFileExists"/></param>
+            <returns>True if the file exists, false otherwise</returns>
+            <example><code source="..\Examples\BeginFileExists.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.Rename(System.String,System.String)">
+            <summary>
+            Renames an object on the remote file system.
+            Low level method that should NOT be used in most cases. Prefer MoveFile() and MoveDirectory().
+            Throws exceptions if the file does not exist, or if the destination file already exists.
+            </summary>
+            <param name="path">The full or relative path to the object</param>
+            <param name="dest">The new full or relative path including the new name of the object</param>
+            <example><code source="..\Examples\Rename.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.BeginRename(System.String,System.String,System.AsyncCallback,System.Object)">
+            <summary>
+            Begins an asynchronous operation to rename an object on the remote file system.
+            Low level method that should NOT be used in most cases. Prefer MoveFile() and MoveDirectory().
+            Throws exceptions if the file does not exist, or if the destination file already exists.
+            </summary>
+            <param name="path">The full or relative path to the object</param>
+            <param name="dest">The new full or relative path including the new name of the object</param>
+            <param name="callback">Async callback</param>
+            <param name="state">State object</param>
+            <returns>IAsyncResult</returns>
+            <example><code source="..\Examples\BeginRename.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.EndRename(System.IAsyncResult)">
+            <summary>
+            Ends a call to <see cref="M:FluentFTP.FtpClient.BeginRename(System.String,System.String,System.AsyncCallback,System.Object)"/>
+            </summary>
+            <param name="ar">IAsyncResult returned from <see cref="M:FluentFTP.FtpClient.BeginRename(System.String,System.String,System.AsyncCallback,System.Object)"/></param>
+            <example><code source="..\Examples\BeginRename.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.MoveFile(System.String,System.String,FluentFTP.FtpExists)">
+            <summary>
+            Moves a file on the remote file system from one directory to another.
+            Always checks if the source file exists. Checks if the dest file exists based on the `existsMode` parameter.
+            Only throws exceptions for critical errors.
+            </summary>
+            <param name="path">The full or relative path to the object</param>
+            <param name="dest">The new full or relative path including the new name of the object</param>
+            <param name="existsMode">Should we check if the dest file exists? And if it does should we overwrite/skip the operation?</param>
+            <returns>Whether the file was moved</returns>
+        </member>
+        <member name="M:FluentFTP.FtpClient.BeginMoveFile(System.String,System.String,FluentFTP.FtpExists,System.AsyncCallback,System.Object)">
+            <summary>
+            Begins an asynchronous operation to move a file on the remote file system, from one directory to another.
+            Always checks if the source file exists. Checks if the dest file exists based on the `existsMode` parameter.
+            Only throws exceptions for critical errors.
+            </summary>
+            <param name="path">The full or relative path to the object</param>
+            <param name="dest">The new full or relative path including the new name of the object</param>
+            <param name="existsMode">Should we check if the dest file exists? And if it does should we overwrite/skip the operation?</param>
+            <param name="callback">Async callback</param>
+            <param name="state">State object</param>
+            <returns>IAsyncResult</returns>
+        </member>
+        <member name="M:FluentFTP.FtpClient.EndMoveFile(System.IAsyncResult)">
+            <summary>
+            Ends a call to <see cref="M:FluentFTP.FtpClient.BeginMoveFile(System.String,System.String,FluentFTP.FtpExists,System.AsyncCallback,System.Object)"/>
+            </summary>
+            <param name="ar">IAsyncResult returned from <see cref="M:FluentFTP.FtpClient.BeginMoveFile(System.String,System.String,FluentFTP.FtpExists,System.AsyncCallback,System.Object)"/></param>
+        </member>
+        <member name="M:FluentFTP.FtpClient.SetFilePermissions(System.String,System.Int32)">
+            <summary>
+            Modify the permissions of the given file/folder.
+            Only works on *NIX systems, and not on Windows/IIS servers.
+            Only works if the FTP server supports the SITE CHMOD command
+            (requires the CHMOD extension to be installed and enabled).
+            Throws FtpCommandException if there is an issue.
+            </summary>
+            <param name="path">The full or relative path to the item</param>
+            <param name="permissions">The permissions in CHMOD format</param>
+        </member>
+        <member name="M:FluentFTP.FtpClient.Chmod(System.String,System.Int32)">
+            <summary>
+            Modify the permissions of the given file/folder.
+            Only works on *NIX systems, and not on Windows/IIS servers.
+            Only works if the FTP server supports the SITE CHMOD command
+            (requires the CHMOD extension to be installed and enabled).
+            Throws FtpCommandException if there is an issue.
+            </summary>
+            <param name="path">The full or relative path to the item</param>
+            <param name="permissions">The permissions in CHMOD format</param>
+        </member>
+        <member name="M:FluentFTP.FtpClient.SetFilePermissions(System.String,FluentFTP.FtpPermission,FluentFTP.FtpPermission,FluentFTP.FtpPermission)">
+            <summary>
+            Modify the permissions of the given file/folder.
+            Only works on *NIX systems, and not on Windows/IIS servers.
+            Only works if the FTP server supports the SITE CHMOD command
+            (requires the CHMOD extension to be installed and enabled).
+            Throws FtpCommandException if there is an issue.
+            </summary>
+            <param name="path">The full or relative path to the item</param>
+            <param name="owner">The owner permissions</param>
+            <param name="group">The group permissions</param>
+            <param name="other">The other permissions</param>
+        </member>
+        <member name="M:FluentFTP.FtpClient.Chmod(System.String,FluentFTP.FtpPermission,FluentFTP.FtpPermission,FluentFTP.FtpPermission)">
+            <summary>
+            Modify the permissions of the given file/folder.
+            Only works on *NIX systems, and not on Windows/IIS servers.
+            Only works if the FTP server supports the SITE CHMOD command
+            (requires the CHMOD extension to be installed and enabled).
+            Throws FtpCommandException if there is an issue.
+            </summary>
+            <param name="path">The full or relative path to the item</param>
+            <param name="owner">The owner permissions</param>
+            <param name="group">The group permissions</param>
+            <param name="other">The other permissions</param>
+        </member>
+        <member name="M:FluentFTP.FtpClient.GetFilePermissions(System.String)">
+            <summary>
+            Retrieve the permissions of the given file/folder as an FtpListItem object with all "Permission" properties set.
+            Throws FtpCommandException if there is an issue.
+            Returns null if the server did not specify a permission value.
+            Use `GetChmod` if you required the integer value instead.
+            </summary>
+            <param name="path">The full or relative path to the item</param>
+        </member>
+        <member name="M:FluentFTP.FtpClient.GetChmod(System.String)">
+            <summary>
+            Retrieve the permissions of the given file/folder as an integer in the CHMOD format.
+            Throws FtpCommandException if there is an issue.
+            Returns 0 if the server did not specify a permission value.
+            Use `GetFilePermissions` if you required the permissions in the FtpPermission format.
+            </summary>
+            <param name="path">The full or relative path to the item</param>
+        </member>
+        <member name="M:FluentFTP.FtpClient.DereferenceLink(FluentFTP.FtpListItem)">
+            <summary>
+            Recursively dereferences a symbolic link. See the
+            MaximumDereferenceCount property for controlling
+            how deep this method will recurse before giving up.
+            </summary>
+            <param name="item">The symbolic link</param>
+            <returns>FtpListItem, null if the link can't be dereferenced</returns>
+            <example><code source="..\Examples\DereferenceLink.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.DereferenceLink(FluentFTP.FtpListItem,System.Int32)">
+            <summary>
+            Recursively dereferences a symbolic link
+            </summary>
+            <param name="item">The symbolic link</param>
+            <param name="recMax">The maximum depth of recursion that can be performed before giving up.</param>
+            <returns>FtpListItem, null if the link can't be dereferenced</returns>
+            <example><code source="..\Examples\DereferenceLink.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.DereferenceLink(FluentFTP.FtpListItem,System.Int32,System.Int32@)">
+            <summary>
+            Derefence a FtpListItem object
+            </summary>
+            <param name="item">The item to derefence</param>
+            <param name="recMax">Maximum recursive calls</param>
+            <param name="count">Counter</param>
+            <returns>FtpListItem, null if the link can't be dereferenced</returns>
+            <example><code source="..\Examples\DereferenceLink.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.BeginDereferenceLink(FluentFTP.FtpListItem,System.Int32,System.AsyncCallback,System.Object)">
+            <summary>
+            Begins an asynchronous operation to dereference a <see cref="T:FluentFTP.FtpListItem"/> object
+            </summary>
+            <param name="item">The item to dereference</param>
+            <param name="recMax">Maximum recursive calls</param>
+            <param name="callback">AsyncCallback</param>
+            <param name="state">State Object</param>
+            <returns>IAsyncResult</returns>
+            <example><code source="..\Examples\BeginDereferenceLink.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.BeginDereferenceLink(FluentFTP.FtpListItem,System.AsyncCallback,System.Object)">
+            <summary>
+            Begins an asynchronous operation to dereference a <see cref="T:FluentFTP.FtpListItem"/> object. See the
+            <see cref="P:FluentFTP.FtpClient.MaximumDereferenceCount"/> property for controlling
+            how deep this method will recurse before giving up.
+            </summary>
+            <param name="item">The item to dereference</param>
+            <param name="callback">AsyncCallback</param>
+            <param name="state">State Object</param>
+            <returns>IAsyncResult</returns>
+            <example><code source="..\Examples\BeginDereferenceLink.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.EndDereferenceLink(System.IAsyncResult)">
+            <summary>
+            Ends a call to <see cref="o:BeginDereferenceLink"/>
+            </summary>
+            <param name="ar">IAsyncResult</param>
+            <returns>A <see cref="T:FluentFTP.FtpListItem"/>, or null if the link can't be dereferenced</returns>
+            <example><code source="..\Examples\BeginDereferenceLink.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.GetFileSize(System.String)">
+            <summary>
+            Gets the size of a remote file, in bytes.
+            </summary>
+            <param name="path">The full or relative path of the file</param>
+            <returns>-1 if the command fails, otherwise the file size</returns>
+            <example><code source="..\Examples\GetFileSize.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.GetFileSizeInternal(System.String)">
+            <summary>
+            Gets the file size of an object, without locking
             </summary>
         </member>
-        <member name="M:FluentFTP.FtpClient.DisableUTF8">
+        <member name="M:FluentFTP.FtpClient.BeginGetFileSize(System.String,System.AsyncCallback,System.Object)">
             <summary>
-            Disables UTF8 support and changes the Encoding property
-            back to ASCII. If the server returns an error when trying
-            to turn UTF8 off a FtpCommandException will be thrown.
+            Begins an asynchronous operation to retrieve the size of a remote file
             </summary>
+            <param name="path">The full or relative path of the file</param>
+            <param name="callback">Async callback</param>
+            <param name="state">State object</param>
+            <returns>IAsyncResult</returns>
+            <example><code source="..\Examples\BeginGetFileSize.cs" lang="cs" /></example>
         </member>
-        <member name="M:FluentFTP.FtpClient.ReadStaleData(System.Boolean,System.Boolean,System.Boolean)">
+        <member name="M:FluentFTP.FtpClient.EndGetFileSize(System.IAsyncResult)">
             <summary>
-            Data shouldn't be on the socket, if it is it probably
-            means we've been disconnected. Read and discard
-            whatever is there and close the connection (optional).
+            Ends a call to <see cref="M:FluentFTP.FtpClient.BeginGetFileSize(System.String,System.AsyncCallback,System.Object)"/>
             </summary>
-            <param name="closeStream">close the connection?</param>
-            <param name="evenEncrypted">even read encrypted data?</param>
-            <param name="traceData">trace data to logs?</param>
+            <param name="ar">IAsyncResult returned from <see cref="M:FluentFTP.FtpClient.BeginGetFileSize(System.String,System.AsyncCallback,System.Object)"/></param>
+            <returns>The size of the file, -1 if there was a problem.</returns>
+            <example><code source="..\Examples\BeginGetFileSize.cs" lang="cs" /></example>
         </member>
-        <member name="M:FluentFTP.FtpClient.IsProxy">
+        <member name="M:FluentFTP.FtpClient.GetModifiedTime(System.String,FluentFTP.FtpDate)">
             <summary>
-            Checks if this FTP/FTPS connection is made through a proxy.
+            Gets the modified time of a remote file
             </summary>
+            <param name="path">The full path to the file</param>
+            <param name="type">Return the date in local timezone or UTC?  Use FtpDate.Original to disable timezone conversion.</param>
+            <returns>The modified time, or <see cref="F:System.DateTime.MinValue"/> if there was a problem</returns>
+            <example><code source="..\Examples\GetModifiedTime.cs" lang="cs" /></example>
         </member>
-        <member name="F:FluentFTP.FtpClient.OnLogEvent">
+        <member name="M:FluentFTP.FtpClient.BeginGetModifiedTime(System.String,FluentFTP.FtpDate,System.AsyncCallback,System.Object)">
             <summary>
-            Add a custom listener here to get events every time a message is logged.
+            Begins an asynchronous operation to get the modified time of a remote file
             </summary>
+            <param name="path">The full path to the file</param>
+            <param name="type">Return the date in local timezone or UTC?  Use FtpDate.Original to disable timezone conversion.</param>
+            <param name="callback">Async callback</param>
+            <param name="state">State object</param>
+            <returns>IAsyncResult</returns>
+            <example><code source="..\Examples\BeginGetModifiedTime.cs" lang="cs" /></example>
         </member>
-        <member name="M:FluentFTP.FtpClient.LogFunc(System.String,System.Object[])">
+        <member name="M:FluentFTP.FtpClient.EndGetModifiedTime(System.IAsyncResult)">
             <summary>
-            Log a function call with relavent arguments
+            Ends a call to <see cref="M:FluentFTP.FtpClient.BeginGetModifiedTime(System.String,FluentFTP.FtpDate,System.AsyncCallback,System.Object)"/>
             </summary>
-            <param name="function">The name of the API function</param>
-            <param name="args">The args passed to the function</param>
+            <param name="ar">IAsyncResult returned from <see cref="M:FluentFTP.FtpClient.BeginGetModifiedTime(System.String,FluentFTP.FtpDate,System.AsyncCallback,System.Object)"/></param>
+            <returns>The modified time, or <see cref="F:System.DateTime.MinValue"/> if there was a problem</returns>
+            <example><code source="..\Examples\BeginGetModifiedTime.cs" lang="cs" /></example>
         </member>
-        <member name="M:FluentFTP.FtpClient.LogLine(FluentFTP.FtpTraceLevel,System.String)">
+        <member name="M:FluentFTP.FtpClient.SetModifiedTime(System.String,System.DateTime,FluentFTP.FtpDate)">
             <summary>
-            Log a message
+            Changes the modified time of a remote file
             </summary>
-            <param name="eventType">The type of tracing event</param>
-            <param name="message">The message to write</param>
+            <param name="path">The full path to the file</param>
+            <param name="date">The new modified date/time value</param>
+            <param name="type">Is the date provided in local timezone or UTC? Use FtpDate.Original to disable timezone conversion.</param>
         </member>
-        <member name="M:FluentFTP.FtpClient.LogStatus(FluentFTP.FtpTraceLevel,System.String)">
+        <member name="M:FluentFTP.FtpClient.BeginSetModifiedTime(System.String,System.DateTime,FluentFTP.FtpDate,System.AsyncCallback,System.Object)">
             <summary>
-            Log a message, adding an automatic prefix to the message based on the `eventType`
+            Begins an asynchronous operation to get the modified time of a remote file
             </summary>
-            <param name="eventType">The type of tracing event</param>
-            <param name="message">The message to write</param>
+            <param name="path">The full path to the file</param>
+            <param name="date">The new modified date/time value</param>
+            <param name="type">Is the date provided in local timezone or UTC? Use FtpDate.Original to disable timezone conversion.</param>
+            <param name="callback">Async callback</param>
+            <param name="state">State object</param>
+            <returns>IAsyncResult</returns>
+        </member>
+        <member name="M:FluentFTP.FtpClient.EndSetModifiedTime(System.IAsyncResult)">
+            <summary>
+            Ends a call to <see cref="M:FluentFTP.FtpClient.BeginSetModifiedTime(System.String,System.DateTime,FluentFTP.FtpDate,System.AsyncCallback,System.Object)"/>
+            </summary>
+            <param name="ar">IAsyncResult returned from <see cref="M:FluentFTP.FtpClient.BeginSetModifiedTime(System.String,System.DateTime,FluentFTP.FtpDate,System.AsyncCallback,System.Object)"/></param>
+            <returns>The modified time, or <see cref="F:System.DateTime.MinValue"/> if there was a problem</returns>
+        </member>
+        <member name="M:FluentFTP.FtpClient.DeleteDirectory(System.String)">
+            <summary>
+            Deletes the specified directory and all its contents.
+            </summary>
+            <param name="path">The full or relative path of the directory to delete</param>
+            <example><code source="..\Examples\DeleteDirectory.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.DeleteDirectory(System.String,FluentFTP.FtpListOption)">
+            <summary>
+            Deletes the specified directory and all its contents.
+            </summary>
+            <param name="path">The full or relative path of the directory to delete</param>
+            <param name="options">Useful to delete hidden files or dot-files.</param>
+            <example><code source="..\Examples\DeleteDirectory.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.DeleteDirInternal(System.String,System.Boolean,FluentFTP.FtpListOption)">
+            <summary>
+            Deletes the specified directory and all its contents.
+            </summary>
+            <param name="path">The full or relative path of the directory to delete</param>
+            <param name="deleteContents">If the directory is not empty, remove its contents</param>
+            <param name="options">Useful to delete hidden files or dot-files.</param>
+            <example><code source="..\Examples\DeleteDirectory.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.WasGetListingRecursive(FluentFTP.FtpListOption)">
+            <summary>
+            Checks whether <see cref="o:GetListing"/> will be called recursively or not.
+            </summary>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FluentFTP.FtpClient.BeginDeleteDirectory(System.String,System.AsyncCallback,System.Object)">
+            <summary>
+            Begins an asynchronous operation to delete the specified directory and all its contents.
+            </summary>
+            <param name="path">The full or relative path of the directory to delete</param>
+            <param name="callback">Async callback</param>
+            <param name="state">State object</param>
+            <returns>IAsyncResult</returns>
+            <example><code source="..\Examples\BeginDeleteDirectory.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.BeginDeleteDirectory(System.String,FluentFTP.FtpListOption,System.AsyncCallback,System.Object)">
+            <summary>
+            Begins an asynchronous operation to delete the specified directory and all its contents.
+            </summary>
+            <param name="path">The full or relative path of the directory to delete</param>
+            <param name="options">Useful to delete hidden files or dot-files.</param>
+            <param name="callback">Async callback</param>
+            <param name="state">State object</param>
+            <returns>IAsyncResult</returns>
+            <example><code source="..\Examples\BeginDeleteDirectory.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.EndDeleteDirectory(System.IAsyncResult)">
+            <summary>
+            Ends a call to <see cref="o:BeginDeleteDirectory"/>
+            </summary>
+            <param name="ar">IAsyncResult returned from BeginDeleteDirectory</param>
+            <example><code source="..\Examples\BeginDeleteDirectory.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.DirectoryExists(System.String)">
+            <summary>
+            Tests if the specified directory exists on the server. This
+            method works by trying to change the working directory to
+            the path specified. If it succeeds, the directory is changed
+            back to the old working directory and true is returned. False
+            is returned otherwise and since the CWD failed it is assumed
+            the working directory is still the same.
+            </summary>
+            <param name="path">The path of the directory</param>
+            <returns>True if it exists, false otherwise.</returns>
+            <example><code source="..\Examples\DirectoryExists.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.BeginDirectoryExists(System.String,System.AsyncCallback,System.Object)">
+            <summary>
+            Begins an asynchronous operation to test if the specified directory exists on the server. 
+            This method works by trying to change the working directory to
+            the path specified. If it succeeds, the directory is changed
+            back to the old working directory and true is returned. False
+            is returned otherwise and since the CWD failed it is assumed
+            the working directory is still the same.
+            </summary>
+            <returns>IAsyncResult</returns>
+            <param name='path'>The full or relative path of the directory to check for</param>
+            <param name='callback'>Async callback</param>
+            <param name='state'>State object</param>
+            <example><code source="..\Examples\BeginDirectoryExists.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.EndDirectoryExists(System.IAsyncResult)">
+            <summary>
+            Ends a call to <see cref="M:FluentFTP.FtpClient.BeginDirectoryExists(System.String,System.AsyncCallback,System.Object)"/>
+            </summary>
+            <param name="ar">IAsyncResult returned from BeginDirectoryExists</param>
+            <returns>True if the directory exists. False otherwise.</returns>
+            <example><code source="..\Examples\BeginDirectoryExists.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.CreateDirectory(System.String)">
+            <summary>
+            Creates a directory on the server. If the preceding
+            directories do not exist, then they are created.
+            </summary>
+            <param name="path">The full or relative path to the new remote directory</param>
+            <example><code source="..\Examples\CreateDirectory.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.CreateDirectory(System.String,System.Boolean)">
+            <summary>
+            Creates a directory on the server
+            </summary>
+            <param name="path">The full or relative path to the new remote directory</param>
+            <param name="force">Try to force all non-existent pieces of the path to be created</param>
+            <example><code source="..\Examples\CreateDirectory.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.BeginCreateDirectory(System.String,System.AsyncCallback,System.Object)">
+            <summary>
+            Begins an asynchronous operation to create a remote directory. If the preceding
+            directories do not exist, then they are created.
+            </summary>
+            <param name="path">The full or relative path to the new remote directory</param>
+            <param name="callback">Async callback</param>
+            <param name="state">State object</param>
+            <returns>IAsyncResult</returns>
+            <example><code source="..\Examples\BeginCreateDirectory.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.BeginCreateDirectory(System.String,System.Boolean,System.AsyncCallback,System.Object)">
+            <summary>
+            Begins an asynchronous operation to create a remote directory
+            </summary>
+            <param name="path">The full or relative path to the new remote directory</param>
+            <param name="force">Try to create the whole path if the preceding directories do not exist</param>
+            <param name="callback">Async callback</param>
+            <param name="state">State object</param>
+            <returns>IAsyncResult</returns>
+            <example><code source="..\Examples\BeginCreateDirectory.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.EndCreateDirectory(System.IAsyncResult)">
+            <summary>
+            Ends a call to <see cref="o:BeginCreateDirectory"/>
+            </summary>
+            <param name="ar">IAsyncResult returned from <see cref="o:BeginCreateDirectory"/></param>
+            <example><code source="..\Examples\BeginCreateDirectory.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.MoveDirectory(System.String,System.String,FluentFTP.FtpExists)">
+            <summary>
+            Moves a directory on the remote file system from one directory to another.
+            Always checks if the source directory exists. Checks if the dest directory exists based on the `existsMode` parameter.
+            Only throws exceptions for critical errors.
+            </summary>
+            <param name="path">The full or relative path to the object</param>
+            <param name="dest">The new full or relative path including the new name of the object</param>
+            <param name="existsMode">Should we check if the dest directory exists? And if it does should we overwrite/skip the operation?</param>
+            <returns>Whether the directory was moved</returns>
+        </member>
+        <member name="M:FluentFTP.FtpClient.BeginMoveDirectory(System.String,System.String,FluentFTP.FtpExists,System.AsyncCallback,System.Object)">
+            <summary>
+            Begins an asynchronous operation to move a directory on the remote file system, from one directory to another.
+            Always checks if the source directory exists. Checks if the dest directory exists based on the `existsMode` parameter.
+            Only throws exceptions for critical errors.
+            </summary>
+            <param name="path">The full or relative path to the object</param>
+            <param name="dest">The new full or relative path including the new name of the object</param>
+            <param name="existsMode">Should we check if the dest directory exists? And if it does should we overwrite/skip the operation?</param>
+            <param name="callback">Async callback</param>
+            <param name="state">State object</param>
+            <returns>IAsyncResult</returns>
+        </member>
+        <member name="M:FluentFTP.FtpClient.EndMoveDirectory(System.IAsyncResult)">
+            <summary>
+            Ends a call to <see cref="M:FluentFTP.FtpClient.BeginMoveDirectory(System.String,System.String,FluentFTP.FtpExists,System.AsyncCallback,System.Object)"/>
+            </summary>
+            <param name="ar">IAsyncResult returned from <see cref="M:FluentFTP.FtpClient.BeginMoveDirectory(System.String,System.String,FluentFTP.FtpExists,System.AsyncCallback,System.Object)"/></param>
+        </member>
+        <member name="M:FluentFTP.FtpClient.SetWorkingDirectory(System.String)">
+            <summary>
+            Sets the work directory on the server
+            </summary>
+            <param name="path">The path of the directory to change to</param>
+            <example><code source="..\Examples\SetWorkingDirectory.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.BeginSetWorkingDirectory(System.String,System.AsyncCallback,System.Object)">
+            <summary>
+            Begins an asynchronous operation to set the working directory on the server
+            </summary>
+            <param name="path">The directory to change to</param>
+            <param name="callback">Async Callback</param>
+            <param name="state">State object</param>
+            <returns>IAsyncResult</returns>
+            <example><code source="..\Examples\BeginSetWorkingDirectory.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.EndSetWorkingDirectory(System.IAsyncResult)">
+            <summary>
+            Ends a call to <see cref="M:FluentFTP.FtpClient.BeginSetWorkingDirectory(System.String,System.AsyncCallback,System.Object)"/>
+            </summary>
+            <param name="ar">IAsyncResult returned from <see cref="M:FluentFTP.FtpClient.BeginSetWorkingDirectory(System.String,System.AsyncCallback,System.Object)"/></param>
+            <example><code source="..\Examples\BeginSetWorkingDirectory.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.GetWorkingDirectory">
+            <summary>
+            Gets the current working directory
+            </summary>
+            <returns>The current working directory, ./ if the response couldn't be parsed.</returns>
+            <example><code source="..\Examples\GetWorkingDirectory.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.BeginGetWorkingDirectory(System.AsyncCallback,System.Object)">
+            <summary>
+            Begins an asynchronous operation to get the working directory
+            </summary>
+            <param name="callback">Async callback</param>
+            <param name="state">State object</param>
+            <returns>IAsyncResult</returns>
+            <example><code source="..\Examples\BeginGetWorkingDirectory.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.EndGetWorkingDirectory(System.IAsyncResult)">
+            <summary>
+            Ends a call to <see cref="M:FluentFTP.FtpClient.BeginGetWorkingDirectory(System.AsyncCallback,System.Object)"/>
+            </summary>
+            <param name="ar">IAsyncResult returned from <see cref="M:FluentFTP.FtpClient.BeginGetWorkingDirectory(System.AsyncCallback,System.Object)"/></param>
+            <returns>The current working directory</returns>
+            <example><code source="..\Examples\BeginGetWorkingDirectory.cs" lang="cs" /></example>
         </member>
         <member name="M:FluentFTP.FtpClient.GetHashAlgorithm">
             <summary>
@@ -593,6 +1069,80 @@
             <param name="ar">IAsyncResult returned from <see cref="M:FluentFTP.FtpClient.BeginGetXSHA512(System.String,System.AsyncCallback,System.Object)"/></param>
             <returns>The SHA-512 hash of the specified file.</returns>
         </member>
+        <member name="M:FluentFTP.FtpClient.ReportProgress(IProgress{FluentFTP.FtpProgress},System.Int64,System.Int64,System.Int64,System.TimeSpan)">
+            <summary>
+            Sends progress to the user, either a value between 0-100 indicating percentage complete, or -1 for indeterminate.
+            </summary>
+        </member>
+        <member name="M:FluentFTP.FtpClient.DownloadFiles(System.String,System.Collections.Generic.IEnumerable{System.String},FluentFTP.FtpLocalExists,FluentFTP.FtpVerify,FluentFTP.FtpError)">
+            <summary>
+            Downloads the specified files into a local single directory.
+            High-level API that takes care of various edge cases internally.
+            Supports very large files since it downloads data in chunks.
+            Same speed as <see cref="o:DownloadFile"/>.
+            </summary>
+            <param name="localDir">The full or relative path to the directory that files will be downloaded into.</param>
+            <param name="remotePaths">The full or relative paths to the files on the server</param>
+            <param name="existsMode">If the file exists on disk, should we skip it, resume the download or restart the download?</param>
+            <param name="verifyOptions">Sets if checksum verification is required for a successful download and what to do if it fails verification (See Remarks)</param>
+            <param name="errorHandling">Used to determine how errors are handled</param>
+            <returns>The count of how many files were downloaded successfully. When existing files are skipped, they are not counted.</returns>
+            <remarks>
+            If verification is enabled (All options other than <see cref="F:FluentFTP.FtpVerify.None"/>) the hash will be checked against the server.  If the server does not support
+            any hash algorithm, then verification is ignored.  If only <see cref="F:FluentFTP.FtpVerify.OnlyChecksum"/> is set then the return of this method depends on both a successful 
+            upload &amp; verification.  Additionally, if any verify option is set and a retry is attempted then overwrite will automatically switch to true for subsequent attempts.
+            If <see cref="F:FluentFTP.FtpVerify.Throw"/> is set and <see cref="F:FluentFTP.FtpError.Throw"/> is <i>not set</i>, then individual verification errors will not cause an exception
+            to propagate from this method.
+            </remarks>
+        </member>
+        <member name="M:FluentFTP.FtpClient.DownloadFile(System.String,System.String,FluentFTP.FtpLocalExists,FluentFTP.FtpVerify,IProgress{FluentFTP.FtpProgress})">
+            <summary>
+            Downloads the specified file onto the local file system.
+            High-level API that takes care of various edge cases internally.
+            Supports very large files since it downloads data in chunks.
+            </summary>
+            <param name="localPath">The full or relative path to the file on the local file system</param>
+            <param name="remotePath">The full or relative path to the file on the server</param>
+            <param name="existsMode">If the file exists on disk, should we skip it, resume the download or restart the download?</param>
+            <param name="verifyOptions">Sets if checksum verification is required for a successful download and what to do if it fails verification (See Remarks)</param>
+            <param name="progress">Provide an implementation of IProgress to track download progress. The value provided is in the range 0 to 100, indicating the percentage of the file transferred. If the progress is indeterminate, -1 is sent.</param>
+            <returns>If true then the file was downloaded, false otherwise.</returns>
+            <remarks>
+            If verification is enabled (All options other than <see cref="F:FluentFTP.FtpVerify.None"/>) the hash will be checked against the server.  If the server does not support
+            any hash algorithm, then verification is ignored.  If only <see cref="F:FluentFTP.FtpVerify.OnlyChecksum"/> is set then the return of this method depends on both a successful 
+            upload &amp; verification.  Additionally, if any verify option is set and a retry is attempted then overwrite will automatically be set to true for subsequent attempts.
+            </remarks>
+        </member>
+        <member name="M:FluentFTP.FtpClient.Download(System.IO.Stream,System.String,System.Int64,IProgress{FluentFTP.FtpProgress})">
+            <summary>
+            Downloads the specified file into the specified stream.
+            High-level API that takes care of various edge cases internally.
+            Supports very large files since it downloads data in chunks.
+            </summary>
+            <param name="outStream">The stream that the file will be written to. Provide a new MemoryStream if you only want to read the file into memory.</param>
+            <param name="remotePath">The full or relative path to the file on the server</param>
+            <param name="restartPosition">The size of the existing file in bytes, or 0 if unknown. The download restarts from this byte index.</param>
+            <param name="progress">Provide an implementation of IProgress to track download progress. The value provided is in the range 0 to 100, indicating the percentage of the file transferred. If the progress is indeterminate, -1 is sent.</param>
+            <returns>If true then the file was downloaded, false otherwise.</returns>
+        </member>
+        <member name="M:FluentFTP.FtpClient.Download(System.Byte[]@,System.String,System.Int64,IProgress{FluentFTP.FtpProgress})">
+            <summary>
+            Downloads the specified file and return the raw byte array.
+            High-level API that takes care of various edge cases internally.
+            Supports very large files since it downloads data in chunks.
+            </summary>
+            <param name="outBytes">The variable that will receive the bytes.</param>
+            <param name="remotePath">The full or relative path to the file on the server</param>
+            <param name="restartPosition">The size of the existing file in bytes, or 0 if unknown. The download restarts from this byte index.</param>
+            <param name="progress">Provide an implementation of IProgress to track download progress. The value provided is in the range 0 to 100, indicating the percentage of the file transferred. If the progress is indeterminate, -1 is sent.</param>
+            <returns>If true then the file was downloaded, false otherwise.</returns>
+        </member>
+        <member name="M:FluentFTP.FtpClient.DownloadFileInternal(System.String,System.IO.Stream,System.Int64,IProgress{FluentFTP.FtpProgress})">
+            <summary>
+            Download a file from the server and write the data into the given stream.
+            Reads data in chunks. Retries if server disconnects midway.
+            </summary>
+        </member>
         <member name="M:FluentFTP.FtpClient.UploadFiles(System.Collections.Generic.IEnumerable{System.String},System.String,FluentFTP.FtpExists,System.Boolean,FluentFTP.FtpVerify,FluentFTP.FtpError)">
             <summary>
             Uploads the given file paths to a single folder on the server.
@@ -636,27 +1186,6 @@
             If verification is enabled (All options other than <see cref="F:FluentFTP.FtpVerify.None"/>) the hash will be checked against the server.  If the server does not support
             any hash algorithm, then verification is ignored.  If only <see cref="F:FluentFTP.FtpVerify.OnlyChecksum"/> is set then the return of this method depends on both a successful 
             upload &amp; verification.  Additionally, if any verify option is set and a retry is attempted the existsMode will automatically be set to <see cref="F:FluentFTP.FtpExists.Overwrite"/>.
-            If <see cref="F:FluentFTP.FtpVerify.Throw"/> is set and <see cref="F:FluentFTP.FtpError.Throw"/> is <i>not set</i>, then individual verification errors will not cause an exception
-            to propagate from this method.
-            </remarks>
-        </member>
-        <member name="M:FluentFTP.FtpClient.DownloadFiles(System.String,System.Collections.Generic.IEnumerable{System.String},FluentFTP.FtpLocalExists,FluentFTP.FtpVerify,FluentFTP.FtpError)">
-            <summary>
-            Downloads the specified files into a local single directory.
-            High-level API that takes care of various edge cases internally.
-            Supports very large files since it downloads data in chunks.
-            Same speed as <see cref="o:DownloadFile"/>.
-            </summary>
-            <param name="localDir">The full or relative path to the directory that files will be downloaded into.</param>
-            <param name="remotePaths">The full or relative paths to the files on the server</param>
-            <param name="existsMode">If the file exists on disk, should we skip it, resume the download or restart the download?</param>
-            <param name="verifyOptions">Sets if checksum verification is required for a successful download and what to do if it fails verification (See Remarks)</param>
-            <param name="errorHandling">Used to determine how errors are handled</param>
-            <returns>The count of how many files were downloaded successfully. When existing files are skipped, they are not counted.</returns>
-            <remarks>
-            If verification is enabled (All options other than <see cref="F:FluentFTP.FtpVerify.None"/>) the hash will be checked against the server.  If the server does not support
-            any hash algorithm, then verification is ignored.  If only <see cref="F:FluentFTP.FtpVerify.OnlyChecksum"/> is set then the return of this method depends on both a successful 
-            upload &amp; verification.  Additionally, if any verify option is set and a retry is attempted then overwrite will automatically switch to true for subsequent attempts.
             If <see cref="F:FluentFTP.FtpVerify.Throw"/> is set and <see cref="F:FluentFTP.FtpError.Throw"/> is <i>not set</i>, then individual verification errors will not cause an exception
             to propagate from this method.
             </remarks>
@@ -711,59 +1240,6 @@
             <summary>
             Upload the given stream to the server as a new file. Overwrites the file if it exists.
             Writes data in chunks. Retries if server disconnects midway.
-            </summary>
-        </member>
-        <member name="M:FluentFTP.FtpClient.DownloadFile(System.String,System.String,FluentFTP.FtpLocalExists,FluentFTP.FtpVerify,IProgress{FluentFTP.FtpProgress})">
-            <summary>
-            Downloads the specified file onto the local file system.
-            High-level API that takes care of various edge cases internally.
-            Supports very large files since it downloads data in chunks.
-            </summary>
-            <param name="localPath">The full or relative path to the file on the local file system</param>
-            <param name="remotePath">The full or relative path to the file on the server</param>
-            <param name="existsMode">If the file exists on disk, should we skip it, resume the download or restart the download?</param>
-            <param name="verifyOptions">Sets if checksum verification is required for a successful download and what to do if it fails verification (See Remarks)</param>
-            <param name="progress">Provide an implementation of IProgress to track download progress. The value provided is in the range 0 to 100, indicating the percentage of the file transferred. If the progress is indeterminate, -1 is sent.</param>
-            <returns>If true then the file was downloaded, false otherwise.</returns>
-            <remarks>
-            If verification is enabled (All options other than <see cref="F:FluentFTP.FtpVerify.None"/>) the hash will be checked against the server.  If the server does not support
-            any hash algorithm, then verification is ignored.  If only <see cref="F:FluentFTP.FtpVerify.OnlyChecksum"/> is set then the return of this method depends on both a successful 
-            upload &amp; verification.  Additionally, if any verify option is set and a retry is attempted then overwrite will automatically be set to true for subsequent attempts.
-            </remarks>
-        </member>
-        <member name="M:FluentFTP.FtpClient.Download(System.IO.Stream,System.String,System.Int64,IProgress{FluentFTP.FtpProgress})">
-            <summary>
-            Downloads the specified file into the specified stream.
-            High-level API that takes care of various edge cases internally.
-            Supports very large files since it downloads data in chunks.
-            </summary>
-            <param name="outStream">The stream that the file will be written to. Provide a new MemoryStream if you only want to read the file into memory.</param>
-            <param name="remotePath">The full or relative path to the file on the server</param>
-            <param name="restartPosition">The size of the existing file in bytes, or 0 if unknown. The download restarts from this byte index.</param>
-            <param name="progress">Provide an implementation of IProgress to track download progress. The value provided is in the range 0 to 100, indicating the percentage of the file transferred. If the progress is indeterminate, -1 is sent.</param>
-            <returns>If true then the file was downloaded, false otherwise.</returns>
-        </member>
-        <member name="M:FluentFTP.FtpClient.Download(System.Byte[]@,System.String,System.Int64,IProgress{FluentFTP.FtpProgress})">
-            <summary>
-            Downloads the specified file and return the raw byte array.
-            High-level API that takes care of various edge cases internally.
-            Supports very large files since it downloads data in chunks.
-            </summary>
-            <param name="outBytes">The variable that will receive the bytes.</param>
-            <param name="remotePath">The full or relative path to the file on the server</param>
-            <param name="restartPosition">The size of the existing file in bytes, or 0 if unknown. The download restarts from this byte index.</param>
-            <param name="progress">Provide an implementation of IProgress to track download progress. The value provided is in the range 0 to 100, indicating the percentage of the file transferred. If the progress is indeterminate, -1 is sent.</param>
-            <returns>If true then the file was downloaded, false otherwise.</returns>
-        </member>
-        <member name="M:FluentFTP.FtpClient.DownloadFileInternal(System.String,System.IO.Stream,System.Int64,IProgress{FluentFTP.FtpProgress})">
-            <summary>
-            Download a file from the server and write the data into the given stream.
-            Reads data in chunks. Retries if server disconnects midway.
-            </summary>
-        </member>
-        <member name="M:FluentFTP.FtpClient.ReportProgress(IProgress{FluentFTP.FtpProgress},System.Int64,System.Int64,System.Int64,System.TimeSpan)">
-            <summary>
-            Sends progress to the user, either a value between 0-100 indicating percentage complete, or -1 for indeterminate.
             </summary>
         </member>
         <member name="M:FluentFTP.FtpClient.GetObjectInfo(System.String,System.Boolean)">
@@ -846,6 +1322,11 @@
             <param name="options">Options that dictacte how a list is performed and what information is gathered.</param>
             <returns>An array of FtpListItem objects</returns>
             <example><code source="..\Examples\GetListing.cs" lang="cs" /></example>
+        </member>
+        <member name="M:FluentFTP.FtpClient.GetListingInternal(System.String,System.Boolean)">
+            <summary>
+            Get the records of a file listing and retry if temporary failure.
+            </summary>
         </member>
         <member name="M:FluentFTP.FtpClient.BeginGetListing(System.AsyncCallback,System.Object)">
             <summary>
@@ -1269,7 +1750,7 @@
             </summary>
             <param name="type">ASCII/Binary</param>
         </member>
-        <member name="M:FluentFTP.FtpClient.SetDataTypeInternal(FluentFTP.FtpDataType)">
+        <member name="M:FluentFTP.FtpClient.SetDataTypeNoLock(FluentFTP.FtpDataType)">
             <summary>Internal method that handles actually setting the data type.</summary>
             <exception cref="T:FluentFTP.FtpCommandException">Thrown when a FTP Command error condition occurs.</exception>
             <exception cref="T:FluentFTP.FtpException">Thrown when a FTP error condition occurs.</exception>
@@ -1291,541 +1772,29 @@
             </summary>
             <param name="ar">IAsyncResult returned from <see cref="M:FluentFTP.FtpClient.BeginSetDataType(FluentFTP.FtpDataType,System.AsyncCallback,System.Object)"/></param>
         </member>
-        <member name="M:FluentFTP.FtpClient.DeleteFile(System.String)">
+        <member name="F:FluentFTP.FtpClient._EPSVNotSupported">
             <summary>
-            Deletes a file on the server
+            Used to improve performance of OpenPassiveDataStream.
+            Enhanced-passive mode is tried once, and if not supported, is not tried again.
             </summary>
-            <param name="path">The full or relative path to the file</param>
-            <example><code source="..\Examples\DeleteFile.cs" lang="cs" /></example>
         </member>
-        <member name="M:FluentFTP.FtpClient.BeginDeleteFile(System.String,System.AsyncCallback,System.Object)">
+        <member name="F:FluentFTP.FtpClient._FileSizeASCIINotSupported">
             <summary>
-            Begins an asynchronous operation to delete the specified file on the server
+            Used to improve performance of GetFileSize.
+            SIZE command is tried, and if the server cannot send it in ASCII mode, we switch to binary each time you call GetFileSize.
+            However most servers will support ASCII, so we can get the file size without switching to binary, improving performance.
             </summary>
-            <param name="path">The full or relative path to the file</param>
-            <param name="callback">Async callback</param>
-            <param name="state">State object</param>
-            <returns>IAsyncResult</returns>
-            <example><code source="..\Examples\BeginDeleteFile.cs" lang="cs" /></example>
         </member>
-        <member name="M:FluentFTP.FtpClient.EndDeleteFile(System.IAsyncResult)">
+        <member name="M:FluentFTP.FtpClient.ResetStateFlags">
             <summary>
-            Ends a call to <see cref="M:FluentFTP.FtpClient.BeginDeleteFile(System.String,System.AsyncCallback,System.Object)"/>
+            These flags must be reset every time we connect, to allow for users to connect to
+            different FTP servers with the same client object.
             </summary>
-            <param name="ar">IAsyncResult returned from BeginDeleteFile</param>
-            <example><code source="..\Examples\BeginDeleteFile.cs" lang="cs" /></example>
         </member>
-        <member name="M:FluentFTP.FtpClient.DeleteDirectory(System.String)">
+        <member name="M:FluentFTP.FtpClient.CopyStateFlags(FluentFTP.FtpClient)">
             <summary>
-            Deletes the specified directory and all its contents.
+            These flags must be copied when we quickly clone the connection.
             </summary>
-            <param name="path">The full or relative path of the directory to delete</param>
-            <example><code source="..\Examples\DeleteDirectory.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.DeleteDirectory(System.String,FluentFTP.FtpListOption)">
-            <summary>
-            Deletes the specified directory and all its contents.
-            </summary>
-            <param name="path">The full or relative path of the directory to delete</param>
-            <param name="options">Useful to delete hidden files or dot-files.</param>
-            <example><code source="..\Examples\DeleteDirectory.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.DeleteDirInternal(System.String,System.Boolean,FluentFTP.FtpListOption)">
-            <summary>
-            Deletes the specified directory and all its contents.
-            </summary>
-            <param name="path">The full or relative path of the directory to delete</param>
-            <param name="deleteContents">If the directory is not empty, remove its contents</param>
-            <param name="options">Useful to delete hidden files or dot-files.</param>
-            <example><code source="..\Examples\DeleteDirectory.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.WasGetListingRecursive(FluentFTP.FtpListOption)">
-            <summary>
-            Checks whether <see cref="o:GetListing"/> will be called recursively or not.
-            </summary>
-            <param name="options"></param>
-            <returns></returns>
-        </member>
-        <member name="M:FluentFTP.FtpClient.BeginDeleteDirectory(System.String,System.AsyncCallback,System.Object)">
-            <summary>
-            Begins an asynchronous operation to delete the specified directory and all its contents.
-            </summary>
-            <param name="path">The full or relative path of the directory to delete</param>
-            <param name="callback">Async callback</param>
-            <param name="state">State object</param>
-            <returns>IAsyncResult</returns>
-            <example><code source="..\Examples\BeginDeleteDirectory.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.BeginDeleteDirectory(System.String,FluentFTP.FtpListOption,System.AsyncCallback,System.Object)">
-            <summary>
-            Begins an asynchronous operation to delete the specified directory and all its contents.
-            </summary>
-            <param name="path">The full or relative path of the directory to delete</param>
-            <param name="options">Useful to delete hidden files or dot-files.</param>
-            <param name="callback">Async callback</param>
-            <param name="state">State object</param>
-            <returns>IAsyncResult</returns>
-            <example><code source="..\Examples\BeginDeleteDirectory.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.EndDeleteDirectory(System.IAsyncResult)">
-            <summary>
-            Ends a call to <see cref="o:BeginDeleteDirectory"/>
-            </summary>
-            <param name="ar">IAsyncResult returned from BeginDeleteDirectory</param>
-            <example><code source="..\Examples\BeginDeleteDirectory.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.DirectoryExists(System.String)">
-            <summary>
-            Tests if the specified directory exists on the server. This
-            method works by trying to change the working directory to
-            the path specified. If it succeeds, the directory is changed
-            back to the old working directory and true is returned. False
-            is returned otherwise and since the CWD failed it is assumed
-            the working directory is still the same.
-            </summary>
-            <param name="path">The path of the directory</param>
-            <returns>True if it exists, false otherwise.</returns>
-            <example><code source="..\Examples\DirectoryExists.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.BeginDirectoryExists(System.String,System.AsyncCallback,System.Object)">
-            <summary>
-            Begins an asynchronous operation to test if the specified directory exists on the server. 
-            This method works by trying to change the working directory to
-            the path specified. If it succeeds, the directory is changed
-            back to the old working directory and true is returned. False
-            is returned otherwise and since the CWD failed it is assumed
-            the working directory is still the same.
-            </summary>
-            <returns>IAsyncResult</returns>
-            <param name='path'>The full or relative path of the directory to check for</param>
-            <param name='callback'>Async callback</param>
-            <param name='state'>State object</param>
-            <example><code source="..\Examples\BeginDirectoryExists.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.EndDirectoryExists(System.IAsyncResult)">
-            <summary>
-            Ends a call to <see cref="M:FluentFTP.FtpClient.BeginDirectoryExists(System.String,System.AsyncCallback,System.Object)"/>
-            </summary>
-            <param name="ar">IAsyncResult returned from BeginDirectoryExists</param>
-            <returns>True if the directory exists. False otherwise.</returns>
-            <example><code source="..\Examples\BeginDirectoryExists.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.FileExists(System.String)">
-            <summary>
-            Checks if a file exists on the server.
-            </summary>
-            <param name="path">The full or relative path to the file</param>
-            <returns>True if the file exists</returns>
-            <example><code source="..\Examples\FileExists.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.BeginFileExists(System.String,System.AsyncCallback,System.Object)">
-            <summary>
-            Begins an asynchronous operation to check if a file exists on the 
-            server by taking a  file listing of the parent directory in the path
-            and comparing the results the path supplied.
-            </summary>
-            <param name="path">The full or relative path to the file</param>
-            <param name="callback">Async callback</param>
-            <param name="state">State object</param>
-            <returns>IAsyncResult</returns>
-            <example><code source="..\Examples\BeginFileExists.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.EndFileExists(System.IAsyncResult)">
-            <summary>
-            Ends a call to <see cref="o:BeginFileExists"/>
-            </summary>
-            <param name="ar">IAsyncResult returned from <see cref="o:BeginFileExists"/></param>
-            <returns>True if the file exists, false otherwise</returns>
-            <example><code source="..\Examples\BeginFileExists.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.CreateDirectory(System.String)">
-            <summary>
-            Creates a directory on the server. If the preceding
-            directories do not exist, then they are created.
-            </summary>
-            <param name="path">The full or relative path to the new remote directory</param>
-            <example><code source="..\Examples\CreateDirectory.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.CreateDirectory(System.String,System.Boolean)">
-            <summary>
-            Creates a directory on the server
-            </summary>
-            <param name="path">The full or relative path to the new remote directory</param>
-            <param name="force">Try to force all non-existent pieces of the path to be created</param>
-            <example><code source="..\Examples\CreateDirectory.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.BeginCreateDirectory(System.String,System.AsyncCallback,System.Object)">
-            <summary>
-            Begins an asynchronous operation to create a remote directory. If the preceding
-            directories do not exist, then they are created.
-            </summary>
-            <param name="path">The full or relative path to the new remote directory</param>
-            <param name="callback">Async callback</param>
-            <param name="state">State object</param>
-            <returns>IAsyncResult</returns>
-            <example><code source="..\Examples\BeginCreateDirectory.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.BeginCreateDirectory(System.String,System.Boolean,System.AsyncCallback,System.Object)">
-            <summary>
-            Begins an asynchronous operation to create a remote directory
-            </summary>
-            <param name="path">The full or relative path to the new remote directory</param>
-            <param name="force">Try to create the whole path if the preceding directories do not exist</param>
-            <param name="callback">Async callback</param>
-            <param name="state">State object</param>
-            <returns>IAsyncResult</returns>
-            <example><code source="..\Examples\BeginCreateDirectory.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.EndCreateDirectory(System.IAsyncResult)">
-            <summary>
-            Ends a call to <see cref="o:BeginCreateDirectory"/>
-            </summary>
-            <param name="ar">IAsyncResult returned from <see cref="o:BeginCreateDirectory"/></param>
-            <example><code source="..\Examples\BeginCreateDirectory.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.Rename(System.String,System.String)">
-            <summary>
-            Renames an object on the remote file system.
-            Low level method that should NOT be used in most cases. Prefer MoveFile() and MoveDirectory().
-            Throws exceptions if the file does not exist, or if the destination file already exists.
-            </summary>
-            <param name="path">The full or relative path to the object</param>
-            <param name="dest">The new full or relative path including the new name of the object</param>
-            <example><code source="..\Examples\Rename.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.BeginRename(System.String,System.String,System.AsyncCallback,System.Object)">
-            <summary>
-            Begins an asynchronous operation to rename an object on the remote file system.
-            Low level method that should NOT be used in most cases. Prefer MoveFile() and MoveDirectory().
-            Throws exceptions if the file does not exist, or if the destination file already exists.
-            </summary>
-            <param name="path">The full or relative path to the object</param>
-            <param name="dest">The new full or relative path including the new name of the object</param>
-            <param name="callback">Async callback</param>
-            <param name="state">State object</param>
-            <returns>IAsyncResult</returns>
-            <example><code source="..\Examples\BeginRename.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.EndRename(System.IAsyncResult)">
-            <summary>
-            Ends a call to <see cref="M:FluentFTP.FtpClient.BeginRename(System.String,System.String,System.AsyncCallback,System.Object)"/>
-            </summary>
-            <param name="ar">IAsyncResult returned from <see cref="M:FluentFTP.FtpClient.BeginRename(System.String,System.String,System.AsyncCallback,System.Object)"/></param>
-            <example><code source="..\Examples\BeginRename.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.MoveFile(System.String,System.String,FluentFTP.FtpExists)">
-            <summary>
-            Moves a file on the remote file system from one directory to another.
-            Always checks if the source file exists. Checks if the dest file exists based on the `existsMode` parameter.
-            Only throws exceptions for critical errors.
-            </summary>
-            <param name="path">The full or relative path to the object</param>
-            <param name="dest">The new full or relative path including the new name of the object</param>
-            <param name="existsMode">Should we check if the dest file exists? And if it does should we overwrite/skip the operation?</param>
-            <returns>Whether the file was moved</returns>
-        </member>
-        <member name="M:FluentFTP.FtpClient.BeginMoveFile(System.String,System.String,FluentFTP.FtpExists,System.AsyncCallback,System.Object)">
-            <summary>
-            Begins an asynchronous operation to move a file on the remote file system, from one directory to another.
-            Always checks if the source file exists. Checks if the dest file exists based on the `existsMode` parameter.
-            Only throws exceptions for critical errors.
-            </summary>
-            <param name="path">The full or relative path to the object</param>
-            <param name="dest">The new full or relative path including the new name of the object</param>
-            <param name="existsMode">Should we check if the dest file exists? And if it does should we overwrite/skip the operation?</param>
-            <param name="callback">Async callback</param>
-            <param name="state">State object</param>
-            <returns>IAsyncResult</returns>
-        </member>
-        <member name="M:FluentFTP.FtpClient.EndMoveFile(System.IAsyncResult)">
-            <summary>
-            Ends a call to <see cref="M:FluentFTP.FtpClient.BeginMoveFile(System.String,System.String,FluentFTP.FtpExists,System.AsyncCallback,System.Object)"/>
-            </summary>
-            <param name="ar">IAsyncResult returned from <see cref="M:FluentFTP.FtpClient.BeginMoveFile(System.String,System.String,FluentFTP.FtpExists,System.AsyncCallback,System.Object)"/></param>
-        </member>
-        <member name="M:FluentFTP.FtpClient.MoveDirectory(System.String,System.String,FluentFTP.FtpExists)">
-            <summary>
-            Moves a directory on the remote file system from one directory to another.
-            Always checks if the source directory exists. Checks if the dest directory exists based on the `existsMode` parameter.
-            Only throws exceptions for critical errors.
-            </summary>
-            <param name="path">The full or relative path to the object</param>
-            <param name="dest">The new full or relative path including the new name of the object</param>
-            <param name="existsMode">Should we check if the dest directory exists? And if it does should we overwrite/skip the operation?</param>
-            <returns>Whether the directory was moved</returns>
-        </member>
-        <member name="M:FluentFTP.FtpClient.BeginMoveDirectory(System.String,System.String,FluentFTP.FtpExists,System.AsyncCallback,System.Object)">
-            <summary>
-            Begins an asynchronous operation to move a directory on the remote file system, from one directory to another.
-            Always checks if the source directory exists. Checks if the dest directory exists based on the `existsMode` parameter.
-            Only throws exceptions for critical errors.
-            </summary>
-            <param name="path">The full or relative path to the object</param>
-            <param name="dest">The new full or relative path including the new name of the object</param>
-            <param name="existsMode">Should we check if the dest directory exists? And if it does should we overwrite/skip the operation?</param>
-            <param name="callback">Async callback</param>
-            <param name="state">State object</param>
-            <returns>IAsyncResult</returns>
-        </member>
-        <member name="M:FluentFTP.FtpClient.EndMoveDirectory(System.IAsyncResult)">
-            <summary>
-            Ends a call to <see cref="M:FluentFTP.FtpClient.BeginMoveDirectory(System.String,System.String,FluentFTP.FtpExists,System.AsyncCallback,System.Object)"/>
-            </summary>
-            <param name="ar">IAsyncResult returned from <see cref="M:FluentFTP.FtpClient.BeginMoveDirectory(System.String,System.String,FluentFTP.FtpExists,System.AsyncCallback,System.Object)"/></param>
-        </member>
-        <member name="M:FluentFTP.FtpClient.SetFilePermissions(System.String,System.Int32)">
-            <summary>
-            Modify the permissions of the given file/folder.
-            Only works on *NIX systems, and not on Windows/IIS servers.
-            Only works if the FTP server supports the SITE CHMOD command
-            (requires the CHMOD extension to be installed and enabled).
-            Throws FtpCommandException if there is an issue.
-            </summary>
-            <param name="path">The full or relative path to the item</param>
-            <param name="permissions">The permissions in CHMOD format</param>
-        </member>
-        <member name="M:FluentFTP.FtpClient.Chmod(System.String,System.Int32)">
-            <summary>
-            Modify the permissions of the given file/folder.
-            Only works on *NIX systems, and not on Windows/IIS servers.
-            Only works if the FTP server supports the SITE CHMOD command
-            (requires the CHMOD extension to be installed and enabled).
-            Throws FtpCommandException if there is an issue.
-            </summary>
-            <param name="path">The full or relative path to the item</param>
-            <param name="permissions">The permissions in CHMOD format</param>
-        </member>
-        <member name="M:FluentFTP.FtpClient.SetFilePermissions(System.String,FluentFTP.FtpPermission,FluentFTP.FtpPermission,FluentFTP.FtpPermission)">
-            <summary>
-            Modify the permissions of the given file/folder.
-            Only works on *NIX systems, and not on Windows/IIS servers.
-            Only works if the FTP server supports the SITE CHMOD command
-            (requires the CHMOD extension to be installed and enabled).
-            Throws FtpCommandException if there is an issue.
-            </summary>
-            <param name="path">The full or relative path to the item</param>
-            <param name="owner">The owner permissions</param>
-            <param name="group">The group permissions</param>
-            <param name="other">The other permissions</param>
-        </member>
-        <member name="M:FluentFTP.FtpClient.Chmod(System.String,FluentFTP.FtpPermission,FluentFTP.FtpPermission,FluentFTP.FtpPermission)">
-            <summary>
-            Modify the permissions of the given file/folder.
-            Only works on *NIX systems, and not on Windows/IIS servers.
-            Only works if the FTP server supports the SITE CHMOD command
-            (requires the CHMOD extension to be installed and enabled).
-            Throws FtpCommandException if there is an issue.
-            </summary>
-            <param name="path">The full or relative path to the item</param>
-            <param name="owner">The owner permissions</param>
-            <param name="group">The group permissions</param>
-            <param name="other">The other permissions</param>
-        </member>
-        <member name="M:FluentFTP.FtpClient.GetFilePermissions(System.String)">
-            <summary>
-            Retrieve the permissions of the given file/folder as an FtpListItem object with all "Permission" properties set.
-            Throws FtpCommandException if there is an issue.
-            Returns null if the server did not specify a permission value.
-            Use `GetChmod` if you required the integer value instead.
-            </summary>
-            <param name="path">The full or relative path to the item</param>
-        </member>
-        <member name="M:FluentFTP.FtpClient.GetChmod(System.String)">
-            <summary>
-            Retrieve the permissions of the given file/folder as an integer in the CHMOD format.
-            Throws FtpCommandException if there is an issue.
-            Returns 0 if the server did not specify a permission value.
-            Use `GetFilePermissions` if you required the permissions in the FtpPermission format.
-            </summary>
-            <param name="path">The full or relative path to the item</param>
-        </member>
-        <member name="M:FluentFTP.FtpClient.DereferenceLink(FluentFTP.FtpListItem)">
-            <summary>
-            Recursively dereferences a symbolic link. See the
-            MaximumDereferenceCount property for controlling
-            how deep this method will recurse before giving up.
-            </summary>
-            <param name="item">The symbolic link</param>
-            <returns>FtpListItem, null if the link can't be dereferenced</returns>
-            <example><code source="..\Examples\DereferenceLink.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.DereferenceLink(FluentFTP.FtpListItem,System.Int32)">
-            <summary>
-            Recursively dereferences a symbolic link
-            </summary>
-            <param name="item">The symbolic link</param>
-            <param name="recMax">The maximum depth of recursion that can be performed before giving up.</param>
-            <returns>FtpListItem, null if the link can't be dereferenced</returns>
-            <example><code source="..\Examples\DereferenceLink.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.DereferenceLink(FluentFTP.FtpListItem,System.Int32,System.Int32@)">
-            <summary>
-            Derefence a FtpListItem object
-            </summary>
-            <param name="item">The item to derefence</param>
-            <param name="recMax">Maximum recursive calls</param>
-            <param name="count">Counter</param>
-            <returns>FtpListItem, null if the link can't be dereferenced</returns>
-            <example><code source="..\Examples\DereferenceLink.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.BeginDereferenceLink(FluentFTP.FtpListItem,System.Int32,System.AsyncCallback,System.Object)">
-            <summary>
-            Begins an asynchronous operation to dereference a <see cref="T:FluentFTP.FtpListItem"/> object
-            </summary>
-            <param name="item">The item to dereference</param>
-            <param name="recMax">Maximum recursive calls</param>
-            <param name="callback">AsyncCallback</param>
-            <param name="state">State Object</param>
-            <returns>IAsyncResult</returns>
-            <example><code source="..\Examples\BeginDereferenceLink.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.BeginDereferenceLink(FluentFTP.FtpListItem,System.AsyncCallback,System.Object)">
-            <summary>
-            Begins an asynchronous operation to dereference a <see cref="T:FluentFTP.FtpListItem"/> object. See the
-            <see cref="P:FluentFTP.FtpClient.MaximumDereferenceCount"/> property for controlling
-            how deep this method will recurse before giving up.
-            </summary>
-            <param name="item">The item to dereference</param>
-            <param name="callback">AsyncCallback</param>
-            <param name="state">State Object</param>
-            <returns>IAsyncResult</returns>
-            <example><code source="..\Examples\BeginDereferenceLink.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.EndDereferenceLink(System.IAsyncResult)">
-            <summary>
-            Ends a call to <see cref="o:BeginDereferenceLink"/>
-            </summary>
-            <param name="ar">IAsyncResult</param>
-            <returns>A <see cref="T:FluentFTP.FtpListItem"/>, or null if the link can't be dereferenced</returns>
-            <example><code source="..\Examples\BeginDereferenceLink.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.SetWorkingDirectory(System.String)">
-            <summary>
-            Sets the work directory on the server
-            </summary>
-            <param name="path">The path of the directory to change to</param>
-            <example><code source="..\Examples\SetWorkingDirectory.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.BeginSetWorkingDirectory(System.String,System.AsyncCallback,System.Object)">
-            <summary>
-            Begins an asynchronous operation to set the working directory on the server
-            </summary>
-            <param name="path">The directory to change to</param>
-            <param name="callback">Async Callback</param>
-            <param name="state">State object</param>
-            <returns>IAsyncResult</returns>
-            <example><code source="..\Examples\BeginSetWorkingDirectory.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.EndSetWorkingDirectory(System.IAsyncResult)">
-            <summary>
-            Ends a call to <see cref="M:FluentFTP.FtpClient.BeginSetWorkingDirectory(System.String,System.AsyncCallback,System.Object)"/>
-            </summary>
-            <param name="ar">IAsyncResult returned from <see cref="M:FluentFTP.FtpClient.BeginSetWorkingDirectory(System.String,System.AsyncCallback,System.Object)"/></param>
-            <example><code source="..\Examples\BeginSetWorkingDirectory.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.GetWorkingDirectory">
-            <summary>
-            Gets the current working directory
-            </summary>
-            <returns>The current working directory, ./ if the response couldn't be parsed.</returns>
-            <example><code source="..\Examples\GetWorkingDirectory.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.BeginGetWorkingDirectory(System.AsyncCallback,System.Object)">
-            <summary>
-            Begins an asynchronous operation to get the working directory
-            </summary>
-            <param name="callback">Async callback</param>
-            <param name="state">State object</param>
-            <returns>IAsyncResult</returns>
-            <example><code source="..\Examples\BeginGetWorkingDirectory.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.EndGetWorkingDirectory(System.IAsyncResult)">
-            <summary>
-            Ends a call to <see cref="M:FluentFTP.FtpClient.BeginGetWorkingDirectory(System.AsyncCallback,System.Object)"/>
-            </summary>
-            <param name="ar">IAsyncResult returned from <see cref="M:FluentFTP.FtpClient.BeginGetWorkingDirectory(System.AsyncCallback,System.Object)"/></param>
-            <returns>The current working directory</returns>
-            <example><code source="..\Examples\BeginGetWorkingDirectory.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.GetFileSize(System.String)">
-            <summary>
-            Gets the size of a remote file
-            </summary>
-            <param name="path">The full or relative path of the file</param>
-            <returns>-1 if the command fails, otherwise the file size</returns>
-            <example><code source="..\Examples\GetFileSize.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.BeginGetFileSize(System.String,System.AsyncCallback,System.Object)">
-            <summary>
-            Begins an asynchronous operation to retrieve the size of a remote file
-            </summary>
-            <param name="path">The full or relative path of the file</param>
-            <param name="callback">Async callback</param>
-            <param name="state">State object</param>
-            <returns>IAsyncResult</returns>
-            <example><code source="..\Examples\BeginGetFileSize.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.EndGetFileSize(System.IAsyncResult)">
-            <summary>
-            Ends a call to <see cref="M:FluentFTP.FtpClient.BeginGetFileSize(System.String,System.AsyncCallback,System.Object)"/>
-            </summary>
-            <param name="ar">IAsyncResult returned from <see cref="M:FluentFTP.FtpClient.BeginGetFileSize(System.String,System.AsyncCallback,System.Object)"/></param>
-            <returns>The size of the file, -1 if there was a problem.</returns>
-            <example><code source="..\Examples\BeginGetFileSize.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.GetModifiedTime(System.String,FluentFTP.FtpDate)">
-            <summary>
-            Gets the modified time of a remote file
-            </summary>
-            <param name="path">The full path to the file</param>
-            <param name="type">Return the date in local timezone or UTC?  Use FtpDate.Original to disable timezone conversion.</param>
-            <returns>The modified time, or <see cref="F:System.DateTime.MinValue"/> if there was a problem</returns>
-            <example><code source="..\Examples\GetModifiedTime.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.BeginGetModifiedTime(System.String,FluentFTP.FtpDate,System.AsyncCallback,System.Object)">
-            <summary>
-            Begins an asynchronous operation to get the modified time of a remote file
-            </summary>
-            <param name="path">The full path to the file</param>
-            <param name="type">Return the date in local timezone or UTC?  Use FtpDate.Original to disable timezone conversion.</param>
-            <param name="callback">Async callback</param>
-            <param name="state">State object</param>
-            <returns>IAsyncResult</returns>
-            <example><code source="..\Examples\BeginGetModifiedTime.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.EndGetModifiedTime(System.IAsyncResult)">
-            <summary>
-            Ends a call to <see cref="M:FluentFTP.FtpClient.BeginGetModifiedTime(System.String,FluentFTP.FtpDate,System.AsyncCallback,System.Object)"/>
-            </summary>
-            <param name="ar">IAsyncResult returned from <see cref="M:FluentFTP.FtpClient.BeginGetModifiedTime(System.String,FluentFTP.FtpDate,System.AsyncCallback,System.Object)"/></param>
-            <returns>The modified time, or <see cref="F:System.DateTime.MinValue"/> if there was a problem</returns>
-            <example><code source="..\Examples\BeginGetModifiedTime.cs" lang="cs" /></example>
-        </member>
-        <member name="M:FluentFTP.FtpClient.SetModifiedTime(System.String,System.DateTime,FluentFTP.FtpDate)">
-            <summary>
-            Changes the modified time of a remote file
-            </summary>
-            <param name="path">The full path to the file</param>
-            <param name="date">The new modified date/time value</param>
-            <param name="type">Is the date provided in local timezone or UTC? Use FtpDate.Original to disable timezone conversion.</param>
-        </member>
-        <member name="M:FluentFTP.FtpClient.BeginSetModifiedTime(System.String,System.DateTime,FluentFTP.FtpDate,System.AsyncCallback,System.Object)">
-            <summary>
-            Begins an asynchronous operation to get the modified time of a remote file
-            </summary>
-            <param name="path">The full path to the file</param>
-            <param name="date">The new modified date/time value</param>
-            <param name="type">Is the date provided in local timezone or UTC? Use FtpDate.Original to disable timezone conversion.</param>
-            <param name="callback">Async callback</param>
-            <param name="state">State object</param>
-            <returns>IAsyncResult</returns>
-        </member>
-        <member name="M:FluentFTP.FtpClient.EndSetModifiedTime(System.IAsyncResult)">
-            <summary>
-            Ends a call to <see cref="M:FluentFTP.FtpClient.BeginSetModifiedTime(System.String,System.DateTime,FluentFTP.FtpDate,System.AsyncCallback,System.Object)"/>
-            </summary>
-            <param name="ar">IAsyncResult returned from <see cref="M:FluentFTP.FtpClient.BeginSetModifiedTime(System.String,System.DateTime,FluentFTP.FtpDate,System.AsyncCallback,System.Object)"/></param>
-            <returns>The modified time, or <see cref="F:System.DateTime.MinValue"/> if there was a problem</returns>
         </member>
         <member name="F:FluentFTP.FtpClient.m_lock">
             <summary>
@@ -2040,7 +2009,7 @@
         </member>
         <member name="P:FluentFTP.FtpClient.Capabilities">
             <summary>
-            Gets the server capabilities represented by flags
+            Gets the server capabilities represented by an array of capability flags
             </summary>
         </member>
         <member name="P:FluentFTP.FtpClient.HashAlgorithms">
@@ -2211,8 +2180,21 @@
         </member>
         <member name="F:FluentFTP.FtpClient.fileNotFoundStrings">
             <summary>
-            Error messages returned by various when a file does not exist.
+            Error messages returned by various servers when a file does not exist.
             Instead of throwing an error, we use these to detect and handle the file detection properly.
+            MUST BE LOWER CASE!
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpClient.fileSizeNotInASCIIStrings">
+            <summary>
+            Error messages returned by various servers when a file size is not supported in ASCII mode.
+            MUST BE LOWER CASE!
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpClient.unexpectedEOFStrings">
+            <summary>
+            Error messages returned by various servers when a file transfer temporarily failed.
+            MUST BE LOWER CASE!
             </summary>
         </member>
         <member name="M:FluentFTP.FtpClient.Connect(System.Uri,System.Boolean)">
@@ -2237,6 +2219,76 @@
             Calculate you public internet IP using the ipify service. Returns null if cannot be calculated.
             </summary>
             <returns>Public IP Address</returns>
+        </member>
+        <member name="M:FluentFTP.FtpClient.HasFeature(FluentFTP.FtpCapability)">
+            <summary>
+            Performs a bitwise and to check if the specified
+            flag is set on the <see cref="P:FluentFTP.FtpClient.Capabilities"/>  property.
+            </summary>
+            <param name="cap">The <see cref="T:FluentFTP.FtpCapability"/> to check for</param>
+            <returns>True if the feature was found, false otherwise</returns>
+        </member>
+        <member name="M:FluentFTP.FtpClient.GetAsyncDelegate``1(System.IAsyncResult)">
+            <summary>
+            Retrieves the delegate for the specified IAsyncResult and removes
+            it from the m_asyncmethods collection if the operation is successful
+            </summary>
+            <typeparam name="T">Type of delegate to retrieve</typeparam>
+            <param name="ar">The IAsyncResult to retrieve the delegate for</param>
+            <returns>The delegate that generated the specified IAsyncResult</returns>
+        </member>
+        <member name="M:FluentFTP.FtpClient.GetAbsolutePath(System.String)">
+            <summary>
+            Ensure a relative path is absolute by appending the working dir
+            </summary>
+        </member>
+        <member name="M:FluentFTP.FtpClient.DisableUTF8">
+            <summary>
+            Disables UTF8 support and changes the Encoding property
+            back to ASCII. If the server returns an error when trying
+            to turn UTF8 off a FtpCommandException will be thrown.
+            </summary>
+        </member>
+        <member name="M:FluentFTP.FtpClient.ReadStaleData(System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Data shouldn't be on the socket, if it is it probably
+            means we've been disconnected. Read and discard
+            whatever is there and close the connection (optional).
+            </summary>
+            <param name="closeStream">close the connection?</param>
+            <param name="evenEncrypted">even read encrypted data?</param>
+            <param name="traceData">trace data to logs?</param>
+        </member>
+        <member name="M:FluentFTP.FtpClient.IsProxy">
+            <summary>
+            Checks if this FTP/FTPS connection is made through a proxy.
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpClient.OnLogEvent">
+            <summary>
+            Add a custom listener here to get events every time a message is logged.
+            </summary>
+        </member>
+        <member name="M:FluentFTP.FtpClient.LogFunc(System.String,System.Object[])">
+            <summary>
+            Log a function call with relavent arguments
+            </summary>
+            <param name="function">The name of the API function</param>
+            <param name="args">The args passed to the function</param>
+        </member>
+        <member name="M:FluentFTP.FtpClient.LogLine(FluentFTP.FtpTraceLevel,System.String)">
+            <summary>
+            Log a message
+            </summary>
+            <param name="eventType">The type of tracing event</param>
+            <param name="message">The message to write</param>
+        </member>
+        <member name="M:FluentFTP.FtpClient.LogStatus(FluentFTP.FtpTraceLevel,System.String)">
+            <summary>
+            Log a message, adding an automatic prefix to the message based on the `eventType`
+            </summary>
+            <param name="eventType">The type of tracing event</param>
+            <param name="message">The message to write</param>
         </member>
         <member name="T:FluentFTP.IFtpClient">
             <summary>
@@ -2298,10 +2350,8 @@
         <member name="F:FluentFTP.FtpCapability.MFF">
             <summary>
             Server supports the MFF command for setting certain facts
-            about file system objects. If you need this command, it would
-            probably be handy to query FEAT your self and have a look at
-            the FtpReply.InfoMessages property to see which facts the server
-            allows you to modify.
+            about file system objects. It typically allows you to modify
+            the last modification time, creation time, UNIX group/owner/mode of a file.
             </summary>
         </member>
         <member name="F:FluentFTP.FtpCapability.STAT">
@@ -2316,32 +2366,32 @@
         </member>
         <member name="F:FluentFTP.FtpCapability.MD5">
             <summary>
-            Support for the non-standard MD5 command
+            Support for the MD5 command
             </summary>
         </member>
         <member name="F:FluentFTP.FtpCapability.XMD5">
             <summary>
-            Support for the non-standard XMD5 command
+            Support for the XMD5 command
             </summary>
         </member>
         <member name="F:FluentFTP.FtpCapability.XCRC">
             <summary>
-            Support for the non-standard XCRC command
+            Support for the XCRC command
             </summary>
         </member>
         <member name="F:FluentFTP.FtpCapability.XSHA1">
             <summary>
-            Support for the non-standard XSHA1 command
+            Support for the XSHA1 command
             </summary>
         </member>
         <member name="F:FluentFTP.FtpCapability.XSHA256">
             <summary>
-            Support for the non-standard XSHA256 command
+            Support for the XSHA256 command
             </summary>
         </member>
         <member name="F:FluentFTP.FtpCapability.XSHA512">
             <summary>
-            Support for the non-standard XSHA512 command
+            Support for the XSHA512 command
             </summary>
         </member>
         <member name="F:FluentFTP.FtpCapability.EPSV">
@@ -2371,22 +2421,62 @@
         </member>
         <member name="F:FluentFTP.FtpCapability.SITE_MKDIR">
             <summary>
-            Support for the SITE MKDIR server-specific command (ProFTPd)
+            Support for the SITE MKDIR (make directory) server-specific command for ProFTPd
             </summary>
         </member>
         <member name="F:FluentFTP.FtpCapability.SITE_RMDIR">
             <summary>
-            Support for the SITE RMDIR server-specific command (ProFTPd)
+            Support for the SITE RMDIR (remove directory) server-specific command for ProFTPd
             </summary>
         </member>
         <member name="F:FluentFTP.FtpCapability.SITE_UTIME">
             <summary>
-            Support for the SITE UTIME server-specific command (ProFTPd)
+            Support for the SITE UTIME server-specific command for ProFTPd
             </summary>
         </member>
         <member name="F:FluentFTP.FtpCapability.SITE_SYMLINK">
             <summary>
-            Support for the SITE SYMLINK server-specific command (ProFTPd)
+            Support for the SITE SYMLINK server-specific command for ProFTPd
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpCapability.AVBL">
+            <summary>
+            Support for the AVBL (get available space) server-specific command for Serv-U
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpCapability.THMB">
+            <summary>
+            Support for the THMB (get image thumbnail) server-specific command for Serv-U
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpCapability.RMDA">
+            <summary>
+            Support for the RMDA (remove directory) server-specific command for Serv-U
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpCapability.DSIZ">
+            <summary>
+            Support for the DSIZ (get directory size) server-specific command for Serv-U
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpCapability.HOST">
+            <summary>
+            Support for the HOST (get host) server-specific command for Serv-U
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpCapability.CCC">
+            <summary>
+            Support for the CCC (Clear Command Channel) command, which makes a secure FTP channel revert back to plain text.
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpCapability.MODE_Z">
+            <summary>
+            Support for the MODE Z (compression enabled) command, which says that the server supports ZLIB compression for all transfers
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpCapability.LANG">
+            <summary>
+            Support for the LANG (language negociation) command.
             </summary>
         </member>
         <member name="T:FluentFTP.FtpDataConnectionType">
@@ -3036,6 +3126,11 @@
             Definitely BFTPd server
             </summary>
         </member>
+        <member name="F:FluentFTP.FtpServer.FTP2S3Gateway">
+            <summary>
+            Definitely FTP2S3 gateway server
+            </summary>
+        </member>
         <member name="T:FluentFTP.FtpSpecialPermissions">
             <summary>
             Types of special UNIX permissions
@@ -3127,6 +3222,16 @@
             <summary>
             The checksum of the file is verified, if supported by the server.
             If the checksum comparison fails then the method returns false and no other action is taken.
+            </summary>
+        </member>
+        <member name="T:FluentFTP.Exceptions.FtpListParseException">
+            <summary>
+            This exception is thrown by FtpListParser.
+            </summary>
+        </member>
+        <member name="M:FluentFTP.Exceptions.FtpListParseException.#ctor">
+            <summary>
+            Creates a new FtpListParseException.
             </summary>
         </member>
         <member name="T:FluentFTP.Exceptions.FtpMissingSocketException">
@@ -3470,47 +3575,32 @@
             the FTP connection that owns this parser
             </summary>
         </member>
-        <member name="F:FluentFTP.FtpListParser.system">
-            <summary>
-            which server type? (SYST)
-            </summary>
-        </member>
-        <member name="F:FluentFTP.FtpListParser.parser">
+        <member name="F:FluentFTP.FtpListParser.CurrentParser">
             <summary>
             current parser, or parser set by user
             </summary>
         </member>
-        <member name="F:FluentFTP.FtpListParser.detectedParser">
+        <member name="F:FluentFTP.FtpListParser.DetectedParser">
             <summary>
             parser calculated based on system type (SYST command)
             </summary>
         </member>
-        <member name="F:FluentFTP.FtpListParser.parserConfirmed">
+        <member name="F:FluentFTP.FtpListParser.ParserConfirmed">
             <summary>
             if we have detected that the current parser is valid
             </summary>
         </member>
-        <member name="F:FluentFTP.FtpListParser.parserCulture">
-            <summary>
-            which culture to read filenames with?
-            </summary>
-        </member>
-        <member name="F:FluentFTP.FtpListParser.timeOffset">
+        <member name="F:FluentFTP.FtpListParser.TimeOffset">
             <summary>
             what is the time offset between server/client?
             </summary>
         </member>
-        <member name="F:FluentFTP.FtpListParser.hasTimeOffset">
+        <member name="F:FluentFTP.FtpListParser.HasTimeOffset">
             <summary>
             any time offset between server/client?
             </summary>
         </member>
-        <member name="F:FluentFTP.FtpListParser.vmsBlocksize">
-            <summary>
-            VMS ONLY : the blocksize used to calculate the file
-            </summary>
-        </member>
-        <member name="F:FluentFTP.FtpListParser.vmsNameHasVersion">
+        <member name="F:FluentFTP.FtpListParser.VMSNameHasVersion">
             <summary>
             Is the version number returned as part of the filename?
             
@@ -3525,18 +3615,13 @@
             </summary>
             <param name="client">An existing <see cref="T:FluentFTP.FtpClient"/> object</param>
         </member>
-        <member name="M:FluentFTP.FtpListParser.Init(System.String)">
+        <member name="M:FluentFTP.FtpListParser.Init(FluentFTP.FtpOperatingSystem)">
             <summary>
             Try to auto-detect which parser is suitable given a system string.
             </summary>
             <param name="system">result of SYST command</param>
         </member>
-        <member name="M:FluentFTP.FtpListParser.ParseMultiLine(System.String[],System.Boolean)">
-            <summary>
-            Parse raw file list from server into file objects, using the currently active parser.
-            </summary>
-        </member>
-        <member name="M:FluentFTP.FtpListParser.ParseSingleLine(System.String,System.String,FluentFTP.FtpCapability,System.Boolean)">
+        <member name="M:FluentFTP.FtpListParser.ParseSingleLine(System.String,System.String,System.Collections.Generic.List{FluentFTP.FtpCapability},System.Boolean)">
             <summary>
             Parse raw file from server into a file object, using the currently active parser.
             </summary>
@@ -3551,37 +3636,9 @@
             Validate if the current parser is correct
             </summary>
         </member>
-        <member name="M:FluentFTP.FtpListParser.ParseLegacy(System.String,System.String,FluentFTP.FtpCapability,FluentFTP.FtpClient)">
-            <summary>
-            Parses a line from a file listing using the first successful match in the Parsers collection.
-            </summary>
-            <param name="path">The source path of the file listing</param>
-            <param name="buf">A line from the file listing</param>
-            <param name="capabilities">Server capabilities</param>
-            <returns>A FtpListItem object representing the parsed line, null if the line was
-            unable to be parsed. If you have encountered an unsupported list type add a parser
-            to the public static Parsers collection of FtpListItem.</returns>
-        </member>
         <member name="F:FluentFTP.FtpListParser.m_parserLock">
             <summary>
             Used for synchronizing access to the Parsers collection
-            </summary>
-        </member>
-        <member name="M:FluentFTP.FtpListParser.InitParsers">
-            <summary>
-            Initializes the default list of parsers
-            </summary>
-        </member>
-        <member name="P:FluentFTP.FtpListParser.Parsers">
-            <summary>
-            Collection of parsers. Each parser object contains
-            a regex string that uses named groups, i.e., (?&lt;group_name&gt;foobar).
-            The support group names are modify for last write time, size for the
-            size and name for the name of the file system object. Each group name is
-            optional, if they are present then those values are retrieved from a 
-            successful match. In addition, each parser contains a Type property
-            which gets set in the FtpListItem object to distinguish between different
-            types of objects.
             </summary>
         </member>
         <member name="M:FluentFTP.FtpListParser.AddParser(FluentFTP.FtpListParser.Parser)">
@@ -3602,22 +3659,6 @@
             </summary>
             <param name="parser">The parser delegate to remove</param>
         </member>
-        <member name="M:FluentFTP.FtpListParser.ParseUnixList(System.String,FluentFTP.FtpCapability,FluentFTP.FtpClient)">
-            <summary>
-            Parses LIST format listings
-            </summary>
-            <param name="buf">A line from the listing</param>
-            <param name="capabilities">Server capabilities</param>
-            <returns>FtpListItem if the item is able to be parsed</returns>
-        </member>
-        <member name="M:FluentFTP.FtpListParser.ParseDosList(System.String,FluentFTP.FtpCapability,FluentFTP.FtpClient)">
-            <summary>
-            Parses IIS DOS format listings
-            </summary>
-            <param name="buf">A line from the listing</param>
-            <param name="capabilities">Server capabilities</param>
-            <returns>FtpListItem if the item is able to be parsed</returns>
-        </member>
         <member name="T:FluentFTP.FtpListParser.Parser">
             <summary>
             Ftp listing line parser
@@ -3626,64 +3667,69 @@
             <param name="capabilities">The server capabilities</param>
             <returns>FtpListItem if the line can be parsed, null otherwise</returns>
         </member>
-        <member name="M:FluentFTP.FtpListParser.ParseMachineList(System.String,FluentFTP.FtpCapability,FluentFTP.FtpClient)">
+        <member name="M:FluentFTP.FtpListParser.ParseLegacy(System.String,System.String,System.Collections.Generic.List{FluentFTP.FtpCapability},FluentFTP.FtpClient)">
             <summary>
-            Parses MLSD/MLST format listings
+            Parses a line from a file listing using the first successful match in the Parsers collection.
             </summary>
-            <param name="buf">A line from the listing</param>
+            <param name="path">The source path of the file listing</param>
+            <param name="buf">A line from the file listing</param>
             <param name="capabilities">Server capabilities</param>
-            <returns>FtpListItem if the item is able to be parsed</returns>
+            <returns>A FtpListItem object representing the parsed line, null if the line was
+            unable to be parsed. If you have encountered an unsupported list type add a parser
+            to the public static Parsers collection of FtpListItem.</returns>
         </member>
-        <member name="M:FluentFTP.FtpListParser.ParseUnix(System.String)">
+        <member name="M:FluentFTP.FtpListParser.InitParsers">
             <summary>
-            Parses Unix format listings
-            </summary>
-            <param name="raw">A line from the listing</param>
-            <returns>FtpListItem if the item is able to be parsed</returns>
-        </member>
-        <member name="M:FluentFTP.FtpListParser.ParseUnixAlt(System.String)">
-            <summary>
-            Parses Unix format listings with alternate parser
-            </summary>
-            <param name="raw">A line from the listing</param>
-            <returns>FtpListItem if the item is able to be parsed</returns>
-        </member>
-        <member name="M:FluentFTP.FtpListParser.ParseWindows(System.String)">
-            <summary>
-            Parses IIS/DOS format listings
-            </summary>
-            <param name="raw">A line from the listing</param>
-            <returns>FtpListItem if the item is able to be parsed</returns>
-        </member>
-        <member name="M:FluentFTP.FtpListParser.ParseVMS(System.String)">
-            <summary>
-            Parses Vax/VMS format listings
-            </summary>
-            <param name="raw">A line from the listing</param>
-            <returns>FtpListItem if the item is able to be parsed</returns>
-        </member>
-        <member name="M:FluentFTP.FtpListParser.ParseNonstop(System.String)">
-            <summary>
-            Parses NonStop format listings
-            </summary>
-            <param name="raw">A line from the listing</param>
-            <returns>FtpListItem if the item is able to be parsed</returns>
-        </member>
-        <member name="M:FluentFTP.FtpListParser.ParseIBM(System.String)">
-            <summary>
-            Parses IBM OS/400 format listings
-            </summary>
-            <param name="raw">A line from the listing</param>
-            <returns>FtpListItem if the item is able to be parsed</returns>
-        </member>
-        <member name="M:FluentFTP.FtpListParser.SplitString(System.String)">
-            <summary>
-            Split into fields by splitting on strings
+            Initializes the default list of parsers
             </summary>
         </member>
-        <member name="M:FluentFTP.FtpListParser.FixDateVMS(System.String[])">
-            <summary> Fix the date string to make the month camel case</summary>
-            <param name="fields">array of fields</param>
+        <member name="P:FluentFTP.FtpListParser.Parsers">
+            <summary>
+            Collection of parsers. Each parser object contains
+            a regex string that uses named groups, i.e., (?&lt;group_name&gt;foobar).
+            The support group names are modify for last write time, size for the
+            size and name for the name of the file system object. Each group name is
+            optional, if they are present then those values are retrieved from a 
+            successful match. In addition, each parser contains a Type property
+            which gets set in the FtpListItem object to distinguish between different
+            types of objects.
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpProfile.Host">
+            <summary>
+            The host IP address or URL of the FTP server
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpProfile.Credentials">
+            <summary>
+            The FTP username and password used to login
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpProfile.Encryption">
+            <summary>
+            A working Encryption Mode found for this profile
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpProfile.Protocols">
+            <summary>
+            A working Ssl Protocol setting found for this profile
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpProfile.DataConnection">
+            <summary>
+            A working Data Connection Type found for this profile
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpProfile.Encoding">
+            <summary>
+            A working Encoding setting found for this profile
+            </summary>
+        </member>
+        <member name="M:FluentFTP.FtpProfile.ToCode">
+            <summary>
+            Generates valid C# code for this connection profile.
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:FluentFTP.FtpProgress">
             <summary>
@@ -3843,6 +3889,198 @@
             </summary>
             <param name="eventType">The type of tracing event</param>
             <param name="message">A formattable string to write</param>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpIBMParser.IsValid(FluentFTP.FtpClient,System.String[])">
+            <summary>
+            Checks if the given listing is a valid IBM OS/400 file listing
+            </summary>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpIBMParser.Parse(FluentFTP.FtpClient,System.String)">
+            <summary>
+            Parses IBM OS/400 format listings
+            </summary>
+            <param name="record">A line from the listing</param>
+            <returns>FtpListItem if the item is able to be parsed</returns>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpIBMParser.ParseDateTime(FluentFTP.FtpClient,System.String)">
+            <summary>
+            Parses the last modified date from IBM OS/400 format listings
+            </summary>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpMachineListParser.Parse(System.String,System.Collections.Generic.List{FluentFTP.FtpCapability},FluentFTP.FtpClient)">
+            <summary>
+            Parses MLSD/MLST format listings
+            </summary>
+            <param name="record">A line from the listing</param>
+            <param name="capabilities">Server capabilities</param>
+            <returns>FtpListItem if the item is able to be parsed</returns>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpMachineListParser.ParseDateTime(System.String,FluentFTP.FtpListItem)">
+            <summary>
+            Parses the date modified field from MLSD/MLST format listings
+            </summary>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpMachineListParser.ParseFileSize(System.String,FluentFTP.FtpListItem)">
+            <summary>
+            Parses the file size field from MLSD/MLST format listings
+            </summary>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpMachineListParser.ParsePermissions(System.String,FluentFTP.FtpListItem)">
+            <summary>
+            Parses the permissions from MLSD/MLST format listings
+            </summary>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpNonStopParser.IsValid(FluentFTP.FtpClient,System.String[])">
+            <summary>
+            Checks if the given listing is a valid NonStop file listing
+            </summary>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpNonStopParser.Parse(FluentFTP.FtpClient,System.String)">
+            <summary>
+            Parses NonStop format listings
+            </summary>
+            <param name="record">A line from the listing</param>
+            <returns>FtpListItem if the item is able to be parsed</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:FluentFTP.Helpers.Parsers.FtpNonStopParser.ParseDirAndFileSize(FluentFTP.FtpClient,System.String[],System.Boolean@,System.Int64@)" -->
+        <member name="M:FluentFTP.Helpers.Parsers.FtpNonStopParser.ParseDateTime(FluentFTP.FtpClient,System.String)">
+            <summary>
+            Parses the last modified date from NonStop format listings
+            </summary>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpUnixParser.ParseLegacy(System.String,System.Collections.Generic.List{FluentFTP.FtpCapability},FluentFTP.FtpClient)">
+            <summary>
+            Parses LIST format listings
+            </summary>
+            <param name="record">A line from the listing</param>
+            <param name="capabilities">Server capabilities</param>
+            <returns>FtpListItem if the item is able to be parsed</returns>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpUnixParser.IsValid(FluentFTP.FtpClient,System.String[])">
+            <summary>
+            Checks if the given listing is a valid Unix file listing
+            </summary>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpUnixParser.Parse(FluentFTP.FtpClient,System.String)">
+            <summary>
+            Parses Unix format listings
+            </summary>
+            <param name="record">A line from the listing</param>
+            <returns>FtpListItem if the item is able to be parsed</returns>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpUnixParser.ParsePermissions(System.String[],System.Int32@,System.String@,System.Boolean@,System.Boolean@)">
+            <summary>
+            Parses the permissions from Unix format listings
+            </summary>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpUnixParser.ParseLinkCount(FluentFTP.FtpClient,System.String[],System.Int32@)">
+            <summary>
+            Parses the link count from Unix format listings
+            </summary>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpUnixParser.ParseOwnerGroup(System.String[],System.Int32@,System.String@,System.String@)">
+            <summary>
+            Parses the owner and group permissions from Unix format listings
+            </summary>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpUnixParser.ParseFileSize(FluentFTP.FtpClient,System.String[],System.Int32@)">
+            <summary>
+            Parses the file size from Unix format listings
+            </summary>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpUnixParser.ParseDayOfMonth(System.String[],System.Int32@)">
+            <summary>
+            Parses day-of-month from Unix format listings
+            </summary>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpUnixParser.ParseName(FluentFTP.FtpClient,System.String,System.String[],System.Boolean,System.Int32,System.Int32,System.String@,System.String@)">
+            <summary>
+            Parses the file or folder name from Unix format listings
+            </summary>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpUnixParser.ParseDateTime(FluentFTP.FtpClient,System.String[],System.Int32@,System.Int32,System.DateTime@)">
+            <summary>
+            Parses the last modified date from Unix format listings
+            </summary>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpUnixParser.ParseUnixAlt(FluentFTP.FtpClient,System.String)">
+            <summary>
+            Parses Unix format listings with alternate parser
+            </summary>
+            <param name="record">A line from the listing</param>
+            <returns>FtpListItem if the item is able to be parsed</returns>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpVMSParser.ParseLegacy(System.String,System.Collections.Generic.List{FluentFTP.FtpCapability},FluentFTP.FtpClient)">
+            <summary>
+            Parses Vax/VMS format listings
+            </summary>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpVMSParser.IsValid(FluentFTP.FtpClient,System.String[])">
+            <summary>
+            Checks if the given listing is a valid VMS file listing
+            </summary>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpVMSParser.Parse(FluentFTP.FtpClient,System.String)">
+            <summary>
+            Parses Vax/VMS format listings
+            </summary>
+            <param name="record">A line from the listing</param>
+            <returns>FtpListItem if the item is able to be parsed</returns>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpVMSParser.ParseFileSize(System.String)">
+            <summary>
+            Parses the file size from Vax/VMS format listings
+            </summary>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpVMSParser.ParseGroupOwner(System.String[],System.String@,System.String@)">
+            <summary>
+            Parses the owner and group permissions from Vax/VMS format listings
+            </summary>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpVMSParser.ParsePermissions(System.String[])">
+            <summary>
+            Parses the permissions from Vax/VMS format listings
+            </summary>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpVMSParser.ParseDateTime(FluentFTP.FtpClient,System.String,System.String)">
+            <summary>
+            Parses the last modified date from Vax/VMS format listings
+            </summary>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpWindowsParser.ParseLegacy(System.String,System.Collections.Generic.List{FluentFTP.FtpCapability},FluentFTP.FtpClient)">
+            <summary>
+            Parses IIS/DOS format listings
+            </summary>
+            <param name="record">A line from the listing</param>
+            <param name="capabilities">Server capabilities</param>
+            <returns>FtpListItem if the item is able to be parsed</returns>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpWindowsParser.IsValid(FluentFTP.FtpClient,System.String[])">
+            <summary>
+            Checks if the given listing is a valid IIS/DOS file listing
+            </summary>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpWindowsParser.Parse(FluentFTP.FtpClient,System.String)">
+            <summary>
+            Parses IIS/DOS format listings
+            </summary>
+            <param name="record">A line from the listing</param>
+            <returns>FtpListItem if the item is able to be parsed</returns>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpWindowsParser.ParseName(FluentFTP.FtpClient,System.String,System.String[])">
+            <summary>
+            Parses the file or folder name from IIS/DOS format listings
+            </summary>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpWindowsParser.ParseTypeAndFileSize(FluentFTP.FtpClient,System.String,System.Boolean@,System.Int64@)">
+            <summary>
+            Parses the file size and checks if the item is a directory from IIS/DOS format listings
+            </summary>
+        </member>
+        <member name="M:FluentFTP.Helpers.Parsers.FtpWindowsParser.ParseDateTime(FluentFTP.FtpClient,System.String)">
+            <summary>
+            Parses the last modified date from IIS/DOS format listings
+            </summary>
         </member>
         <member name="T:FluentFTP.Proxy.FtpClientBlueCoatProxy">
             <summary> 
@@ -4467,6 +4705,46 @@
             <summary>
             Escape a string into a valid C# string literal.
             Implementation from StackOverflow - https://stackoverflow.com/a/14087738
+            </summary>
+        </member>
+        <member name="M:FluentFTP.FtpExtensions.SplitString(System.String)">
+            <summary>
+            Split into fields by splitting on tokens
+            </summary>
+        </member>
+        <member name="M:FluentFTP.FtpExtensions.CalculateFullFtpPath(FluentFTP.FtpListItem,FluentFTP.FtpClient,System.String,System.Boolean)">
+            <summary>
+            Get the full path of a given FTP Listing entry
+            </summary>
+        </member>
+        <member name="M:FluentFTP.FtpExtensions.IsAbsolutePath(System.String)">
+            <summary>
+            Checks if this FTP path is a top level path
+            </summary>
+        </member>
+        <member name="M:FluentFTP.FtpExtensions.CalculateChmod(FluentFTP.FtpListItem)">
+            <summary>
+            Calculates the CHMOD value from the permissions flags
+            </summary>
+        </member>
+        <member name="M:FluentFTP.FtpExtensions.CalculateUnixPermissions(FluentFTP.FtpListItem,System.String)">
+            <summary>
+            Calculates the permissions flags from the CHMOD value
+            </summary>
+        </member>
+        <member name="M:FluentFTP.FtpExtensions.IsNumeric(System.String)">
+            <summary>
+            Checks if all the characters in this string are digits or dots
+            </summary>
+        </member>
+        <member name="M:FluentFTP.FtpExtensions.ContainsAny(System.String,System.String[],System.Int32)">
+            <summary>
+            Checks if the string contains any of the given values
+            </summary>
+        </member>
+        <member name="M:FluentFTP.FtpExtensions.AddOnce``1(System.Collections.Generic.List{``0},``0)">
+            <summary>
+            Ensures the given item is only added once. If it was not present true is returned, else false is returned.
             </summary>
         </member>
         <member name="T:IProgress`1">
