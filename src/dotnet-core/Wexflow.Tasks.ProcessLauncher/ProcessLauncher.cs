@@ -14,6 +14,7 @@ namespace Wexflow.Tasks.ProcessLauncher
         public string ProcessCmd { get; set; }
         public bool HideGui { get; set; }
         public bool GeneratesFiles { get; set; }
+        public bool LoadAllFiles { get; set; }
 
         private const string VarFilePath = "$filePath";
         private const string VarFileName = "$fileName";
@@ -27,6 +28,7 @@ namespace Wexflow.Tasks.ProcessLauncher
             ProcessCmd = GetSetting("processCmd");
             HideGui = bool.Parse(GetSetting("hideGui"));
             GeneratesFiles = bool.Parse(GetSetting("generatesFiles"));
+            LoadAllFiles = bool.Parse(GetSetting("loadAllFiles", "false"));
         }
 
         public override TaskStatus Run()
@@ -97,7 +99,20 @@ namespace Wexflow.Tasks.ProcessLauncher
 				{
 					Files.Add(new FileInf(outputFilePath, Id));
 
-					if (!atLeastOneSucceed) atLeastOneSucceed = true;
+                    if (LoadAllFiles)
+                    {
+                        var files = Directory.GetFiles(Workflow.WorkflowTempFolder, "*.*", SearchOption.AllDirectories);
+
+                        foreach (var f in files)
+                        {
+                            if (f != outputFilePath)
+                            {
+                                Files.Add(new FileInf(f, Id));
+                            }
+                        }
+                    }
+
+                    if (!atLeastOneSucceed) atLeastOneSucceed = true;
 				}
 				else
 				{
