@@ -103,7 +103,8 @@ namespace Wexflow.Tasks.ProcessLauncher
                     {
                         var files = Directory.GetFiles(Workflow.WorkflowTempFolder, "*.*", SearchOption.AllDirectories);
 
-                        foreach (var f in files) {
+                        foreach (var f in files)
+                        {
                             if (f != outputFilePath)
                             {
                                 Files.Add(new FileInf(f, Id));
