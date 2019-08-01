@@ -1,5 +1,5 @@
 #define MyAppName "Wexflow"
-#define MyAppVersion "4.0"
+#define MyAppVersion "4.1"
 #define MyAppPublisher "Akram El Assas"
 #define MyAppPublisherURL "https://wexflow.github.io/"
 #define MyAppExeName "Wexflow.Clients.Manager.exe"
@@ -53,7 +53,8 @@ Source: "..\libs\Mono.Security.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Npgsql.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Oracle.ManagedDataAccess.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\MySql.Data.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\libs\x64\System.Data.SQLite.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\libs\System.Data.SQLite.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\libs\SQLite.Interop.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Teradata.Client.Provider.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\saxon9he.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\saxon9he-api.dll"; DestDir: "{app}"; Flags: ignoreversion
