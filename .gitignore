@@ -39,3 +39,4 @@ setup/Wexflow.app/
 *.nupkg
 Wexflow_coverage.xml
 packages/
+Wexflow.Core.xml

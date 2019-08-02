@@ -31,22 +31,21 @@ namespace Wexflow.Core.Db
 
     public class Db
     {
-        private static LiteDatabase db;
+        private static LiteDatabase _db;
 
-        public string ConnectionString { get; private set; }
-
+        public string ConnectionString { get; }
 
         public Db(string connectionString)
         {
             ConnectionString = connectionString;
-            db = new LiteDatabase(ConnectionString);
+            _db = new LiteDatabase(ConnectionString);
         }
 
         public void Init()
         {
             // StatusCount
             ClearStatusCount();
-            var statusCountCol = db.GetCollection<StatusCount>("statusCount");
+            var statusCountCol = _db.GetCollection<StatusCount>("statusCount");
 
             var statusCount = new StatusCount
             {
@@ -65,7 +64,7 @@ namespace Wexflow.Core.Db
             ClearEntries();
 
             // Insert default user if necessary
-            var usersCol = db.GetCollection<User>("users");
+            var usersCol = _db.GetCollection<User>("users");
             if (usersCol.Count() == 0)
             {
                 InsertDefaultUser();
@@ -74,28 +73,28 @@ namespace Wexflow.Core.Db
 
         public void ClearStatusCount()
         {
-            var col = db.GetCollection<StatusCount>("statusCount");
+            var col = _db.GetCollection<StatusCount>("statusCount");
             var statusCount = col.FindAll();
             col.Delete(s => statusCount.Where(ss => ss.Id == s.Id).Count() > 0);
         }
 
         public void ClearEntries()
         {
-            var col = db.GetCollection<StatusCount>("entries");
+            var col = _db.GetCollection<StatusCount>("entries");
             var entries = col.FindAll();
             col.Delete(e => entries.Where(ee => ee.Id == e.Id).Count() > 0);
         }
 
         public StatusCount GetStatusCount()
         {
-            var col = db.GetCollection<StatusCount>("statusCount");
+            var col = _db.GetCollection<StatusCount>("statusCount");
             var statusCount = col.FindAll().FirstOrDefault();
             return statusCount;
         }
 
         public void IncrementPendingCount()
         {
-            var col = db.GetCollection<StatusCount>("statusCount");
+            var col = _db.GetCollection<StatusCount>("statusCount");
             var statusCount = col.FindAll().FirstOrDefault();
             if (statusCount != null)
             {
@@ -106,7 +105,7 @@ namespace Wexflow.Core.Db
 
         public void DecrementPendingCount()
         {
-            var col = db.GetCollection<StatusCount>("statusCount");
+            var col = _db.GetCollection<StatusCount>("statusCount");
             var statusCount = col.FindAll().FirstOrDefault();
             if (statusCount != null)
             {
@@ -117,7 +116,7 @@ namespace Wexflow.Core.Db
 
         public void IncrementRunningCount()
         {
-            var col = db.GetCollection<StatusCount>("statusCount");
+            var col = _db.GetCollection<StatusCount>("statusCount");
             var statusCount = col.FindAll().FirstOrDefault();
             if (statusCount != null)
             {
@@ -128,7 +127,7 @@ namespace Wexflow.Core.Db
 
         public void DecrementRunningCount()
         {
-            var col = db.GetCollection<StatusCount>("statusCount");
+            var col = _db.GetCollection<StatusCount>("statusCount");
             var statusCount = col.FindAll().FirstOrDefault();
             if (statusCount != null)
             {
@@ -139,7 +138,7 @@ namespace Wexflow.Core.Db
 
         public void IncrementDoneCount()
         {
-            var col = db.GetCollection<StatusCount>("statusCount");
+            var col = _db.GetCollection<StatusCount>("statusCount");
             var statusCount = col.FindAll().FirstOrDefault();
             if (statusCount != null)
             {
@@ -150,7 +149,7 @@ namespace Wexflow.Core.Db
 
         public void DecrementDoneCount()
         {
-            var col = db.GetCollection<StatusCount>("statusCount");
+            var col = _db.GetCollection<StatusCount>("statusCount");
             var statusCount = col.FindAll().FirstOrDefault();
             if (statusCount != null)
             {
@@ -161,7 +160,7 @@ namespace Wexflow.Core.Db
 
         public void IncrementFailedCount()
         {
-            var col = db.GetCollection<StatusCount>("statusCount");
+            var col = _db.GetCollection<StatusCount>("statusCount");
             var statusCount = col.FindAll().FirstOrDefault();
             if (statusCount != null)
             {
@@ -172,7 +171,7 @@ namespace Wexflow.Core.Db
 
         public void DecrementFailedCount()
         {
-            var col = db.GetCollection<StatusCount>("statusCount");
+            var col = _db.GetCollection<StatusCount>("statusCount");
             var statusCount = col.FindAll().FirstOrDefault();
             if (statusCount != null)
             {
@@ -183,7 +182,7 @@ namespace Wexflow.Core.Db
 
         public void IncrementWarningCount()
         {
-            var col = db.GetCollection<StatusCount>("statusCount");
+            var col = _db.GetCollection<StatusCount>("statusCount");
             var statusCount = col.FindAll().FirstOrDefault();
             if (statusCount != null)
             {
@@ -194,7 +193,7 @@ namespace Wexflow.Core.Db
 
         public void DecrementWarningCount()
         {
-            var col = db.GetCollection<StatusCount>("statusCount");
+            var col = _db.GetCollection<StatusCount>("statusCount");
             var statusCount = col.FindAll().FirstOrDefault();
             if (statusCount != null)
             {
@@ -205,7 +204,7 @@ namespace Wexflow.Core.Db
 
         public void IncrementDisabledCount()
         {
-            var col = db.GetCollection<StatusCount>("statusCount");
+            var col = _db.GetCollection<StatusCount>("statusCount");
             var statusCount = col.FindAll().FirstOrDefault();
             if (statusCount != null)
             {
@@ -216,7 +215,7 @@ namespace Wexflow.Core.Db
 
         public void DecrementDisabledCount()
         {
-            var col = db.GetCollection<StatusCount>("statusCount");
+            var col = _db.GetCollection<StatusCount>("statusCount");
             var statusCount = col.FindAll().FirstOrDefault();
             if (statusCount != null)
             {
@@ -227,7 +226,7 @@ namespace Wexflow.Core.Db
 
         public void IncrementStoppedCount()
         {
-            var col = db.GetCollection<StatusCount>("statusCount");
+            var col = _db.GetCollection<StatusCount>("statusCount");
             var statusCount = col.FindAll().FirstOrDefault();
             if (statusCount != null)
             {
@@ -238,7 +237,7 @@ namespace Wexflow.Core.Db
 
         public void DecrementStoppedCount()
         {
-            var col = db.GetCollection<StatusCount>("statusCount");
+            var col = _db.GetCollection<StatusCount>("statusCount");
             var statusCount = col.FindAll().FirstOrDefault();
             if (statusCount != null)
             {
@@ -249,7 +248,7 @@ namespace Wexflow.Core.Db
 
         public void ResetStatusCount()
         {
-            var col = db.GetCollection<StatusCount>("statusCount");
+            var col = _db.GetCollection<StatusCount>("statusCount");
             var statusCount = col.FindAll().FirstOrDefault();
             if (statusCount != null)
             {
@@ -265,19 +264,19 @@ namespace Wexflow.Core.Db
 
         public IEnumerable<Entry> GetEntries()
         {
-            var col = db.GetCollection<Entry>("entries");
+            var col = _db.GetCollection<Entry>("entries");
             return col.FindAll();
         }
 
         public Entry GetEntry(int workflowId)
         {
-            var col = db.GetCollection<Entry>("entries");
+            var col = _db.GetCollection<Entry>("entries");
             return col.FindOne(e => e.WorkflowId == workflowId);
         }
 
         public void InsertEntry(Entry entry)
         {
-            var col = db.GetCollection<Entry>("entries");
+            var col = _db.GetCollection<Entry>("entries");
             col.Insert(entry);
             col.EnsureIndex(e => e.WorkflowId);
             col.EnsureIndex(e => e.Name, "LOWER($.Name)");
@@ -289,19 +288,19 @@ namespace Wexflow.Core.Db
 
         public void UpdateEntry(Entry entry)
         {
-            var col = db.GetCollection<Entry>("entries");
+            var col = _db.GetCollection<Entry>("entries");
             col.Update(entry);
         }
 
         public void DeleteEntry(int workflowId)
         {
-            var col = db.GetCollection<Entry>("entries");
+            var col = _db.GetCollection<Entry>("entries");
             col.Delete(e => e.WorkflowId == workflowId);
         }
 
         public void InsertUser(User user)
         {
-            var col = db.GetCollection<User>("users");
+            var col = _db.GetCollection<User>("users");
             user.CreatedOn = DateTime.Now;
             col.Insert(user);
             col.EnsureIndex(u => u.Username, "LOWER($.Username)");
@@ -310,7 +309,7 @@ namespace Wexflow.Core.Db
 
         public void UpdatePassword(string username, string password)
         {
-            var col = db.GetCollection<User>("users");
+            var col = _db.GetCollection<User>("users");
             var dbUser = col.FindOne(u => u.Username == username);
             dbUser.Password = password;
             col.Update(dbUser);
@@ -318,7 +317,7 @@ namespace Wexflow.Core.Db
 
         public void UpdateUser(User user)
         {
-            var col = db.GetCollection<User>("users");
+            var col = _db.GetCollection<User>("users");
             var dbUser = col.FindOne(u => u.Id == user.Id);
             dbUser.ModifiedOn = DateTime.Now;
             dbUser.Username = user.Username;
@@ -330,7 +329,7 @@ namespace Wexflow.Core.Db
 
         public void UpdateUsernameAndEmailAndUserProfile(int userId, string username, string email, UserProfile up)
         {
-            var col = db.GetCollection<User>("users");
+            var col = _db.GetCollection<User>("users");
             var dbUser = col.FindOne(u => u.Id == userId);
             dbUser.ModifiedOn = DateTime.Now;
             dbUser.Username = username;
@@ -341,7 +340,7 @@ namespace Wexflow.Core.Db
 
         public void DeleteUser(string username, string password)
         {
-            var col = db.GetCollection<User>("users");
+            var col = _db.GetCollection<User>("users");
             var user = col.FindOne(u => u.Username == username);
             if (user != null && user.Password == password)
             {
@@ -380,27 +379,27 @@ namespace Wexflow.Core.Db
 
         public User GetUser(string username)
         {
-            var col = db.GetCollection<User>("users");
+            var col = _db.GetCollection<User>("users");
             User user = col.FindOne(u => u.Username == username);
             return user;
         }
 
         public string GetPassword(string username)
         {
-            var col = db.GetCollection<User>("users");
+            var col = _db.GetCollection<User>("users");
             User user = col.FindOne(u => u.Username == username);
             return user.Password;
         }
 
         public IEnumerable<User> GetUsers()
         {
-            var col = db.GetCollection<User>("users");
+            var col = _db.GetCollection<User>("users");
             return col.FindAll();
         }
 
         public IEnumerable<User> GetUsers(string keyword, UserOrderBy uo)
         {
-            var col = db.GetCollection<User>("users");
+            var col = _db.GetCollection<User>("users");
             var keywordToLower = keyword.ToLower();
             Query query = null;
 
@@ -438,7 +437,7 @@ namespace Wexflow.Core.Db
 
         public void InsertHistoryEntry(HistoryEntry entry)
         {
-            var col = db.GetCollection<HistoryEntry>("historyEntries");
+            var col = _db.GetCollection<HistoryEntry>("historyEntries");
             col.Insert(entry);
             col.EnsureIndex(e => e.WorkflowId);
             col.EnsureIndex(e => e.Name, "LOWER($.Name)");
@@ -450,39 +449,39 @@ namespace Wexflow.Core.Db
 
         public void UpdateHistoryEntry(HistoryEntry entry)
         {
-            var col = db.GetCollection<HistoryEntry>("historyEntries");
+            var col = _db.GetCollection<HistoryEntry>("historyEntries");
             col.Update(entry);
         }
 
         public void DeleteHistoryEntries(int workflowId)
         {
-            var col = db.GetCollection<HistoryEntry>("historyEntries");
+            var col = _db.GetCollection<HistoryEntry>("historyEntries");
             col.Delete(e => e.WorkflowId == workflowId);
         }
 
         public IEnumerable<HistoryEntry> GetHistoryEntries()
         {
-            var col = db.GetCollection<HistoryEntry>("historyEntries");
+            var col = _db.GetCollection<HistoryEntry>("historyEntries");
             return col.FindAll();
         }
 
         public IEnumerable<HistoryEntry> GetHistoryEntries(string keyword)
         {
             var keywordToUpper = keyword.ToUpper();
-            var col = db.GetCollection<HistoryEntry>("historyEntries");
+            var col = _db.GetCollection<HistoryEntry>("historyEntries");
             return col.Find(e => e.Name.ToUpper().Contains(keywordToUpper) || e.Description.ToUpper().Contains(keywordToUpper));
         }
 
         public IEnumerable<HistoryEntry> GetHistoryEntries(string keyword, int page, int entriesCount)
         {
             var keywordToUpper = keyword.ToUpper();
-            var col = db.GetCollection<HistoryEntry>("historyEntries");
+            var col = _db.GetCollection<HistoryEntry>("historyEntries");
             return col.Find(e => e.Name.ToUpper().Contains(keywordToUpper) || e.Description.ToUpper().Contains(keywordToUpper), (page - 1) * entriesCount, entriesCount);
         }
 
         public IEnumerable<HistoryEntry> GetHistoryEntries(string keyword, DateTime from, DateTime to, int page, int entriesCount, EntryOrderBy heo)
         {
-            var col = db.GetCollection<HistoryEntry>("historyEntries");
+            var col = _db.GetCollection<HistoryEntry>("historyEntries");
             var keywordToLower = keyword.ToLower();
             int skip = (page - 1) * entriesCount;
             Query query;
@@ -637,7 +636,7 @@ namespace Wexflow.Core.Db
 
         public IEnumerable<Entry> GetEntries(string keyword, DateTime from, DateTime to, int page, int entriesCount, EntryOrderBy heo)
         {
-            var col = db.GetCollection<Entry>("entries");
+            var col = _db.GetCollection<Entry>("entries");
             var keywordToLower = keyword.ToLower();
             int skip = (page - 1) * entriesCount;
             Query query;
@@ -793,14 +792,14 @@ namespace Wexflow.Core.Db
         public long GetHistoryEntriesCount(string keyword)
         {
             var keywordToUpper = keyword.ToUpper();
-            var col = db.GetCollection<HistoryEntry>("historyEntries");
+            var col = _db.GetCollection<HistoryEntry>("historyEntries");
             return col.Find(e => e.Name.ToUpper().Contains(keywordToUpper) || e.Description.ToUpper().Contains(keywordToUpper)).LongCount();
         }
 
         public long GetHistoryEntriesCount(string keyword, DateTime from, DateTime to)
         {
             var keywordToLower = keyword.ToLower();
-            var col = db.GetCollection<HistoryEntry>("historyEntries");
+            var col = _db.GetCollection<HistoryEntry>("historyEntries");
             Query query;
 
             if (!string.IsNullOrEmpty(keyword))
@@ -819,7 +818,7 @@ namespace Wexflow.Core.Db
         public long GetEntriesCount(string keyword, DateTime from, DateTime to)
         {
             var keywordToLower = keyword.ToLower();
-            var col = db.GetCollection<Entry>("entries");
+            var col = _db.GetCollection<Entry>("entries");
             Query query;
 
             if (!string.IsNullOrEmpty(keyword))
@@ -837,7 +836,7 @@ namespace Wexflow.Core.Db
 
         public DateTime GetHistoryEntryStatusDateMin()
         {
-            var col = db.GetCollection<HistoryEntry>("historyEntries");
+            var col = _db.GetCollection<HistoryEntry>("historyEntries");
             var q = col.Find(Query.All("StatusDate"));
             if (q.Any())
             {
@@ -849,7 +848,7 @@ namespace Wexflow.Core.Db
 
         public DateTime GetHistoryEntryStatusDateMax()
         {
-            var col = db.GetCollection<HistoryEntry>("historyEntries");
+            var col = _db.GetCollection<HistoryEntry>("historyEntries");
             var q = col.Find(Query.All("StatusDate", Query.Descending));
             if (q.Any())
             {
@@ -861,7 +860,7 @@ namespace Wexflow.Core.Db
 
         public DateTime GetEntryStatusDateMin()
         {
-            var col = db.GetCollection<HistoryEntry>("entries");
+            var col = _db.GetCollection<HistoryEntry>("entries");
             var q = col.Find(Query.All("StatusDate"));
             if (q.Any())
             {
@@ -873,7 +872,7 @@ namespace Wexflow.Core.Db
 
         public DateTime GetEntryStatusDateMax()
         {
-            var col = db.GetCollection<HistoryEntry>("entries");
+            var col = _db.GetCollection<HistoryEntry>("entries");
             var q = col.Find(Query.All("StatusDate", Query.Descending));
             if (q.Any())
             {

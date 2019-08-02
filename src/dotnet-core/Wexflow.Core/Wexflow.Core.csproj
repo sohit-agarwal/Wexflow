@@ -1,12 +1,32 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <Platforms>AnyCPU;x64;x86</Platforms>
+    <PackageId>Wexflow</PackageId>
+    <Version>4.2.0</Version>
+    <Authors>Akram El Assas</Authors>
+    <Company>Wexflow</Company>
+    <Product>Wexflow</Product>
+    <Description>Core assembly of Wexflow workflow engine.</Description>
+    <Copyright>Copyright (c) 2019 Akram El Assas.</Copyright>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageProjectUrl>https://wexflow.github.io</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/aelassas/Wexflow</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\dev\Wexflow\src\src\dotnet-core\Wexflow.Core\Wexflow.Core.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="GlobalVariables.xml" />
+    <None Include="..\..\..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

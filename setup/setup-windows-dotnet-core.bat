@@ -17,6 +17,7 @@ mkdir %dstDir%\%backend%\js\
 
 :: WexflowTesting
 xcopy ..\samples\WexflowTesting\* %dstDir%\WexflowTesting\ /s /e
+xcopy ..\samples\dotnet-core\windows\WexflowTesting\* %dstDir%\WexflowTesting\ /s /e
 
 :: Wexflow-dotnet-core
 xcopy ..\samples\dotnet-core\windows\Wexflow\* %dstDir%\Wexflow-dotnet-core\ /s /e
