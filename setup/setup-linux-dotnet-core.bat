@@ -1,6 +1,6 @@
 ::@echo off
 
-set version=4.1
+set version=4.2
 set dst=wexflow
 set zip=wexflow-%version%-linux-dotnet-core.zip
 set dstDir=.\%dst%
@@ -19,9 +19,10 @@ mkdir %dstDir%\%backend%\js\
 
 :: WexflowTesting
 xcopy ..\samples\WexflowTesting\* %dstDir%\WexflowTesting\ /s /e
+xcopy ..\samples\dotnet-core\linux\WexflowTesting\* %dstDir%\WexflowTesting\ /s /e
 
 :: Wexflow
-xcopy ..\samples\dotnet-core\linux\* %dstDir%\Wexflow\ /s /e
+xcopy ..\samples\dotnet-core\linux\Wexflow\* %dstDir%\Wexflow\ /s /e
 copy ..\src\dotnet-core\Wexflow.Core\Workflow.xsd %dstDir%\Wexflow\
 
 :: Wexflow backend

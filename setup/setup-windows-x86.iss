@@ -1,5 +1,5 @@
 #define MyAppName "Wexflow"
-#define MyAppVersion "4.1"
+#define MyAppVersion "4.2"
 #define MyAppPublisher "Akram El Assas"
 #define MyAppPublisherURL "https://wexflow.github.io/"
 #define MyAppExeName "Wexflow.Clients.Manager.exe"
@@ -64,14 +64,6 @@ Source: "..\libs\Microsoft.Synchronization.Files.dll"; DestDir: "{app}"; Flags: 
 Source: "..\libs\MediaInfo.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\OpenPop.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\itextsharp.dll"; DestDir: "{app}"; Flags: ignoreversion
-; Source: "..\libs\TuesPechkin.dll"; DestDir: "{app}"; Flags: ignoreversion
-; Source: "..\libs\TuesPechkin.Wkhtmltox.Win32.dll"; DestDir: "{app}"; Flags: ignoreversion
-; Source: "..\libs\Google.Apis.Auth.dll"; DestDir: "{app}"; Flags: ignoreversion
-; Source: "..\libs\Google.Apis.Auth.PlatformServices.dll"; DestDir: "{app}"; Flags: ignoreversion
-; Source: "..\libs\Google.Apis.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
-; Source: "..\libs\Google.Apis.dll"; DestDir: "{app}"; Flags: ignoreversion
-; Source: "..\libs\Google.Apis.PlatformServices.dll"; DestDir: "{app}"; Flags: ignoreversion
-; Source: "..\libs\Google.Apis.YouTube.v3.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\DiffPlex.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\MonoTorrent.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Quartz.dll"; DestDir: "{app}"; Flags: ignoreversion

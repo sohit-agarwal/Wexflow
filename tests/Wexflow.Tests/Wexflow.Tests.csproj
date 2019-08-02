@@ -149,7 +149,6 @@
     <Compile Include="UnSevenZip.cs" />
     <Compile Include="Unrar.cs" />
     <Compile Include="IsoExtractor.cs" />
-    <Compile Include="YouTube.cs" />
     <Compile Include="Untgz.cs" />
     <Compile Include="Untar.cs" />
     <Compile Include="Unzip.cs" />
@@ -575,10 +574,6 @@
     <ProjectReference Include="..\..\src\dotnet\Wexflow.Tasks.YamlToJson\Wexflow.Tasks.YamlToJson.csproj">
       <Project>{4ee9980e-e749-427d-846f-de3773d65263}</Project>
       <Name>Wexflow.Tasks.YamlToJson</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\dotnet\Wexflow.Tasks.YouTube\Wexflow.Tasks.YouTube.csproj">
-      <Project>{d8db6ea1-a0fe-432c-bae5-d08643edcbf3}</Project>
-      <Name>Wexflow.Tasks.YouTube</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\dotnet\Wexflow.Tasks.Zip\Wexflow.Tasks.Zip.csproj">
       <Project>{67f62b85-9457-429f-857d-7f9d41f5c8f3}</Project>

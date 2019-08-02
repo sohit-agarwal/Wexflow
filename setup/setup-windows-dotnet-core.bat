@@ -1,6 +1,6 @@
 ::@echo off
 
-set version=4.1
+set version=4.2
 set dst=wexflow-%version%-windows-dotnet-core
 set dstDir=.\%dst%
 set backend=Backend
@@ -19,7 +19,7 @@ mkdir %dstDir%\%backend%\js\
 xcopy ..\samples\WexflowTesting\* %dstDir%\WexflowTesting\ /s /e
 
 :: Wexflow-dotnet-core
-xcopy ..\samples\dotnet-core\windows\* %dstDir%\Wexflow-dotnet-core\ /s /e
+xcopy ..\samples\dotnet-core\windows\Wexflow\* %dstDir%\Wexflow-dotnet-core\ /s /e
 copy ..\src\dotnet-core\Wexflow.Core\GlobalVariables.xml %dstDir%\Wexflow-dotnet-core\
 copy ..\src\dotnet-core\Wexflow.Core\Wexflow.xml %dstDir%\Wexflow-dotnet-core\
 copy ..\src\dotnet-core\Wexflow.Core\Workflow.xsd %dstDir%\Wexflow-dotnet-core\
