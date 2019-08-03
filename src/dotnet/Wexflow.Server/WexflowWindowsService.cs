@@ -2,6 +2,7 @@
 using Wexflow.Core;
 using System.Configuration;
 using System.ServiceModel;
+using System.Threading;
 
 namespace Wexflow.Server
 {
@@ -16,6 +17,12 @@ namespace Wexflow.Server
         {
             InitializeComponent();
             ServiceName = "Wexflow";
+            Thread startThread = new Thread(StartThread) {IsBackground = true};
+            startThread.Start();
+        }
+
+        private void StartThread()
+        {
             WexflowEngine.Run();
         }
 
