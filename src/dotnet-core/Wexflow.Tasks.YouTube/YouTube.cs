@@ -20,9 +20,9 @@ namespace Wexflow.Tasks.YouTube
 
     public class YouTube : Task
     {
-        public string User { get; set; }
-        public string ApplicationName { get; set; }
-        public string ClientSecrets { get; set; }
+        public string User { get; }
+        public string ApplicationName { get; }
+        public string ClientSecrets { get; }
 
         public YouTube(XElement xe, Workflow wf)
             : base(xe, wf)

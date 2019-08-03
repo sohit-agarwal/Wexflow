@@ -8,6 +8,7 @@ set backend=Backend
 if exist %dstDir% rmdir /s /q %dstDir%
 mkdir %dstDir%
 mkdir %dstDir%\Wexflow-dotnet-core\
+mkdir %dstDir%\Wexflow-dotnet-core\Database\
 mkdir %dstDir%\WexflowTesting\
 mkdir %dstDir%\%backend%\
 mkdir %dstDir%\%backend%\images\

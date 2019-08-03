@@ -25,7 +25,7 @@
     <Setting name="selectFiles" value="$taskId" />
     <!-- You can add as many selecteFiles as you want.-->
     
-    <!-- The YouTube user name.-->
+    <!-- The YouTube username.-->
     <Setting name="user" value="$string" />
     <!-- The YouTube application name.-->
     <Setting name="applicationName" value="$string" />

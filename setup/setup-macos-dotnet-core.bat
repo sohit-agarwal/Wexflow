@@ -10,6 +10,7 @@ if exist %zip% del %zip%
 if exist %dstDir% rmdir /s /q %dstDir%
 mkdir %dstDir%
 mkdir %dstDir%\Wexflow\
+mkdir %dstDir%\Wexflow\Database\
 mkdir %dstDir%\WexflowTesting\
 mkdir %dstDir%\%backend%\
 mkdir %dstDir%\%backend%\images\
