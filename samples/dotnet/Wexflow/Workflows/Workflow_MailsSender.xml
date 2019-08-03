@@ -5,7 +5,7 @@
 	</Settings>
 	<Tasks>
 		<Task id="1" name="FilesLoader" description="Loading mails" enabled="true">
-			<Setting name="folder" value="C:\WexflowTesting\Mails\" />
+			<Setting name="file" value="C:\WexflowTesting\Mails\mails.xml" />
 		</Task>
 		<Task id="2" name="FilesLoader" description="Loading attachments" enabled="true">
 			<Setting name="file" value="C:\WexflowTesting\file1.txt" />

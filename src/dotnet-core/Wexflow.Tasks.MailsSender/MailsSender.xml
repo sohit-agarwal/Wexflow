@@ -44,5 +44,7 @@
     <Setting name="user" value="$string" />
     <!-- The password to connect to the email server.-->
     <Setting name="password" value="$string" />
+    <!-- Optional and defaults to true. True to send email body as HTML, false to send email body as TEXT.-->
+    <Setting name="isBodyHtml" value="true|false" />
   </Task>
 </Tasks>
