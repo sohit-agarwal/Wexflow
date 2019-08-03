@@ -23,9 +23,9 @@
     </YouTubeSearch>
   -->
   <Task id="$int" name="YouTubeSearch" description="$string" enabled="true|false">
-    <!-- The YouTube username. -->
+    <!-- YouTube username. -->
     <Setting name="user" value="$string" />
-    <!-- The YouTube application name. -->
+    <!-- YouTube application name. -->
     <Setting name="applicationName" value="$string" />
     <!-- YouTube API key. You can create it from https://console.developers.google.com -->
     <Setting name="apiKey" value="$string" />

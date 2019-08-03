@@ -25,9 +25,9 @@
     <Setting name="selectFiles" value="$taskId" />
     <!-- You can add as many selecteFiles as you want.-->
     
-    <!-- The YouTube username.-->
+    <!-- YouTube username.-->
     <Setting name="user" value="$string" />
-    <!-- The YouTube application name.-->
+    <!-- YouTube application name.-->
     <Setting name="applicationName" value="$string" />
     <!-- The file containing YouTube credentials.
          Follow these guidelines to obtain authorization credentials: https://developers.google.com/youtube/registering_an_application
