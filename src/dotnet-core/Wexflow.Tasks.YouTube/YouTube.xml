@@ -29,10 +29,7 @@
     <Setting name="user" value="$string" />
     <!-- YouTube application name.-->
     <Setting name="applicationName" value="$string" />
-    <!-- The file containing YouTube credentials.
-         Follow these guidelines to obtain authorization credentials: https://developers.google.com/youtube/registering_an_application
-         Don't forget to enable YouTube Data API v3 from Google APIs dashboard.
-    -->
+    <!-- The file containing YouTube credentials. You can create it from https://console.developers.google.com -->
     <Setting name="clientSecrets" value="C:\Wexflow-dotnet-core\client_secrets.json" />
   </Task>
 </Tasks>

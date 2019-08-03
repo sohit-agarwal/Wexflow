@@ -351,6 +351,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wexflow.Tasks.YouTube", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.YouTubeSearch", "src\dotnet-core\Wexflow.Tasks.YouTubeSearch\Wexflow.Tasks.YouTubeSearch.csproj", "{C3EA5674-D4BF-4607-BC53-71A78A704209}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.YouTubeListUploads", "src\dotnet-core\Wexflow.Tasks.YouTubeListUploads\Wexflow.Tasks.YouTubeListUploads.csproj", "{91FA7342-8874-42FC-B3DF-6576538A0088}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -2971,6 +2973,22 @@ Global
 		{C3EA5674-D4BF-4607-BC53-71A78A704209}.Release|x64.Build.0 = Release|Any CPU
 		{C3EA5674-D4BF-4607-BC53-71A78A704209}.Release|x86.ActiveCfg = Release|Any CPU
 		{C3EA5674-D4BF-4607-BC53-71A78A704209}.Release|x86.Build.0 = Release|Any CPU
+		{91FA7342-8874-42FC-B3DF-6576538A0088}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91FA7342-8874-42FC-B3DF-6576538A0088}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91FA7342-8874-42FC-B3DF-6576538A0088}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{91FA7342-8874-42FC-B3DF-6576538A0088}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{91FA7342-8874-42FC-B3DF-6576538A0088}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{91FA7342-8874-42FC-B3DF-6576538A0088}.Debug|x64.Build.0 = Debug|Any CPU
+		{91FA7342-8874-42FC-B3DF-6576538A0088}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{91FA7342-8874-42FC-B3DF-6576538A0088}.Debug|x86.Build.0 = Debug|Any CPU
+		{91FA7342-8874-42FC-B3DF-6576538A0088}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91FA7342-8874-42FC-B3DF-6576538A0088}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91FA7342-8874-42FC-B3DF-6576538A0088}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{91FA7342-8874-42FC-B3DF-6576538A0088}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{91FA7342-8874-42FC-B3DF-6576538A0088}.Release|x64.ActiveCfg = Release|Any CPU
+		{91FA7342-8874-42FC-B3DF-6576538A0088}.Release|x64.Build.0 = Release|Any CPU
+		{91FA7342-8874-42FC-B3DF-6576538A0088}.Release|x86.ActiveCfg = Release|Any CPU
+		{91FA7342-8874-42FC-B3DF-6576538A0088}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3147,6 +3165,7 @@ Global
 		{512DD71D-3D54-4BB6-BA03-283AECACFBBD} = {6CC60633-28FB-45F3-8434-A79D00150CB2}
 		{9F1F02C0-C5EF-492D-8C3A-CBD2818931F9} = {6CC60633-28FB-45F3-8434-A79D00150CB2}
 		{C3EA5674-D4BF-4607-BC53-71A78A704209} = {6CC60633-28FB-45F3-8434-A79D00150CB2}
+		{91FA7342-8874-42FC-B3DF-6576538A0088} = {6CC60633-28FB-45F3-8434-A79D00150CB2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {694D69C8-AA13-4F54-BAAA-5B967F1A8F9C}

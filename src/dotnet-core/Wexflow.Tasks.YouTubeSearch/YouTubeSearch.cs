@@ -109,6 +109,7 @@ namespace Wexflow.Tasks.YouTubeSearch
             xdoc.Root.Add(xplaylists);
             xdoc.Save(xmlPath);
             Files.Add(new FileInf(xmlPath, Id));
+            InfoFormat("Search results written in {0}", xmlPath);
         }
     }
 }
