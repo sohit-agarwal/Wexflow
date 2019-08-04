@@ -92,7 +92,7 @@ Source: "..\libs\x64\libsass.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\YamlDotNet.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\LiteDB.dll"; DestDir: "{app}"; Flags: ignoreversion
 
-; Tweetinvi TODO
+; Tweetinvi
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Tweetinvi.Controllers.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Tweetinvi.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Tweetinvi.Credentials.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -114,9 +114,9 @@ Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Security.Cryptograp
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Security.Cryptography.Primitives.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Security.Cryptography.X509Certificates.dll"; DestDir: "{app}"; Flags: ignoreversion
 
+; InstagramApiSharp
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\InstagramApiSharp.dll"; DestDir: "{app}"; Flags: ignoreversion
 
-;Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\"; DestDir: "{app}"; Flags: ignoreversion
 
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Wexflow.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Wexflow.Core.Db.dll"; DestDir: "{app}"; Flags: ignoreversion

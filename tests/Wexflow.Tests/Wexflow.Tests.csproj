@@ -95,12 +95,14 @@
   <ItemGroup>
     <Compile Include="CsvToYaml.cs" />
     <Compile Include="CsvToXml.cs" />
+    <Compile Include="InstagramUploadVideo.cs" />
     <Compile Include="MessageCorrect.cs" />
     <Compile Include="HttpGet.cs" />
     <Compile Include="HtmlToText.cs" />
     <Compile Include="JsonToYaml.cs" />
     <Compile Include="CsvToJson.cs" />
     <Compile Include="EnvironmentVariable.cs" />
+    <Compile Include="InstagramUploadImage.cs" />
     <Compile Include="YamlToJson.cs" />
     <Compile Include="ScssToCss.cs" />
     <Compile Include="UglifyHtml.cs" />
@@ -358,6 +360,14 @@
     <ProjectReference Include="..\..\src\dotnet\Wexflow.Tasks.ImagesTransformer\Wexflow.Tasks.ImagesTransformer.csproj">
       <Project>{d2ba9820-d5c7-4053-8e36-ac94c162c9b0}</Project>
       <Name>Wexflow.Tasks.ImagesTransformer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\dotnet\Wexflow.Tasks.InstagramUploadImage\Wexflow.Tasks.InstagramUploadImage.csproj">
+      <Project>{45d2177b-efb1-4790-8f08-e373840413d7}</Project>
+      <Name>Wexflow.Tasks.InstagramUploadImage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\dotnet\Wexflow.Tasks.InstagramUploadVideo\Wexflow.Tasks.InstagramUploadVideo.csproj">
+      <Project>{882fcc8b-b7f6-4290-9c2d-ccdfbbc2e327}</Project>
+      <Name>Wexflow.Tasks.InstagramUploadVideo</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\dotnet\Wexflow.Tasks.IsoCreator\Wexflow.Tasks.IsoCreator.csproj">
       <Project>{9cdfaf59-62b3-48ba-bcce-3359856d3835}</Project>

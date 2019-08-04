@@ -109,6 +109,7 @@ Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Security.Cryptography.E
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Security.Cryptography.Primitives.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Security.Cryptography.X509Certificates.dll"; DestDir: "{app}"; Flags: ignoreversion
 
+; InstagramApiSharp
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\InstagramApiSharp.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
