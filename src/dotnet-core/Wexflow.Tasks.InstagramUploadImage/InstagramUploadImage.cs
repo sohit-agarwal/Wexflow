@@ -140,7 +140,6 @@ namespace Wexflow.Tasks.InstagramUploadImage
             if (!instaApi.IsUserAuthenticated)
             {
                 // login
-                Console.WriteLine($"Logging in as {userSession.UserName}");
                 var logInResult = await instaApi.LoginAsync();
                 if (!logInResult.Succeeded)
                 {

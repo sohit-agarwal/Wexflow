@@ -3,16 +3,16 @@
   <!--
     InstagramUploadVideo is a sequential task that uploads videos to Instagram.
     
-    This task takes as input XML files containing the images to be uploaded. The format of these files is as follows:
+    This task takes as input XML files containing the videos to be uploaded. The format of these files is as follows:
     
-    <Videos>
-      <Video>
-	    <FilePath>C:\WexflowTesting\Videos\video1.mp4</FilePath>
-	    <ThumbnailPath>C:\WexflowTesting\Images\image1.jpg</ThumbnailPath>
-	    <Caption>My awesome video.</Caption>
-      </Video>
-      ...
-    </Videos>
+<Videos>
+  <Video>
+	<FilePath>C:\WexflowTesting\Videos\video1.mp4</FilePath>
+	<ThumbnailPath>C:\WexflowTesting\Images\image1.jpg</ThumbnailPath>
+	<Caption>My awesome video.</Caption>
+  </Video>
+  ...
+</Videos>
   -->
   <Task id="$int" name="InstagramUploadVideo" description="$string" enabled="true|false">
     <!-- 

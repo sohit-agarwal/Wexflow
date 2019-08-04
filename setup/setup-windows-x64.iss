@@ -48,7 +48,6 @@ Source: "..\libs\ICSharpCode.SharpZipLib.dll"; DestDir: "{app}"; Flags: ignoreve
 Source: "..\libs\log4net.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Renci.SshNet.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\libs\TweetSharp.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Mono.Security.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Npgsql.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Oracle.ManagedDataAccess.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -108,6 +107,16 @@ Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Nito.AsyncEx.Context.dll";
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Nito.AsyncEx.Tasks.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Nito.Disposables.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Reflection.TypeExtensions.dll"; DestDir: "{app}"; Flags: ignoreversion
+
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Net.Http.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Security.Cryptography.Algorithms.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Security.Cryptography.Encoding.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Security.Cryptography.Primitives.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Security.Cryptography.X509Certificates.dll"; DestDir: "{app}"; Flags: ignoreversion
+
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\InstagramApiSharp.dll"; DestDir: "{app}"; Flags: ignoreversion
+
+;Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\"; DestDir: "{app}"; Flags: ignoreversion
 
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Wexflow.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Wexflow.Core.Db.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -210,6 +219,7 @@ Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Wexflow.Tasks.CsvToYaml.dl
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Wexflow.Tasks.EnvironmentVariable.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Wexflow.Tasks.MessageCorrect.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Wexflow.Tasks.InstagramUploadImage.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Wexflow.Tasks.InstagramUploadVideo.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 ; Wexflow Manager
 Source: "..\src\dotnet\Wexflow.Clients.Manager\bin\x64\Release\Wexflow.Clients.Manager.exe"; DestDir: "{app}\Manager"; Flags: ignoreversion
@@ -344,6 +354,7 @@ Source: "..\src\dotnet\Wexflow.Tasks.CsvToYaml\CsvToYaml.xml"; DestDir: "{app}\D
 Source: "..\src\dotnet\Wexflow.Tasks.EnvironmentVariable\EnvironmentVariable.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 Source: "..\src\dotnet\Wexflow.Tasks.MessageCorrect\MessageCorrect.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 Source: "..\src\dotnet\Wexflow.Tasks.InstagramUploadImage\InstagramUploadImage.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.InstagramUploadVideo\InstagramUploadVideo.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 
 Source: "..\LICENSE.txt"; DestDir: "{app}\"; Flags: ignoreversion recursesubdirs
 
