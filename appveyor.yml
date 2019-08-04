@@ -37,7 +37,7 @@ before_build:
 
 build:
   parallel: true                   # enable MSBuild parallel builds
-  project: Wexflow.appveyor.sln      # path to Visual Studio solution or project
+  project: Wexflow.sln      # path to Visual Studio solution or project
   verbosity: normal                # MSBuild verbosity level quiet|minimal|normal|detailed
 
 test: off
