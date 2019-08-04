@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Wexflow</id>
-    <version>4.2.0</version>
+    <version>4.2.1</version>
     <title>Wexflow</title>
     <authors>Akram El Assas</authors>
     <owners>Akram El Assas</owners>
@@ -12,7 +12,7 @@
     <!--<iconUrl></iconUrl>-->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Core assembly of Wexflow workflow engine.</description>
-    <releaseNotes>Upgraded to Microsoft .NET 4.5.2 for the .NET version and updated the database.</releaseNotes>
+    <releaseNotes>Upgraded the .NET version of Wexflow to .NET 4.6.1, performance enhancements and under the hood updates.</releaseNotes>
     <copyright>Copyright (c) 2019 Akram El Assas.</copyright>
     <tags>Wexflow Workflow</tags>
   </metadata>
