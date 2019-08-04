@@ -10,14 +10,14 @@ using InstagramApiSharp.API;
 using InstagramApiSharp.Classes.Models;
 using Wexflow.Core;
 
-namespace Wexflow.Tasks.InstagramUploadImage
+namespace Wexflow.Tasks.InstagramUploadVideo
 {
-    public class InstagramUploadImage:Task
+    public class InstagramUploadVideo : Task
     {
         public string Username { get; }
         public string Password { get; }
 
-        public InstagramUploadImage(XElement xe, Workflow wf) : base(xe, wf)
+        public InstagramUploadVideo(XElement xe, Workflow wf) : base(xe, wf)
         {
             Username = GetSetting("username");
             Password = GetSetting("password");
@@ -25,7 +25,7 @@ namespace Wexflow.Tasks.InstagramUploadImage
 
         public override TaskStatus Run()
         {
-            Info("Uploading images...");
+            Info("Uploading videos...");
 
             bool succeeded = true;
             bool atLeastOneSucceed = false;
@@ -54,14 +54,15 @@ namespace Wexflow.Tasks.InstagramUploadImage
                     {
                         XDocument xdoc = XDocument.Load(file.Path);
 
-                        foreach (var xvideo in xdoc.XPathSelectElements("/Images/Image"))
+                        foreach (var xvideo in xdoc.XPathSelectElements("/Videos/Video"))
                         {
                             string filePath = xvideo.Element("FilePath").Value;
+                            string thumbnailPath = xvideo.Element("ThumbnailPath").Value;
                             string caption = xvideo.Element("Caption").Value;
 
-                            var uploadImageTask = UploadImage(authTask.Result, filePath, caption);
-                            uploadImageTask.Wait();
-                            succeeded &= uploadImageTask.Result;
+                            var uploadVideoTask = UploadVideo(authTask.Result, filePath, thumbnailPath, caption);
+                            uploadVideoTask.Wait();
+                            succeeded &= uploadVideoTask.Result;
 
                             if (succeeded && !atLeastOneSucceed) atLeastOneSucceed = true;
                         }
@@ -72,7 +73,7 @@ namespace Wexflow.Tasks.InstagramUploadImage
                     }
                     catch (Exception e)
                     {
-                        ErrorFormat("An error occured while uploading the image {0}: {1}", file.Path, e.Message);
+                        ErrorFormat("An error occured while uploading the video {0}: {1}", file.Path, e.Message);
                         succeeded = false;
                     }
                 }
@@ -84,7 +85,7 @@ namespace Wexflow.Tasks.InstagramUploadImage
             }
             catch (Exception e)
             {
-                ErrorFormat("An error occured while uploading images: {0}", e.Message);
+                ErrorFormat("An error occured while uploading videos: {0}", e.Message);
                 return new TaskStatus(Status.Error);
             }
 
@@ -162,23 +163,21 @@ namespace Wexflow.Tasks.InstagramUploadImage
             return instaApi;
         }
 
-        public async System.Threading.Tasks.Task<bool> UploadImage(IInstaApi instaApi, string filePath, string caption)
+        public async System.Threading.Tasks.Task<bool> UploadVideo(IInstaApi instaApi, string filePath, string thumbnailPath, string caption)
         {
             try
             {
-                var mediaImage = new InstaImageUpload
+                var mediaVideo = new InstaVideoUpload
                 {
-                    // leave zero, if you don't know how height and width is it.
-                    Height = 0,
-                    Width = 0,
-                    Uri = filePath
+                    Video = new InstaVideo(filePath, 0, 0),
+                    VideoThumbnail = new InstaImage(thumbnailPath, 0, 0)
                 };
 
-                var result = await instaApi.MediaProcessor.UploadPhotoAsync(mediaImage, caption);
+                var result = await instaApi.MediaProcessor.UploadVideoAsync(mediaVideo, caption);
 
                 if (!result.Succeeded)
                 {
-                    InfoFormat("Unable to upload image: {0}", result.Info.Message);
+                    InfoFormat("Unable to upload video: {0}", result.Info.Message);
                     return false;
                     
                 }
@@ -188,7 +187,7 @@ namespace Wexflow.Tasks.InstagramUploadImage
             }
             catch (Exception e)
             {
-                ErrorFormat("An error occured while uploading the image: {0}", e, filePath);
+                ErrorFormat("An error occured while uploading the video: {0}", e, filePath);
                 return false;
             }
             

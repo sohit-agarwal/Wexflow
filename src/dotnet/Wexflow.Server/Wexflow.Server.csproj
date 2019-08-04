@@ -317,6 +317,10 @@
       <Project>{45d2177b-efb1-4790-8f08-e373840413d7}</Project>
       <Name>Wexflow.Tasks.InstagramUploadImage</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.InstagramUploadVideo\Wexflow.Tasks.InstagramUploadVideo.csproj">
+      <Project>{882fcc8b-b7f6-4290-9c2d-ccdfbbc2e327}</Project>
+      <Name>Wexflow.Tasks.InstagramUploadVideo</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.IsoCreator\Wexflow.Tasks.IsoCreator.csproj">
       <Project>{9cdfaf59-62b3-48ba-bcce-3359856d3835}</Project>
       <Name>Wexflow.Tasks.IsoCreator</Name>
