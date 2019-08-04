@@ -61,7 +61,7 @@ namespace Wexflow.Tasks.Twitter
                             var tweet = Tweet.PublishTweet(status);
                             if (tweet != null)
                             {
-                                InfoFormat("Tweet '{0}' sent.", status);
+                                InfoFormat("Tweet '{0}' sent. id: {1}", status, tweet.Id);
                             }
                             else
                             {

@@ -5,7 +5,7 @@
 	</Settings>
 	<Tasks>
 		<Task id="1" name="FilesLoader" description="Loading tweets" enabled="true">
-			<Setting name="file" value="C:\WexflowTesting\Tweets\Tweets.xml" />
+			<Setting name="file" value="/opt/wexflow/WexflowTesting/Tweets/Tweets.xml" />
 		</Task>
 		<Task id="2" name="Twitter" description="Sending tweets" enabled="true">
 			<Setting name="selectFiles" value="1" />
