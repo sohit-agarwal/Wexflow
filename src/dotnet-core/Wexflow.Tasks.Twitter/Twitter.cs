@@ -36,8 +36,7 @@ namespace Wexflow.Tasks.Twitter
             {
                 try
                 {
-                    var credentials = Auth.SetUserCredentials(ConsumerKey, ConsumerSecret, AccessToken, AccessTokenSecret);
-                    //credentials.ApplicationOnlyBearerToken
+                    Auth.SetUserCredentials(ConsumerKey, ConsumerSecret, AccessToken, AccessTokenSecret);
                     Info("Authentication succeeded.");
                 }
                 catch (ThreadAbortException)
