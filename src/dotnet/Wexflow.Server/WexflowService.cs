@@ -720,7 +720,9 @@ namespace Wexflow.Server
         public User GetUser(string username)
         {
             var user = WexflowWindowsService.WexflowEngine.GetUser(username);
-            DateTime baseDate = new DateTime(1970, 1, 1);
+            //DateTime baseDate = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            string dateTimeFormat = ConfigurationManager.AppSettings["DateTimeFormat"];
+
             if (user != null)
             {
                 return new User
@@ -730,8 +732,10 @@ namespace Wexflow.Server
                     Password = user.Password,
                     UserProfile = (UserProfile)((int)user.UserProfile),
                     Email = user.Email,
-                    CreatedOn = (user.CreatedOn - baseDate).TotalMilliseconds,
-                    ModifiedOn = (user.ModifiedOn - baseDate).TotalMilliseconds
+                    //CreatedOn = user.CreatedOn.ToUniversalTime().Subtract(baseDate).TotalMilliseconds,
+                    CreatedOn = user.CreatedOn.ToString(dateTimeFormat),
+                    //ModifiedOn = user.ModifiedOn.ToUniversalTime().Subtract(baseDate).TotalMilliseconds
+                    ModifiedOn = user.ModifiedOn.ToString(dateTimeFormat)
                 };
             }
 
@@ -744,7 +748,8 @@ namespace Wexflow.Server
         public User[] GetUsers()
         {
             var users = WexflowWindowsService.WexflowEngine.GetUsers();
-            DateTime baseDate = new DateTime(1970, 1, 1);
+            //DateTime baseDate = new DateTime(1970, 1, 1);
+            string dateTimeFormat = ConfigurationManager.AppSettings["DateTimeFormat"];
 
             return users.Select(u => new User
             {
@@ -753,8 +758,10 @@ namespace Wexflow.Server
                 Password = u.Password,
                 UserProfile = (UserProfile)((int)u.UserProfile),
                 Email = u.Email,
-                CreatedOn = (u.CreatedOn - baseDate).TotalMilliseconds,
-                ModifiedOn = (u.ModifiedOn - baseDate).TotalMilliseconds
+                //CreatedOn = (u.CreatedOn - baseDate).TotalMilliseconds,
+                CreatedOn = u.CreatedOn.ToString(dateTimeFormat),
+                //ModifiedOn = (u.ModifiedOn - baseDate).TotalMilliseconds
+                ModifiedOn = u.ModifiedOn.ToString(dateTimeFormat)
             }).ToArray();
         }
 
@@ -765,6 +772,7 @@ namespace Wexflow.Server
         {
             var users = WexflowWindowsService.WexflowEngine.GetUsers(keyword, (UserOrderBy)uo);
             DateTime baseDate = new DateTime(1970, 1, 1);
+            string dateTimeFormat = ConfigurationManager.AppSettings["DateTimeFormat"];
 
             return users.Select(u => new User
             {
@@ -773,8 +781,10 @@ namespace Wexflow.Server
                 Password = u.Password,
                 UserProfile = (UserProfile)((int)u.UserProfile),
                 Email = u.Email,
-                CreatedOn = (u.CreatedOn - baseDate).TotalMilliseconds,
-                ModifiedOn = (u.ModifiedOn - baseDate).TotalMilliseconds
+                //CreatedOn = (u.CreatedOn - baseDate).TotalMilliseconds,
+                CreatedOn = u.CreatedOn.ToString(dateTimeFormat),
+                //ModifiedOn = (u.ModifiedOn - baseDate).TotalMilliseconds
+                ModifiedOn = u.ModifiedOn.ToString(dateTimeFormat)
             }).ToArray();
         }
 
@@ -936,7 +946,8 @@ namespace Wexflow.Server
                     LaunchType = (LaunchType) ((int) e.LaunchType),
                     Description = e.Description,
                     Status = (Core.Service.Contracts.Status) ((int) e.Status),
-                    StatusDate = (e.StatusDate - baseDate).TotalMilliseconds
+                    //StatusDate = (e.StatusDate - baseDate).TotalMilliseconds
+                    StatusDate = e.StatusDate.ToString(ConfigurationManager.AppSettings["DateTimeFormat"])
                 }).ToArray();
         }
 
@@ -956,7 +967,8 @@ namespace Wexflow.Server
                     LaunchType = (LaunchType) ((int) e.LaunchType),
                     Description = e.Description,
                     Status = (Core.Service.Contracts.Status) ((int) e.Status),
-                    StatusDate = (e.StatusDate - baseDate).TotalMilliseconds
+                    //StatusDate = (e.StatusDate - baseDate).TotalMilliseconds
+                    StatusDate = e.StatusDate.ToString(ConfigurationManager.AppSettings["DateTimeFormat"])
                 }).ToArray();
         }
 
@@ -976,7 +988,8 @@ namespace Wexflow.Server
                     LaunchType = (LaunchType) ((int) e.LaunchType),
                     Description = e.Description,
                     Status = (Core.Service.Contracts.Status) ((int) e.Status),
-                    StatusDate = (e.StatusDate - baseDate).TotalMilliseconds
+                    //StatusDate = (e.StatusDate - baseDate).TotalMilliseconds
+                    StatusDate = e.StatusDate.ToString(ConfigurationManager.AppSettings["DateTimeFormat"])
                 }).ToArray();
         }
 
@@ -987,12 +1000,12 @@ namespace Wexflow.Server
         public HistoryEntry[] SearchHistoryEntriesByPageOrderBy(string keyword, double from, double to, int page,
             int entriesCount, int heo)
         {
-            DateTime baseDate = new DateTime(1970, 1, 1);
+            DateTime baseDate = new DateTime(1970, 1, 1, 0, 0, 0);
             DateTime fromDate = baseDate.AddMilliseconds(from);
             DateTime toDate = baseDate.AddMilliseconds(to);
 
             var entries = WexflowWindowsService.WexflowEngine.GetHistoryEntries(keyword, fromDate, toDate, page,
-                entriesCount, (Core.Db.EntryOrderBy) heo);
+                entriesCount, (EntryOrderBy) heo);
 
             return entries.Select(e =>
                 new HistoryEntry
@@ -1003,7 +1016,8 @@ namespace Wexflow.Server
                     LaunchType = (LaunchType) ((int) e.LaunchType),
                     Description = e.Description,
                     Status = (Core.Service.Contracts.Status) ((int) e.Status),
-                    StatusDate = (e.StatusDate - baseDate).TotalMilliseconds
+                    //StatusDate = e.StatusDate.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds
+                    StatusDate = e.StatusDate.ToString(ConfigurationManager.AppSettings["DateTimeFormat"])
                 }).ToArray();
         }
 
@@ -1011,16 +1025,15 @@ namespace Wexflow.Server
             ResponseFormat = WebMessageFormat.Json,
             UriTemplate =
                 "searchEntriesByPageOrderBy?s={keyword}&from={from}&to={to}&page={page}&entriesCount={entriesCount}&heo={heo}")]
-        public Entry[] SearchEntriesByPageOrderBy(string keyword, double from, double to, int page, int entriesCount,
-            int heo)
+        public Entry[] SearchEntriesByPageOrderBy(string keyword, double from, double to, int page, int entriesCount, int heo)
         {
-            DateTime baseDate = new DateTime(1970, 1, 1);
+            DateTime baseDate = new DateTime(1970, 1, 1, 0, 0, 0);
             DateTime fromDate = baseDate.AddMilliseconds(from);
             DateTime toDate = baseDate.AddMilliseconds(to);
 
             var entries = WexflowWindowsService.WexflowEngine.GetEntries(keyword, fromDate, toDate, page, entriesCount, (EntryOrderBy) heo);
 
-            return entries.Select(e =>
+            var q = entries.Select(e =>
                 new Entry
                 {
                     Id = e.Id,
@@ -1029,8 +1042,11 @@ namespace Wexflow.Server
                     LaunchType = (LaunchType) ((int) e.LaunchType),
                     Description = e.Description,
                     Status = (Core.Service.Contracts.Status) ((int) e.Status),
-                    StatusDate = (e.StatusDate - baseDate).TotalMilliseconds
+                    //StatusDate = e.StatusDate.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds
+                    StatusDate = e.StatusDate.ToString(ConfigurationManager.AppSettings["DateTimeFormat"])
                 }).ToArray();
+
+            return q;
         }
 
         [WebInvoke(Method = "GET",

@@ -22,8 +22,10 @@ namespace Wexflow.Core.Service.Contracts
         [DataMember]
         public string Email { get; set; }
         [DataMember]
-        public double CreatedOn { get; set; }
+        //public double CreatedOn { get; set; }
+        public string CreatedOn { get; set; }
         [DataMember]
-        public double ModifiedOn { get; set; }
+        //public double ModifiedOn { get; set; }
+        public string ModifiedOn { get; set; }
     }
 }

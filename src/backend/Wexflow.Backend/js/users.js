@@ -246,12 +246,15 @@
         Common.get(uri + "/user?username=" + encodeURIComponent(selectedUsername),
             function (u) {
                 txtId.value = u.Id;
-                txtCreatedOn.value = Common.formatDate(new Date(u.CreatedOn));
-                
-                if (u.ModifiedOn === -62135596800000) {
+                //txtCreatedOn.value = Common.formatDate(new Date(u.CreatedOn));
+                txtCreatedOn.value = u.CreatedOn;
+
+                //if (u.ModifiedOn === -62135596800000) {
+                if (u.ModifiedOn.indexOf("0001") > -1) {
                     txtModifiedOn.value = "-";
                 } else {
-                    txtModifiedOn.value = Common.formatDate(new Date(u.ModifiedOn));
+                    //txtModifiedOn.value = Common.formatDate(new Date(u.ModifiedOn));
+                    txtModifiedOn.value = u.ModifiedOn;
                 }
 
                 txtUsername.value = u.Username;
@@ -435,7 +438,8 @@
                                                             trCreatedOn.style.display = "table-row";
                                                             trModifiedOn.style.display = "table-row";
                                                             txtId.value = user.Id;
-                                                            txtCreatedOn.value = Common.formatDate(new Date(user.CreatedOn));
+                                                            //txtCreatedOn.value = Common.formatDate(new Date(user.CreatedOn));
+                                                            txtCreatedOn.value = user.CreatedOn;
                                                             txtModifiedOn.value = "-";
 
                                                         });
@@ -550,8 +554,10 @@
                                                                 trCreatedOn.style.display = "table-row";
                                                                 trModifiedOn.style.display = "table-row";
                                                                 txtId.value = user.Id;
-                                                                txtCreatedOn.value = Common.formatDate(new Date(user.CreatedOn));
-                                                                txtModifiedOn.value = Common.formatDate(new Date(user.ModifiedOn));
+                                                                //txtCreatedOn.value = Common.formatDate(new Date(user.CreatedOn));
+                                                                txtCreatedOn.value = user.CreatedOn;
+                                                                //txtModifiedOn.value = Common.formatDate(new Date(user.ModifiedOn));
+                                                                txtModifiedOn.value = user.ModifiedOn;
 
                                                                 if (logedinUser !== selectedUsername && user.UserProfile === 0) {
                                                                     slctProfile.disabled = true;
@@ -609,8 +615,10 @@
                         trCreatedOn.style.display = "table-row";
                         trModifiedOn.style.display = "table-row";
                         txtId.value = user.Id;
-                        txtCreatedOn.value = Common.formatDate(new Date(user.CreatedOn));
-                        txtModifiedOn.value = Common.formatDate(new Date(user.ModifiedOn));
+                        //txtCreatedOn.value = Common.formatDate(new Date(user.CreatedOn));
+                        txtCreatedOn.value = user.CreatedOn;
+                        //txtModifiedOn.value = Common.formatDate(new Date(user.ModifiedOn));
+                        txtModifiedOn.value = user.ModifiedOn;
 
                         if (logedinUser !== selectedUsername && user.UserProfile === 0) {
                             slctProfile.disabled = true;

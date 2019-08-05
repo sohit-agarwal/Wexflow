@@ -29,6 +29,7 @@ namespace Wexflow.Core.Service.Contracts
         [DataMember]
         public Status Status { get; set; }
         [DataMember]
-        public double StatusDate { get; set; }
+        //public double StatusDate { get; set; }
+        public string StatusDate { get; set; }
     }
 }

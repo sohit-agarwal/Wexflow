@@ -209,7 +209,8 @@
                 var entryStatus = Common.status(val.Status);
                 items.push("<tr>"
                     + "<td class='status'>" + entryStatus + "</td>"
-                    + "<td class='date'>" + Common.formatDate(new Date(val.StatusDate)) + "</td>"
+                    //+ "<td class='date'>" + Common.formatDate(new Date(val.StatusDate)) + "</td>"
+                    + "<td class='date'>" + val.StatusDate + "</td>"
                     + "<td class='id' title='" + val.WorkflowId + "'>" + val.WorkflowId + "</td>"
                     + "<td class='name'>" + val.Name + "</td>"
                     + "<td class='lt'>" + lt + "</td>"
