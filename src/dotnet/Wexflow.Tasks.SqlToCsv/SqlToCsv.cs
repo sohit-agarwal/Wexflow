@@ -46,10 +46,8 @@ namespace Wexflow.Tasks.SqlToCsv
             QuoteString = GetSetting("quote", string.Empty);
             EndOfLine = GetSetting("endline", "\r\n");
             Separator = QuoteString + GetSetting("separator", ";") + QuoteString;
-            bool result1;
-            if (bool.TryParse(GetSetting("headers", bool.TrueString), out result1)) Headers = result1;
-            bool result2;
-            if (bool.TryParse(GetSetting("singlerecordheaders", bool.TrueString), out result2)) SingleRecordHeaders = result2;
+            if (bool.TryParse(GetSetting("headers", bool.TrueString), out var result1)) Headers = result1;
+            if (bool.TryParse(GetSetting("singlerecordheaders", bool.TrueString), out var result2)) SingleRecordHeaders = result2;
         }
 
         public override TaskStatus Run()
@@ -185,7 +183,6 @@ namespace Wexflow.Tasks.SqlToCsv
 
                 while (hasRows)
                 {
-                    var i = 0;
                     List<string> columns = new List<string>();
                     List<string> values = new List<string>();
                     bool readColumns = false;
@@ -208,6 +205,8 @@ namespace Wexflow.Tasks.SqlToCsv
                             sw.Write(EndOfLine);
                             values.Clear();
                         }
+
+                        int i;
                         if (!readColumns)
                         {
                             for (i = 0; i < reader.FieldCount; i++)
