@@ -18,9 +18,11 @@
         public UserProfile UserProfile { get; set; }
         
         public string Email { get; set; }
-        
-        public double CreatedOn { get; set; }
-        
-        public double ModifiedOn { get; set; }
+
+        //public double CreatedOn { get; set; }
+        public string CreatedOn { get; set; }
+
+        //public double ModifiedOn { get; set; }
+        public string ModifiedOn { get; set; }
     }
 }

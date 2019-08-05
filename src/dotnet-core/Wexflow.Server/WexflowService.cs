@@ -1023,7 +1023,9 @@ namespace Wexflow.Server
                 string username = Request.Query["username"].ToString();
 
                 var user = Program.WexflowEngine.GetUser(username);
-                DateTime baseDate = new DateTime(1970, 1, 1);
+                //DateTime baseDate = new DateTime(1970, 1, 1);
+                string dateTimeFormat = Program.Config["DateTimeFormat"];
+
                 if (user != null)
                 {
                     User u = new User
@@ -1033,8 +1035,10 @@ namespace Wexflow.Server
                         Password = user.Password,
                         UserProfile = (UserProfile)((int)user.UserProfile),
                         Email = user.Email,
-                        CreatedOn = (user.CreatedOn - baseDate).TotalMilliseconds,
-                        ModifiedOn = (user.ModifiedOn - baseDate).TotalMilliseconds
+                        //CreatedOn = (user.CreatedOn - baseDate).TotalMilliseconds,
+                        CreatedOn = user.CreatedOn.ToString(dateTimeFormat),
+                        //ModifiedOn = (user.ModifiedOn - baseDate).TotalMilliseconds
+                        ModifiedOn = user.ModifiedOn.ToString(dateTimeFormat)
                     };
 
                     var uStr = JsonConvert.SerializeObject(u);
@@ -1087,7 +1091,8 @@ namespace Wexflow.Server
                 int uo = int.Parse(Request.Query["uo"].ToString());
 
                 var users = Program.WexflowEngine.GetUsers(keyword, (UserOrderBy)uo);
-                DateTime baseDate = new DateTime(1970, 1, 1);
+                //DateTime baseDate = new DateTime(1970, 1, 1);
+                string dateTimeFormat = Program.Config["DateTimeFormat"];
 
                 var q = users.Select(u => new User
                 {
@@ -1096,8 +1101,10 @@ namespace Wexflow.Server
                     Password = u.Password,
                     UserProfile = (UserProfile)((int)u.UserProfile),
                     Email = u.Email,
-                    CreatedOn = (u.CreatedOn - baseDate).TotalMilliseconds,
-                    ModifiedOn = (u.ModifiedOn - baseDate).TotalMilliseconds
+                    //CreatedOn = (u.CreatedOn - baseDate).TotalMilliseconds,
+                    CreatedOn = u.CreatedOn.ToString(dateTimeFormat),
+                    //ModifiedOn = (u.ModifiedOn - baseDate).TotalMilliseconds
+                    ModifiedOn = u.ModifiedOn.ToString(dateTimeFormat)
                 }).ToArray();
 
                 var qStr = JsonConvert.SerializeObject(q);
@@ -1412,7 +1419,8 @@ namespace Wexflow.Server
                         LaunchType = (LaunchType)((int)e.LaunchType),
                         Description = e.Description,
                         Status = (Contracts.Status)((int)e.Status),
-                        StatusDate = (e.StatusDate - baseDate).TotalMilliseconds
+                        //StatusDate = (e.StatusDate - baseDate).TotalMilliseconds
+                        StatusDate = e.StatusDate.ToString(Program.Config["DateTimeFormat"])
                     }).ToArray();
 
                 var qStr = JsonConvert.SerializeObject(q);
@@ -1456,7 +1464,8 @@ namespace Wexflow.Server
                         LaunchType = (LaunchType)((int)e.LaunchType),
                         Description = e.Description,
                         Status = (Contracts.Status)((int)e.Status),
-                        StatusDate = (e.StatusDate - baseDate).TotalMilliseconds
+                        //StatusDate = (e.StatusDate - baseDate).TotalMilliseconds
+                        StatusDate = e.StatusDate.ToString(Program.Config["DateTimeFormat"])
                     }).ToArray();
 
                 var qStr = JsonConvert.SerializeObject(q);
