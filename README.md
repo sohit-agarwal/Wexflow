@@ -88,9 +88,9 @@ Discover more about the features in [details](https://github.com/aelassas/Wexflo
 - Batch recording live video feeds.
 - Batch transcoding audio and video files.
 - Batch uploading videos and their metadata to YouTube SFTP dropbox.
-- YouTube integration: Automatically upload, search for content and list uploaded videos on YouTube through YouTube Data API.
-- Instagram integration: Automatically upload images and videos to Instagram through Instagram API.
-- Twitter integration: Automatically send tweets through Twitter API.
+- [YouTube integration](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation#audio-and-video-tasks): Automatically upload, search for content and list uploaded videos on YouTube through YouTube Data API.
+- [Instagram integration](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation#social-media-tasks): Automatically upload images and videos to Instagram through Instagram API.
+- [Twitter integration](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation#social-media-tasks): Automatically send tweets through Twitter API.
 - Batch encrypting and decrypting large files.
 - Batch converting, resizing and cropping images.
 - Creating and sending reports and invoices by email.
