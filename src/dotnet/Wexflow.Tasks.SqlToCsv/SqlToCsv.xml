@@ -33,5 +33,7 @@
     <Setting name="headers" value="$bool" />
     <!-- Optional and defaults to \r\n. End of line string.-->
     <Setting name="endline" value="$string" />
+    <!-- Optional and defaults to false. If set to true and the result set is empty, no file will be generated. If set to false, a file will be generated even if the result set is empty.-->
+    <Setting name="doNotGenerateFilesIfEmpty" value="$bool" />
   </Task>
 </Tasks>
