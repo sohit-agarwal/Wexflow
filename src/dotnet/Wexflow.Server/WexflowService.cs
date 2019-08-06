@@ -20,6 +20,7 @@ using StatusCount = Wexflow.Core.Service.Contracts.StatusCount;
 using User = Wexflow.Core.Service.Contracts.User;
 using UserProfile = Wexflow.Core.Service.Contracts.UserProfile;
 using System.Configuration;
+using System.Xml;
 
 namespace Wexflow.Server
 {
@@ -307,6 +308,50 @@ namespace Wexflow.Server
             TimeSpan ts;
             var res = TimeSpan.TryParse(period, out ts);
             return res;
+        }
+
+        [WebInvoke(Method = "POST",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "saveXml")]
+        public bool SaveXmlWorkflow(Stream streamdata)
+        {
+            try
+            {
+                StreamReader reader = new StreamReader(streamdata);
+                string xml = reader.ReadToEnd();
+                reader.Close();
+                reader.Dispose();
+
+                var trimChars = new char[] { '\r', '\n', '"', '\'' };
+                xml = xml
+                    .TrimStart(trimChars)
+                    .TrimEnd(trimChars)
+                    .Replace("\\r\\n", string.Empty)
+                    .Replace("\\\"", "\"")
+                    .Replace("\\\\","\\");
+
+                var xdoc = XDocument.Parse(xml);
+                XNamespace xn = "urn:wexflow-schema";
+
+                var workflowId = int.Parse(xdoc.Element(xn + "Workflow").Attribute("id").Value);
+
+                var wf = WexflowWindowsService.WexflowEngine.GetWorkflow(workflowId);
+                if (wf != null)
+                {
+                    xdoc.Save(wf.WorkflowFilePath);
+                }
+                else
+                {
+                    throw new Exception("Workflow " + workflowId + " not found.");
+                }
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
         }
 
         [WebInvoke(Method = "POST",

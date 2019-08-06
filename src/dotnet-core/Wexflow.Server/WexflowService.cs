@@ -55,12 +55,13 @@ namespace Wexflow.Server
             IsWorkflowIdValid();
             IsCronExpressionValid();
             IsPeriodValid();
+            SaveXmlWorkflow();
             SaveWorkflow();
             DeleteWorkflow();
             GetExecutionGraph();
 
             //
-            // Back office
+            // Backend
             //
             GetStatusCount();
             GetUser();
@@ -566,7 +567,66 @@ namespace Wexflow.Server
         }
 
         /// <summary>
-        /// Saves a workflow
+        /// Saves a workflow from XML.
+        /// </summary>
+        private void SaveXmlWorkflow()
+        {
+            Post(Root + "saveXml", args =>
+            {
+                try
+                {
+                    var xml = RequestStream.FromStream(Request.Body).AsString();
+
+                    var trimChars = new char[] { '\r', '\n', '"', '\'' };
+                    xml = xml
+                        .TrimStart(trimChars)
+                        .TrimEnd(trimChars)
+                        .Replace("\\r\\n", string.Empty)
+                        .Replace("\\\"", "\"")
+                        .Replace("\\\\", "\\");
+
+                    var xdoc = XDocument.Parse(xml);
+                    XNamespace xn = "urn:wexflow-schema";
+
+                    var workflowId = int.Parse(xdoc.Element(xn + "Workflow").Attribute("id").Value);
+
+                    var wf = Program.WexflowEngine.GetWorkflow(workflowId);
+                    if (wf != null)
+                    {
+                        xdoc.Save(wf.WorkflowFilePath);
+                    }
+                    else
+                    {
+                        throw new Exception("Workflow " + workflowId + " not found.");
+                    }
+
+                    var resStr = JsonConvert.SerializeObject(true);
+                    var resBytes = Encoding.UTF8.GetBytes(resStr);
+
+                    return new Response()
+                    {
+                        ContentType = "application/json",
+                        Contents = s => s.Write(resBytes, 0, resBytes.Length)
+                    };
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+
+                    var resStr = JsonConvert.SerializeObject(false);
+                    var resBytes = Encoding.UTF8.GetBytes(resStr);
+
+                    return new Response()
+                    {
+                        ContentType = "application/json",
+                        Contents = s => s.Write(resBytes, 0, resBytes.Length)
+                    };
+                }
+            });
+        }
+
+        /// <summary>
+        /// Saves a workflow.
         /// </summary>
         private void SaveWorkflow()
         {

@@ -75,12 +75,15 @@
     <Content Include="css\users.min.css" />
     <Content Include="forgot-password.html" />
     <Content Include="images\logo.png" />
+    <Content Include="js\ace.js" />
     <Content Include="js\dashboard.min.js" />
     <Content Include="js\designer.min.js" />
     <Content Include="js\forgot-password.js" />
     <Content Include="js\forgot-password.min.js" />
     <Content Include="js\history.min.js" />
     <Content Include="js\manager.min.js" />
+    <Content Include="js\mode-xml.js" />
+    <Content Include="js\theme-github.js" />
     <Content Include="js\uglify-login.bat" />
     <Content Include="js\uglify-dashboard.bat" />
     <Content Include="js\uglify-manager.bat" />
@@ -151,6 +154,7 @@
     <Content Include="js\settings.js" />
     <Content Include="js\users.js" />
     <Content Include="js\users.min.js" />
+    <Content Include="js\worker-xml.js" />
     <Content Include="manager.html" />
     <Content Include="users.html" />
     <Content Include="Web.config" />
