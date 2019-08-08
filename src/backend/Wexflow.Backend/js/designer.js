@@ -50,7 +50,7 @@
     var workflowInfos = {};
     var workflowTasks = {};
     var timer = null;
-    var timerInterval = 500; // ms
+    var timerInterval = 700; // ms
     var saveCalled = false;
     var editors = new Map();
     var editorChanged = false;
@@ -122,8 +122,8 @@
 
     // CTRL+S
     window.onkeydown = function (event) {
-        if (selectedId !== -1) {
-            if ((event.ctrlKey || event.metaKey || event.keyCode === 17 || event.keyCode === 224 || event.keyCode === 91 || event.keyCode === 93) && String.fromCharCode(event.which).toLowerCase() === "s") {
+        if (selectedId !== -1) { // CTRL+S
+            if ((event.ctrlKey || event.metaKey || event.keyCode === 17 || event.keyCode === 224 || event.keyCode === 91 || event.keyCode === 93) && event.keyCode === 83) {
                 save(selectedId, selectedId);
                 event.preventDefault();
                 return false;
