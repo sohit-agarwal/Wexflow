@@ -6,11 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="FolderExists.xml" />
+    <None Remove="FileContentMatch.xml" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="FolderExists.xml" />
+    <Content Include="FileContentMatch.xml" />
   </ItemGroup>
 
   <ItemGroup>

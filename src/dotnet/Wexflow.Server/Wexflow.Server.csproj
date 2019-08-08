@@ -193,6 +193,10 @@
       <Project>{25c5c91b-91b9-4cc6-9ce0-4d7cf9312496}</Project>
       <Name>Wexflow.Tasks.ExecVb</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.FileContentMatch\Wexflow.Tasks.FileContentMatch.csproj">
+      <Project>{f151425b-cb47-4ef6-adb7-d8c2d9ae0479}</Project>
+      <Name>Wexflow.Tasks.FileContentMatch</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.FileExists\Wexflow.Tasks.FileExists.csproj">
       <Project>{8ed85a48-a8e3-4565-a874-3562f081d14c}</Project>
       <Name>Wexflow.Tasks.FileExists</Name>
