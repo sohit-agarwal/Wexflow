@@ -26,7 +26,7 @@ namespace Wexflow.Tasks.FolderExists
 
                 if (success)
                 {
-                    InfoFormat("The folder {0} exist.", Folder);
+                    InfoFormat("The folder {0} exists.", Folder);
                 }
                 else
                 {

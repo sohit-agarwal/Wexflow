@@ -326,7 +326,8 @@ namespace Wexflow.Server
                 xml = xml
                     .TrimStart(trimChars)
                     .TrimEnd(trimChars)
-                    .Replace("\\r\\n", string.Empty)
+                    .Replace("\\r", string.Empty)
+                    .Replace("\\n", string.Empty)
                     .Replace("\\\"", "\"")
                     .Replace("\\\\","\\");
 
