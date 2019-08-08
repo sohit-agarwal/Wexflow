@@ -117,7 +117,6 @@ Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Security.Cryptograp
 ; InstagramApiSharp
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\InstagramApiSharp.dll"; DestDir: "{app}"; Flags: ignoreversion
 
-
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Wexflow.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Wexflow.Core.Db.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Wexflow.Core.Service.Client.dll"; DestDir: "{app}"; Flags: ignoreversion
