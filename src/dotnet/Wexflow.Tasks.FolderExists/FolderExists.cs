@@ -3,34 +3,34 @@ using Wexflow.Core;
 using System.Xml.Linq;
 using System.Threading;
 
-namespace Wexflow.Tasks.FileExists
+namespace Wexflow.Tasks.FolderExists
 {
-    public class FileExists:Task
+    public class FolderExists : Task
     {
-        public string File { get; private set; }
+        public string Folder { get; private set; }
 
-        public FileExists(XElement xe, Workflow wf): base(xe, wf)
+        public FolderExists(XElement xe, Workflow wf): base(xe, wf)
         {
-            File = GetSetting("file");
+            Folder = GetSetting("folder");
         }
 
         public override TaskStatus Run()
         {
-            Info("Checking file...");
+            Info("Checking folder...");
             
             bool success;
 
             try
             {
-                success = System.IO.File.Exists(File);
+                success = System.IO.Directory.Exists(Folder);
 
                 if (success)
                 {
-                    InfoFormat("The file {0} exist.", File);
+                    InfoFormat("The folder {0} exist.", Folder);
                 }
                 else
                 {
-                    InfoFormat("The file {0} does not exist.", File);
+                    InfoFormat("The folder {0} does not exist.", Folder);
                 }
 
             }
@@ -40,7 +40,7 @@ namespace Wexflow.Tasks.FileExists
             }
             catch (Exception e)
             {
-                ErrorFormat("An error occured while checking file {0}. Error: {1}", File, e.Message);
+                ErrorFormat("An error occured while checking the folder {0}. Error: {1}", Folder, e.Message);
                 return new TaskStatus(Status.Error, false);
             }
 

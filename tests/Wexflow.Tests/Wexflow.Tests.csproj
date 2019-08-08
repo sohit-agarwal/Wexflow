@@ -95,6 +95,7 @@
   <ItemGroup>
     <Compile Include="CsvToYaml.cs" />
     <Compile Include="CsvToXml.cs" />
+    <Compile Include="FolderExists.cs" />
     <Compile Include="InstagramUploadVideo.cs" />
     <Compile Include="MessageCorrect.cs" />
     <Compile Include="HttpGet.cs" />
@@ -300,6 +301,10 @@
     <ProjectReference Include="..\..\src\dotnet\Wexflow.Tasks.FilesSplitter\Wexflow.Tasks.FilesSplitter.csproj">
       <Project>{7efe7108-621b-49a0-b592-77e402aadbdb}</Project>
       <Name>Wexflow.Tasks.FilesSplitter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\dotnet\Wexflow.Tasks.FolderExists\Wexflow.Tasks.FolderExists.csproj">
+      <Project>{b7cbd3a6-8473-4ba3-b346-0894ead0d6c9}</Project>
+      <Name>Wexflow.Tasks.FolderExists</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\dotnet\Wexflow.Tasks.Ftp\Wexflow.Tasks.Ftp.csproj">
       <Project>{272ab358-72d6-446a-b339-e9a579a63b76}</Project>

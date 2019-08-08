@@ -214,6 +214,7 @@ Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Tasks.EnvironmentVaria
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Tasks.MessageCorrect.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Tasks.InstagramUploadImage.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Tasks.InstagramUploadVideo.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Tasks.FolderExists.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 ; Wexflow Manager
 Source: "..\src\dotnet\Wexflow.Clients.Manager\bin\Release\Wexflow.Clients.Manager.exe"; DestDir: "{app}\Manager"; Flags: ignoreversion
@@ -353,6 +354,7 @@ Source: "..\src\dotnet\Wexflow.Tasks.EnvironmentVariable\EnvironmentVariable.xml
 Source: "..\src\dotnet\Wexflow.Tasks.MessageCorrect\MessageCorrect.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 Source: "..\src\dotnet\Wexflow.Tasks.InstagramUploadImage\InstagramUploadImage.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 Source: "..\src\dotnet\Wexflow.Tasks.InstagramUploadVideo\InstagramUploadVideo.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.FolderExists\FolderExists.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 
 Source: "..\LICENSE.txt"; DestDir: "{app}\"; Flags: ignoreversion recursesubdirs
 
