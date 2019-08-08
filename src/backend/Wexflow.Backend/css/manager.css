@@ -1,35 +1,43 @@
-﻿body{
-	background: #FFFFFF;
+﻿body {
+    background: #FFFFFF;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
 }
 
-#header{
-	position: absolute;
-	top: 0;
-	right: 0;
-	left: 0;
-	height: 90px;
-	background: #29A85C;
-	color: #FFFFFF;
+#header {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 43px;
+    background: #29A85C;
+    color: #FFFFFF;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
 
-#header a{
-	color: #FFFFFF;
-	font-size: 25px;
-	margin: 20px;
-	float: left;
-}
+    #header a {
+        color: #FFFFFF;
+        font-size: 12px;
+        margin: 20px;
+        float: left;
+        font-weight: bold;
+        -webkit-font-smoothing: antialiased;
+        line-height: 5px;
+        white-space: nowrap;
+    }
 
-#header .header-right{
-	float: right;
-}
+    #header .header-right {
+        float: right;
+    }
 
     #header #lnk-manager, #lnk-designer, #lnk-users {
         display: none;
     }
 
+
 #wf-manager{
 	position: absolute; 
-	top: 100px; 
+	top: 45px; 
 	right:0; 
 	bottom:0; 
 	left:0;
@@ -38,8 +46,6 @@
 
 #wf-container
 {
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 14px;
     position: relative;
     min-width: 600px;
     min-height: 400px;

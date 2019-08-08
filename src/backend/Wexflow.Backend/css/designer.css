@@ -1,24 +1,31 @@
 ﻿
-body{
-	background: #FFFFFF;
+body {
+    background: #FFFFFF;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
 }
 
-#header{
-	position: absolute;
-	top: 0;
-	right: 0;
-	left: 0;
-	height: 90px;
-	background: #29A85C;
-	color: #FFFFFF;
+#header {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 43px;
+    background: #29A85C;
+    color: #FFFFFF;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
 
-#header a{
-	color: #FFFFFF;
-	font-size: 25px;
-	margin: 20px;
-	float: left;
-}
+    #header a {
+        color: #FFFFFF;
+        font-size: 12px;
+        margin: 20px;
+        float: left;
+        font-weight: bold;
+        -webkit-font-smoothing: antialiased;
+        line-height: 5px;
+        white-space: nowrap;
+    }
 
 #header .header-right{
 	float: right;
@@ -30,17 +37,15 @@ body{
 
 #wf-designer{
 	position: absolute; 
-	top: 100px; 
+	top: 35px; 
 	right:0; 
 	bottom:0; 
 	left:0;
     display: none;
 }
 
-#wf-container
-{
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 14px;
+#wf-container {
+    font-size: 12px;
     position: relative;
     min-width: 600px;
     min-height: 400px;
@@ -59,7 +64,7 @@ body{
     }
 
         #wf-search #wf-search-text-container #wf-search-text {
-            width: 230px;
+            width: 140px;
         }
 
     #wf-search #wf-search-action {
@@ -73,6 +78,7 @@ body{
     bottom: 0;
     left: 10px;
     overflow: auto;
+    width: 250px;
 }
 /* wf-workflows-table */
 #wf-workflows #wf-workflows-table .wf-id
@@ -106,7 +112,7 @@ body{
     top: 63px;
     right: 0;
     bottom: 0;
-    left: 370px;
+    left: 270px;
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -166,13 +172,13 @@ body{
 }
 
 .wf-action-left {
-    width: 100px;    
+    width: 94px;    
 }
 
 .wf-action-right {
     float: right;
     margin-right: 10px;
-    width: 100px;
+    width: 94px;
     display: none;
 }
 .wf-task-id, .wf-task-name, .wf-task-desc, .wf-task-enabled, .wf-settings, .wf-setting-name, .wf-setting-value, .wf-attribute-name, .wf-attribute-value, .wf-remove-setting, .wf-add-attribute, .wf-remove-attribute, .wf-attributes, .wf-task, .wf-task-title-label, .wf-taskxml-container {
@@ -207,13 +213,13 @@ body{
     display: none;
 }
 #wf-add-workflow, #wf-xml {
-    width: 130px;
+    width: 94px;
 }
 #wf-action {
     position: absolute;
     top: 10px;
     right: 0;
-    left: 343px;
+    left: 263px;
     padding: 7px;
     display: none;
 }
