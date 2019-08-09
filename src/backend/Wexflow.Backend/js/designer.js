@@ -183,7 +183,7 @@
             editorChanged = true;
             var editor = workflowEditor.editor;
             var editXml = getEditXml(editorWorkflowId);
-            //console.log("editorWorkflowId: " + editorWorkflowId + ", editXml: " + editXml + ", editorChanged: " + editorChanged + ", workflowChangedAndSaved: " + workflowChangedAndSaved);
+            
             if (editXml === true && editorChanged === true) {
                 res = confirm("The XML of the workflow " + editorWorkflowId + " has changed. Do you want to save it?");
                 if (res === true) {
@@ -239,6 +239,7 @@
                     var wfIdStr = document.getElementById("wf-id").value;
                     if (isInt(wfIdStr)) {
                         var workflowId = parseInt(wfIdStr);
+                        editorCanceled = true;
                         cancel(workflowId);
                     }
                 }
@@ -610,8 +611,6 @@
 
                                     // Reset editor
                                     if (typeof workflowEditor !== "undefined") {
-                                        editor.setValue("", -1);
-                                        document.getElementById("wf-xml-container").style.display = "none";
                                         workflowChangedAndSaved = true;
                                     }
 
@@ -679,10 +678,9 @@
                                     updateStatusTimer(workflow);
                                 });
 
-                            // Show the xml button
+                            // Reload XML
                             if (typeof workflowEditor !== "undefined") {
-                                workflowEditor.editor.setValue("", -1);
-                                document.getElementById("wf-xml-container").style.display = "none";
+                                loadXml(selectedId);
                             }
 
                             document.getElementById("wf-xml").style.display = "inline";
@@ -1193,7 +1191,7 @@
                 selector: 'edge',
                 style: {
                     'curve-style': 'bezier',
-                    'width': 4,
+                    'width': 3,
                     'target-arrow-shape': 'triangle',
                     'line-color': '#ffb347', // 9dbaea
                     'target-arrow-color': '#ffb347' // 9dbaea
@@ -1366,7 +1364,6 @@
         var workflowEditor = getEditor(workflowId);
         if (workflowChanged === true && typeof workflowEditor !== "undefined") {
             editorChanged = true;
-            var editor = workflowEditor.editor;
             var editXml = getEditXml(workflowId);
             if (editXml === true && editorChanged === true && workflowChangedAndSaved === false) {
                 var res = confirm("The XML of the workflow " + workflowId + " has changed. Do you want to save it?");
@@ -1374,22 +1371,16 @@
                     save(workflowId,
                         workflowId,
                         function () {
-                            editor.setValue("", -1);
-                            xmlContainer.style.display = "none";
                             workflowChangedAndSaved = true;
                             editorChanged = false;
                             setEditXml(workflowId, false);
                         });
                 } else {
-                    editor.setValue("", -1);
-                    xmlContainer.style.display = "none";
                     setEditXml(workflowId, false);
                     editorChanged = false;
                     editorCanceled = true;
                 }
             } else {
-                editor.setValue("", -1);
-                xmlContainer.style.display = "none";
                 setEditXml(workflowId, false);
                 editorChanged = false;
             }
@@ -1400,13 +1391,10 @@
 
         // Reset editor
         if (typeof workflowEditor !== "undefined") {
-            workflowEditor.editor.setValue("", -1);
             setEditXml(workflowId, false);
         }
-        //console.log("loadRightPanel - workflowId: " + workflowId + ", editXml: " + editXml + ", editorChanged: " + editorChanged + ", workflowChangedAndSaved: " + workflowChangedAndSaved);
 
         document.getElementById("wf-xml").onclick = function () {
-            //console.log(workflowId);
             loadXml(workflowId);
         };
 
@@ -1904,8 +1892,8 @@
                     });
             });
 
-
         if (editorCanceled === true) {
+            
             editorCanceled = false;
 
             // Reset the editor
@@ -1913,7 +1901,6 @@
             xmlContainer.style.display = "none";
             setEditXml(workflowId, false);
             editorChanged = false;
-            //console.log("editorCanceled - workflowId: " + workflowId + ", editXml: " + getEditXml(workflowId));
 
             // Select the workflow
             var wfWorkflowsTable = document.getElementById("wf-workflows-table");
@@ -1948,7 +1935,6 @@
     }
 
     function cancel(workflowId) {
-        //editXml = false;
         setEditXml(workflowId, false);
         editorChanged = false;
         loadRightPanel(workflowId, true);
@@ -1993,20 +1979,23 @@
                 for (var j = 0; j < rows.length; j++) {
                     rows[j].onclick = function () {
                         newWorkflow = false;
+                        editorCanceled = false;
                         selectedId = parseInt(this.getElementsByClassName("wf-id")[0].innerHTML);
                         var selected = document.getElementsByClassName("selected");
 
                         workflowChangedAndSaved = false;                        
-                        var xmlContainer = document.getElementById("wf-xml-container");
-                        xmlContainer.style.display = "none";
                         var editXml = getEditXml(editorWorkflowId);
                         if (editXml === true) {
                             loadRightPanel(editorWorkflowId, true);
 
                             document.getElementById("wf-cancel").onclick = function () {
+                                editorCanceled = true;
                                 cancel(editorWorkflowId);
                             };
                         } else {
+                            var xmlContainer = document.getElementById("wf-xml-container");
+                            xmlContainer.style.display = "none";
+
                             if (selected.length > 0) {
                                 selected[0].className = selected[0].className.replace("selected", "");
                             }
@@ -2015,6 +2004,7 @@
                             loadRightPanel(selectedId, true);
 
                             document.getElementById("wf-cancel").onclick = function () {
+                                editorCanceled = true;
                                 cancel(selectedId);
                             }; 
 
