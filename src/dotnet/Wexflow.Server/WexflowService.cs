@@ -21,6 +21,7 @@ using User = Wexflow.Core.Service.Contracts.User;
 using UserProfile = Wexflow.Core.Service.Contracts.UserProfile;
 using System.Configuration;
 using System.Xml;
+using System.Xml.Schema;
 
 namespace Wexflow.Server
 {
@@ -312,6 +313,44 @@ namespace Wexflow.Server
 
         [WebInvoke(Method = "POST",
             ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "isXmlWorkflowValid")]
+        public bool IsXmlWorkflowValid(Stream streamdata)
+        {
+            try
+            {
+                StreamReader reader = new StreamReader(streamdata);
+                string xml = reader.ReadToEnd();
+                reader.Close();
+                reader.Dispose();
+
+                xml = CleanupXml(xml);
+
+                var schemas = new XmlSchemaSet();
+                schemas.Add("urn:wexflow-schema", WexflowWindowsService.WexflowEngine.XsdPath);
+
+                var xdoc = XDocument.Parse(xml);
+                string msg = string.Empty;
+                xdoc.Validate(schemas, (o, e) =>
+                {
+                    msg += e.Message + Environment.NewLine;
+                });
+
+                if (!string.IsNullOrEmpty(msg))
+                {
+                    return false;
+                }
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+        }
+
+        [WebInvoke(Method = "POST",
+            ResponseFormat = WebMessageFormat.Json,
             UriTemplate = "saveXml")]
         public bool SaveXmlWorkflow(Stream streamdata)
         {
@@ -322,14 +361,7 @@ namespace Wexflow.Server
                 reader.Close();
                 reader.Dispose();
 
-                var trimChars = new char[] { '\r', '\n', '"', '\'' };
-                xml = xml
-                    .TrimStart(trimChars)
-                    .TrimEnd(trimChars)
-                    .Replace("\\r", string.Empty)
-                    .Replace("\\n", string.Empty)
-                    .Replace("\\\"", "\"")
-                    .Replace("\\\\","\\");
+                xml = CleanupXml(xml);
 
                 var xdoc = XDocument.Parse(xml);
                 XNamespace xn = "urn:wexflow-schema";
@@ -353,6 +385,18 @@ namespace Wexflow.Server
                 Console.WriteLine(e);
                 return false;
             }
+        }
+
+        private string CleanupXml(string xml)
+        {
+            var trimChars = new char[] { '\r', '\n', '"', '\'' };
+            return xml
+                .TrimStart(trimChars)
+                .TrimEnd(trimChars)
+                .Replace("\\r", string.Empty)
+                .Replace("\\n", string.Empty)
+                .Replace("\\\"", "\"")
+                .Replace("\\\\", "\\");
         }
 
         [WebInvoke(Method = "POST",

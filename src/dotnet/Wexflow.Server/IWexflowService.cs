@@ -35,6 +35,9 @@ namespace Wexflow.Server
         string GetWorkflowXml(string id);
 
         [OperationContract]
+        bool IsXmlWorkflowValid(Stream streamdata);
+
+        [OperationContract]
         bool SaveXmlWorkflow(Stream streamdata);
 
         [OperationContract]

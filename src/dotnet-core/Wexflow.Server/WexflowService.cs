@@ -11,6 +11,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Xml.Linq;
+using System.Xml.Schema;
 using System.Xml.XPath;
 using Wexflow.Core;
 using Wexflow.Core.Db;
@@ -55,6 +56,7 @@ namespace Wexflow.Server
             IsWorkflowIdValid();
             IsCronExpressionValid();
             IsPeriodValid();
+            IsXmlWorkflowValid();
             SaveXmlWorkflow();
             SaveWorkflow();
             DeleteWorkflow();
@@ -566,6 +568,66 @@ namespace Wexflow.Server
             });
         }
 
+
+        /// <summary>
+        /// Checks if the XML of a workflow is valid.
+        /// </summary>
+        private void IsXmlWorkflowValid()
+        {
+            Post(Root + "isXmlWorkflowValid", args =>
+            {
+                try
+                {
+                    var xml = RequestStream.FromStream(Request.Body).AsString();
+                    xml = CleanupXml(xml);
+
+                    var schemas = new XmlSchemaSet();
+                    schemas.Add("urn:wexflow-schema", Program.WexflowEngine.XsdPath);
+
+                    var xdoc = XDocument.Parse(xml);
+                    string msg = string.Empty;
+                    xdoc.Validate(schemas, (o, e) =>
+                    {
+                        msg += e.Message + Environment.NewLine;
+                    });
+
+                    if (!string.IsNullOrEmpty(msg))
+                    {
+                        var resFalseStr = JsonConvert.SerializeObject(false);
+                        var resFalseBytes = Encoding.UTF8.GetBytes(resFalseStr);
+
+                        return new Response()
+                        {
+                            ContentType = "application/json",
+                            Contents = s => s.Write(resFalseBytes, 0, resFalseBytes.Length)
+                        };
+                    }
+
+                    var resStr = JsonConvert.SerializeObject(true);
+                    var resBytes = Encoding.UTF8.GetBytes(resStr);
+
+                    return new Response()
+                    {
+                        ContentType = "application/json",
+                        Contents = s => s.Write(resBytes, 0, resBytes.Length)
+                    };
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+
+                    var resStr = JsonConvert.SerializeObject(false);
+                    var resBytes = Encoding.UTF8.GetBytes(resStr);
+
+                    return new Response()
+                    {
+                        ContentType = "application/json",
+                        Contents = s => s.Write(resBytes, 0, resBytes.Length)
+                    };
+                }
+            });
+        }
+
         /// <summary>
         /// Saves a workflow from XML.
         /// </summary>
@@ -576,15 +638,7 @@ namespace Wexflow.Server
                 try
                 {
                     var xml = RequestStream.FromStream(Request.Body).AsString();
-
-                    var trimChars = new char[] { '\r', '\n', '"', '\'' };
-                    xml = xml
-                        .TrimStart(trimChars)
-                        .TrimEnd(trimChars)
-                        .Replace("\\r", string.Empty)
-                        .Replace("\\n", string.Empty)
-                        .Replace("\\\"", "\"")
-                        .Replace("\\\\", "\\");
+                    xml = CleanupXml(xml);
 
                     var xdoc = XDocument.Parse(xml);
                     XNamespace xn = "urn:wexflow-schema";
@@ -624,6 +678,18 @@ namespace Wexflow.Server
                     };
                 }
             });
+        }
+
+        private string CleanupXml(string xml)
+        {
+            var trimChars = new char[] { '\r', '\n', '"', '\'' };
+            return xml
+                .TrimStart(trimChars)
+                .TrimEnd(trimChars)
+                .Replace("\\r", string.Empty)
+                .Replace("\\n", string.Empty)
+                .Replace("\\\"", "\"")
+                .Replace("\\\\", "\\");
         }
 
         /// <summary>
