@@ -57,8 +57,9 @@
     var workflowChangedAndSaved = false;
     var editorCanceled = false;
     var newWorkflow = false;
+    var isDarkTheme = false;
 
-    var rightPanelHtml = "<h3><button id='wf-xml' type='button' class='wf-action-left btn btn-dark btn-xs'>Xml</button></h3>" +
+    var rightPanelHtml = "<h3><button id='wf-xml' type='button' class='wf-action-left btn btn-dark btn-xs'>Xml</button> <input id='wf-theme' type='checkbox' checked data-toggle='toggle' data-size='mini' data-on='Bright' data-off='Dark' data-width='70'></h3>" +
         "<pre id='wf-xml-container'></pre>" +
         "<table class='wf-designer-table'>" +
         "<tbody>" +
@@ -233,7 +234,9 @@
             document.getElementById("wf-add-task").style.display = "block";
             document.getElementById("wf-delete").style.display = "none";
             document.getElementById("wf-xml").style.display = "none";
-
+            document.getElementById("wf-theme").style.display = "none";
+            document.getElementById("wf-xml-container").style.display = "none";
+            
             document.getElementById("wf-cancel").onclick = function () {
                 if (saveCalled === true) {
                     var wfIdStr = document.getElementById("wf-id").value;
@@ -422,6 +425,7 @@
                                                         saveCalled = true;
                                                         workflowInfos[workflowId].IsNew = false;
 
+                                                        showThemeButton();
                                                         document.getElementById("wf-shortcut").style.display = "block";
                                                         document.getElementById("wf-cancel").style.display = "block";
                                                         document.getElementById("wf-save").style.display = "block";
@@ -492,6 +496,7 @@
                                             saveCalled = true;
                                             workflowInfos[workflowId].IsNew = false;
 
+                                            showThemeButton();
                                             document.getElementById("wf-shortcut").style.display = "block";
                                             document.getElementById("wf-cancel").style.display = "block";
                                             document.getElementById("wf-save").style.display = "block";
@@ -1281,7 +1286,11 @@
                 editor.setOptions({
                     maxLines: Infinity
                 });
-                editor.setTheme("ace/theme/github");
+                if (isDarkTheme === true) {
+                    editor.setTheme("ace/theme/pastel_on_dark");
+                } else {
+                    editor.setTheme("ace/theme/github");
+                }
                 editor.setReadOnly(false);
                 editor.setFontSize("100%");
                 editor.setPrintMarginColumn(false);
@@ -1359,7 +1368,31 @@
         }
     }
 
+    function showThemeButton() {
+        document.getElementById("wf-theme").style.display = "block";
+        if (isDarkTheme === true) {
+            $('#wf-theme').bootstrapToggle('off');
+        } else {
+            $('#wf-theme').bootstrapToggle('on');
+        }
+        $('#wf-theme').change(function () {
+            isDarkTheme = !$(this).prop('checked');
+            console.log("isDarkTheme: " + isDarkTheme);
+            var weditor = getEditor(selectedId);
+            if (typeof weditor !== 'undefined') {
+                var editor = weditor.editor;
+                if (isDarkTheme === true) {
+                    editor.setTheme("ace/theme/pastel_on_dark");
+                } else {
+                    editor.setTheme("ace/theme/github");
+                }
+            }
+        });
+    }
+
     function loadRightPanel(workflowId, workflowChanged) {
+        showThemeButton();
+
         var xmlContainer = document.getElementById("wf-xml-container");
         var workflowEditor = getEditor(workflowId);
         if (workflowChanged === true && typeof workflowEditor !== "undefined") {

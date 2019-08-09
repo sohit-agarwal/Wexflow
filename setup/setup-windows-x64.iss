@@ -258,6 +258,7 @@ Source: "..\src\backend\Wexflow.Backend\js\ace.js"; DestDir: "{app}\Backend\js";
 Source: "..\src\backend\Wexflow.Backend\js\worker-xml.js"; DestDir: "{app}\Backend\js"; Flags: ignoreversion
 Source: "..\src\backend\Wexflow.Backend\js\mode-xml.js"; DestDir: "{app}\Backend\js"; Flags: ignoreversion
 Source: "..\src\backend\Wexflow.Backend\js\theme-github.js"; DestDir: "{app}\Backend\js"; Flags: ignoreversion
+Source: "..\src\backend\Wexflow.Backend\js\theme-pastel_on_dark.js"; DestDir: "{app}\Backend\js"; Flags: ignoreversion
 Source: "..\src\backend\Wexflow.Backend\js\designer.min.js"; DestDir: "{app}\Backend\js"; Flags: ignoreversion
 Source: "..\src\backend\Wexflow.Backend\js\history.min.js"; DestDir: "{app}\Backend\js"; Flags: ignoreversion
 Source: "..\src\backend\Wexflow.Backend\js\users.min.js"; DestDir: "{app}\Backend\js"; Flags: ignoreversion

@@ -61,6 +61,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\bootstrap-toggle.min.css" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\dashboard.min.css" />
     <Content Include="css\designer.min.css" />
@@ -78,6 +79,8 @@
     <Content Include="images\background.jpg" />
     <Content Include="images\logo.png" />
     <Content Include="js\ace.js" />
+    <Content Include="js\bootstrap-toggle.min.js" />
+    <Content Include="js\bootstrap.min.js" />
     <Content Include="js\dashboard.min.js" />
     <Content Include="js\designer.min.js" />
     <Content Include="js\forgot-password.js" />
@@ -87,6 +90,7 @@
     <Content Include="js\manager.min.js" />
     <Content Include="js\mode-xml.js" />
     <Content Include="js\theme-github.js" />
+    <Content Include="js\theme-pastel_on_dark.js" />
     <Content Include="js\uglify-login.bat" />
     <Content Include="js\uglify-dashboard.bat" />
     <Content Include="js\uglify-manager.bat" />
