@@ -425,6 +425,7 @@
                                                         saveCalled = true;
                                                         workflowInfos[workflowId].IsNew = false;
 
+                                                        document.getElementById("wf-xml").style.display = "inline-block";
                                                         showThemeButton();
                                                         document.getElementById("wf-shortcut").style.display = "block";
                                                         document.getElementById("wf-cancel").style.display = "block";
@@ -496,6 +497,7 @@
                                             saveCalled = true;
                                             workflowInfos[workflowId].IsNew = false;
 
+                                            document.getElementById("wf-xml").style.display = "inline-block";
                                             showThemeButton();
                                             document.getElementById("wf-shortcut").style.display = "block";
                                             document.getElementById("wf-cancel").style.display = "block";
