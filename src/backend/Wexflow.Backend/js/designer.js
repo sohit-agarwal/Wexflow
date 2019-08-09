@@ -56,6 +56,7 @@
     var editorChanged = false;
     var workflowChangedAndSaved = false;
     var editorCanceled = false;
+    var newWorkflow = false;
 
     var rightPanelHtml = "<h3><button id='wf-xml' type='button' class='wf-action-left btn btn-dark btn-xs'>Xml</button></h3>" +
         "<pre id='wf-xml-container'></pre>" +
@@ -124,7 +125,8 @@
 
     // CTRL+S
     window.onkeydown = function (event) {
-        if (selectedId !== -1) { // CTRL+S
+        //console.log("selectedId: " + selectedId + ", newWorkflow: " + newWorkflow);
+        if (selectedId !== -1 && newWorkflow === false) { // CTRL+S
             if ((event.ctrlKey || event.metaKey || event.keyCode === 17 || event.keyCode === 224 || event.keyCode === 91 || event.keyCode === 93) && event.keyCode === 83) {
                 save(selectedId, selectedId);
                 event.preventDefault();
@@ -173,6 +175,7 @@
     };
 
     document.getElementById("wf-add-workflow").onclick = function () {
+        newWorkflow = true;
         var res = false;
         var xmlContainer = document.getElementById("wf-xml-container");
         var workflowEditor = getEditor(editorWorkflowId);
@@ -414,6 +417,7 @@
                                                 save(workflowId,
                                                     selectedId === -1 ? workflowId : selectedId,
                                                     function () {
+                                                        newWorkflow = false;
                                                         saveCalled = true;
                                                         workflowInfos[workflowId].IsNew = false;
 
@@ -483,6 +487,7 @@
                                     save(workflowId,
                                         selectedId === -1 ? workflowId : selectedId,
                                         function () {
+                                            newWorkflow = false;
                                             saveCalled = true;
                                             workflowInfos[workflowId].IsNew = false;
 
@@ -685,6 +690,9 @@
                             document.getElementById("wf-xml").onclick = function () {
                                 loadXml(workflowId);
                             };
+
+                            document.getElementById("wf-shortcut").style.display = "block";
+                            document.getElementById("wf-delete").style.display = "block";
 
                             editorChanged = false;
                             setEditXml(workflowId, false);
