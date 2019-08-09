@@ -1992,6 +1992,7 @@
                 var rows = (workflowsTable.getElementsByTagName("tbody")[0]).getElementsByTagName("tr");
                 for (var j = 0; j < rows.length; j++) {
                     rows[j].onclick = function () {
+                        newWorkflow = false;
                         selectedId = parseInt(this.getElementsByClassName("wf-id")[0].innerHTML);
                         var selected = document.getElementsByClassName("selected");
 
