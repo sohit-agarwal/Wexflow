@@ -3,6 +3,16 @@ body {
     background: #FFFFFF;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 14px;
+    background: url(../images/background.jpg) no-repeat right center;
+    background-size: cover;
+    z-index: 1;
+    height: 832px;
+    overflow: hidden;
+    color: #575757;
+}
+
+body a{
+    color: #575757;
 }
 
 .jq-toast-single {
@@ -15,13 +25,13 @@ body {
     right: 0;
     left: 0;
     height: 43px;
-    background: #29A85C;
-    color: #FFFFFF;
+    background: #FFFFFF; /*#29A85C*/
+    color: #878787;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
 
     #header a {
-        color: #FFFFFF;
+        color: #878787;
         font-size: 12px;
         margin: 20px;
         float: left;

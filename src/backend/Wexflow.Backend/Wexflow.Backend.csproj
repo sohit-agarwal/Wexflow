@@ -75,6 +75,7 @@
     <Content Include="css\users.css" />
     <Content Include="css\users.min.css" />
     <Content Include="forgot-password.html" />
+    <Content Include="images\background.jpg" />
     <Content Include="images\logo.png" />
     <Content Include="js\ace.js" />
     <Content Include="js\dashboard.min.js" />
