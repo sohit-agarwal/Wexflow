@@ -69,6 +69,7 @@
     <Content Include="css\history.css" />
     <Content Include="css\bootstrap.min.css.map" />
     <Content Include="css\history.min.css" />
+    <Content Include="css\jquery.toast.min.css" />
     <Content Include="css\login.min.css" />
     <Content Include="css\manager.min.css" />
     <Content Include="css\users.css" />
@@ -81,6 +82,7 @@
     <Content Include="js\forgot-password.js" />
     <Content Include="js\forgot-password.min.js" />
     <Content Include="js\history.min.js" />
+    <Content Include="js\jquery.toast.min.js" />
     <Content Include="js\manager.min.js" />
     <Content Include="js\mode-xml.js" />
     <Content Include="js\theme-github.js" />
@@ -145,7 +147,7 @@
     <Content Include="js\designer.js" />
     <Content Include="js\highlight.pack.js" />
     <Content Include="js\history.js" />
-    <Content Include="js\jquery-3.3.1.min.js" />
+    <Content Include="js\jquery.min.js" />
     <Content Include="js\jquery-ui.min.js" />
     <Content Include="js\login.js" />
     <Content Include="js\login.min.js" />

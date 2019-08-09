@@ -1,1 +1,1 @@
-uglifycss bootstrap.min.css jquery-ui.min.css dashboard.css --output dashboard.min.css
+uglifycss bootstrap.min.css jquery.toast.min.css jquery-ui.min.css dashboard.css --output dashboard.min.css

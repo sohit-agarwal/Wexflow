@@ -1,1 +1,1 @@
-uglifycss bootstrap.min.css login.css --output login.min.css
+uglifycss bootstrap.min.css jquery.toast.min.css login.css --output login.min.css

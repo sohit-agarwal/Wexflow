@@ -109,6 +109,33 @@
         if (window.navigator.userAgent.indexOf("X11") !== -1) osName = "UNIX";
         if (window.navigator.userAgent.indexOf("Linux") !== -1) osName = "Linux";
         return osName;
+    },
+
+    toastInfo: function (msg) {
+        $.toast({
+            heading: 'Information',
+            text: msg,
+            hideAfter: 4000,
+            icon: 'info'
+        });
+    },
+
+    toastSuccess: function (msg) {
+        $.toast({
+            heading: 'Success',
+            text: msg,
+            hideAfter: 4000,
+            icon: 'success'
+        });
+    },
+
+    toastError: function (msg) {
+        $.toast({
+            heading: 'Error',
+            text: msg,
+            hideAfter: 4000,
+            icon: 'error'
+        });
     }
 
 };

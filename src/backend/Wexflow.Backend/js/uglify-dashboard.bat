@@ -1,1 +1,1 @@
-uglifyjs common.js authenticate.js jquery-3.3.1.min.js jquery-ui.min.js dashboard.js -o dashboard.min.js -c -m
+uglifyjs jquery.min.js jquery-ui.min.js jquery.toast.min.js common.js authenticate.js dashboard.js -o dashboard.min.js -c -m

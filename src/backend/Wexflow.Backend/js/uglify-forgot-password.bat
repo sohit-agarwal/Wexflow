@@ -1,1 +1,1 @@
-uglifyjs common.js forgot-password.js -o forgot-password.min.js -c -m
+uglifyjs jquery.min.js jquery.toast.min.js common.js forgot-password.js -o forgot-password.min.js -c -m

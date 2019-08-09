@@ -20,18 +20,20 @@
         Common.get(uri + "/user?username=" + encodeURIComponent(txtUsername.value), function (u) {
 
             if (typeof u === "undefined" || u === null) {
-                alert("The user " + txtUsername.value + " does not exist.");
+                Common.toastInfo("The user " + txtUsername.value + " does not exist.");
             } else {
                 var email = u.Email;
                 if (email === "" || email === null || typeof email === "undefined") {
-                    alert("The user " + txtUsername.value + " does not have an email.");
+                    Common.toastInfo("The user " + txtUsername.value + " does not have an email.");
                 } else {
                     Common.post(uri + "/resetPassword?username=" + encodeURIComponent(u.Username) + "&email=" + encodeURIComponent(email), function (val) {
                         if (val === true) {
-                            alert("An email with a new password was sent to: " + u.Email);
-                            Common.redirectToLoginPage();
+                            Common.toastSuccess("An email with a new password was sent to: " + u.Email);
+                            setTimeout(function () {
+                                Common.redirectToLoginPage();
+                            }, 5000);
                         } else {
-                            alert("An error occured while sending the email.");
+                            Common.toastError("An error occured while sending the email.");
                         }
                     });
                 }

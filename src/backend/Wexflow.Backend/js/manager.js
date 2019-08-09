@@ -9,7 +9,7 @@
     var selectedId = -1;
     var workflows = {};
     var timer = null;
-    var timerInterval = 500; // ms
+    var timerInterval = 1000; // ms
 
     var html = "<div id='wf-container'>"
         + "<div id='wf-cmd'>"
@@ -250,7 +250,7 @@
                     if (res === true) {
                         updateButtons(selectedId, true);
                     } else{
-                        alert("This operation is not supported.");
+                        Common.toastInfo("This operation is not supported.");
                     }
                 });
             };
@@ -267,14 +267,14 @@
                         if (res === true) {
                             updateButtons(selectedId, true);
                         } else {
-                            alert("This operation is not supported.");
+                            Common.toastInfo("This operation is not supported.");
                         }
                     });
             };
 
             // End of get workflows
         }, function () {
-            alert("An error occured while retrieving workflows. Check Wexflow Web Service Uri and check that Wexflow Windows Service is running correctly.");
+                Common.toastError("An error occured while retrieving workflows. Check that Wexflow server is running correctly.");
         });
     }
 

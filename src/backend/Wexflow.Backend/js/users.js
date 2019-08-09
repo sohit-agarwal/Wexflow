@@ -351,12 +351,12 @@
                         Common.post(uri + "/deleteUser?username=" + encodeURIComponent(selectedUsername) + "&password=" + encodeURIComponent(u.Password),
                             function (val) {
                                 if (val === true) {
-                                    alert("The user " + selectedUsername + " was deleted with success.");
+                                    Common.toastSuccess("The user " + selectedUsername + " was deleted with success.");
                                     loadUsers();
                                     divUserActions.style.display = "none";
                                     divUserProfile.style.display = "none";
                                 } else {
-                                    alert("An error occured while deleting the user " + selectedUsername + ".");
+                                    Common.toastError("An error occured while deleting the user " + selectedUsername + ".");
                                 }
                             }); 
                     });
@@ -388,28 +388,28 @@
             var confirmedPassword = confirmPasswordText.value;
 
             if (username === "") {
-                alert("Type a username.");
+                Common.toastInfo("Type a username.");
             } else {
                 Common.get(uri + "/user?username=" + encodeURIComponent(username),
                     function (u) {
                         if (typeof u === "undefined") {
                             if (up === -1) {
-                                alert("Choose a user profile for this user.");
+                                Common.toastInfo("Choose a user profile for this user.");
                             } else {
                                 if (password === "" || confirmedPassword === "") {
-                                    alert("Type a password.");
+                                    Common.toastInfo("Type a password.");
                                 } else {
                                     if (password !== confirmedPassword) {
-                                        alert("Passwords don't match.");
+                                        Common.toastInfo("Passwords don't match.");
                                     } else if (emailText.value === "" || validateEmail(emailText.value) === false) {
-                                        alert("Enter a valid email address.");
+                                        Common.toastInfo("Enter a valid email address.");
                                     } else {
                                         var hashedPass = MD5(password);
                                         Common.post(
                                             uri + "/insertUser?username=" + encodeURIComponent(username) + "&password=" + hashedPass + "&up=" + up + "&email=" + encodeURIComponent(emailText.value),
                                             function (val) {
                                                 if (val === true) {
-                                                    alert("The user " + username + " was created with success.");
+                                                    Common.toastSuccess("The user " + username + " was created with success.");
 
                                                     Common.get(uri + "/user?username=" + encodeURIComponent(username),
                                                         function (user) {
@@ -445,7 +445,7 @@
                                                         });
 
                                                 } else {
-                                                    alert("An error occured while creating the user " + username + ".");
+                                                    Common.toastError("An error occured while creating the user " + username + ".");
                                                 }
                                             });
                                     }
@@ -453,7 +453,7 @@
 
                             }
                         } else {
-                            alert("A user with this name already exists. Type another username.");
+                            Common.toastInfo("A user with this name already exists. Type another username.");
                         }
 
                     });
@@ -463,27 +463,27 @@
             var up2 = parseInt(getSelectedProfile());
             if (changePassword === false) {
                 if (txtUsername.value === "") {
-                    alert("Enter a username.");
+                    Common.toastInfo("Enter a username.");
                 } else if (emailText.value === "" || validateEmail(emailText.value) === false) {
-                    alert("Enter a valid email address.");
+                    Common.toastInfo("Enter a valid email address.");
                 } else if (up2 === -1) {
-                    alert("Choose a user profile for this user.");
+                    Common.toastInfo("Choose a user profile for this user.");
                 }else{
                     Common.get(uri + "/user?username=" + encodeURIComponent(txtUsername.value),
                         function (u) {
                             if (typeof u !== "undefined" && u !== null && u.Username !== selectedUsername) {
-                                alert("The user " + txtUsername.value + " already exists. Choose another username.");
+                                Common.toastInfo("The user " + txtUsername.value + " already exists. Choose another username.");
                             } else {
 
                                 if (selectedUsername !== logedinUser && selectedUserProfile === 0) {
 
                                     if (newPasswordText.value === "") {
-                                        alert("Type the password of this user.");
+                                        Common.toastInfo("Type the password of this user.");
                                     } else {
                                         var pass = MD5(newPasswordText.value);
 
                                         if (pass !== u.Password) {
-                                            alert("The password is incorrect.");
+                                            Common.toastInfo("The password is incorrect.");
                                         } else {
                                             updateUsernameAndPassword();
                                         }
@@ -504,30 +504,30 @@
                     function (u) {
                         var oldPassword = MD5(oldPasswordText.value);
                         if (u.UserProfile === 0 && u.Password !== oldPassword) {
-                            alert("The old password is not valid.");
+                            Common.toastInfo("The old password is not valid.");
                         } else {
 
                             if (newPasswordText.value !== confirmPasswordText.value) {
-                                alert("New passwords don't match.");
+                                Common.toastInfo("New passwords don't match.");
                             } else if (newPasswordText.value === "" || confirmPasswordText.value === "") {
-                                alert("Enter a new password.");
+                                Common.toastInfo("Enter a new password.");
                             } else {
                                 var newPassword = MD5(newPasswordText.value);
                                 var up = getSelectedProfile();
 
                                 if (txtUsername.value === "") {
-                                    alert("Enter a username.");
+                                    Common.toastInfo("Enter a username.");
                                 } else if (emailText.value === "" || validateEmail(emailText.value) === false) {
-                                    alert("Enter a valid email address.");
+                                    Common.toastInfo("Enter a valid email address.");
                                 } else if (up === -1) {
-                                    alert("Choose a user profile for this user.");
+                                    Common.toastInfo("Choose a user profile for this user.");
                                 }else {
                                     Common.get(uri + "/user?username=" + encodeURIComponent(txtUsername.value),
                                         function (u) {
                                             if (typeof u !== "undefined" &&
                                                 u !== null &&
                                                 u.Username !== selectedUsername) {
-                                                alert("The user " + txtUsername.value + " already exists. Choose another username.");
+                                                Common.toastInfo("The user " + txtUsername.value + " already exists. Choose another username.");
                                             } else {
 
                                                 Common.post(uri + "/updateUser?userId=" + selectedUserId + "&username=" + encodeURIComponent(txtUsername.value) + "&password=" + encodeURIComponent(newPassword) + "&up=" + up + "&email=" + encodeURIComponent(emailText.value),
@@ -567,10 +567,10 @@
                                                                     changePass.style.display = "none";
                                                                 }
 
-                                                                alert("The user " + txtUsername.value + " was updated with success.");
+                                                                Common.toastSuccess("The user " + txtUsername.value + " was updated with success.");
                                                             });
                                                         } else {
-                                                            alert("An error occured while updating the user " + txtUsername.value + ".");
+                                                            Common.toastError("An error occured while updating the user " + txtUsername.value + ".");
                                                         }
                                                     });
                                             }
@@ -601,7 +601,7 @@
                             authorize(txtUsername.value, user.Password, user.UserProfile);
                         
                         }
-                        alert("The user " + txtUsername.value + " was updated with success.");
+                        Common.toastSuccess("The user " + txtUsername.value + " was updated with success.");
                         selectedUsernameTd.innerHTML = txtUsername.value;
                         selectedUserProfileTd.innerHTML = userProfileToText(user.UserProfile);
 
@@ -633,7 +633,7 @@
 
                });
             } else {
-                alert("An error occured while updating the user " + txtUsername.value + ".");
+                Common.toastError("An error occured while updating the user " + txtUsername.value + ".");
             }
         });
     }

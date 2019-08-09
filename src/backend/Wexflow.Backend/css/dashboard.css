@@ -4,6 +4,10 @@ body {
     font-size: 12px;
 }
 
+.jq-toast-single {
+    width: 300px;
+}
+
 #header {
     position: absolute;
     top: 0;

@@ -401,7 +401,7 @@
             };
 
         }, function () {
-            //alert("An error occured while retrieving entries. Check Wexflow Web Service Uri and check that Wexflow Windows Service is running correctly.");
+            //alert("An error occured while retrieving entries. Check that Wexflow Windows Service is running correctly.");
         });
     }
 
