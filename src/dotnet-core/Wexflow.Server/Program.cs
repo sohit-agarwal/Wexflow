@@ -49,7 +49,7 @@ namespace Wexflow.Server
 
             host.Run();
 
-            Console.WriteLine("Press any key to stop Wexflow workflow server...");
+            Console.WriteLine("Press any key to stop Wexflow server...");
             Console.ReadKey();
         }
 
@@ -61,7 +61,7 @@ namespace Wexflow.Server
         {
         }
 
-        public static void InitializeFileSystemWatcher()
+        private static void InitializeFileSystemWatcher()
         {
             Logger.Info("Initializing FileSystemWatcher...");
             Watcher = new FileSystemWatcher();
