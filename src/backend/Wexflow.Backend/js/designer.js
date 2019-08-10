@@ -59,6 +59,7 @@
     var newWorkflow = false;
     var isDarkTheme = false;
     var loadXmlCalled = false;
+    var timeOutInterval = 500; // TimeOut interval after db query
 
     var rightPanelHtml = "<h3><button id='wf-xml' type='button' class='wf-action-left btn btn-dark btn-xs'>Xml</button> <input id='wf-theme' type='checkbox' checked data-toggle='toggle' data-size='mini' data-on='Bright' data-off='Dark' data-width='70'></h3>" +
         "<pre id='wf-xml-container'></pre>" +
@@ -129,7 +130,7 @@
     window.onkeydown = function (event) {
         if (selectedId !== -1 && newWorkflow === false) { // CTRL+S
             if ((event.ctrlKey || event.metaKey || event.keyCode === 17 || event.keyCode === 224 || event.keyCode === 91 || event.keyCode === 93) && event.keyCode === 83) {
-                save(selectedId, selectedId);
+                save(selectedId, selectedId, true, false);
                 event.preventDefault();
                 return false;
             }
@@ -190,6 +191,8 @@
                 if (res === true) {
                     save(editorWorkflowId,
                         editorWorkflowId,
+                        true,
+                        true,
                         function () {
                             editor.setValue("", -1);
                             xmlContainer.style.display = "none";
@@ -352,7 +355,7 @@
             document.getElementById("wf-delete").onclick = deleteWorkflow;
 
             document.getElementById("wf-save").onclick = function () {
-                saveClick(true);
+                saveClick(true, true);
             };
 
             // Local variables
@@ -389,7 +392,7 @@
 
     };
 
-    function saveClick(checkId) {
+    function saveClick(checkId, scrollToWorkflow) {
         
         var wfSelectedWorkflow = document.getElementsByClassName("selected");
         if (wfSelectedWorkflow.length > 0) {
@@ -420,6 +423,8 @@
                                             var saveFunc = function () {
                                                 save(workflowId,
                                                     selectedId === -1 ? workflowId : selectedId,
+                                                    true,
+                                                    scrollToWorkflow,
                                                     function () {
                                                         newWorkflow = false;
                                                         saveCalled = true;
@@ -492,6 +497,8 @@
                                 var saveFunc = function () {
                                     save(workflowId,
                                         selectedId === -1 ? workflowId : selectedId,
+                                        true,
+                                        scrollToWorkflow,
                                         function () {
                                             newWorkflow = false;
                                             saveCalled = true;
@@ -557,7 +564,7 @@
         }
     }
 
-    function save(workflowId, selectedId, callback) {
+    function save(workflowId, selectedId, selectWorkflow, scrollToWorkflow, callback) {
         clearInterval(timer);
         workflowInfos[workflowId] = workflowInfos[selectedId];
         workflowTasks[workflowId] = workflowTasks[selectedId];
@@ -573,48 +580,52 @@
                 if (res === true) {
                     Common.post(uri + "/saveXml", function (res) {
                         if (res === true) {
-
                             // Reload workflows list
                             setTimeout(function () {
                                 loadWorkflows(function () {
                                     // Select the workflow
-                                    var wfWorkflowsTable = document.getElementById("wf-workflows-table");
+                                    if (selectWorkflow === true) {
+                                        var wfWorkflowsTable = document.getElementById("wf-workflows-table");
 
-                                    for (var i = 0; i < wfWorkflowsTable.rows.length; i++) {
-                                        var row = wfWorkflowsTable.rows[i];
-                                        var wfId = row.getElementsByClassName("wf-id")[0];
-                                        if (typeof wfId !== "undefined" && wfId !== null) {
-                                            var swId = parseInt(wfId.innerHTML);
+                                        for (var i = 0; i < wfWorkflowsTable.rows.length; i++) {
+                                            var row = wfWorkflowsTable.rows[i];
+                                            var wfId = row.getElementsByClassName("wf-id")[0];
+                                            if (typeof wfId !== "undefined" && wfId !== null) {
+                                                var swId = parseInt(wfId.innerHTML);
 
-                                            if (swId === workflowId) {
-                                                var selected = document.getElementsByClassName("selected");
-                                                if (selected.length > 0) {
-                                                    selected[0].className = selected[0].className.replace("selected", "");
+                                                if (swId === workflowId) {
+                                                    var selected = document.getElementsByClassName("selected");
+                                                    if (selected.length > 0) {
+                                                        selected[0].className = selected[0].className.replace("selected", "");
+                                                    }
+
+                                                    row.className += "selected";
+
+                                                    if (scrollToWorkflow === true) {
+                                                        // Scroll to the workflow
+                                                        row.scrollIntoView(true);
+                                                    }
+                                                    
                                                 }
-
-                                                row.className += "selected";
-
-                                                // Scroll to the workflow
-                                                row.scrollIntoView(true);
                                             }
                                         }
+
+                                        // Update the status
+                                        Common.get(uri + "/workflow/" + workflowId,
+                                            function (workflow) {
+                                                updateStatusTimer(workflow);
+                                            });
+
+                                        // Show the xml button
+                                        document.getElementById("wf-xml").style.display = "inline";
+
+                                        document.getElementById("wf-xml").onclick = function () {
+                                            loadXml(workflowId);
+                                        };
+
+                                        // Reload right panel
+                                        loadRightPanel(workflowId, false);
                                     }
-
-                                    // Update the status
-                                    Common.get(uri + "/workflow/" + workflowId,
-                                        function (workflow) {
-                                            updateStatusTimer(workflow);
-                                        });
-
-                                    // Show the xml button
-                                    document.getElementById("wf-xml").style.display = "inline";
-
-                                    document.getElementById("wf-xml").onclick = function () {
-                                        loadXml(workflowId);
-                                    };
-
-                                    // Reload right panel
-                                    loadRightPanel(workflowId, false);
 
                                     // Reset editor
                                     if (typeof workflowEditor !== "undefined") {
@@ -628,7 +639,7 @@
                                         callback();
                                     }
                                 });
-                            }, 1000); // is 1000ms sufficient?
+                            }, timeOutInterval);
 
                             Common.toastSuccess("workflow " + workflowInfos[workflowId].Id + " saved and loaded with success.");
                         } else {
@@ -673,8 +684,10 @@
 
                                         row.className += "selected";
 
-                                        // Scroll to the workflow
-                                        row.scrollIntoView(true);
+                                        if (scrollToWorkflow === true) {
+                                            // Scroll to the workflow
+                                            row.scrollIntoView(true);
+                                        }
                                     }
                                 }
                             }
@@ -702,7 +715,7 @@
                             editorChanged = false;
                             setEditXml(workflowId, false);
                         });
-                    }, 1000); // is 1000ms sufficient?
+                    }, timeOutInterval);
 
                     Common.toastSuccess("workflow " + workflowInfos[workflowId].Id + " saved and loaded with success.");
                 } else {
@@ -780,7 +793,7 @@
                             document.getElementById("wf-save").style.display = "none";
                             document.getElementById("wf-delete").style.display = "none";
                             editors.delete(workflowId);
-                        }, 1000);
+                        }, timeOutInterval);
                     } else {
                         Common.toastError("An error occured while deleting the workflow" + workflowId + ".");
                     }
@@ -1309,6 +1322,7 @@
                     if (editXml === false && editorChanged === false && workflowId === editorWorkflowId) {
                         setEditXml(workflowId, true);
                     }
+                    //console.log("workflowId: " + workflowId + ", editorWorkflowId: " + editorWorkflowId + ", editXml: " + getEditXml(workflowId));
                 });
 
                 var currentEditor = editors.get(workflowId);
@@ -1403,15 +1417,77 @@
                 if (res === true) {
                     save(workflowId,
                         workflowId,
+                        false,
+                        false,
                         function () {
                             workflowChangedAndSaved = true;
                             editorChanged = false;
                             setEditXml(workflowId, false);
+                            xmlContainer.style.display = "none";
+                            editorWorkflowId = selectedId;
+                            setEditXml(editorWorkflowId, false);
+
+                            // Reload workflows list
+                            setTimeout(function () {
+                                loadWorkflows(function () {
+                                    // Select the workflow
+                                    var wfWorkflowsTable = document.getElementById("wf-workflows-table");
+
+                                    for (var i = 0; i < wfWorkflowsTable.rows.length; i++) {
+                                        var row = wfWorkflowsTable.rows[i];
+                                        var wfId = row.getElementsByClassName("wf-id")[0];
+                                        if (typeof wfId !== "undefined" && wfId !== null) {
+                                            var swId = parseInt(wfId.innerHTML);
+
+                                            if (swId === selectedId) {
+                                                var selected = document.getElementsByClassName("selected");
+                                                if (selected.length > 0) {
+                                                    selected[0].className = selected[0].className.replace("selected", "");
+                                                }
+
+                                                row.className += "selected";
+
+                                                // Scroll to the workflow
+                                                //row.scrollIntoView(true);
+                                            }
+                                        }
+                                    }
+
+                                    // Update the status
+                                    Common.get(uri + "/workflow/" + selectedId,
+                                        function (workflow) {
+                                            updateStatusTimer(workflow);
+                                        });
+
+                                    // Show the xml button
+                                    document.getElementById("wf-xml").style.display = "inline";
+
+                                    document.getElementById("wf-xml").onclick = function () {
+                                        loadXml(selectedId);
+                                    };
+
+                                    // Reload right panel
+                                    loadRightPanel(selectedId, false);
+                                    
+
+                                    // Reset editor
+                                    if (typeof workflowEditor !== "undefined") {
+                                        workflowChangedAndSaved = true;
+                                    }
+
+                                    setEditXml(selectedId, false);
+                                    editorChanged = false;
+
+                                });
+                            }, timeOutInterval);
+
                         });
                 } else {
                     setEditXml(workflowId, false);
                     editorChanged = false;
                     editorCanceled = true;
+                    editorWorkflowId = selectedId;
+                    setEditXml(editorWorkflowId, false);
                 }
             } else {
                 setEditXml(workflowId, false);
@@ -1591,337 +1667,16 @@
                 // Tasks
                 getTasks(workflowId,
                     function (tasks) {
-
-                        workflowTasks[workflowId] = tasks;
-
-                        var tasksHtml = "";
-
-                        Common.get(uri + "/taskNames",
-                            function (taskNames) {
-
-                                for (var i = 0; i < tasks.length; i++) {
-                                    var task = tasks[i];
-
-                                    tasksHtml += "<div class='wf-task'>" +
-                                        "<h5 class='wf-task-title'><label class='wf-task-title-label'>Task " + task.Id + "</label>" +
-                                        "<button type='button' class='wf-remove-task btn btn-danger btn-xs'>Delete</button>" +
-                                        "<button type='button' class='wf-show-doc btn btn-dark btn-xs'>Documentation</button>" +
-                                        "<button type='button' class='wf-show-taskxml btn btn-dark btn-xs'>Xml</button>" +
-                                        "<button type='button' class='wf-add-setting btn btn-dark btn-xs'>New setting</button>" +
-                                        "</h5>" +
-                                        "<table class='wf-designer-table'>" +
-                                        "<tbody>" +
-                                        "<tr><td class='wf-taskxml' colspan='2'><pre><code class='wf-taskxml-container'></code></pre></td></tr>" +
-                                        "<tr><td class='wf-title'>Id</td><td class='wf-value'><input class='wf-task-id' type='text' value='" + task.Id + "'" + (workflow.IsExecutionGraphEmpty === false ? "readonly" : "") + "/></td></tr>" +
-                                        "<tr><td class='wf-title'>Name</td><td class='wf-value'><select class='wf-task-name'>";
-
-                                    for (var i1 = 0; i1 < taskNames.length; i1++) {
-                                        var taskName = taskNames[i1];
-                                        tasksHtml += "<option value='" + taskName + "' " + (taskName === task.Name ? "selected" : "") + ">" + taskName + "</option>";
-                                    }
-
-                                    tasksHtml += "</select>" +
-                                        "</td></tr>" +
-                                        "<tr><td class='wf-title'>Description</td><td class='wf-value'><input class='wf-task-desc' type='text' value='" + task.Description + "' /></td></tr>" +
-                                        "<tr><td class='wf-title'>Enabled</td><td class='wf-value'><input class='wf-task-enabled' type='checkbox'   " + (task.IsEnabled ? "checked" : "") + " /></td></tr>" +
-                                        "</tbody>" +
-                                        "</table>" +
-                                        //"<div class='wf-add-setting-title'>" +
-                                        //"</div>" +
-                                        "<table class='wf-designer-table wf-settings'>" +
-                                        "<tbody>";
-
-                                    // task settings
-                                    for (var j = 0; j < task.Settings.length; j++) {
-                                        var setting = task.Settings[j];
-                                        tasksHtml +=
-                                            "<tr><td class='wf-setting-name-td wf-title'>" +
-                                            "<input class='wf-setting-name' type='text' value='" + setting.Name + "' readonly />" +
-                                            "</td><td class='wf-setting-value-td'>";
-
-                                        tasksHtml += "<input class='wf-setting-value' type='text' value='" + setting.Value + "'  />";
-
-                                        // settings attributes (for selectFiles and selectAttachments settings only)
-                                        tasksHtml += "<table class='wf-attributes'>";
-
-                                        for (var k = 0; k < setting.Attributes.length; k++) {
-                                            var attr = setting.Attributes[k];
-                                            tasksHtml +=
-                                                "<tr>" +
-                                                "<td><input class='wf-attribute-name' type='text' value='" + attr.Name + "'  /></td>" +
-                                                "<td><input class='wf-attribute-value' type='text' value='" + attr.Value + "'  /></td>" +
-                                                "<td><button type='button' class='wf-remove-attribute btn btn-danger btn-xs'>Delete</button></td>" +
-                                                "</tr>";
-                                        }
-
-                                        tasksHtml += "</table>";
-
-                                        tasksHtml += "</td>" +
-                                            "<td class='wf-add-attribute-td'><button type='button' class='wf-add-attribute btn btn-dark btn-xs'>New attribute</button></td>" +
-                                            "<td colspan='2'><button type='button' class='wf-remove-setting btn btn-danger btn-xs'>Delete</button></td>" +
-                                            "</tr>";
-                                    }
-
-                                    tasksHtml += "</tbody>" +
-                                        "</table>" +
-                                        "</div > ";
-                                }
-
-                                document.getElementById("wf-tasks").innerHTML = tasksHtml;
-
-                                // load settings in select tags
-                                /*var wfSettingNameTds = document.getElementsByClassName("wf-setting-name-td");
-                                
-                                for (var i2 = 0; i2 < wfSettingNameTds.length; i2++) {
-                                    var wfSettingNameTd = wfSettingNameTds[i2];
-                                    var tn = wfSettingNameTd.getElementsByClassName("wf-setting-name-hidden")[0].value;
- 
-                                    Common.get(uri + "/settings/" + tn, function (settings) {
-                                        var tdHtml = "<select class='wf-setting-name'>";
-                                        tdHtml += "<option value=''></option>";
-                                        for (var i3 = 0; i3 < settings.length; i3++) {
-                                            var setting = settings[i3];
-                                            tdHtml += "<option value='" + setting + "'"+ (tn===setting?"selected":"") +">" + setting + "</option>";
-                                        }
-                                        wfSettingNameTd.innerHTML = tdHtml;
-                                    });
-                                }*/
-
-                                if (workflow.IsExecutionGraphEmpty === true) {
-                                    document.getElementById("wf-add-task").style.display = "block";
-                                    var wfRemoveTaskBtns = document.getElementsByClassName("wf-remove-task");
-                                    for (var i4 = 0; i4 < wfRemoveTaskBtns.length; i4++) {
-                                        var wfRemoveTaskBtn = wfRemoveTaskBtns[i4];
-                                        wfRemoveTaskBtn.style.display = "block";
-                                    }
-                                } else {
-                                    document.getElementById("wf-add-task").style.display = "none";
-                                }
-
-                                var wfAddAttributesTds = document.getElementsByClassName("wf-add-attribute-td");
-                                for (var i3 = 0; i3 < wfAddAttributesTds.length; i3++) {
-                                    var wfAddAttributeTd = wfAddAttributesTds[i3];
-                                    var settingValue = wfAddAttributeTd.parentElement.getElementsByClassName("wf-setting-name")[0].value;
-                                    if (settingValue === "selectFiles" || settingValue === "selectAttachments") {
-                                        wfAddAttributeTd.style.display = "block";
-                                    }
-                                }
-
-                                // Show Task function XML
-                                var wfShowTaskXmLs = document.getElementsByClassName("wf-show-taskxml");
-                                for (var i5 = 0; i5 < wfShowTaskXmLs.length; i5++) {
-                                    var wfShowTaskXml = wfShowTaskXmLs[i5];
-                                    wfShowTaskXml.onclick = function () {
-                                        showTaskXml(workflowId, this);
-                                    };
-                                }
-
-                                // Show Task function XML description
-                                var wfShowTaskXmLDescriptions = document.getElementsByClassName("wf-show-doc");
-                                for (var i6 = 0; i6 < wfShowTaskXmLDescriptions.length; i6++) {
-                                    var wfShowTaskXmlDescription = wfShowTaskXmLDescriptions[i6];
-                                    wfShowTaskXmlDescription.onclick = function () {
-                                        //showTaskXml(workflowId, this, "/taskToXmlDescription");
-                                        doc(workflowId, this);
-                                    };
-                                }
-
-
-                                // Add/Remove a setting
-                                var wfAddSettings = document.getElementsByClassName("wf-add-setting");
-                                for (var l = 0; l < wfAddSettings.length; l++) {
-                                    var wfAddSetting = wfAddSettings[l];
-                                    wfAddSetting.onclick = function () {
-                                        addSetting(workflowId, this);
-                                    };
-                                }
-
-                                // Remove a setting
-                                var wfRemoveSettings = document.getElementsByClassName("wf-remove-setting");
-                                for (var m = 0; m < wfRemoveSettings.length; m++) {
-                                    var wfRemoveSetting = wfRemoveSettings[m];
-                                    wfRemoveSetting.onclick = function () {
-                                        removeSetting(workflowId, this);
-                                    };
-                                }
-
-                                // Add/Remove attribute
-                                var wfAddAttributes = document.getElementsByClassName("wf-add-attribute");
-                                for (var o = 0; o < wfAddAttributes.length; o++) {
-                                    var wfAddAttribute = wfAddAttributes[o];
-                                    wfAddAttribute.onclick = function () {
-                                        addAttribute(workflowId, this);
-                                    };
-                                }
-
-                                // Remove attribute
-                                var wfRemoveAttributes = document.getElementsByClassName("wf-remove-attribute");
-                                for (var n = 0; n < wfRemoveAttributes.length; n++) {
-                                    var wfRemoveAttribute = wfRemoveAttributes[n];
-                                    wfRemoveAttribute.onclick = function () {
-                                        removeAttribute(workflowId, this);
-                                    };
-                                }
-
-                                // Remove task for linear wf
-                                var wfRemoveTasks = document.getElementsByClassName("wf-remove-task");
-                                for (var p = 0; p < wfRemoveTasks.length; p++) {
-                                    var wfRemoveTask = wfRemoveTasks[p];
-                                    wfRemoveTask.onclick = function () {
-                                        removeTask(workflowId, this);
-                                        loadExecutionGraph();
-                                    };
-                                }
-
-                                // Add task for linear wf
-                                var wfAddTask = document.getElementById("wf-add-task");
-                                wfAddTask.onclick = function() {
-                                    addTask(workflowId, taskNames);
-                                };
-
-                                var bindWfTaskId = function(m) {
-                                    var wfTaskId = document.getElementsByClassName("wf-task-id")[m];
-                                    wfTaskId.onkeyup = function() {
-                                        workflowTasks[workflowId][m].Id = wfTaskId.value;
-                                        this.parentElement.parentElement.parentElement.parentElement.parentElement
-                                            .getElementsByClassName("wf-task-title-label")[0].innerHTML =
-                                            "Task " + wfTaskId.value;
-                                        loadExecutionGraph(workflow);
-                                    };
-                                };
-
-                                var bindWfTaskName = function(m) {
-                                    var wfTaskName = document.getElementsByClassName("wf-task-name")[m];
-                                    wfTaskName.onchange = function () {
-
-                                        // Reset settings
-                                        var wfSettingsTable =
-                                            wfTaskName.parentElement.parentElement.parentElement.parentElement.parentElement.getElementsByClassName("wf-settings")[0];
-
-                                        workflowTasks[workflowId][m].Name = wfTaskName.value;
-
-                                        if (wfTaskName.value !== "") {
-                                            Common.get(uri + "/settings/" + wfTaskName.value,
-                                                function (settings) {
-
-                                                    var wfAddSetting =
-                                                        wfTaskName.parentElement.parentElement.parentElement.parentElement.parentElement
-                                                            .getElementsByClassName("wf-add-setting")[0];
-                                                    workflowTasks[workflowId][m].Settings = [];
-                                                    wfSettingsTable.innerHTML = "";
-                                                    for (var i = 0; i < settings.length; i++) {
-                                                        var settingName = settings[i];
-                                                        addSetting(workflowId, wfAddSetting, settingName);
-                                                    }
-                                                },
-                                                function () {
-                                                    Common.toastError("An error occured while retrieving settings.");
-                                                });
-                                        } else {
-                                            workflowTasks[workflowId][m].Settings = [];
-                                            wfSettingsTable.innerHTML = "";
-                                        }
-
-                                    };
-                                };
-
-                                var bindWfTaskDesc = function(m) {
-                                    var wfTaskDesc = document.getElementsByClassName("wf-task-desc")[m];
-                                    wfTaskDesc.onkeyup = function() {
-                                        workflowTasks[workflowId][m].Description = wfTaskDesc.value;
-                                        loadExecutionGraph();
-                                    };
-                                };
-
-                                var bindWfTaskEnabled = function(m) {
-                                    var wfTaskEnabled =
-                                        document.getElementsByClassName("wf-task-enabled")[m];
-                                    wfTaskEnabled.onchange = function() {
-                                        workflowTasks[workflowId][m].IsEnabled = wfTaskEnabled.checked;
-                                    };
-                                };
-
-                                var bindwfSettingName = function(m, n) {
-                                    var wfSettingName =
-                                        document.getElementsByClassName("wf-settings")[m].getElementsByClassName(
-                                            "wf-setting-name")[n];
-                                    wfSettingName.onkeyup = function() {
-                                        workflowTasks[workflowId][m].Settings[n].Name = wfSettingName.value;
-                                        var wfAddAttributeTd =
-                                            wfSettingName.parentElement.parentElement.getElementsByClassName(
-                                                "wf-add-attribute-td")[0];
-                                        if (wfSettingName.value === "selectFiles" ||
-                                            wfSettingName.value === "selectAttachments") {
-                                            wfAddAttributeTd.style.display = "block";
-                                        } else {
-                                            wfAddAttributeTd.style.display = "none";
-                                        }
-                                    };
-                                };
-
-                                var bindwfSettingValue = function (m, n) {
-                                    var wfSettingValue = document.getElementsByClassName("wf-settings")[m]
-                                        .getElementsByClassName("wf-setting-value")[n];
-                                    if (typeof wfSettingValue !== "undefined" && wfSettingValue !== null) {
-                                        wfSettingValue.onkeyup = function () {
-                                            workflowTasks[workflowId][m].Settings[n].Value =
-                                                wfSettingValue.value;
-                                        };
-                                    }
-                                };
-
-                                var bindwfAttributeName = function (m, n, o) {
-                                    var wfAttributeName = document.getElementsByClassName("wf-settings")[m]
-                                        .getElementsByClassName("wf-setting-value-td")[n]
-                                        .getElementsByClassName("wf-attribute-name")[o];
-                                    if (typeof wfAttributeName !== "undefined" && wfAttributeName !== null) {
-                                        wfAttributeName.onkeyup = function () {
-                                            workflowTasks[workflowId][m].Settings[n].Attributes[o].Name =
-                                                wfAttributeName.value;
-                                        };
-                                    }
-                                };
-
-                                var bindwfAttributeValue = function (m, n, o) {
-                                    var wfAttributeValue = document.getElementsByClassName("wf-settings")[m]
-                                        .getElementsByClassName("wf-setting-value-td")[n]
-                                        .getElementsByClassName("wf-attribute-value")[o];
-                                    if (typeof wfAttributeValue !== "undefined" && wfAttributeValue !== null) {
-                                        wfAttributeValue.onkeyup = function () {
-                                            workflowTasks[workflowId][m].Settings[n].Attributes[o].Value =
-                                                wfAttributeValue.value;
-                                        };
-                                    }
-                                };
-
-                                for (var index1 = 0; index1 < tasks.length; index1++) {
-                                    var wftask = tasks[index1];
-                                    bindWfTaskId(index1);
-                                    bindWfTaskName(index1);
-                                    bindWfTaskDesc(index1);
-                                    bindWfTaskEnabled(index1);
-
-                                    for (var index2 = 0; index2 < wftask.Settings.length; index2++) {
-                                        var wfsetting = wftask.Settings[index2];
-                                        bindwfSettingName(index1, index2);
-                                        bindwfSettingValue(index1, index2);
-
-                                        for (var index3 = 0;
-                                            index3 < wfsetting.Attributes.length;
-                                            index3++) {
-                                            bindwfAttributeName(index1, index2, index3);
-                                            bindwfAttributeValue(index1, index2, index3);
-                                        }
-                                    }
-                                }
-
-                                // Execution graph
-                                loadExecutionGraph(workflow);
-
-                            },
-                            function () {
-                                Common.toastError("An error occured while retrieving task names.");
-                            });
+                        if (typeof tasks === "undefined") {
+                            setTimeout(function () { // try again after delay
+                                getTasks(workflowId, function (ntasks) {
+                                    loadTasks(ntasks, workflowId, workflow);
+                                });
+                            }, timeOutInterval);
+                        } else {
+                            loadTasks(tasks, workflowId, workflow);
+                        }
+                        
                     });
             });
 
@@ -1931,7 +1686,7 @@
 
             // Reset the editor
             if (typeof workflowEditor !== "undefined") {
-                workflowEditor.editor.setValue("", -1);
+                //workflowEditor.editor.setValue("", -1);
                 xmlContainer.style.display = "none";
                 setEditXml(workflowId, false);
                 editorChanged = false;
@@ -1954,7 +1709,7 @@
                         row.className += "selected";
 
                         // Scroll to the workflow
-                        row.scrollIntoView(true);
+                        //row.scrollIntoView(true);
                     }
                 }
             }
@@ -1967,6 +1722,341 @@
 
             loadRightPanel(selectedId, true);
         }
+    }
+
+    function loadTasks(tasks, workflowId, workflow) {
+
+        workflowTasks[workflowId] = tasks;
+
+        var tasksHtml = "";
+
+        Common.get(uri + "/taskNames",
+            function (taskNames) {
+
+                for (var i = 0; i < tasks.length; i++) {
+                    var task = tasks[i];
+
+                    tasksHtml += "<div class='wf-task'>" +
+                        "<h5 class='wf-task-title'><label class='wf-task-title-label'>Task " + task.Id + "</label>" +
+                        "<button type='button' class='wf-remove-task btn btn-danger btn-xs'>Delete</button>" +
+                        "<button type='button' class='wf-show-doc btn btn-dark btn-xs'>Documentation</button>" +
+                        "<button type='button' class='wf-show-taskxml btn btn-dark btn-xs'>Xml</button>" +
+                        "<button type='button' class='wf-add-setting btn btn-dark btn-xs'>New setting</button>" +
+                        "</h5>" +
+                        "<table class='wf-designer-table'>" +
+                        "<tbody>" +
+                        "<tr><td class='wf-taskxml' colspan='2'><pre><code class='wf-taskxml-container'></code></pre></td></tr>" +
+                        "<tr><td class='wf-title'>Id</td><td class='wf-value'><input class='wf-task-id' type='text' value='" + task.Id + "'" + (workflow.IsExecutionGraphEmpty === false ? "readonly" : "") + "/></td></tr>" +
+                        "<tr><td class='wf-title'>Name</td><td class='wf-value'><select class='wf-task-name'>";
+
+                    for (var i1 = 0; i1 < taskNames.length; i1++) {
+                        var taskName = taskNames[i1];
+                        tasksHtml += "<option value='" + taskName + "' " + (taskName === task.Name ? "selected" : "") + ">" + taskName + "</option>";
+                    }
+
+                    tasksHtml += "</select>" +
+                        "</td></tr>" +
+                        "<tr><td class='wf-title'>Description</td><td class='wf-value'><input class='wf-task-desc' type='text' value='" + task.Description + "' /></td></tr>" +
+                        "<tr><td class='wf-title'>Enabled</td><td class='wf-value'><input class='wf-task-enabled' type='checkbox'   " + (task.IsEnabled ? "checked" : "") + " /></td></tr>" +
+                        "</tbody>" +
+                        "</table>" +
+                        //"<div class='wf-add-setting-title'>" +
+                        //"</div>" +
+                        "<table class='wf-designer-table wf-settings'>" +
+                        "<tbody>";
+
+                    // task settings
+                    for (var j = 0; j < task.Settings.length; j++) {
+                        var setting = task.Settings[j];
+                        tasksHtml +=
+                            "<tr><td class='wf-setting-name-td wf-title'>" +
+                            "<input class='wf-setting-name' type='text' value='" + setting.Name + "' readonly />" +
+                            "</td><td class='wf-setting-value-td'>";
+
+                        tasksHtml += "<input class='wf-setting-value' type='text' value='" + setting.Value + "'  />";
+
+                        // settings attributes (for selectFiles and selectAttachments settings only)
+                        tasksHtml += "<table class='wf-attributes'>";
+
+                        for (var k = 0; k < setting.Attributes.length; k++) {
+                            var attr = setting.Attributes[k];
+                            tasksHtml +=
+                                "<tr>" +
+                                "<td><input class='wf-attribute-name' type='text' value='" + attr.Name + "'  /></td>" +
+                                "<td><input class='wf-attribute-value' type='text' value='" + attr.Value + "'  /></td>" +
+                                "<td><button type='button' class='wf-remove-attribute btn btn-danger btn-xs'>Delete</button></td>" +
+                                "</tr>";
+                        }
+
+                        tasksHtml += "</table>";
+
+                        tasksHtml += "</td>" +
+                            "<td class='wf-add-attribute-td'><button type='button' class='wf-add-attribute btn btn-dark btn-xs'>New attribute</button></td>" +
+                            "<td colspan='2'><button type='button' class='wf-remove-setting btn btn-danger btn-xs'>Delete</button></td>" +
+                            "</tr>";
+                    }
+
+                    tasksHtml += "</tbody>" +
+                        "</table>" +
+                        "</div > ";
+                }
+
+                document.getElementById("wf-tasks").innerHTML = tasksHtml;
+
+                // load settings in select tags
+                /*var wfSettingNameTds = document.getElementsByClassName("wf-setting-name-td");
+                
+                for (var i2 = 0; i2 < wfSettingNameTds.length; i2++) {
+                    var wfSettingNameTd = wfSettingNameTds[i2];
+                    var tn = wfSettingNameTd.getElementsByClassName("wf-setting-name-hidden")[0].value;
+ 
+                    Common.get(uri + "/settings/" + tn, function (settings) {
+                        var tdHtml = "<select class='wf-setting-name'>";
+                        tdHtml += "<option value=''></option>";
+                        for (var i3 = 0; i3 < settings.length; i3++) {
+                            var setting = settings[i3];
+                            tdHtml += "<option value='" + setting + "'"+ (tn===setting?"selected":"") +">" + setting + "</option>";
+                        }
+                        wfSettingNameTd.innerHTML = tdHtml;
+                    });
+                }*/
+
+                if (workflow.IsExecutionGraphEmpty === true) {
+                    document.getElementById("wf-add-task").style.display = "block";
+                    var wfRemoveTaskBtns = document.getElementsByClassName("wf-remove-task");
+                    for (var i4 = 0; i4 < wfRemoveTaskBtns.length; i4++) {
+                        var wfRemoveTaskBtn = wfRemoveTaskBtns[i4];
+                        wfRemoveTaskBtn.style.display = "block";
+                    }
+                } else {
+                    document.getElementById("wf-add-task").style.display = "none";
+                }
+
+                var wfAddAttributesTds = document.getElementsByClassName("wf-add-attribute-td");
+                for (var i3 = 0; i3 < wfAddAttributesTds.length; i3++) {
+                    var wfAddAttributeTd = wfAddAttributesTds[i3];
+                    var settingValue = wfAddAttributeTd.parentElement.getElementsByClassName("wf-setting-name")[0].value;
+                    if (settingValue === "selectFiles" || settingValue === "selectAttachments") {
+                        wfAddAttributeTd.style.display = "block";
+                    }
+                }
+
+                // Show Task function XML
+                var wfShowTaskXmLs = document.getElementsByClassName("wf-show-taskxml");
+                for (var i5 = 0; i5 < wfShowTaskXmLs.length; i5++) {
+                    var wfShowTaskXml = wfShowTaskXmLs[i5];
+                    wfShowTaskXml.onclick = function () {
+                        showTaskXml(workflowId, this);
+                    };
+                }
+
+                // Show Task function XML description
+                var wfShowTaskXmLDescriptions = document.getElementsByClassName("wf-show-doc");
+                for (var i6 = 0; i6 < wfShowTaskXmLDescriptions.length; i6++) {
+                    var wfShowTaskXmlDescription = wfShowTaskXmLDescriptions[i6];
+                    wfShowTaskXmlDescription.onclick = function () {
+                        //showTaskXml(workflowId, this, "/taskToXmlDescription");
+                        doc(workflowId, this);
+                    };
+                }
+
+
+                // Add/Remove a setting
+                var wfAddSettings = document.getElementsByClassName("wf-add-setting");
+                for (var l = 0; l < wfAddSettings.length; l++) {
+                    var wfAddSetting = wfAddSettings[l];
+                    wfAddSetting.onclick = function () {
+                        addSetting(workflowId, this);
+                    };
+                }
+
+                // Remove a setting
+                var wfRemoveSettings = document.getElementsByClassName("wf-remove-setting");
+                for (var m = 0; m < wfRemoveSettings.length; m++) {
+                    var wfRemoveSetting = wfRemoveSettings[m];
+                    wfRemoveSetting.onclick = function () {
+                        removeSetting(workflowId, this);
+                    };
+                }
+
+                // Add/Remove attribute
+                var wfAddAttributes = document.getElementsByClassName("wf-add-attribute");
+                for (var o = 0; o < wfAddAttributes.length; o++) {
+                    var wfAddAttribute = wfAddAttributes[o];
+                    wfAddAttribute.onclick = function () {
+                        addAttribute(workflowId, this);
+                    };
+                }
+
+                // Remove attribute
+                var wfRemoveAttributes = document.getElementsByClassName("wf-remove-attribute");
+                for (var n = 0; n < wfRemoveAttributes.length; n++) {
+                    var wfRemoveAttribute = wfRemoveAttributes[n];
+                    wfRemoveAttribute.onclick = function () {
+                        removeAttribute(workflowId, this);
+                    };
+                }
+
+                // Remove task for linear wf
+                var wfRemoveTasks = document.getElementsByClassName("wf-remove-task");
+                for (var p = 0; p < wfRemoveTasks.length; p++) {
+                    var wfRemoveTask = wfRemoveTasks[p];
+                    wfRemoveTask.onclick = function () {
+                        removeTask(workflowId, this);
+                        loadExecutionGraph();
+                    };
+                }
+
+                // Add task for linear wf
+                var wfAddTask = document.getElementById("wf-add-task");
+                wfAddTask.onclick = function () {
+                    addTask(workflowId, taskNames);
+                };
+
+                var bindWfTaskId = function (m) {
+                    var wfTaskId = document.getElementsByClassName("wf-task-id")[m];
+                    wfTaskId.onkeyup = function () {
+                        workflowTasks[workflowId][m].Id = wfTaskId.value;
+                        this.parentElement.parentElement.parentElement.parentElement.parentElement
+                            .getElementsByClassName("wf-task-title-label")[0].innerHTML =
+                            "Task " + wfTaskId.value;
+                        loadExecutionGraph(workflow);
+                    };
+                };
+
+                var bindWfTaskName = function (m) {
+                    var wfTaskName = document.getElementsByClassName("wf-task-name")[m];
+                    wfTaskName.onchange = function () {
+
+                        // Reset settings
+                        var wfSettingsTable =
+                            wfTaskName.parentElement.parentElement.parentElement.parentElement.parentElement.getElementsByClassName("wf-settings")[0];
+
+                        workflowTasks[workflowId][m].Name = wfTaskName.value;
+
+                        if (wfTaskName.value !== "") {
+                            Common.get(uri + "/settings/" + wfTaskName.value,
+                                function (settings) {
+
+                                    var wfAddSetting =
+                                        wfTaskName.parentElement.parentElement.parentElement.parentElement.parentElement
+                                            .getElementsByClassName("wf-add-setting")[0];
+                                    workflowTasks[workflowId][m].Settings = [];
+                                    wfSettingsTable.innerHTML = "";
+                                    for (var i = 0; i < settings.length; i++) {
+                                        var settingName = settings[i];
+                                        addSetting(workflowId, wfAddSetting, settingName);
+                                    }
+                                },
+                                function () {
+                                    Common.toastError("An error occured while retrieving settings.");
+                                });
+                        } else {
+                            workflowTasks[workflowId][m].Settings = [];
+                            wfSettingsTable.innerHTML = "";
+                        }
+
+                    };
+                };
+
+                var bindWfTaskDesc = function (m) {
+                    var wfTaskDesc = document.getElementsByClassName("wf-task-desc")[m];
+                    wfTaskDesc.onkeyup = function () {
+                        workflowTasks[workflowId][m].Description = wfTaskDesc.value;
+                        loadExecutionGraph();
+                    };
+                };
+
+                var bindWfTaskEnabled = function (m) {
+                    var wfTaskEnabled =
+                        document.getElementsByClassName("wf-task-enabled")[m];
+                    wfTaskEnabled.onchange = function () {
+                        workflowTasks[workflowId][m].IsEnabled = wfTaskEnabled.checked;
+                    };
+                };
+
+                var bindwfSettingName = function (m, n) {
+                    var wfSettingName =
+                        document.getElementsByClassName("wf-settings")[m].getElementsByClassName(
+                            "wf-setting-name")[n];
+                    wfSettingName.onkeyup = function () {
+                        workflowTasks[workflowId][m].Settings[n].Name = wfSettingName.value;
+                        var wfAddAttributeTd =
+                            wfSettingName.parentElement.parentElement.getElementsByClassName(
+                                "wf-add-attribute-td")[0];
+                        if (wfSettingName.value === "selectFiles" ||
+                            wfSettingName.value === "selectAttachments") {
+                            wfAddAttributeTd.style.display = "block";
+                        } else {
+                            wfAddAttributeTd.style.display = "none";
+                        }
+                    };
+                };
+
+                var bindwfSettingValue = function (m, n) {
+                    var wfSettingValue = document.getElementsByClassName("wf-settings")[m]
+                        .getElementsByClassName("wf-setting-value")[n];
+                    if (typeof wfSettingValue !== "undefined" && wfSettingValue !== null) {
+                        wfSettingValue.onkeyup = function () {
+                            workflowTasks[workflowId][m].Settings[n].Value =
+                                wfSettingValue.value;
+                        };
+                    }
+                };
+
+                var bindwfAttributeName = function (m, n, o) {
+                    var wfAttributeName = document.getElementsByClassName("wf-settings")[m]
+                        .getElementsByClassName("wf-setting-value-td")[n]
+                        .getElementsByClassName("wf-attribute-name")[o];
+                    if (typeof wfAttributeName !== "undefined" && wfAttributeName !== null) {
+                        wfAttributeName.onkeyup = function () {
+                            workflowTasks[workflowId][m].Settings[n].Attributes[o].Name =
+                                wfAttributeName.value;
+                        };
+                    }
+                };
+
+                var bindwfAttributeValue = function (m, n, o) {
+                    var wfAttributeValue = document.getElementsByClassName("wf-settings")[m]
+                        .getElementsByClassName("wf-setting-value-td")[n]
+                        .getElementsByClassName("wf-attribute-value")[o];
+                    if (typeof wfAttributeValue !== "undefined" && wfAttributeValue !== null) {
+                        wfAttributeValue.onkeyup = function () {
+                            workflowTasks[workflowId][m].Settings[n].Attributes[o].Value =
+                                wfAttributeValue.value;
+                        };
+                    }
+                };
+
+                for (var index1 = 0; index1 < tasks.length; index1++) {
+                    var wftask = tasks[index1];
+                    bindWfTaskId(index1);
+                    bindWfTaskName(index1);
+                    bindWfTaskDesc(index1);
+                    bindWfTaskEnabled(index1);
+
+                    for (var index2 = 0; index2 < wftask.Settings.length; index2++) {
+                        var wfsetting = wftask.Settings[index2];
+                        bindwfSettingName(index1, index2);
+                        bindwfSettingValue(index1, index2);
+
+                        for (var index3 = 0;
+                            index3 < wfsetting.Attributes.length;
+                            index3++) {
+                            bindwfAttributeName(index1, index2, index3);
+                            bindwfAttributeValue(index1, index2, index3);
+                        }
+                    }
+                }
+
+                // Execution graph
+                loadExecutionGraph(workflow);
+
+            },
+
+            function () {
+                Common.toastError("An error occured while retrieving task names.");
+            });
     }
 
     function cancel(workflowId) {
@@ -2048,7 +2138,7 @@
                         }
 
                         document.getElementById("wf-save").onclick = function () {
-                            saveClick(false);
+                            saveClick(false, false);
                             editorChanged = false;
                         };
 
