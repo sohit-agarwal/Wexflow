@@ -126,7 +126,6 @@
 
     // CTRL+S
     window.onkeydown = function (event) {
-        //console.log("selectedId: " + selectedId + ", newWorkflow: " + newWorkflow);
         if (selectedId !== -1 && newWorkflow === false) { // CTRL+S
             if ((event.ctrlKey || event.metaKey || event.keyCode === 17 || event.keyCode === 224 || event.keyCode === 91 || event.keyCode === 93) && event.keyCode === 83) {
                 save(selectedId, selectedId);
@@ -564,7 +563,7 @@
 
         var workflowEditor = getEditor(workflowId);
         var editXml = getEditXml(workflowId);
-        //console.log("editXml: " + editXml + ", workflowEditor: " + workflowEditor);
+        
         if (editXml === true && typeof workflowEditor !== "undefined") { // XML editing
             var editor = workflowEditor.editor;
             var xml = editor.getValue();
@@ -1306,10 +1305,8 @@
                 editor.on("change", function () {
                     var editXml = getEditXml(workflowId);
                     if (editXml === false && editorChanged === false && workflowId === editorWorkflowId) {
-                        //console.log("workflowId: " + workflowId + ", editorWorkflowId: " + editorWorkflowId+", editXml: true");
                         setEditXml(workflowId, true);
                     }
-                    //console.log("workflowId: " + workflowId + ", editXml: " + getEditXml(workflowId) + ", editorChanged: " + editorChanged);
                 });
 
                 var currentEditor = editors.get(workflowId);
@@ -1379,7 +1376,6 @@
         }
         $('#wf-theme').change(function () {
             isDarkTheme = !$(this).prop('checked');
-            console.log("isDarkTheme: " + isDarkTheme);
             var weditor = getEditor(selectedId);
             if (typeof weditor !== 'undefined') {
                 var editor = weditor.editor;
@@ -1932,10 +1928,12 @@
             editorCanceled = false;
 
             // Reset the editor
-            workflowEditor.editor.setValue("", -1);
-            xmlContainer.style.display = "none";
-            setEditXml(workflowId, false);
-            editorChanged = false;
+            if (typeof workflowEditor !== "undefined") {
+                workflowEditor.editor.setValue("", -1);
+                xmlContainer.style.display = "none";
+                setEditXml(workflowId, false);
+                editorChanged = false;
+            }
 
             // Select the workflow
             var wfWorkflowsTable = document.getElementById("wf-workflows-table");
