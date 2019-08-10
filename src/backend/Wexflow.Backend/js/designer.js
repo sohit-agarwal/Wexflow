@@ -58,6 +58,7 @@
     var editorCanceled = false;
     var newWorkflow = false;
     var isDarkTheme = false;
+    var loadXmlCalled = false;
 
     var rightPanelHtml = "<h3><button id='wf-xml' type='button' class='wf-action-left btn btn-dark btn-xs'>Xml</button> <input id='wf-theme' type='checkbox' checked data-toggle='toggle' data-size='mini' data-on='Bright' data-off='Dark' data-width='70'></h3>" +
         "<pre id='wf-xml-container'></pre>" +
@@ -685,7 +686,7 @@
                                 });
 
                             // Reload XML
-                            if (typeof workflowEditor !== "undefined") {
+                            if (typeof workflowEditor !== "undefined" && loadXmlCalled === true) {
                                 loadXml(selectedId);
                             }
 
@@ -1276,6 +1277,7 @@
     function loadXml(workflowId) {
         getXml(workflowId,
             function (xml) {
+                loadXmlCalled = true;
                 document.getElementById("wf-xml-container").style.display = "block";
 
                 document.getElementById("wf-shortcut").style.display = "block";
@@ -1376,7 +1378,7 @@
         }
         $('#wf-theme').change(function () {
             isDarkTheme = !$(this).prop('checked');
-            var weditor = getEditor(selectedId);
+            var weditor = getEditor(editorWorkflowId);
             if (typeof weditor !== 'undefined') {
                 var editor = weditor.editor;
                 if (isDarkTheme === true) {
@@ -2011,6 +2013,7 @@
                 var rows = (workflowsTable.getElementsByTagName("tbody")[0]).getElementsByTagName("tr");
                 for (var j = 0; j < rows.length; j++) {
                     rows[j].onclick = function () {
+                        loadXmlCalled = false;
                         newWorkflow = false;
                         editorCanceled = false;
                         selectedId = parseInt(this.getElementsByClassName("wf-id")[0].innerHTML);
