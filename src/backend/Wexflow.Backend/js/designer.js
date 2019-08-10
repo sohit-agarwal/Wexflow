@@ -1992,7 +1992,7 @@
 
                 }
 
-                var table = "<table id='wf-workflows-table' class='table table-hover'>" +
+                var table = "<table id='wf-workflows-table' class='table'>" +
                     "<thead class='thead-dark'>" +
                     "<tr>" +
                     "<th class='wf-id'>Id</th>" +

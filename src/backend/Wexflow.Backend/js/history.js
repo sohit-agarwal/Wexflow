@@ -218,7 +218,7 @@
                     + "</tr>");
             }
 
-            var table = "<table id='entries-table' class='table table-hover'>"
+            var table = "<table id='entries-table' class='table'>"
                 + "<thead class='thead-dark'>"
                 + "<tr>"
                 + "<th id='th-status' class='status'>Status</th>"

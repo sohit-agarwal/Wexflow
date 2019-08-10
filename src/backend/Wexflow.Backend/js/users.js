@@ -113,7 +113,7 @@
                     );
                 }
 
-                var table = "<table id='wf-users-table' class='table table-hover'>"
+                var table = "<table id='wf-users-table' class='table'>"
                     + "<thead class='thead-dark'>"
                     + "<tr>"
                     + "<th id='th-id'>Id</th>"

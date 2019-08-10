@@ -71,6 +71,15 @@
     display: none;
 }
 
+#entries .thead-dark {
+    background: #272727;
+    color: #EEEEEE;
+}
+
+#entries tbody tr:hover{
+    background: #EEEEEE;
+}
+
     #entries #entries-table .status {
         width: 95px;
     }

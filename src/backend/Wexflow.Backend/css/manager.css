@@ -115,6 +115,15 @@
 
 /* start of table style */
 
+#wf-workflows .thead-dark {
+    background: #272727;
+    color: #EEEEEE;
+}
+
+#wf-workflows tbody tr:hover{
+    background: #EEEEEE;
+}
+
 #wf-workflows #wf-workflows-table .wf-id
 {
     width: 45px;    

@@ -78,6 +78,15 @@
     overflow: auto;
 }
 
+#users-table .thead-dark {
+    background: #272727;
+    color: #EEEEEE;
+}
+
+#users-table tbody tr:hover{
+    background: #EEEEEE;
+}
+
 #users-table #wf-users-table tbody tr:hover {
     cursor: pointer;
 }

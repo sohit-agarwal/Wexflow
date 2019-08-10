@@ -20,24 +20,24 @@ body {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
 
-    #header a {
-        color: #FFFFFF;
-        font-size: 12px;
-        margin: 20px;
-        float: left;
-        font-weight: bold;
-        -webkit-font-smoothing: antialiased;
-        line-height: 5px;
-        white-space: nowrap;
-    }
+#header a {
+    color: #FFFFFF;
+    font-size: 12px;
+    margin: 20px;
+    float: left;
+    font-weight: bold;
+    -webkit-font-smoothing: antialiased;
+    line-height: 5px;
+    white-space: nowrap;
+}
 
 #header .header-right{
 	float: right;
 }
 
-    #header #lnk-manager, #lnk-designer, #lnk-users {
-        display: none;
-    }
+#header #lnk-manager, #lnk-designer, #lnk-users {
+    display: none;
+}
 
 #wf-designer{
 	position: absolute; 
@@ -63,18 +63,18 @@ body {
     left: 10px;
 }
 
-    #wf-search #wf-search-text-container {
-        float: left;
-    }
+#wf-search #wf-search-text-container {
+    float: left;
+}
 
-        #wf-search #wf-search-text-container #wf-search-text {
-            width: 140px;
-        }
+#wf-search #wf-search-text-container #wf-search-text {
+    width: 140px;
+}
 
-    #wf-search #wf-search-action {
-        margin-left: 10px;
-        width: 90px;
-    }
+#wf-search #wf-search-action {
+    margin-left: 10px;
+    width: 90px;
+}
 
 #wf-workflows {
     position: absolute;
@@ -105,8 +105,16 @@ body {
     background-color: #ffb347;
 }
 
-/* Wexflow Designer right panel*/
+#wf-workflows #wf-workflows-table .thead-dark {
+    background: #272727;
+    color: #EEEEEE;
+}
 
+#wf-workflows #wf-workflows-table tbody tr:hover{
+    background: #EEEEEE;
+}
+
+/* Wexflow Designer right panel*/
 #wf-container button {
     cursor: pointer;
 }

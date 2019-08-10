@@ -115,7 +115,7 @@
         $.toast({
             heading: 'Information',
             text: msg,
-            hideAfter: 4000,
+            hideAfter: 5000,
             icon: 'info'
         });
     },
@@ -124,7 +124,7 @@
         $.toast({
             heading: 'Success',
             text: msg,
-            hideAfter: 4000,
+            hideAfter: 5000,
             icon: 'success'
         });
     },
@@ -133,7 +133,7 @@
         $.toast({
             heading: 'Error',
             text: msg,
-            hideAfter: 4000,
+            hideAfter: 5000,
             icon: 'error'
         });
     }
