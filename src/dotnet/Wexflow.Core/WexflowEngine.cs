@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using Wexflow.Core.Db;
@@ -180,16 +181,23 @@ namespace Wexflow.Core
 
             watcher.Created += (_, args) =>
             {
-                var workflow = LoadWorkflowFromFile(args.FullPath);
-                if (workflow != null)
+                try
                 {
-                    Workflows.Add(workflow);
-                    ScheduleWorkflow(workflow);
+                    Logger.Info("FileSystemWatcher.OnCreated");
+                    watcher.EnableRaisingEvents = false;
+                    
+                    LoadWorkflow(args.FullPath);
+                }
+                finally
+                {
+                    watcher.EnableRaisingEvents = true;
                 }
             };
 
             watcher.Deleted += (_, args) =>
             {
+                Logger.Info("FileSystemWatcher.OnDeleted");
+
                 var removedWorkflow = Workflows.SingleOrDefault(wf => wf.WorkflowFilePath == args.FullPath);
                 if (removedWorkflow != null)
                 {
@@ -206,44 +214,83 @@ namespace Wexflow.Core
             {
                 try
                 {
-                    if (Workflows != null)
-                    {
-                        var changedWorkflow = Workflows.SingleOrDefault(wf => wf.WorkflowFilePath == args.FullPath);
+                    watcher.EnableRaisingEvents = false;
 
-                        if (changedWorkflow != null)
+                    try
+                    {
+                        Logger.Info("FileSystemWatcher.OnChanged");
+
+                        if (Workflows != null)
                         {
-                            // the existing file might have caused an error during loading, so there may be no corresponding
-                            // workflow to the changed file
-                            changedWorkflow.Stop();
-                            
-                            StopCronJobs(changedWorkflow.Id);
-                            Workflows.Remove(changedWorkflow);
-                            Logger.InfoFormat("A change in the definition file {0} of workflow {1} has been detected. The workflow will be reloaded.", changedWorkflow.WorkflowFilePath, changedWorkflow.Name);
+                            var changedWorkflow = Workflows.SingleOrDefault(wf => wf.WorkflowFilePath == args.FullPath);
+
+                            if (changedWorkflow != null)
+                            {
+                                // the existing file might have caused an error during loading, so there may be no corresponding
+                                // workflow to the changed file
+                                changedWorkflow.Stop();
+
+                                StopCronJobs(changedWorkflow.Id);
+                                Workflows.Remove(changedWorkflow);
+                                Logger.InfoFormat("A change in the definition file {0} of workflow {1} has been detected. The workflow will be reloaded.", changedWorkflow.WorkflowFilePath, changedWorkflow.Name);
+                            }
                         }
                     }
+                    catch (Exception e)
+                    {
+                        Logger.Error("Error during workflow reload", e);
+                    }
+
+                    LoadWorkflowOnChanged(args.FullPath);
                 }
-                catch (Exception e)
+                finally
                 {
-                    Logger.Error("Error during workflow reload", e);
+                    watcher.EnableRaisingEvents = true;
                 }
 
-                var reloaded = LoadWorkflowFromFile(args.FullPath);
-                if (reloaded != null)
-                {
-                    var duplicateId = Workflows.SingleOrDefault(wf => wf.Id == reloaded.Id);
-                    if (duplicateId != null)
-                    {
-                        Logger.ErrorFormat(
-                            "An error occured while loading the workflow : {0}. The workflow Id {1} is already assigned in {2}",
-                            args.FullPath, reloaded.Id, duplicateId.WorkflowFilePath);
-                    }
-                    else
-                    {
-                        Workflows.Add(reloaded);
-                        ScheduleWorkflow(reloaded);
-                    }
-                }
             };
+        }
+
+        private void LoadWorkflow(string path)
+        {
+            var workflow = LoadWorkflowFromFile(path);
+            if (workflow != null)
+            {
+                Workflows.Add(workflow);
+                ScheduleWorkflow(workflow);
+            }
+            else
+            {
+                Logger.InfoFormat("Trying to load the workflow {0} again.", path);
+                Thread.Sleep(500);
+                LoadWorkflow(path);
+            }
+        }
+
+        private void LoadWorkflowOnChanged(string path)
+        {
+            var workflow = LoadWorkflowFromFile(path);
+            if (workflow != null)
+            {
+                var duplicateId = Workflows.SingleOrDefault(wf => wf.Id == workflow.Id);
+                if (duplicateId != null)
+                {
+                    Logger.ErrorFormat(
+                        "An error occured while loading the workflow : {0}. The workflow Id {1} is already assigned in {2}",
+                        path, workflow.Id, duplicateId.WorkflowFilePath);
+                }
+                else
+                {
+                    Workflows.Add(workflow);
+                    ScheduleWorkflow(workflow);
+                }
+            }
+            else
+            {
+                Logger.InfoFormat("Trying to load the workflow {0} again.", path);
+                Thread.Sleep(500);
+                LoadWorkflowOnChanged(path);
+            }
         }
 
         private void StopCronJobs(int workflowId)

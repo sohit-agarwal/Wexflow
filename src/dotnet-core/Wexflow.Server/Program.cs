@@ -9,6 +9,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Xml;
 using Wexflow.Core;
 
@@ -84,12 +85,32 @@ namespace Wexflow.Server
 
         private static void OnCreated(object source, FileSystemEventArgs e)
         {
-            Logger.Info("FileSystemWatcher.OnCreated");
-            var workflow = WexflowEngine.LoadWorkflowFromFile(e.FullPath);
+            try
+            {
+                Watcher.EnableRaisingEvents = false;
+
+                Logger.Info("FileSystemWatcher.OnCreated");
+                LoadWorkflow(e.FullPath);
+            }
+            finally
+            {
+                Watcher.EnableRaisingEvents = true;
+            }
+        }
+
+        private static void LoadWorkflow(string path)
+        {
+            var workflow = WexflowEngine.LoadWorkflowFromFile(path);
             if (workflow != null)
             {
                 WexflowEngine.Workflows.Add(workflow);
                 WexflowEngine.ScheduleWorkflow(workflow);
+            }
+            else
+            {
+                Logger.InfoFormat("Trying to load the workflow {0} again.", path);
+                Thread.Sleep(500);
+                LoadWorkflow(path);
             }
         }
 
@@ -110,45 +131,65 @@ namespace Wexflow.Server
 
         private static void OnChanged(object source, FileSystemEventArgs e)
         {
-            Logger.Info("FileSystemWatcher.OnChanged");
             try
             {
-                if (WexflowEngine.Workflows != null)
+                Watcher.EnableRaisingEvents = false;
+
+                Logger.Info("FileSystemWatcher.OnChanged");
+                try
                 {
-                    var changedWorkflow = WexflowEngine.Workflows.SingleOrDefault(wf => wf.WorkflowFilePath == e.FullPath);
-
-                    if (changedWorkflow != null)
+                    if (WexflowEngine.Workflows != null)
                     {
-                        // the existing file might have caused an error during loading, so there may be no corresponding
-                        // workflow to the changed file
-                        changedWorkflow.Stop();
+                        var changedWorkflow = WexflowEngine.Workflows.SingleOrDefault(wf => wf.WorkflowFilePath == e.FullPath);
 
-                        WexflowEngine.StopCronJobs(changedWorkflow.Id);
-                        WexflowEngine.Workflows.Remove(changedWorkflow);
-                        Logger.InfoFormat("A change in the definition file {0} of workflow {1} has been detected. The workflow will be reloaded.", changedWorkflow.WorkflowFilePath, changedWorkflow.Name);
+                        if (changedWorkflow != null)
+                        {
+                            // the existing file might have caused an error during loading, so there may be no corresponding
+                            // workflow to the changed file
+                            changedWorkflow.Stop();
+
+                            WexflowEngine.StopCronJobs(changedWorkflow.Id);
+                            WexflowEngine.Workflows.Remove(changedWorkflow);
+                            Logger.InfoFormat("A change in the definition file {0} of workflow {1} has been detected. The workflow will be reloaded.", changedWorkflow.WorkflowFilePath, changedWorkflow.Name);
+                        }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Logger.Error("Error during workflow reload", ex);
-            }
+                catch (Exception ex)
+                {
+                    Logger.Error("Error during workflow reload", ex);
+                }
 
-            var reloaded = WexflowEngine.LoadWorkflowFromFile(e.FullPath);
-            if (reloaded != null)
+                LoadWorkflowOnChanged(e.FullPath);
+            }
+            finally
             {
-                var duplicateId = WexflowEngine.Workflows.SingleOrDefault(wf => wf.Id == reloaded.Id);
+                Watcher.EnableRaisingEvents = true;
+            }
+        }
+
+        private static void LoadWorkflowOnChanged(string path)
+        {
+            var workflow = WexflowEngine.LoadWorkflowFromFile(path);
+            if (workflow != null)
+            {
+                var duplicateId = WexflowEngine.Workflows.SingleOrDefault(wf => wf.Id == workflow.Id);
                 if (duplicateId != null)
                 {
                     Logger.ErrorFormat(
                         "An error occured while loading the workflow : {0}. The workflow Id {1} is already assigned in {2}",
-                        e.FullPath, reloaded.Id, duplicateId.WorkflowFilePath);
+                        path, workflow.Id, duplicateId.WorkflowFilePath);
                 }
                 else
                 {
-                    WexflowEngine.Workflows.Add(reloaded);
-                    WexflowEngine.ScheduleWorkflow(reloaded);
+                    WexflowEngine.Workflows.Add(workflow);
+                    WexflowEngine.ScheduleWorkflow(workflow);
                 }
+            }
+            else
+            {
+                Logger.InfoFormat("Trying to load the workflow {0} again.", path);
+                Thread.Sleep(500);
+                LoadWorkflowOnChanged(path);
             }
         }
 

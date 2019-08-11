@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
+using System.Threading;
 using System.Xml.Linq;
 using System.Xml.Schema;
 using System.Xml.XPath;
@@ -123,6 +124,7 @@ namespace Wexflow.Server
             {
                 string keywordToUpper = Request.Query["s"].ToString().ToUpper();
                 var workflows = Program.WexflowEngine.Workflows
+                    .ToList()
                     .Where(wf =>
                         wf.Name.ToUpper().Contains(keywordToUpper) || wf.Description.ToUpper().Contains(keywordToUpper))
                     .Select(wf => new WorkflowInfo(wf.Id, wf.Name,
@@ -645,15 +647,8 @@ namespace Wexflow.Server
 
                     var workflowId = int.Parse(xdoc.Element(xn + "Workflow").Attribute("id").Value);
 
-                    var wf = Program.WexflowEngine.GetWorkflow(workflowId);
-                    if (wf != null)
-                    {
-                        xdoc.Save(wf.WorkflowFilePath);
-                    }
-                    else
-                    {
-                        throw new Exception("Workflow " + workflowId + " not found.");
-                    }
+                    var wf = GetWorkflowRecursive(workflowId);
+                    xdoc.Save(wf.WorkflowFilePath);
 
                     var resStr = JsonConvert.SerializeObject(true);
                     var resBytes = Encoding.UTF8.GetBytes(resStr);
@@ -678,6 +673,20 @@ namespace Wexflow.Server
                     };
                 }
             });
+        }
+
+        private Workflow GetWorkflowRecursive(int workflowId)
+        {
+            var wf = Program.WexflowEngine.GetWorkflow(workflowId);
+            if (wf != null)
+            {
+                return wf;
+            }
+            else
+            {
+                Thread.Sleep(500);
+                return GetWorkflowRecursive(workflowId);
+            }
         }
 
         private string CleanupXml(string xml)

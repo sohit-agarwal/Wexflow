@@ -271,10 +271,10 @@ namespace Wexflow.Core
             //
             // Parse global variables.
             //
-            FileStream fsSrc = new FileStream(src, FileMode.Open, FileAccess.Read, FileShare.Read);
-            FileStream fsDest = new FileStream(dest, FileMode.CreateNew, FileAccess.ReadWrite, FileShare.None);
-            using (StreamReader sr = new StreamReader(fsSrc))
-            using (StreamWriter sw = new StreamWriter(fsDest))
+            //FileStream fsSrc = new FileStream(src, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            //FileStream fsDest = new FileStream(dest, FileMode.CreateNew, FileAccess.ReadWrite, FileShare.None);
+            using (StreamReader sr = new StreamReader(src))
+            using (StreamWriter sw = new StreamWriter(dest, false))
             {
                 string line;
                 while ((line = sr.ReadLine()) != null)
@@ -350,8 +350,8 @@ namespace Wexflow.Core
             FilesPerTask.Clear();
             EntitiesPerTask.Clear();
 
-            FileStream fs = new FileStream(workflowFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
-            using (var xmlReader = XmlReader.Create(fs))
+            //FileStream fs = new FileStream(workflowFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+            using (var xmlReader = XmlReader.Create(workflowFilePath))
             {
                 var xmlNameTable = xmlReader.NameTable;
                 if (xmlNameTable != null)

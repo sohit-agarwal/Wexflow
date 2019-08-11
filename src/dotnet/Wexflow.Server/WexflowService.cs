@@ -22,6 +22,7 @@ using UserProfile = Wexflow.Core.Service.Contracts.UserProfile;
 using System.Configuration;
 using System.Xml;
 using System.Xml.Schema;
+using System.Threading;
 
 namespace Wexflow.Server
 {
@@ -49,6 +50,7 @@ namespace Wexflow.Server
         {
             var keywordToUpper = keyword.ToUpper();
             return WexflowWindowsService.WexflowEngine.Workflows
+                .ToList()
                 .Where(wf =>
                     wf.Name.ToUpper().Contains(keywordToUpper) || wf.Description.ToUpper().Contains(keywordToUpper))
                 .Select(wf => new WorkflowInfo(wf.Id, wf.Name,
@@ -368,15 +370,18 @@ namespace Wexflow.Server
 
                 var workflowId = int.Parse(xdoc.Element(xn + "Workflow").Attribute("id").Value);
 
-                var wf = WexflowWindowsService.WexflowEngine.GetWorkflow(workflowId);
-                if (wf != null)
-                {
-                    xdoc.Save(wf.WorkflowFilePath);
-                }
-                else
-                {
-                    throw new Exception("Workflow " + workflowId + " not found.");
-                }
+                //var wf = WexflowWindowsService.WexflowEngine.GetWorkflow(workflowId);
+                //if (wf != null)
+                //{
+                //    xdoc.Save(wf.WorkflowFilePath);
+                //}
+                //else
+                //{
+                //    throw new Exception("Workflow " + workflowId + " not found.");
+                //}
+
+                var wf = GetWorkflowRecursive(workflowId);
+                xdoc.Save(wf.WorkflowFilePath);
 
                 return true;
             }
@@ -384,6 +389,20 @@ namespace Wexflow.Server
             {
                 Console.WriteLine(e);
                 return false;
+            }
+        }
+
+        private Workflow GetWorkflowRecursive(int workflowId)
+        {
+            var wf = WexflowWindowsService.WexflowEngine.GetWorkflow(workflowId);
+            if (wf != null)
+            {
+                return wf;
+            }
+            else
+            {
+                Thread.Sleep(500);
+                return GetWorkflowRecursive(workflowId);
             }
         }
 
