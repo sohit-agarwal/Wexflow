@@ -272,7 +272,7 @@ namespace Wexflow.Core
             // Parse global variables.
             //
             FileStream fsSrc = new FileStream(src, FileMode.Open, FileAccess.Read, FileShare.Read);
-            FileStream fsDest = new FileStream(dest, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
+            FileStream fsDest = new FileStream(dest, FileMode.CreateNew, FileAccess.ReadWrite, FileShare.None);
             using (StreamReader sr = new StreamReader(fsSrc))
             using (StreamWriter sw = new StreamWriter(fsDest))
             {
