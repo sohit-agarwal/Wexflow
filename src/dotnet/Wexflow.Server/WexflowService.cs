@@ -521,16 +521,34 @@ namespace Wexflow.Server
                             , new XElement(xn + "Setting"
                                 , new XAttribute("name", "enabled")
                                 , new XAttribute("value", isWorkflowEnabled.ToString().ToLower()))
-                            , new XElement(xn + "Setting"
-                                , new XAttribute("name", "period")
-                                , new XAttribute("value", workflowPeriod.ToString(@"dd\.hh\:mm\:ss")))
-                            , new XElement(xn + "Setting"
-                                , new XAttribute("name", "cronExpression")
-                                , new XAttribute("value", cronExpression))
+                            //, new XElement(xn + "Setting"
+                            //    , new XAttribute("name", "period")
+                            //    , new XAttribute("value", workflowPeriod.ToString(@"dd\.hh\:mm\:ss")))
+                            //, new XElement(xn + "Setting"
+                            //    , new XAttribute("name", "cronExpression")
+                            //    , new XAttribute("value", cronExpression))
                         )
                         , xLocalVariables
                         , xtasks
                     );
+
+                    if (workflowLaunchType == LaunchType.Periodic)
+                    {
+                        xwf.Element(xn + "Settings").Add(
+                             new XElement(xn + "Setting"
+                                , new XAttribute("name", "period")
+                                , new XAttribute("value", workflowPeriod.ToString(@"dd\.hh\:mm\:ss")))
+                            );
+                    }
+
+                    if (workflowLaunchType == LaunchType.Cron)
+                    {
+                        xwf.Element(xn + "Settings").Add(
+                             new XElement(xn + "Setting"
+                                , new XAttribute("name", "cronExpression")
+                                , new XAttribute("value", cronExpression))
+                            );
+                    }
 
                     xdoc.Add(xwf);
 
@@ -575,34 +593,52 @@ namespace Wexflow.Server
 
                         var xwfPeriod = xdoc.Root.XPathSelectElement("wf:Settings/wf:Setting[@name='period']",
                             wf.XmlNamespaceManager);
-                        //if (workflowLaunchType == LaunchType.Periodic)
+
+                        if (workflowLaunchType == LaunchType.Periodic)
+                        {
+                            if (xwfPeriod != null)
+                            {
+                                xwfPeriod.Attribute("value").Value = workflowPeriod.ToString(@"dd\.hh\:mm\:ss");
+                            }
+                            else
+                            {
+                                xdoc.Root.XPathSelectElement("wf:Settings", wf.XmlNamespaceManager)
+                                    .Add(new XElement(wf.XNamespaceWf + "Setting", new XAttribute("name", "period"),
+                                        new XAttribute("value", workflowPeriod.ToString())));
+                            }
+                        }
+                        //else
                         //{
-                        if (xwfPeriod != null)
-                        {
-                            xwfPeriod.Attribute("value").Value = workflowPeriod.ToString(@"dd\.hh\:mm\:ss");
-                        }
-                        else
-                        {
-                            xdoc.Root.XPathSelectElement("wf:Settings", wf.XmlNamespaceManager)
-                                .Add(new XElement(wf.XNamespaceWf + "Setting", new XAttribute("name", "period"),
-                                    new XAttribute("value", workflowPeriod.ToString())));
-                        }
+                        //    if (xwfPeriod != null)
+                        //    {
+                        //        xwfPeriod.Remove();
+                        //    }
                         //}
 
                         var xwfCronExpression = xdoc.Root.XPathSelectElement(
                             "wf:Settings/wf:Setting[@name='cronExpression']",
                             wf.XmlNamespaceManager);
 
-                        if (xwfCronExpression != null)
+                        if (workflowLaunchType == LaunchType.Cron)
                         {
-                            xwfCronExpression.Attribute("value").Value = cronExpression ?? string.Empty;
+                            if (xwfCronExpression != null)
+                            {
+                                xwfCronExpression.Attribute("value").Value = cronExpression ?? string.Empty;
+                            }
+                            else if (!string.IsNullOrEmpty(cronExpression))
+                            {
+                                xdoc.Root.XPathSelectElement("wf:Settings", wf.XmlNamespaceManager)
+                                    .Add(new XElement(wf.XNamespaceWf + "Setting", new XAttribute("name", "cronExpression"),
+                                        new XAttribute("value", cronExpression)));
+                            }
                         }
-                        else if (!string.IsNullOrEmpty(cronExpression))
-                        {
-                            xdoc.Root.XPathSelectElement("wf:Settings", wf.XmlNamespaceManager)
-                                .Add(new XElement(wf.XNamespaceWf + "Setting", new XAttribute("name", "cronExpression"),
-                                    new XAttribute("value", cronExpression)));
-                        }
+                        //else
+                        //{
+                        //    if(xwfCronExpression != null)
+                        //    {
+                        //        xwfCronExpression.Remove();
+                        //    }
+                        //}
 
                         // Local variables
                         var xLocalVariables = xdoc.Root.Element(wf.XNamespaceWf + "LocalVariables");

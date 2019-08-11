@@ -266,6 +266,11 @@ namespace Wexflow.Core
         private void Parse(string src, string dest)
         {
             //
+            // Delay 500ms
+            //
+            Thread.Sleep(500);
+
+            //
             // Parse global variables.
             //
             using (StreamReader sr = new StreamReader(src))

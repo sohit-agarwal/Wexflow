@@ -1556,16 +1556,20 @@
                 };
 
                 var wfPeriod = document.getElementById("wf-period");
-                wfPeriod.value = workflow.Period;
                 wfPeriod.onkeyup = function () {
                     workflowInfos[workflowId].Period = wfPeriod.value;
                 };
+                if (workflow.LaunchType === 2) {  
+                    wfPeriod.value = workflow.Period;
+                }
 
                 var wfCron = document.getElementById("wf-cron");
-                wfCron.value = workflow.CronExpression;
                 wfCron.onkeyup = function () {
                     workflowInfos[workflowId].CronExpression = wfCron.value;
                 };
+                if (workflow.LaunchType === 3) {
+                    wfCron.value = workflow.CronExpression;
+                }
 
                 var wfEnabled = document.getElementById("wf-enabled");
                 wfEnabled.checked = workflow.IsEnabled;
