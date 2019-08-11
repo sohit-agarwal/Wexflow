@@ -271,8 +271,10 @@ namespace Wexflow.Core
             //
             // Parse global variables.
             //
-            using (StreamReader sr = new StreamReader(src))
-            using (StreamWriter sw = new StreamWriter(dest, false))
+            FileStream fsSrc = new FileStream(src, FileMode.Open, FileAccess.Read, FileShare.Read);
+            FileStream fsDest = new FileStream(dest, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
+            using (StreamReader sr = new StreamReader(fsSrc))
+            using (StreamWriter sw = new StreamWriter(fsDest))
             {
                 string line;
                 while ((line = sr.ReadLine()) != null)
@@ -339,7 +341,8 @@ namespace Wexflow.Core
             }
             File.Delete(dest);
             File.Move(tmpDest, dest);
-            
+            //File.Copy(tmpDest, dest, true);
+
         }
 
         private void Load(string workflowFilePath)
@@ -347,7 +350,8 @@ namespace Wexflow.Core
             FilesPerTask.Clear();
             EntitiesPerTask.Clear();
 
-            using (var xmlReader = XmlReader.Create(workflowFilePath))
+            FileStream fs = new FileStream(workflowFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+            using (var xmlReader = XmlReader.Create(fs))
             {
                 var xmlNameTable = xmlReader.NameTable;
                 if (xmlNameTable != null)
@@ -753,7 +757,7 @@ namespace Wexflow.Core
             // Parse the workflow file (Global variables and local variables.)
             //
             string src = WorkflowFilePath;
-            string dest = Path.Combine(WorkflowsTempFolder, Path.GetFileName(WorkflowFilePath));
+            string dest = Path.Combine(WorkflowsTempFolder, Path.GetFileNameWithoutExtension(WorkflowFilePath) + "_" +  Guid.NewGuid() + ".xml");
             Parse(src, dest);
             Load(dest);
 
