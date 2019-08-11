@@ -18,7 +18,7 @@ function Login(){
 	};
 
     $(".toggle-password").click(function () {
-        $(this).toggleClass("fa-eye");
+        $(this).toggleClass("fa-eye fa-eye-slash");
         var input = $("#txt-password");
         if (input.attr("type") == "password") {
             input.attr("type", "text");
