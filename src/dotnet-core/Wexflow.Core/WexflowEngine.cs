@@ -185,6 +185,10 @@ namespace Wexflow.Core
             }
         }
 
+        /// <summary>
+        /// Stops cron jobs.
+        /// </summary>
+        /// <param name="workflowId">Workflow id.</param>
         public void StopCronJobs(int workflowId)
         {
             string jobIdentity = "Workflow Job " + workflowId;
@@ -195,6 +199,11 @@ namespace Wexflow.Core
             }
         }
 
+        /// <summary>
+        /// Loads workflow from file.
+        /// </summary>
+        /// <param name="file">File path.</param>
+        /// <returns>Worflow.</returns>
         public Workflow LoadWorkflowFromFile(string file)
         {
             try
@@ -226,6 +235,10 @@ namespace Wexflow.Core
             }
         }
 
+        /// <summary>
+        /// Schedules a workflow.
+        /// </summary>
+        /// <param name="wf">Workflow.</param>
         public void ScheduleWorkflow(Workflow wf)
         {
             if (wf.IsEnabled)
