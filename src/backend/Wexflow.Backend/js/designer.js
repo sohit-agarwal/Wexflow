@@ -1740,19 +1740,7 @@
                 }
 
                 // Tasks
-                getTasks(workflowId,
-                    function (tasks) {
-                        if (typeof tasks === "undefined") {
-                            setTimeout(function () { // try again after delay
-                                getTasks(workflowId, function (ntasks) {
-                                    loadTasks(ntasks, workflowId, workflow);
-                                });
-                            }, timeoutInterval);
-                        } else {
-                            loadTasks(tasks, workflowId, workflow);
-                        }
-                        
-                    });
+                loadWorkflowTasks(workflowId, workflow);
             });
 
         if (editorCanceled === true) {
@@ -1794,6 +1782,24 @@
 
             loadRightPanel(selectedId, true);
         }
+    }
+
+
+    function loadWorkflowTasks(workflowId, workflow) {
+        getTasks(workflowId,
+            function (tasks) {
+                if (typeof tasks == "undefined" && retries < maxRetries) {
+                    setTimeout(function () { // try again after delay
+                        //console.log("loadWorkflowTasks");
+                        loadWorkflowTasks(workflowId, workflow);
+                    }, timeoutInterval);
+                    retries++;
+                } else {
+                    loadTasks(tasks, workflowId, workflow);
+                    retries = 0;
+                }
+
+            });
     }
 
     function loadTasks(tasks, workflowId, workflow) {
