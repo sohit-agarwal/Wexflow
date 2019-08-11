@@ -116,16 +116,24 @@ namespace Wexflow.Server
 
         private static void OnDeleted(object source, FileSystemEventArgs e)
         {
-            Logger.Info("FileSystemWatcher.OnDeleted");
-            var removedWorkflow = WexflowEngine.Workflows.SingleOrDefault(wf => wf.WorkflowFilePath == e.FullPath);
-            if (removedWorkflow != null)
+            try
             {
-                Logger.InfoFormat("Workflow {0} is stopped and removed because its definition file {1} was deleted.",
-                    removedWorkflow.Name, removedWorkflow.WorkflowFilePath);
-                removedWorkflow.Stop();
+                Watcher.EnableRaisingEvents = false;
+                Logger.Info("FileSystemWatcher.OnDeleted");
+                var removedWorkflow = WexflowEngine.Workflows.SingleOrDefault(wf => wf.WorkflowFilePath == e.FullPath);
+                if (removedWorkflow != null)
+                {
+                    Logger.InfoFormat("Workflow {0} is stopped and removed because its definition file {1} was deleted.",
+                        removedWorkflow.Name, removedWorkflow.WorkflowFilePath);
+                    removedWorkflow.Stop();
 
-                WexflowEngine.StopCronJobs(removedWorkflow.Id);
-                WexflowEngine.Workflows.Remove(removedWorkflow);
+                    WexflowEngine.StopCronJobs(removedWorkflow.Id);
+                    WexflowEngine.Workflows.Remove(removedWorkflow);
+                }
+            }
+            finally
+            {
+                Watcher.EnableRaisingEvents = true;
             }
         }
 
