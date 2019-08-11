@@ -368,17 +368,24 @@ namespace Wexflow.Core
                 Id = int.Parse(GetWorkflowAttribute(xdoc, "id"));
                 Name = GetWorkflowAttribute(xdoc, "name");
                 Description = GetWorkflowAttribute(xdoc, "description");
-                LaunchType = (LaunchType)Enum.Parse(typeof(LaunchType), GetWorkflowSetting(xdoc, "launchType"), true);
-                if (LaunchType == LaunchType.Periodic) Period = TimeSpan.Parse(GetWorkflowSetting(xdoc, "period"));
-                if (LaunchType == LaunchType.Cron)
+                LaunchType = (LaunchType)Enum.Parse(typeof(LaunchType), GetWorkflowSetting(xdoc, "launchType", true), true);
+
+                string period = GetWorkflowSetting(xdoc, "period", false);
+                if (LaunchType == LaunchType.Periodic || !string.IsNullOrEmpty(period))
                 {
-                    CronExpression = GetWorkflowSetting(xdoc, "cronExpression");
+                    Period = TimeSpan.Parse(period);
+                }
+
+                string cronexp = GetWorkflowSetting(xdoc, "cronExpression", false);
+                if (LaunchType == LaunchType.Cron || !string.IsNullOrEmpty(cronexp))
+                {
+                    CronExpression = cronexp;
                     if (!WexflowEngine.IsCronExpressionValid(CronExpression))
                     {
                         throw new Exception("The cron expression '" + CronExpression + "' is not valid.");
                     }
                 }
-                IsEnabled = bool.Parse(GetWorkflowSetting(xdoc, "enabled"));
+                IsEnabled = bool.Parse(GetWorkflowSetting(xdoc, "enabled", true));
 
                 if (xdoc.Root != null)
                 {
@@ -708,19 +715,31 @@ namespace Wexflow.Core
             throw new Exception("Workflow attribute " + attr + "not found.");
         }
 
-        private string GetWorkflowSetting(XDocument xdoc, string name)
+        private string GetWorkflowSetting(XDocument xdoc, string name, bool throwExceptionIfNotFound)
         {
-            var xAttribute = xdoc
+            var xSetting = xdoc
                 .XPathSelectElement(
                     string.Format("/wf:Workflow[@id='{0}']/wf:Settings/wf:Setting[@name='{1}']", Id, name),
-                    XmlNamespaceManager)
-                .Attribute("value");
-            if (xAttribute != null)
+                    XmlNamespaceManager);
+
+            if (xSetting != null)
             {
-                return xAttribute.Value;
+                var xAttribute = xSetting.Attribute("value");
+                if (xAttribute != null)
+                {
+                    return xAttribute.Value;
+                }
+                else if (throwExceptionIfNotFound)
+                {
+                    throw new Exception("Workflow setting " + name + " not found.");
+                }
+            }
+            else if (throwExceptionIfNotFound)
+            {
+                throw new Exception("Workflow setting " + name + " not found.");
             }
 
-            throw new Exception("Workflow setting " + name + " not found.");
+            return string.Empty;
         }
 
         /// <summary>

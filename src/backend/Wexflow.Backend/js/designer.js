@@ -1559,16 +1559,21 @@
                 wfPeriod.onkeyup = function () {
                     workflowInfos[workflowId].Period = wfPeriod.value;
                 };
-                if (workflow.LaunchType === 2) {  
+                
+                if (workflow.LaunchType === 2 || workflow.Period !== "00.00:00:00") {
                     wfPeriod.value = workflow.Period;
+                } else {
+                    wfPeriod.value = "";
                 }
-
+                
                 var wfCron = document.getElementById("wf-cron");
                 wfCron.onkeyup = function () {
                     workflowInfos[workflowId].CronExpression = wfCron.value;
                 };
-                if (workflow.LaunchType === 3) {
+                if (workflow.LaunchType === 3 || workflow.CronExpression !== "") {
                     wfCron.value = workflow.CronExpression;
+                } else {
+                    wfCron.value = "";
                 }
 
                 var wfEnabled = document.getElementById("wf-enabled");
