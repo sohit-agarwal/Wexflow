@@ -16,7 +16,17 @@ function Login(){
 			login();
 		}
 	};
-	
+
+    $(".toggle-password").click(function () {
+        $(this).toggleClass("fa-eye");
+        var input = $("#txt-password");
+        if (input.attr("type") == "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
+
     function login() {
 
 		var username = usernameTxt.value;

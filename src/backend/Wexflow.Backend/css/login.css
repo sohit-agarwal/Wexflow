@@ -20,20 +20,20 @@ body {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
 
-    #header a {
-        color: #FFFFFF;
-        font-size: 12px;
-        margin: 20px;
-        float: left;
-        font-weight: bold;
-        -webkit-font-smoothing: antialiased;
-        line-height: 5px;
-        white-space: nowrap;
-    }
+#header a {
+    color: #FFFFFF;
+    font-size: 12px;
+    margin: 20px;
+    float: left;
+    font-weight: bold;
+    -webkit-font-smoothing: antialiased;
+    line-height: 5px;
+    white-space: nowrap;
+}
 
-    #header .header-right {
-        float: right;
-    }
+#header .header-right {
+    float: right;
+}
 
 
 #login{
@@ -46,10 +46,10 @@ body {
     margin-left: -120px;
 }
 
-    #login label {
-        font-weight: bold;
-        line-height: 5px;
-    }
+#login label {
+    font-weight: bold;
+    line-height: 5px;
+}
 
 #login input{
 	margin-left: 10px;
@@ -73,7 +73,16 @@ body {
 	margin-left: 11px;
 }
 
-    #login-action #forgot-password {
-        position: absolute;
-        top: 7px;
-    }
+#login-action #forgot-password {
+    position: absolute;
+    top: 7px;
+}
+
+.field-icon {
+    float: right;
+    margin-left: -25px;
+    margin-top: -20px;
+    position: relative;
+    margin-right: 3px;
+    z-index: 2;
+}

@@ -23,10 +23,6 @@
 
   <ItemGroup>
     <None Remove="GlobalVariables.xml" />
-    <None Include="..\..\..\LICENSE.txt">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -41,6 +37,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Wexflow.Core.Db\Wexflow.Core.Db.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Workflow.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
 
 </Project>

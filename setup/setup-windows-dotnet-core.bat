@@ -35,9 +35,10 @@ copy "..\src\backend\Wexflow.Backend\designer.html" %dstDir%\%backend%\
 copy "..\src\backend\Wexflow.Backend\history.html" %dstDir%\%backend%\
 copy "..\src\backend\Wexflow.Backend\users.html" %dstDir%\%backend%\
 
-xcopy "..\src\backend\Wexflow.Backend\images\*" %dstDir%\%backend%\images /s /e
+xcopy "..\src\backend\Wexflow.Backend\images\*" %dstDir%\%backend%\images\ /s /e
 
-xcopy "..\src\backend\Wexflow.Backend\css\images\*" %dstDir%\%backend%\css\images /s /e
+xcopy "..\src\backend\Wexflow.Backend\css\images\*" %dstDir%\%backend%\css\images`\ /s /e
+xcopy "..\src\backend\Wexflow.Backend\css\font-awesome\*" %dstDir%\%backend%\css\font-awesome\ /s /e
 copy "..\src\backend\Wexflow.Backend\css\login.min.css" %dstDir%\%backend%\css
 copy "..\src\backend\Wexflow.Backend\css\forgot-password.min.css" %dstDir%\%backend%\css
 copy "..\src\backend\Wexflow.Backend\css\dashboard.min.css" %dstDir%\%backend%\css

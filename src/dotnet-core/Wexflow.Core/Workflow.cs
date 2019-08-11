@@ -17,15 +17,15 @@ using Wexflow.Core.ExecutionGraph.Flowchart;
 namespace Wexflow.Core
 {
     /// <summary>
-    /// Worflow.
+    /// Workflow.
     /// </summary>
     public class Workflow
     {
         /// <summary>
-        /// This constant is used to determine the keysize of the encryption algorithm in bits.
+        /// This constant is used to determine the key size of the encryption algorithm in bits.
         /// We divide this by 8 within the code below to get the equivalent number of bytes.
         /// </summary>
-        public static readonly int KeySize = 128;
+        public static readonly int KeySize = 256;
 
         /// <summary>
         /// This constant determines the number of iterations for the password bytes generation function. 
@@ -33,7 +33,7 @@ namespace Wexflow.Core
         public static readonly int DerivationIterations = 1000;
 
         /// <summary>
-        /// Passphrase.
+        /// PassPhrase.
         /// </summary>
         public static readonly string PassPhrase = "FHMWW-EORNR-XXF0Q-E8Q#G-YC!RG-KV=TN-M9MQJ-AySDI-LAC5Q-UV==QE-VSVNL-OV1IZ";
 
@@ -167,8 +167,11 @@ namespace Wexflow.Core
         /// </summary>
         /// <param name="path">Workflow file path.</param>
         /// <param name="wexflowTempFolder">Wexflow temp folder.</param>
+        /// <param name="workflowsTempFolder">Workflows temp folder.</param>
+        /// <param name="tasksFolder">Tasks folder.</param>
         /// <param name="xsdPath">XSD path.</param>
         /// <param name="database">Database.</param>
+        /// <param name="globalVariables">Global variables.</param>
         public Workflow(string path
             , string wexflowTempFolder
             , string workflowsTempFolder
@@ -266,11 +269,6 @@ namespace Wexflow.Core
         private void Parse(string src, string dest)
         {
             //
-            // Delay 500ms
-            //
-            Thread.Sleep(500);
-
-            //
             // Parse global variables.
             //
             using (StreamReader sr = new StreamReader(src))
@@ -341,7 +339,7 @@ namespace Wexflow.Core
             }
             File.Delete(dest);
             File.Move(tmpDest, dest);
-
+            
         }
 
         private void Load(string workflowFilePath)
@@ -387,6 +385,7 @@ namespace Wexflow.Core
                     var xExecutionGraph = xdoc.Root.Element(XNamespaceWf + "ExecutionGraph");
                     IsExecutionGraphEmpty = xExecutionGraph == null || !xExecutionGraph.Elements().Any();
                 }
+
                 // Loading tasks
                 var tasks = new List<Task>();
                 foreach (var xTask in xdoc.XPathSelectElements("/wf:Workflow/wf:Tasks/wf:Task", XmlNamespaceManager))
@@ -402,7 +401,7 @@ namespace Wexflow.Core
                         // Try to load from root
                         type = Type.GetType(typeName);
 
-                        if (type == null) // Try to load from Tasks folder
+                        if(type == null) // Try to load from Tasks folder
                         {
                             var taskAssemblyFile = Path.Combine(TasksFolder, assemblyName + ".dll");
                             if (File.Exists(taskAssemblyFile))
@@ -1307,6 +1306,7 @@ namespace Wexflow.Core
                     Logger.ErrorFormat("An error occured while stopping the workflow : {0}", e, this);
                 }
             }
+
             return false;
         }
 
