@@ -63,6 +63,7 @@
     var maxRetries = 10;
     var retries = 0;
     var statusRetries = 0;
+    var saveWorkflowCalled = false;
 
     var rightPanelHtml = "<h3><button id='wf-xml' type='button' class='wf-action-left btn btn-dark btn-xs'>Xml</button> <input id='wf-theme' type='checkbox' checked data-toggle='toggle' data-size='mini' data-on='Bright' data-off='Dark' data-width='70'></h3>" +
         "<pre id='wf-xml-container'></pre>" +
@@ -568,6 +569,7 @@
     }
 
     function save(workflowId, selectedId, selectWorkflow, scrollToWorkflow, callback) {
+        saveWorkflowCalled = true;
         clearInterval(timer);
         workflowInfos[workflowId] = workflowInfos[selectedId];
         workflowTasks[workflowId] = workflowTasks[selectedId];
@@ -580,7 +582,6 @@
             var editor = workflowEditor.editor;
             var xml = editor.getValue();
             validateAndSaveXml(xml, workflowId, selectWorkflow, scrollToWorkflow, callback);
-           
         } else {
             saveWorkflow(workflowId, selectedId, scrollToWorkflow, callback);
         }
@@ -667,6 +668,7 @@
                     if (typeof callback !== "undefined") {
                         callback();
                     }
+                    saveWorkflowCalled = false;
                 }, workflowId, true);
                 //}, timeoutInterval);
 
@@ -680,6 +682,8 @@
                         saveXml(xml, workflowId, selectWorkflow, scrollToWorkflow);
                     }, timeoutInterval);
                     retries++;
+                } else {
+                    saveWorkflowCalled = false;
                 }
             }
         }, function () {
@@ -690,6 +694,8 @@
                         saveXml(xml, workflowId, selectWorkflow, scrollToWorkflow);
                     }, timeoutInterval);
                     retries++;
+                } else {
+                    saveWorkflowCalled = false;
                 }
         }, xml);  // End of saveXml.
     }
@@ -705,54 +711,55 @@
                 }
 
                 // Reload workflows list
-                setTimeout(function () {
-                    loadWorkflows(function () {
-                        // Select the workflow
-                        var wfWorkflowsTable = document.getElementById("wf-workflows-table");
+                //setTimeout(function () {
+                loadWorkflows(function () {
+                    // Select the workflow
+                    var wfWorkflowsTable = document.getElementById("wf-workflows-table");
 
-                        for (var i = 0; i < wfWorkflowsTable.rows.length; i++) {
-                            var row = wfWorkflowsTable.rows[i];
-                            var wfId = row.getElementsByClassName("wf-id")[0];
-                            if (typeof wfId !== "undefined" && wfId !== null) {
-                                var swId = parseInt(wfId.innerHTML);
+                    for (var i = 0; i < wfWorkflowsTable.rows.length; i++) {
+                        var row = wfWorkflowsTable.rows[i];
+                        var wfId = row.getElementsByClassName("wf-id")[0];
+                        if (typeof wfId !== "undefined" && wfId !== null) {
+                            var swId = parseInt(wfId.innerHTML);
 
-                                if (swId === workflowId) {
-                                    var selected = document.getElementsByClassName("selected");
-                                    if (selected.length > 0) {
-                                        selected[0].className = selected[0].className.replace("selected", "");
-                                    }
+                            if (swId === workflowId) {
+                                var selected = document.getElementsByClassName("selected");
+                                if (selected.length > 0) {
+                                    selected[0].className = selected[0].className.replace("selected", "");
+                                }
 
-                                    row.className += "selected";
+                                row.className += "selected";
 
-                                    if (scrollToWorkflow === true) {
-                                        // Scroll to the workflow
-                                        row.scrollIntoView(true);
-                                    }
+                                if (scrollToWorkflow === true) {
+                                    // Scroll to the workflow
+                                    row.scrollIntoView(true);
                                 }
                             }
                         }
+                    }
 
-                        // Update the status
-                        updateWorkflowStatus(workflowId);
+                    // Update the status
+                    updateWorkflowStatus(workflowId);
 
-                        // Reload XML
-                        if (typeof workflowEditor !== "undefined" && loadXmlCalled === true) {
-                            loadXml(selectedId);
-                        }
+                    // Reload XML
+                    if (typeof workflowEditor !== "undefined" && loadXmlCalled === true) {
+                        loadXml(selectedId);
+                    }
 
-                        document.getElementById("wf-xml").style.display = "inline";
+                    document.getElementById("wf-xml").style.display = "inline";
 
-                        document.getElementById("wf-xml").onclick = function () {
-                            loadXml(workflowId);
-                        };
+                    document.getElementById("wf-xml").onclick = function () {
+                        loadXml(workflowId);
+                    };
 
-                        document.getElementById("wf-shortcut").style.display = "block";
-                        document.getElementById("wf-delete").style.display = "block";
+                    document.getElementById("wf-shortcut").style.display = "block";
+                    document.getElementById("wf-delete").style.display = "block";
 
-                        editorChanged = false;
-                        setEditXml(workflowId, false);
-                    }, workflowId, true);
-                }, timeoutInterval);
+                    editorChanged = false;
+                    setEditXml(workflowId, false);
+                    saveWorkflowCalled = false;
+                }, workflowId, true);
+                //}, timeoutInterval);
 
                 retries = 0;
                 Common.toastSuccess("workflow " + workflowInfos[workflowId].Id + " saved and loaded with success.");
@@ -764,6 +771,8 @@
                         saveWorkflow(workflowId, selectedId, scrollToWorkflow, callback);
                     }, timeoutInterval);
                     retries++;
+                } else {
+                    saveWorkflowCalled = false;
                 }
             }
         }, function () {
@@ -774,6 +783,8 @@
                         saveWorkflow(workflowId, selectedId, scrollToWorkflow, callback);
                     }, timeoutInterval);
                     retries++;
+                } else {
+                    saveWorkflowCalled = false;
                 }
         }, json);
     }
@@ -787,7 +798,7 @@
                 } else {
                     if (statusRetries < maxRetries) {
                         setTimeout(function () {
-                            //console.log("recursive: updateStatusTimer");
+                            //console.log("updateWorkflowStatus.error");
                             updateWorkflowStatus(workflowId);
                         }, timeoutInterval);
                         statusRetries++;
@@ -1386,11 +1397,7 @@
                 editor.focus();
 
                 editor.on("change", function () {
-                    var editXml = getEditXml(workflowId);
-                    if (editXml === false && editorChanged === false && workflowId === editorWorkflowId) {
-                        setEditXml(workflowId, true);
-                    }
-                    //console.log("workflowId: " + workflowId + ", editorWorkflowId: " + editorWorkflowId + ", editXml: " + getEditXml(workflowId));
+                    editorOnChange(workflowId);
                 });
 
                 var currentEditor = editors.get(workflowId);
@@ -1401,6 +1408,20 @@
                     currentEditor.editXml = false;
                 }
             });
+    }
+
+    function editorOnChange(workflowId) {
+        setTimeout(function () {
+            if (saveWorkflowCalled === true) {
+                editorOnChange();
+            } else {
+                var editXml = getEditXml(workflowId);
+                if (editXml === false && editorChanged === false && workflowId === editorWorkflowId) {
+                    setEditXml(workflowId, true);
+                }
+                //console.log("workflowId: " + workflowId + ", editorWorkflowId: " + editorWorkflowId + ", editXml: " + getEditXml(workflowId));
+            }
+        }, timeoutInterval);
     }
 
     function getEditor(workflowId) {
