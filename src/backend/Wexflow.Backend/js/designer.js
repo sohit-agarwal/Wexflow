@@ -1369,44 +1369,54 @@
     function loadXml(workflowId) {
         getXml(workflowId,
             function (xml) {
-                loadXmlCalled = true;
-                document.getElementById("wf-xml-container").style.display = "block";
+                setTimeout(function () {
+                    if (typeof xml === "undefined" && retries < maxRetries) {
+                        loadXml(workflowId);
+                        retries++;
+                    } else {
+                        loadXmlCalled = true;
+                        document.getElementById("wf-xml-container").style.display = "block";
 
-                document.getElementById("wf-shortcut").style.display = "block";
-                document.getElementById("wf-cancel").style.display = "block";
-                document.getElementById("wf-save").style.display = "block";
-                document.getElementById("wf-delete").style.display = "block";
+                        document.getElementById("wf-shortcut").style.display = "block";
+                        document.getElementById("wf-cancel").style.display = "block";
+                        document.getElementById("wf-save").style.display = "block";
+                        document.getElementById("wf-delete").style.display = "block";
 
-                var editor = ace.edit("wf-xml-container");
-                editor.setOptions({
-                    maxLines: Infinity
-                });
-                if (isDarkTheme === true) {
-                    editor.setTheme("ace/theme/pastel_on_dark");
-                } else {
-                    editor.setTheme("ace/theme/github");
-                }
-                editor.setReadOnly(false);
-                editor.setFontSize("100%");
-                editor.setPrintMarginColumn(false);
-                editor.getSession().setMode("ace/mode/xml");
+                        var editor = ace.edit("wf-xml-container");
+                        editor.setOptions({
+                            maxLines: Infinity
+                        });
+                        if (isDarkTheme === true) {
+                            editor.setTheme("ace/theme/pastel_on_dark");
+                        } else {
+                            editor.setTheme("ace/theme/github");
+                        }
+                        editor.setReadOnly(false);
+                        editor.setFontSize("100%");
+                        editor.setPrintMarginColumn(false);
+                        editor.getSession().setMode("ace/mode/xml");
+
+                        editor.setValue(xml, -1);
+                        editor.clearSelection();
+                        editor.resize(true);
+                        editor.focus();
+
+                        editor.on("change", function () {
+                            editorOnChange(workflowId);
+                        });
+
+                        var currentEditor = editors.get(workflowId);
+                        if (typeof currentWorkflowEditor === "undefined") {
+                            editors.set(workflowId, { editor: editor, editXml: false });
+                        } else {
+                            currentEditor.editor = editor;
+                            currentEditor.editXml = false;
+                        }
+                        retries = 0;
+                    }
+
+                }, timeoutInterval);
                 
-                editor.setValue(xml, -1);
-                editor.clearSelection();
-                editor.resize(true);
-                editor.focus();
-
-                editor.on("change", function () {
-                    editorOnChange(workflowId);
-                });
-
-                var currentEditor = editors.get(workflowId);
-                if (typeof currentWorkflowEditor === "undefined") {
-                    editors.set(workflowId, { editor: editor, editXml: false });
-                } else {
-                    currentEditor.editor = editor;
-                    currentEditor.editXml = false;
-                }
             });
     }
 
