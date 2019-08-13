@@ -33,7 +33,7 @@ Wexflow makes use of [.NET Core](https://www.microsoft.com/net/download), a cros
 
 Wexflow also makes use of [Quartz.NET](https://www.quartz-scheduler.net/) open source job scheduling system that is used in large scale enterprise systems. Thus, Wexflow offers flexibility in planning workflow jobs such as [cron workflows](https://github.com/aelassas/Wexflow/wiki/Cron-scheduling).
 
-Furthermore, Wexflow makes use of [LiteDB](http://www.litedb.org/) NoSQL Document Store database in its server and backend which enhance and improve the performance of this workflow engine.
+Furthermore, Wexflow makes use of [LiteDB](http://www.litedb.org/) serverless NoSQL Document Store database in its server and backend which enhance and improve the performance of this workflow engine.
 
 Wexflow comes with a backend too, so you can search and filter among all your workflows, have real-time statistics on your workflows, manage your workflows with ease, design your workflows with ease, and track your workflows with ease:
 
