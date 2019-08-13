@@ -586,7 +586,7 @@
         var workflowEditor = getEditor(workflowId);
         var editXml = getEditXml(workflowId);
 
-        //console.log("editXml: " + editXml + ", workflowEditor: " + workflowEditor);
+        //console.log("workflowId: " + workflowId + ", editXml: " + editXml + ", workflowEditor: " + workflowEditor);
         if (editXml === true && typeof workflowEditor !== "undefined") { // XML editing
             var editor = workflowEditor.editor;
             var xml = editor.getValue();
@@ -625,6 +625,25 @@
 
     function saveXml(xml, workflowId, selectedWorkflowId, selectWorkflow, scrollToWorkflow, callback) {
         //console.log("saveXml");
+        var parser = new DOMParser();
+        var xmlDoc = parser.parseFromString(xml, "text/xml");
+        var vcurrentWorkflowId = parseInt(xmlDoc.getElementsByTagName("Workflow")[0].getAttribute("id"));
+
+        if (vcurrentWorkflowId !== selectedWorkflowId) {  // Check currentWorkflowId.
+            Common.get(uri + "/isWorkflowIdValid/" + vcurrentWorkflowId, function (res) {
+                if (res === true) {
+                    saveXmlQuery(xml, workflowId, selectedWorkflowId, selectWorkflow, scrollToWorkflow, callback);
+                } else {
+                    document.getElementById("wf-save").disabled = false;
+                    Common.toastInfo("The workflow id " + vcurrentWorkflowId + " is already in use. Enter another one.");
+                }
+            });
+        } else {
+            saveXmlQuery(xml, workflowId, selectedWorkflowId, selectWorkflow, scrollToWorkflow, callback);
+        }
+    }
+
+    function saveXmlQuery(xml, workflowId, selectedWorkflowId, selectWorkflow, scrollToWorkflow, callback) {
         var json = { workflowId: selectedWorkflowId, xml: xml };
         Common.post(uri + "/saveXml", function (res) {
             if (res === true) {
@@ -691,7 +710,7 @@
 
                                     row.className += "selected";
 
-                                    if (scrollToWorkflow === true || currentWorkflowId !== workflowId) {
+                                    if (scrollToWorkflow === true || currentWorkflowId !== selectedWorkflowId) {
                                         // Scroll to the workflow
                                         row.scrollIntoView(true);
                                     }
@@ -742,7 +761,7 @@
                 if (retries < maxRetries) {
                     //console.log("saveXml.error");
                     setTimeout(function () {
-                        saveXml(xml, workflowId, selectedWorkflowId, selectWorkflow, scrollToWorkflow, callback);
+                        saveXmlQuery(xml, workflowId, selectedWorkflowId, selectWorkflow, scrollToWorkflow, callback);
                     }, timeoutInterval);
                     retries++;
                 } else {
@@ -754,7 +773,7 @@
             if (retries < maxRetries) {
                 //console.log("saveXml.http.error");
                 setTimeout(function () {
-                    saveXml(xml, workflowId, selectedWorkflowId, selectWorkflow, scrollToWorkflow, callback);
+                    saveXmlQuery(xml, workflowId, selectedWorkflowId, selectWorkflow, scrollToWorkflow, callback);
                 }, timeoutInterval);
                 retries++;
             } else {
@@ -765,9 +784,25 @@
 
     function saveWorkflow(workflowId, selectedWorkflowId, scrollToWorkflow, callback) {
         //console.log("saveWorkflow");
+        var vcurrentWorkflowId = parseInt(document.getElementById("wf-id").value);
+        if (vcurrentWorkflowId !== selectedWorkflowId) {  // Check currentWorkflowId.
+            Common.get(uri + "/isWorkflowIdValid/" + vcurrentWorkflowId, function (res) {
+                if (res === true) {
+                    saveWorkflowQuery(workflowId, selectedWorkflowId, scrollToWorkflow, callback);
+                } else {
+                    document.getElementById("wf-save").disabled = false;
+                    Common.toastInfo("The workflow id " + vcurrentWorkflowId + " is already in use. Enter another one.");
+                }
+            });
+        } else {
+            saveWorkflowQuery(workflowId, selectedWorkflowId, scrollToWorkflow, callback);
+        }
+    }
+
+    function saveWorkflowQuery(workflowId, selectedWorkflowId, scrollToWorkflow, callback) {
         var workflowEditor = getEditor(currentWorkflowId);
         var json = { "Id": selectedWorkflowId, "WorkflowInfo": workflowInfos[workflowId], "Tasks": workflowTasks[workflowId] };
-        //console.log(json);
+
         Common.post(uri + "/save", function (res) {
             if (res === true) {
                 if (typeof callback !== "undefined") {
@@ -802,7 +837,7 @@
 
                                 row.className += "selected";
 
-                                if (scrollToWorkflow === true) {
+                                if (scrollToWorkflow === true || currentWorkflowId !== selectedWorkflowId) {
                                     // Scroll to the workflow
                                     row.scrollIntoView(true);
                                 }
@@ -840,7 +875,7 @@
                 if (retries < maxRetries) {
                     //console.log("saveWorkflow.error");
                     setTimeout(function () {
-                        saveWorkflow(workflowId, selectedWorkflowId, scrollToWorkflow, callback);
+                        saveWorkflowQuery(workflowId, selectedWorkflowId, scrollToWorkflow, callback);
                     }, timeoutInterval);
                     retries++;
                 } else {
@@ -852,7 +887,7 @@
             if (retries < maxRetries) {
                 //console.log("saveWorkflow.http.error");
                 setTimeout(function () {
-                    saveWorkflow(workflowId, selectedWorkflowId, scrollToWorkflow, callback);
+                    saveWorkflowQuery(workflowId, selectedWorkflowId, scrollToWorkflow, callback);
                 }, timeoutInterval);
                 retries++;
             } else {
