@@ -359,27 +359,16 @@ namespace Wexflow.Server
             try
             {
                 StreamReader reader = new StreamReader(streamdata);
-                string xml = reader.ReadToEnd();
+                string json = reader.ReadToEnd();
                 reader.Close();
                 reader.Dispose();
 
+                JObject o = JObject.Parse(json);
+                int workflowId = int.Parse((string)o.SelectToken("workflowId"));
+                string xml = (string)o.SelectToken("xml");
                 xml = CleanupXml(xml);
 
                 var xdoc = XDocument.Parse(xml);
-                XNamespace xn = "urn:wexflow-schema";
-
-                var workflowId = int.Parse(xdoc.Element(xn + "Workflow").Attribute("id").Value);
-
-                //var wf = WexflowWindowsService.WexflowEngine.GetWorkflow(workflowId);
-                //if (wf != null)
-                //{
-                //    xdoc.Save(wf.WorkflowFilePath);
-                //}
-                //else
-                //{
-                //    throw new Exception("Workflow " + workflowId + " not found.");
-                //}
-
                 var wf = GetWorkflowRecursive(workflowId);
                 xdoc.Save(wf.WorkflowFilePath);
 

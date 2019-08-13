@@ -639,14 +639,14 @@ namespace Wexflow.Server
             {
                 try
                 {
-                    var xml = RequestStream.FromStream(Request.Body).AsString();
+                    var json = RequestStream.FromStream(Request.Body).AsString();
+
+                    JObject o = JObject.Parse(json);
+                    int workflowId = int.Parse((string)o.SelectToken("workflowId"));
+                    string xml = (string)o.SelectToken("xml");
                     xml = CleanupXml(xml);
 
                     var xdoc = XDocument.Parse(xml);
-                    XNamespace xn = "urn:wexflow-schema";
-
-                    var workflowId = int.Parse(xdoc.Element(xn + "Workflow").Attribute("id").Value);
-
                     var wf = GetWorkflowRecursive(workflowId);
                     xdoc.Save(wf.WorkflowFilePath);
 

@@ -635,7 +635,7 @@
             <returns>-1 if the command fails, otherwise the file size</returns>
             <example><code source="..\Examples\GetFileSize.cs" lang="cs" /></example>
         </member>
-        <member name="M:FluentFTP.FtpClient.GetFileSizeInternal(System.String)">
+        <member name="M:FluentFTP.FtpClient.GetFileSizeInternal(System.String,FluentFTP.FtpSizeReply)">
             <summary>
             Gets the file size of an object, without locking
             </summary>
@@ -666,7 +666,7 @@
             <param name="token">Cancellation Token</param>
             <returns>The size of the file, -1 if there was a problem.</returns>
         </member>
-        <member name="M:FluentFTP.FtpClient.GetFileSizeInternalAsync(System.String,System.Threading.CancellationToken)">
+        <member name="M:FluentFTP.FtpClient.GetFileSizeInternalAsync(System.String,System.Threading.CancellationToken,FluentFTP.FtpSizeReply)">
             <summary>
             Gets the file size of an object, without locking
             </summary>
