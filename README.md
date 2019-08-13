@@ -43,7 +43,7 @@ Just to give you an idea of what Wexflow does, this is a screenshot from the "De
 
 ![Designer](https://aelassas.github.io/wexflow/images/wbo-designer-4.3-1.png)
 
-Moreover, the "Designer" page allows to edit workflows files through its Web XML editor:
+Moreover, the "Designer" page allows to edit workflow files through its Web XML editor:
 
 ![Designer](https://aelassas.github.io/wexflow/images/wbo-designer-4.3-2.png)
 
