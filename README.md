@@ -8,7 +8,7 @@
 # <a href="https://wexflow.github.io/"><img alt="Wexflow" src="https://aelassas.github.io/wexflow/images/wexflow-3.6-2.jpg" width="100%"></a>
 -->
 
-# [![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow) [![codecov](https://codecov.io/gh/aelassas/Wexflow/branch/master/graph/badge.svg)](https://codecov.io/gh/aelassas/Wexflow) [![downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://wexflow.github.io/stats) [![Release](http://img.shields.io/badge/release-v4.2-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/latest) [![Nuget](http://img.shields.io/badge/nuget-v4.2.1-blue.svg)](https://www.nuget.org/packages/Wexflow)  [![Doc](http://img.shields.io/badge/github-wiki-black.svg)](https://github.com/aelassas/Wexflow/wiki) [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Wexflow%20-%20Open%20source%20and%20cross-platform%20workflow%20engine&url=https://wexflow.github.io&via=aelassas_dev) <!--[![Twitter URL](https://img.shields.io/twitter/url/https/twitter.com/fold_left.svg?style=social&label=Follow)](https://twitter.com/aelassas_dev)-->
+# [![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow) [![codecov](https://codecov.io/gh/aelassas/Wexflow/branch/master/graph/badge.svg)](https://codecov.io/gh/aelassas/Wexflow) [![downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://wexflow.github.io/stats) [![Release](http://img.shields.io/badge/release-v4.3-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/latest) [![Nuget](http://img.shields.io/badge/nuget-v4.3.0-blue.svg)](https://www.nuget.org/packages/Wexflow)  [![Doc](http://img.shields.io/badge/github-wiki-black.svg)](https://github.com/aelassas/Wexflow/wiki) [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Wexflow%20-%20Open%20source%20and%20cross-platform%20workflow%20engine&url=https://wexflow.github.io&via=aelassas_dev) <!--[![Twitter URL](https://img.shields.io/twitter/url/https/twitter.com/fold_left.svg?style=social&label=Follow)](https://twitter.com/aelassas_dev)-->
 
 <!--
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby) [![Wiki](https://img.shields.io/badge/github-wiki-181717.svg?maxAge=60)](https://github.com/aelassas/Wexflow/wiki)
@@ -34,6 +34,18 @@ Wexflow makes use of [.NET Core](https://www.microsoft.com/net/download), a cros
 Wexflow also makes use of [Quartz.NET](https://www.quartz-scheduler.net/) open source job scheduling system that is used in large scale enterprise systems. Thus, Wexflow offers flexibility in planning workflow jobs such as [cron workflows](https://github.com/aelassas/Wexflow/wiki/Cron-scheduling).
 
 Furthermore, Wexflow makes use of [LiteDB](http://www.litedb.org/) NoSQL Document Store database in its server and backend which enhance and improve the performance of this workflow engine.
+
+Wexflow comes with a backend too, so you can search and filter among all your workflows, have real-time statistics on your workflows, manage your workflows with ease, design your workflows with ease, and track your workflows with ease:
+
+![Dashboard](https://aelassas.github.io/wexflow/images/wbo-dashboard-4.3.png)
+
+Just to give you an idea of what Wexflow does, this is a screenshot from the "Designer" page. Using the "Designer" page, we get a nice visual overview of the dependency graph of the workflow. Each node represents a task which has to be run:
+
+![Designer](https://aelassas.github.io/wexflow/images/wbo-designer-4.3-1.png)
+
+Moreover, the "Designer" page allows to edit workflows files through its Web XML editor:
+
+![Designer](https://aelassas.github.io/wexflow/images/wbo-designer-4.3-2.png)
 
 # Table Of Contents
 - [Why Wexflow?](https://github.com/aelassas/Wexflow#why-wexflow)
@@ -65,20 +77,12 @@ Furthermore, Wexflow makes use of [LiteDB](http://www.litedb.org/) NoSQL Documen
 - [x] [Cron scheduling](https://github.com/aelassas/Wexflow/wiki/Cron-scheduling).
 - [x] [Extensive logging and incident reporting](https://github.com/aelassas/Wexflow/wiki/Logging).
 - [x] [Real-time statistics on workflows](https://github.com/aelassas/Wexflow/wiki/Usage#dashboard).
-- [x] [98 built-in tasks](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation).
+- [x] [100+ built-in tasks](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation).
 - [x] [RESTful API](https://github.com/aelassas/Wexflow/wiki/RESTful-API).
 - [x] [Hot reloading](https://github.com/aelassas/Wexflow/wiki/Hot-reloading).
 - [x] [Automation](https://github.com/aelassas/Wexflow/wiki/Automation).
 - [x] [Monitoring](https://github.com/aelassas/Wexflow/wiki/Monitoring).
 - [x] [Extensible](https://github.com/aelassas/Wexflow/wiki/Extensible).
-
-Wexflow comes with a backend too, so you can search and filter among all your workflows, have real-time statistics on your workflows, manage your workflows with ease, design your workflows with ease, and track your workflows with ease:
-
-![Dashboard](https://aelassas.github.io/wexflow/images/wbo-dashboard-3.2.png)
-
-Just to give you an idea of what Wexflow does, this is a screenshot from the "Designer" page. Using the "Designer" page, we get a nice visual overview of the dependency graph of the workflow. Each node represents a task which has to be run:
-
-![Designer](https://aelassas.github.io/wexflow/images/wbo-designer-3.2.png)
 
 Discover more about the features in [details](https://github.com/aelassas/Wexflow/wiki).
 
