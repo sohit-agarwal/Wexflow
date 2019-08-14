@@ -107,7 +107,7 @@
         + "<button id='wf-delete' type='button' class='wf-action-right btn btn-danger btn-xs'>Delete</button>"
         + "<button id='wf-save' type= 'button' class='wf-action-right btn btn-secondary btn-xs'>Save</button>"
         + "<button id='wf-cancel' type= 'button' class='wf-action-right btn btn-secondary btn-xs'>Cancel</button>"
-        + "<small id='wf-shortcut' style='float: right; margin: 7px; display: none;'> Shortcut: CTRL+S to save</small>"
+        + "<small id='wf-shortcut' style='float: right; margin: 7px; display: none;'> Shortcuts: CTRL+S to save, CTRL+ALT+H after opening XML Web editor for keyboard shortcuts.</small>"
         + "</div>"
         + "<div id='wf-designer-right-panel' style='display: none;'>"
         + rightPanelHtml
@@ -674,6 +674,17 @@
                         editor.setFontSize("100%");
                         editor.setPrintMarginColumn(false);
                         editor.getSession().setMode("ace/mode/xml");
+
+                        editor.commands.addCommand({
+                            name: "showKeyboardShortcuts",
+                            bindKey: { win: "Ctrl-Alt-h", mac: "Command-Alt-h" },
+                            exec: function (editor) {
+                                ace.config.loadModule("ace/ext/keybinding_menu", function (module) {
+                                    module.init(editor);
+                                    editor.showKeyboardShortcuts()
+                                })
+                            }
+                        });
 
                         var xmlValue = editor.setValue(xml, -1);
                         editor.clearSelection();
@@ -1525,6 +1536,17 @@
                     editor.setFontSize("100%");
                     editor.setPrintMarginColumn(false);
                     editor.getSession().setMode("ace/mode/xml");
+
+                    editor.commands.addCommand({
+                        name: "showKeyboardShortcuts",
+                        bindKey: { win: "Ctrl-Alt-h", mac: "Command-Alt-h" },
+                        exec: function (editor) {
+                            ace.config.loadModule("ace/ext/keybinding_menu", function (module) {
+                                module.init(editor);
+                                editor.showKeyboardShortcuts()
+                            })
+                        }
+                    });
 
                     var xmlValue = editor.setValue(xml, -1);
                     editor.clearSelection();

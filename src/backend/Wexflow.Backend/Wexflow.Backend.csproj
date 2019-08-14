@@ -1624,6 +1624,10 @@
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\dashboard.min.js" />
     <Content Include="js\designer.min.js" />
+    <Content Include="js\ext-keybinding_menu.js" />
+    <Content Include="js\ext-prompt.js" />
+    <Content Include="js\ext-searchbox.js" />
+    <Content Include="js\ext-settings_menu.js" />
     <Content Include="js\forgot-password.js" />
     <Content Include="js\forgot-password.min.js" />
     <Content Include="js\history.min.js" />

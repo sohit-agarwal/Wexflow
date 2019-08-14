@@ -58,6 +58,10 @@ copy "..\src\backend\Wexflow.Backend\js\worker-xml.js" %dstDir%\%backend%\js
 copy "..\src\backend\Wexflow.Backend\js\mode-xml.js" %dstDir%\%backend%\js
 copy "..\src\backend\Wexflow.Backend\js\theme-github.js" %dstDir%\%backend%\js
 copy "..\src\backend\Wexflow.Backend\js\theme-pastel_on_dark.js" %dstDir%\%backend%\js
+copy "..\src\backend\Wexflow.Backend\js\ext-searchbox.js" %dstDir%\%backend%\js
+copy "..\src\backend\Wexflow.Backend\js\ext-prompt.js" %dstDir%\%backend%\js
+copy "..\src\backend\Wexflow.Backend\js\ext-keybinding_menu.js" %dstDir%\%backend%\js
+copy "..\src\backend\Wexflow.Backend\js\ext-settings_menu.js" %dstDir%\%backend%\js
 copy "..\src\backend\Wexflow.Backend\js\designer.min.js" %dstDir%\%backend%\js
 ::copy "..\src\backend\Wexflow.Backend\js\common.js" %dstDir%\%backend%\js
 ::copy "..\src\backend\Wexflow.Backend\js\authenticate.js" %dstDir%\%backend%\js
