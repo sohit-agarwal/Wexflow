@@ -36,7 +36,20 @@ namespace Wexflow.Tasks.Twitter
             {
                 try
                 {
+                    TweetinviConfig.ApplicationSettings.HttpRequestTimeout = 20000;
+                    TweetinviConfig.CurrentThreadSettings.InitialiseFrom(TweetinviConfig.ApplicationSettings);
+
                     Auth.SetUserCredentials(ConsumerKey, ConsumerSecret, AccessToken, AccessTokenSecret);
+                    var authenticatedUser = User.GetAuthenticatedUser();
+
+                    if (authenticatedUser == null) // Something went wrong but we don't know what
+                    {
+                        // We can get the latest exception received by Tweetinvi
+                        var latestException = ExceptionHandler.GetLastException();
+                        ErrorFormat("The following error occured : '{0}'", latestException.TwitterDescription);
+                        Error("Authentication failed.");
+                        return new TaskStatus(Status.Error);
+                    }
                     Info("Authentication succeeded.");
                 }
                 catch (ThreadAbortException)
@@ -46,7 +59,7 @@ namespace Wexflow.Tasks.Twitter
                 catch (Exception e)
                 {
                     ErrorFormat("Authentication failed.", e);
-                    return new TaskStatus(Status.Error, false);
+                    return new TaskStatus(Status.Error);
                 }
 
                 foreach (FileInf file in files)
@@ -60,7 +73,7 @@ namespace Wexflow.Tasks.Twitter
                             var tweet = Tweet.PublishTweet(status);
                             if (tweet != null)
                             {
-                                InfoFormat("Tweet '{0}' sent.", status);
+                                InfoFormat("Tweet '{0}' sent. id: {1}", status, tweet.Id);
                             }
                             else
                             {
@@ -94,7 +107,7 @@ namespace Wexflow.Tasks.Twitter
             }
 
             Info("Task finished.");
-            return new TaskStatus(tstatus, false);
+            return new TaskStatus(tstatus);
         }
     }
 }

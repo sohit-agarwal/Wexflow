@@ -1,6 +1,6 @@
 ::@echo off
 
-set version=4.3
+set version=4.4
 set dst=wexflow-%version%-windows-dotnet-core
 set dstDir=.\%dst%
 set backend=Backend
