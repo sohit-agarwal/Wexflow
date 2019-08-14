@@ -904,6 +904,7 @@ namespace Wexflow.Core
                         _thread = null;
                         IsRunning = false;
                         GC.Collect();
+                        File.Delete(dest);
 
                         Logger.InfoFormat("{0} Workflow finished.", LogTag);
                         JobId++;

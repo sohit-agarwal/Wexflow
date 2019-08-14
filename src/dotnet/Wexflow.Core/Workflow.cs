@@ -903,6 +903,7 @@ namespace Wexflow.Core
                         foreach (List<Entity> entities in EntitiesPerTask.Values) entities.Clear();
                         _thread = null;
                         IsRunning = false;
+                        File.Delete(dest);
                         GC.Collect();
 
                         Logger.InfoFormat("{0} Workflow finished.", LogTag);
