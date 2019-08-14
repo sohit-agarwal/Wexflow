@@ -654,9 +654,10 @@
                 editorWorkflowId = currentWorkflowId;
                 workflowInfos[currentWorkflowId] = workflowInfos[workflowId];
                 workflowTasks[currentWorkflowId] = workflowTasks[workflowId];
-                //selectedId = currentWorkflowId;
+                
 
                 if (workflowId !== currentWorkflowId) {
+                    deleteEditor(workflowId);
                     var currentEditor = getEditor(currentWorkflowId);
 
                     if (typeof currentEditor === "undefined") {
@@ -820,6 +821,10 @@
                     workflowInfos[currentWorkflowId] = workflowInfos[workflowId];
                     workflowTasks[currentWorkflowId] = workflowTasks[workflowId];
 
+                    if (workflowId !== currentWorkflowId) {
+                        deleteEditor(workflowId);
+                    }
+
                     // Select the workflow
                     var wfWorkflowsTable = document.getElementById("wf-workflows-table");
 
@@ -899,6 +904,7 @@
     function updateWorkflowStatus(workflowId) {
         Common.get(uri + "/workflow/" + workflowId,
             function (workflow) {
+                //console.log("updateWorkflowStatus.workflowId: " + workflowId);
                 if (typeof workflow !== "undefined") {
                     updateStatusTimer(workflow);
                     statusRetries = 0;
@@ -961,6 +967,10 @@
         document.getElementById("wf-status").innerHTML = status;
     }
 
+    function deleteEditor(workflowId) {
+        editors.delete(workflowId);
+    }
+
     function deleteWorkflow() {
         var r = confirm("Are you sure you want to delete this workflow?");
         if (r === true) {
@@ -970,18 +980,18 @@
                 function (res) {
                     if (res === true) {
                         clearInterval(timer);
-                        //setTimeout(function () {
-                        loadWorkflows();
-                        document.getElementById("wf-designer-right-panel").style.display = "none";
-                        document.getElementById("wf-xml-container").style.display = "none";
-                        document.getElementById("wf-shortcut").style.display = "none";
-                        document.getElementById("wf-cancel").style.display = "none";
-                        document.getElementById("wf-save").style.display = "none";
-                        document.getElementById("wf-delete").style.display = "none";
-                        editors.delete(workflowId);
-                        loadXmlCalled = false;
-                        document.getElementById("wf-delete").disabled = false;
-                        //}, timeoutInterval);
+                        setTimeout(function () {
+                            loadWorkflows();
+                            document.getElementById("wf-designer-right-panel").style.display = "none";
+                            document.getElementById("wf-xml-container").style.display = "none";
+                            document.getElementById("wf-shortcut").style.display = "none";
+                            document.getElementById("wf-cancel").style.display = "none";
+                            document.getElementById("wf-save").style.display = "none";
+                            document.getElementById("wf-delete").style.display = "none";
+                            deleteEditor(workflowId);
+                            loadXmlCalled = false;
+                            document.getElementById("wf-delete").disabled = false;
+                        }, timeoutInterval);
                     } else {
                         Common.toastError("An error occured while deleting the workflow" + workflowId + ".");
                         document.getElementById("wf-delete").disabled = false;
