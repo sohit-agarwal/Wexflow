@@ -17,14 +17,17 @@
     };
 
     function sendEmail() {
+        btnSubmit.disabled = true;
         Common.get(uri + "/user?username=" + encodeURIComponent(txtUsername.value), function (u) {
 
             if (typeof u === "undefined" || u === null) {
                 Common.toastInfo("The user " + txtUsername.value + " does not exist.");
+                btnSubmit.disabled = false;
             } else {
                 var email = u.Email;
                 if (email === "" || email === null || typeof email === "undefined") {
                     Common.toastInfo("The user " + txtUsername.value + " does not have an email.");
+                    btnSubmit.disabled = false;
                 } else {
                     Common.post(uri + "/resetPassword?username=" + encodeURIComponent(u.Username) + "&email=" + encodeURIComponent(email), function (val) {
                         if (val === true) {
@@ -34,6 +37,7 @@
                             }, 5000);
                         } else {
                             Common.toastError("An error occured while sending the email.");
+                            btnSubmit.disabled = false;
                         }
                     });
                 }
