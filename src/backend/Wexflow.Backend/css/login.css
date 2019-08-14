@@ -54,6 +54,13 @@ body {
     z-index: 2;
 }
 
+.icon-right {
+    margin-left: 6px;
+    margin-top: 15px;
+    position: absolute;
+    z-index: 2;
+}
+
 .form-wrapper-outer {
     padding: 30px;
     border-radius: 8px;
@@ -88,7 +95,7 @@ body {
 
     .field-wrapper input {
         border: 1px solid #DADCE0;
-        padding: 10px;
+        padding: 10px 10px 10px 20px;
         border-radius: 4px;
         width: 100%;
     }
