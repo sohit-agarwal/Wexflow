@@ -30,33 +30,24 @@
         <a href="https://github.com/aelassas/Wexflow/wiki" class="header-right">Help</a>
     </div>
     <div id="login">
-        <table>
-            <tr>
-                <td>
-                    <label>Username</label>
-                </td>
-                <td>
-                    <input type="text" name="username" id="txt-username" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label>Password</label>
-                </td>
-                <td>
-                    <input id="txt-password" type="password" name="password"  />
-                    <span toggle="#password-field" class="fas fa-fw fa-eye-slash field-icon toggle-password"></span>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <div id="login-action">
-                        <a id="forgot-password" href="forgot-password.html">Forgot password?</a>
-                        <input id="btn-login" type="submit" name="sub" value="Sign in" class="btn btn-primary btn-xs"/>
-                    </div>
-                </td>
-            </tr>
-        </table>
+        <div class="form-wrapper-outer">
+            <div class="form-greeting">
+                <p><img src="images/logo-wexflow.png"/> Wexflow</p>
+            </div>
+            <div class="field-wrapper">
+                <input type="text" name="username" id="txt-username">
+                <div class="field-placeholder"><span>Username</span></div>
+            </div>
+            <div class="field-wrapper">
+                <input type="password" name="password" id="txt-password">
+                <span toggle="#password-field" class="fas fa-fw fa-eye-slash field-icon toggle-password"></span>
+                <div class="field-placeholder"><span>Password</span></div>
+            </div>
+            <div class="form-button">
+                <a id="forgot-password" href="forgot-password.html">Forgot password?</a>     
+                <button id="btn-login" type="button" class="btn btn-primary btn-xs">Sign in</button>        
+            </div>
+        </div>
     </div>
     <script type="text/javascript">
         window.onload = function () {
