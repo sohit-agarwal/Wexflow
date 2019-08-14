@@ -170,6 +170,8 @@ namespace Wexflow.Clients.Manager
             dataGridViewWorkflows.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             dataGridViewWorkflows.Sort(dataGridViewWorkflows.Columns[0], ListSortDirection.Ascending);
+
+            textBoxInfo.Text = "";
         }
 
         private int GetSlectedWorkflowId()
@@ -418,7 +420,11 @@ namespace Wexflow.Clients.Manager
 
         private void ButtonRestart_Click(object sender, EventArgs e)
         {
-            _timer.Stop();
+            if(_timer != null)
+            {
+                _timer.Stop();
+            }
+            
             textBoxInfo.Text = "Restarting Wexflow server...";
             _workflows = new WorkflowInfo[] { };
             BindDataGridView();

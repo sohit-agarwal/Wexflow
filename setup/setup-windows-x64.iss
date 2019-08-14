@@ -37,6 +37,14 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 ;Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 
+[Types]
+Name: "full"; Description: "Full installation"
+Name: "custom"; Description: "Custom installation"; Flags: iscustom
+
+[Components]
+Name: "program"; Description: "Program Files"; Types: full custom; Flags: fixed
+Name: "samples"; Description: "Samples"; Types: full
+
 [Files]
 ; Wexflow server
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Wexflow.Server.exe"; DestDir: "{app}"; Flags: ignoreversion
@@ -373,11 +381,13 @@ Source: "..\src\dotnet\Wexflow.Tasks.FileContentMatch\FileContentMatch.xml"; Des
 Source: "..\LICENSE.txt"; DestDir: "{app}\"; Flags: ignoreversion recursesubdirs
 
 ; Wexflow's configuration
-Source: "..\samples\dotnet\Wexflow\*"; DestDir: "C:\Wexflow\"; Flags: ignoreversion recursesubdirs uninsneveruninstall
+Source: "..\samples\dotnet\Wexflow\*"; DestDir: "C:\Wexflow\"; Components: samples; Flags: ignoreversion recursesubdirs uninsneveruninstall
+Source: "..\samples\dotnet\Wexflow\TasksNames.json"; DestDir: "C:\Wexflow\"; Flags: ignoreversion recursesubdirs uninsneveruninstall
+Source: "..\samples\dotnet\Wexflow\TasksSettings.json"; DestDir: "C:\Wexflow\"; Flags: ignoreversion recursesubdirs uninsneveruninstall
 Source: "..\src\dotnet\Wexflow.Core\Wexflow.xml"; DestDir: "C:\Wexflow\"; Flags: ignoreversion recursesubdirs uninsneveruninstall
 Source: "..\src\dotnet\Wexflow.Core\Workflow.xsd"; DestDir: "C:\Wexflow\"; Flags: ignoreversion recursesubdirs uninsneveruninstall
 Source: "..\src\dotnet\Wexflow.Core\GlobalVariables.xml"; DestDir: "C:\Wexflow\"; Flags: ignoreversion recursesubdirs uninsneveruninstall
-Source: "..\samples\WexflowTesting\*"; DestDir: "C:\WexflowTesting\"; Flags: ignoreversion recursesubdirs uninsneveruninstall
+Source: "..\samples\WexflowTesting\*"; DestDir: "C:\WexflowTesting\"; Components: samples; Flags: ignoreversion recursesubdirs uninsneveruninstall
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
@@ -417,9 +427,11 @@ Type: files; Name: "C:\Wexflow\Database\Wexflow.db"
 procedure InitializeWizard();
 begin
   CreateDir('C:\Wexflow');
-  CreateDir('C:\Wexflow\Trash');
-  CreateDir('C:\Wexflow\Tasks');
   CreateDir('C:\Wexflow\Database');
-  CreateDir('C:\WexflowTesting');
-
+  CreateDir('C:\Wexflow\Workflows');
+  CreateDir('C:\Wexflow\Tasks');
+  CreateDir('C:\Wexflow\Temp');
+  CreateDir('C:\Wexflow\Temp\Workflows');
+  CreateDir('C:\Wexflow\Trash');  
+  //CreateDir('C:\WexflowTesting');
 end;
