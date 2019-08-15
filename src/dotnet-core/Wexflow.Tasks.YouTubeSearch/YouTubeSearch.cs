@@ -11,19 +11,15 @@ namespace Wexflow.Tasks.YouTubeSearch
 {
     public class YouTubeSearch : Task
     {
-        //public string User { get; }
         public string ApplicationName { get; }
         public string ApiKey { get; }
-        //public string ClientSecrets { get; }
         public string Keyword { get; }
         public int MaxResults { get; }
 
         public YouTubeSearch(XElement xe, Workflow wf) : base(xe, wf)
         {
-            //User = GetSetting("user");
             ApplicationName = GetSetting("applicationName");
             ApiKey = GetSetting("apiKey");
-            //ClientSecrets = GetSetting("clientSecrets");
             Keyword = GetSetting("keyword");
             MaxResults = int.Parse(GetSetting("maxResults", "50"));
         }

@@ -17,6 +17,13 @@ namespace Wexflow.Core
     public class WexflowEngine
     {
         /// <summary>
+        /// Maximum retries of loading a workflow.
+        /// </summary>
+        public static int MaxRetries = 5;
+        private static int _onCreatedRetries = 0;
+        private static int _onChangedRetries = 0;
+
+        /// <summary>
         /// Settings file path.
         /// </summary>
         public string SettingsFile { get; private set; }
@@ -267,12 +274,22 @@ namespace Wexflow.Core
             {
                 Workflows.Add(workflow);
                 ScheduleWorkflow(workflow);
+                _onCreatedRetries = 0;
             }
             else
             {
-                Logger.InfoFormat("Trying to load the workflow {0} again.", path);
-                Thread.Sleep(500);
-                LoadWorkflow(path);
+                if (_onCreatedRetries < MaxRetries)
+                {
+                    _onCreatedRetries++;
+                    Logger.InfoFormat("Trying to load the workflow {0} again.", path);
+                    Thread.Sleep(500);
+                    LoadWorkflow(path);
+                }
+                else
+                {
+                    Logger.ErrorFormat("An error occured while loading the workflow {0}.", path);
+                    _onCreatedRetries = 0;
+                }
             }
         }
 
@@ -293,12 +310,22 @@ namespace Wexflow.Core
                     Workflows.Add(workflow);
                     ScheduleWorkflow(workflow);
                 }
+                _onChangedRetries = 0;
             }
             else
             {
-                Logger.InfoFormat("Trying to load the workflow {0} again.", path);
-                Thread.Sleep(500);
-                LoadWorkflowOnChanged(path);
+                if (_onChangedRetries < MaxRetries)
+                {
+                    _onChangedRetries++;
+                    Logger.InfoFormat("Trying to load the workflow {0} again.", path);
+                    Thread.Sleep(500);
+                    LoadWorkflowOnChanged(path);
+                }
+                else
+                {
+                    Logger.ErrorFormat("An error occured while loading the workflow {0}.", path);
+                    _onChangedRetries = 0;
+                }
             }
         }
 

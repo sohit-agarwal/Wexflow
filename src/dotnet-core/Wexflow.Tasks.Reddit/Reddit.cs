@@ -26,9 +26,9 @@ namespace Wexflow.Tasks.Reddit
             bool atLeastOneSucceed = false;
 
             var files = SelectFiles();
-            RedditAPI reddit = null;
             if (files.Length > 0)
             {
+                RedditAPI reddit;
                 try
                 {
                     reddit = new RedditAPI(AppId, RefreshToken);

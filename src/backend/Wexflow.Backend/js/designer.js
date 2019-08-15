@@ -1517,8 +1517,8 @@
 
                 var workflowId = currentWorkflowId;
                 if (typeof xml === "undefined" && retries < maxRetries) {
-                    loadXml(workflowId);
                     retries++;
+                    loadXml(workflowId);
                 } else {
                     loadXmlCalled = true;
                     document.getElementById("wf-xml-container").style.display = "block";
@@ -2386,8 +2386,8 @@
                 if (workflowFound === false && retries < maxRetries) {
                     setTimeout(function () {
                         //console.log("recursive: loadWorkflows");
-                        loadWorkflows(callback, workflowId, recursive);
                         retries++;
+                        loadWorkflows(callback, workflowId, recursive);
                     }, timeoutInterval);
                 } else {
                     loadWorkflowsResponse(data, callback);
