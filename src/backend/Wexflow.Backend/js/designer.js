@@ -65,8 +65,8 @@
     var retries = 0;
     var statusRetries = 0;
 
-    var rightPanelHtml = "<h3><button id='wf-xml' type='button' class='wf-action-left btn btn-dark btn-xs'>Xml</button> <input id='wf-theme' type='checkbox' checked data-toggle='toggle' data-size='mini' data-on='Bright' data-off='Dark' data-width='70'></h3>" +
-        "<pre id='wf-xml-container'></pre>" +
+    var rightPanelHtml = "<div style='margin: 0 0 10px 0;'><button id='wf-xml' type='button' class='wf-action-left btn btn-dark btn-xs'>Xml</button> <input id='wf-theme' type='checkbox' checked data-toggle='toggle' data-size='mini' data-on='Bright' data-off='Dark' data-width='70' style='display: none;'><small id='wf-xml-shortcut' style='float: right; margin: 7px; display: none;'> Shortcut: CTRL+ALT+H for keyboard shortcuts</small></div>" +
+        "<pre id='wf-xml-container' style='display: none;'></pre>" +
         "<table class='wf-designer-table'>" +
         "<tbody>" +
         "<tr><td class='wf-title'>Id</td><td class='wf-value'><input id='wf-id' type='text'  /></td></tr>" +
@@ -107,7 +107,7 @@
         + "<button id='wf-delete' type='button' class='wf-action-right btn btn-danger btn-xs'>Delete</button>"
         + "<button id='wf-save' type= 'button' class='wf-action-right btn btn-secondary btn-xs'>Save</button>"
         + "<button id='wf-cancel' type= 'button' class='wf-action-right btn btn-secondary btn-xs'>Cancel</button>"
-        + "<small id='wf-shortcut' style='float: right; margin: 7px; display: none;'> Shortcuts: CTRL+S to save, CTRL+ALT+H after opening XML Web editor for keyboard shortcuts.</small>"
+        + "<small id='wf-shortcut' style='float: right; margin: 7px; display: none;'> Shortcut: CTRL+S to save</small>"
         + "</div>"
         + "<div id='wf-designer-right-panel' style='display: none;'>"
         + rightPanelHtml
@@ -207,6 +207,8 @@
                             xmlContainer.style.display = "none";
                             editorChanged = false;
                             setEditXml(editorWorkflowId, false);
+                            hideThemeButton();
+                            document.getElementById("wf-xml").disabled = false;
                         });
                 } else {
                     editor.setValue("", -1);
@@ -246,7 +248,8 @@
             document.getElementById("wf-add-task").style.display = "block";
             document.getElementById("wf-delete").style.display = "none";
             document.getElementById("wf-xml").style.display = "none";
-            document.getElementById("wf-theme").style.display = "none";
+            //document.getElementById("wf-theme").style.display = "none";
+            hideThemeButton();
             document.getElementById("wf-xml-container").style.display = "none";
 
             document.getElementById("wf-cancel").onclick = function () {
@@ -443,7 +446,7 @@
                                                         workflowInfos[workflowId].IsNew = false;
 
                                                         document.getElementById("wf-xml").style.display = "inline-block";
-                                                        showThemeButton();
+                                                        //showThemeButton();
                                                         document.getElementById("wf-shortcut").style.display = "block";
                                                         document.getElementById("wf-cancel").style.display = "block";
                                                         document.getElementById("wf-save").style.display = "block";
@@ -517,7 +520,7 @@
                                             workflowInfos[workflowId].IsNew = false;
 
                                             document.getElementById("wf-xml").style.display = "inline-block";
-                                            showThemeButton();
+                                            //showThemeButton();
                                             document.getElementById("wf-shortcut").style.display = "block";
                                             document.getElementById("wf-cancel").style.display = "block";
                                             document.getElementById("wf-save").style.display = "block";
@@ -744,6 +747,10 @@
 
                         // Reload right panel
                         loadRightPanel(currentWorkflowId, false);
+
+                        document.getElementById("wf-xml-shortcut").style.display = "block";
+                        //document.getElementById("wf-theme").style.display = "block";
+                        showThemeButton();
                     }
 
                     // Reset editor
@@ -1504,6 +1511,10 @@
         getXml(currentWorkflowId,
             function (xml) {
                 //setTimeout(function () {
+                document.getElementById("wf-xml-shortcut").style.display = "block";
+                //document.getElementById("wf-theme").style.display = "block";
+                showThemeButton();
+
                 var workflowId = currentWorkflowId;
                 if (typeof xml === "undefined" && retries < maxRetries) {
                     loadXml(workflowId);
@@ -1643,7 +1654,6 @@
     }
 
     function showThemeButton() {
-        document.getElementById("wf-theme").style.display = "block";
         if (isDarkTheme === true) {
             $('#wf-theme').bootstrapToggle('off');
         } else {
@@ -1661,11 +1671,24 @@
                 }
             }
         });
+        var elts = document.getElementsByClassName("toggle");
+        if (elts.length > 0) {
+            elts[0].style.display = "inline-block";
+        }
+    }
+
+    function hideThemeButton() {
+        var elts = document.getElementsByClassName("toggle");
+        if (elts.length > 0) {
+            elts[0].style.display = "none";
+        }
     }
 
     function loadRightPanel(workflowId, workflowChanged) {
         currentWorkflowId = workflowId;
-        showThemeButton();
+        //showThemeButton();
+        document.getElementById("wf-xml-shortcut").style.display = "none";
+        hideThemeButton();
 
         var xmlContainer = document.getElementById("wf-xml-container");
         var workflowEditor = getEditor(workflowId);

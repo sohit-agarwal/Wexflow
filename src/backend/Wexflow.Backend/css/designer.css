@@ -8,7 +8,9 @@ body {
 .jq-toast-single {
     width: 300px;
 }
-
+.toggle{
+    display:none;
+}
 #header {
     position: absolute;
     top: 0;
