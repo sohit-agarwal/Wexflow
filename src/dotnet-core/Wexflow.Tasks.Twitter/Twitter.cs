@@ -14,8 +14,7 @@ namespace Wexflow.Tasks.Twitter
         public string AccessToken { get; }
         public string AccessTokenSecret { get; }
 
-        public Twitter(XElement xe, Workflow wf)
-            : base(xe, wf)
+        public Twitter(XElement xe, Workflow wf) : base(xe, wf)
         {
             ConsumerKey = GetSetting("consumerKey");
             ConsumerSecret = GetSetting("consumerSecret");
@@ -58,7 +57,7 @@ namespace Wexflow.Tasks.Twitter
                 }
                 catch (Exception e)
                 {
-                    ErrorFormat("Authentication failed.", e);
+                    ErrorFormat("Authentication failed: {0}", e.Message);
                     return new TaskStatus(Status.Error);
                 }
 
@@ -73,15 +72,17 @@ namespace Wexflow.Tasks.Twitter
                             var tweet = Tweet.PublishTweet(status);
                             if (tweet != null)
                             {
-                                InfoFormat("Tweet '{0}' sent. id: {1}", status, tweet.Id);
+                                InfoFormat("Tweet '{0}' sent. Id: {1}", status, tweet.Id);
+
+                                if (!atLeastOneSucceed) atLeastOneSucceed = true;
                             }
                             else
                             {
                                 ErrorFormat("An error occured while sending the tweet '{0}'", status);
+                                success = false;
                             }
                         }
 
-                        if (!atLeastOneSucceed) atLeastOneSucceed = true;
                     }
                     catch (ThreadAbortException)
                     {

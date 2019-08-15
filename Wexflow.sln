@@ -371,6 +371,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.FileContentMa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wexflow.Tasks.FileContentMatch", "src\dotnet-core\Wexflow.Tasks.FileContentMatch\Wexflow.Tasks.FileContentMatch.csproj", "{3B99F68E-FA83-4E7D-BF8F-3F259F1E1D24}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wexflow.Tasks.Reddit", "src\dotnet-core\Wexflow.Tasks.Reddit\Wexflow.Tasks.Reddit.csproj", "{C3481B29-4C5F-4555-B3F4-312470BAD68C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -3151,6 +3153,22 @@ Global
 		{3B99F68E-FA83-4E7D-BF8F-3F259F1E1D24}.Release|x64.Build.0 = Release|x64
 		{3B99F68E-FA83-4E7D-BF8F-3F259F1E1D24}.Release|x86.ActiveCfg = Release|x86
 		{3B99F68E-FA83-4E7D-BF8F-3F259F1E1D24}.Release|x86.Build.0 = Release|x86
+		{C3481B29-4C5F-4555-B3F4-312470BAD68C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3481B29-4C5F-4555-B3F4-312470BAD68C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3481B29-4C5F-4555-B3F4-312470BAD68C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C3481B29-4C5F-4555-B3F4-312470BAD68C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C3481B29-4C5F-4555-B3F4-312470BAD68C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C3481B29-4C5F-4555-B3F4-312470BAD68C}.Debug|x64.Build.0 = Debug|Any CPU
+		{C3481B29-4C5F-4555-B3F4-312470BAD68C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C3481B29-4C5F-4555-B3F4-312470BAD68C}.Debug|x86.Build.0 = Debug|Any CPU
+		{C3481B29-4C5F-4555-B3F4-312470BAD68C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3481B29-4C5F-4555-B3F4-312470BAD68C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3481B29-4C5F-4555-B3F4-312470BAD68C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C3481B29-4C5F-4555-B3F4-312470BAD68C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C3481B29-4C5F-4555-B3F4-312470BAD68C}.Release|x64.ActiveCfg = Release|Any CPU
+		{C3481B29-4C5F-4555-B3F4-312470BAD68C}.Release|x64.Build.0 = Release|Any CPU
+		{C3481B29-4C5F-4555-B3F4-312470BAD68C}.Release|x86.ActiveCfg = Release|Any CPU
+		{C3481B29-4C5F-4555-B3F4-312470BAD68C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3337,6 +3355,7 @@ Global
 		{881CC7EA-284A-4EB9-A336-3DAD4E0CB3B6} = {6CC60633-28FB-45F3-8434-A79D00150CB2}
 		{F151425B-CB47-4EF6-ADB7-D8C2D9AE0479} = {E0CB0ECF-B3C8-47F6-8DB9-3B2D45E653AB}
 		{3B99F68E-FA83-4E7D-BF8F-3F259F1E1D24} = {6CC60633-28FB-45F3-8434-A79D00150CB2}
+		{C3481B29-4C5F-4555-B3F4-312470BAD68C} = {6CC60633-28FB-45F3-8434-A79D00150CB2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {694D69C8-AA13-4F54-BAAA-5B967F1A8F9C}

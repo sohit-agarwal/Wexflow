@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    Twitter is a sequential task that sends a collection of tweets from an XML file. 
+    Twitter is a sequential task that sends a collection of tweets from XML files. 
     The format of the XML file is as follows:
     <Tweets>
 	    <Tweet>$string</Tweet>

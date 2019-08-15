@@ -66,6 +66,7 @@
     <ProjectReference Include="..\Wexflow.Tasks.Ping\Wexflow.Tasks.Ping.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.ProcessInfo\Wexflow.Tasks.ProcessInfo.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.ProcessLauncher\Wexflow.Tasks.ProcessLauncher.csproj" />
+    <ProjectReference Include="..\Wexflow.Tasks.Reddit\Wexflow.Tasks.Reddit.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.Rmdir\Wexflow.Tasks.Rmdir.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.Sha1\Wexflow.Tasks.Sha1.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.Sha256\Wexflow.Tasks.Sha256.csproj" />

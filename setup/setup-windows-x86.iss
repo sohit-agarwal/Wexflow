@@ -38,7 +38,7 @@ Name: "custom"; Description: "Custom installation"; Flags: iscustom
 
 [Components]
 Name: "program"; Description: "Program Files"; Types: full custom; Flags: fixed
-Name: "samples"; Description: "Samples"; Types: full
+Name: "samples"; Description: "Workflow samples"; Types: full
 
 [Files]
 ; Wexflow server
@@ -110,7 +110,6 @@ Source: "..\src\dotnet\Wexflow.Server\bin\Release\Nito.AsyncEx.Context.dll"; Des
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Nito.AsyncEx.Tasks.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Nito.Disposables.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Reflection.TypeExtensions.dll"; DestDir: "{app}"; Flags: ignoreversion
-
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Net.Http.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Security.Cryptography.Algorithms.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Security.Cryptography.Encoding.dll"; DestDir: "{app}"; Flags: ignoreversion
