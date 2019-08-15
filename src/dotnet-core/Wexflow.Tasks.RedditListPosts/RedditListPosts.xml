@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    RedditListPosts is a sequential task that retrieves Reddit post history and write it in an XML file. 
+    RedditListPosts is a sequential task that retrieves Reddit post history and writes it in an XML file. 
     
     The format of the output XML file is as follows:
     
