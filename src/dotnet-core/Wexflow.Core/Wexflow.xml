@@ -9,4 +9,6 @@
   <Setting name="tasksSettingsFile" value="C:\Wexflow-dotnet-core\TasksSettings.json" />
   <Setting name="connectionString" value="Filename=C:\Wexflow-dotnet-core\Database\Wexflow.db; Mode=Exclusive" />
   <Setting name="globalVariablesFile" value="C:\Wexflow-dotnet-core\GlobalVariables.xml" />
+  <Setting name="maxRetries" value="5" />
+  <Setting name="retryTimeout" value="700" />
 </Wexflow>

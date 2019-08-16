@@ -17,9 +17,10 @@ namespace Wexflow.Server
 {
     public class Program
     {
-        public static int MaxRetries = 5;
         public static IConfiguration Config;
         public static WexflowEngine WexflowEngine;
+        public static int MaxRetries;
+        public static int RetryTimeout;
         public static FileSystemWatcher Watcher;
 
         private static int _onCreatedRetries = 0;
@@ -39,6 +40,9 @@ namespace Wexflow.Server
             string wexflowSettingsFile = Config["WexflowSettingsFile"];
             WexflowEngine = new WexflowEngine(wexflowSettingsFile);
             WexflowEngine.Run();
+            MaxRetries = WexflowEngine.MaxRetries;
+            RetryTimeout = WexflowEngine.RetryTimeout;
+
             InitializeFileSystemWatcher();
 
             int port = int.Parse(Config["WexflowServicePort"]);
@@ -117,7 +121,7 @@ namespace Wexflow.Server
                 {
                     _onCreatedRetries++;
                     Logger.InfoFormat("Trying to load the workflow {0} again.", path);
-                    Thread.Sleep(500);
+                    Thread.Sleep(RetryTimeout);
                     LoadWorkflow(path);
                 }
                 else
@@ -215,7 +219,7 @@ namespace Wexflow.Server
                 {
                     _onChangedRetries++;
                     Logger.InfoFormat("Trying to load the workflow {0} again.", path);
-                    Thread.Sleep(500);
+                    Thread.Sleep(RetryTimeout);
                     LoadWorkflowOnChanged(path);
                 }
                 else

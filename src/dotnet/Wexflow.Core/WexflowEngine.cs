@@ -19,7 +19,11 @@ namespace Wexflow.Core
         /// <summary>
         /// Maximum retries of loading a workflow.
         /// </summary>
-        public static int MaxRetries = 5;
+        public static int MaxRetries;
+        /// <summary>
+        /// Retry timeout.
+        /// </summary>
+        public static int RetryTimeout;
         private static int _onCreatedRetries = 0;
         private static int _onChangedRetries = 0;
 
@@ -134,6 +138,8 @@ namespace Wexflow.Core
             TasksSettingsFile = GetWexflowSetting(xdoc, "tasksSettingsFile");
             ConnectionString = GetWexflowSetting(xdoc, "connectionString");
             GlobalVariablesFile = GetWexflowSetting(xdoc, "globalVariablesFile");
+            MaxRetries = int.Parse(GetWexflowSetting(xdoc, "maxRetries"));
+            RetryTimeout = int.Parse(GetWexflowSetting(xdoc, "retryTimeout"));
         }
 
         private void LoadGlobalVariables()

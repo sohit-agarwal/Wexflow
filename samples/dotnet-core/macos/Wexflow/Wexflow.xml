@@ -9,4 +9,6 @@
   <Setting name="tasksSettingsFile" value="/Applications/wexflow/Wexflow/TasksSettings.json" />
   <Setting name="connectionString" value="Filename=/Applications/wexflow/Wexflow/Database/Wexflow.db; Mode=Exclusive" />
   <Setting name="globalVariablesFile" value="/Applications/wexflow/Wexflow/GlobalVariables.xml" />
+  <Setting name="maxRetries" value="5" />
+  <Setting name="retryTimeout" value="700" />
 </Wexflow>
