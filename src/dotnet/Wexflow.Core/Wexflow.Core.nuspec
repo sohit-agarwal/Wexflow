@@ -5,13 +5,13 @@
     <version>4.4.0</version>
     <title>Wexflow</title>
     <authors>Akram El Assas</authors>
-    <owners>Akram El Assas</owners>
+    <owners>akram.elassas</owners>
     <license type="file">LICENSE.txt</license>
     <projectUrl>https://wexflow.github.io</projectUrl>
     <repository type="git" url="https://github.com/aelassas/Wexflow" />
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Core assembly of Wexflow workflow engine.</description>
-    <releaseNotes>Fixed an issue related to variables parsing.</releaseNotes>
+    <releaseNotes>Bug fixes and performance improvements.</releaseNotes>
     <copyright>Copyright (c) 2019 Akram El Assas.</copyright>
     <tags>Wexflow Workflow</tags>
   </metadata>
