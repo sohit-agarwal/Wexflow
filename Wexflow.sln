@@ -373,7 +373,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wexflow.Tasks.FileContentMa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wexflow.Tasks.Reddit", "src\dotnet-core\Wexflow.Tasks.Reddit\Wexflow.Tasks.Reddit.csproj", "{C3481B29-4C5F-4555-B3F4-312470BAD68C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.RedditListPosts", "src\dotnet-core\Wexflow.Tasks.RedditListPosts\Wexflow.Tasks.RedditListPosts.csproj", "{46072159-F9E8-40FB-97D9-7C3E6B99D84A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wexflow.Tasks.RedditListPosts", "src\dotnet-core\Wexflow.Tasks.RedditListPosts\Wexflow.Tasks.RedditListPosts.csproj", "{46072159-F9E8-40FB-97D9-7C3E6B99D84A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wexflow.Tasks.RedditListComments", "src\dotnet-core\Wexflow.Tasks.RedditListComments\Wexflow.Tasks.RedditListComments.csproj", "{19448B36-ECDF-4E50-96DC-A85E95B87FF9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -3187,6 +3189,22 @@ Global
 		{46072159-F9E8-40FB-97D9-7C3E6B99D84A}.Release|x64.Build.0 = Release|Any CPU
 		{46072159-F9E8-40FB-97D9-7C3E6B99D84A}.Release|x86.ActiveCfg = Release|Any CPU
 		{46072159-F9E8-40FB-97D9-7C3E6B99D84A}.Release|x86.Build.0 = Release|Any CPU
+		{19448B36-ECDF-4E50-96DC-A85E95B87FF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19448B36-ECDF-4E50-96DC-A85E95B87FF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19448B36-ECDF-4E50-96DC-A85E95B87FF9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{19448B36-ECDF-4E50-96DC-A85E95B87FF9}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{19448B36-ECDF-4E50-96DC-A85E95B87FF9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{19448B36-ECDF-4E50-96DC-A85E95B87FF9}.Debug|x64.Build.0 = Debug|Any CPU
+		{19448B36-ECDF-4E50-96DC-A85E95B87FF9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{19448B36-ECDF-4E50-96DC-A85E95B87FF9}.Debug|x86.Build.0 = Debug|Any CPU
+		{19448B36-ECDF-4E50-96DC-A85E95B87FF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19448B36-ECDF-4E50-96DC-A85E95B87FF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19448B36-ECDF-4E50-96DC-A85E95B87FF9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{19448B36-ECDF-4E50-96DC-A85E95B87FF9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{19448B36-ECDF-4E50-96DC-A85E95B87FF9}.Release|x64.ActiveCfg = Release|Any CPU
+		{19448B36-ECDF-4E50-96DC-A85E95B87FF9}.Release|x64.Build.0 = Release|Any CPU
+		{19448B36-ECDF-4E50-96DC-A85E95B87FF9}.Release|x86.ActiveCfg = Release|Any CPU
+		{19448B36-ECDF-4E50-96DC-A85E95B87FF9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3375,6 +3393,7 @@ Global
 		{3B99F68E-FA83-4E7D-BF8F-3F259F1E1D24} = {6CC60633-28FB-45F3-8434-A79D00150CB2}
 		{C3481B29-4C5F-4555-B3F4-312470BAD68C} = {6CC60633-28FB-45F3-8434-A79D00150CB2}
 		{46072159-F9E8-40FB-97D9-7C3E6B99D84A} = {6CC60633-28FB-45F3-8434-A79D00150CB2}
+		{19448B36-ECDF-4E50-96DC-A85E95B87FF9} = {6CC60633-28FB-45F3-8434-A79D00150CB2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {694D69C8-AA13-4F54-BAAA-5B967F1A8F9C}

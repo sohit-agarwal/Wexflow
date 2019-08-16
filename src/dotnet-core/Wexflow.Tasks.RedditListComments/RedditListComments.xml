@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    RedditListPosts is a sequential task that retrieves Reddit post history and writes it in an XML file. 
+    RedditListComments is a sequential task that retrieves Reddit comment history and writes it in an XML file. 
     
     The format of the output XML file is as follows:
     
-    <Posts>
-      <Post id="$string" subreddit="$string" title="$string" upvotes="$int" downvotes="$int" />
+    <Comments>
+      <Comment id="$string" subreddit="$string" author="$string" upvotes="$int" downvotes="$int"><![CDATA[$html]]></Comment>
       ...
-    </Posts>    
+    </Comments>    
   -->
-  <Task id="$int" name="RedditListPosts" description="$string" enabled="true|false">
+  <Task id="$int" name="RedditListComments" description="$string" enabled="true|false">
     <!-- Application ID: You can obtain it from https://www.reddit.com/prefs/apps -->
     <Setting name="appId" value="$string" />
     <!-- Refresh token. -->

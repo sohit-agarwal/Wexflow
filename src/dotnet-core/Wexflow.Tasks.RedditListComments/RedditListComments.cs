@@ -6,15 +6,15 @@ using System.Threading;
 using System.Xml.Linq;
 using Wexflow.Core;
 
-namespace Wexflow.Tasks.RedditListPosts
+namespace Wexflow.Tasks.RedditListComments
 {
-    public class RedditListPosts : Task
+    public class RedditListComments : Task
     {
         public string AppId { get; }
         public string RefreshToken { get; }
         public int MaxResults { get; }
 
-        public RedditListPosts(XElement xe, Workflow wf) : base(xe, wf)
+        public RedditListComments(XElement xe, Workflow wf) : base(xe, wf)
         {
             AppId = GetSetting("appId");
             RefreshToken = GetSetting("refreshToken");
@@ -23,7 +23,7 @@ namespace Wexflow.Tasks.RedditListPosts
 
         public override TaskStatus Run()
         {
-            Info("Retrieving post history...");
+            Info("Retrieving comment history...");
 
             Status status = Status.Success;
 
@@ -48,23 +48,22 @@ namespace Wexflow.Tasks.RedditListPosts
 
             try
             {
-                // Retrieve the authenticated user's recent post history.
-                // Change "new" to "newForced" if you don't want older stickied profile posts to appear first.
-                var posts = reddit.Account.Me.GetPostHistory(sort: "new", limit: MaxResults, show: "all");
+                // Retrieve the authenticated user's recent comment history.
+                var comments = reddit.Account.Me.GetCommentHistory(sort: "new", limit: MaxResults, show: "all");
 
-                var xdoc = new XDocument(new XElement("Posts"));
+                var xdoc = new XDocument(new XElement("Comments"));
 
-                foreach(var post in posts)
+                foreach(var comment in comments)
                 {
-                    var xpost = new XElement("Post", new XAttribute("id", SecurityElement.Escape(post.Id)), new XAttribute("subreddit", SecurityElement.Escape(post.Subreddit)), new XAttribute("title", SecurityElement.Escape(post.Title)), new XAttribute("upvotes", post.UpVotes), new XAttribute("downvotes", post.DownVotes));
-                    xdoc.Root.Add(xpost);
+                    var xcomment = new XElement("Comment", new XAttribute("id", SecurityElement.Escape(comment.Id)), new XAttribute("subreddit", SecurityElement.Escape(comment.Subreddit)), new XAttribute("author", SecurityElement.Escape(comment.Author)), new XAttribute("upvotes", comment.UpVotes), new XAttribute("downvotes", comment.DownVotes), new XCData(comment.BodyHTML));
+                    xdoc.Root.Add(xcomment);
                 }
 
                 var xmlPath = Path.Combine(Workflow.WorkflowTempFolder,
-                string.Format("{0}_{1:yyyy-MM-dd-HH-mm-ss-fff}.xml", "RedditListPosts", DateTime.Now));
+                string.Format("{0}_{1:yyyy-MM-dd-HH-mm-ss-fff}.xml", "RedditListComments", DateTime.Now));
                 xdoc.Save(xmlPath);
                 Files.Add(new FileInf(xmlPath, Id));
-                InfoFormat("Post history written in {0}", xmlPath);
+                InfoFormat("Comment history written in {0}", xmlPath);
 
             }
             catch (ThreadAbortException)
@@ -73,7 +72,7 @@ namespace Wexflow.Tasks.RedditListPosts
             }
             catch (Exception e)
             {
-                ErrorFormat("An error occured while retrieving post history: {0}", e.Message);
+                ErrorFormat("An error occured while retrieving comment history: {0}", e.Message);
                 status = Status.Error;
             }
 
