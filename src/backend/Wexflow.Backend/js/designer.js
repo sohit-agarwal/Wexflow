@@ -65,7 +65,7 @@
     var retries = 0;
     var statusRetries = 0;
 
-    var rightPanelHtml = "<div style='margin: 0 0 10px 0;'><button id='wf-xml' type='button' class='wf-action-left btn btn-dark btn-xs'>Xml</button> <input id='wf-theme' type='checkbox' checked data-toggle='toggle' data-size='mini' data-on='Bright' data-off='Dark' data-width='70' style='display: none;'><small id='wf-xml-shortcut' style='float: right; margin: 7px; display: none;'> Shortcut: CTRL+ALT+H for keyboard shortcuts</small></div>" +
+    var rightPanelHtml = "<div style='margin: 0 0 10px 0;'><button id='wf-xml' type='button' class='wf-action-left btn btn-dark btn-xs'>Xml</button> <input id='wf-theme' type='checkbox' checked data-toggle='toggle' data-size='mini' data-on='Bright' data-off='Dark' data-width='70' style='display: none;'><small id='wf-xml-shortcut' style='float: right; margin: 7px; display: none;'> CTRL+ALT+H: Keyboard shortcuts</small></div>" +
         "<pre id='wf-xml-container' style='display: none;'></pre>" +
         "<table class='wf-designer-table'>" +
         "<tbody>" +
@@ -107,7 +107,7 @@
         + "<button id='wf-delete' type='button' class='wf-action-right btn btn-danger btn-xs'>Delete</button>"
         + "<button id='wf-save' type= 'button' class='wf-action-right btn btn-secondary btn-xs'>Save</button>"
         + "<button id='wf-cancel' type= 'button' class='wf-action-right btn btn-secondary btn-xs'>Cancel</button>"
-        + "<small id='wf-shortcut' style='float: right; margin: 7px; display: none;'> Shortcut: CTRL+S to save</small>"
+        + "<small id='wf-shortcut' style='float: right; margin: 7px; display: none;'> CTRL+S: Save</small>"
         + "</div>"
         + "<div id='wf-designer-right-panel' style='display: none;'>"
         + rightPanelHtml
