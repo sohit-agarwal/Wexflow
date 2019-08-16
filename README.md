@@ -8,13 +8,14 @@
 # <a href="https://wexflow.github.io/"><img alt="Wexflow" src="https://aelassas.github.io/wexflow/images/wexflow-3.6-2.jpg" width="100%"></a>
 -->
 
-# [![Build Status](https://aelassas.visualstudio.com/Wexflow/_apis/build/status/aelassas.Wexflow?branchName=master)](https://aelassas.visualstudio.com/Wexflow/_build/latest?definitionId=1&branchName=master) [![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow) [![codecov](https://codecov.io/gh/aelassas/Wexflow/branch/master/graph/badge.svg)](https://codecov.io/gh/aelassas/Wexflow) [![downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://wexflow.github.io/stats) ![Nuget](https://img.shields.io/nuget/dt/Wexflow?label=nuget%20downloads) [![Release](http://img.shields.io/badge/release-v4.3-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/latest) [![Nuget](http://img.shields.io/badge/nuget-v4.3.0-blue.svg)](https://www.nuget.org/packages/Wexflow) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Wexflow%20-%20Open%20source%20and%20cross-platform%20workflow%20engine&url=https://wexflow.github.io&via=aelassas_dev)
+# [![Build Status](https://aelassas.visualstudio.com/Wexflow/_apis/build/status/aelassas.Wexflow?branchName=master)](https://aelassas.visualstudio.com/Wexflow/_build/latest?definitionId=1&branchName=master) [![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow) [![codecov](https://codecov.io/gh/aelassas/Wexflow/branch/master/graph/badge.svg)](https://codecov.io/gh/aelassas/Wexflow) [![downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://wexflow.github.io/stats) ![Nuget](https://img.shields.io/nuget/dt/Wexflow?label=nuget%20downloads) [![Release](http://img.shields.io/badge/release-v4.3-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/latest) [![Nuget](http://img.shields.io/badge/nuget-v4.3.0-blue.svg)](https://www.nuget.org/packages/Wexflow)
 
 <!--
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)
 [![Doc](http://img.shields.io/badge/github-wiki-black.svg)](https://github.com/aelassas/Wexflow/wiki)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby) [![Wiki](https://img.shields.io/badge/github-wiki-181717.svg?maxAge=60)](https://github.com/aelassas/Wexflow/wiki)
 [![Twitter URL](https://img.shields.io/twitter/url/https/twitter.com/fold_left.svg?style=social&label=Follow)](https://twitter.com/aelassas_dev)
+[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Wexflow%20-%20Open%20source%20and%20cross-platform%20workflow%20engine&url=https://wexflow.github.io&via=aelassas_dev)
 -->
 
 <!--
@@ -121,10 +122,15 @@ Discover more about the features in [details](https://github.com/aelassas/Wexflo
 # Who's Using Wexflow?
 
 [![Assurant](https://aelassas.github.io/wexflow/images/user_assurant-logo.png)](https://www.assurant.com)
+
 [![BHV-Automation](https://aelassas.github.io/wexflow/images/user_bhv-logo-neu.jpg)](http://www.bhv-automation.de)
+
 [![Datalogics](https://aelassas.github.io/wexflow/images/user_datalogics_logo.png)](https://www.datalogics.com)
+
 [![eandbsoftware](https://aelassas.github.io/wexflow/images/user_eandbsoftware.png)](https://www.eandbsoftware.org)
+
 [![glinksolutions](https://aelassas.github.io/wexflow/images/user_glinksolutions-logo.png)](https://glinksolutions.vn)
+
 [![Yandex](https://aelassas.github.io/wexflow/images/user_Yandex_logo_en.png)](https://yandex.com)
 
 <!--
