@@ -8,7 +8,7 @@
 # <a href="https://wexflow.github.io/"><img alt="Wexflow" src="https://aelassas.github.io/wexflow/images/wexflow-3.6-2.jpg" width="100%"></a>
 -->
 
-# [![Build Status](https://aelassas.visualstudio.com/Wexflow/_apis/build/status/aelassas.Wexflow?branchName=master)](https://aelassas.visualstudio.com/Wexflow/_build/latest?definitionId=1&branchName=master) [![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow) [![codecov](https://codecov.io/gh/aelassas/Wexflow/branch/master/graph/badge.svg)](https://codecov.io/gh/aelassas/Wexflow) [![downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://wexflow.github.io/stats) ![Nuget](https://img.shields.io/nuget/dt/Wexflow?label=nuget%20downloads) [![Release](http://img.shields.io/badge/release-v4.3-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/latest) [![Nuget](http://img.shields.io/badge/nuget-v4.3.0-blue.svg)](https://www.nuget.org/packages/Wexflow)
+# [![Build Status](https://aelassas.visualstudio.com/Wexflow/_apis/build/status/aelassas.Wexflow?branchName=master)](https://aelassas.visualstudio.com/Wexflow/_build/latest?definitionId=1&branchName=master) [![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow) [![codecov](https://codecov.io/gh/aelassas/Wexflow/branch/master/graph/badge.svg)](https://codecov.io/gh/aelassas/Wexflow) [![downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://wexflow.github.io/stats) [![Nuget](https://img.shields.io/nuget/dt/Wexflow?label=nuget%20downloads)](https://www.nuget.org/packages/Wexflow) [![Release](http://img.shields.io/badge/release-v4.3-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/latest) [![Nuget](http://img.shields.io/badge/nuget-v4.3.0-blue.svg)](https://www.nuget.org/packages/Wexflow)
 
 <!--
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)
@@ -122,15 +122,25 @@ Discover more about the features in [details](https://github.com/aelassas/Wexflo
 # Who's Using Wexflow?
 
 [![Assurant](https://aelassas.github.io/wexflow/images/user_assurant-logo.png)](https://www.assurant.com)
-
+<br>
+<br>
+<br>
 [![BHV-Automation](https://aelassas.github.io/wexflow/images/user_bhv-logo-neu.jpg)](http://www.bhv-automation.de)
-
+<br>
+<br>
+<br>
 [![Datalogics](https://aelassas.github.io/wexflow/images/user_datalogics_logo.png)](https://www.datalogics.com)
-
+<br>
+<br>
+<br>
 [![eandbsoftware](https://aelassas.github.io/wexflow/images/user_eandbsoftware.png)](https://www.eandbsoftware.org)
-
+<br>
+<br>
+<br>
 [![glinksolutions](https://aelassas.github.io/wexflow/images/user_glinksolutions-logo.png)](https://glinksolutions.vn)
-
+<br>
+<br>
+<br>
 [![Yandex](https://aelassas.github.io/wexflow/images/user_Yandex_logo_en.png)](https://yandex.com)
 
 <!--
@@ -144,19 +154,20 @@ Discover more about the features in [details](https://github.com/aelassas/Wexflo
 -->
 
 # Get Started
-<!--
-- [Features](https://github.com/aelassas/Wexflow/wiki)
-- [Installation guide](https://github.com/aelassas/Wexflow/wiki/Installation)
-- [Quick start](https://github.com/aelassas/Wexflow/wiki/Usage)
-- [Workflow samples](https://github.com/aelassas/Wexflow/wiki/Samples)
-- [Tasks documentation](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation)
--->
 
+<!--
 - 📦 [Download the latest release](https://github.com/aelassas/Wexflow/releases/latest)
 - 💽 [Installation guide](https://github.com/aelassas/Wexflow/wiki/Installation)
 - 🚀 [Quick start](https://github.com/aelassas/Wexflow/wiki/Usage)
 - 📖 [Workflow samples](https://github.com/aelassas/Wexflow/wiki/Samples)
 - 📖 [Tasks documentation](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation)
+-->
+
+- [Download the latest release](https://github.com/aelassas/Wexflow/releases/latest)
+- [Installation guide](https://github.com/aelassas/Wexflow/wiki/Installation)
+- [Quick start](https://github.com/aelassas/Wexflow/wiki/Usage)
+- [Workflow samples](https://github.com/aelassas/Wexflow/wiki/Samples)
+- [Tasks documentation](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation)
 
 <!--
 # Contribute
