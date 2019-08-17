@@ -581,8 +581,13 @@ namespace Wexflow.Core
                     return false;
                 }
 
-                wf.Approve();
-                return true;
+                if (wf.IsApproval)
+                {
+                    wf.Approve();
+                    return true;
+                }
+
+                return false;
             }
             catch(Exception e)
             {

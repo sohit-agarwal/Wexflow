@@ -200,10 +200,9 @@
                         Common.disableButton(stopButton, !(workflow.IsRunning && !workflow.IsPaused));
                         Common.disableButton(suspendButton, !(workflow.IsRunning && !workflow.IsPaused));
                         Common.disableButton(resumeButton, !workflow.IsPaused);
-                        Common.disableButton(approveButton, !workflow.IsWaitingForApproval);
+                        Common.disableButton(approveButton, !(workflow.IsWaitingForApproval && workflow.IsApproval));
 
-                        //console.log(workflow);
-                        if (workflow.IsWaitingForApproval === true && workflow.IsPaused === false) {
+                        if (workflow.IsApproval === true && workflow.IsWaitingForApproval === true && workflow.IsPaused === false) {
                             notify("This workflow is waiting for approval...");
                         } else {
                             if (workflow.IsRunning === true && workflow.IsPaused === false) {

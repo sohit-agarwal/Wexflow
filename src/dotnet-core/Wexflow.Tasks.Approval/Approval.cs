@@ -20,20 +20,28 @@ namespace Wexflow.Tasks.Approval
 
             try
             {
-                var trigger = Path.Combine(Workflow.ApprovalFolder, Workflow.Id.ToString(), Id.ToString(), "task.approved");
-
-                IsWaitingForApproval = true;
-                Workflow.IsWaitingForApproval = true;
-
-                while (!File.Exists(trigger))
+                if (Workflow.IsApproval)
                 {
-                    Thread.Sleep(500);
-                }
+                    var trigger = Path.Combine(Workflow.ApprovalFolder, Workflow.Id.ToString(), Id.ToString(), "task.approved");
 
-                IsWaitingForApproval = false;
-                Workflow.IsWaitingForApproval = false;
-                InfoFormat("Task approved: {0}", trigger);
-                File.Delete(trigger);
+                    IsWaitingForApproval = true;
+                    Workflow.IsWaitingForApproval = true;
+
+                    while (!File.Exists(trigger))
+                    {
+                        Thread.Sleep(500);
+                    }
+
+                    IsWaitingForApproval = false;
+                    Workflow.IsWaitingForApproval = false;
+                    InfoFormat("Task approved: {0}", trigger);
+                    File.Delete(trigger);
+                }
+                else
+                {
+                    Error("This workflow is not an approval workflow. Mark this workflow as an approval workflow to use this task.");
+                    status = Status.Error;
+                }
             }
             catch (ThreadAbortException)
             {

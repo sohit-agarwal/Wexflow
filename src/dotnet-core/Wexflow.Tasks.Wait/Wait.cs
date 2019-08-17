@@ -42,7 +42,7 @@ namespace Wexflow.Tasks.Wait
             }
 
             Info("Task finished.");
-            return new TaskStatus(status, false);
+            return new TaskStatus(status);
         }
     }
 }

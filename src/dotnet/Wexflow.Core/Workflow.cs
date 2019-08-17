@@ -1417,10 +1417,13 @@ namespace Wexflow.Core
         /// </summary>
         public void Approve()
         {
-            var task = Tasks.Where(t => t.IsWaitingForApproval).First();
-            var dir = Path.Combine(ApprovalFolder, Id.ToString(), task.Id.ToString());
-            Directory.CreateDirectory(dir);
-            File.WriteAllText(Path.Combine(dir, "task.approved"), "Task " + task.Id + " of the workflow " + Id + " approved.");
+            if (IsApproval)
+            {
+                var task = Tasks.Where(t => t.IsWaitingForApproval).First();
+                var dir = Path.Combine(ApprovalFolder, Id.ToString(), task.Id.ToString());
+                Directory.CreateDirectory(dir);
+                File.WriteAllText(Path.Combine(dir, "task.approved"), "Task " + task.Id + " of the workflow " + Id + " approved.");
+            }
         }
 
         private void CreateTempFolder()
