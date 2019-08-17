@@ -96,6 +96,7 @@
     <Compile Include="CsvToYaml.cs" />
     <Compile Include="CsvToXml.cs" />
     <Compile Include="FileContentMatch.cs" />
+    <Compile Include="Approval.cs" />
     <Compile Include="FolderExists.cs" />
     <Compile Include="InstagramUploadVideo.cs" />
     <Compile Include="MessageCorrect.cs" />
@@ -206,6 +207,10 @@
     <ProjectReference Include="..\..\src\dotnet\Wexflow.Core\Wexflow.Core.csproj">
       <Project>{46257949-80b5-48f2-9b83-29354c339869}</Project>
       <Name>Wexflow.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\dotnet\Wexflow.Tasks.Approval\Wexflow.Tasks.Approval.csproj">
+      <Project>{8bff752c-4eb0-49cb-a367-92046d78d010}</Project>
+      <Name>Wexflow.Tasks.Approval</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\dotnet\Wexflow.Tasks.CsvToJson\Wexflow.Tasks.CsvToJson.csproj">
       <Project>{dd553a49-a5ad-4f12-91cb-9fba28777ed2}</Project>
