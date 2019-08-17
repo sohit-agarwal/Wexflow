@@ -72,7 +72,7 @@ Moreover, the "Designer" page allows to edit workflow files through its Web XML 
 - [x] [An Android app for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#android-manager).
 - [x] [Sequential workflows](https://github.com/aelassas/Wexflow/wiki/Samples#sequential-workflows).
 - [x] [Flowchart workflows](https://github.com/aelassas/Wexflow/wiki/Samples#flowchart-workflows).
-- [x] [Approval workflows](https://github.com/aelassas/Wexflow/wiki/Approval-workflows).
+- [x] [Approval workflows](https://github.com/aelassas/Wexflow/wiki/Samples#approval-workflows).
 - [x] [100+ built-in tasks](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation).
 - [x] [Cron scheduling](https://github.com/aelassas/Wexflow/wiki/Cron-scheduling).
 - [x] [Extensive logging and incident reporting](https://github.com/aelassas/Wexflow/wiki/Logging).
