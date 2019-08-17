@@ -42,15 +42,15 @@ Furthermore, Wexflow makes use of [LiteDB](http://www.litedb.org/) serverless No
 
 Wexflow comes with a backend too, so you can search and filter among all your workflows, have real-time statistics on your workflows, manage your workflows with ease, design your workflows with ease, and track your workflows with ease:
 
-![Dashboard](https://aelassas.github.io/wexflow/images/wbo-dashboard-4.3.png)
+![Dashboard](https://aelassas.github.io/wexflow/images/wbo-dashboard-4.4.png)
 
 Just to give you an idea of what Wexflow does, this is a screenshot from the "Designer" page. Using the "Designer" page, we get a nice visual overview of the dependency graph of the workflow. Each node represents a task which has to be run:
 
-![Designer](https://aelassas.github.io/wexflow/images/wbo-designer-4.3-1.png)
+![Designer](https://aelassas.github.io/wexflow/images/wbo-designer-4.4-1.png)
 
 Moreover, the "Designer" page allows to edit workflow files through its Web XML editor:
 
-![Designer](https://aelassas.github.io/wexflow/images/wbo-designer-4.3-2.png)
+![Designer](https://aelassas.github.io/wexflow/images/wbo-designer-4.4-2.png)
 
 # Table Of Contents
 - [Why Wexflow?](https://github.com/aelassas/Wexflow#why-wexflow)
