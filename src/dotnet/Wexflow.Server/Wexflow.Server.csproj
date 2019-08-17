@@ -163,6 +163,10 @@
       <Project>{46257949-80B5-48F2-9B83-29354C339869}</Project>
       <Name>Wexflow.Core %28dotnet\Wexflow.Core\Wexflow.Core%29</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.Approval\Wexflow.Tasks.Approval.csproj">
+      <Project>{8bff752c-4eb0-49cb-a367-92046d78d010}</Project>
+      <Name>Wexflow.Tasks.Approval</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.CsvToJson\Wexflow.Tasks.CsvToJson.csproj">
       <Project>{dd553a49-a5ad-4f12-91cb-9fba28777ed2}</Project>
       <Name>Wexflow.Tasks.CsvToJson</Name>

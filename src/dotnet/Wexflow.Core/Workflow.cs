@@ -59,6 +59,10 @@ namespace Wexflow.Core
         /// </summary>
         public string WorkflowTempFolder { get; private set; }
         /// <summary>
+        /// Approval folder.
+        /// </summary>
+        public string ApprovalFolder { get; private set; }
+        /// <summary>
         /// XSD path.
         /// </summary>
         public string XsdPath { get; private set; }
@@ -91,6 +95,14 @@ namespace Wexflow.Core
         /// </summary>
         public bool IsEnabled { get; private set; }
         /// <summary>
+        /// Shows whether this workflow is an approval workflow or not.
+        /// </summary>
+        public bool IsApproval { get; private set; }
+        /// <summary>
+        /// Shows whether this workflow is waiting for approval.
+        /// </summary>
+        public bool IsWaitingForApproval { get; set; }
+        /// <summary>
         /// Shows whether this workflow is running or not.
         /// </summary>
         public bool IsRunning { get; private set; }
@@ -101,7 +113,7 @@ namespace Wexflow.Core
         /// <summary>
         /// Workflow tasks.
         /// </summary>
-        public Task[] Taks { get; private set; }
+        public Task[] Tasks { get; private set; }
         /// <summary>
         /// Workflow files.
         /// </summary>
@@ -169,6 +181,7 @@ namespace Wexflow.Core
         /// <param name="wexflowTempFolder">Wexflow temp folder.</param>
         /// <param name="workflowsTempFolder">Workflows temp folder.</param>
         /// <param name="tasksFolder">Tasks folder.</param>
+        /// <param name="approvalFolder">Approval folder.</param>
         /// <param name="xsdPath">XSD path.</param>
         /// <param name="database">Database.</param>
         /// <param name="globalVariables">Global variables.</param>
@@ -176,6 +189,7 @@ namespace Wexflow.Core
             , string wexflowTempFolder
             , string workflowsTempFolder
             , string tasksFolder
+            , string approvalFolder
             , string xsdPath
             , Db.Db database
             , Variable[] globalVariables)
@@ -186,6 +200,7 @@ namespace Wexflow.Core
             WexflowTempFolder = wexflowTempFolder;
             WorkflowsTempFolder = workflowsTempFolder;
             TasksFolder = tasksFolder;
+            ApprovalFolder = approvalFolder;
             XsdPath = xsdPath;
             Database = database;
             FilesPerTask = new Dictionary<int, List<FileInf>>();
@@ -390,6 +405,8 @@ namespace Wexflow.Core
                     }
                 }
                 IsEnabled = bool.Parse(GetWorkflowSetting(xdoc, "enabled", true));
+                var isApprovalStr = GetWorkflowSetting(xdoc, "approval", false);
+                IsApproval = bool.Parse(string.IsNullOrEmpty(isApprovalStr) ? "false" : isApprovalStr);
 
                 if (xdoc.Root != null)
                 {
@@ -438,7 +455,7 @@ namespace Wexflow.Core
                         throw new Exception("Name attribute of the task " + xTask + " does not exist.");
                     }
                 }
-                Taks = tasks.ToArray();
+                Tasks = tasks.ToArray();
 
                 // Loading execution graph
                 var xExectionGraph = xdoc.XPathSelectElement("/wf:Workflow/wf:ExecutionGraph", XmlNamespaceManager);
@@ -809,7 +826,7 @@ namespace Wexflow.Core
                             bool success = true;
                             bool warning = false;
                             bool error = false;
-                            RunSequentialTasks(Taks, ref success, ref warning, ref error);
+                            RunSequentialTasks(Tasks, ref success, ref warning, ref error);
 
                             if (success)
                             {
@@ -839,7 +856,7 @@ namespace Wexflow.Core
                         }
                         else
                         {
-                            var status = RunTasks(ExecutionGraph.Nodes, Taks);
+                            var status = RunTasks(ExecutionGraph.Nodes, Tasks);
 
                             switch (status)
                             {
@@ -1314,6 +1331,7 @@ namespace Wexflow.Core
                 try
                 {
                     _thread.Abort();
+                    IsWaitingForApproval = false;
                     Database.DecrementRunningCount();
                     Database.IncrementStoppedCount();
                     var entry = Database.GetEntry(Id);
@@ -1394,6 +1412,17 @@ namespace Wexflow.Core
             }
         }
 
+        /// <summary>
+        /// Approves the current workflow.
+        /// </summary>
+        public void Approve()
+        {
+            var task = Tasks.Where(t => t.IsWaitingForApproval).First();
+            var dir = Path.Combine(ApprovalFolder, Id.ToString(), task.Id.ToString());
+            Directory.CreateDirectory(dir);
+            File.WriteAllText(Path.Combine(dir, "task.approved"), "Task " + task.Id + " of the workflow " + Id + " approved.");
+        }
+
         private void CreateTempFolder()
         {
             // WorkflowId/dd-MM-yyyy/HH-mm-ss-fff
@@ -1416,7 +1445,7 @@ namespace Wexflow.Core
 
         private Task GetTask(int id)
         {
-            return Taks.FirstOrDefault(t => t.Id == id);
+            return Tasks.FirstOrDefault(t => t.Id == id);
         }
 
         private Task GetTask(IEnumerable<Task> tasks, int id)

@@ -7,6 +7,7 @@
     var uri = Common.trimEnd(Settings.Uri, "/");
     var lnkManager = document.getElementById("lnk-manager");
     var lnkDesigner = document.getElementById("lnk-designer");
+    var lnkApproval = document.getElementById("lnk-approval");
     var lnkUsers = document.getElementById("lnk-users");
     var suser = getUser();
     var osname = Common.os();
@@ -23,6 +24,7 @@
                 if (u.UserProfile === 0) {
                     lnkManager.style.display = "inline";
                     lnkDesigner.style.display = "inline";
+                    lnkApproval.style.display = "inline";
                     lnkUsers.style.display = "inline";
 
                     var btnLogout = document.getElementById("btn-logout");
@@ -75,6 +77,7 @@
         "<tr><td class='wf-title'>Period</td><td class='wf-value'><input id='wf-period' type='text' /></td></tr>" +
         "<tr><td class='wf-title'>Cron expression</td><td class='wf-value'><input id='wf-cron' type='text' /></td></tr>" +
         "<tr><td class='wf-title'>Enabled</td><td class='wf-value'><input id='wf-enabled' type='checkbox' checked/></td></tr>" +
+        "<tr><td class='wf-title'>Approval</td><td class='wf-value'><input id='wf-approval' type='checkbox' /></td></tr>" +
         "<tr><td class='wf-title'>Description</td><td class='wf-value'><input id='wf-desc' type='text' /></td></tr>" +
         "<tr><td class='wf-title'>Path</td><td id='wf-path' class='wf-value'></td></tr>" +
         "<tr><td class='wf-title'>Status</td><td id='wf-status' class='wf-value'></td></tr>" +
@@ -280,6 +283,7 @@
                         "Period": document.getElementById("wf-period").value,
                         "CronExpression": document.getElementById("wf-cron").value,
                         "IsEnabled": document.getElementById("wf-enabled").checked,
+                        "IsApproval": document.getElementById("wf-approval").checked,
                         "Description": document.getElementById("wf-desc").value,
                         "Path": "",
                         "IsNew": true,
@@ -353,6 +357,14 @@
                 if (isInt(wfIdStr)) {
                     var workflowId = parseInt(wfIdStr);
                     workflowInfos[workflowId].IsEnabled = this.checked;
+                }
+            };
+
+            document.getElementById("wf-approval").onchange = function () {
+                var wfIdStr = document.getElementById("wf-id").value;
+                if (isInt(wfIdStr)) {
+                    var workflowId = parseInt(wfIdStr);
+                    workflowInfos[workflowId].IsApproval = this.checked;
                 }
             };
 
@@ -785,6 +797,7 @@
                     retries++;
                 } else {
                     document.getElementById("wf-save").disabled = false;
+                    Common.toastError("An error occured while saving the workflow " + workflowId + ".");
                 }
             }
         }, function () {
@@ -797,6 +810,7 @@
                 retries++;
             } else {
                 document.getElementById("wf-save").disabled = false;
+                Common.toastError("An error occured while saving the workflow " + workflowId + ".");
             }
         }, json);  // End of saveXml.
     }
@@ -903,6 +917,7 @@
                     retries++;
                 } else {
                     document.getElementById("wf-save").disabled = false;
+                    Common.toastError("An error occured while saving the workflow " + workflowId + ".");
                 }
             }
         }, function () {
@@ -915,6 +930,7 @@
                 retries++;
             } else {
                 document.getElementById("wf-save").disabled = false;
+                Common.toastError("An error occured while saving the workflow " + workflowId + ".");
             }
         }, json);
     }
@@ -969,12 +985,17 @@
                     } else {
                         if (force === false && workflowStatusChanged(workflow) === false) return;
 
-                        if (workflow.IsRunning === true && workflow.IsPaused === false) {
-                            notify("This workflow is running...");
-                        } else if (workflow.IsPaused === true) {
-                            notify("This workflow is suspended.");
+                        if (workflow.IsWaitingForApproval === true && workflow.IsPaused === false) {
+                            notify("This workflow is waiting for approval...");
                         } else {
-                            notify("This workflow is not running.");
+                            if (workflow.IsRunning === true && workflow.IsPaused === false) {
+                                notify("This workflow is running...");
+                            }
+                            else if (workflow.IsPaused === true) {
+                                notify("This workflow is suspended.");
+                            } else {
+                                notify("");
+                            }
                         }
                     }
                 }
@@ -1873,6 +1894,12 @@
                 wfEnabled.checked = workflow.IsEnabled;
                 wfEnabled.onchange = function () {
                     workflowInfos[workflowId].IsEnabled = wfEnabled.checked;
+                };
+
+                var wfApproval = document.getElementById("wf-approval");
+                wfApproval.checked = workflow.IsApproval;
+                wfApproval.onchange = function () {
+                    workflowInfos[workflowId].IsApproval = wfApproval.checked;
                 };
 
                 var wfDesc = document.getElementById("wf-desc");

@@ -5,6 +5,7 @@
     var uri = Common.trimEnd(Settings.Uri, "/");
     var lnkManager = document.getElementById("lnk-manager");
     var lnkDesigner = document.getElementById("lnk-designer");
+    var lnkApproval = document.getElementById("lnk-approval");
     var lnkUsers = document.getElementById("lnk-users");
     var selectedId = -1;
     var workflows = {};
@@ -54,6 +55,7 @@
                 if (u.UserProfile === 0) {
                     lnkManager.style.display = "inline";
                     lnkDesigner.style.display = "inline";
+                    lnkApproval.style.display = "inline";
                     lnkUsers.style.display = "inline";
 
                     var btnLogout = document.getElementById("btn-logout");
@@ -142,6 +144,7 @@
                     + "<td class='wf-n' title='" + val.Name + "'>" + val.Name + "</td>"
                     + "<td class='wf-lt'>" + lt + "</td>"
                     + "<td class='wf-e'><input type='checkbox' readonly disabled " + (val.IsEnabled ? "checked" : "") + "></input></td>"
+                    + "<td class='wf-a'><input type='checkbox' readonly disabled " + (val.IsApproval ? "checked" : "") + "></input></td>"
                     + "<td class='wf-d' title='" + val.Description + "'>" + val.Description + "</td>"
                     + "</tr>");
 
@@ -154,6 +157,7 @@
                 + "<th class='wf-n'>Name</th>"
                 + "<th class='wf-lt'>LaunchType</th>"
                 + "<th class='wf-e'>Enabled</th>"
+                + "<th class='wf-a'>Approval</th>"
                 + "<th class='wf-d'>Description</th>"
                 + "</tr>"
                 + "</thead>"
@@ -193,14 +197,17 @@
                         Common.disableButton(suspendButton, !(workflow.IsRunning && !workflow.IsPaused));
                         Common.disableButton(resumeButton, !workflow.IsPaused);
 
-                        if (workflow.IsRunning === true && workflow.IsPaused === false) {
-                            notify("This workflow is running...");
-                        }
-                        else if (workflow.IsPaused === true) {
-                            notify("This workflow is suspended.");
-                        }
-                        else {
-                            notify("");
+                        if (workflow.IsWaitingForApproval === true && workflow.IsPaused === false) {
+                            notify("This workflow is waiting for approval...");
+                        } else {
+                            if (workflow.IsRunning === true && workflow.IsPaused === false) {
+                                notify("This workflow is running...");
+                            }
+                            else if (workflow.IsPaused === true) {
+                                notify("This workflow is suspended.");
+                            } else {
+                                notify("");
+                            }
                         }
                     }
                 });

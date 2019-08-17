@@ -59,6 +59,13 @@ namespace Wexflow.Core.Service.Client
             webClient.UploadString(uri, string.Empty);
         }
 
+        public void ApproveWorkflow(int id)
+        {
+            string uri = Uri + "/approve/" + id;
+            var webClient = new WebClient();
+            webClient.UploadString(uri, string.Empty);
+        }
+
         public WorkflowInfo GetWorkflow(int id)
         {
             string uri = Uri + "/workflow/" + id;

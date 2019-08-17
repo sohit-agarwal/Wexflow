@@ -19,6 +19,7 @@ namespace Wexflow.Clients.Manager
 
         private const string ColumnId = "Id";
         private const string ColumnEnabled = "Enabled";
+        private const string ColumnApproval = "Approval";
         private const string WexflowServerPath = @"..\Wexflow.Server.exe.config";
         private const string Backend = @"..\Backend\index.html";
 
@@ -152,7 +153,7 @@ namespace Wexflow.Clients.Manager
             _workflowsPerId = new Dictionary<int, WorkflowInfo>();
             foreach (WorkflowInfo workflow in _workflows)
             {
-                sworkflows.Add(new WorkflowDataInfo(workflow.Id, workflow.Name, workflow.LaunchType, workflow.IsEnabled, workflow.Description));
+                sworkflows.Add(new WorkflowDataInfo(workflow.Id, workflow.Name, workflow.LaunchType, workflow.IsEnabled, workflow.IsApproval, workflow.Description));
 
                 if (!_workflowsPerId.ContainsKey(workflow.Id))
                 {
@@ -167,7 +168,9 @@ namespace Wexflow.Clients.Manager
             dataGridViewWorkflows.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             dataGridViewWorkflows.Columns[3].Name = ColumnEnabled;
             dataGridViewWorkflows.Columns[3].HeaderText = ColumnEnabled;
-            dataGridViewWorkflows.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewWorkflows.Columns[4].Name = ColumnApproval;
+            dataGridViewWorkflows.Columns[4].HeaderText = ColumnApproval;
+            dataGridViewWorkflows.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
             dataGridViewWorkflows.Sort(dataGridViewWorkflows.Columns[0], ListSortDirection.Ascending);
 
@@ -307,7 +310,7 @@ namespace Wexflow.Clients.Manager
                     if (!workflow.IsEnabled)
                     {
                         textBoxInfo.Text = @"This workflow is disabled.";
-                        buttonStart.Enabled = buttonPause.Enabled = buttonResume.Enabled = buttonStop.Enabled = false;
+                        buttonStart.Enabled = buttonPause.Enabled = buttonResume.Enabled = buttonStop.Enabled = buttonApprove.Enabled = false;
                     }
                     else
                     {
@@ -317,19 +320,29 @@ namespace Wexflow.Clients.Manager
                         buttonStop.Enabled = workflow.IsRunning && !workflow.IsPaused;
                         buttonPause.Enabled = workflow.IsRunning && !workflow.IsPaused;
                         buttonResume.Enabled = workflow.IsPaused;
+                        buttonApprove.Enabled = workflow.IsWaitingForApproval;
 
-                        if (workflow.IsRunning && !workflow.IsPaused)
+                        if(workflow.IsWaitingForApproval && !workflow.IsPaused)
                         {
-                            textBoxInfo.Text = @"This workflow is running...";
-                        }
-                        else if (workflow.IsPaused)
-                        {
-                            textBoxInfo.Text = @"This workflow is suspended.";
+                            textBoxInfo.Text = "This workflow is waiting for approval...";
                         }
                         else
                         {
-                            textBoxInfo.Text = "";
+                            if (workflow.IsRunning && !workflow.IsPaused)
+                            {
+                                textBoxInfo.Text = @"This workflow is running...";
+                            }
+                            else if (workflow.IsPaused)
+                            {
+                                textBoxInfo.Text = @"This workflow is suspended.";
+                            }
+                            else
+                            {
+                                textBoxInfo.Text = "";
+                            }
                         }
+
+                        
                     }
                 }
                 else
@@ -338,6 +351,7 @@ namespace Wexflow.Clients.Manager
                     buttonStop.Enabled = false;
                     buttonPause.Enabled = false;
                     buttonResume.Enabled = false;
+                    buttonApprove.Enabled = false;
                     if (_timer != null)
                     {
                         _timer.Stop();
@@ -479,6 +493,16 @@ namespace Wexflow.Clients.Manager
             if (e.KeyCode == Keys.Enter)
             {
                 LoadWorkflows();
+            }
+        }
+
+        private void ButtonApprove_Click(object sender, EventArgs e)
+        {
+            var wfId = GetSlectedWorkflowId();
+            if (wfId > -1)
+            {
+                _wexflowServiceClient.ApproveWorkflow(wfId);
+                UpdateButtons(wfId, true);
             }
         }
     }

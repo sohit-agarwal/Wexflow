@@ -61,6 +61,8 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="approval.html" />
+    <Content Include="css\approval.min.css" />
     <Content Include="css\bootstrap-toggle.min.css" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\dashboard.min.css" />
@@ -1614,12 +1616,15 @@
     <Content Include="css\history.min.css" />
     <Content Include="css\jquery.toast.min.css" />
     <Content Include="css\login.min.css" />
+    <Content Include="css\approval.css" />
     <Content Include="css\manager.min.css" />
     <Content Include="css\users.css" />
     <Content Include="css\users.min.css" />
     <Content Include="forgot-password.html" />
     <Content Include="images\logo.png" />
     <Content Include="js\ace.js" />
+    <Content Include="js\approval.min.js" />
+    <Content Include="js\approval.js" />
     <Content Include="js\bootstrap-toggle.min.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\dashboard.min.js" />
@@ -1704,6 +1709,8 @@
     <Content Include="css\font-awesome\webfonts\fa-solid-900.ttf" />
     <Content Include="css\font-awesome\webfonts\fa-solid-900.woff" />
     <Content Include="css\font-awesome\webfonts\fa-solid-900.woff2" />
+    <Content Include="css\uglify-approval.bat" />
+    <Content Include="js\uglify-approval.bat" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -24,6 +24,7 @@
     var txtTo = document.getElementById("txt-to");
     var lnkManager = document.getElementById("lnk-manager");
     var lnkDesigner = document.getElementById("lnk-designer");
+    var lnkApproval = document.getElementById("lnk-approval");
     var lnkUsers = document.getElementById("lnk-users");
 
     var suser = getUser();
@@ -55,6 +56,7 @@
                 if (u.UserProfile === 0) {
                     lnkManager.style.display = "inline";
                     lnkDesigner.style.display = "inline";
+                    lnkApproval.style.display = "inline";
                     lnkUsers.style.display = "inline";
                 }
 

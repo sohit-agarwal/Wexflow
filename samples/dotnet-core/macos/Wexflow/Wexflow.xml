@@ -4,6 +4,7 @@
   <Setting name="trashFolder" value="/Applications/wexflow/Wexflow/Trash" />
   <Setting name="tempFolder" value="/Applications/wexflow/Wexflow/Temp" />
   <Setting name="tasksFolder" value="/Applications/wexflow/Wexflow/Tasks" />
+  <Setting name="approvalFolder" value="/Applications/wexflow/Wexflow/Approval" />
   <Setting name="xsd" value="/Applications/wexflow/Wexflow/Workflow.xsd" />
   <Setting name="tasksNamesFile" value="/Applications/wexflow/Wexflow/TasksNames.json" />
   <Setting name="tasksSettingsFile" value="/Applications/wexflow/Wexflow/TasksSettings.json" />

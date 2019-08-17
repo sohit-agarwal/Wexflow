@@ -52,6 +52,10 @@ namespace Wexflow.Core
         /// </summary>
         public string WorkflowsTempFolder { get; private set; }
         /// <summary>
+        /// Approval folder path.
+        /// </summary>
+        public string ApprovalFolder { get; private set; }
+        /// <summary>
         /// XSD path.
         /// </summary>
         public string XsdPath { get; private set; }
@@ -132,6 +136,7 @@ namespace Wexflow.Core
             TasksFolder = GetWexflowSetting(xdoc, "tasksFolder");
             if (!Directory.Exists(TempFolder)) Directory.CreateDirectory(TempFolder);
             WorkflowsTempFolder = Path.Combine(TempFolder, "Workflows");
+            ApprovalFolder = GetWexflowSetting(xdoc, "approvalFolder");
             if (!Directory.Exists(WorkflowsTempFolder)) Directory.CreateDirectory(WorkflowsTempFolder);
             XsdPath = GetWexflowSetting(xdoc, "xsd");
             TasksNamesFile = GetWexflowSetting(xdoc, "tasksNamesFile");
@@ -349,7 +354,14 @@ namespace Wexflow.Core
         {
             try
             {
-                var wf = new Workflow(file, TempFolder, WorkflowsTempFolder, TasksFolder, XsdPath, Database, GlobalVariables);
+                var wf = new Workflow(file
+                    , TempFolder
+                    , WorkflowsTempFolder
+                    , TasksFolder
+                    , ApprovalFolder
+                    , XsdPath
+                    , Database
+                    , GlobalVariables);
                 Logger.InfoFormat("Workflow loaded: {0} ({1})", wf, file);
                 return wf;
             }
@@ -550,6 +562,32 @@ namespace Wexflow.Core
             else
             {
                 if (wf.IsEnabled) wf.Resume();
+            }
+        }
+
+        /// <summary>
+        /// Resumes a workflow.
+        /// </summary>
+        /// <param name="workflowId">Workflow Id.</param>
+        public bool ApproveWorkflow(int workflowId)
+        {
+            try
+            {
+                var wf = GetWorkflow(workflowId);
+
+                if (wf == null)
+                {
+                    Logger.ErrorFormat("Workflow {0} not found.", workflowId);
+                    return false;
+                }
+
+                wf.Approve();
+                return true;
+            }
+            catch(Exception e)
+            {
+                Logger.ErrorFormat("An error occured while approving the workflow {0}.", e, workflowId);
+                return false;
             }
         }
 

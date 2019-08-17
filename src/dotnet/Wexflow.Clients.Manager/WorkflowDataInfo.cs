@@ -9,14 +9,16 @@ namespace Wexflow.Clients.Manager
         public string Name { get; private set; }
         public LaunchType LaunchType { get; private set; }
         public bool IsEnabled { get; private set; }
+        public bool IsApproval { get; private set; }
         public string Description { get; private set; }
 
-        public WorkflowDataInfo(int id, string name, LaunchType launchType, bool isEnabled, string desc)
+        public WorkflowDataInfo(int id, string name, LaunchType launchType, bool isEnabled, bool isApproval, string desc)
         {
             Id = id;
             Name = name;
             LaunchType = launchType;
             IsEnabled = isEnabled;
+            IsApproval = isApproval;
             Description = desc;
         }
 

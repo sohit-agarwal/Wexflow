@@ -64,6 +64,12 @@ namespace Wexflow.Server
             GetExecutionGraph();
 
             //
+            // Approval
+            //
+            SearchApprovalWorkflows();
+            ApproveWorkflow();
+
+            //
             // Backend
             //
             GetStatusCount();
@@ -98,7 +104,7 @@ namespace Wexflow.Server
             Get(Root + "workflows", args =>
             {
                 var workflows = Program.WexflowEngine.Workflows.Select(wf => new WorkflowInfo(wf.Id, wf.Name,
-                        (LaunchType) wf.LaunchType, wf.IsEnabled, wf.Description, wf.IsRunning, wf.IsPaused,
+                        (LaunchType) wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
                         wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression, wf.WorkflowFilePath,
                         wf.IsExecutionGraphEmpty
                         , wf.LocalVariables.Select(v => new Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()
@@ -128,7 +134,38 @@ namespace Wexflow.Server
                     .Where(wf =>
                         wf.Name.ToUpper().Contains(keywordToUpper) || wf.Description.ToUpper().Contains(keywordToUpper))
                     .Select(wf => new WorkflowInfo(wf.Id, wf.Name,
-                        (LaunchType) wf.LaunchType, wf.IsEnabled, wf.Description, wf.IsRunning, wf.IsPaused,
+                        (LaunchType) wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
+                        wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression, wf.WorkflowFilePath,
+                        wf.IsExecutionGraphEmpty
+                        , wf.LocalVariables.Select(v => new Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()
+                        ))
+                    .ToArray();
+                var workflowsStr = JsonConvert.SerializeObject(workflows);
+                var workflowsBytes = Encoding.UTF8.GetBytes(workflowsStr);
+
+                return new Response()
+                {
+                    ContentType = "application/json",
+                    Contents = s => s.Write(workflowsBytes, 0, workflowsBytes.Length)
+                };
+            });
+        }
+
+        /// <summary>
+        /// Search for approval workflows.
+        /// </summary>
+        private void SearchApprovalWorkflows()
+        {
+            Get(Root + "searchApprovalWorkflows", args =>
+            {
+                string keywordToUpper = Request.Query["s"].ToString().ToUpper();
+                var workflows = Program.WexflowEngine.Workflows
+                    .ToList()
+                    .Where(wf =>
+                        wf.IsApproval &&
+                        (wf.Name.ToUpper().Contains(keywordToUpper) || wf.Description.ToUpper().Contains(keywordToUpper)))
+                    .Select(wf => new WorkflowInfo(wf.Id, wf.Name,
+                        (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
                         wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression, wf.WorkflowFilePath,
                         wf.IsExecutionGraphEmpty
                         , wf.LocalVariables.Select(v => new Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()
@@ -155,7 +192,7 @@ namespace Wexflow.Server
                 Workflow wf = Program.WexflowEngine.GetWorkflow(args.id);
                 if (wf != null)
                 {
-                    var workflow = new WorkflowInfo(wf.Id, wf.Name, (LaunchType)wf.LaunchType, wf.IsEnabled, wf.Description,
+                    var workflow = new WorkflowInfo(wf.Id, wf.Name, (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description,
                         wf.IsRunning, wf.IsPaused, wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
                         wf.WorkflowFilePath, wf.IsExecutionGraphEmpty
                         , wf.LocalVariables.Select(v => new Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()
@@ -250,6 +287,26 @@ namespace Wexflow.Server
         }
 
         /// <summary>
+        /// Suspends a workflow.
+        /// </summary>
+        private void ApproveWorkflow()
+        {
+            Post(Root + "approve/{id}", args =>
+            {
+                bool res = Program.WexflowEngine.ApproveWorkflow(args.id);
+
+                var resStr = JsonConvert.SerializeObject(res);
+                var resBytes = Encoding.UTF8.GetBytes(resStr);
+
+                return new Response()
+                {
+                    ContentType = "application/json",
+                    Contents = s => s.Write(resBytes, 0, resBytes.Length)
+                };
+            });
+        }
+
+        /// <summary>
         /// Returns workflow's tasks.
         /// </summary>
         private void GetTasks()
@@ -261,7 +318,7 @@ namespace Wexflow.Server
                 {
                     IList<TaskInfo> taskInfos = new List<TaskInfo>();
 
-                    foreach (var task in wf.Taks)
+                    foreach (var task in wf.Tasks)
                     {
                         IList<SettingInfo> settingInfos = new List<SettingInfo>();
 
@@ -734,6 +791,7 @@ namespace Wexflow.Server
                         }
 
                         bool isWorkflowEnabled = (bool)wi.SelectToken("IsEnabled");
+                        bool isWorkflowApproval = (bool)wi.SelectToken("IsApproval");
                         string workflowDesc = (string)wi.SelectToken("Description");
 
                         // Local variables
@@ -822,12 +880,15 @@ namespace Wexflow.Server
                                 , new XElement(xn + "Setting"
                                     , new XAttribute("name", "enabled")
                                     , new XAttribute("value", isWorkflowEnabled.ToString().ToLower()))
-                                //, new XElement(xn + "Setting"
-                                //    , new XAttribute("name", "period")
-                                //    , new XAttribute("value", workflowPeriod.ToString(@"dd\.hh\:mm\:ss")))
-                                //, new XElement(xn + "Setting"
-                                //    , new XAttribute("name", "cronExpression")
-                                //    , new XAttribute("value", cronExpression))
+                                , new XElement(xn + "Setting"
+                                , new XAttribute("name", "approval")
+                                , new XAttribute("value", isWorkflowApproval.ToString().ToLower()))
+                            //, new XElement(xn + "Setting"
+                            //    , new XAttribute("name", "period")
+                            //    , new XAttribute("value", workflowPeriod.ToString(@"dd\.hh\:mm\:ss")))
+                            //, new XElement(xn + "Setting"
+                            //    , new XAttribute("name", "cronExpression")
+                            //    , new XAttribute("value", cronExpression))
                             )
                             , xLocalVariables
                             , xtasks
@@ -858,6 +919,8 @@ namespace Wexflow.Server
                     }
                     else
                     {
+                        XNamespace xn = "urn:wexflow-schema";
+
                         int id = int.Parse((string)o.SelectToken("Id"));
                         var wf = Program.WexflowEngine.GetWorkflow(id);
                         if (wf != null)
@@ -878,6 +941,7 @@ namespace Wexflow.Server
                             }
 
                             bool isWorkflowEnabled = (bool)wi.SelectToken("IsEnabled");
+                            bool isWorkflowApproval = (bool)(wi.SelectToken("IsApproval") ?? false);
                             string workflowDesc = (string)wi.SelectToken("Description");
 
                             //if(xdoc.Root == null) throw new Exception("Root is null");
@@ -891,6 +955,20 @@ namespace Wexflow.Server
                             var xwfLaunchType = xdoc.Root.XPathSelectElement("wf:Settings/wf:Setting[@name='launchType']",
                                 wf.XmlNamespaceManager);
                             xwfLaunchType.Attribute("value").Value = workflowLaunchType.ToString().ToLower();
+
+                            var xwfApproval = xdoc.Root.XPathSelectElement("wf:Settings/wf:Setting[@name='approval']",
+                            wf.XmlNamespaceManager);
+                            if (xwfApproval == null)
+                            {
+                                xdoc.Root.XPathSelectElement("wf:Settings", wf.XmlNamespaceManager)
+                                    .Add(new XElement(xn + "Setting"
+                                            , new XAttribute("name", "approval")
+                                            , new XAttribute("value", isWorkflowApproval.ToString().ToLower())));
+                            }
+                            else
+                            {
+                                xwfApproval.Attribute("value").Value = isWorkflowApproval.ToString().ToLower();
+                            }
 
                             var xwfPeriod = xdoc.Root.XPathSelectElement("wf:Settings/wf:Setting[@name='period']",
                                 wf.XmlNamespaceManager);
@@ -1112,7 +1190,7 @@ namespace Wexflow.Server
 
                     foreach (var node in wf.ExecutionGraph.Nodes)
                     {
-                        var task = wf.Taks.FirstOrDefault(t => t.Id == node.Id);
+                        var task = wf.Tasks.FirstOrDefault(t => t.Id == node.Id);
                         string nodeName = "Task " + node.Id + (task != null ? ": " + task.Description : "");
 
                         if (node is If)

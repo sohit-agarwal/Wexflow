@@ -34,7 +34,7 @@
         float: right;
     }
 
-    #header #lnk-manager, #lnk-designer, #lnk-users {
+    #header #lnk-manager, #lnk-designer, #lnk-approval, #lnk-users {
         display: none;
     }
 
@@ -141,6 +141,10 @@
 
 #wf-workflows #wf-workflows-table .wf-e
 {
+    width: 75px;
+}
+
+#wf-workflows #wf-workflows-table .wf-a {
     width: 75px;
 }
 

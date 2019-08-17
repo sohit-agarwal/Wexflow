@@ -431,6 +431,7 @@ begin
   CreateDir('C:\Wexflow\Tasks');
   CreateDir('C:\Wexflow\Temp');
   CreateDir('C:\Wexflow\Temp\Workflows');
+  CreateDir('C:\Wexflow\Approval');  
   CreateDir('C:\Wexflow\Trash');  
   //CreateDir('C:\WexflowTesting');
 end;

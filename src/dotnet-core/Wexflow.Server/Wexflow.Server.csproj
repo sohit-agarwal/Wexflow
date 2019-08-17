@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Wexflow.Core\Wexflow.Core.csproj" />
+    <ProjectReference Include="..\Wexflow.Tasks.Approval\Wexflow.Tasks.Approval.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.CsvToSql\Wexflow.Tasks.CsvToSql.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.CsvToXml\Wexflow.Tasks.CsvToXml.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.EnvironmentVariable\Wexflow.Tasks.EnvironmentVariable.csproj" />

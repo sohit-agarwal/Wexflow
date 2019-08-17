@@ -4,6 +4,7 @@
     var uri = Common.trimEnd(Settings.Uri, "/");
     var lnkManager = document.getElementById("lnk-manager");
     var lnkDesigner = document.getElementById("lnk-designer");
+    var lnkApproval = document.getElementById("lnk-approval");
     var lnkUsers = document.getElementById("lnk-users");
     var divUsers = document.getElementById("users");
     var divUsersTable = document.getElementById("users-table");
@@ -60,6 +61,7 @@
                     divUsers.style.display = "block";
                     lnkManager.style.display = "inline";
                     lnkDesigner.style.display = "inline";
+                    lnkApproval.style.display = "inline";
                     lnkUsers.style.display = "inline";
 
                     btnLogout.innerHTML = "Logout (" + u.Username + ")";

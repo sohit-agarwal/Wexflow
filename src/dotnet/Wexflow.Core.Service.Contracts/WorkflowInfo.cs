@@ -23,6 +23,10 @@ namespace Wexflow.Core.Service.Contracts
         [DataMember]
         public bool IsEnabled { get; private set; }
         [DataMember]
+        public bool IsApproval { get; private set; }
+        [DataMember]
+        public bool IsWaitingForApproval { get; private set; }
+        [DataMember]
         public string Description { get; private set; }
         [DataMember]
         public bool IsRunning { get; set; }
@@ -39,12 +43,14 @@ namespace Wexflow.Core.Service.Contracts
         [DataMember]
         public Variable[] LocalVariables { get; set; }
 
-        public WorkflowInfo(int id, string name, LaunchType launchType, bool isEnabled, string desc, bool isRunning, bool isPaused, string period, string cronExpression, string path, bool isExecutionGraphEmpty, Variable[] localVariables)
+        public WorkflowInfo(int id, string name, LaunchType launchType, bool isEnabled, bool isApproval, bool isWaitingForApproval, string desc, bool isRunning, bool isPaused, string period, string cronExpression, string path, bool isExecutionGraphEmpty, Variable[] localVariables)
         {
             Id = id;
             Name = name;
             LaunchType = launchType;
             IsEnabled = isEnabled;
+            IsApproval = isApproval;
+            IsWaitingForApproval = isWaitingForApproval;
             Description = desc;
             IsRunning = isRunning;
             IsPaused = isPaused;

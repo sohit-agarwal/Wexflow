@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Tasks>
+  <!--
+    Approval is a sequential task that marks the current workflow as needing approval.
+  -->
+  <Task id="$int" name="Approval" description="$string" enabled="true|false">
+  </Task>
+</Tasks>

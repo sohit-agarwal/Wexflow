@@ -29,6 +29,10 @@ namespace Wexflow.Core
         /// </summary>
         public bool IsEnabled { get; private set; }
         /// <summary>
+        /// Shows whether this task is waiting for approval.
+        /// </summary>
+        public bool IsWaitingForApproval { get; set; }
+        /// <summary>
         /// Task settings.
         /// </summary>
         public Setting[] Settings { get; private set; }
@@ -85,6 +89,7 @@ namespace Wexflow.Core
             var xEnabled = xe.Attribute("enabled");
             if (xEnabled == null) throw new Exception("Task enabled attribute not found.");
             IsEnabled = bool.Parse(xEnabled.Value);
+            IsWaitingForApproval = false;
             Workflow = wf;
             Workflow.FilesPerTask.Add(Id, new List<FileInf>());
             Workflow.EntitiesPerTask.Add(Id, new List<Entity>());

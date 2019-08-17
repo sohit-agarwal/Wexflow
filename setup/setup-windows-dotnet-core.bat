@@ -32,6 +32,7 @@ copy "..\src\backend\Wexflow.Backend\forgot-password.html" %dstDir%\%backend%\
 copy "..\src\backend\Wexflow.Backend\dashboard.html" %dstDir%\%backend%\
 copy "..\src\backend\Wexflow.Backend\manager.html" %dstDir%\%backend%\
 copy "..\src\backend\Wexflow.Backend\designer.html" %dstDir%\%backend%\
+copy "..\src\backend\Wexflow.Backend\approval.html" %dstDir%\%backend%\
 copy "..\src\backend\Wexflow.Backend\history.html" %dstDir%\%backend%\
 copy "..\src\backend\Wexflow.Backend\users.html" %dstDir%\%backend%\
 
@@ -44,6 +45,7 @@ copy "..\src\backend\Wexflow.Backend\css\forgot-password.min.css" %dstDir%\%back
 copy "..\src\backend\Wexflow.Backend\css\dashboard.min.css" %dstDir%\%backend%\css
 copy "..\src\backend\Wexflow.Backend\css\manager.min.css" %dstDir%\%backend%\css
 copy "..\src\backend\Wexflow.Backend\css\designer.min.css" %dstDir%\%backend%\css
+copy "..\src\backend\Wexflow.Backend\css\approval.min.css" %dstDir%\%backend%\css
 copy "..\src\backend\Wexflow.Backend\css\history.min.css" %dstDir%\%backend%\css
 copy "..\src\backend\Wexflow.Backend\css\users.min.css" %dstDir%\%backend%\css
 
@@ -63,6 +65,7 @@ copy "..\src\backend\Wexflow.Backend\js\ext-settings_menu.js" %dstDir%\%backend%
 copy "..\src\backend\Wexflow.Backend\js\theme-*.js" %dstDir%\%backend%\js
 copy "..\src\backend\Wexflow.Backend\js\designer.min.js" %dstDir%\%backend%\js
 
+copy "..\src\backend\Wexflow.Backend\js\approval.min.js" %dstDir%\%backend%\js
 copy "..\src\backend\Wexflow.Backend\js\history.min.js" %dstDir%\%backend%\js
 copy "..\src\backend\Wexflow.Backend\js\users.min.js" %dstDir%\%backend%\js
 

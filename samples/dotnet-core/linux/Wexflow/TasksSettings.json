@@ -1,4 +1,5 @@
 {
+	"Approval": [ ],
 	"CsvToSql": [ "selectFiles", "tableName", "separator" ],
 	"CsvToXml": [ "selectFiles" ],
 	"EnvironmentVariable": [ "name" ],

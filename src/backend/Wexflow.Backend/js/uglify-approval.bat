@@ -1,0 +1,1 @@
+uglifyjs jquery.min.js jquery.toast.min.js common.js authenticate.js approval.js -o approval.min.js -c -m

@@ -1,4 +1,5 @@
 {
+	"Approval": [ ],
 	"CsvToJson": [ "selectFiles", "separator" ],
 	"CsvToSql": [ "selectFiles", "tableName", "separator" ],
 	"CsvToXml": [ "selectFiles" ],

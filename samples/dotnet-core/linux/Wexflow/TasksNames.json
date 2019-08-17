@@ -1,4 +1,5 @@
 [
+	"Approval",
 	"CsvToSql",
 	"CsvToXml",
 	"EnvironmentVariable",

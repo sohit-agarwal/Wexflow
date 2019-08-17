@@ -34,7 +34,7 @@ body {
         float: right;
     }
 
-    #header #lnk-manager, #lnk-designer, #lnk-users {
+    #header #lnk-manager, #lnk-designer, #lnk-approval, #lnk-users {
         display: none;
     }
 

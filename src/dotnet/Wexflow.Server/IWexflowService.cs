@@ -11,7 +11,13 @@ namespace Wexflow.Server
         WorkflowInfo[] GetWorkflows();
 
         [OperationContract]
+        WorkflowInfo[] GetApprovalWorkflows();
+
+        [OperationContract]
         WorkflowInfo[] Search(string keyword);
+
+        [OperationContract]
+        WorkflowInfo[] SearchApprovalWorkflows(string keyword);
 
         [OperationContract]
         void StartWorkflow(string id);
@@ -24,6 +30,9 @@ namespace Wexflow.Server
 
         [OperationContract]
         void ResumeWorkflow(string id);
+
+        [OperationContract]
+        bool ApproveWorkflow(string id);
 
         [OperationContract]
         WorkflowInfo GetWorkflow(string id);

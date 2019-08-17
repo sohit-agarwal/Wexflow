@@ -51,6 +51,7 @@
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.buttonSearch = new System.Windows.Forms.Button();
+            this.buttonApprove = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewWorkflows)).BeginInit();
             this.panel1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
@@ -161,6 +162,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.buttonApprove);
             this.panel1.Controls.Add(this.buttonRestart);
             this.panel1.Controls.Add(this.buttonRefresh);
             this.panel1.Controls.Add(this.buttonLogs);
@@ -287,7 +289,18 @@
             this.buttonSearch.UseVisualStyleBackColor = true;
             this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
-            // Form1
+            // buttonApprove
+            // 
+            this.buttonApprove.Enabled = false;
+            this.buttonApprove.Location = new System.Drawing.Point(337, 9);
+            this.buttonApprove.Name = "buttonApprove";
+            this.buttonApprove.Size = new System.Drawing.Size(75, 23);
+            this.buttonApprove.TabIndex = 9;
+            this.buttonApprove.Text = "Approve";
+            this.buttonApprove.UseVisualStyleBackColor = true;
+            this.buttonApprove.Click += new System.EventHandler(this.ButtonApprove_Click);
+            // 
+            // Manager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -302,7 +315,7 @@
             this.Controls.Add(this.menuStrip2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "Manager";
             this.Text = "Wexflow Manager";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewWorkflows)).EndInit();
             this.panel1.ResumeLayout(false);
@@ -334,6 +347,7 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
         private System.Windows.Forms.TextBox textBoxSearch;
         private System.Windows.Forms.Button buttonSearch;
+        private System.Windows.Forms.Button buttonApprove;
     }
 }
 
