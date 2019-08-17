@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Wexflow.Tests
@@ -19,11 +20,21 @@ namespace Wexflow.Tests
         [TestMethod]
         public void ApprovalTest()
         {
-            // TODO
-            //Stopwatch stopwatch = Stopwatch.StartNew();
-            //Helper.StartWorkflow(125);
-            //stopwatch.Stop();
-            //Assert.IsTrue(stopwatch.ElapsedMilliseconds > 2000);
+            var workflowId = 125;
+            Helper.StartWorkflow(workflowId);
+            Thread.Sleep(500);
+            Helper.ApproveWorkflow(workflowId);
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            var workflow = Helper.GetWorkflow(workflowId);
+            var isRunning = workflow.IsRunning;
+            while (isRunning)
+            {
+                Thread.Sleep(100);
+                workflow = Helper.GetWorkflow(workflowId);
+                isRunning = workflow.IsRunning;
+            }
+            stopwatch.Stop();
+            Assert.IsTrue(stopwatch.ElapsedMilliseconds > 2000);
         }
     }
 }

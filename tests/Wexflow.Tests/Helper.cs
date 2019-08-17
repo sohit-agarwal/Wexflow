@@ -27,11 +27,13 @@ namespace Wexflow.Tests
             Thread.Sleep(1000);
             var workflow = WexflowEngine.GetWorkflow(workflowId);
             var isRunning = workflow.IsRunning;
-            while (isRunning)
+            var isWaitingForApproval = workflow.IsWaitingForApproval;
+            while (isRunning && !isWaitingForApproval)
             {
                 Thread.Sleep(100);
                 workflow = WexflowEngine.GetWorkflow(workflowId);
                 isRunning = workflow.IsRunning;
+                isWaitingForApproval = workflow.IsWaitingForApproval;
             }
         }
 
@@ -53,6 +55,11 @@ namespace Wexflow.Tests
         public static void ResumeWorkflow(int workflowId)
         {
             WexflowEngine.ResumeWorkflow(workflowId);
+        }
+
+        public static void ApproveWorkflow(int workflowId)
+        {
+            WexflowEngine.ApproveWorkflow(workflowId);
         }
 
         public static Core.Workflow GetWorkflow(int workflowId)
