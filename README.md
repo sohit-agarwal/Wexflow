@@ -76,7 +76,7 @@ Moreover, the "Designer" page allows to edit workflow files through its Web XML 
 - [x] [100+ built-in tasks](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation).
 - [x] [Cron scheduling](https://github.com/aelassas/Wexflow/wiki/Cron-scheduling).
 - [x] [Extensive logging and incident reporting](https://github.com/aelassas/Wexflow/wiki/Logging).
-- [x] [Real-time statistics](https://github.com/aelassas/Wexflow/wiki/Usage#dashboard).
+- [x] [Real-time stats](https://github.com/aelassas/Wexflow/wiki/Usage#dashboard).
 - [x] [RESTful API](https://github.com/aelassas/Wexflow/wiki/RESTful-API).
 - [x] [Extensible](https://github.com/aelassas/Wexflow/wiki/Extensible).
 
