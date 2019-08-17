@@ -30,7 +30,7 @@
 <!--
 [![Logo](https://aelassas.github.io/wexflow/images/wexflow-3.6-2.jpg)](https://wexflow.github.io/)
 -->
-Wexflow is a high-performance, extensible, modular and cross-platform workflow engine. The goal of Wexflow is to automate recurring tasks without user intervention. With the help of Wexflow, building automation and workflow processes become easy. Wexflow also helps in making the long-running processes straightforward. 
+Wexflow is a high-performance, extensible, modular and cross-platform workflow engine. The goal of Wexflow is to automate recurring tasks with or without user intervention. With the help of Wexflow, building automation and workflow processes become easy. Wexflow also helps in making the long-running processes straightforward. 
 
 Wexflow aims to make automations, workflow processes, long-running processes and interactions between systems, applications and folks easy, straightforward and clean. The communication between systems or applications becomes easy through this powerful workflow engine.
 
@@ -42,15 +42,15 @@ Furthermore, Wexflow makes use of [LiteDB](http://www.litedb.org/) serverless No
 
 Wexflow comes with a backend too, so you can search and filter among all your workflows, have real-time statistics on your workflows, manage your workflows with ease, design your workflows with ease, and track your workflows with ease:
 
-![Dashboard](https://aelassas.github.io/wexflow/images/wbo-dashboard-4.3.png)
+![Dashboard](https://aelassas.github.io/wexflow/images/wbo-dashboard-4.4.png)
 
 Just to give you an idea of what Wexflow does, this is a screenshot from the "Designer" page. Using the "Designer" page, we get a nice visual overview of the dependency graph of the workflow. Each node represents a task which has to be run:
 
-![Designer](https://aelassas.github.io/wexflow/images/wbo-designer-4.3-1.png)
+![Designer](https://aelassas.github.io/wexflow/images/wbo-designer-4.4-1.png)
 
 Moreover, the "Designer" page allows to edit workflow files through its Web XML editor:
 
-![Designer](https://aelassas.github.io/wexflow/images/wbo-designer-4.3-2.png)
+![Designer](https://aelassas.github.io/wexflow/images/wbo-designer-4.4-2.png)
 
 # Table Of Contents
 - [Why Wexflow?](https://github.com/aelassas/Wexflow#why-wexflow)
@@ -67,29 +67,33 @@ Moreover, the "Designer" page allows to edit workflow files through its Web XML 
 - [x] [Free and open-source](https://github.com/aelassas/Wexflow/wiki/Free-and-open-source).
 - [x] [Easy to install and effortless configuration](https://github.com/aelassas/Wexflow/wiki/Installation).
 - [x] [Straightforward and easy to use](https://github.com/aelassas/Wexflow/wiki/Usage).
-- [x] [Modular](https://github.com/aelassas/Wexflow/wiki/Modular).
-- [x] [Well documented](https://github.com/aelassas/Wexflow/wiki/).
-- [x] [User driven](https://github.com/aelassas/Wexflow/wiki/User-driven).
 - [x] [A cross-platform workflow server](https://github.com/aelassas/Wexflow/wiki/Workflow-server).
-- [x] [A cross-platform backend](https://github.com/aelassas/Wexflow/wiki/Usage#backend).
-- [x] [A cross-platform application for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#manager).
-- [x] [A cross-platform application for designing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#designer).
-- [x] [An Android application for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#android-manager).
-- [x] [User management](https://github.com/aelassas/Wexflow/wiki/Usage#users).
+- [x] [A cross-platform back end](https://github.com/aelassas/Wexflow/wiki/Usage#backend).
+- [x] [An Android app for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#android-manager).
 - [x] [Sequential workflows](https://github.com/aelassas/Wexflow/wiki/Samples#sequential-workflows).
 - [x] [Flowchart workflows](https://github.com/aelassas/Wexflow/wiki/Samples#flowchart-workflows).
-- [x] [Workflow events](https://github.com/aelassas/Wexflow/wiki/Samples#workflow-events).
+- [x] [Approval workflows](https://github.com/aelassas/Wexflow/wiki/Samples#approval-workflows).
+- [x] [100+ built-in tasks](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation).
 - [x] [Cron scheduling](https://github.com/aelassas/Wexflow/wiki/Cron-scheduling).
 - [x] [Extensive logging and incident reporting](https://github.com/aelassas/Wexflow/wiki/Logging).
-- [x] [Real-time statistics on workflows](https://github.com/aelassas/Wexflow/wiki/Usage#dashboard).
-- [x] [100+ built-in tasks](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation).
+- [x] [Real-time stats](https://github.com/aelassas/Wexflow/wiki/Usage#dashboard).
 - [x] [RESTful API](https://github.com/aelassas/Wexflow/wiki/RESTful-API).
-- [x] [Hot reloading](https://github.com/aelassas/Wexflow/wiki/Hot-reloading).
-- [x] [Automation](https://github.com/aelassas/Wexflow/wiki/Automation).
-- [x] [Monitoring](https://github.com/aelassas/Wexflow/wiki/Monitoring).
 - [x] [Extensible](https://github.com/aelassas/Wexflow/wiki/Extensible).
 
 Discover more about the features in [details](https://github.com/aelassas/Wexflow/wiki).
+
+<!--
+- [x] [Modular](https://github.com/aelassas/Wexflow/wiki/Modular).
+- [x] [Well documented](https://github.com/aelassas/Wexflow/wiki/).
+- [x] [User driven](https://github.com/aelassas/Wexflow/wiki/User-driven).
+- [x] [A cross-platform application for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#manager).
+- [x] [A cross-platform application for designing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#designer).
+- [x] [User management](https://github.com/aelassas/Wexflow/wiki/Usage#users).
+- [x] [Workflow events](https://github.com/aelassas/Wexflow/wiki/Samples#workflow-events).
+- [x] [Hot reloading](https://github.com/aelassas/Wexflow/wiki/Hot-reloading).
+- [x] [Automation](https://github.com/aelassas/Wexflow/wiki/Automation).
+- [x] [Monitoring](https://github.com/aelassas/Wexflow/wiki/Monitoring).-
+-->
 
 # Real Life Examples
 
