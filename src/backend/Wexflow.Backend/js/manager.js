@@ -214,9 +214,10 @@
             }
 
             function workflowStatusChanged(workflow) {
-                var changed = workflows[workflow.Id].IsRunning !== workflow.IsRunning || workflows[workflow.Id].IsPaused !== workflow.IsPaused;
+                var changed = workflows[workflow.Id].IsRunning !== workflow.IsRunning || workflows[workflow.Id].IsPaused !== workflow.IsPaused || workflows[workflow.Id].IsWaitingForApproval !== workflow.IsWaitingForApproval;
                 workflows[workflow.Id].IsRunning = workflow.IsRunning;
                 workflows[workflow.Id].IsPaused = workflow.IsPaused;
+                workflows[workflow.Id].IsWaitingForApproval = workflow.IsWaitingForApproval;
                 return changed;
             }
 
