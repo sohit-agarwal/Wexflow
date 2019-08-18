@@ -8,15 +8,15 @@
 # <a href="https://wexflow.github.io/"><img alt="Wexflow" src="https://aelassas.github.io/wexflow/images/wexflow-3.6-2.jpg" width="100%"></a>
 -->
 
-# [![Build Status](https://aelassas.visualstudio.com/Wexflow/_apis/build/status/aelassas.Wexflow?branchName=master)](https://aelassas.visualstudio.com/Wexflow/_build/latest?definitionId=1&branchName=master) [![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow) [![Build Status](https://app.bitrise.io/app/0fb832132f6afa6d/status.svg?token=j49g0Gx7rNWkl4s41xM_kA)](https://app.bitrise.io/app/0fb832132f6afa6d) [![codecov](https://codecov.io/gh/aelassas/Wexflow/branch/master/graph/badge.svg)](https://codecov.io/gh/aelassas/Wexflow) [![downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://wexflow.github.io/stats) [![Release](http://img.shields.io/badge/release-v4.3-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/latest) [![Nuget](http://img.shields.io/badge/nuget-v4.3.0-blue.svg)](https://www.nuget.org/packages/Wexflow)
-
 <!--
+ [![downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://wexflow.github.io/stats) [![Release](http://img.shields.io/badge/release-v4.3-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/latest) [![Nuget](http://img.shields.io/badge/nuget-v4.3.0-blue.svg)](https://www.nuget.org/packages/Wexflow)
+ [![Build Status](https://aelassas.visualstudio.com/Wexflow/_apis/build/status/aelassas.Wexflow?branchName=master)](https://aelassas.visualstudio.com/Wexflow/_build/latest?definitionId=1&branchName=master) [![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow) [![Build Status](https://app.bitrise.io/app/0fb832132f6afa6d/status.svg?token=j49g0Gx7rNWkl4s41xM_kA)](https://app.bitrise.io/app/0fb832132f6afa6d) [![codecov](https://codecov.io/gh/aelassas/Wexflow/branch/master/graph/badge.svg)](https://codecov.io/gh/aelassas/Wexflow)
 [![Nuget Downloads](https://img.shields.io/nuget/dt/Wexflow?label=nuget%20downloads)](https://www.nuget.org/packages/Wexflow)
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)
 [![Doc](http://img.shields.io/badge/github-wiki-black.svg)](https://github.com/aelassas/Wexflow/wiki)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby) [![Wiki](https://img.shields.io/badge/github-wiki-181717.svg?maxAge=60)](https://github.com/aelassas/Wexflow/wiki)
 [![Twitter URL](https://img.shields.io/twitter/url/https/twitter.com/fold_left.svg?style=social&label=Follow)](https://twitter.com/aelassas_dev)
-[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Wexflow%20-%20Open%20source%20and%20cross-platform%20workflow%20engine&url=https://wexflow.github.io&via=aelassas_dev)
+[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Wexflow%20-%20Open-source%20and%20cross-platform%20workflow%20engine&url=https://wexflow.github.io&via=aelassas_dev)
 -->
 
 <!--
@@ -30,6 +30,18 @@
 <!--
 [![Logo](https://aelassas.github.io/wexflow/images/wexflow-3.6-2.jpg)](https://wexflow.github.io/)
 -->
+
+# Continuous Integration
+
+|  Server | Platform | Status |
+----------|--------|----------|
+|[Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) (.NET and .NET Core)|Windows|[![Build Status](https://aelassas.visualstudio.com/Wexflow/_apis/build/status/aelassas.Wexflow?branchName=master)](https://aelassas.visualstudio.com/Wexflow/_build/latest?definitionId=1&branchName=master)|
+|[AppVeyor](https://www.appveyor.com/) (.NET and .NET Core)| Windows |[![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow)|
+|[Bitrise](https://www.bitrise.io/) (Android)|Linux| [![Build Status](https://app.bitrise.io/app/0fb832132f6afa6d/status.svg?token=j49g0Gx7rNWkl4s41xM_kA)](https://app.bitrise.io/app/0fb832132f6afa6d)|
+|[Codecov](https://codecov.io) (.NET)|Windows|[![codecov](https://codecov.io/gh/aelassas/Wexflow/branch/master/graph/badge.svg)](https://codecov.io/gh/aelassas/Wexflow)|
+
+# Wexflow [![downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://wexflow.github.io/stats) [![Release](http://img.shields.io/badge/release-v4.3-brightgreen.svg)](https://github.com/aelassas/Wexflow/releases/latest) [![Nuget](http://img.shields.io/badge/nuget-v4.3.0-blue.svg)](https://www.nuget.org/packages/Wexflow) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Wexflow%20-%20Open-source%20and%20cross-platform%20workflow%20engine&url=https://wexflow.github.io&via=aelassas_dev)
+
 Wexflow is a high-performance, extensible, modular and cross-platform workflow engine. The goal of Wexflow is to automate recurring tasks with or without user intervention. With the help of Wexflow, building automation and workflow processes become easy. Wexflow also helps in making the long-running processes straightforward. 
 
 Wexflow aims to make automations, workflow processes, long-running processes and interactions between systems, applications and folks easy, straightforward and clean. The communication between systems or applications becomes easy through this powerful workflow engine.
@@ -40,7 +52,7 @@ Wexflow also makes use of [Quartz.NET](https://www.quartz-scheduler.net/) open s
 
 Furthermore, Wexflow makes use of [LiteDB](http://www.litedb.org/) serverless NoSQL Document Store database in its server and backend which enhance and improve the performance of this workflow engine.
 
-Wexflow comes with a backend too, so you can search and filter among all your workflows, have real-time statistics on your workflows, manage your workflows with ease, design your workflows with ease, and track your workflows with ease:
+Wexflow comes with a back end too, so you can search and filter among all your workflows, have real-time statistics on your workflows, manage your workflows with ease, design your workflows with ease, and track your workflows with ease:
 
 ![Dashboard](https://aelassas.github.io/wexflow/images/wbo-dashboard-4.4.png)
 
