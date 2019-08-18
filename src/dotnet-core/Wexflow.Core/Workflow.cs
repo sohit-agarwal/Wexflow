@@ -1148,7 +1148,7 @@ namespace Wexflow.Core
                                     var childTask = GetTask(tasks, childNode.Id);
                                     if (childTask != null)
                                     {
-                                        if (childTask.IsEnabled)
+                                        if (childTask.IsEnabled && ((!IsApproval || (IsApproval && !IsDisapproved)) || force))
                                         {
                                             var childStatus = childTask.Run();
 
