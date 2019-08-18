@@ -18,6 +18,9 @@
           For example '0 0/2 * * * ?' will launch the workflow every 2 minutes.
         - The enabled option which allows to enable or disable a workflow.
           The possible values are true or false.
+        - The approval option which marks the current workflow as an approval workflow.
+          The possible values are true or false. An approval workflow must contain
+          at least one Approval task or more.
       - A LocalVariables section which contains local variables.
       - A Tasks section which contains the tasks that will be executed by
         the workflow one after the other.
@@ -36,6 +39,7 @@
     <Setting name="period" value="dd.hh:mm:ss" />
     <Setting name="cronExpression" value="$string" />
     <Setting name="enabled" value="true|false" />
+    <Setting name="approval" value="true|false" />
   </Settings>
   <LocalVariables>
     <Variable name="$string" value="$string" />

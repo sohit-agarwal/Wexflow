@@ -23,10 +23,12 @@
 
   <ItemGroup>
     <None Remove="GlobalVariables.xml" />
+    <None Remove="Workflow.xml" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="GlobalVariables.xml" />
+    <Content Include="Workflow.xml" />
   </ItemGroup>
 
   <ItemGroup>

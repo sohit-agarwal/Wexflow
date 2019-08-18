@@ -16,9 +16,11 @@
           00.00:02:00 will launch the workflow every 2 minutes.
         - A cron expression which is necessary for the cron launchType.
           For example '0 0/2 * * * ?' will launch the workflow every 2 minutes.
-          Read the following documentation for more details: https://github.com/aelassas/Wexflow/wiki/Cron-scheduling
         - The enabled option which allows to enable or disable a workflow.
           The possible values are true or false.
+        - The approval option which marks the current workflow as an approval workflow.
+          The possible values are true or false. An approval workflow must contain
+          at least one Approval task or more.
       - A LocalVariables section which contains local variables.
       - A Tasks section which contains the tasks that will be executed by
         the workflow one after the other.
@@ -29,7 +31,7 @@
           - The enabled option which allows to enable or disable a task. The possible 
             values are true or false.
           - A collection of settings.
-        - An ExecutionGraph section which contains the execution graph of the workflow.
+      - An ExecutionGraph section which contains the execution graph of the workflow.
 -->
 <Workflow xmlns="urn:wexflow-schema" id="$int" name="$string" description="$string">
   <Settings>
@@ -37,10 +39,12 @@
     <Setting name="period" value="dd.hh:mm:ss" />
     <Setting name="cronExpression" value="$string" />
     <Setting name="enabled" value="true|false" />
+    <Setting name="approval" value="true|false" />
   </Settings>
   <LocalVariables>
     <Variable name="$string" value="$string" />
     <Variable name="$string" value="$string" />
+    <!-- You can add as many variables as you want. -->
   </LocalVariables>
   <Tasks>
     <Task id="$int" name="$string" description="$string" enabled="true|false">
@@ -54,6 +58,6 @@
     </Task>
     <!-- You can add as many tasks as you want. -->
   </Tasks>
-  <!-- This section is optional and described in the samples section (https://github.com/aelassas/Wexflow/wiki/Samples). -->
+  <!-- This section is optional and described in the samples section. -->
   <ExecutionGraph />
 </Workflow>
