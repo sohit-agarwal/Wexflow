@@ -18,6 +18,8 @@ namespace Wexflow.Core.Service.Contracts
         [DataMember]
         public int DisabledCount { get; set; }
         [DataMember]
+        public int DisapprovedCount { get; set; }
+        [DataMember]
         public int StoppedCount { get; set; }
     }
 }

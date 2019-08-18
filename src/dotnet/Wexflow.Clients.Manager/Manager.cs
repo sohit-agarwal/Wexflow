@@ -290,9 +290,10 @@ namespace Wexflow.Clients.Manager
         {
             if (_workflowsPerId.ContainsKey(workflow.Id))
             {
-                var changed = _workflowsPerId[workflow.Id].IsRunning != workflow.IsRunning || _workflowsPerId[workflow.Id].IsPaused != workflow.IsPaused;
+                var changed = _workflowsPerId[workflow.Id].IsRunning != workflow.IsRunning || _workflowsPerId[workflow.Id].IsPaused != workflow.IsPaused || _workflowsPerId[workflow.Id].IsWaitingForApproval != workflow.IsWaitingForApproval;
                 _workflowsPerId[workflow.Id].IsRunning = workflow.IsRunning;
                 _workflowsPerId[workflow.Id].IsPaused = workflow.IsPaused;
+                _workflowsPerId[workflow.Id].IsWaitingForApproval = workflow.IsWaitingForApproval;
                 return changed;
             }
 
@@ -310,7 +311,7 @@ namespace Wexflow.Clients.Manager
                     if (!workflow.IsEnabled)
                     {
                         textBoxInfo.Text = @"This workflow is disabled.";
-                        buttonStart.Enabled = buttonPause.Enabled = buttonResume.Enabled = buttonStop.Enabled = buttonApprove.Enabled = false;
+                        buttonStart.Enabled = buttonPause.Enabled = buttonResume.Enabled = buttonStop.Enabled = buttonApprove.Enabled = buttonDisapprove.Enabled = false;
                     }
                     else
                     {
@@ -321,8 +322,9 @@ namespace Wexflow.Clients.Manager
                         buttonPause.Enabled = workflow.IsRunning && !workflow.IsPaused;
                         buttonResume.Enabled = workflow.IsPaused;
                         buttonApprove.Enabled = workflow.IsApproval && workflow.IsWaitingForApproval;
+                        buttonDisapprove.Enabled = workflow.IsApproval && workflow.IsWaitingForApproval;
 
-                        if(workflow.IsApproval && workflow.IsWaitingForApproval && !workflow.IsPaused)
+                        if (workflow.IsApproval && workflow.IsWaitingForApproval && !workflow.IsPaused)
                         {
                             textBoxInfo.Text = "This workflow is waiting for approval...";
                         }
@@ -342,7 +344,6 @@ namespace Wexflow.Clients.Manager
                             }
                         }
 
-                        
                     }
                 }
                 else
@@ -352,6 +353,8 @@ namespace Wexflow.Clients.Manager
                     buttonPause.Enabled = false;
                     buttonResume.Enabled = false;
                     buttonApprove.Enabled = false;
+                    buttonDisapprove.Enabled = false;
+
                     if (_timer != null)
                     {
                         _timer.Stop();
@@ -502,6 +505,16 @@ namespace Wexflow.Clients.Manager
             if (wfId > -1)
             {
                 _wexflowServiceClient.ApproveWorkflow(wfId);
+                UpdateButtons(wfId, true);
+            }
+        }
+
+        private void ButtonDisapprove_Click(object sender, EventArgs e)
+        {
+            var wfId = GetSlectedWorkflowId();
+            if (wfId > -1)
+            {
+                _wexflowServiceClient.DisapproveWorkflow(wfId);
                 UpdateButtons(wfId, true);
             }
         }

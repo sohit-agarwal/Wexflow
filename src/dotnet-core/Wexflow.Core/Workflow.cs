@@ -103,6 +103,10 @@ namespace Wexflow.Core
         /// </summary>
         public bool IsWaitingForApproval { get; set; }
         /// <summary>
+        /// Shows whether this workflow is disapproved or not.
+        /// </summary>
+        public bool IsDisapproved { get; private set; }
+        /// <summary>
         /// Shows whether this workflow is running or not.
         /// </summary>
         public bool IsRunning { get; private set; }
@@ -504,7 +508,20 @@ namespace Wexflow.Core
                         onError = new GraphEvent(onErrorNodes);
                     }
 
-                    ExecutionGraph = new Graph(taskNodes, onSuccess, onWarning, onError);
+                    // OnDisapproved
+                    GraphEvent onDisapproved = null;
+                    var xOnDispproved = xExectionGraph.XPathSelectElement("wf:OnDisapproved", XmlNamespaceManager);
+                    if (xOnDispproved != null)
+                    {
+                        var onDisapproveNodes = GetTaskNodes(xOnDispproved);
+                        CheckStartupNode(onDisapproveNodes, "Startup node with parentId=-1 not found in OnError execution graph.");
+                        CheckParallelTasks(onDisapproveNodes, "Parallel tasks execution detected in OnError execution graph.");
+                        CheckInfiniteLoop(onDisapproveNodes, "Infinite loop detected in OnError execution graph.");
+                        onDisapproved = new GraphEvent(onDisapproveNodes);
+                    }
+
+
+                    ExecutionGraph = new Graph(taskNodes, onSuccess, onWarning, onError, onDisapproved);
                 }
             }
         }
@@ -513,7 +530,7 @@ namespace Wexflow.Core
         {
             var nodes = xExectionGraph
                 .Elements()
-                .Where(xe => xe.Name.LocalName != "OnSuccess" && xe.Name.LocalName != "OnWarning" && xe.Name.LocalName != "OnError")
+                .Where(xe => xe.Name.LocalName != "OnSuccess" && xe.Name.LocalName != "OnWarning" && xe.Name.LocalName != "OnError" && xe.Name.LocalName != "OnDisapproved")
                 .Select(XNodeToNode)
                 .ToArray();
 
@@ -815,6 +832,7 @@ namespace Wexflow.Core
                     try
                     {
                         IsRunning = true;
+                        IsDisapproved = false;
                         Logger.InfoFormat("{0} Workflow started.", LogTag);
 
                         // Create the temp folder
@@ -856,7 +874,7 @@ namespace Wexflow.Core
                         }
                         else
                         {
-                            var status = RunTasks(ExecutionGraph.Nodes, Tasks);
+                            var status = RunTasks(ExecutionGraph.Nodes, Tasks, false);
 
                             switch (status)
                             {
@@ -864,7 +882,7 @@ namespace Wexflow.Core
                                     if (ExecutionGraph.OnSuccess != null)
                                     {
                                         var successTasks = NodesToTasks(ExecutionGraph.OnSuccess.Nodes);
-                                        RunTasks(ExecutionGraph.OnSuccess.Nodes, successTasks);
+                                        RunTasks(ExecutionGraph.OnSuccess.Nodes, successTasks, false);
                                     }
                                     Database.IncrementDoneCount();
                                     entry.Status = Db.Status.Done;
@@ -876,7 +894,7 @@ namespace Wexflow.Core
                                     if (ExecutionGraph.OnWarning != null)
                                     {
                                         var warningTasks = NodesToTasks(ExecutionGraph.OnWarning.Nodes);
-                                        RunTasks(ExecutionGraph.OnWarning.Nodes, warningTasks);
+                                        RunTasks(ExecutionGraph.OnWarning.Nodes, warningTasks, false);
                                     }
                                     Database.IncrementWarningCount();
                                     entry.Status = Db.Status.Warning;
@@ -888,13 +906,25 @@ namespace Wexflow.Core
                                     if (ExecutionGraph.OnError != null)
                                     {
                                         var errorTasks = NodesToTasks(ExecutionGraph.OnError.Nodes);
-                                        RunTasks(ExecutionGraph.OnError.Nodes, errorTasks);
+                                        RunTasks(ExecutionGraph.OnError.Nodes, errorTasks, false);
                                     }
                                     Database.IncrementFailedCount();
                                     entry.Status = Db.Status.Failed;
                                     entry.StatusDate = DateTime.Now;
                                     Database.UpdateEntry(entry);
                                     _historyEntry.Status = Db.Status.Failed;
+                                    break;
+                                case Status.Disapproved:
+                                    if(ExecutionGraph.OnDisapproved != null)
+                                    {
+                                        var disapprovedTasks = NodesToTasks(ExecutionGraph.OnDisapproved.Nodes);
+                                        RunTasks(ExecutionGraph.OnDisapproved.Nodes, disapprovedTasks, true);
+                                    }
+                                    Database.IncrementDisapprovedCount();
+                                    entry.Status = Db.Status.Disapproved;
+                                    entry.StatusDate = DateTime.Now;
+                                    Database.UpdateEntry(entry);
+                                    _historyEntry.Status = Db.Status.Disapproved;
                                     break;
                             }
                         }
@@ -920,6 +950,7 @@ namespace Wexflow.Core
                         foreach (List<Entity> entities in EntitiesPerTask.Values) entities.Clear();
                         _thread = null;
                         IsRunning = false;
+                        IsDisapproved = false;
                         File.Delete(dest);
                         GC.Collect();
 
@@ -988,7 +1019,7 @@ namespace Wexflow.Core
             return tasks.ToArray();
         }
 
-        private Status RunTasks(Node[] nodes, Task[] tasks)
+        private Status RunTasks(Node[] nodes, Task[] tasks, bool force)
         {
             var success = true;
             var warning = false;
@@ -1002,20 +1033,25 @@ namespace Wexflow.Core
                 if (@if != null)
                 {
                     var doIf = @if;
-                    RunIf(tasks, nodes, doIf, ref success, ref warning, ref atLeastOneSucceed);
+                    RunIf(tasks, nodes, doIf, force, ref success, ref warning, ref atLeastOneSucceed);
                 }
                 else if (startNode is While)
                 {
                     var doWhile = (While)startNode;
-                    RunWhile(tasks, nodes, doWhile, ref success, ref warning, ref atLeastOneSucceed);
+                    RunWhile(tasks, nodes, doWhile, force, ref success, ref warning, ref atLeastOneSucceed);
                 }
                 else
                 {
                     if (startNode.ParentId == StartId)
                     {
-                        RunTasks(tasks, nodes, startNode, ref success, ref warning, ref atLeastOneSucceed);
+                        RunTasks(tasks, nodes, startNode, force, ref success, ref warning, ref atLeastOneSucceed);
                     }
                 }
+            }
+
+            if(IsDisapproved)
+            {
+                return Status.Disapproved;
             }
 
             if (success)
@@ -1031,12 +1067,13 @@ namespace Wexflow.Core
             return Status.Error;
         }
 
-        private static void RunSequentialTasks(IEnumerable<Task> tasks, ref bool success, ref bool warning, ref bool error)
+        private void RunSequentialTasks(IEnumerable<Task> tasks, ref bool success, ref bool warning, ref bool error)
         {
             var atLeastOneSucceed = false;
             foreach (var task in tasks)
             {
                 if (!task.IsEnabled) continue;
+                if (IsApproval && IsDisapproved) break;
                 var status = task.Run();
                 success &= status.Status == Status.Success;
                 warning |= status.Status == Status.Warning;
@@ -1050,7 +1087,7 @@ namespace Wexflow.Core
             }
         }
 
-        private void RunTasks(Task[] tasks, Node[] nodes, Node node, ref bool success, ref bool warning, ref bool atLeastOneSucceed)
+        private void RunTasks(Task[] tasks, Node[] nodes, Node node, bool force, ref bool success, ref bool warning, ref bool atLeastOneSucceed)
         {
             if (node != null)
             {
@@ -1060,17 +1097,17 @@ namespace Wexflow.Core
                     if (if1 != null)
                     {
                         var @if = if1;
-                        RunIf(tasks, nodes, @if, ref success, ref warning, ref atLeastOneSucceed);
+                        RunIf(tasks, nodes, @if, force, ref success, ref warning, ref atLeastOneSucceed);
                     }
                     else if (node is While)
                     {
                         var @while = (While)node;
-                        RunWhile(tasks, nodes, @while, ref success, ref warning, ref atLeastOneSucceed);
+                        RunWhile(tasks, nodes, @while, force, ref success, ref warning, ref atLeastOneSucceed);
                     }
                     else
                     {
                         var @switch = (Switch)node;
-                        RunSwitch(tasks, nodes, @switch, ref success, ref warning, ref atLeastOneSucceed);
+                        RunSwitch(tasks, nodes, @switch, force, ref success, ref warning, ref atLeastOneSucceed);
                     }
                 }
                 else
@@ -1078,7 +1115,7 @@ namespace Wexflow.Core
                     var task = GetTask(tasks, node.Id);
                     if (task != null)
                     {
-                        if (task.IsEnabled)
+                        if (task.IsEnabled && ((!IsApproval || (IsApproval && !IsDisapproved)) || force))
                         {
                             var status = task.Run();
 
@@ -1094,17 +1131,17 @@ namespace Wexflow.Core
                                 if (if1 != null)
                                 {
                                     var @if = if1;
-                                    RunIf(tasks, nodes, @if, ref success, ref warning, ref atLeastOneSucceed);
+                                    RunIf(tasks, nodes, @if, force, ref success, ref warning, ref atLeastOneSucceed);
                                 }
                                 else if (childNode is While)
                                 {
                                     var @while = (While)childNode;
-                                    RunWhile(tasks, nodes, @while, ref success, ref warning, ref atLeastOneSucceed);
+                                    RunWhile(tasks, nodes, @while, force, ref success, ref warning, ref atLeastOneSucceed);
                                 }
                                 else if (childNode is Switch)
                                 {
                                     var @switch = (Switch)childNode;
-                                    RunSwitch(tasks, nodes, @switch, ref success, ref warning, ref atLeastOneSucceed);
+                                    RunSwitch(tasks, nodes, @switch, force, ref success, ref warning, ref atLeastOneSucceed);
                                 }
                                 else
                                 {
@@ -1126,21 +1163,21 @@ namespace Wexflow.Core
                                             if (node1 != null)
                                             {
                                                 var @if = node1;
-                                                RunIf(tasks, nodes, @if, ref success, ref warning, ref atLeastOneSucceed);
+                                                RunIf(tasks, nodes, @if, force, ref success, ref warning, ref atLeastOneSucceed);
                                             }
                                             else if (ccNode is While)
                                             {
                                                 var @while = (While)ccNode;
-                                                RunWhile(tasks, nodes, @while, ref success, ref warning, ref atLeastOneSucceed);
+                                                RunWhile(tasks, nodes, @while, force, ref success, ref warning, ref atLeastOneSucceed);
                                             }
                                             else if (ccNode is Switch)
                                             {
                                                 var @switch = (Switch)ccNode;
-                                                RunSwitch(tasks, nodes, @switch, ref success, ref warning, ref atLeastOneSucceed);
+                                                RunSwitch(tasks, nodes, @switch, force, ref success, ref warning, ref atLeastOneSucceed);
                                             }
                                             else
                                             {
-                                                RunTasks(tasks, nodes, ccNode, ref success, ref warning, ref atLeastOneSucceed);
+                                                RunTasks(tasks, nodes, ccNode, force, ref success, ref warning, ref atLeastOneSucceed);
                                             }
                                         }
                                     }
@@ -1160,13 +1197,13 @@ namespace Wexflow.Core
             }
         }
 
-        private void RunIf(Task[] tasks, Node[] nodes, If @if, ref bool success, ref bool warning, ref bool atLeastOneSucceed)
+        private void RunIf(Task[] tasks, Node[] nodes, If @if, bool force, ref bool success, ref bool warning, ref bool atLeastOneSucceed)
         {
             var ifTask = GetTask(@if.IfId);
 
             if (ifTask != null)
             {
-                if (ifTask.IsEnabled)
+                if (ifTask.IsEnabled && (!IsApproval || (IsApproval && !IsDisapproved)))
                 {
                     var status = ifTask.Run();
 
@@ -1186,7 +1223,7 @@ namespace Wexflow.Core
 
                             if (doIfStartNode.ParentId == StartId)
                             {
-                                RunTasks(doIfTasks, @if.DoNodes, doIfStartNode, ref success, ref warning, ref atLeastOneSucceed);
+                                RunTasks(doIfTasks, @if.DoNodes, doIfStartNode, force, ref success, ref warning, ref atLeastOneSucceed);
                             }
                         }
                     }
@@ -1200,7 +1237,7 @@ namespace Wexflow.Core
                             // Run Tasks
                             var elseStartNode = GetStartupNode(@if.ElseNodes);
 
-                            RunTasks(elseTasks, @if.ElseNodes, elseStartNode, ref success, ref warning, ref atLeastOneSucceed);
+                            RunTasks(elseTasks, @if.ElseNodes, elseStartNode, force, ref success, ref warning, ref atLeastOneSucceed);
                         }
                     }
 
@@ -1209,7 +1246,7 @@ namespace Wexflow.Core
 
                     if (childNode != null)
                     {
-                        RunTasks(tasks, nodes, childNode, ref success, ref warning, ref atLeastOneSucceed);
+                        RunTasks(tasks, nodes, childNode, force, ref success, ref warning, ref atLeastOneSucceed);
                     }
                 }
             }
@@ -1219,13 +1256,13 @@ namespace Wexflow.Core
             }
         }
 
-        private void RunWhile(Task[] tasks, Node[] nodes, While @while, ref bool success, ref bool warning, ref bool atLeastOneSucceed)
+        private void RunWhile(Task[] tasks, Node[] nodes, While @while, bool force, ref bool success, ref bool warning, ref bool atLeastOneSucceed)
         {
             var whileTask = GetTask(@while.WhileId);
 
             if (whileTask != null)
             {
-                if (whileTask.IsEnabled)
+                if (whileTask.IsEnabled && (!IsApproval || (IsApproval && !IsDisapproved)))
                 {
                     while (true)
                     {
@@ -1245,7 +1282,7 @@ namespace Wexflow.Core
                                 // Run Tasks
                                 var doWhileStartNode = GetStartupNode(@while.Nodes);
 
-                                RunTasks(doWhileTasks, @while.Nodes, doWhileStartNode, ref success, ref warning, ref atLeastOneSucceed);
+                                RunTasks(doWhileTasks, @while.Nodes, doWhileStartNode, force, ref success, ref warning, ref atLeastOneSucceed);
                             }
                         }
                         else if (status.Condition == false)
@@ -1259,7 +1296,7 @@ namespace Wexflow.Core
 
                     if (childNode != null)
                     {
-                        RunTasks(tasks, nodes, childNode, ref success, ref warning, ref atLeastOneSucceed);
+                        RunTasks(tasks, nodes, childNode, force, ref success, ref warning, ref atLeastOneSucceed);
                     }
                 }
             }
@@ -1269,13 +1306,13 @@ namespace Wexflow.Core
             }
         }
 
-        private void RunSwitch(Task[] tasks, Node[] nodes, Switch @switch, ref bool success, ref bool warning, ref bool atLeastOneSucceed)
+        private void RunSwitch(Task[] tasks, Node[] nodes, Switch @switch, bool force, ref bool success, ref bool warning, ref bool atLeastOneSucceed)
         {
             var switchTask = GetTask(@switch.SwitchId);
 
             if (switchTask != null)
             {
-                if (switchTask.IsEnabled)
+                if (switchTask.IsEnabled && (!IsApproval || (IsApproval && !IsDisapproved)))
                 {
                     var status = switchTask.Run();
 
@@ -1298,7 +1335,7 @@ namespace Wexflow.Core
                                     // Run Tasks
                                     var switchStartNode = GetStartupNode(@case.Nodes);
 
-                                    RunTasks(switchTasks, @case.Nodes, switchStartNode, ref success, ref warning, ref atLeastOneSucceed);
+                                    RunTasks(switchTasks, @case.Nodes, switchStartNode, force, ref success, ref warning, ref atLeastOneSucceed);
                                 }
                                 aCaseHasBeenExecuted = true;
                                 break;
@@ -1313,7 +1350,7 @@ namespace Wexflow.Core
                             // Run Tasks
                             var defaultStartNode = GetStartupNode(@switch.Default);
 
-                            RunTasks(defalutTasks, @switch.Default, defaultStartNode, ref success, ref warning, ref atLeastOneSucceed);
+                            RunTasks(defalutTasks, @switch.Default, defaultStartNode, force, ref success, ref warning, ref atLeastOneSucceed);
                         }
 
                         // Child node
@@ -1321,7 +1358,7 @@ namespace Wexflow.Core
 
                         if (childNode != null)
                         {
-                            RunTasks(tasks, nodes, childNode, ref success, ref warning, ref atLeastOneSucceed);
+                            RunTasks(tasks, nodes, childNode, force, ref success, ref warning, ref atLeastOneSucceed);
                         }
                     }
                 }
@@ -1348,6 +1385,7 @@ namespace Wexflow.Core
                     _historyEntry.Status = Db.Status.Stopped;
                     _historyEntry.StatusDate = DateTime.Now;
                     Database.InsertHistoryEntry(_historyEntry);
+                    IsDisapproved = false;
                     return true;
                 }
                 catch (Exception e)
@@ -1430,6 +1468,18 @@ namespace Wexflow.Core
                 var dir = Path.Combine(ApprovalFolder, Id.ToString(), task.Id.ToString());
                 Directory.CreateDirectory(dir);
                 File.WriteAllText(Path.Combine(dir, "task.approved"), "Task " + task.Id + " of the workflow " + Id + " approved.");
+                IsDisapproved = false;
+            }
+        }
+
+        /// <summary>
+        /// Disapproves the current workflow.
+        /// </summary>
+        public void Disapprove()
+        {
+            if (IsApproval)
+            {
+                IsDisapproved = true;
             }
         }
 

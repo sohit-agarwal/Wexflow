@@ -24,6 +24,10 @@ namespace Wexflow.Core.ExecutionGraph
         /// OnError event.
         /// </summary>
         public GraphEvent OnError { get; private set; }
+        /// <summary>
+        /// OnDisapproved event.
+        /// </summary>
+        public GraphEvent OnDisapproved { get; private set; }
 
         /// <summary>
         /// Creates a new execution graph.
@@ -32,15 +36,19 @@ namespace Wexflow.Core.ExecutionGraph
         /// <param name="onSuccess">OnSuccess event.</param>
         /// <param name="onWarning">OnWarning event.</param>
         /// <param name="onError">OnError event.</param>
-        public Graph(IEnumerable<Node> nodes,
-            GraphEvent onSuccess, 
-            GraphEvent onWarning, 
-            GraphEvent onError)
+        /// <param name="onDisapproved">OnDisapproved event.</param>
+        public Graph(IEnumerable<Node> nodes
+            , GraphEvent onSuccess 
+            , GraphEvent onWarning
+            , GraphEvent onError
+            , GraphEvent onDisapproved
+            )
         {
             if(nodes != null) Nodes = nodes.ToArray();
             OnSuccess = onSuccess;
             OnWarning = onWarning;
             OnError = onError;
+            OnDisapproved = onDisapproved;
         }
     }
 }

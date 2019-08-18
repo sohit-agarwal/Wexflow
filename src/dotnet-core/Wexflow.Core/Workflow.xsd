@@ -66,6 +66,7 @@
       <xsd:element name="OnSuccess" type="doType" minOccurs="0" maxOccurs="1"/>
       <xsd:element name="OnWarning" type="doType" minOccurs="0" maxOccurs="1"/>
       <xsd:element name="OnError" type="doType" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="OnDisapproved" type="doType" minOccurs="0" maxOccurs="1"/>
     </xsd:choice>
   </xsd:complexType>
 

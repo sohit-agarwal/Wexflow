@@ -1734,8 +1734,8 @@
     <Content Include="dashboard.html" />
     <Content Include="designer.html" />
     <Content Include="history.html" />
-    <Content Include="images\disabled-small.png" />
-    <Content Include="images\disabled.png" />
+    <Content Include="images\disapproved-small.png" />
+    <Content Include="images\disapproved.png" />
     <Content Include="images\done-small.png" />
     <Content Include="images\done.png" />
     <Content Include="images\failed-small.png" />

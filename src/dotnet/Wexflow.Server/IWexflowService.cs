@@ -35,6 +35,9 @@ namespace Wexflow.Server
         bool ApproveWorkflow(string id);
 
         [OperationContract]
+        bool DisapproveWorkflow(string id);
+
+        [OperationContract]
         WorkflowInfo GetWorkflow(string id);
 
         [OperationContract]

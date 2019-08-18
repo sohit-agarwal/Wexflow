@@ -39,6 +39,8 @@
             this.buttonStop = new System.Windows.Forms.Button();
             this.textBoxInfo = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonDisapprove = new System.Windows.Forms.Button();
+            this.buttonApprove = new System.Windows.Forms.Button();
             this.buttonRestart = new System.Windows.Forms.Button();
             this.buttonRefresh = new System.Windows.Forms.Button();
             this.buttonLogs = new System.Windows.Forms.Button();
@@ -51,7 +53,6 @@
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.buttonSearch = new System.Windows.Forms.Button();
-            this.buttonApprove = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewWorkflows)).BeginInit();
             this.panel1.SuspendLayout();
             this.menuStrip2.SuspendLayout();
@@ -96,7 +97,7 @@
             this.dataGridViewWorkflows.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewWorkflows.RowHeadersVisible = false;
             this.dataGridViewWorkflows.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewWorkflows.Size = new System.Drawing.Size(768, 445);
+            this.dataGridViewWorkflows.Size = new System.Drawing.Size(877, 445);
             this.dataGridViewWorkflows.TabIndex = 0;
             this.dataGridViewWorkflows.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewWorkflows_CellDoubleClick);
             this.dataGridViewWorkflows.ColumnDividerDoubleClick += new System.Windows.Forms.DataGridViewColumnDividerDoubleClickEventHandler(this.DataGridViewWorkflows_ColumnDividerDoubleClick);
@@ -154,7 +155,7 @@
             this.textBoxInfo.Location = new System.Drawing.Point(9, 66);
             this.textBoxInfo.Name = "textBoxInfo";
             this.textBoxInfo.ReadOnly = true;
-            this.textBoxInfo.Size = new System.Drawing.Size(768, 20);
+            this.textBoxInfo.Size = new System.Drawing.Size(877, 20);
             this.textBoxInfo.TabIndex = 5;
             // 
             // panel1
@@ -162,6 +163,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.buttonDisapprove);
             this.panel1.Controls.Add(this.buttonApprove);
             this.panel1.Controls.Add(this.buttonRestart);
             this.panel1.Controls.Add(this.buttonRefresh);
@@ -173,13 +175,35 @@
             this.panel1.Controls.Add(this.buttonResume);
             this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(792, 36);
+            this.panel1.Size = new System.Drawing.Size(901, 36);
             this.panel1.TabIndex = 6;
+            // 
+            // buttonDisapprove
+            // 
+            this.buttonDisapprove.Enabled = false;
+            this.buttonDisapprove.Location = new System.Drawing.Point(419, 9);
+            this.buttonDisapprove.Name = "buttonDisapprove";
+            this.buttonDisapprove.Size = new System.Drawing.Size(75, 23);
+            this.buttonDisapprove.TabIndex = 10;
+            this.buttonDisapprove.Text = "Disapprove";
+            this.buttonDisapprove.UseVisualStyleBackColor = true;
+            this.buttonDisapprove.Click += new System.EventHandler(this.ButtonDisapprove_Click);
+            // 
+            // buttonApprove
+            // 
+            this.buttonApprove.Enabled = false;
+            this.buttonApprove.Location = new System.Drawing.Point(337, 9);
+            this.buttonApprove.Name = "buttonApprove";
+            this.buttonApprove.Size = new System.Drawing.Size(75, 23);
+            this.buttonApprove.TabIndex = 9;
+            this.buttonApprove.Text = "Approve";
+            this.buttonApprove.UseVisualStyleBackColor = true;
+            this.buttonApprove.Click += new System.EventHandler(this.ButtonApprove_Click);
             // 
             // buttonRestart
             // 
             this.buttonRestart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRestart.Location = new System.Drawing.Point(696, 10);
+            this.buttonRestart.Location = new System.Drawing.Point(805, 10);
             this.buttonRestart.Name = "buttonRestart";
             this.buttonRestart.Size = new System.Drawing.Size(84, 23);
             this.buttonRestart.TabIndex = 8;
@@ -190,7 +214,7 @@
             // buttonRefresh
             // 
             this.buttonRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRefresh.Location = new System.Drawing.Point(615, 10);
+            this.buttonRefresh.Location = new System.Drawing.Point(724, 10);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(75, 23);
             this.buttonRefresh.TabIndex = 7;
@@ -202,7 +226,7 @@
             // 
             this.buttonLogs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonLogs.Enabled = false;
-            this.buttonLogs.Location = new System.Drawing.Point(534, 10);
+            this.buttonLogs.Location = new System.Drawing.Point(643, 10);
             this.buttonLogs.Name = "buttonLogs";
             this.buttonLogs.Size = new System.Drawing.Size(75, 23);
             this.buttonLogs.TabIndex = 6;
@@ -214,7 +238,7 @@
             // 
             this.buttonBackend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonBackend.Enabled = false;
-            this.buttonBackend.Location = new System.Drawing.Point(446, 10);
+            this.buttonBackend.Location = new System.Drawing.Point(555, 10);
             this.buttonBackend.Name = "buttonBackend";
             this.buttonBackend.Size = new System.Drawing.Size(82, 23);
             this.buttonBackend.TabIndex = 5;
@@ -231,7 +255,7 @@
             // 
             this.menuStrip1.Location = new System.Drawing.Point(0, 24);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(792, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(901, 24);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -245,7 +269,7 @@
             this.menuStrip2.Name = "menuStrip2";
             this.menuStrip2.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.menuStrip2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.menuStrip2.Size = new System.Drawing.Size(792, 24);
+            this.menuStrip2.Size = new System.Drawing.Size(901, 24);
             this.menuStrip2.TabIndex = 8;
             this.menuStrip2.Text = "menuStrip2";
             // 
@@ -274,14 +298,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxSearch.Location = new System.Drawing.Point(12, 92);
             this.textBoxSearch.Name = "textBoxSearch";
-            this.textBoxSearch.Size = new System.Drawing.Size(678, 20);
+            this.textBoxSearch.Size = new System.Drawing.Size(787, 20);
             this.textBoxSearch.TabIndex = 9;
             this.textBoxSearch.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxSearch_KeyUp);
             // 
             // buttonSearch
             // 
             this.buttonSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSearch.Location = new System.Drawing.Point(696, 90);
+            this.buttonSearch.Location = new System.Drawing.Point(805, 90);
             this.buttonSearch.Name = "buttonSearch";
             this.buttonSearch.Size = new System.Drawing.Size(84, 23);
             this.buttonSearch.TabIndex = 10;
@@ -289,23 +313,12 @@
             this.buttonSearch.UseVisualStyleBackColor = true;
             this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
-            // buttonApprove
-            // 
-            this.buttonApprove.Enabled = false;
-            this.buttonApprove.Location = new System.Drawing.Point(337, 9);
-            this.buttonApprove.Name = "buttonApprove";
-            this.buttonApprove.Size = new System.Drawing.Size(75, 23);
-            this.buttonApprove.TabIndex = 9;
-            this.buttonApprove.Text = "Approve";
-            this.buttonApprove.UseVisualStyleBackColor = true;
-            this.buttonApprove.Click += new System.EventHandler(this.ButtonApprove_Click);
-            // 
             // Manager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(792, 576);
+            this.ClientSize = new System.Drawing.Size(901, 576);
             this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.textBoxSearch);
             this.Controls.Add(this.panel1);
@@ -348,6 +361,7 @@
         private System.Windows.Forms.TextBox textBoxSearch;
         private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.Button buttonApprove;
+        private System.Windows.Forms.Button buttonDisapprove;
     }
 }
 

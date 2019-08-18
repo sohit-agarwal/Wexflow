@@ -19,6 +19,7 @@
         + "<button id='wf-resume' type='button' class='btn btn-secondary btn-xs'>Resume</button>"
         + "<button id='wf-stop' type='button' class='btn btn-danger btn-xs'>Stop</button>"
         + "<button id='wf-approve' type='button' class='btn btn-primary btn-xs'>Approve</button>"
+        + "<button id='wf-disapprove' type='button' class='btn btn-danger btn-xs'>Disapprove</button>"
         + "</div>"
         + "<div id='wf-notifier'>"
         + "<input id='wf-notifier-text' type='text' name='fname' readonly>"
@@ -40,6 +41,7 @@
     var resumeButton = document.getElementById("wf-resume");
     var stopButton = document.getElementById("wf-stop");
     var approveButton = document.getElementById("wf-approve");
+    var disapproveButton = document.getElementById("wf-disapprove");
     var searchButton = document.getElementById("wf-search-action");
     var searchText = document.getElementById("wf-search-text");
     var suser = getUser();
@@ -75,6 +77,7 @@
                     Common.disableButton(resumeButton, true);
                     Common.disableButton(stopButton, true);
                     Common.disableButton(approveButton, true);
+                    Common.disableButton(disapproveButton, true);
 
                     searchButton.onclick = function () {
                         loadWorkflows();
@@ -84,6 +87,7 @@
                         Common.disableButton(resumeButton, true);
                         Common.disableButton(stopButton, true);
                         Common.disableButton(approveButton, true);
+                        Common.disableButton(disapproveButton, true);
                     };
 
                     searchText.onkeyup = function (event) {
@@ -97,6 +101,7 @@
                             Common.disableButton(resumeButton, true);
                             Common.disableButton(stopButton, true);
                             Common.disableButton(approveButton, true);
+                            Common.disableButton(disapproveButton, true);
                         }
                     };
 
@@ -192,6 +197,7 @@
                         Common.disableButton(resumeButton, true);
                         Common.disableButton(stopButton, true);
                         Common.disableButton(approveButton, true);
+                        Common.disableButton(disapproveButton, true);
                     }
                     else {
                         if (force === false && workflowStatusChanged(workflow) === false) return;
@@ -201,6 +207,7 @@
                         Common.disableButton(suspendButton, !(workflow.IsRunning && !workflow.IsPaused));
                         Common.disableButton(resumeButton, !workflow.IsPaused);
                         Common.disableButton(approveButton, !(workflow.IsWaitingForApproval && workflow.IsApproval));
+                        Common.disableButton(disapproveButton, !(workflow.IsWaitingForApproval && workflow.IsApproval));
 
                         if (workflow.IsApproval === true && workflow.IsWaitingForApproval === true && workflow.IsPaused === false) {
                             notify("This workflow is waiting for approval...");
@@ -300,6 +307,25 @@
                             Common.disableButton(stopButton, false);
                             Common.toastError("An error occured while approving the workflow " + selectedId + ".");
                         }                                                                                       
+                    });
+            };
+
+            disapproveButton.onclick = function () {
+                Common.disableButton(disapproveButton, true);
+                Common.disableButton(approveButton, true);
+                Common.disableButton(stopButton, true);
+                var disapproveUri = uri + "/disapprove/" + selectedId;
+                Common.post(disapproveUri,
+                    function (res) {
+                        if (res === true) {
+                            updateButtons(selectedId, true);
+                            Common.toastSuccess("The workflow " + selectedId + " was disapproved.");
+                        } else {
+                            Common.disableButton(disapproveButton, true);
+                            Common.disableButton(approveButton, false);
+                            Common.disableButton(stopButton, false);
+                            Common.toastError("An error occured while disapproving the workflow " + selectedId + ".");
+                        }
                     });
             };
 

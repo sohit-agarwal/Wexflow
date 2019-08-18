@@ -68,6 +68,7 @@ namespace Wexflow.Server
             //
             SearchApprovalWorkflows();
             ApproveWorkflow();
+            DisapproveWorkflow();
 
             //
             // Backend
@@ -287,13 +288,33 @@ namespace Wexflow.Server
         }
 
         /// <summary>
-        /// Suspends a workflow.
+        /// Approves a workflow.
         /// </summary>
         private void ApproveWorkflow()
         {
             Post(Root + "approve/{id}", args =>
             {
                 bool res = Program.WexflowEngine.ApproveWorkflow(args.id);
+
+                var resStr = JsonConvert.SerializeObject(res);
+                var resBytes = Encoding.UTF8.GetBytes(resStr);
+
+                return new Response()
+                {
+                    ContentType = "application/json",
+                    Contents = s => s.Write(resBytes, 0, resBytes.Length)
+                };
+            });
+        }
+
+        /// <summary>
+        /// Disapproves a workflow.
+        /// </summary>
+        private void DisapproveWorkflow()
+        {
+            Post(Root + "disapprove/{id}", args =>
+            {
+                bool res = Program.WexflowEngine.DisapproveWorkflow(args.id);
 
                 var resStr = JsonConvert.SerializeObject(res);
                 var resBytes = Encoding.UTF8.GetBytes(resStr);
@@ -1247,6 +1268,7 @@ namespace Wexflow.Server
                     FailedCount = statusCount.FailedCount,
                     WarningCount = statusCount.WarningCount,
                     DisabledCount = statusCount.DisabledCount,
+                    DisapprovedCount = statusCount.DisapprovedCount,
                     StoppedCount = statusCount.StoppedCount
                 };
 

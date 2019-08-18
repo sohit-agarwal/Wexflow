@@ -169,6 +169,17 @@ namespace Wexflow.Core.Db
             }
         }
 
+        public void IncrementDisapprovedCount()
+        {
+            var col = _db.GetCollection<StatusCount>("statusCount");
+            var statusCount = col.FindAll().FirstOrDefault();
+            if (statusCount != null)
+            {
+                statusCount.DisapprovedCount++;
+                col.Update(statusCount);
+            }
+        }
+
         public void DecrementFailedCount()
         {
             var col = _db.GetCollection<StatusCount>("statusCount");

@@ -471,6 +471,37 @@ namespace Wexflow.Core
         }
 
         /// <summary>
+        /// Resumes a workflow.
+        /// </summary>
+        /// <param name="workflowId">Workflow Id.</param>
+        public bool DisapproveWorkflow(int workflowId)
+        {
+            try
+            {
+                var wf = GetWorkflow(workflowId);
+
+                if (wf == null)
+                {
+                    Logger.ErrorFormat("Workflow {0} not found.", workflowId);
+                    return false;
+                }
+
+                if (wf.IsApproval)
+                {
+                    wf.Disapprove();
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception e)
+            {
+                Logger.ErrorFormat("An error occured while approving the workflow {0}.", e, workflowId);
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Returns status count
         /// </summary>
         /// <returns>Returns status count</returns>

@@ -136,6 +136,14 @@ namespace Wexflow.Server
             return WexflowWindowsService.WexflowEngine.ApproveWorkflow(int.Parse(id));
         }
 
+        [WebInvoke(Method = "POST",
+           ResponseFormat = WebMessageFormat.Json,
+           UriTemplate = "disapprove/{id}")]
+        public bool DisapproveWorkflow(string id)
+        {
+            return WexflowWindowsService.WexflowEngine.DisapproveWorkflow(int.Parse(id));
+        }
+
         [WebInvoke(Method = "GET",
             ResponseFormat = WebMessageFormat.Json,
             UriTemplate = "workflow/{id}")]
@@ -889,6 +897,7 @@ namespace Wexflow.Server
                 FailedCount = statusCount.FailedCount,
                 WarningCount = statusCount.WarningCount,
                 DisabledCount = statusCount.DisabledCount,
+                DisapprovedCount = statusCount.DisapprovedCount,
                 StoppedCount = statusCount.StoppedCount
             };
         }

@@ -16,6 +16,10 @@
         /// <summary>
         /// Error.
         /// </summary>
-        Error
+        Error,
+        /// <summary>
+        /// Disapproved.
+        /// </summary>
+        Disapproved
     }
 }

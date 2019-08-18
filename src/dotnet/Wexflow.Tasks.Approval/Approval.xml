@@ -2,8 +2,13 @@
 <Tasks>
   <!--
     Approval is a sequential task that marks the current workflow as needing approval.
-    To use this task the workflow needs to be an approval workflow. This can be done 
-    whether from the designer or by editing the XML of the workflow.
+    
+    To use this task the workflow needs to be an approval workflow. 
+    
+    This can be done whether from the designer or by editing the XML of the workflow.
+    
+    If the workflow is disapproved the OnDisapproved event is triggered and the tasks after Approval
+    task are not executed.
   -->
   <Task id="$int" name="Approval" description="$string" enabled="true|false">
   </Task>

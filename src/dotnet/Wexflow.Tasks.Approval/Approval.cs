@@ -27,14 +27,22 @@ namespace Wexflow.Tasks.Approval
                     IsWaitingForApproval = true;
                     Workflow.IsWaitingForApproval = true;
 
-                    while (!File.Exists(trigger))
+                    while (!File.Exists(trigger) && !Workflow.IsDisapproved)
                     {
                         Thread.Sleep(500);
                     }
 
                     IsWaitingForApproval = false;
                     Workflow.IsWaitingForApproval = false;
-                    InfoFormat("Task approved: {0}", trigger);
+                    if (!Workflow.IsDisapproved)
+                    {
+                        InfoFormat("Task approved: {0}", trigger);
+                    }
+                    else
+                    {
+                        Info("This workflow has been disapproved.");
+                    }
+                    
                     File.Delete(trigger);
                 }
                 else

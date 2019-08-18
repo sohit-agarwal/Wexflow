@@ -34,7 +34,6 @@ namespace Wexflow.Core.Db
         private static LiteDatabase _db;
 
         public string ConnectionString { get; }
-        
 
         public Db(string connectionString)
         {
@@ -73,10 +72,10 @@ namespace Wexflow.Core.Db
         }
 
         public void ClearStatusCount()
-        {   
+        {
             var col = _db.GetCollection<StatusCount>("statusCount");
             var statusCount = col.FindAll();
-            col.Delete(s => statusCount.Where(ss => ss.Id == s.Id).Count() > 0);   
+            col.Delete(s => statusCount.Where(ss => ss.Id == s.Id).Count() > 0);
         }
 
         public void ClearEntries()
@@ -166,6 +165,17 @@ namespace Wexflow.Core.Db
             if (statusCount != null)
             {
                 statusCount.FailedCount++;
+                col.Update(statusCount);
+            }
+        }
+
+        public void IncrementDisapprovedCount()
+        {
+            var col = _db.GetCollection<StatusCount>("statusCount");
+            var statusCount = col.FindAll().FirstOrDefault();
+            if (statusCount != null)
+            {
+                statusCount.DisapprovedCount++;
                 col.Update(statusCount);
             }
         }
@@ -356,7 +366,7 @@ namespace Wexflow.Core.Db
         public void InsertDefaultUser()
         {
             var password = GetMd5("wexflow2018");
-            var user = new User {Username = "admin", Password = password, UserProfile = UserProfile.Administrator};
+            var user = new User { Username = "admin", Password = password, UserProfile = UserProfile.Administrator };
             InsertUser(user);
         }
 

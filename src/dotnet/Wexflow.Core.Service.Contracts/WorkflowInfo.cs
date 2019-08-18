@@ -25,7 +25,7 @@ namespace Wexflow.Core.Service.Contracts
         [DataMember]
         public bool IsApproval { get; private set; }
         [DataMember]
-        public bool IsWaitingForApproval { get; private set; }
+        public bool IsWaitingForApproval { get; set; }
         [DataMember]
         public string Description { get; private set; }
         [DataMember]

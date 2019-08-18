@@ -79,10 +79,12 @@
                 return "<img src='images/failed-small.png' /> Failed";
             case 4:
                 return "<img src='images/warning-small.png' /> Warning";
-            case 5:
-                return "<img src='images/disabled-small.png' /> Disabled";
+            //case 5:
+            //    return "<img src='images/disabled-small.png' /> Disabled";
             case 6:
                 return "<img src='images/stopped-small.png' /> Stopped";
+            case 7:
+                return "<img src='images/disapproved-small.png' /> Disapproved";
             default:
                 return "";
         }

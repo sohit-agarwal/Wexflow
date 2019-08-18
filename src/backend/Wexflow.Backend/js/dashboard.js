@@ -8,7 +8,7 @@
     var statusDone = document.getElementById("status-done-value");
     var statusFailed = document.getElementById("status-failed-value");
     var statusWarning = document.getElementById("status-warning-value");
-    var statusDisabled = document.getElementById("status-disabled-value");
+    var statusDisapproved = document.getElementById("status-disapproved-value");
     var statusStopped = document.getElementById("status-stopped-value");
     var btnLogout = document.getElementById("btn-logout");
     var divStatus = document.getElementById("status");
@@ -179,7 +179,7 @@
             statusDone.innerHTML = data.DoneCount;
             statusFailed.innerHTML = data.FailedCount;
             statusWarning.innerHTML = data.WarningCount;
-            statusDisabled.innerHTML = data.DisabledCount;
+            statusDisapproved.innerHTML = data.DisapprovedCount;
             statusStopped.innerHTML = data.StoppedCount;
         }, function () {
             //alert("An error occured while retrieving workflows. Check Wexflow Web Service Uri and check that Wexflow Windows Service is running correctly.");
