@@ -113,7 +113,6 @@ Discover more about the features in [details](https://github.com/aelassas/Wexflo
 - Batch uploading files over FTP/FTPS/SFTP.
 - Database administration and maintenance.
 - Synchronizing the content of local or remote directories.
-- Batch sending tweets.
 - [Optimizing PDF files](https://blogs.datalogics.com/2018/11/26/wexflow-automating-datalogics-pdf-tools/).
 
 # Benefits
