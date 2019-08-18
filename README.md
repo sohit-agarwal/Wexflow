@@ -104,6 +104,7 @@ Discover more about the features in [details](https://github.com/aelassas/Wexflo
 - [YouTube integration](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation#audio-and-video-tasks): Automatically upload, search for content and list uploaded videos on YouTube through YouTube Data API.
 - [Instagram integration](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation#social-media-tasks): Automatically upload images and videos to Instagram through Instagram API.
 - [Twitter integration](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation#social-media-tasks): Automatically send tweets through Twitter API.
+- [Reddit integration](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation#social-media-tasks): Automatically send posts and links to Reddit through Reddit API.
 - Batch encrypting and decrypting large files.
 - Batch converting, resizing and cropping images.
 - Creating and sending reports and invoices by email.
@@ -112,7 +113,6 @@ Discover more about the features in [details](https://github.com/aelassas/Wexflo
 - Batch uploading files over FTP/FTPS/SFTP.
 - Database administration and maintenance.
 - Synchronizing the content of local or remote directories.
-- Batch sending tweets.
 - [Optimizing PDF files](https://blogs.datalogics.com/2018/11/26/wexflow-automating-datalogics-pdf-tools/).
 
 # Benefits
