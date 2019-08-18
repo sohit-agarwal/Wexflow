@@ -825,7 +825,7 @@ namespace Wexflow.Core
                         {
                             bool success = true;
                             bool warning = false;
-                            bool error = false;
+                            bool error = true;
                             RunSequentialTasks(Tasks, ref success, ref warning, ref error);
 
                             if (success)
@@ -1031,15 +1031,22 @@ namespace Wexflow.Core
             return Status.Error;
         }
 
-        private static void RunSequentialTasks(IEnumerable<Task> tasks, ref bool success, ref bool warning, ref bool atLeastOneSucceed)
+        private static void RunSequentialTasks(IEnumerable<Task> tasks, ref bool success, ref bool warning, ref bool error)
         {
+            var atLeastOneSucceed = false;
             foreach (var task in tasks)
             {
                 if (!task.IsEnabled) continue;
                 var status = task.Run();
                 success &= status.Status == Status.Success;
                 warning |= status.Status == Status.Warning;
+                error &= status.Status == Status.Error;
                 if (!atLeastOneSucceed && status.Status == Status.Success) atLeastOneSucceed = true;
+            }
+
+            if(tasks.Count() > 0 && !success && atLeastOneSucceed)
+            {
+                warning = true;
             }
         }
 
