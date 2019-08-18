@@ -633,6 +633,8 @@
                 retries++;
             } else {
                 document.getElementById("wf-save").disabled = false;
+                Common.toastError("An error occured while saving the workflow " + workflowId + ".");
+                retries = 0;
             }
 
         }, xml);   // End of isXmlWorkflowValid.
@@ -798,6 +800,7 @@
                 } else {
                     document.getElementById("wf-save").disabled = false;
                     Common.toastError("An error occured while saving the workflow " + workflowId + ".");
+                    retries = 0;
                 }
             }
         }, function () {
@@ -811,6 +814,7 @@
             } else {
                 document.getElementById("wf-save").disabled = false;
                 Common.toastError("An error occured while saving the workflow " + workflowId + ".");
+                retries = 0;
             }
         }, json);  // End of saveXml.
     }
@@ -918,6 +922,7 @@
                 } else {
                     document.getElementById("wf-save").disabled = false;
                     Common.toastError("An error occured while saving the workflow " + workflowId + ".");
+                    retries = 0;
                 }
             }
         }, function () {
@@ -931,6 +936,7 @@
             } else {
                 document.getElementById("wf-save").disabled = false;
                 Common.toastError("An error occured while saving the workflow " + workflowId + ".");
+                retries = 0;
             }
         }, json);
     }
@@ -949,6 +955,8 @@
                             updateWorkflowStatus(workflowId);
                         }, timeoutInterval);
                         statusRetries++;
+                    } else {
+                        statusRetries = 0;
                     }
                 }
             });
