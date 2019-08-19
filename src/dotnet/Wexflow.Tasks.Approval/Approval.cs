@@ -43,7 +43,10 @@ namespace Wexflow.Tasks.Approval
                         Info("This workflow has been disapproved.");
                     }
                     
-                    File.Delete(trigger);
+                    if(File.Exists(trigger))
+                    {
+                        File.Delete(trigger);
+                    }
                 }
                 else
                 {
