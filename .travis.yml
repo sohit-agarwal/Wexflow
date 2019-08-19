@@ -1,13 +1,18 @@
 sudo: required
+
 language: android
+
 jdk:
   - oraclejdk8
+
 branches:
   only:
-  - master*
+  - master
+
 before_install:
  - sudo apt-get update -qq
- - sudo apt-get install andt
+ - sudo apt-get install ant
+ 
 install:
 # Let's use the new command 'sdkmanager' to install Android SDK components
 - yes | sdkmanager --verbose "build-tools;26.0.3"
@@ -23,8 +28,10 @@ install:
 # That command is obsolete and cannot update Android SDK Tools after 25.2.5.
 # Let's solve it here with the new command 'sdkmanager'
 - yes | sdkmanager --verbose tools
+
 script:
 - gradle clean build
+
 env:
   matrix:
   - ANDROID_TARGET=android-26 ANDROID_ABI=armeabi-v7a
