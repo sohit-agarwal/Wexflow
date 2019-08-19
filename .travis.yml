@@ -10,11 +10,14 @@ branches:
   - master
 
 before_install:
+ - gradle -b src/android/wrapper.gradle wrapper
  - sudo apt-get update -qq
  - sudo apt-get install ant
- - gradle -b wrapper.gradle wrapper --gradle-version 5.1.1
  
 install:
+ # Gradle
+ #- gradle wrapper --gradle-version 5.1.1
+ 
  # Let's use the new command 'sdkmanager' to install Android SDK components
  - yes | sdkmanager --verbose "build-tools;26.0.3"
  - yes | sdkmanager --verbose "platform-tools"
@@ -31,7 +34,7 @@ install:
  - yes | sdkmanager --verbose tools
 
 script:
- - gradle -p src/android clean build
+ - gradle -p src/android clean build --scan -s
 
 env:
   matrix:
