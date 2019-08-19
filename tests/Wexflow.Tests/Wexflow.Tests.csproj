@@ -93,6 +93,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Disapproval.cs" />
     <Compile Include="CsvToYaml.cs" />
     <Compile Include="CsvToXml.cs" />
     <Compile Include="FileContentMatch.cs" />

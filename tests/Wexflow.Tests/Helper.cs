@@ -62,6 +62,11 @@ namespace Wexflow.Tests
             WexflowEngine.ApproveWorkflow(workflowId);
         }
 
+        public static void DisapproveWorkflow(int workflowId)
+        {
+            WexflowEngine.DisapproveWorkflow(workflowId);
+        }
+
         public static Core.Workflow GetWorkflow(int workflowId)
         {
             return WexflowEngine.GetWorkflow(workflowId);
