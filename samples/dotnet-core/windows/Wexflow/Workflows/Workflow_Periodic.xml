@@ -1,7 +1,7 @@
 <Workflow xmlns="urn:wexflow-schema" id="59" name="Workflow_Periodic" description="Workflow_Periodic">
 	<Settings>
 		<Setting name="launchType" value="periodic" />
-		<Setting name="period" value="00.00:00:05" />
+		<Setting name="period" value="00.00:00:01" />
 		<Setting name="enabled" value="false" />
 	</Settings>
 	<Tasks>

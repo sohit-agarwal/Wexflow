@@ -37,6 +37,7 @@ setup/*.zip
 setup/*.zip.tmp
 setup/Wexflow.app/
 *.nupkg
-Wexflow_coverage.xml
+Wexflow-coverage-dotnet.xml
+Wexflow-coverage-dotnet-core.xml
 packages/
 Wexflow.Core.xml

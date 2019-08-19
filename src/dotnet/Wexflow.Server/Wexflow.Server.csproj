@@ -161,7 +161,7 @@
     </ProjectReference>
     <ProjectReference Include="..\Wexflow.Core\Wexflow.Core.csproj">
       <Project>{46257949-80B5-48F2-9B83-29354C339869}</Project>
-      <Name>Wexflow.Core %28dotnet\Wexflow.Core\Wexflow.Core%29</Name>
+      <Name>Wexflow.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.Approval\Wexflow.Tasks.Approval.csproj">
       <Project>{8bff752c-4eb0-49cb-a367-92046d78d010}</Project>
