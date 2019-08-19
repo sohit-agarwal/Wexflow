@@ -35,7 +35,6 @@ install:
  - yes | sdkmanager --verbose tools
 
 script:
- - ./gradlew check
  - ./gradlew clean build
 
 env:
