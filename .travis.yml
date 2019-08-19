@@ -30,7 +30,7 @@ install:
 - yes | sdkmanager --verbose tools
 
 script:
-- gradle clean build
+- gradle -p src/android clean build
 
 env:
   matrix:
