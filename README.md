@@ -33,13 +33,26 @@
 
 # Continuous Integration
 
-|  Server | Platform | Status |
-----------|--------|----------|
-|[Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) (.NET and .NET Core)|Windows|[![Build Status](https://aelassas.visualstudio.com/Wexflow/_apis/build/status/aelassas.Wexflow?branchName=master)](https://aelassas.visualstudio.com/Wexflow/_build/latest?definitionId=1&branchName=master)|
-|[AppVeyor](https://www.appveyor.com/) (.NET and .NET Core)| Windows |[![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow)|
-|[Travis](https://travis-ci.org/) (Android)| Linux | [![Build Status](https://travis-ci.org/aelassas/Wexflow.svg?branch=master)](https://travis-ci.org/aelassas/Wexflow) | 
-|[Bitrise](https://www.bitrise.io/) (Android)|Linux| [![Build Status](https://app.bitrise.io/app/0fb832132f6afa6d/status.svg?token=j49g0Gx7rNWkl4s41xM_kA)](https://app.bitrise.io/app/0fb832132f6afa6d)|
-|[Codecov](https://codecov.io/) (.NET)|Windows|[![codecov](https://codecov.io/gh/aelassas/Wexflow/branch/master/graph/badge.svg)](https://codecov.io/gh/aelassas/Wexflow)|
+|  Server | Platform |Project| Status |
+----------|--------|----------|-------|
+|[Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) (.NET and .NET Core)| Windows | Wexflow.sln |[![Build Status](https://aelassas.visualstudio.com/Wexflow/_apis/build/status/aelassas.Wexflow?branchName=master)](https://aelassas.visualstudio.com/Wexflow/_build/latest?definitionId=1&branchName=master)|
+|[AppVeyor](https://www.appveyor.com/) (.NET and .NET Core)| Windows | Wexflow.sln |[![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow)|
+|[Travis](https://travis-ci.org/) (Android)| Linux | src/android |[![Build Status](https://travis-ci.org/aelassas/Wexflow.svg?branch=master)](https://travis-ci.org/aelassas/Wexflow) | 
+|[Bitrise](https://www.bitrise.io/) (Android)|Linux| src/android | [![Build Status](https://app.bitrise.io/app/0fb832132f6afa6d/status.svg?token=j49g0Gx7rNWkl4s41xM_kA)](https://app.bitrise.io/app/0fb832132f6afa6d)|
+|[Codecov](https://codecov.io/) (.NET and .NET Core)|Windows| Wexflow.sln |[![codecov](https://codecov.io/gh/aelassas/Wexflow/branch/master/graph/badge.svg)](https://codecov.io/gh/aelassas/Wexflow)|
+|[Coveralls](https://coveralls.io/) (.NET and .NET Core)|Linux| Wexflow.sln |[![Coverage Status](https://coveralls.io/repos/github/aelassas/Wexflow/badge.svg?branch=master)](https://coveralls.io/github/aelassas/Wexflow?branch=master)|
+
+# Miscellaneous
+
+|Info|Value|
+----|----|
+|Release stats | [![downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://wexflow.github.io/stats)|
+|Nuget stats | [![Nuget Downloads](https://img.shields.io/nuget/dt/Wexflow?label=nuget%20downloads)](https://www.nuget.org/packages/Wexflow)|
+|Release | [![GitHub release](https://img.shields.io/github/release/aelassas/Wexflow)](https://github.com/aelassas/Wexflow/releases/latest)|
+|Nuget | [![Nuget](https://img.shields.io/nuget/v/Wexflow)](https://www.nuget.org/packages/Wexflow) |
+| Repo size | ![GitHub repo size](https://img.shields.io/github/repo-size/aelassas/Wexflow) |
+| License | [![GitHub](https://img.shields.io/github/license/aelassas/Wexflow)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)|
+| Join chat |  [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby)|
 
 # Wexflow
 
