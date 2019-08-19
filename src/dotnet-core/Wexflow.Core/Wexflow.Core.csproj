@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+	<DebugType>full</DebugType>
     <Platforms>AnyCPU;x64;x86</Platforms>
     <PackageId>Wexflow</PackageId>
     <Version>4.2.0</Version>
