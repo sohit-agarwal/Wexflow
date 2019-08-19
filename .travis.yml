@@ -1,5 +1,10 @@
+sudo: required
 language: android
 dist: trusty
+before_install:
+ - sudo apt-get update -qq
+ - sudo apt-get install ant
+install: ant deps
 android:
   components:
     - build-tools-26.0.2
