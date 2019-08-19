@@ -10,10 +10,11 @@ branches:
   - master
 
 before_install:
- - gradle -b src/android/wrapper.gradle wrapper
+ - cd src/android
+ - gradle -b wrapper.gradle wrapper
  - pwd
- - ls -la src/android
- #- sudo chmod +x gradlew
+ - ls -la .
+ - sudo chmod +x gradlew
  - sudo apt-get update -qq
  - sudo apt-get install ant
  
@@ -39,7 +40,7 @@ install:
 script:
  - ./gradlew assemble
  - ./gradlew check
- - ./gradlew -p src/android clean build --scan -s
+ - ./gradlew clean build
  #- gradle -p src/android clean build --scan -s
 
 env:
