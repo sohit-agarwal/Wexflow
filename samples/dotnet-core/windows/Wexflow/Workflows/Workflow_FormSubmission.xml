@@ -6,7 +6,6 @@
 	</Settings>
 	<Tasks>
 		<Task id="1" name="ProcessLauncher" description="Form submission" enabled="true">
-			<Setting name="selectFiles" value="1" />
 			<Setting name="processPath" value="C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" />
 			<Setting name="processCmd" value="https://docs.google.com/forms/d/1sHnPCJ05GLecqvZb0MNeFkFK0eMuVqBUyWAo5uurEQ8/prefill" />
 			<Setting name="hideGui" value="false" /> 
