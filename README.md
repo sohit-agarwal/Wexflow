@@ -44,7 +44,7 @@
 
 # Miscellaneous
 
-|Info|Value|
+|Info|Badge|
 ----|----|
 |Release stats | [![downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://wexflow.github.io/stats)|
 |Nuget stats | [![Nuget Downloads](https://img.shields.io/nuget/dt/Wexflow?label=nuget%20downloads)](https://www.nuget.org/packages/Wexflow)|
