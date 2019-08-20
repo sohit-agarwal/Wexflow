@@ -40,7 +40,7 @@ You can follow installation instructions in [GitHub wiki](https://github.com/ael
 
 To get started, you can follow usage instructions in [GitHub wiki](https://github.com/aelassas/Wexflow/wiki/Usage).
 
-To start creating your own workflows, you can check out workflow samples in [GitHub wiki](https://github.com/aelassas/Wexflow/wiki/Samples).
+To start creating your own workflows, you can check out workflow samples in [GitHub wiki](https://github.com/aelassas/Wexflow/wiki/Samples). Also, check out the [100+ built-in tasks](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation) that come with Wexflow.
 
 To build from source, [follow these instructions](https://github.com/aelassas/Wexflow/wiki/Debug).
 
