@@ -91,6 +91,8 @@ Moreover, the "Designer" page allows to edit workflow files through its Web XML 
 - [Benefits](https://github.com/aelassas/Wexflow#benefits)
 - [Who's Using Wexflow?](https://github.com/aelassas/Wexflow#whos-using-wexflow)
 - [Get Started](https://github.com/aelassas/Wexflow#get-started)
+- [Building From Source](https://github.com/aelassas/Wexflow#building-from-source)
+- [Contribute](https://github.com/aelassas/Wexflow#contribute)
 - [Changelog](https://github.com/aelassas/Wexflow#changelog)
 - [License](https://github.com/aelassas/Wexflow#license)
 - [Credits](https://github.com/aelassas/Wexflow#credits)
@@ -207,21 +209,24 @@ Discover more about the features in [details](https://github.com/aelassas/Wexflo
 - [Workflow samples](https://github.com/aelassas/Wexflow/wiki/Samples)
 - [Tasks documentation](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation)
 
-<!--
+# Building From Source
+
+To build from source, [follow these instructions](https://github.com/aelassas/Wexflow/wiki/Debug).
+
 # Contribute
 
-Contributions are very welcome!
+1. Turn off `autocrlf`:
+   ```bash
+   git config core.autocrlf false
+    ```
+2. Hack!
+3. Make a pull request.
 
-To contribute to this project, proceed as follows:
-- Read the documentation on how to [debug](https://github.com/aelassas/Wexflow/wiki/Debug) Wexflow.
-- [Fork](https://guides.github.com/activities/forking/) this repository.
-- Clone your fork.
-- Branch.
-- Make and push your changes.
-- Create a [pull request](https://help.github.com/articles/creating-a-pull-request/).
-- After your pull request has been reviewed, it can be merged into the repository.
-- To run unit tests, follow these [guidelines](https://github.com/aelassas/Wexflow/wiki/How-to-run-unit-tests%3F).
+After your pull request has been reviewed, it can be merged into the repository.
 
+To run unit tests, follow these [guidelines](https://github.com/aelassas/Wexflow/wiki/How-to-run-unit-tests%3F).
+
+<!--
 # Bugs and features
   
  If you found any issues with Wexflow, please submit a bug report at the [Issue Tracker](https://github.com/aelassas/Wexflow/issues). Please include the following:
@@ -232,6 +237,7 @@ To contribute to this project, proceed as follows:
  
 If you'd like to add a feature request please add some details how it is supposed to work.
 -->
+
 # Changelog
 
 The changelog is available in the [release history](https://github.com/aelassas/Wexflow/wiki/History).
@@ -248,11 +254,11 @@ Wexflow is licensed under the [MIT License](https://github.com/aelassas/Wexflow/
 - [Alex Higgins](https://github.com/alexhiggins732)
 - [Igor Quirino](https://github.com/iquirino)
 -->
+
 # Credits
 
-Thanks to [JetBrains](https://www.jetbrains.com) for the free open source licenses.
-<!--
+Thanks to [JetBrains](https://www.jetbrains.com) for the free open-source licenses.
+
 Improved and optimized using:
 
 <a href="https://www.jetbrains.com/resharper/"><img src="https://aelassas.github.io/wexflow/images/logo_resharper.gif" alt="Resharper" width="100" /></a>
--->
