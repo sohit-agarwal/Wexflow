@@ -27,7 +27,7 @@
     
     <!-- Application ID: You can obtain it from https://www.reddit.com/prefs/apps -->
     <Setting name="appId" value="$string" />
-    <!-- Refresh token. -->
+    <!-- Refresh token. You can obtain it from https://not-an-aardvark.github.io/reddit-oauth-helper/ -->
     <Setting name="refreshToken" value="$string" />
   </Task>
 </Tasks>
