@@ -47,7 +47,7 @@ To build from source, [follow these instructions](https://github.com/aelassas/We
 You can contribute to this project in many ways. If you have brand new feature ideas or found a bug or faced an issue, just open a new issue in the [issue board](https://github.com/aelassas/Wexflow/issues). Pull requests are very welcome, to contribute follow [these instructions](https://github.com/aelassas/Wexflow/wiki/Debug) to get the source code and [these guidelines](https://github.com/aelassas/Wexflow#contribute) to create pull requests.
 
 <!--
-# What's new?
+# What's New?
 Take a look at the brand new [version 4.4](https://github.com/aelassas/Wexflow/releases/tag/v4.4). This latest version is a major and stable release that includes brand new features, bug fixes, major performance enhancements and under the hood updates.
 -->
 
