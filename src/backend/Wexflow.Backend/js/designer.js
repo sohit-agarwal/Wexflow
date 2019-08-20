@@ -190,6 +190,7 @@
 
     document.getElementById("wf-add-workflow").onclick = function () {
         newWorkflow = true;
+        loadXmlCalled = false;
         var res = false;
         var xmlContainer = document.getElementById("wf-xml-container");
         var workflowEditor = getEditor(editorWorkflowId);
@@ -857,8 +858,49 @@
                     workflowInfos[currentWorkflowId] = workflowInfos[workflowId];
                     workflowTasks[currentWorkflowId] = workflowTasks[workflowId];
 
-                    if (workflowId !== currentWorkflowId) {
-                        deleteEditor(workflowId);
+                    if (workflowId !== currentWorkflowId || typeof workflowEditor === "undefined") {
+                        //deleteEditor(workflowId);
+                        var currentEditor = getEditor(currentWorkflowId);
+
+                        if (typeof currentEditor === "undefined") {
+                            var editor = ace.edit("wf-xml-container");
+                            editor.setOptions({
+                                maxLines: Infinity
+                            });
+                            if (isDarkTheme === true) {
+                                editor.setTheme("ace/theme/pastel_on_dark");
+                            } else {
+                                editor.setTheme("ace/theme/github");
+                            }
+                            editor.setReadOnly(false);
+                            editor.setFontSize("100%");
+                            editor.setPrintMarginColumn(false);
+                            editor.getSession().setMode("ace/mode/xml");
+
+                            editor.commands.addCommand({
+                                name: "showKeyboardShortcuts",
+                                bindKey: { win: "Ctrl-Alt-h", mac: "Command-Alt-h" },
+                                exec: function (editor) {
+                                    ace.config.loadModule("ace/ext/keybinding_menu", function (module) {
+                                        module.init(editor);
+                                        editor.showKeyboardShortcuts()
+                                    })
+                                }
+                            });
+
+                            var xmlValue = editor.setValue("", -1);
+                            editor.clearSelection();
+                            editor.resize(true);
+                            editor.focus();
+
+                            editor.on("change", function () {
+                                editorOnChange(currentWorkflowId);
+                            });
+
+                            editors.set(currentWorkflowId, { editor: editor, editXml: false, value: xmlValue });
+
+                            workflowEditor = getEditor(currentWorkflowId);
+                        }
                     }
 
                     // Select the workflow

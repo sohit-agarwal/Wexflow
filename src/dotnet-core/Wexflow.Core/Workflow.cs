@@ -846,30 +846,41 @@ namespace Wexflow.Core
                             bool error = true;
                             RunSequentialTasks(Tasks, ref success, ref warning, ref error);
 
-                            if (success)
+                            if (IsDisapproved)
                             {
-                                Database.IncrementDoneCount();
-                                entry.Status = Db.Status.Done;
+                                Database.IncrementDisapprovedCount();
+                                entry.Status = Db.Status.Disapproved;
                                 entry.StatusDate = DateTime.Now;
                                 Database.UpdateEntry(entry);
-                                _historyEntry.Status = Db.Status.Done;
-                                
+                                _historyEntry.Status = Db.Status.Disapproved;
                             }
-                            else if (warning)
+                            else
                             {
-                                Database.IncrementWarningCount();
-                                entry.Status = Db.Status.Warning;
-                                entry.StatusDate = DateTime.Now;
-                                Database.UpdateEntry(entry);
-                                _historyEntry.Status = Db.Status.Warning;
-                            }
-                            else if (error)
-                            {
-                                Database.IncrementFailedCount();
-                                entry.Status = Db.Status.Failed;
-                                entry.StatusDate = DateTime.Now;
-                                Database.UpdateEntry(entry);
-                                _historyEntry.Status = Db.Status.Failed;
+                                if (success)
+                                {
+                                    Database.IncrementDoneCount();
+                                    entry.Status = Db.Status.Done;
+                                    entry.StatusDate = DateTime.Now;
+                                    Database.UpdateEntry(entry);
+                                    _historyEntry.Status = Db.Status.Done;
+
+                                }
+                                else if (warning)
+                                {
+                                    Database.IncrementWarningCount();
+                                    entry.Status = Db.Status.Warning;
+                                    entry.StatusDate = DateTime.Now;
+                                    Database.UpdateEntry(entry);
+                                    _historyEntry.Status = Db.Status.Warning;
+                                }
+                                else if (error)
+                                {
+                                    Database.IncrementFailedCount();
+                                    entry.Status = Db.Status.Failed;
+                                    entry.StatusDate = DateTime.Now;
+                                    Database.UpdateEntry(entry);
+                                    _historyEntry.Status = Db.Status.Failed;
+                                }
                             }
                         }
                         else

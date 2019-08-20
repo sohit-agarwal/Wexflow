@@ -1,4 +1,4 @@
-  #define MyAppName "Wexflow"
+#define MyAppName "Wexflow"
 #define MyAppVersion "4.4"
 #define MyAppPublisher "Akram El Assas"
 #define MyAppPublisherURL "https://wexflow.github.io/"

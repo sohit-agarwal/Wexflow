@@ -269,6 +269,7 @@ namespace Wexflow.Core.Db
                 statusCount.FailedCount = 0;
                 statusCount.WarningCount = 0;
                 statusCount.DisabledCount = 0;
+                statusCount.DisapprovedCount = 0;
                 col.Update(statusCount);
             }
         }
