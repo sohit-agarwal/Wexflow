@@ -15,7 +15,7 @@
 [![License](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)
 [![Doc](http://img.shields.io/badge/github-wiki-black.svg)](https://github.com/aelassas/Wexflow/wiki)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby) [![Wiki](https://img.shields.io/badge/github-wiki-181717.svg?maxAge=60)](https://github.com/aelassas/Wexflow/wiki)
-[![Twitter URL](https://img.shields.io/twitter/url/https/twitter.com/fold_left.svg?style=social&label=Follow)](https://twitter.com/aelassas_dev)
+[![Follow](https://img.shields.io/twitter/url/https/twitter.com/fold_left.svg?style=social&label=Follow)](https://twitter.com/aelassas_dev)
 [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Wexflow%20-%20Open-source%20and%20cross-platform%20workflow%20engine&url=https://wexflow.github.io&via=aelassas_dev)
 -->
 
@@ -50,9 +50,12 @@
 |Nuget stats | [![Nuget Downloads](https://img.shields.io/nuget/dt/Wexflow?label=nuget%20downloads)](https://www.nuget.org/packages/Wexflow)|
 |Release | [![GitHub release](https://img.shields.io/github/release/aelassas/Wexflow)](https://github.com/aelassas/Wexflow/releases/latest)|
 |Nuget | [![Nuget](https://img.shields.io/nuget/v/Wexflow)](https://www.nuget.org/packages/Wexflow) |
+|Documentation|[![Wiki](https://img.shields.io/badge/github-wiki-181717.svg?maxAge=60)](https://github.com/aelassas/Wexflow/wiki)|
 | Repo size | ![GitHub repo size](https://img.shields.io/github/repo-size/aelassas/Wexflow) |
 | License | [![GitHub](https://img.shields.io/github/license/aelassas/Wexflow)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)|
 | Join chat |  [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby)|
+|Tweet|[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Wexflow%20-%20Open-source%20and%20cross-platform%20workflow%20engine&url=https://wexflow.github.io&via=aelassas_dev)|
+|Follow|[![Follow](https://img.shields.io/twitter/url/https/twitter.com/fold_left.svg?style=social&label=Follow)](https://twitter.com/aelassas_dev)|
 
 # Wexflow
 
