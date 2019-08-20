@@ -36,13 +36,13 @@
 |  Server | Platform |Project| Status |
 ----------|--------|----------|-------|
 |[Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) (.NET and .NET Core)| Windows | Wexflow.sln |[![Build Status](https://aelassas.visualstudio.com/Wexflow/_apis/build/status/aelassas.Wexflow?branchName=master)](https://aelassas.visualstudio.com/Wexflow/_build/latest?definitionId=1&branchName=master)|
-|[AppVeyor](https://www.appveyor.com/) (.NET and .NET Core)| Windows | Wexflow.sln |[![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow)|
+|[AppVeyor](https://www.appveyor.com/) (.NET and .NET Core)| Windows | Wexflow.sln |[![AppVeyor](https://img.shields.io/appveyor/ci/aelassas/Wexflow)](https://ci.appveyor.com/project/aelassas/wexflow)|
 |[Travis](https://travis-ci.org/) (Android)| Linux | src/android |[![Build Status](https://travis-ci.org/aelassas/Wexflow.svg?branch=master)](https://travis-ci.org/aelassas/Wexflow) | 
 |[Bitrise](https://www.bitrise.io/) (Android)|Linux| src/android | [![Bitrise](https://img.shields.io/bitrise/0fb832132f6afa6d/master?token=j49g0Gx7rNWkl4s41xM_kA)](https://app.bitrise.io/app/0fb832132f6afa6d)|
 |[Codecov](https://codecov.io/) (.NET and .NET Core)|Windows| Wexflow.sln |[![codecov](https://codecov.io/gh/aelassas/Wexflow/branch/master/graph/badge.svg)](https://codecov.io/gh/aelassas/Wexflow)|
 |[Coveralls](https://coveralls.io/) (.NET and .NET Core)|Linux| Wexflow.sln |[![Coverage Status](https://coveralls.io/repos/github/aelassas/Wexflow/badge.svg?branch=master)](https://coveralls.io/github/aelassas/Wexflow?branch=master)|
 
-
+<!-- ![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true) --->
 <!-- ![Build Status](https://app.bitrise.io/app/0fb832132f6afa6d/status.svg?token=j49g0Gx7rNWkl4s41xM_kA) -->
 # Miscellaneous
 
