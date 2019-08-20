@@ -48,7 +48,7 @@ You can contribute to this project in many ways. If you have brand new feature i
 
 <!--
 # What's new?
-Take a look at the brand new [version 4.4](). This version is a major and stable release that includes brand new features, bug fixes, major performance enhancements and under the hood updates.
+Take a look at the brand new [version 4.4](https://github.com/aelassas/Wexflow/releases/tag/v4.4). This latest version is a major and stable release that includes brand new features, bug fixes, major performance enhancements and under the hood updates.
 -->
 
 # Continuous Integration
