@@ -60,7 +60,7 @@ namespace Wexflow.Tasks.TextsDecryptor
             try
             {
                 string srcStr = File.ReadAllText(inputFile);
-                string destStr = Decrypt(srcStr, Workflow.PassPhrase, Workflow.KeySize, Workflow.DerivationIterations);
+                string destStr = Decrypt(srcStr, passphrase, Workflow.KeySize, Workflow.DerivationIterations);
                 File.WriteAllText(outputFile, destStr);
                 InfoFormat("The file {0} has been decrypted -> {1}", inputFile, outputFile);
                 Files.Add(new FileInf(outputFile, Id));
@@ -90,7 +90,7 @@ namespace Wexflow.Tasks.TextsDecryptor
                 var keyBytes = password.GetBytes(keysize / 8);
                 using (var symmetricKey = new RijndaelManaged())
                 {
-                    symmetricKey.BlockSize = 256;
+                    symmetricKey.BlockSize = 128;
                     symmetricKey.Mode = CipherMode.CBC;
                     symmetricKey.Padding = PaddingMode.PKCS7;
                     using (var decryptor = symmetricKey.CreateDecryptor(keyBytes, ivStringBytes))
