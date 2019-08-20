@@ -39,25 +39,35 @@
 |[AppVeyor](https://www.appveyor.com/) (.NET and .NET Core)| Windows | Wexflow.sln |[![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow)|
 |[Travis](https://travis-ci.org/) (Android)| Linux | src/android |[![Build Status](https://travis-ci.org/aelassas/Wexflow.svg?branch=master)](https://travis-ci.org/aelassas/Wexflow) | 
 |[Bitrise](https://www.bitrise.io/) (Android)|Linux| src/android | [![Build Status](https://app.bitrise.io/app/0fb832132f6afa6d/status.svg?token=j49g0Gx7rNWkl4s41xM_kA)](https://app.bitrise.io/app/0fb832132f6afa6d)|
-|[Codecov](https://codecov.io/) (.NET and .NET Core)|Windows| Wexflow.sln |[![codecov](https://codecov.io/gh/aelassas/Wexflow/branch/master/graph/badge.svg)](https://codecov.io/gh/aelassas/Wexflow)|
-|[Coveralls](https://coveralls.io/) (.NET and .NET Core)|Linux| Wexflow.sln |[![Coverage Status](https://coveralls.io/repos/github/aelassas/Wexflow/badge.svg?branch=master)](https://coveralls.io/github/aelassas/Wexflow?branch=master)|
+|[Codecov](https://codecov.io/) (.NET and .NET Core)|Windows| Wexflow.sln |[![Coverage Status](https://badgen.net/codecov/c/github/aelassas/Wexflow?icon=codecov)](https://codecov.io/gh/aelassas/Wexflow)|
+|[Coveralls](https://coveralls.io/) (.NET and .NET Core)|Linux| Wexflow.sln |[![Coverage Status](https://badgen.net/coveralls/c/github/aelassas/Wexflow)](https://coveralls.io/github/aelassas/Wexflow?branch=master)|
 
+
+<!-- ![Coverage Status](https://coveralls.io/repos/github/aelassas/Wexflow/badge.svg?branch=master) -->
+<!-- ![codecov](https://codecov.io/gh/aelassas/Wexflow/branch/master/graph/badge.svg) -->
 <!-- ![AppVeyor](https://img.shields.io/appveyor/ci/aelassas/Wexflow) --->
 <!-- ![Bitrise](https://img.shields.io/bitrise/0fb832132f6afa6d/master?token=j49g0Gx7rNWkl4s41xM_kA) -->
+
 # Miscellaneous
 
 |Info|Badge|
 ----|----|
 |Release stats | [![downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://wexflow.github.io/stats)|
 |Nuget stats | [![Nuget Downloads](https://img.shields.io/nuget/dt/Wexflow?label=nuget%20downloads)](https://www.nuget.org/packages/Wexflow)|
-|Release | [![GitHub release](https://img.shields.io/github/release/aelassas/Wexflow)](https://github.com/aelassas/Wexflow/releases/latest)|
-|Nuget | [![Nuget](https://img.shields.io/nuget/v/Wexflow)](https://www.nuget.org/packages/Wexflow) |
-|Documentation|[![Wiki](https://img.shields.io/badge/github-wiki-181717.svg?maxAge=60)](https://github.com/aelassas/Wexflow/wiki)|
+|Release | [![GitHub release](https://badgen.net/github/release/aelassas/Wexflow)](https://github.com/aelassas/Wexflow/releases/latest)|
+|Nuget | [![Nuget](https://badgen.net/nuget/v/Wexflow)](https://www.nuget.org/packages/Wexflow) |
+|Documentation|[![Wiki](https://badgen.net/badge/icon/wiki?icon=github&label=github&color=black)](https://github.com/aelassas/Wexflow/wiki)|
 | Repo size | ![GitHub repo size](https://img.shields.io/github/repo-size/aelassas/Wexflow) |
-| License | [![GitHub](https://img.shields.io/github/license/aelassas/Wexflow)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)|
+| License | [![GitHub](https://badgen.net/github/license/aelassas/Wexflow)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)|
 | Join chat |  [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby)|
 |Tweet|[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Wexflow%20-%20Open-source%20and%20cross-platform%20workflow%20engine&url=https://wexflow.github.io&via=aelassas_dev)|
 |Follow|[![Follow](https://img.shields.io/twitter/url/https/twitter.com/fold_left.svg?style=social&label=Follow)](https://twitter.com/aelassas_dev)|
+
+
+<!-- ![Wiki](https://img.shields.io/badge/github-wiki-181717.svg?maxAge=60) -->
+<!-- ![GitHub release](https://img.shields.io/github/release/aelassas/Wexflow) -->
+<!-- ![Nuget](https://img.shields.io/nuget/v/Wexflow) -->
+<!-- ![GitHub](https://img.shields.io/github/license/aelassas/Wexflow) -->
 
 # Wexflow
 
