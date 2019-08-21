@@ -165,6 +165,7 @@ Discover more about the features in [details](https://github.com/aelassas/Wexflo
 # Real Life Examples
 
 - Orchestration engine.
+- [Form submission approval processes](https://github.com/aelassas/Wexflow/wiki/Samples#form-submission-approval-workflow).
 - Batch recording live video feeds.
 - Batch transcoding audio and video files.
 - Batch uploading videos and their metadata to YouTube SFTP dropbox.
