@@ -70,7 +70,7 @@ Take a look at the brand new [version 4.4](https://github.com/aelassas/Wexflow/r
 
 # Miscellaneous
 
-|Info|Badge|
+|Info|Link|
 ----|----|
 |Release stats | [![downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://wexflow.github.io/stats)|
 |Nuget stats | [![Nuget Downloads](https://img.shields.io/nuget/dt/Wexflow?label=nuget%20downloads)](https://www.nuget.org/packages/Wexflow)|
@@ -249,7 +249,7 @@ To build from source, [follow these instructions](https://github.com/aelassas/We
 # Contribute
 
 1. Turn off `autocrlf`:
-   ```bash
+   ```
    git config core.autocrlf false
     ```
 2. Hack!
