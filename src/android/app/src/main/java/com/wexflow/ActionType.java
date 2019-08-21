@@ -4,5 +4,7 @@ enum ActionType {
     Start,
     Suspend,
     Resume,
-    Stop
+    Stop,
+    Approve,
+    Disapprove
 }

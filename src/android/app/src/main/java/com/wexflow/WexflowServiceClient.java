@@ -134,4 +134,14 @@ class WexflowServiceClient {
         String uri = this.uri + "/stop/" + id;
         post(uri);
     }
+
+    void approve(int id) throws IOException {
+        String uri = this.uri + "/approve/" + id;
+        post(uri);
+    }
+
+    void disapprove(int id) throws IOException {
+        String uri = this.uri + "/disapprove/" + id;
+        post(uri);
+    }
 }

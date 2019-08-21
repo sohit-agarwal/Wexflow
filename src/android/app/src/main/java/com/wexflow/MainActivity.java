@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView txtInfo;
     private ListView lvWorkflows;
     private Button btnRefresh;
+    private Button btnApprove;
+    private Button btnDisapprove;
     private int workflowId;
     private SparseArray<Workflow> workflows;
 
@@ -92,6 +94,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        this.btnApprove = findViewById(R.id.btnApprove);
+        this.btnApprove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActionTask actionTask = new ActionTask(activity);
+                actionTask.execute(ActionType.Approve);
+            }
+        });
+
+        this.btnDisapprove = findViewById(R.id.btnDisapprove);
+        this.btnDisapprove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActionTask actionTask = new ActionTask(activity);
+                actionTask.execute(ActionType.Disapprove);
+            }
+        });
+
         loadWorkflows();
     }
 
@@ -122,9 +142,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public Boolean workflowStatusChanged(Workflow workflow) {
-        Boolean changed = this.workflows.get(workflow.getId()).getRunning() != workflow.getRunning() || this.workflows.get(workflow.getId()).getPaused() != workflow.getPaused();
+        Boolean changed = this.workflows.get(workflow.getId()).getRunning() != workflow.getRunning() || this.workflows.get(workflow.getId()).getPaused() != workflow.getPaused() || this.workflows.get(workflow.getId()).getWaitingForApproval() != workflow.getWaitingForApproval();
         this.workflows.get(workflow.getId()).setRunning(workflow.getRunning());
         this.workflows.get(workflow.getId()).setPaused(workflow.getPaused());
+        this.workflows.get(workflow.getId()).setWaitingForApproval(workflow.getWaitingForApproval());
         return changed;
     }
 
@@ -142,6 +163,14 @@ public class MainActivity extends AppCompatActivity {
 
     public ImageButton getBtnStop() {
         return btnStop;
+    }
+
+    public Button getBtnApprove() {
+        return btnApprove;
+    }
+
+    public Button getBtnDisapprove() {
+        return btnDisapprove;
     }
 
     public TextView getTxtInfo() {

@@ -32,6 +32,12 @@ class ActionTask {
                 case Stop:
                     this.client.stop(this.activity.getWorkflowId());
                     break;
+                case Approve:
+                    this.client.approve(this.activity.getWorkflowId());
+                    break;
+                case Disapprove:
+                    this.client.disapprove(this.activity.getWorkflowId());
+                    break;
                 default:
                     break;
             }
@@ -65,6 +71,12 @@ class ActionTask {
                     break;
                 case Stop:
                     stringBuilder.append("was stopped.");
+                    break;
+                case Approve:
+                    stringBuilder.append("was approved.");
+                    break;
+                case Disapprove:
+                    stringBuilder.append("was disapproved.");
                     break;
                 default:
                     break;
