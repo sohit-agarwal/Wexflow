@@ -57,22 +57,22 @@ Take a look at the brand new [version 4.4](https://github.com/aelassas/Wexflow/r
 
 |Info|Link|
 ----|----|
-|Release stats | [![downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://wexflow.github.io/stats)|
+|Release stats | [![Downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://wexflow.github.io/stats)|
 |Nuget stats | [![Nuget Downloads](https://img.shields.io/nuget/dt/Wexflow?label=nuget%20downloads)](https://www.nuget.org/packages/Wexflow)|
-|Release | [![GitHub release](https://badgen.net/github/release/aelassas/Wexflow)](https://github.com/aelassas/Wexflow/releases/latest)|
-|Nuget | [![Nuget](https://badgen.net/nuget/v/Wexflow)](https://www.nuget.org/packages/Wexflow) |
-|Documentation|[![Wiki](https://badgen.net/badge/icon/wiki?icon=github&label=github&color=black)](https://github.com/aelassas/Wexflow/wiki)|
-| Repo size | ![GitHub repo size](https://img.shields.io/github/repo-size/aelassas/Wexflow) |
-| License | [![GitHub](https://badgen.net/github/license/aelassas/Wexflow)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)|
+|Release | [![Release](https://img.shields.io/github/release/aelassas/Wexflow)](https://github.com/aelassas/Wexflow/releases/latest)|
+|Nuget | [![Nuget](https://img.shields.io/nuget/v/Wexflow)](https://www.nuget.org/packages/Wexflow) |
+|Documentation|[![Wiki](https://img.shields.io/badge/github-wiki-181717.svg?maxAge=60)](https://github.com/aelassas/Wexflow/wiki)|
+| Repo size | ![Repo size](https://img.shields.io/github/repo-size/aelassas/Wexflow) |
+| License | [![License](https://img.shields.io/github/license/aelassas/Wexflow)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)|
 | Join chat |  [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby)|
 |Tweet|[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Wexflow%20-%20Open-source%20and%20cross-platform%20workflow%20engine&url=https://wexflow.github.io&via=aelassas_dev)|
 |Follow|[![Follow](https://img.shields.io/twitter/url/https/twitter.com/fold_left.svg?style=social&label=Follow)](https://twitter.com/aelassas_dev)|
 
 
-<!-- ![Wiki](https://img.shields.io/badge/github-wiki-181717.svg?maxAge=60) -->
-<!-- ![GitHub release](https://img.shields.io/github/release/aelassas/Wexflow) -->
-<!-- ![Nuget](https://img.shields.io/nuget/v/Wexflow) -->
-<!-- ![GitHub](https://img.shields.io/github/license/aelassas/Wexflow) -->
+<!-- ![Wiki](https://badgen.net/badge/icon/wiki?icon=github&label=github&color=black) -->
+<!-- ![GitHub release](https://badgen.net/github/release/aelassas/Wexflow) -->
+<!-- ![Nuget](https://badgen.net/nuget/v/Wexflow) -->
+<!-- ![GitHub](https://badgen.net/github/license/aelassas/Wexflow) -->
 
 # Wexflow
 
