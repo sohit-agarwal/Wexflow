@@ -31,10 +31,9 @@
 [![Logo](https://aelassas.github.io/wexflow/images/wexflow-3.6-2.jpg)](https://wexflow.github.io/)
 -->
 
-<!--
 # What's New?
 Take a look at the brand new [version 4.4](https://github.com/aelassas/Wexflow/releases/tag/v4.4). This latest version is a major and stable release that includes brand new features, bug fixes, major performance enhancements and under the hood updates.
--->
+
 
 # Continuous Integration
 
