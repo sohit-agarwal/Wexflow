@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Wexflow.Tests
+namespace Wexflow.DotnetCore.Tests
 {
     [TestClass]
     public class VimeoListUploads
