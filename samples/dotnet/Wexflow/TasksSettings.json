@@ -41,6 +41,8 @@
 	"ImagesOverlay": [ "selectFiles" ],
 	"ImagesResizer": [ "selectFiles", "width", "height" ],
 	"ImagesTransformer": [ "selectFiles", "outputFilePattern", "outputFormat" ],
+	"InstagramUploadImage": [ "selectFiles", "username", "password" ],
+	"InstagramUploadVideo": [ "selectFiles", "username", "password" ],
 	"IsoCreator": [ "srcDir", "volumeIdentifier", "isoFileName" ],
 	"IsoExtractor": [ "selectFiles", "destDir" ],
 	"JsonToYaml": ["selectFiles"],
