@@ -16,7 +16,7 @@ namespace Wexflow.Tests
         }
 
         [TestMethod]
-        public void VimeoListUploadsTest()
+        public void VimeoTest()
         {
             // TODO
             Helper.StartWorkflow(129);
