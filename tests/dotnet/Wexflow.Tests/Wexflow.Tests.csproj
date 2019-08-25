@@ -92,6 +92,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Vimeo.cs" />
     <Compile Include="VimeoListUploads.cs" />
     <Compile Include="Approval.cs" />
     <Compile Include="Cron.cs" />
@@ -564,6 +565,10 @@
     <ProjectReference Include="..\..\..\src\dotnet\Wexflow.Tasks.VimeoListUploads\Wexflow.Tasks.VimeoListUploads.csproj">
       <Project>{3f34a171-865f-4e37-a871-706ba39c4e39}</Project>
       <Name>Wexflow.Tasks.VimeoListUploads</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\dotnet\Wexflow.Tasks.Vimeo\Wexflow.Tasks.Vimeo.csproj">
+      <Project>{8bcf1509-4b79-44ac-bfe8-cf8c22c71f08}</Project>
+      <Name>Wexflow.Tasks.Vimeo</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\src\dotnet\Wexflow.Tasks.Wait\Wexflow.Tasks.Wait.csproj">
       <Project>{81c8da3e-32cb-4084-84da-c531522318c3}</Project>

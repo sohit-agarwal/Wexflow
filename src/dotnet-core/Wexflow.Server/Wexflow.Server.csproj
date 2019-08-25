@@ -81,6 +81,7 @@
     <ProjectReference Include="..\Wexflow.Tasks.Twitter\Wexflow.Tasks.Twitter.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.Unzip\Wexflow.Tasks.Unzip.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.VimeoListUploads\Wexflow.Tasks.VimeoListUploads.csproj" />
+    <ProjectReference Include="..\Wexflow.Tasks.Vimeo\Wexflow.Tasks.Vimeo.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.Wait\Wexflow.Tasks.Wait.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.XmlToCsv\Wexflow.Tasks.XmlToCsv.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.Xslt\Wexflow.Tasks.Xslt.csproj" />

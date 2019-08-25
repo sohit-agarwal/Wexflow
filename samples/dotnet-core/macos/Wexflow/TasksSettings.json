@@ -57,6 +57,7 @@
 	"Touch": [ "file" ],
 	"Twitter": [ "selectFiles", "consumerKey", "consumerSecret", "accessToken", "accessTokenSecret" ],
 	"Unzip": [ "selectFiles", "destDir", "password" ],
+	"Vimeo": [ "token" ],
 	"VimeoListUploads": [ "token" ],
 	"Wait": [ "duration" ],
 	"XmlToCsv": [ "selectFiles" ],

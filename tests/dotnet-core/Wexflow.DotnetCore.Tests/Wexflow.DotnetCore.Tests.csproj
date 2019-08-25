@@ -75,6 +75,7 @@
     <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Twitter\Wexflow.Tasks.Twitter.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Unzip\Wexflow.Tasks.Unzip.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.VimeoListUploads\Wexflow.Tasks.VimeoListUploads.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Vimeo\Wexflow.Tasks.Vimeo.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Wait\Wexflow.Tasks.Wait.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.XmlToCsv\Wexflow.Tasks.XmlToCsv.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Xslt\Wexflow.Tasks.Xslt.csproj" />
