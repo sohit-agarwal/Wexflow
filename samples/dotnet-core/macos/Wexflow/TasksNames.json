@@ -19,6 +19,7 @@
 	"FilesRenamer",
 	"FilesSplitter",
 	"FolderExists",
+	"Ftp",
 	"Guid",
 	"Http",
 	"HttpDelete",
@@ -31,6 +32,8 @@
 	"ImagesOverlay",
 	"ImagesResizer",
 	"ImagesTransformer",
+	"InstagramUploadImage",
+	"InstagramUploadVideo",
 	"ListEntities",
 	"ListFiles",
 	"MailsSender",
@@ -52,7 +55,14 @@
 	"TextsDecryptor",
 	"TextsEncryptor",
 	"Touch",
+	"Twitter",
+	"Unzip",
+	"VimeoListUploads",
 	"Wait",
 	"XmlToCsv",
-	"Xslt"
+	"Xslt",
+	"YouTube",
+	"YouTubeListUploads",
+	"YouTubeSearch",
+	"Zip"
 ]

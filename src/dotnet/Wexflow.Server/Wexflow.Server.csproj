@@ -523,6 +523,10 @@
       <Project>{0e4a787c-10f9-4c52-9e9a-596f6d6e2536}</Project>
       <Name>Wexflow.Tasks.Unzip</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.VimeoListUploads\Wexflow.Tasks.VimeoListUploads.csproj">
+      <Project>{3f34a171-865f-4e37-a871-706ba39c4e39}</Project>
+      <Name>Wexflow.Tasks.VimeoListUploads</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.Wait\Wexflow.Tasks.Wait.csproj">
       <Project>{81c8da3e-32cb-4084-84da-c531522318c3}</Project>
       <Name>Wexflow.Tasks.Wait</Name>

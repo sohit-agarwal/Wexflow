@@ -86,6 +86,7 @@
 	"Untar": ["selectFiles", "destDir"],
 	"Untgz": [ "selectFiles", "destDir" ],
 	"Unzip": [ "selectFiles", "destDir", "password" ],
+	"VimeoListUploads": [ "token" ],
 	"Wait": [ "duration" ],
 	"WebToHtml": [ "url" ],
 	"WebToScreenshot": [ "url" ],

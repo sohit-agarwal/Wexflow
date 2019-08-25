@@ -4,7 +4,7 @@
 		<Setting name="enabled" value="true" />
 	</Settings>
 	<Tasks>
-		<Task id="1" name="YouTubeListUploads" description="Uploading videos" enabled="true">
+		<Task id="1" name="YouTubeListUploads" description="Listing videos" enabled="true">
 			<Setting name="user" value="username" />
 			<Setting name="applicationName" value="Wexflow" />
 			<Setting name="clientSecrets" value="/Applications/wexflow/Wexflow/client_secrets.json" />

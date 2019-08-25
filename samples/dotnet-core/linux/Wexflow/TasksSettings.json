@@ -19,6 +19,7 @@
 	"FilesRenamer": [ "selectFiles", "overwrite" ],
 	"FilesSplitter": [ "selectFiles", "chunkSize" ],
 	"FolderExists": [ "folder" ],
+	"Ftp": [ "selectFiles", "command", "protocol", "encryption", "server", "port", "user", "password", "privateKeyPath", "passphrase", "path", "retryCount", "retryTimeout" ],
 	"Guid": [ "guidCount" ],
 	"Http": [ "url" ],
 	"HttpDelete": [ "url", "params" ],
@@ -31,6 +32,8 @@
 	"ImagesOverlay": [ "selectFiles" ],
 	"ImagesResizer": [ "selectFiles", "width", "height" ],
 	"ImagesTransformer": [ "selectFiles", "outputFilePattern", "outputFormat" ],
+	"InstagramUploadImage": [ "selectFiles", "username", "password" ],
+	"InstagramUploadVideo": [ "selectFiles", "username", "password" ],
 	"ListEntities": [ ],
 	"ListFiles": [ ],
 	"MailsSender": [ "selectFiles", "selectAttachments", "host", "port", "enableSsl", "user", "password" ],
@@ -52,7 +55,14 @@
 	"TextsDecryptor": [ "selectFiles" ],
 	"TextsEncryptor": [ "selectFiles" ],
 	"Touch": [ "file" ],
+	"Twitter": [ "selectFiles", "consumerKey", "consumerSecret", "accessToken", "accessTokenSecret" ],
+	"Unzip": [ "selectFiles", "destDir", "password" ],
+	"VimeoListUploads": [ "token" ],
 	"Wait": [ "duration" ],
 	"XmlToCsv": [ "selectFiles" ],
-	"Xslt": [ "selectFiles", "xsltPath", "version", "removeWexflowProcessingNodes" ]
+	"Xslt": [ "selectFiles", "xsltPath", "version", "removeWexflowProcessingNodes" ],
+	"YouTube" : ["selectFiles", "user", "applicationName", "clientSecrets"],
+	"YouTubeListUploads": ["user", "applicationName", "clientSecrets"],
+	"YouTubeSearch": ["user", "applicationName", "apiKey", "keyword", "maxResults"],
+	"Zip": [ "selectFiles", "zipFileName" ]
 }
