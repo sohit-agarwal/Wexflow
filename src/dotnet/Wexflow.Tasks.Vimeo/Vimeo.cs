@@ -44,7 +44,7 @@ namespace Wexflow.Tasks.Vimeo
                             try
                             {
                                 var videoId = vimeoApi.UploadVideo(filePath, title, desc, (l1, l2) => { });
-                                InfoFormat("Video {0} uploaded to Vimeo: {1}", filePath, videoId);
+                                InfoFormat("Video {0} uploaded to Vimeo. VideoId: {1}", filePath, videoId);
 
                                 if (succeeded && !atLeastOneSucceed) atLeastOneSucceed = true;
                             }
