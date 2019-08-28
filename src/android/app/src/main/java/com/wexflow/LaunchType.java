@@ -3,7 +3,8 @@ package com.wexflow;
 enum LaunchType {
     Startup,
     Trigger,
-    Periodic;
+    Periodic,
+    Cron;
 
     public static LaunchType fromInteger(int x) {
         switch (x) {
@@ -13,6 +14,8 @@ enum LaunchType {
                 return Trigger;
             case 2:
                 return Periodic;
+            case 3:
+                return Cron;
             default:
                 return null;
         }
