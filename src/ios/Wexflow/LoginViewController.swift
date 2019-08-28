@@ -59,6 +59,9 @@ class LoginViewController: UIViewController {
             URLSession.shared.dataTask(with: url!) { (data, response, error) in
                 if error != nil {
                     print(error!)
+                    DispatchQueue.main.async{
+                        self.toast(message: "Network error.")
+                    }
                     return
                 }
                 
