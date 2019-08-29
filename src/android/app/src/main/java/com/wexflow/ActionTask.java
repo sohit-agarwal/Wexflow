@@ -10,6 +10,7 @@ class ActionTask {
     private final WexflowServiceClient client;
     private Exception exception;
     private ActionType actionType;
+    private Boolean succeeded;
 
     ActionTask(MainActivity activity) {
         this.activity = activity;
@@ -21,22 +22,22 @@ class ActionTask {
             this.actionType = actionType;
             switch (this.actionType) {
                 case Start:
-                    this.client.start(this.activity.getWorkflowId());
+                    succeeded = this.client.start(this.activity.getWorkflowId());
                     break;
                 case Suspend:
-                    this.client.suspend(this.activity.getWorkflowId());
+                    succeeded = this.client.suspend(this.activity.getWorkflowId());
                     break;
                 case Resume:
-                    this.client.resume(this.activity.getWorkflowId());
+                    succeeded = this.client.resume(this.activity.getWorkflowId());
                     break;
                 case Stop:
-                    this.client.stop(this.activity.getWorkflowId());
+                    succeeded = this.client.stop(this.activity.getWorkflowId());
                     break;
                 case Approve:
-                    this.client.approve(this.activity.getWorkflowId());
+                    succeeded = this.client.approve(this.activity.getWorkflowId());
                     break;
                 case Disapprove:
-                    this.client.disapprove(this.activity.getWorkflowId());
+                    succeeded = this.client.disapprove(this.activity.getWorkflowId());
                     break;
                 default:
                     break;
@@ -82,7 +83,12 @@ class ActionTask {
                     break;
             }
 
-            Toast.makeText(this.activity.getBaseContext(), stringBuilder.toString(), Toast.LENGTH_SHORT).show();
+            if(succeeded){
+                Toast.makeText(this.activity.getBaseContext(), stringBuilder.toString(), Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(this.activity.getBaseContext(), "Not supported.", Toast.LENGTH_SHORT).show();
+            }
+
         }
     }
 
