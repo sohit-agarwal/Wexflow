@@ -64,16 +64,16 @@
 		39D3ECC623151B2A006A4BEB /* Wexflow */ = {
 			isa = PBXGroup;
 			children = (
-				3914D20923181BC700095AB3 /* Assets.xcassets */,
 				39D3ECC723151B2A006A4BEB /* AppDelegate.swift */,
-				39D3ECC923151B2A006A4BEB /* ViewController.swift */,
-				39D3ECD923158A4A006A4BEB /* WorkflowTableViewCell.swift */,
-				39D3ECCB23151B2A006A4BEB /* Main.storyboard */,
-				39D3ECD023151B2A006A4BEB /* LaunchScreen.storyboard */,
+				3914D20923181BC700095AB3 /* Assets.xcassets */,
 				39D3ECD323151B2A006A4BEB /* Info.plist */,
+				39D3ECD023151B2A006A4BEB /* LaunchScreen.storyboard */,
+				39A13ABD2317000D00778758 /* LoginViewController.swift */,
+				39D3ECCB23151B2A006A4BEB /* Main.storyboard */,
 				39A13AB92316CBDD00778758 /* Settings.bundle */,
 				39A13ABB2316CDD900778758 /* SettingsBundleHelper.swift */,
-				39A13ABD2317000D00778758 /* LoginViewController.swift */,
+				39D3ECC923151B2A006A4BEB /* ViewController.swift */,
+				39D3ECD923158A4A006A4BEB /* WorkflowTableViewCell.swift */,
 			);
 			path = Wexflow;
 			sourceTree = "<group>";
