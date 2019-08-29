@@ -157,7 +157,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let url = URL(string: WexflowServerUrl + "workflow/" + String(self.workflowId))
             URLSession.shared.dataTask(with: url!) { (data, response, error) in
                 if error != nil {
-                    print(error!)
+                    //print(error!)
+                    DispatchQueue.main.async{
+                        self.toast(message: "Network error.")
+                    }
                     return
                 }
                 let jsonResponse = try! JSONSerialization.jsonObject(with: data!, options: [])
@@ -228,7 +231,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let url = URL(string: WexflowServerUrl + "workflows")
         URLSession.shared.dataTask(with: url!) { (data, response, error) in
             if error != nil {
-                print(error!)
+                //print(error!)
+                DispatchQueue.main.async{
+                    self.toast(message: "Network error.")
+                }
                 return
             }
             
@@ -288,11 +294,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if error != nil {
-                print(error!)
+                //print(error!)
+                DispatchQueue.main.async{
+                    self.toast(message: "Network error.")
+                }
                 return
             }
-            let responseString = String(data: data!, encoding: .utf8)
-            print("responseString = \(responseString)")
+            //let responseString = String(data: data!, encoding: .utf8)
+            //print("responseString = \(responseString)")
         }.resume()
     }
     

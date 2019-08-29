@@ -58,7 +58,7 @@ class LoginViewController: UIViewController {
             let url = URL(string: WexflowServerUrl + "user?username=" + usernameTextField.text!)
             URLSession.shared.dataTask(with: url!) { (data, response, error) in
                 if error != nil {
-                    print(error!)
+                    //print(error!)
                     DispatchQueue.main.async{
                         self.toast(message: "Network error.")
                     }

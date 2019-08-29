@@ -7,18 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3914D20A23181BC700095AB3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3914D20923181BC700095AB3 /* Assets.xcassets */; };
 		39A13ABA2316CBDD00778758 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 39A13AB92316CBDD00778758 /* Settings.bundle */; };
 		39A13ABC2316CDD900778758 /* SettingsBundleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A13ABB2316CDD900778758 /* SettingsBundleHelper.swift */; };
 		39A13ABE2317000D00778758 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A13ABD2317000D00778758 /* LoginViewController.swift */; };
 		39D3ECC823151B2A006A4BEB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D3ECC723151B2A006A4BEB /* AppDelegate.swift */; };
 		39D3ECCA23151B2A006A4BEB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D3ECC923151B2A006A4BEB /* ViewController.swift */; };
 		39D3ECCD23151B2A006A4BEB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39D3ECCB23151B2A006A4BEB /* Main.storyboard */; };
-		39D3ECCF23151B2A006A4BEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 39D3ECCE23151B2A006A4BEB /* Assets.xcassets */; };
 		39D3ECD223151B2A006A4BEB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39D3ECD023151B2A006A4BEB /* LaunchScreen.storyboard */; };
 		39D3ECDA23158A4A006A4BEB /* WorkflowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D3ECD923158A4A006A4BEB /* WorkflowTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3914D20923181BC700095AB3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		39A13AB92316CBDD00778758 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		39A13ABB2316CDD900778758 /* SettingsBundleHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsBundleHelper.swift; sourceTree = "<group>"; };
 		39A13ABD2317000D00778758 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -27,7 +28,6 @@
 		39D3ECC723151B2A006A4BEB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		39D3ECC923151B2A006A4BEB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		39D3ECCC23151B2A006A4BEB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		39D3ECCE23151B2A006A4BEB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		39D3ECD123151B2A006A4BEB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		39D3ECD323151B2A006A4BEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		39D3ECD923158A4A006A4BEB /* WorkflowTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkflowTableViewCell.swift; sourceTree = "<group>"; };
@@ -64,11 +64,11 @@
 		39D3ECC623151B2A006A4BEB /* Wexflow */ = {
 			isa = PBXGroup;
 			children = (
+				3914D20923181BC700095AB3 /* Assets.xcassets */,
 				39D3ECC723151B2A006A4BEB /* AppDelegate.swift */,
 				39D3ECC923151B2A006A4BEB /* ViewController.swift */,
 				39D3ECD923158A4A006A4BEB /* WorkflowTableViewCell.swift */,
 				39D3ECCB23151B2A006A4BEB /* Main.storyboard */,
-				39D3ECCE23151B2A006A4BEB /* Assets.xcassets */,
 				39D3ECD023151B2A006A4BEB /* LaunchScreen.storyboard */,
 				39D3ECD323151B2A006A4BEB /* Info.plist */,
 				39A13AB92316CBDD00778758 /* Settings.bundle */,
@@ -110,9 +110,8 @@
 				TargetAttributes = {
 					39D3ECC323151B2A006A4BEB = {
 						CreatedOnToolsVersion = 8.2;
-						DevelopmentTeam = 73FS2FWA2C;
 						LastSwiftMigration = 0820;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -141,7 +140,7 @@
 			files = (
 				39A13ABA2316CBDD00778758 /* Settings.bundle in Resources */,
 				39D3ECD223151B2A006A4BEB /* LaunchScreen.storyboard in Resources */,
-				39D3ECCF23151B2A006A4BEB /* Assets.xcassets in Resources */,
+				3914D20A23181BC700095AB3 /* Assets.xcassets in Resources */,
 				39D3ECCD23151B2A006A4BEB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -281,7 +280,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = 73FS2FWA2C;
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "-";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Wexflow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aelassas.Wexflow;
@@ -297,7 +298,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = 73FS2FWA2C;
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "-";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Wexflow/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aelassas.Wexflow;
