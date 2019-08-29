@@ -18,7 +18,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var DisapproveButton: UIButton!
     @IBOutlet weak var ApproveButton: UIButton!
     @IBOutlet weak var infoLabel: UILabel!
-
+    
     var WexflowServerUrl: String = ""
     let textCellIdentifier = "TextCell"
     let selectedBackgroundColor = UIColor(red: 134/255, green: 211/255, blue: 246/255, alpha: 1.0)
@@ -48,7 +48,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.ApproveButton.isEnabled = false
         self.DisapproveButton.isEnabled = false
         
-         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.defaultsChanged), name: UserDefaults.didChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.defaultsChanged), name: UserDefaults.didChangeNotification, object: nil)
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -56,7 +56,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         loadWorkflows()
         
     }
-
+    
     func registerSettingsBundle(){
         let appDefaults = [String:AnyObject]()
         UserDefaults.standard.register(defaults: appDefaults)
@@ -107,7 +107,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             cell.nameLabel.textColor = unselectedTextColor
             cell.launchTypeLabel.textColor = unselectedTextColor
         }
-
+        
         return cell
     }
     
@@ -133,7 +133,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         let workflow = self.workflows[self.selectedIndex]
         self.workflowId = workflow.id
-
+        
         if self.timer != nil{
             self.timer?.invalidate()
             self.timer = nil
@@ -257,16 +257,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 }
             }else{
                 DispatchQueue.main.async{
-                  self.toast(message: "Error while loading.")
+                    self.toast(message: "Error while loading.")
                 }
             }
             
             DispatchQueue.main.async{
-              self.tableView.reloadData()
-              self.tableView.scroll(to: .top, animated: true)
+                self.tableView.reloadData()
+                self.tableView.scroll(to: .top, animated: true)
             }
             
-        }.resume()
+            }.resume()
     }
     
     func launchTypeToString(launchType: LaunchType) -> String{
@@ -287,7 +287,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
     }
     
-    func post(url: URL){
+    func post(url: URL, message: String, hasResult: Bool){
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("close", forHTTPHeaderField: "Connection")
@@ -300,50 +300,72 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 }
                 return
             }
-            //let responseString = String(data: data!, encoding: .utf8)
-            //print("responseString = \(responseString)")
-        }.resume()
+
+            if hasResult {
+                let response = String(data: data!, encoding: .utf8)
+                let result = response?.bool
+                if result! {
+                    DispatchQueue.main.async{
+                        self.toast(message: message)
+                    }
+                }else{
+                    DispatchQueue.main.async{
+                        self.toast(message: "Not supported.")
+                    }
+                }
+            }else{
+                DispatchQueue.main.async{
+                    self.toast(message: message)
+                }
+            }
+            }.resume()
     }
     
     @IBAction func onStartClick(_ sender: UIButton) {
         if workflowId != -1 {
-            post(url: URL(string: WexflowServerUrl + "start/" + String(workflowId))!)
-            toast(message: "Workflow " + String(workflowId) + " started.")
+            let url = URL(string: WexflowServerUrl + "start/" + String(workflowId))
+            let message = "Workflow " + String(workflowId) + " started."
+            post(url: url!, message: message, hasResult: false)
         }
     }
     
     @IBAction func onSuspendClick(_ sender: UIButton) {
         if workflowId != -1 {
-            post(url: URL(string: WexflowServerUrl + "suspend/" + String(workflowId))!)
-            toast(message: "Workflow " + String(workflowId) + " suspended.")
+            let url = URL(string: WexflowServerUrl + "suspend/" + String(workflowId))
+            let message = "Workflow " + String(workflowId) + " suspended."
+            post(url: url!, message: message, hasResult: true)
         }
     }
     
     @IBAction func onResumeClick(_ sender: UIButton) {
         if workflowId != -1 {
-            post(url: URL(string: WexflowServerUrl + "resume/" + String(workflowId))!)
-            toast(message: "Workflow " + String(workflowId) + " resumed.")
+            let url = URL(string: WexflowServerUrl + "resume/" + String(workflowId))
+            let message =  "Workflow " + String(workflowId) + " resumed."
+            post(url: url!, message: message, hasResult: false)
         }
     }
     
     @IBAction func onStopClick(_ sender: UIButton) {
         if workflowId != -1 {
-            post(url: URL(string: WexflowServerUrl + "stop/" + String(workflowId))!)
-            toast(message: "Workflow " + String(workflowId) + " stopped.")
+            let url = URL(string: WexflowServerUrl + "stop/" + String(workflowId))
+            let message = "Workflow " + String(workflowId) + " stopped."
+            post(url: url!, message: message, hasResult: true)
         }
     }
-
+    
     @IBAction func onApproveClick(_ sender: UIButton) {
         if workflowId != -1 {
-            post(url: URL(string: WexflowServerUrl + "approve/" + String(workflowId))!)
-            toast(message: "Workflow " + String(workflowId) + " approved.")
+            let url = URL(string: WexflowServerUrl + "approve/" + String(workflowId))
+            let message = "Workflow " + String(workflowId) + " approved."
+            post(url: url!, message: message, hasResult: false)
         }
     }
     
     @IBAction func onDisapproveClick(_ sender: UIButton) {
         if workflowId != -1 {
-            post(url: URL(string: WexflowServerUrl + "disapprove/" + String(workflowId))!)
-            toast(message: "Workflow " + String(workflowId) + " disapproved.")
+            let url = URL(string: WexflowServerUrl + "disapprove/" + String(workflowId))
+            let message = "Workflow " + String(workflowId) + " disapproved."
+            post(url: url!, message: message, hasResult: false)
         }
     }
     
@@ -372,7 +394,7 @@ struct Workflow{
     var isPaused:Bool
     
     public init(id: Int, name: String, launchType: LaunchType, isEnabled: Bool, isApproval: Bool, isWaitingForApproval: Bool, isRunning: Bool, isPaused: Bool) {
-       
+        
         self.id = id
         self.name = name
         self.launchType = launchType
