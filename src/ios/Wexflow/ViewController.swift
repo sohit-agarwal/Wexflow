@@ -370,6 +370,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     @IBAction func onRefreshClick(_ sender: UIButton) {
+        self.selectedIndex = -1
+        self.workflowId = -1
+        self.previousSelectedCell = nil
+        self.startButton.isEnabled = false
+        self.SuspendButton.isEnabled = false
+        self.ResumeButton.isEnabled = false
+        self.StopButton.isEnabled = false
+        self.ApproveButton.isEnabled = false
+        self.DisapproveButton.isEnabled = false
+        self.infoLabel.text = ""
+        if self.timer != nil{
+            self.timer?.invalidate()
+            self.timer = nil
+        }
         loadWorkflows()
     }
     
