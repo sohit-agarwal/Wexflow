@@ -118,20 +118,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.nameLabel.textColor = selectedTextColor
         cell.launchTypeLabel.textColor = selectedTextColor
         
-        if previousSelectedCell != nil{
+        self.selectedIndex = indexPath.row
+        let workflow = self.workflows[self.selectedIndex]
+        
+        if previousSelectedCell != nil && workflow.id != self.workflowId{
             self.previousSelectedCell!.contentView.backgroundColor = unselectedBackgroundColor
             self.previousSelectedCell!.idLabel.textColor = unselectedTextColor
             self.previousSelectedCell!.nameLabel.textColor = unselectedTextColor
             self.previousSelectedCell!.launchTypeLabel.textColor = unselectedTextColor
         }
-        
+ 
         previousSelectedCell = cell
         
-        tableView.deselectRow(at: indexPath, animated: true)
+        if workflow.id != self.workflowId{
+            tableView.deselectRow(at: indexPath, animated: true)    
+        }
         
-        self.selectedIndex = indexPath.row
-        
-        let workflow = self.workflows[self.selectedIndex]
         self.workflowId = workflow.id
         
         if self.timer != nil{
