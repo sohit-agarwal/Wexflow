@@ -47,6 +47,7 @@ Take a look at the brand new [version 4.4](https://github.com/aelassas/Wexflow/r
 |[Bitrise](https://www.bitrise.io/) (iOS)|macOS| src/ios | [![Build Status](https://app.bitrise.io/app/f8006552bdd4ee80/status.svg?token=Yd_71TrG-cqFvEC1oV5teQ)](https://app.bitrise.io/app/f8006552bdd4ee80)|
 |[Codecov](https://codecov.io/) (.NET and .NET Core)|Windows| Wexflow.sln |[![Coverage Status](https://badgen.net/codecov/c/github/aelassas/Wexflow?icon=codecov)](https://codecov.io/gh/aelassas/Wexflow)|
 |[Coveralls](https://coveralls.io/) (.NET and .NET Core)|Linux| Wexflow.sln |[![Coverage Status](https://badgen.net/coveralls/c/github/aelassas/Wexflow)](https://coveralls.io/github/aelassas/Wexflow?branch=master)|
+|[FOSSA](https://fossa.com/) (All projects)| Linux | All projects | [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Faelassas%2FWexflow.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Faelassas%2FWexflow?ref=badge_shield)|
 
 
 <!-- ![Coverage Status](https://coveralls.io/repos/github/aelassas/Wexflow/badge.svg?branch=master) -->
@@ -264,6 +265,8 @@ The changelog is available in the [release history](https://github.com/aelassas/
 # License
 
 Wexflow is licensed under the [MIT License](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt). Wexflow contains other libraries with their individual licenses. More details about these licenses can be found in the [wiki](https://github.com/aelassas/Wexflow/wiki/License).
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Faelassas%2FWexflow.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Faelassas%2FWexflow?ref=badge_large)
 
 <!--
 # Developers
