@@ -17,13 +17,13 @@ jobs:
           name: "Build"
           working_directory: ~/code/src/android
           command: ./gradlew clean build --stacktrace
-  #build:
-  #  working_directory: ~/code
-  #  macos:
-  #    xcode: "8.3.3"
-  #  steps:
-  #    - checkout
-  #    - run:
-  #        name: "Build"
-  #        working_directory: ~/code/src/ios
-  #        command: xcodebuild clean build -scheme "Wexflow" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+  build:
+   working_directory: ~/code
+   macos:
+     xcode: "8.3.3"
+   steps:
+     - checkout
+     - run:
+         name: "Build"
+         working_directory: ~/code/src/ios
+         command: xcodebuild clean build -scheme "Wexflow" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
