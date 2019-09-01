@@ -1,7 +1,7 @@
 version: 2.0
 
 jobs:
-  build:
+  "android":
     working_directory: ~/code
     docker:
       - image: circleci/android:api-26
@@ -17,7 +17,7 @@ jobs:
           name: "Build"
           working_directory: ~/code/src/android
           command: ./gradlew clean build --stacktrace
-  test:
+  "ios":
    working_directory: ~/code
    macos:
      xcode: "8.3.3"
@@ -27,3 +27,10 @@ jobs:
          name: "Build"
          working_directory: ~/code/src/ios
          command: xcodebuild clean build -scheme "Wexflow" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+         
+workflows:
+  version: 2
+  build:
+    jobs:
+      - "android"
+      - "ios"
