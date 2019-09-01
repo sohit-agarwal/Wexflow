@@ -10,7 +10,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Install project Dependencies"
+          name: "Install project dependencies"
           working_directory: ~/code/src/android
           command: ./gradlew androidDependencies
       - run:
