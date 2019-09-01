@@ -1,5 +1,5 @@
-version: 2.1
-  
+version: 2.0
+
 jobs:
   build:
     working_directory: ~/code
@@ -27,4 +27,3 @@ jobs:
   #        name: "Build"
   #        working_directory: ~/code/src/ios
   #        command: xcodebuild clean build -scheme "Wexflow" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
-  
