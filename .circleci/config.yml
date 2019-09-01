@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/code
     docker:
-      - image: circleci/android:api-25-alpha
+      - image: circleci/android:api-26
     environment:
       JVM_OPTS: -Xmx4G
     steps:
@@ -21,4 +21,4 @@ jobs:
       - run:
           name: Build
           working_directory: ~/code/src/android
-          command: ./gradlew clean build
+          command: ./gradlew clean build --stacktrace
