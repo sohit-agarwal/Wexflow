@@ -1,5 +1,6 @@
 version: 2.0
 
+workflows:
 jobs:
   build:
     working_directory: ~/code
@@ -17,7 +18,8 @@ jobs:
           name: "Build"
           working_directory: ~/code/src/android
           command: ./gradlew clean build --stacktrace
-  build:
+jobs:  
+build:
    working_directory: ~/code
    macos:
      xcode: "8.3.3"
