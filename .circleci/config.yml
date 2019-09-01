@@ -11,24 +11,14 @@ jobs:
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
-          name: Go to Android project
-          command: cd ~/code/src/android
-      - run:
           name: Download Dependencies
+          working_directory: ~/code/src/android
           command: ./gradlew androidDependencies
       - save_cache:
           paths:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-      #- run:
-      #    name: Run Tests
-      #    command: ./gradlew lint test
-      #- store_test_results:
-      #          path: app/build/test-results
-      #          destination: test-results/
       - run:
           name: Build
+          working_directory: ~/code/src/android
           command: ./gradlew clean build
-      - store_artifacts:
-          path: app/build/outputs/apk/
-          destination: apks/
