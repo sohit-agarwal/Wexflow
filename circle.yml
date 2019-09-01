@@ -1,14 +1,13 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/code
+    working_directory: src/android
     docker:
       - image: circleci/android:api-25-alpha
     environment:
       JVM_OPTS: -Xmx4G
     steps:
       - checkout
-      - run: echo "Mirkelam is working for you 👯"
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
