@@ -1,4 +1,8 @@
-version: 2
+version: 2.1
+
+orbs:
+  win: circleci/windows@1.0.0
+  
 jobs:
   build:
     working_directory: ~/code
@@ -9,11 +13,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Download Dependencies
+          name: "Install project Dependencies"
           working_directory: ~/code/src/android
           command: ./gradlew androidDependencies
       - run:
-          name: Build
+          name: "Build"
           working_directory: ~/code/src/android
           command: ./gradlew clean build --stacktrace
   #build:
@@ -23,7 +27,21 @@ jobs:
   #  steps:
   #    - checkout
   #    - run:
-  #        name: Build
+  #        name: "Build"
   #        working_directory: ~/code/src/ios
   #        command: xcodebuild clean build -scheme "Wexflow" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+  build:
+    executor:
+      name: win/vs2019
+      shell: powershell.exe
+    steps:
+      - checkout
+      - run:
+          name: "Install project dependencies"
+          working_directory: ~/code/src/dotnet-core/Wexflow.Server
+          command: dotnet.exe restore Wexflow.Server.csproj
+      - run:
+          name: "Build"
+          working_directory: ~/code/src/dotnet-core/Wexflow.Server
+          command: dotnet.exe publish Wexflow.Server.csproj -c Release -r win10-x64
   
