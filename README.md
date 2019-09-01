@@ -43,6 +43,7 @@ Take a look at the brand new [version 4.4](https://github.com/aelassas/Wexflow/r
 |[AppVeyor](https://www.appveyor.com/) (.NET and .NET Core)| Windows | Wexflow.sln |[![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow)|
 |[Travis](https://travis-ci.org/) (Android)| Linux | src/android |[![Build Status](https://travis-ci.org/aelassas/Wexflow.svg?branch=master)](https://travis-ci.org/aelassas/Wexflow) | 
 |[Bitrise](https://www.bitrise.io/) (Android)|Linux| src/android | [![Build Status](https://app.bitrise.io/app/0fb832132f6afa6d/status.svg?token=j49g0Gx7rNWkl4s41xM_kA)](https://app.bitrise.io/app/0fb832132f6afa6d)|
+|[circleci](https://circleci.com/) (Android)|Linux| src/android | [![CircleCI](https://circleci.com/gh/aelassas/Wexflow.svg?style=svg)](https://circleci.com/gh/aelassas/Wexflow)|
 |[Travis](https://travis-ci.org/) (iOS)| macOS | src/ios |[![Build Status](https://travis-ci.org/aelassas/Wexflow.svg?branch=master)](https://travis-ci.org/aelassas/Wexflow) | 
 |[Bitrise](https://www.bitrise.io/) (iOS)|macOS| src/ios | [![Build Status](https://app.bitrise.io/app/f8006552bdd4ee80/status.svg?token=Yd_71TrG-cqFvEC1oV5teQ)](https://app.bitrise.io/app/f8006552bdd4ee80)|
 |[Codecov](https://codecov.io/) (.NET and .NET Core)|Windows| Wexflow.sln |[![Coverage Status](https://badgen.net/codecov/c/github/aelassas/Wexflow?icon=codecov)](https://codecov.io/gh/aelassas/Wexflow)|
