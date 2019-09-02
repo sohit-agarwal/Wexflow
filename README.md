@@ -120,7 +120,7 @@ Moreover, the "Designer" page allows to edit workflow files through its Web XML 
 
 # Why Wexflow?
 
-- [x] [Free and open-source](https://github.com/aelassas/Wexflow/wiki/Free-and-open-source).
+- [x] [Free and open source](https://github.com/aelassas/Wexflow/wiki/Free-and-open-source).
 - [x] [Easy to install and effortless configuration](https://github.com/aelassas/Wexflow/wiki/Installation).
 - [x] [Straightforward and easy to use](https://github.com/aelassas/Wexflow/wiki/Usage).
 - [x] [A cross-platform workflow server](https://github.com/aelassas/Wexflow/wiki/Workflow-server).
