@@ -286,7 +286,7 @@ Wexflow is licensed under the [MIT License](https://github.com/aelassas/Wexflow/
 
 # Credits
 
-Thanks to [JetBrains](https://www.jetbrains.com) for the free open-source licenses.
+Thanks to [JetBrains](https://www.jetbrains.com) for the free open source licenses.
 
 Improved and optimized using:
 
