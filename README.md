@@ -31,14 +31,15 @@
 [![Logo](https://aelassas.github.io/wexflow/images/wexflow-3.6-2.jpg)](https://wexflow.github.io/)
 -->
 
+<!--
 # Help Wanted
 
 I am looking for macOS testers. If you want to help, reply to this [issue](https://github.com/aelassas/Wexflow/issues/112) or send me a private [email](https://github.com/aelassas).
+-->
 
 # What's New?
 
-Take a look at the brand new [version 4.4](https://github.com/aelassas/Wexflow/releases/tag/v4.4). This latest version is a major and stable release that includes brand new features, bug fixes, major performance enhancements and under the hood updates.
-
+Take a look at the brand new [version 4.5](https://github.com/aelassas/Wexflow/releases/tag/v4.5). This version includes an [iOS app](https://github.com/aelassas/Wexflow/wiki/Usage#ios-manager) for managing workflows, [Vimeo integration](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation#audio-and-video-tasks) and bug fixes.
 
 # Continuous Integration
 
@@ -131,6 +132,7 @@ Moreover, the "Designer" page allows to edit workflow files through its Web XML 
 - [x] [A cross-platform workflow server](https://github.com/aelassas/Wexflow/wiki/Workflow-server).
 - [x] [A cross-platform back end](https://github.com/aelassas/Wexflow/wiki/Usage#backend).
 - [x] [An Android app for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#android-manager).
+- [x] [An iOS app for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#ios-manager).
 - [x] [Sequential workflows](https://github.com/aelassas/Wexflow/wiki/Samples#sequential-workflows).
 - [x] [Flowchart workflows](https://github.com/aelassas/Wexflow/wiki/Samples#flowchart-workflows).
 - [x] [Approval workflows](https://github.com/aelassas/Wexflow/wiki/Samples#approval-workflows).
@@ -164,6 +166,7 @@ Discover more about the features in [details](https://github.com/aelassas/Wexflo
 - Batch transcoding audio and video files.
 - Batch uploading videos and their metadata to YouTube SFTP dropbox.
 - [YouTube integration](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation#audio-and-video-tasks): Automatically upload, search for content and list uploaded videos on YouTube through YouTube Data API.
+- [Vimeo integration](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation#audio-and-video-tasks): Automatically upload and list uploaded videos on Vimeo through Vimeo API.
 - [Instagram integration](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation#social-media-tasks): Automatically upload images and videos to Instagram through Instagram API.
 - [Twitter integration](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation#social-media-tasks): Automatically send tweets through Twitter API.
 - [Reddit integration](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation#social-media-tasks): Automatically send posts and links to Reddit through Reddit API.
