@@ -40,7 +40,7 @@ jobs:
         language: swift
         osx_image: xcode8.3
         script:
-          - xcodebuild clean build -project "src/ios/Wexflow.xcodeproj" -scheme "Wexflow" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+          - xcodebuild clean build -project "src/ios/swift-3/Wexflow.xcodeproj" -scheme "Wexflow" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
           
 notifications:
   email: akram.elassas@gmail.com
