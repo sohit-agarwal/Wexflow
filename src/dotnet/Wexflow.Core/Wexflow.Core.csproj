@@ -123,6 +123,7 @@
     <Compile Include="FileInf.cs" />
     <Compile Include="ExecutionGraph\Graph.cs" />
     <Compile Include="ExecutionGraph\GraphEvent.cs" />
+    <Compile Include="Job.cs" />
     <Compile Include="LaunchType.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="ExecutionGraph\Node.cs" />
