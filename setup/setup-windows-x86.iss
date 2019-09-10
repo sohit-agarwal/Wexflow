@@ -248,7 +248,6 @@ Source: "..\src\backend\Wexflow.Backend\users.html"; DestDir: "{app}\Backend"; F
 Source: "..\src\backend\Wexflow.Backend\images\*"; DestDir: "{app}\Backend\images"; Flags: ignoreversion
 
 Source: "..\src\backend\Wexflow.Backend\css\images\*"; DestDir: "{app}\Backend\css\images"; Flags: ignoreversion
-Source: "..\src\backend\Wexflow.Backend\css\font-awesome\*"; DestDir: "{app}\Backend\css\font-awesome"; Flags: ignoreversion recursesubdirs
 Source: "..\src\backend\Wexflow.Backend\css\login.min.css"; DestDir: "{app}\Backend\css"; Flags: ignoreversion
 Source: "..\src\backend\Wexflow.Backend\css\forgot-password.min.css"; DestDir: "{app}\Backend\css"; Flags: ignoreversion
 Source: "..\src\backend\Wexflow.Backend\css\dashboard.min.css"; DestDir: "{app}\Backend\css"; Flags: ignoreversion

@@ -37,96 +37,43 @@ body {
 
 
 #login {
-    width: 460px;
+    width: 280px;
+    height: 100px;
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-top: -180px;
-    margin-left: -230px;
+    margin-top: -120px;
+    margin-left: -120px;
 }
 
-.field-icon {
-    float: right;
-    /*margin-left: -25px;*/
-    margin-top: -25px;
-    position: relative;
-    margin-right: 7px;
-    z-index: 2;
-}
+    #login label {
+        font-weight: bold;
+        line-height: 5px;
+    }
 
-.icon-right {
-    margin-left: 6px;
-    margin-top: 15px;
+    #login input {
+        margin-left: 10px;
+        margin-top: 3px;
+        width: 170px;
+    }
+
+#login-action {
     position: absolute;
-    z-index: 2;
+    right: 21px;
+    top: 73px;
+    left: 0;
 }
 
-.form-wrapper-outer {
-    padding: 30px;
-    margin: auto;
-    width: 460px;
-    margin-top: 7%;
-    /*border: 1px solid #DADCE0;
-    border-radius: 8px;*/
-}
-
-.form-greeting {
-    text-align: center;
-    font-size: 25px;
-    margin-bottom: 35px;
-}
-
-.form-button {
-    text-align: right;
-    padding-bottom: 20px;
-}
-
-#btn-login {
-    float:right;
-}
-#forgot-password{
-    float:left;
-}
-
-.field-wrapper {
-    position: relative;
-    margin-bottom: 15px;
-}
-
-    .field-wrapper input {
-        border: 1px solid #DADCE0;
-        padding: 10px 10px 10px 20px;
-        border-radius: 4px;
-        width: 100%;
+    #login-action input {
+        float: right;
+        width: 78px;
     }
 
-    .field-wrapper .field-placeholder {
-        font-size: 12px;
+    #login-action #btn-login {
+        margin-left: 11px;
+    }
+
+    #login-action #forgot-password {
         position: absolute;
-        bottom: 8px;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        color: #80868b;
-        left: 8px;
-        padding: 0 8px;
-        -webkit-transition: transform 150ms cubic-bezier(0.4,0,0.2,1),opacity 150ms cubic-bezier(0.4,0,0.2,1);
-        transition: transform 150ms cubic-bezier(0.4,0,0.2,1),opacity 150ms cubic-bezier(0.4,0,0.2,1);
-        z-index: 1;
-        text-align: left;
-        width: 100%;
+        top: 7px;
     }
-
-        .field-wrapper .field-placeholder span {
-            background: #ffffff;
-            padding: 0px 8px;
-        }
-
-    .field-wrapper input:not([disabled]):focus ~ .field-placeholder {
-        color: #1A73E8;
-    }
-
-    .field-wrapper input:not([disabled]):focus ~ .field-placeholder,
-    .field-wrapper.hasValue input:not([disabled]) ~ .field-placeholder {
-        -webkit-transform: scale(.75) translateY(-39px) translateX(-60px);
-        transform: scale(.75) translateY(-39px) translateX(-60px);
-    } 
