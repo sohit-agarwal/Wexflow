@@ -11,7 +11,7 @@
     <repository type="git" url="https://github.com/aelassas/Wexflow" />
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Core assembly of Wexflow workflow engine.</description>
-    <releaseNotes>Added queuing of workflow jobs.</releaseNotes>
+    <releaseNotes>Added new features, performance enhancements and under the hood updates.</releaseNotes>
     <copyright>Copyright (c) 2019 Akram El Assas.</copyright>
     <tags>Wexflow Workflow</tags>
   </metadata>
