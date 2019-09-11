@@ -34,13 +34,11 @@ namespace Wexflow.Server.Contracts
         
         public string CronExpression { get;  set; }
         
-        public string Path { get; set; }
-        
         public bool IsExecutionGraphEmpty { get; set; }
 
         public Variable[] LocalVariables { get; set; }
 
-        public WorkflowInfo(int id, string name, LaunchType launchType, bool isEnabled, bool isApproval, bool isWaitingForApproval, string desc, bool isRunning, bool isPaused, string period, string cronExpression, string path, bool isExecutionGraphEmpty, Variable[] localVariables)
+        public WorkflowInfo(int id, string name, LaunchType launchType, bool isEnabled, bool isApproval, bool isWaitingForApproval, string desc, bool isRunning, bool isPaused, string period, string cronExpression, bool isExecutionGraphEmpty, Variable[] localVariables)
         {
             Id = id;
             Name = name;
@@ -53,7 +51,6 @@ namespace Wexflow.Server.Contracts
             IsPaused = isPaused;
             Period = period;
             CronExpression = cronExpression;
-            Path = path;
             IsExecutionGraphEmpty = isExecutionGraphEmpty;
             LocalVariables = localVariables;
         }

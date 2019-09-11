@@ -36,7 +36,7 @@ namespace Wexflow.Server
         {
             return WexflowWindowsService.WexflowEngine.Workflows.Select(wf => new WorkflowInfo(wf.Id, wf.Name,
                     (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
-                    wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression, wf.WorkflowFilePath,
+                    wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
                     wf.IsExecutionGraphEmpty
                     , wf.LocalVariables.Select(v => new Core.Service.Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()
                     ))
@@ -52,7 +52,7 @@ namespace Wexflow.Server
                     .Where(w => w.IsApproval)
                     .Select(wf => new WorkflowInfo(wf.Id, wf.Name,
                                 (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
-                                wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression, wf.WorkflowFilePath,
+                                wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
                                 wf.IsExecutionGraphEmpty
                                 , wf.LocalVariables.Select(v => new Core.Service.Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()
                     ))
@@ -71,7 +71,7 @@ namespace Wexflow.Server
                     wf.Name.ToUpper().Contains(keywordToUpper) || wf.Description.ToUpper().Contains(keywordToUpper))
                 .Select(wf => new WorkflowInfo(wf.Id, wf.Name,
                     (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
-                    wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression, wf.WorkflowFilePath,
+                    wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
                     wf.IsExecutionGraphEmpty
                    , wf.LocalVariables.Select(v => new Core.Service.Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()))
                 .ToArray();
@@ -90,7 +90,7 @@ namespace Wexflow.Server
                     (wf.Name.ToUpper().Contains(keywordToUpper) || wf.Description.ToUpper().Contains(keywordToUpper)))
                 .Select(wf => new WorkflowInfo(wf.Id, wf.Name,
                     (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
-                    wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression, wf.WorkflowFilePath,
+                    wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
                     wf.IsExecutionGraphEmpty
                    , wf.LocalVariables.Select(v => new Core.Service.Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()))
                 .ToArray();
@@ -153,9 +153,9 @@ namespace Wexflow.Server
             if (wf != null)
             {
                 return new WorkflowInfo(wf.Id, wf.Name, (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description,
-                    wf.IsRunning, wf.IsPaused, wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
-                    wf.WorkflowFilePath, wf.IsExecutionGraphEmpty
-                        , wf.LocalVariables.Select(v => new Core.Service.Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()
+                    wf.IsRunning, wf.IsPaused, wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression
+                    , wf.IsExecutionGraphEmpty
+                    , wf.LocalVariables.Select(v => new Core.Service.Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()
                     );
             }
 
@@ -248,14 +248,6 @@ namespace Wexflow.Server
                 Console.WriteLine(e);
                 return new[] { "TasksSettings.json is not valid." };
             }
-        }
-
-        [WebInvoke(Method = "GET",
-            ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "workflowsFolder")]
-        public string GetWorkflowsFolder()
-        {
-            return WexflowWindowsService.WexflowEngine.WorkflowsFolder;
         }
 
         [WebInvoke(Method = "POST",
@@ -419,10 +411,10 @@ namespace Wexflow.Server
                 string xml = (string)o.SelectToken("xml");
                 xml = CleanupXml(xml);
 
-                var xdoc = XDocument.Parse(xml);
-                var wf = GetWorkflowRecursive(workflowId);
-                xdoc.Save(wf.WorkflowFilePath);
-
+                //var xdoc = XDocument.Parse(xml);
+                //var wf = GetWorkflowRecursive(workflowId);
+                //xdoc.Save(wf.WorkflowFilePath);
+                WexflowWindowsService.WexflowEngine.SaveWorkflow(xml);
                 return true;
             }
             catch (Exception e)
@@ -432,7 +424,7 @@ namespace Wexflow.Server
             }
         }
 
-        private Workflow GetWorkflowRecursive(int workflowId)
+        private Core.Workflow GetWorkflowRecursive(int workflowId)
         {
             var wf = WexflowWindowsService.WexflowEngine.GetWorkflow(workflowId);
             if (wf != null)
@@ -616,7 +608,8 @@ namespace Wexflow.Server
                     xdoc.Add(xwf);
 
                     var path = (string)wi.SelectToken("Path");
-                    xdoc.Save(path);
+                    //xdoc.Save(path);
+                    WexflowWindowsService.WexflowEngine.SaveWorkflow(xdoc.ToString());
                 }
                 else
                 {
@@ -802,7 +795,8 @@ namespace Wexflow.Server
                             xtasks.Add(xtask);
                         }
 
-                        xdoc.Save(wf.WorkflowFilePath);
+                        //xdoc.Save(wf.WorkflowFilePath);
+                        WexflowWindowsService.WexflowEngine.SaveWorkflow(xdoc.ToString());
                     }
                 }
 
@@ -825,14 +819,7 @@ namespace Wexflow.Server
                 var wf = WexflowWindowsService.WexflowEngine.GetWorkflow(int.Parse(id));
                 if (wf != null)
                 {
-                    string destPath = Path.Combine(WexflowWindowsService.WexflowEngine.TrashFolder, Path.GetFileName(wf.WorkflowFilePath));
-                    if (File.Exists(destPath))
-                    {
-                        destPath = Path.Combine(WexflowWindowsService.WexflowEngine.TrashFolder
-                            , Path.GetFileNameWithoutExtension(destPath) + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + Path.GetExtension(destPath));
-                    }
-
-                    File.Move(wf.WorkflowFilePath, destPath);
+                    WexflowWindowsService.WexflowEngine.DeleteWorkflow(wf.DbId);
                 }
 
                 return true;

@@ -893,5 +893,36 @@ namespace Wexflow.Core.Db
 
             return DateTime.Now;
         }
+
+        public int InsertWorkflow(Workflow workflow)
+        {
+            var col = _db.GetCollection<Workflow>("workflows");
+            var res = col.Insert(workflow);
+            return res.AsInt32;
+        }
+
+        public void UpdateWorkflow(Workflow workflow)
+        {
+            var col = _db.GetCollection<Workflow>("workflows");
+            col.Update(workflow);
+        }
+
+        public void DeleteWorkflow(int id)
+        {
+            var col = _db.GetCollection<Workflow>("workflows");
+            col.Delete(e => e.Id == id);
+        }
+
+        public IEnumerable<Workflow> GetWorkflows()
+        {
+            var col = _db.GetCollection<Workflow>("workflows");
+            return col.FindAll();
+        }
+
+        public Workflow GetWorkflow(int id)
+        {
+            var col = _db.GetCollection<Workflow>("workflows");
+            return col.FindById(id);
+        }
     }
 }

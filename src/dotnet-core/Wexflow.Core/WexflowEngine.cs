@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
+using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using Wexflow.Core.Db;
@@ -30,18 +31,6 @@ namespace Wexflow.Core
         /// </summary>
         public string SettingsFile { get; private set; }
         /// <summary>
-        /// Workflows folder path.
-        /// </summary>
-        public string WorkflowsFolder { get; private set; }
-        /// <summary>
-        /// Approval folder path.
-        /// </summary>
-        public string ApprovalFolder { get; private set; }
-        /// <summary>
-        /// Trash folder path.
-        /// </summary>
-        public string TrashFolder { get; private set; }
-        /// <summary>
         /// Temp folder path.
         /// </summary>
         public string TempFolder { get; private set; }
@@ -53,6 +42,10 @@ namespace Wexflow.Core
         /// Workflows temp folder used for global variables parsing.
         /// </summary>
         public string WorkflowsTempFolder { get; private set; }
+        /// <summary>
+        /// Approval folder path.
+        /// </summary>
+        public string ApprovalFolder { get; private set; }
         /// <summary>
         /// XSD path.
         /// </summary>
@@ -81,7 +74,6 @@ namespace Wexflow.Core
         /// Global variables.
         /// </summary>
         public Variable[] GlobalVariables { get; private set; }
-
         /// <summary>
         /// Database
         /// </summary>
@@ -119,10 +111,6 @@ namespace Wexflow.Core
             LoadGlobalVariables();
 
             LoadWorkflows();
-
-            //Task<IScheduler> ischeduler = SchedulerFactory.GetScheduler();
-            //ischeduler.Wait();
-            //QuartzScheduler = ischeduler.Result;
         }
 
         /// <summary>
@@ -139,8 +127,6 @@ namespace Wexflow.Core
         private void LoadSettings()
         {
             var xdoc = XDocument.Load(SettingsFile);
-            WorkflowsFolder = GetWexflowSetting(xdoc, "workflowsFolder");
-            TrashFolder = GetWexflowSetting(xdoc, "trashFolder");
             TempFolder = GetWexflowSetting(xdoc, "tempFolder");
             TasksFolder = GetWexflowSetting(xdoc, "tasksFolder");
             if (!Directory.Exists(TempFolder)) Directory.CreateDirectory(TempFolder);
@@ -191,21 +177,25 @@ namespace Wexflow.Core
 
         private void LoadWorkflows()
         {
-            foreach (string file in Directory.GetFiles(WorkflowsFolder))
+            // D:\dev\Wexflow\src\samples\dotnet-core\windows\Wexflow\Workflows
+            // D:\dev\Wexflow\src\samples\dotnet-core\linux\Wexflow\Workflows
+            // D:\dev\Wexflow\src\samples\dotnet-core\macos\Wexflow\Workflows
+            //foreach (string file in Directory.GetFiles(@"D:\dev\Wexflow\src\samples\dotnet-core\macos\Wexflow\Workflows"))
+            //{
+            //    Database.InsertWorkflow(new Db.Workflow { Xml = File.ReadAllText(file) });
+            //}
+
+            var workflows = Database.GetWorkflows();
+
+            foreach (var workflow in workflows)
             {
-                var workflow = LoadWorkflowFromFile(file);
-                if (workflow != null)
-                {
-                    Workflows.Add(workflow);
-                }
+                var wf = LoadWorkflowFromDatabase(workflow);
+                Workflows.Add(wf);
             }
+
         }
 
-        /// <summary>
-        /// Stops cron jobs.
-        /// </summary>
-        /// <param name="workflowId">Workflow id.</param>
-        public void StopCronJobs(int workflowId)
+        private void StopCronJobs(int workflowId)
         {
             string jobIdentity = "Workflow Job " + workflowId;
             var jobKey = new JobKey(jobIdentity);
@@ -215,16 +205,13 @@ namespace Wexflow.Core
             }
         }
 
-        /// <summary>
-        /// Loads workflow from file.
-        /// </summary>
-        /// <param name="file">File path.</param>
-        /// <returns>Worflow.</returns>
-        public Workflow LoadWorkflowFromFile(string file)
+        private Workflow LoadWorkflowFromDatabase(Db.Workflow workflow)
         {
             try
             {
-                var wf = new Workflow(file
+                var wf = new Workflow(
+                      workflow.Id
+                    , workflow.Xml
                     , TempFolder
                     , WorkflowsTempFolder
                     , TasksFolder
@@ -232,13 +219,104 @@ namespace Wexflow.Core
                     , XsdPath
                     , Database
                     , GlobalVariables);
-                Logger.InfoFormat("Workflow loaded: {0} ({1})", wf, file);
+                Logger.InfoFormat("Workflow loaded: {0}", wf);
                 return wf;
             }
             catch (Exception e)
             {
-                Logger.ErrorFormat("An error occured while loading the workflow : {0} Please check the workflow configuration. Error: {1}", file, e.Message);
+                Logger.ErrorFormat("An error occured while loading the workflow : {0} Please check the workflow configuration. Error: {1}", workflow.Id, e.Message);
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// Saves a workflow in the database.
+        /// </summary>
+        /// <param name="xml">XML of the workflow.</param>
+        public void SaveWorkflow(string xml)
+        {
+            try
+            {
+                using (var xmlReader = XmlReader.Create(new StringReader(xml)))
+                {
+                    XmlNamespaceManager xmlNamespaceManager = null;
+                    var xmlNameTable = xmlReader.NameTable;
+                    if (xmlNameTable != null)
+                    {
+                        xmlNamespaceManager = new XmlNamespaceManager(xmlNameTable);
+                        xmlNamespaceManager.AddNamespace("wf", "urn:wexflow-schema");
+                    }
+
+                    var xdoc = XDocument.Parse(xml);
+                    var id = int.Parse(xdoc.XPathSelectElement("/wf:Workflow", xmlNamespaceManager).Attribute("id").Value);
+                    var workflow = Workflows.FirstOrDefault(w => w.Id == id);
+
+                    if (workflow == null) // insert
+                    {
+                        int dbId = Database.InsertWorkflow(new Db.Workflow { Xml = xml });
+                        var wfFromDb = Database.GetWorkflow(dbId);
+                        var newWorkflow = LoadWorkflowFromDatabase(wfFromDb);
+
+                        Logger.InfoFormat("New workflow {0} has been created. The workflow will be loaded.", newWorkflow.Name);
+                        Workflows.Add(newWorkflow);
+                        ScheduleWorkflow(newWorkflow);
+                    }
+                    else // update
+                    {
+                        var workflowFromDb = Database.GetWorkflow(workflow.DbId);
+                        workflowFromDb.Xml = xml;
+                        Database.UpdateWorkflow(workflowFromDb);
+
+                        var changedWorkflow = Workflows.SingleOrDefault(wf => wf.DbId == workflowFromDb.Id);
+
+                        if (changedWorkflow != null)
+                        {
+                            changedWorkflow.Stop();
+
+                            StopCronJobs(changedWorkflow.Id);
+                            Workflows.Remove(changedWorkflow);
+                            Logger.InfoFormat("A change in the workflow {0} has been detected. The workflow will be reloaded.", changedWorkflow.Name);
+
+                            var updatedWorkflow = LoadWorkflowFromDatabase(workflowFromDb);
+                            Workflows.Add(updatedWorkflow);
+                            ScheduleWorkflow(updatedWorkflow);
+
+                        }
+                    }
+                }
+
+            }
+            catch (Exception e)
+            {
+                Logger.ErrorFormat("Error while saving a workflow: {0}", e.Message);
+            }
+
+        }
+
+        /// <summary>
+        /// Deletes a workflow from the database.
+        /// </summary>
+        /// <param name="dbId"></param>
+        public void DeleteWorkflow(int dbId)
+        {
+            try
+            {
+                Database.DeleteWorkflow(dbId);
+
+                var removedWorkflow = Workflows.SingleOrDefault(wf => wf.DbId == dbId);
+                if (removedWorkflow != null)
+                {
+                    Logger.InfoFormat("Workflow {0} is stopped and removed.", removedWorkflow.Name);
+                    removedWorkflow.Stop();
+
+                    StopCronJobs(removedWorkflow.Id);
+                    Workflows.Remove(removedWorkflow);
+                }
+
+            }
+            catch (Exception e)
+            {
+                Logger.ErrorFormat("Error while deleting a workflow: {0}", e.Message);
             }
         }
 
@@ -258,11 +336,7 @@ namespace Wexflow.Core
             }
         }
 
-        /// <summary>
-        /// Schedules a workflow.
-        /// </summary>
-        /// <param name="wf">Workflow.</param>
-        public void ScheduleWorkflow(Workflow wf)
+        private void ScheduleWorkflow(Workflow wf)
         {
             if (wf.IsEnabled)
             {
@@ -283,7 +357,7 @@ namespace Wexflow.Core
 
                     ITrigger trigger = TriggerBuilder.Create()
                         .ForJob(jobDetail)
-                        .WithSimpleSchedule( x => x.WithInterval(wf.Period).RepeatForever())
+                        .WithSimpleSchedule(x => x.WithInterval(wf.Period).RepeatForever())
                         .WithIdentity("Workflow Trigger " + wf.Id)
                         .StartNow()
                         .Build();
@@ -530,7 +604,10 @@ namespace Wexflow.Core
         {
             Database.InsertUser(new User
             {
-                Username = username, Password = password, UserProfile = userProfile, Email = email
+                Username = username,
+                Password = password,
+                UserProfile = userProfile,
+                Email = email
             });
         }
 
@@ -546,7 +623,7 @@ namespace Wexflow.Core
         {
             Database.UpdateUser(new User
             {
-                Id =  userId,
+                Id = userId,
                 Username = username,
                 Password = password,
                 UserProfile = userProfile,
@@ -563,7 +640,7 @@ namespace Wexflow.Core
         /// <param name="up">User profile.</param>
         public void UpdateUsernameAndEmailAndUserProfile(int userId, string username, string email, int up)
         {
-            Database.UpdateUsernameAndEmailAndUserProfile(userId, username, email,(UserProfile)up);
+            Database.UpdateUsernameAndEmailAndUserProfile(userId, username, email, (UserProfile)up);
         }
 
         /// <summary>
@@ -608,7 +685,7 @@ namespace Wexflow.Core
                 return q.ToArray();
             }
 
-            return new User[]{};
+            return new User[] { };
         }
 
         /// <summary>

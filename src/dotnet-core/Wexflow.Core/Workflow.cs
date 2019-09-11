@@ -26,12 +26,10 @@ namespace Wexflow.Core
         /// We divide this by 8 within the code below to get the equivalent number of bytes.
         /// </summary>
         public static readonly int KeySize = 128;
-
         /// <summary>
         /// This constant determines the number of iterations for the password bytes generation function. 
         /// </summary>
         public static readonly int DerivationIterations = 1000;
-
         /// <summary>
         /// PassPhrase.
         /// </summary>
@@ -43,9 +41,13 @@ namespace Wexflow.Core
         public const int StartId = -1;
 
         /// <summary>
-        /// Workflow file path.
+        /// Database ID.
         /// </summary>
-        public string WorkflowFilePath { get; private set; }
+        public int DbId { get; private set; }
+        /// <summary>
+        /// XML of the workflow.
+        /// </summary>
+        public string Xml { get; private set; }
         /// <summary>
         /// Wexflow temp folder.
         /// </summary>
@@ -182,7 +184,8 @@ namespace Wexflow.Core
         /// <summary>
         /// Creates a new workflow.
         /// </summary>
-        /// <param name="path">Workflow file path.</param>
+        /// <param name="dbId">Database ID.</param>
+        /// <param name="xml">XML of the workflow.</param>
         /// <param name="wexflowTempFolder">Wexflow temp folder.</param>
         /// <param name="workflowsTempFolder">Workflows temp folder.</param>
         /// <param name="tasksFolder">Tasks folder.</param>
@@ -190,7 +193,9 @@ namespace Wexflow.Core
         /// <param name="xsdPath">XSD path.</param>
         /// <param name="database">Database.</param>
         /// <param name="globalVariables">Global variables.</param>
-        public Workflow(string path
+        public Workflow(
+              int dbId
+            , string xml
             , string wexflowTempFolder
             , string workflowsTempFolder
             , string tasksFolder
@@ -202,7 +207,8 @@ namespace Wexflow.Core
             JobId = 1;
             _jobsQueue = new Queue<Job>();
             _thread = null;
-            WorkflowFilePath = path;
+            DbId = dbId;
+            Xml = xml;
             WexflowTempFolder = wexflowTempFolder;
             WorkflowsTempFolder = workflowsTempFolder;
             TasksFolder = tasksFolder;
@@ -215,7 +221,7 @@ namespace Wexflow.Core
             GlobalVariables = globalVariables;
             Check();
             LoadLocalVariables();
-            Load(WorkflowFilePath);
+            Load();
 
             if (!IsEnabled)
             {
@@ -237,7 +243,7 @@ namespace Wexflow.Core
             var schemas = new XmlSchemaSet();
             schemas.Add("urn:wexflow-schema", XsdPath);
 
-            var doc = XDocument.Load(WorkflowFilePath);
+            var doc = XDocument.Parse(Xml);
             string msg = string.Empty;
             doc.Validate(schemas, (o, e) =>
             {
@@ -252,7 +258,7 @@ namespace Wexflow.Core
 
         private void LoadLocalVariables()
         {
-            using (var xmlReader = XmlReader.Create(WorkflowFilePath))
+            using (var xmlReader = XmlReader.Create(new StringReader(Xml)))
             {
                 var xmlNameTable = xmlReader.NameTable;
                 if (xmlNameTable != null)
@@ -262,10 +268,10 @@ namespace Wexflow.Core
                 }
                 else
                 {
-                    throw new Exception("xmlNameTable of " + WorkflowFilePath + " is null");
+                    throw new Exception("xmlNameTable of " + Id + " is null");
                 }
 
-                var xdoc = XDocument.Load(WorkflowFilePath);
+                var xdoc = XDocument.Parse(Xml);
                 List<Variable> localVariables = new List<Variable>();
 
                 foreach (var xvariable in xdoc.XPathSelectElements("/wf:Workflow/wf:LocalVariables/wf:Variable",
@@ -322,7 +328,7 @@ namespace Wexflow.Core
                 }
                 else
                 {
-                    throw new Exception("xmlNameTable of " + WorkflowFilePath + " is null");
+                    throw new Exception("xmlNameTable of " + Id + " is null");
                 }
 
                 var xdoc = XDocument.Load(dest);
@@ -366,13 +372,13 @@ namespace Wexflow.Core
 
         }
 
-        private void Load(string workflowFilePath)
+        private void Load()
         {
             FilesPerTask.Clear();
             EntitiesPerTask.Clear();
 
             //FileStream fs = new FileStream(workflowFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
-            using (var xmlReader = XmlReader.Create(workflowFilePath))
+            using (var xmlReader = XmlReader.Create(new StringReader(Xml)))
             {
                 var xmlNameTable = xmlReader.NameTable;
                 if (xmlNameTable != null)
@@ -382,11 +388,12 @@ namespace Wexflow.Core
                 }
                 else
                 {
-                    throw new Exception("xmlNameTable of " + WorkflowFilePath + " is null");
+                    throw new Exception("xmlNameTable of " + Id + " is null");
                 }
 
                 // Loading settings
-                var xdoc = XDocument.Load(workflowFilePath);
+                //var xdoc = XDocument.Load(workflowFilePath);
+                var xdoc = XDocument.Parse(Xml);
                 XDoc = xdoc;
                 XNamespaceWf = "urn:wexflow-schema";
 
@@ -435,7 +442,7 @@ namespace Wexflow.Core
                         // Try to load from root
                         type = Type.GetType(typeName);
 
-                        if(type == null) // Try to load from Tasks folder
+                        if (type == null) // Try to load from Tasks folder
                         {
                             var taskAssemblyFile = Path.Combine(TasksFolder, assemblyName + ".dll");
                             if (File.Exists(taskAssemblyFile))
@@ -795,12 +802,12 @@ namespace Wexflow.Core
             }
 
             //
-            // Parse the workflow file (Global variables and local variables.)
+            // TODO Parse the workflow file (Global variables and local variables.)
             //
-            string src = WorkflowFilePath;
-            string dest = Path.Combine(WorkflowsTempFolder, Path.GetFileNameWithoutExtension(WorkflowFilePath) + "_" +  Guid.NewGuid() + ".xml");
-            Parse(src, dest);
-            Load(dest);
+            //string src = WorkflowFilePath;
+            //string dest = Path.Combine(WorkflowsTempFolder, Path.GetFileNameWithoutExtension(WorkflowFilePath) + "_" +  Guid.NewGuid() + ".xml");
+            //Parse(src, dest);
+            //Load(dest);
 
             Database.IncrementRunningCount();
 
@@ -961,7 +968,7 @@ namespace Wexflow.Core
                     }
                     finally
                     {
-                        Load(WorkflowFilePath); // Reload the original workflow
+                        //Load(WorkflowFilePath); // Reload the original workflow
 
                         // Cleanup
                         foreach (List<FileInf> files in FilesPerTask.Values) files.Clear();
@@ -969,7 +976,7 @@ namespace Wexflow.Core
                         _thread = null;
                         IsRunning = false;
                         IsDisapproved = false;
-                        File.Delete(dest);
+                        //File.Delete(dest);
                         GC.Collect();
 
                         Logger.InfoFormat("{0} Workflow finished.", LogTag);

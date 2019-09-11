@@ -59,9 +59,6 @@ namespace Wexflow.Server
         string[] GetTaskNames();
 
         [OperationContract]
-        string GetWorkflowsFolder();
-
-        [OperationContract]
         bool IsWorkflowIdValid(string id);
 
         [OperationContract]
