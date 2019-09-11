@@ -120,6 +120,9 @@ Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Security.Cryptography.X
 ; InstagramApiSharp
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\InstagramApiSharp.dll"; DestDir: "{app}"; Flags: ignoreversion
 
+; SlackAPI
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\SlackAPI.dll"; DestDir: "{app}"; Flags: ignoreversion
+
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Core.Db.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Core.Service.Client.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -227,6 +230,7 @@ Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Tasks.FileContentMatch
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Tasks.Approval.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Tasks.VimeoListUploads.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Tasks.Vimeo.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Tasks.Slack.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 ; Wexflow Manager
 Source: "..\src\dotnet\Wexflow.Clients.Manager\bin\Release\Wexflow.Clients.Manager.exe"; DestDir: "{app}\Manager"; Flags: ignoreversion
@@ -380,6 +384,7 @@ Source: "..\src\dotnet\Wexflow.Tasks.FileContentMatch\FileContentMatch.xml"; Des
 Source: "..\src\dotnet\Wexflow.Tasks.Approval\Approval.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 Source: "..\src\dotnet\Wexflow.Tasks.VimeoListUploads\VimeoListUploads.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 Source: "..\src\dotnet\Wexflow.Tasks.Vimeo\Vimeo.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Slack\Slack.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 
 Source: "..\LICENSE.txt"; DestDir: "{app}\"; Flags: ignoreversion recursesubdirs
 

@@ -431,6 +431,10 @@
       <Project>{261e8567-6ace-4591-80ec-658eede9ebcf}</Project>
       <Name>Wexflow.Tasks.Sha512</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.Slack\Wexflow.Tasks.Slack.csproj">
+      <Project>{b5c54157-6a34-41b3-9ec9-4cb1b6dc30ea}</Project>
+      <Name>Wexflow.Tasks.Slack</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.SpeechToText\Wexflow.Tasks.SpeechToText.csproj">
       <Project>{300f2fdc-7fb9-49a9-ae91-8ecacf92fea8}</Project>
       <Name>Wexflow.Tasks.SpeechToText</Name>

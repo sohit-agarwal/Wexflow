@@ -68,6 +68,7 @@
     <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Sha1\Wexflow.Tasks.Sha1.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Sha256\Wexflow.Tasks.Sha256.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Sha512\Wexflow.Tasks.Sha512.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Slack\Wexflow.Tasks.Slack.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Template\Wexflow.Tasks.Template.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.TextsDecryptor\Wexflow.Tasks.TextsDecryptor.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.TextsEncryptor\Wexflow.Tasks.TextsEncryptor.csproj" />
