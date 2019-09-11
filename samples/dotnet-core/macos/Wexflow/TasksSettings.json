@@ -52,6 +52,7 @@
 	"Sha1": [ "selectFiles" ],
 	"Sha256": [ "selectFiles" ],
 	"Sha512": [ "selectFiles" ],
+	"Slack": [ "selectFiles", "token" ],
 	"TextsDecryptor": [ "selectFiles" ],
 	"TextsEncryptor": [ "selectFiles" ],
 	"Touch": [ "file" ],

@@ -66,6 +66,7 @@
 	"Sha1",
 	"Sha256",
 	"Sha512",
+	"Slack",
 	"SpeechToText",
 	"Sql",
 	"SqlToCsv",

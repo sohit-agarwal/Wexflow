@@ -3,7 +3,7 @@
   <!--
     Slack is a sequential task that sends slack messges.
     
-    It takes as input XML files containing Slack messgaes. Below is the format of these XML files:
+    It takes as input XML files containing Slack messages. Below is the format of these XML files:
     
     <Messages>
 	    <Message>

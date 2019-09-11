@@ -52,6 +52,7 @@
 	"Sha1",
 	"Sha256",
 	"Sha512",
+	"Slack",
 	"TextsDecryptor",
 	"TextsEncryptor",
 	"Touch",

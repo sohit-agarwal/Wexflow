@@ -66,6 +66,7 @@
 	"Sha1": [ "selectFiles" ],
 	"Sha256": [ "selectFiles" ],
 	"Sha512": [ "selectFiles" ],
+	"Slack": [ "selectFiles", "token" ],
 	"SpeechToText": [ "selectFiles" ],
 	"Sql": [ "selectFiles", "type", "connectionString", "sql" ],
 	"SqlToCsv": [ "selectFiles", "type", "connectionString", "sql", "doNotGenerateFilesIfEmpty" ],
