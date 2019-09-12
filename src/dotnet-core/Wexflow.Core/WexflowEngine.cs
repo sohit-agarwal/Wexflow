@@ -296,7 +296,7 @@ namespace Wexflow.Core
         /// <summary>
         /// Deletes a workflow from the database.
         /// </summary>
-        /// <param name="dbId"></param>
+        /// <param name="dbId">DB ID.</param>
         public void DeleteWorkflow(int dbId)
         {
             try
@@ -317,6 +317,38 @@ namespace Wexflow.Core
             catch (Exception e)
             {
                 Logger.ErrorFormat("Error while deleting a workflow: {0}", e.Message);
+            }
+        }
+
+        /// <summary>
+        /// Deletes workflows from the database.
+        /// </summary>
+        /// <param name="dbIds">DB IDs</param>
+        public bool DeleteWorkflows(int[] dbIds)
+        {
+            try
+            {
+                Database.DeleteWorkflows(dbIds);
+
+                foreach (var dbId in dbIds)
+                {
+                    var removedWorkflow = Workflows.SingleOrDefault(wf => wf.DbId == dbId);
+                    if (removedWorkflow != null)
+                    {
+                        Logger.InfoFormat("Workflow {0} is stopped and removed.", removedWorkflow.Name);
+                        removedWorkflow.Stop();
+
+                        StopCronJobs(removedWorkflow.Id);
+                        Workflows.Remove(removedWorkflow);
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Logger.ErrorFormat("Error while deleting workflows: {0}", e.Message);
+                return false;
             }
         }
 

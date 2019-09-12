@@ -913,6 +913,12 @@ namespace Wexflow.Core.Db
             col.Delete(e => e.Id == id);
         }
 
+        public void DeleteWorkflows(int[] ids)
+        {
+            var col = _db.GetCollection<Workflow>("workflows");
+            col.Delete(e => ids.Contains(e.Id));
+        }
+
         public IEnumerable<Workflow> GetWorkflows()
         {
             var col = _db.GetCollection<Workflow>("workflows");

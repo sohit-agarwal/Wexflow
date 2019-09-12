@@ -61,6 +61,7 @@ namespace Wexflow.Server
             SaveWorkflow();
             DeleteWorkflow();
             GetExecutionGraph();
+            DeleteWorkflows();
 
             //
             // Approval
@@ -103,7 +104,7 @@ namespace Wexflow.Server
         {
             Get(Root + "workflows", args =>
             {
-                var workflows = Program.WexflowEngine.Workflows.Select(wf => new WorkflowInfo(wf.Id, wf.Name,
+                var workflows = Program.WexflowEngine.Workflows.Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.Name,
                         (LaunchType) wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
                         wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
                         wf.IsExecutionGraphEmpty
@@ -133,7 +134,7 @@ namespace Wexflow.Server
                     .ToList()
                     .Where(wf =>
                         wf.Name.ToUpper().Contains(keywordToUpper) || wf.Description.ToUpper().Contains(keywordToUpper))
-                    .Select(wf => new WorkflowInfo(wf.Id, wf.Name,
+                    .Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.Name,
                         (LaunchType) wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
                         wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
                         wf.IsExecutionGraphEmpty
@@ -164,7 +165,7 @@ namespace Wexflow.Server
                     .Where(wf =>
                         wf.IsApproval &&
                         (wf.Name.ToUpper().Contains(keywordToUpper) || wf.Description.ToUpper().Contains(keywordToUpper)))
-                    .Select(wf => new WorkflowInfo(wf.Id, wf.Name,
+                    .Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.Name,
                         (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
                         wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
                         wf.IsExecutionGraphEmpty
@@ -192,7 +193,7 @@ namespace Wexflow.Server
                 Core.Workflow wf = Program.WexflowEngine.GetWorkflow(args.id);
                 if (wf != null)
                 {
-                    var workflow = new WorkflowInfo(wf.Id, wf.Name, (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description,
+                    var workflow = new WorkflowInfo(wf.DbId, wf.Id, wf.Name, (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description,
                         wf.IsRunning, wf.IsPaused, wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
                         wf.IsExecutionGraphEmpty
                         , wf.LocalVariables.Select(v => new Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()
@@ -1869,6 +1870,48 @@ namespace Wexflow.Server
                     Contents = s => s.Write(dBytes, 0, dBytes.Length)
                 };
             });
+        }
+
+        /// <summary>
+        /// Saves a workflow.
+        /// </summary>
+        private void DeleteWorkflows()
+        {
+            Post(Root + "deleteWorkflows", args =>
+            {
+                try
+                {
+                    var json = RequestStream.FromStream(Request.Body).AsString();
+
+                    var workflowDbIds = JsonConvert.DeserializeObject<int[]>(json);
+
+                    var res = Program.WexflowEngine.DeleteWorkflows(workflowDbIds);
+
+                    var resStr = JsonConvert.SerializeObject(res);
+                    var resBytes = Encoding.UTF8.GetBytes(resStr);
+
+                    return new Response()
+                    {
+                        ContentType = "application/json",
+                        Contents = s => s.Write(resBytes, 0, resBytes.Length)
+                    };
+
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+
+                    var resStr = JsonConvert.SerializeObject(false);
+                    var resBytes = Encoding.UTF8.GetBytes(resStr);
+
+                    return new Response()
+                    {
+                        ContentType = "application/json",
+                        Contents = s => s.Write(resBytes, 0, resBytes.Length)
+                    };
+                }
+            });
+
         }
     }
 }

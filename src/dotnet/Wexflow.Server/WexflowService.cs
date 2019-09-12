@@ -20,9 +20,9 @@ using StatusCount = Wexflow.Core.Service.Contracts.StatusCount;
 using User = Wexflow.Core.Service.Contracts.User;
 using UserProfile = Wexflow.Core.Service.Contracts.UserProfile;
 using System.Configuration;
-using System.Xml;
 using System.Xml.Schema;
 using System.Threading;
+using Newtonsoft.Json;
 
 namespace Wexflow.Server
 {
@@ -34,7 +34,7 @@ namespace Wexflow.Server
             UriTemplate = "workflows")]
         public WorkflowInfo[] GetWorkflows()
         {
-            return WexflowWindowsService.WexflowEngine.Workflows.Select(wf => new WorkflowInfo(wf.Id, wf.Name,
+            return WexflowWindowsService.WexflowEngine.Workflows.Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.Name,
                     (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
                     wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
                     wf.IsExecutionGraphEmpty
@@ -50,7 +50,7 @@ namespace Wexflow.Server
         {
             return WexflowWindowsService.WexflowEngine.Workflows
                     .Where(w => w.IsApproval)
-                    .Select(wf => new WorkflowInfo(wf.Id, wf.Name,
+                    .Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.Name,
                                 (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
                                 wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
                                 wf.IsExecutionGraphEmpty
@@ -69,7 +69,7 @@ namespace Wexflow.Server
                 .ToList()
                 .Where(wf =>
                     wf.Name.ToUpper().Contains(keywordToUpper) || wf.Description.ToUpper().Contains(keywordToUpper))
-                .Select(wf => new WorkflowInfo(wf.Id, wf.Name,
+                .Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.Name,
                     (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
                     wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
                     wf.IsExecutionGraphEmpty
@@ -88,7 +88,7 @@ namespace Wexflow.Server
                 .Where(wf =>
                     wf.IsApproval &&
                     (wf.Name.ToUpper().Contains(keywordToUpper) || wf.Description.ToUpper().Contains(keywordToUpper)))
-                .Select(wf => new WorkflowInfo(wf.Id, wf.Name,
+                .Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.Name,
                     (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
                     wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
                     wf.IsExecutionGraphEmpty
@@ -152,7 +152,7 @@ namespace Wexflow.Server
             var wf = WexflowWindowsService.WexflowEngine.GetWorkflow(int.Parse(id));
             if (wf != null)
             {
-                return new WorkflowInfo(wf.Id, wf.Name, (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description,
+                return new WorkflowInfo(wf.DbId, wf.Id, wf.Name, (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description,
                     wf.IsRunning, wf.IsPaused, wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression
                     , wf.IsExecutionGraphEmpty
                     , wf.LocalVariables.Select(v => new Core.Service.Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()
@@ -1313,6 +1313,31 @@ namespace Wexflow.Server
             var date = WexflowWindowsService.WexflowEngine.GetEntryStatusDateMax();
             DateTime baseDate = new DateTime(1970, 1, 1);
             return (date - baseDate).TotalMilliseconds;
+        }
+
+        [WebInvoke(Method = "POST",
+           ResponseFormat = WebMessageFormat.Json,
+           UriTemplate = "deleteWorkflows")]
+        public bool DeleteWorkflows(Stream streamdata)
+        {
+            try
+            {
+                StreamReader reader = new StreamReader(streamdata);
+                string json = reader.ReadToEnd();
+                reader.Close();
+                reader.Dispose();
+
+                var workflowDbIds = JsonConvert.DeserializeObject<int[]>(json);
+
+                var res = WexflowWindowsService.WexflowEngine.DeleteWorkflows(workflowDbIds);
+
+                return res;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
         }
 
     }

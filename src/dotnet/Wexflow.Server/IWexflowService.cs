@@ -147,5 +147,8 @@ namespace Wexflow.Server
 
         [OperationContract]
         double GetEntryStatusDateMax();
+
+        [OperationContract]
+        bool DeleteWorkflows(Stream streamdata);
     }
 }
