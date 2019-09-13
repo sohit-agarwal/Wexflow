@@ -6,3 +6,4 @@ call uglify-approval.bat
 call uglify-designer.bat
 call uglify-history.bat
 call uglify-users.bat
+call uglify-profiles.bat

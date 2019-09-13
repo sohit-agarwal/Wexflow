@@ -5,6 +5,7 @@ namespace Wexflow.Core.Db
 {
     public enum UserProfile
     {
+        SuperAdministrator,
         Administrator,
         Restricted
     }

@@ -10,6 +10,9 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
+    static var Username = ""
+    static var Password = ""
+    
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
@@ -73,7 +76,9 @@ class LoginViewController: UIViewController {
                     
                     let pass = self.md5(string: self.passwordTextField.text!)
                     
-                    if userProfile == 0 && pass == password {
+                    if (userProfile == 0 || userProfile == 1) && pass == password {
+                        LoginViewController.Username = self.usernameTextField.text!
+                        LoginViewController.Password = password
                         DispatchQueue.main.async{
                             let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                             let viewController = storyBoard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
@@ -81,7 +86,7 @@ class LoginViewController: UIViewController {
                         }
                     }else{
                         
-                        if userProfile == 1{
+                        if userProfile == 2{
                             DispatchQueue.main.async{
                                 self.toast(message: "Access denied.")
                             }

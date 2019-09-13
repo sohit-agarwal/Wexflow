@@ -253,6 +253,7 @@ Source: "..\src\backend\Wexflow.Backend\designer.html"; DestDir: "{app}\Backend"
 Source: "..\src\backend\Wexflow.Backend\approval.html"; DestDir: "{app}\Backend"; Flags: ignoreversion
 Source: "..\src\backend\Wexflow.Backend\history.html"; DestDir: "{app}\Backend"; Flags: ignoreversion
 Source: "..\src\backend\Wexflow.Backend\users.html"; DestDir: "{app}\Backend"; Flags: ignoreversion
+Source: "..\src\backend\Wexflow.Backend\profiles.html"; DestDir: "{app}\Backend"; Flags: ignoreversion
 
 Source: "..\src\backend\Wexflow.Backend\images\*"; DestDir: "{app}\Backend\images"; Flags: ignoreversion
 
@@ -265,6 +266,7 @@ Source: "..\src\backend\Wexflow.Backend\css\designer.min.css"; DestDir: "{app}\B
 Source: "..\src\backend\Wexflow.Backend\css\approval.min.css"; DestDir: "{app}\Backend\css"; Flags: ignoreversion
 Source: "..\src\backend\Wexflow.Backend\css\history.min.css"; DestDir: "{app}\Backend\css"; Flags: ignoreversion
 Source: "..\src\backend\Wexflow.Backend\css\users.min.css"; DestDir: "{app}\Backend\css"; Flags: ignoreversion
+Source: "..\src\backend\Wexflow.Backend\css\profiles.min.css"; DestDir: "{app}\Backend\css"; Flags: ignoreversion
 
 Source: "..\src\backend\Wexflow.Backend\js\settings.js"; DestDir: "{app}\Backend\js"; Flags: ignoreversion
 Source: "..\src\backend\Wexflow.Backend\js\login.min.js"; DestDir: "{app}\Backend\js"; Flags: ignoreversion
@@ -285,6 +287,7 @@ Source: "..\src\backend\Wexflow.Backend\js\designer.min.js"; DestDir: "{app}\Bac
 Source: "..\src\backend\Wexflow.Backend\js\approval.min.js"; DestDir: "{app}\Backend\js"; Flags: ignoreversion
 Source: "..\src\backend\Wexflow.Backend\js\history.min.js"; DestDir: "{app}\Backend\js"; Flags: ignoreversion
 Source: "..\src\backend\Wexflow.Backend\js\users.min.js"; DestDir: "{app}\Backend\js"; Flags: ignoreversion
+Source: "..\src\backend\Wexflow.Backend\js\profiles.min.js"; DestDir: "{app}\Backend\js"; Flags: ignoreversion
 
 ; Wexflow's Documentation
 Source: "..\src\dotnet\Wexflow.Core\Workflow.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs

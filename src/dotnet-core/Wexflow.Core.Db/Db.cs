@@ -357,6 +357,7 @@ namespace Wexflow.Core.Db
             if (user != null && user.Password == password)
             {
                 col.Delete(u => u.Username == username);
+                DeleteUserWorkflowRelationsByUserId(user.Id);
             }
             else
             {
@@ -367,7 +368,7 @@ namespace Wexflow.Core.Db
         public void InsertDefaultUser()
         {
             var password = GetMd5("wexflow2018");
-            var user = new User { Username = "admin", Password = password, UserProfile = UserProfile.Administrator };
+            var user = new User { Username = "admin", Password = password, UserProfile = UserProfile.SuperAdministrator };
             InsertUser(user);
         }
 
@@ -441,6 +442,43 @@ namespace Wexflow.Core.Db
                     else
                     {
                         return col.Find(Query.All("Username", Query.Descending));
+                    }
+            }
+
+            return new User[] { };
+        }
+
+        public IEnumerable<User> GetAdministrators(string keyword, UserOrderBy uo)
+        {
+            var col = _db.GetCollection<User>("users");
+            var keywordToLower = keyword.ToLower();
+            Query query = null;
+
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                query = Query.And(Query.EQ("UserProfile", UserProfile.Administrator.ToString()), Query.Contains("Username", keywordToLower));
+            }
+
+            switch (uo)
+            {
+                case UserOrderBy.UsernameAscending:
+                    if (query != null)
+                    {
+                        return col.Find(Query.And(Query.All("Username"), query));
+                    }
+                    else
+                    {
+                        return col.Find(Query.And(Query.All("Username"), Query.EQ("UserProfile", UserProfile.Administrator.ToString())));
+                    }
+
+                case UserOrderBy.UsernameDescending:
+                    if (query != null)
+                    {
+                        return col.Find(Query.And(Query.All("Username", Query.Descending), query));
+                    }
+                    else
+                    {
+                        return col.Find(Query.And(Query.All("Username", Query.Descending), Query.EQ("UserProfile", UserProfile.Administrator.ToString())));
                     }
             }
 
@@ -930,5 +968,38 @@ namespace Wexflow.Core.Db
             var col = _db.GetCollection<Workflow>("workflows");
             return col.FindById(id);
         }
+
+        public int InsertUserWorkflowRelation(UserWorkflow userWorkflow)
+        {
+            var col = _db.GetCollection<UserWorkflow>("userworkflow");
+            var res = col.Insert(userWorkflow);
+            return res.AsInt32;
+        }
+
+        public void DeleteUserWorkflowRelationsByUserId(int userId)
+        {
+            var col = _db.GetCollection<UserWorkflow>("userworkflow");
+            col.Delete(uw => uw.UserId == userId);
+        }
+
+        public void DeleteUserWorkflowRelationsByWorkflowId(int workflowId)
+        {
+            var col = _db.GetCollection<UserWorkflow>("userworkflow");
+            col.Delete(uw => uw.WorkflowId == workflowId);
+        }
+
+        public IEnumerable<int> GetUserWorkflows(int userId)
+        {
+            var col = _db.GetCollection<UserWorkflow>("userworkflow");
+            return col.Find(uw => uw.UserId == userId).Select(uw => uw.WorkflowId);
+        }
+
+        public bool CheckUserWorkflow(int userId, int workflowId)
+        {
+            var col = _db.GetCollection<UserWorkflow>("userworkflow");
+            var res = col.FindOne(uw => uw.UserId == userId && uw.WorkflowId == workflowId);
+            return res != null;
+        }
+
     }
 }

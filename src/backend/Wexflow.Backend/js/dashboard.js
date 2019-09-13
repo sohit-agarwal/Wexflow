@@ -26,6 +26,7 @@
     var lnkDesigner = document.getElementById("lnk-designer");
     var lnkApproval = document.getElementById("lnk-approval");
     var lnkUsers = document.getElementById("lnk-users");
+    var lnkProfiles = document.getElementById("lnk-profiles");
 
     var suser = getUser();
     var page = 1;
@@ -53,11 +54,15 @@
 
                 btnLogout.innerHTML = "Logout (" + u.Username + ")";
 
-                if (u.UserProfile === 0) {
+                if (u.UserProfile === 0 || u.UserProfile === 1) {
                     lnkManager.style.display = "inline";
                     lnkDesigner.style.display = "inline";
                     lnkApproval.style.display = "inline";
                     lnkUsers.style.display = "inline";
+                }
+
+                if (u.UserProfile === 0) {
+                    lnkProfiles.style.display = "inline";
                 }
 
                 Common.get(uri + "/entryStatusDateMin",

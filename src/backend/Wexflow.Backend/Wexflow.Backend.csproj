@@ -76,6 +76,8 @@
     <Content Include="css\login.min.css" />
     <Content Include="css\approval.css" />
     <Content Include="css\manager.min.css" />
+    <Content Include="css\profiles.css" />
+    <Content Include="css\profiles.min.css" />
     <Content Include="css\users.css" />
     <Content Include="css\users.min.css" />
     <Content Include="forgot-password.html" />
@@ -98,6 +100,8 @@
     <Content Include="js\jquery.toast.min.js" />
     <Content Include="js\manager.min.js" />
     <Content Include="js\mode-xml.js" />
+    <Content Include="js\profiles.js" />
+    <Content Include="js\profiles.min.js" />
     <Content Include="js\theme-ambiance.js" />
     <Content Include="js\theme-chaos.js" />
     <Content Include="js\theme-chrome.js" />
@@ -152,6 +156,8 @@
     <Content Include="css\uglify-users.bat" />
     <Content Include="css\uglify-approval.bat" />
     <Content Include="js\uglify-approval.bat" />
+    <Content Include="css\uglify-profiles.bat" />
+    <Content Include="js\uglify-profiles.bat" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -208,6 +214,7 @@
     <Content Include="js\users.min.js" />
     <Content Include="js\worker-xml.js" />
     <Content Include="manager.html" />
+    <Content Include="profiles.html" />
     <Content Include="users.html" />
     <Content Include="Web.config" />
   </ItemGroup>

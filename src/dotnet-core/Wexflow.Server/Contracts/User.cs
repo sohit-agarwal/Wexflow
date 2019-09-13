@@ -2,6 +2,7 @@
 {
     public enum UserProfile
     {
+        SuperAdministrator,
         Administrator,
         Restricted
     }

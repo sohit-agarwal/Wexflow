@@ -7,10 +7,13 @@
     var lnkDesigner = document.getElementById("lnk-designer");
     var lnkApproval = document.getElementById("lnk-approval");
     var lnkUsers = document.getElementById("lnk-users");
+    var lnkProfiles = document.getElementById("lnk-profiles");
     var selectedId = -1;
     var workflows = {};
     var timer = null;
     var timerInterval = 1000; // ms
+    var username = "";
+    var password = "";
 
     var html = "<div id='wf-container'>"
         + "<div id='wf-cmd'>"
@@ -52,11 +55,18 @@
                 Common.redirectToLoginPage();
             } else {
 
-                if (u.UserProfile === 0) {
+                if (u.UserProfile === 0 || u.UserProfile === 1) {
                     lnkManager.style.display = "inline";
                     lnkDesigner.style.display = "inline";
                     lnkApproval.style.display = "inline";
                     lnkUsers.style.display = "inline";
+
+                    if (u.UserProfile === 0) {
+                        lnkProfiles.style.display = "inline";
+                    }
+
+                    username = u.Username;
+                    password = u.Password;
 
                     var btnLogout = document.getElementById("btn-logout");
                     var divWorkflows = document.getElementById("wf-manager");
@@ -104,8 +114,6 @@
         });
     }
 
-   
-
     function compareById(wf1, wf2) {
         if (wf1.Id < wf2.Id) {
             return -1;
@@ -131,7 +139,7 @@
     }
 
     function loadWorkflows() {
-        Common.get(uri + "/search?s=" + encodeURIComponent(searchText.value), function (data) {
+        Common.get(uri + "/search?s=" + encodeURIComponent(searchText.value) + "&u=" + encodeURIComponent(username) + "&p=" + encodeURIComponent(password), function (data) {
             data.sort(compareById);
             var items = [];
             var i;
@@ -248,12 +256,12 @@
             }
 
             startButton.onclick = function () {
-                var startUri = uri + "/start/" + selectedId;
+                var startUri = uri + "/start?w=" + selectedId + "&u=" + encodeURIComponent(username) + "&p=" + encodeURIComponent(password);
                 Common.post(startUri);
             };
 
             suspendButton.onclick = function () {
-                var suspendUri = uri + "/suspend/" + selectedId;
+                var suspendUri = uri + "/suspend?w=" + selectedId + "&u=" + encodeURIComponent(username) + "&p=" + encodeURIComponent(password);
                 Common.post(suspendUri, function (res) {
                     if (res === true) {
                         updateButtons(selectedId, true);
@@ -264,12 +272,12 @@
             };
 
             resumeButton.onclick = function () {
-                var resumeUri = uri + "/resume/" + selectedId;
+                var resumeUri = uri + "/resume?w=" + selectedId + "&u=" + encodeURIComponent(username) + "&p=" + encodeURIComponent(password);
                 Common.post(resumeUri);
             };
 
             stopButton.onclick = function () {
-                var stopUri = uri + "/stop/" + selectedId;
+                var stopUri = uri + "/stop?w=" + selectedId + "&u=" + encodeURIComponent(username) + "&p=" + encodeURIComponent(password);
                 Common.post(stopUri,
                     function (res) {
                         if (res === true) {

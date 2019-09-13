@@ -18,6 +18,7 @@
     var lnkDesigner = document.getElementById("lnk-designer");
     var lnkApproval = document.getElementById("lnk-approval");
     var lnkUsers = document.getElementById("lnk-users");
+    var lnkProfiles = document.getElementById("lnk-profiles");
 
     var page = 1;
     var numberOfPages = 0;
@@ -35,11 +36,15 @@
                 Common.redirectToLoginPage();
             } else {
 
-                if (u.UserProfile === 0) {
+                if (u.UserProfile === 0 || u.UserProfile === 1) {
                     lnkManager.style.display = "inline";
                     lnkDesigner.style.display = "inline";
                     lnkApproval.style.display = "inline";
                     lnkUsers.style.display = "inline";
+                }
+
+                if (u.UserProfile === 0) {
+                    lnkProfiles.style.display = "inline";
                 }
 
                 divEntries.style.display = "block";

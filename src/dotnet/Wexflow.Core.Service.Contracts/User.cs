@@ -4,8 +4,9 @@ namespace Wexflow.Core.Service.Contracts
 {
     public enum UserProfile
     {
+        SuperAdministrator,
         Administrator,
-        Restricted
+        Restricted,
     }
 
     [DataContract]

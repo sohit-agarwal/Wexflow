@@ -111,7 +111,7 @@ class WexflowServiceClient {
     }
 
     List<Workflow> getWorkflows() throws IOException, JSONException {
-        String uri = this.uri + "/workflows";
+        String uri = this.uri + "/search?s=&u=" + LoginActivity.Username + "&p=" + LoginActivity.Password;
         JSONArray jsonArray = getJSONArray(uri);
         List<Workflow> workflows = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -135,32 +135,32 @@ class WexflowServiceClient {
     }
 
     Boolean start(int id) throws IOException {
-        String uri = this.uri + "/start/" + id;
+        String uri = this.uri + "/start?w=" + id + "&u=" + LoginActivity.Username + "&p=" + LoginActivity.Password;
         return post(uri);
     }
 
     Boolean suspend(int id) throws IOException {
-        String uri = this.uri + "/suspend/" + id;
+        String uri = this.uri + "/suspend?w=" + id + "&u=" + LoginActivity.Username + "&p=" + LoginActivity.Password;
         return post(uri);
     }
 
     Boolean resume(int id) throws IOException {
-        String uri = this.uri + "/resume/" + id;
+        String uri = this.uri + "/resume?w=" + id + "&u=" + LoginActivity.Username + "&p=" + LoginActivity.Password;
         return post(uri);
     }
 
     Boolean stop(int id) throws IOException {
-        String uri = this.uri + "/stop/" + id;
+        String uri = this.uri + "/stop?w=" + id + "&u=" + LoginActivity.Username + "&p=" + LoginActivity.Password;
         return post(uri);
     }
 
     Boolean approve(int id) throws IOException {
-        String uri = this.uri + "/approve/" + id;
+        String uri = this.uri + "/approve?w=" + id + "&u=" + LoginActivity.Username + "&p=" + LoginActivity.Password;
         return post(uri);
     }
 
     Boolean disapprove(int id) throws IOException {
-        String uri = this.uri + "/disapprove/" + id;
+        String uri = this.uri + "/disapprove?w=" + id + "&u=" + LoginActivity.Username + "&p=" + LoginActivity.Password;
         return post(uri);
     }
 }

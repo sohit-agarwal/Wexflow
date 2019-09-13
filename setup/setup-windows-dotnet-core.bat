@@ -35,6 +35,7 @@ copy "..\src\backend\Wexflow.Backend\designer.html" %dstDir%\%backend%\
 copy "..\src\backend\Wexflow.Backend\approval.html" %dstDir%\%backend%\
 copy "..\src\backend\Wexflow.Backend\history.html" %dstDir%\%backend%\
 copy "..\src\backend\Wexflow.Backend\users.html" %dstDir%\%backend%\
+copy "..\src\backend\Wexflow.Backend\profiles.html" %dstDir%\%backend%\
 
 xcopy "..\src\backend\Wexflow.Backend\images\*" %dstDir%\%backend%\images\ /s /e
 
@@ -47,6 +48,7 @@ copy "..\src\backend\Wexflow.Backend\css\designer.min.css" %dstDir%\%backend%\cs
 copy "..\src\backend\Wexflow.Backend\css\approval.min.css" %dstDir%\%backend%\css
 copy "..\src\backend\Wexflow.Backend\css\history.min.css" %dstDir%\%backend%\css
 copy "..\src\backend\Wexflow.Backend\css\users.min.css" %dstDir%\%backend%\css
+copy "..\src\backend\Wexflow.Backend\css\profiles.min.css" %dstDir%\%backend%\css
 
 copy "..\src\backend\Wexflow.Backend\js\settings.js" %dstDir%\%backend%\js
 copy "..\src\backend\Wexflow.Backend\js\login.min.js" %dstDir%\%backend%\js
@@ -67,6 +69,7 @@ copy "..\src\backend\Wexflow.Backend\js\designer.min.js" %dstDir%\%backend%\js
 copy "..\src\backend\Wexflow.Backend\js\approval.min.js" %dstDir%\%backend%\js
 copy "..\src\backend\Wexflow.Backend\js\history.min.js" %dstDir%\%backend%\js
 copy "..\src\backend\Wexflow.Backend\js\users.min.js" %dstDir%\%backend%\js
+copy "..\src\backend\Wexflow.Backend\js\profiles.min.js" %dstDir%\%backend%\js
 
 :: Wexflow server
 dotnet publish ..\src\dotnet-core\Wexflow.Server\Wexflow.Server.csproj --force --output %~dp0\%dstDir%\Wexflow.Server

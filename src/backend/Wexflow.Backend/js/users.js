@@ -6,6 +6,7 @@
     var lnkDesigner = document.getElementById("lnk-designer");
     var lnkApproval = document.getElementById("lnk-approval");
     var lnkUsers = document.getElementById("lnk-users");
+    var lnkProfiles = document.getElementById("lnk-profiles");
     var divUsers = document.getElementById("users");
     var divUsersTable = document.getElementById("users-table");
     var divUserActions = document.getElementById("user-actions");
@@ -39,6 +40,7 @@
     var selectedUserProfile;
     var selectedUserProfileTd;
     var logedinUser;
+    var logedinUserProfile;
     var newUser = false;
     var changePassword = false;
     var selectedTr;
@@ -55,8 +57,9 @@
             function (u) {
                 if (user.Password !== u.Password) {
                     Common.redirectToLoginPage();
-                } else if (u.UserProfile === 0) {
+                } else if (u.UserProfile === 0 || u.UserProfile === 1) {
                     logedinUser = u.Username;
+                    logedinUserProfile = u.UserProfile;
 
                     divUsers.style.display = "block";
                     lnkManager.style.display = "inline";
@@ -64,12 +67,20 @@
                     lnkApproval.style.display = "inline";
                     lnkUsers.style.display = "inline";
 
+                    if (u.UserProfile === 0) {
+                        lnkProfiles.style.display = "inline";
+                    }
+
                     btnLogout.innerHTML = "Logout (" + u.Username + ")";
 
                     btnLogout.onclick = function() {
                         deleteUser();
                         Common.redirectToLoginPage();
                     };
+
+                    if (u.UserProfile === 1) {
+                        newUserAction.style.display = "none";
+                    }
 
                     loadUsers();
 
@@ -195,7 +206,8 @@
                         confirmPasswordTr.style.display = "none";
                         changePass.style.display = "block";
 
-                        if (selectedUsername !== logedinUser && selectedUserProfile === 0) {
+                        //if (selectedUsername !== logedinUser && selectedUserProfile === 0) {
+                        if ((selectedUsername !== logedinUser && selectedUserProfile === 0) || (logedinUserProfile === 1 && selectedUsername !== logedinUser && selectedUserProfile === 1)) {
                             //newPasswordTr.style.display = "table-row";
                             //lblNewPassword.innerHTML = "Password";
                             changePass.style.display = "none";
@@ -214,8 +226,10 @@
     function userProfileToText(userProfile) {
         switch (userProfile) {
             case 0:
-                return "Administrator";
+                return "SuperAdministrator";
             case 1:
+                return "Administrator";
+            case 2:
                 return "Restricted";
             default:
                 return "Unknown";
@@ -224,10 +238,12 @@
 
     function userProfileToInt(userProfile) {
         switch (userProfile) {
-            case "Administrator":
+            case "SuperAdministrator":
                 return 0;
-            case "Restricted":
+            case "Administrator":
                 return 1;
+            case "Restricted":
+                return 2;
             default:
                 return -1;
         }
@@ -269,7 +285,7 @@
                 trCreatedOn.style.display = "table-row";
                 trModifiedOn.style.display = "table-row";
 
-                if (u.UserProfile === 1) {
+                if (u.UserProfile === 2) {
                     slctProfile.disabled = false;
                     deleteAction.style.display = "block";
                     oldPasswordTr.style.display = "none";
@@ -285,10 +301,32 @@
                     txtUsername.disabled = true;
                     emailText.disabled = true;
                     saveAction.style.display = "none";
-                } else {
+                } if (u.Username === logedinUser && u.UserProfile === 0) {
+                    saveAction.style.display = "block";
+                } else if (logedinUserProfile === 0 && u.Username !== logedinUser && (u.UserProfile === 1 || u.UserProfile === 2)) {
+                    txtUsername.disabled = false;
+                    emailText.disabled = false;
+                    slctProfile.disabled = false;
+                    saveAction.style.display = "block";
+                    deleteAction.style.display = "block";
+                } else if (u.Username === logedinUser && u.UserProfile === 1) {
                     txtUsername.disabled = false;
                     emailText.disabled = false;
                     saveAction.style.display = "block";
+                    deleteAction.style.display = "none";
+                    
+                } else if (u.UserProfile === 2) {
+                    txtUsername.disabled = false;
+                    emailText.disabled = false;
+                    slctProfile.disabled = true;
+                    saveAction.style.display = "block";
+                    deleteAction.style.display = "block";
+                } else {
+                    txtUsername.disabled = true;
+                    emailText.disabled = true;
+                    slctProfile.disabled = true;
+                    saveAction.style.display = "none";
+                    deleteAction.style.display = "none";
                 }
 
             });
@@ -367,14 +405,14 @@
         
     };
 
-    confirmPasswordText.onkeyup = function(e) {
-        e.preventDefault();
+    //confirmPasswordText.onkeyup = function(e) {
+    //    e.preventDefault();
 
-        if (e.keyCode === 13) {
-            save();
-        }
+    //    if (e.keyCode === 13) {
+    //        save();
+    //    }
 
-    };
+    //};
 
     saveAction.onclick = function () {
         save();
@@ -422,7 +460,7 @@
 
                                                             loadUsers(username, true);
 
-                                                            if (user.UserProfile === 1) {
+                                                            if (user.UserProfile === 1 || user.UserProfile == 2) {
                                                                 deleteAction.style.display = "block";
                                                                 
                                                             } else if (user.UserProfile === 0) {
@@ -433,7 +471,6 @@
                                                                 changePass.style.display = "none";
                                                                 newPasswordTr.style.display = "none";
                                                                 confirmPasswordTr.style.display = "none";
-
                                                             }
 
                                                             trId.style.display = "table-row";

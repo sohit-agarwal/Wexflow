@@ -26,6 +26,9 @@ import java.security.*;
  */
 public class LoginActivity extends AppCompatActivity {
 
+    public static String Username = "";
+    public static String Password = "";
+
     private SharedPreferences sharedPref;
 
     // UI references.
@@ -86,9 +89,36 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if(username != null && !username.isEmpty() && password != null && !password.isEmpty()){
+            Username = username;
+            Password = md5(password);
             UserLoginTask task = new UserLoginTask(username, password);
             task.execute();
         }
+    }
+
+    private String md5(final String s) {
+        final String MD5 = "MD5";
+        try {
+            // Create MD5 Hash
+            MessageDigest digest = java.security.MessageDigest.getInstance(MD5);
+            digest.update(s.getBytes());
+            byte messageDigest[] = digest.digest();
+
+            // Create Hex String
+            StringBuilder hexString = new StringBuilder();
+            for (byte aMessageDigest : messageDigest) {
+                StringBuilder h = new StringBuilder(Integer.toHexString(0xFF & aMessageDigest));
+                while (h.length() < 2) {
+                    h.insert(0, "0");
+                }
+                hexString.append(h);
+            }
+            return hexString.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     /**
@@ -124,7 +154,7 @@ public class LoginActivity extends AppCompatActivity {
                 String password = user.getPassword();
                 UserProfile up = user.getUserProfile();
 
-                if(up.equals(UserProfile.Administrator) &&  password.equals(md5(this.mPassword)))
+                if((up.equals(UserProfile.SuperAdministrator) || up.equals(UserProfile.Administrator)) &&  password.equals(md5(this.mPassword)))
                 {
                     return true;
                 }
@@ -172,30 +202,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
 
-        private String md5(final String s) {
-            final String MD5 = "MD5";
-            try {
-                // Create MD5 Hash
-                MessageDigest digest = java.security.MessageDigest.getInstance(MD5);
-                digest.update(s.getBytes());
-                byte messageDigest[] = digest.digest();
 
-                // Create Hex String
-                StringBuilder hexString = new StringBuilder();
-                for (byte aMessageDigest : messageDigest) {
-                    StringBuilder h = new StringBuilder(Integer.toHexString(0xFF & aMessageDigest));
-                    while (h.length() < 2) {
-                        h.insert(0, "0");
-                    }
-                    hexString.append(h);
-                }
-                return hexString.toString();
-
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            }
-            return "";
-        }
     }
 }
 

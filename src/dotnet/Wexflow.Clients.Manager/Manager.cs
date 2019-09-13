@@ -99,7 +99,7 @@ namespace Wexflow.Clients.Manager
                         _wexflowServiceClient = new WexflowServiceClient(WexflowWebServiceUri);
 
                         var keyword = textBoxSearch.Text.ToUpper();
-                        _workflows = _wexflowServiceClient.Search(keyword);
+                        _workflows = _wexflowServiceClient.Search(keyword, Login.Username, Login.Password);
                     }
                     catch (Exception ex)
                     {
@@ -224,7 +224,7 @@ namespace Wexflow.Clients.Manager
             var wfId = GetSlectedWorkflowId();
             if (wfId > -1)
             {
-                _wexflowServiceClient.StartWorkflow(wfId);
+                _wexflowServiceClient.StartWorkflow(wfId, Login.Username, Login.Password);
             }
         }
 
@@ -233,7 +233,7 @@ namespace Wexflow.Clients.Manager
             var wfId = GetSlectedWorkflowId();
             if (wfId > -1)
             {
-                _wexflowServiceClient.SuspendWorkflow(wfId);
+                _wexflowServiceClient.SuspendWorkflow(wfId, Login.Username, Login.Password);
                 UpdateButtons(wfId, true);
             }
         }
@@ -243,7 +243,7 @@ namespace Wexflow.Clients.Manager
             var wfId = GetSlectedWorkflowId();
             if (wfId > -1)
             {
-                _wexflowServiceClient.ResumeWorkflow(wfId);
+                _wexflowServiceClient.ResumeWorkflow(wfId, Login.Username, Login.Password);
             }
         }
 
@@ -252,7 +252,7 @@ namespace Wexflow.Clients.Manager
             var wfId = GetSlectedWorkflowId();
             if (wfId > -1)
             {
-                _wexflowServiceClient.StopWorkflow(wfId);
+                _wexflowServiceClient.StopWorkflow(wfId, Login.Username, Login.Password);
                 UpdateButtons(wfId, true);
             }
         }
@@ -504,7 +504,7 @@ namespace Wexflow.Clients.Manager
             var wfId = GetSlectedWorkflowId();
             if (wfId > -1)
             {
-                _wexflowServiceClient.ApproveWorkflow(wfId);
+                _wexflowServiceClient.ApproveWorkflow(wfId, Login.Username, Login.Password);
                 UpdateButtons(wfId, true);
             }
         }
@@ -514,7 +514,7 @@ namespace Wexflow.Clients.Manager
             var wfId = GetSlectedWorkflowId();
             if (wfId > -1)
             {
-                _wexflowServiceClient.DisapproveWorkflow(wfId);
+                _wexflowServiceClient.DisapproveWorkflow(wfId, Login.Username, Login.Password);
                 UpdateButtons(wfId, true);
             }
         }

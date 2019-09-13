@@ -9,7 +9,10 @@
     var lnkDesigner = document.getElementById("lnk-designer");
     var lnkApproval = document.getElementById("lnk-approval");
     var lnkUsers = document.getElementById("lnk-users");
+    var lnkProfiles = document.getElementById("lnk-profiles");
     var suser = getUser();
+    var username = "";
+    var password = "";
     //var osname = Common.os();
 
     if (suser === null || suser === "") {
@@ -21,11 +24,18 @@
                 Common.redirectToLoginPage();
             } else {
 
-                if (u.UserProfile === 0) {
+                if (u.UserProfile === 0 || u.UserProfile === 1) {
                     lnkManager.style.display = "inline";
                     lnkDesigner.style.display = "inline";
                     lnkApproval.style.display = "inline";
                     lnkUsers.style.display = "inline";
+
+                    if (u.UserProfile === 0) {
+                        lnkProfiles.style.display = "inline";
+                    }
+
+                    username = u.Username;
+                    password = u.Password;
 
                     var btnLogout = document.getElementById("btn-logout");
                     var divDesigner = document.getElementById("wf-designer");
@@ -160,7 +170,11 @@
                     }
                 }, function () {
                     Common.toastError("An error occured while deleting workflows.");
-                }, workflowsToDelete);
+                    }, {
+                        "Username": username,
+                        "Password": password,
+                        "WorkflowsToDelete": workflowsToDelete
+                    });
             }
         } 
     };
@@ -694,7 +708,7 @@
     }
 
     function saveXmlQuery(xml, workflowId, selectedWorkflowId, selectWorkflow, scrollToWorkflow, callback) {
-        var json = { workflowId: selectedWorkflowId, xml: xml };
+        var json = { workflowId: selectedWorkflowId, username: username, password: password, xml: xml };
         Common.post(uri + "/saveXml", function (res) {
             if (res === true) {
 
@@ -871,7 +885,13 @@
 
     function saveWorkflowQuery(workflowId, selectedWorkflowId, scrollToWorkflow, callback) {
         var workflowEditor = getEditor(currentWorkflowId);
-        var json = { "Id": selectedWorkflowId, "WorkflowInfo": workflowInfos[workflowId], "Tasks": workflowTasks[workflowId] };
+        var json = {
+            "Username": username,
+            "Password": password,
+            "Id": selectedWorkflowId,
+            "WorkflowInfo": workflowInfos[workflowId],
+            "Tasks": workflowTasks[workflowId]
+        };
 
         Common.post(uri + "/save", function (res) {
             if (res === true) {
@@ -1097,7 +1117,7 @@
         if (r === true) {
             var workflowId = parseInt(document.getElementById("wf-id").value);
 
-            Common.post(uri + "/delete/" + workflowId,
+            Common.post(uri + "/delete?w=" + workflowId + "&u=" + encodeURIComponent(username) + "&p=" + encodeURIComponent(password),
                 function (res) {
                     if (res === true) {
                         clearInterval(timer);
@@ -2481,7 +2501,7 @@
     }
 
     function loadWorkflows(callback, workflowId, recursive) {
-        Common.get(uri + "/search?s=" + encodeURIComponent(searchText.value), function (data) {
+        Common.get(uri + "/search?s=" + encodeURIComponent(searchText.value) + "&u=" + encodeURIComponent(username) + "&p=" + encodeURIComponent(password), function (data) {
             if (typeof workflowId !== "undefined" && typeof recursive !== "undefined" && recursive === true) {
                 var workflowFound = false;
                 for (var i = 0; i < data.length; i++) {

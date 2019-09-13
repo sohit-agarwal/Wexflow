@@ -1,6 +1,7 @@
 ﻿using Wexflow.Core.Service.Contracts;
 using System.Net;
 using Newtonsoft.Json;
+using System.Security;
 
 namespace Wexflow.Core.Service.Client
 {
@@ -13,62 +14,53 @@ namespace Wexflow.Core.Service.Client
             Uri = uri.TrimEnd('/');
         }
 
-        public WorkflowInfo[] GetWorkflows()
+        public WorkflowInfo[] Search(string keyword, string username, string password)
         {
-            string uri = Uri + "/workflows";
-            var webClient = new WebClient {Encoding = System.Text.Encoding.UTF8};
-            var response = webClient.DownloadString(uri);
-            var workflows = JsonConvert.DeserializeObject<WorkflowInfo[]>(response);
-            return workflows;
-        }
-
-        public WorkflowInfo[] Search(string keyword)
-        {
-            string uri = Uri + "/search?s=" + keyword;
+            string uri = Uri + "/search?s=" + keyword + "&u=" + SecurityElement.Escape(username) + "&p=" + SecurityElement.Escape(password);
             var webClient = new WebClient { Encoding = System.Text.Encoding.UTF8 };
             var response = webClient.DownloadString(uri);
             var workflows = JsonConvert.DeserializeObject<WorkflowInfo[]>(response);
             return workflows;
         }
 
-        public void StartWorkflow(int id)
+        public void StartWorkflow(int id, string username, string password)
         {
-            string uri = Uri + "/start/" + id;
+            string uri = Uri + "/start?w=" + id + "&u=" + SecurityElement.Escape(username) + "&p=" + SecurityElement.Escape(password);
             var webClient = new WebClient();
             webClient.UploadString(uri, string.Empty);
         }
 
-        public void StopWorkflow(int id)
+        public void StopWorkflow(int id, string username, string password)
         {
-            string uri = Uri + "/stop/" + id;
+            string uri = Uri + "/stop?w=" + id + "&u=" + SecurityElement.Escape(username) + "&p=" + SecurityElement.Escape(password);
             var webClient = new WebClient();
             webClient.UploadString(uri, string.Empty);
         }
 
-        public void SuspendWorkflow(int id)
+        public void SuspendWorkflow(int id, string username, string password)
         {
-            string uri = Uri + "/suspend/" + id;
+            string uri = Uri + "/suspend?w=" + id + "&u=" + SecurityElement.Escape(username) + "&p=" + SecurityElement.Escape(password);
             var webClient = new WebClient();
             webClient.UploadString(uri, string.Empty);
         }
 
-        public void ResumeWorkflow(int id)
+        public void ResumeWorkflow(int id, string username, string password)
         {
-            string uri = Uri + "/resume/" + id;
+            string uri = Uri + "/resume?w=" + id + "&u=" + SecurityElement.Escape(username) + "&p=" + SecurityElement.Escape(password);
             var webClient = new WebClient();
             webClient.UploadString(uri, string.Empty);
         }
 
-        public void ApproveWorkflow(int id)
+        public void ApproveWorkflow(int id, string username, string password)
         {
-            string uri = Uri + "/approve/" + id;
+            string uri = Uri + "/approve?w=" + id + "&u=" + SecurityElement.Escape(username) + "&p=" + SecurityElement.Escape(password);
             var webClient = new WebClient();
             webClient.UploadString(uri, string.Empty);
         }
 
-        public void DisapproveWorkflow(int id)
+        public void DisapproveWorkflow(int id, string username, string password)
         {
-            string uri = Uri + "/disapprove/" + id;
+            string uri = Uri + "/disapprove?w=" + id + "&u=" + SecurityElement.Escape(username) + "&p=" + SecurityElement.Escape(password);
             var webClient = new WebClient();
             webClient.UploadString(uri, string.Empty);
         }
@@ -82,24 +74,6 @@ namespace Wexflow.Core.Service.Client
             return workflow;
         }
 
-        public StatusCount GetStatusCount()
-        {
-            string uri = Uri + "/statusCount/";
-            var webClient = new WebClient();
-            var response = webClient.DownloadString(uri);
-            var statusCount = JsonConvert.DeserializeObject<StatusCount>(response);
-            return statusCount;
-        }
-
-        public Entry[] GetEntries()
-        {
-            string uri = Uri + "/entries/";
-            var webClient = new WebClient();
-            var response = webClient.DownloadString(uri);
-            var entries = JsonConvert.DeserializeObject<Entry[]>(response);
-            return entries;
-        }
-
         public User GetUser(string username)
         {
             string uri = Uri + "/user?username=" + username;
@@ -107,49 +81,6 @@ namespace Wexflow.Core.Service.Client
             var response = webClient.DownloadString(uri);
             var user = JsonConvert.DeserializeObject<User>(response);
             return user;
-        }
-
-        public void InsertUser(string username, string password)
-        {
-            string uri = Uri + "/insertUser?username=" + username + "&password=" + password;
-            var webClient = new WebClient();
-            webClient.UploadString(uri, string.Empty);
-        }
-
-        public HistoryEntry[] GetHistoryEntries()
-        {
-            string uri = Uri + "/historyEntries/";
-            var webClient = new WebClient();
-            var response = webClient.DownloadString(uri);
-            var entries = JsonConvert.DeserializeObject<HistoryEntry[]>(response);
-            return entries;
-        }
-
-        public HistoryEntry[] GetHistoryEntries(string keyword)
-        {
-            string uri = Uri + "/searchHistoryEntries?s=" + keyword;
-            var webClient = new WebClient();
-            var response = webClient.DownloadString(uri);
-            var entries = JsonConvert.DeserializeObject<HistoryEntry[]>(response);
-            return entries;
-        }
-
-        public HistoryEntry[] GetHistoryEntries(string keyword, int page, int entriesCount)
-        {
-            string uri = Uri + "/searchHistoryEntriesByPage?s=" + keyword + "&page=" + page + "&entriesCount=" + entriesCount;
-            var webClient = new WebClient();
-            var response = webClient.DownloadString(uri);
-            var entries = JsonConvert.DeserializeObject<HistoryEntry[]>(response);
-            return entries;
-        }
-
-        public long GetHistoryEntriesCount(string keyword)
-        {
-            string uri = Uri + "/historyEntriesCount?s=" + keyword;
-            var webClient = new WebClient();
-            var response = webClient.DownloadString(uri);
-            var count = JsonConvert.DeserializeObject<long>(response);
-            return count;
         }
 
     }

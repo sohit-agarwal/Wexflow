@@ -14,28 +14,28 @@ namespace Wexflow.Server
         WorkflowInfo[] GetApprovalWorkflows();
 
         [OperationContract]
-        WorkflowInfo[] Search(string keyword);
+        WorkflowInfo[] Search(string keyword, string username, string password);
 
         [OperationContract]
-        WorkflowInfo[] SearchApprovalWorkflows(string keyword);
+        WorkflowInfo[] SearchApprovalWorkflows(string keyword, string username, string password);
 
         [OperationContract]
-        void StartWorkflow(string id);
+        void StartWorkflow(string id, string username, string password);
 
         [OperationContract]
-        bool StopWorkflow(string id);
+        bool StopWorkflow(string id, string username, string password);
 
         [OperationContract]
-        bool SuspendWorkflow(string id);
+        bool SuspendWorkflow(string id, string username, string password);
 
         [OperationContract]
-        void ResumeWorkflow(string id);
+        void ResumeWorkflow(string id, string username, string password);
 
         [OperationContract]
-        bool ApproveWorkflow(string id);
+        bool ApproveWorkflow(string id, string username, string password);
 
         [OperationContract]
-        bool DisapproveWorkflow(string id);
+        bool DisapproveWorkflow(string id, string username, string password);
 
         [OperationContract]
         WorkflowInfo GetWorkflow(string id);
@@ -68,7 +68,7 @@ namespace Wexflow.Server
         bool IsPeriodValid(string period);
 
         [OperationContract]
-        bool DeleteWorkflow(string id);
+        bool DeleteWorkflow(string id, string username, string password);
 
         [OperationContract]
         string[] GetSettings(string taskName);
@@ -93,6 +93,15 @@ namespace Wexflow.Server
 
         [OperationContract]
         User[] SearchUsers(string keyword, int uo);
+
+        [OperationContract]
+        bool SaveUserWorkflows(Stream streamdata);
+
+        [OperationContract]
+        WorkflowInfo[] GetUserWorkflows(int userId);
+
+        [OperationContract]
+        User[] SearchAdministrators(string keyword, int uo);
 
         [OperationContract]
         string GetPassword(string username);
