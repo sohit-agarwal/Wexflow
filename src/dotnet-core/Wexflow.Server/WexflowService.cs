@@ -41,9 +41,18 @@ namespace Wexflow.Server
             });
 
             //
-            // Hello
+            // Doc
             //
-            Hello();
+            Doc();
+
+            //
+            // Dashboard
+            //
+            GetStatusCount();
+            GetEntriesCountByDate();
+            SearchEntriesByPageOrderBy();
+            GetEntryStatusDateMin();
+            GetEntryStatusDateMax();
 
             //
             // Manager
@@ -71,8 +80,8 @@ namespace Wexflow.Server
             SaveXmlWorkflow();
             SaveWorkflow();
             DeleteWorkflow();
-            GetExecutionGraph();
             DeleteWorkflows();
+            GetExecutionGraph();
 
             //
             // Approval
@@ -82,9 +91,8 @@ namespace Wexflow.Server
             DisapproveWorkflow();
 
             //
-            // Backend
+            // Users
             //
-            GetStatusCount();
             GetUser();
             GetPassword();
             SearchUsers();
@@ -93,14 +101,14 @@ namespace Wexflow.Server
             UpdateUsernameAndEmailAndUserProfile();
             DeleteUser();
             ResetPassword();
-            SearchHistoryEntriesByPageOrderBy();
-            SearchEntriesByPageOrderBy();
+
+            //
+            // History
+            //
             GetHistoryEntriesCountByDate();
-            GetEntriesCountByDate();
+            SearchHistoryEntriesByPageOrderBy();
             GetHistoryEntryStatusDateMin();
             GetHistoryEntryStatusDateMax();
-            GetEntryStatusDateMin();
-            GetEntryStatusDateMax();
 
             //
             // Profiles
@@ -110,9 +118,92 @@ namespace Wexflow.Server
             GetUserWorkflows();
         }
 
-        private void Hello()
+        private string DocH1(string title)
         {
-            Get(Root, args => "Wexflow server running on CoreCLR.");
+            return "<h1>" + title + "</h1>";
+        }
+
+        private string DocH2(string title)
+        {
+            return "<h2>" + title + "</h2>";
+        }
+
+        private string DocGet(string name, string description)
+        {
+            return "<b>GET</b> " + Root + name + "<br/>" + description + "<br/><br/>";
+        }
+
+        private string DocPost(string name, string description)
+        {
+            return "<b>POST</b> " + Root + name + "<br/>" + description + "<br/><br/>";
+        }
+
+        private void Doc()
+        {
+            Get(Root, args =>
+            {
+                var doc =
+                  DocH1("Wexflow server running on CoreCLR")
+                + DocH2("Dashboard")
+                + DocGet("statusCount", "Returns status count.")
+                + DocGet("entriesCountByDate?s={keyword}&from={date}&to={date}", "Returns entries count by keyword and date filter.")
+                + DocGet("searchEntriesByPageOrderBy?s={keyword}&from={date}&to={date}&page={page}&entriesCount={entriesCount}&heo={orderBy}", "Searches for entries.")
+                + DocGet("entryStatusDateMin", "Returns entry min date.")
+                + DocGet("entryStatusDateMax", "Returns entry max date.")
+                + DocH2("Manager")
+                + DocGet("workflows", "Returns the list of workflows.")
+                + DocGet("search?s={keyword}&u={username}&p={password}", "Search for workflows.")
+                + DocGet("searchApprovalWorkflows?s={keyword}&u={username}&p={password}", "Search for workflows.")
+                + DocGet("workflow/{id}", "Returns a workflow from its id.")
+                + DocPost("start?w={id}&u={username}&p={password}", "Starts a workflow.")
+                + DocPost("stop?w={id}&u={username}&p={password}", "Stops a workflow.")
+                + DocPost("suspend?w={id}&u={username}&p={password}", "Suspends a workflow.")
+                + DocPost("resume?w={id}&u={username}&p={password}", "Resumes a workflow.")
+                + DocPost("approve?w={id}&u={username}&p={password}", "Approves a workflow.")
+                + DocPost("disapprove?w={id}&u={username}&p={password}", "Disapproves a workflow.")
+                + DocH2("Designer")
+                + DocGet("tasks/{id}", "Returns workflow's tasks.")
+                + DocGet("xml/{id}", "Returns a workflow as XML.")
+                + DocGet("taskNames", "Returns task names.")
+                + DocGet("settings/{taskName}", "Returns task settings.")
+                + DocPost("taskToXml", "Returns a task as XML.")
+                + DocGet("isWorkflowIdValid/{id}", "Checks if a workflow id is valid.")
+                + DocGet("isCronExpressionValid?e={cronExpression}", "Checks if a cron expression is valid.")
+                + DocGet("isPeriodValid/{period}", "Checks if a period is valid.")
+                + DocPost("isXmlWorkflowValid", "Checks if the XML of a workflow is valid.")
+                + DocPost("saveXml", "Saves a workflow from XML.")
+                + DocPost("save", "Saves a workflow from JSON.")
+                + DocPost("delete?w={id}&u={username}&p={password}", "Deletes a workflow.")
+                + DocPost("delete?w={id}&u={username}&p={password}", "Deletes a workflow.")
+                + DocPost("deleteWorkflows", "Deletes workflows.")
+                + DocGet("graph/{id}", "Returns the execution graph of the workflow.")
+                + DocH2("Users")
+                + DocGet("user?username={username}", "Returns a user from his username.")
+                + DocGet("password?u={username}", "Returns user's password (encrypted).")
+                + DocGet("searchUsers?keyword={keyword}&uo={orderBy}", "Searches for users.")
+                + DocPost("insertUser?username={username}&password={password}&up={userProfile}&email={email}", "Inserts a user.")
+                + DocPost("updateUser?userId={userId}&username={username}&password={password}&up={userProfile}&email={email}", "Inserts a user.")
+                + DocPost("updateUsernameAndEmailAndUserProfile?userId={userId}&username={username}&password={password}&up={userProfile}&email={email}", "Updates the username, the email and the user profile of a user.")
+                + DocPost("deleteUser?username={username}&password={password}", "Deletes a user.")
+                + DocPost("resetPassword?username={username}&email={email}", "Resets a password.")
+                + DocH2("History")
+                + DocGet("historyEntriesCountByDate?s={keyword}&from={date}&to={date}", "Returns history entries count by keyword and date filter.")
+                + DocGet("searchHistoryEntriesByPageOrderBy?s={keyword}&from={date}&to={date}&page={page}&entriesCount={entriesCount}&heo={orderBy}", "Searches for history entries.")
+                + DocGet("historyEntryStatusDateMin", "Returns history entry min date.")
+                + DocGet("historyEntryStatusDateMax", "Returns history entry max date.")
+                + DocH2("Profiles")
+                + DocGet("searchAdmins?keyword={keyword}&uo={orderBy}", "Searches for administrators.")
+                + DocPost("saveUserWorkflows", "Saves user workflow relations.")
+                + DocGet("searchAdmins?u={userId}", "Returns user workflows.");
+
+                var docBytes = Encoding.UTF8.GetBytes(doc);
+
+                return new Response()
+                {
+                    ContentType = "text/html",
+                    Contents = s => s.Write(docBytes, 0, docBytes.Length)
+                };
+            });
         }
 
         /// <summary>
@@ -897,18 +988,36 @@ namespace Wexflow.Server
                 try
                 {
                     var json = RequestStream.FromStream(Request.Body).AsString();
+                    var res = false;
 
                     JObject o = JObject.Parse(json);
                     int workflowId = int.Parse((string)o.SelectToken("workflowId"));
+                    string username = o.Value<string>("username");
+                    string password = o.Value<string>("password");
                     string xml = (string)o.SelectToken("xml");
                     xml = CleanupXml(xml);
 
-                    //var xdoc = XDocument.Parse(xml);
-                    //var wf = GetWorkflowRecursive(workflowId);
-                    //xdoc.Save(wf.WorkflowFilePath);
-                    Program.WexflowEngine.SaveWorkflow(xml);
+                    var user = Program.WexflowEngine.GetUser(username);
+                    if (user.Password.Equals(password))
+                    {
+                        if (user.UserProfile == Core.Db.UserProfile.SuperAdministrator)
+                        {
+                            Program.WexflowEngine.SaveWorkflow(xml);
+                            res = true;
+                        }
+                        else if (user.UserProfile == Core.Db.UserProfile.Administrator)
+                        {
+                            var workflowDbId = Program.WexflowEngine.Workflows.First(w => w.Id == workflowId).DbId;
+                            var check = Program.WexflowEngine.CheckUserWorkflow(user.Id, workflowDbId);
+                            if (check)
+                            {
+                                Program.WexflowEngine.SaveWorkflow(xml);
+                                res = true;
+                            }
+                        }
+                    }
 
-                    var resStr = JsonConvert.SerializeObject(true);
+                    var resStr = JsonConvert.SerializeObject(res);
                     var resBytes = Encoding.UTF8.GetBytes(resStr);
 
                     return new Response()
@@ -960,7 +1069,7 @@ namespace Wexflow.Server
         }
 
         /// <summary>
-        /// Saves a workflow.
+        /// Saves a workflow from json.
         /// </summary>
         private void SaveWorkflow()
         {
@@ -1560,7 +1669,7 @@ namespace Wexflow.Server
         }
 
         /// <summary>
-        /// Returns user's password (crypted).
+        /// Returns user's password (encrypted).
         /// </summary>
         private void GetPassword()
         {
@@ -1655,6 +1764,9 @@ namespace Wexflow.Server
             });
         }
 
+        /// <summary>
+        /// Saves user workflow relations.
+        /// </summary>
         private void SaveUserWorkflows()
         {
             Post(Root + "saveUserWorkflows", args =>
@@ -1699,6 +1811,9 @@ namespace Wexflow.Server
                
         }
 
+        /// <summary>
+        /// Returns user workflows.
+        /// </summary>
         private void GetUserWorkflows()
         {
             Get(Root + "userWorkflows", args =>
@@ -2243,7 +2358,7 @@ namespace Wexflow.Server
         }
 
         /// <summary>
-        /// Saves a workflow.
+        /// Deletes workflows.
         /// </summary>
         private void DeleteWorkflows()
         {
