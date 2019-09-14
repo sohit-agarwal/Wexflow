@@ -27,35 +27,35 @@
         Common.redirectToLoginPage();
     } else {
         var user = JSON.parse(suser);
-        Common.get(uri + "/user?username=" + encodeURIComponent(user.Username),
-            function (u) {
-                if (user.Password !== u.Password) {
+
+        username = user.Username;
+        password = user.Password;
+
+        Common.get(uri + "/user?qu=" + encodeURIComponent(username) + "&qp=" + encodeURIComponent(password) + "&username=" + encodeURIComponent(user.Username), function (u) {
+            if (user.Password !== u.Password) {
+                Common.redirectToLoginPage();
+            } else if (u.UserProfile === 0) {
+                divProfiles.style.display = "block";
+                lnkManager.style.display = "inline";
+                lnkDesigner.style.display = "inline";
+                lnkApproval.style.display = "inline";
+                lnkUsers.style.display = "inline";
+                lnkProfiles.style.display = "inline";
+
+                btnLogout.innerHTML = "Logout (" + u.Username + ")";
+
+                btnLogout.onclick = function () {
+                    deleteUser();
                     Common.redirectToLoginPage();
-                } else if (u.UserProfile === 0) {
-                    divProfiles.style.display = "block";
-                    lnkManager.style.display = "inline";
-                    lnkDesigner.style.display = "inline";
-                    lnkApproval.style.display = "inline";
-                    lnkUsers.style.display = "inline";
-                    lnkProfiles.style.display = "inline";
+                };
 
-                    username = u.Username;
-                    password = u.Password;
+                loadUsers();
 
-                    btnLogout.innerHTML = "Logout (" + u.Username + ")";
+            } else {
+                Common.redirectToLoginPage();
+            }
 
-                    btnLogout.onclick = function () {
-                        deleteUser();
-                        Common.redirectToLoginPage();
-                    };
-
-                    loadUsers();
-
-                } else {
-                    Common.redirectToLoginPage();
-                }
-
-            });
+        });
     }
 
     btnSearch.onclick = function () {
@@ -69,7 +69,7 @@
     }
 
     function loadUsers(usernameToSelect, scroll) {
-        Common.get(uri + "/searchAdmins?keyword=" + encodeURIComponent(txtSearch.value) + "&uo=" + uo,
+        Common.get(uri + "/searchAdmins?qu=" + encodeURIComponent(username) + "&qp=" + encodeURIComponent(password) + "&keyword=" + encodeURIComponent(txtSearch.value) + "&uo=" + uo,
             function (data) {
 
                 var items = [];
@@ -241,7 +241,7 @@
             }
 
             // Check the boxes from the relations in db
-            Common.get(uri + "/userWorkflows?u=" + selectedUserId, function (res) {
+            Common.get(uri + "/userWorkflows?qu=" + encodeURIComponent(username) + "&qp=" + encodeURIComponent(password) + "&u=" + selectedUserId, function (res) {
                 var workflowsTable = document.getElementById("wf-workflows-table");
                 var rows = (workflowsTable.getElementsByTagName("tbody")[0]).getElementsByTagName("tr");
                 for (var i = 0; i < rows.length; i++) {
@@ -337,7 +337,7 @@
             }
         }, function () {
             Common.toastError("An error occured while saving workflow relations.");
-        }, { "UserId": selectedUserId, "UserWorkflows": userWorkflows });
+        }, { "QUsername": username, "QPassword": password, "UserId": selectedUserId, "UserWorkflows": userWorkflows });
     };
 
 }

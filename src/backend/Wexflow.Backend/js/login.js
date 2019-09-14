@@ -17,16 +17,6 @@ function Login(){
 		}
 	};
 
-    $(".toggle-password").click(function () {
-        $(this).toggleClass("fa-eye fa-eye-slash");
-        var input = $("#txt-password");
-        if (input.attr("type") == "password") {
-            input.attr("type", "text");
-        } else {
-            input.attr("type", "password");
-        }
-    });
-
     function login() {
 
 		var username = usernameTxt.value;
@@ -36,7 +26,7 @@ function Login(){
         if (username === "" || password === "") {
             Common.toastInfo("Enter a valid username and password.");
         } else {
-            Common.get(uri + "/user?username=" + encodeURIComponent(username), function (user) {
+            Common.get(uri + "/user?qu=" + encodeURIComponent(username) + "&qp=" + encodeURIComponent(passwordHash) + "&username=" + encodeURIComponent(username), function (user) {
                 if (typeof user === "undefined" || user === null) {
                     Common.toastInfo("The user " + username + " does not exist.");
                 } else {
@@ -51,18 +41,5 @@ function Login(){
             });
         }
     }
-
-    $(".field-wrapper .field-placeholder").on("click", function () {
-        $(this).closest(".field-wrapper").find("input").focus();
-    });
-    $(".field-wrapper input").on("keyup", function () {
-        var value = $.trim($(this).val());
-        if (value) {
-            $(this).closest(".field-wrapper").addClass("hasValue");
-        } else {
-            $(this).closest(".field-wrapper").removeClass("hasValue");
-        }
-    });
-
     
 }

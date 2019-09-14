@@ -26,12 +26,18 @@
     var suser = getUser();
     var from = null;
     var to = null;
+    var username = "";
+    var password = "";
 
     if (suser === null || suser === "") {
         Common.redirectToLoginPage();
     } else {
         var user = JSON.parse(suser);
-        Common.get(uri + "/user?username=" + encodeURIComponent(user.Username), function (u) {
+
+        username = user.Username;
+        password = user.Password;
+
+        Common.get(uri + "/user?qu=" + encodeURIComponent(username) + "&qp=" + encodeURIComponent(password) + "&username=" + encodeURIComponent(user.Username), function (u) {
             if (user.Password !== u.Password) {
                 Common.redirectToLoginPage();
             } else {

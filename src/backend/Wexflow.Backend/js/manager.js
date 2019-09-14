@@ -50,7 +50,11 @@
         Common.redirectToLoginPage();
     } else {
         var user = JSON.parse(suser);
-        Common.get(uri + "/user?username=" + encodeURIComponent(user.Username), function (u) {
+
+        username = user.Username;
+        password = user.Password;
+
+        Common.get(uri + "/user?qu=" + encodeURIComponent(username) + "&qp=" + encodeURIComponent(password) + "&username=" + encodeURIComponent(user.Username), function (u) {
             if (user.Password !== u.Password) {
                 Common.redirectToLoginPage();
             } else {
@@ -64,9 +68,6 @@
                     if (u.UserProfile === 0) {
                         lnkProfiles.style.display = "inline";
                     }
-
-                    username = u.Username;
-                    password = u.Password;
 
                     var btnLogout = document.getElementById("btn-logout");
                     var divWorkflows = document.getElementById("wf-manager");
@@ -265,7 +266,7 @@
                 Common.post(suspendUri, function (res) {
                     if (res === true) {
                         updateButtons(selectedId, true);
-                    } else{
+                    } else {
                         Common.toastInfo("This operation is not supported.");
                     }
                 });
@@ -290,7 +291,7 @@
 
             // End of get workflows
         }, function () {
-                Common.toastError("An error occured while retrieving workflows. Check that Wexflow server is running correctly.");
+            Common.toastError("An error occured while retrieving workflows. Check that Wexflow server is running correctly.");
         });
     }
 

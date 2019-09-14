@@ -86,37 +86,37 @@ namespace Wexflow.Server
         Entry[] GetEntries();
 
         [OperationContract]
-        User GetUser(string username);
+        User GetUser(string qusername, string qpassword, string username);
 
         [OperationContract]
         User[] GetUsers();
 
         [OperationContract]
-        User[] SearchUsers(string keyword, int uo);
+        User[] SearchUsers(string qusername, string qpassword, string keyword, int uo);
 
         [OperationContract]
         bool SaveUserWorkflows(Stream streamdata);
 
         [OperationContract]
-        WorkflowInfo[] GetUserWorkflows(int userId);
+        WorkflowInfo[] GetUserWorkflows(string qusername, string qpassword, int userId);
 
         [OperationContract]
-        User[] SearchAdministrators(string keyword, int uo);
+        User[] SearchAdministrators(string qusername, string qpassword, string keyword, int uo);
 
         [OperationContract]
-        string GetPassword(string username);
+        string GetPassword(string qusername, string qpassword, string username);
 
         [OperationContract]
-        bool InsertUser(string username, string password, int userProfile, string email);
+        bool InsertUser(string qusername, string qpassword, string username, string password, int userProfile, string email);
 
         [OperationContract]
-        bool UpdateUser(int userId, string username, string password, int userProfile, string email);
+        bool UpdateUser(string qusername, string qpassword, int userId, string username, string password, int userProfile, string email);
 
         [OperationContract]
-        bool UpdateUsernameAndEmailAndUserProfile(int userId, string username, string email, int up);
+        bool UpdateUsernameAndEmailAndUserProfile(string qusername, string qpassword, int userId, string username, string email, int up);
 
         [OperationContract]
-        bool DeleteUser(string username, string password);
+        bool DeleteUser(string qusername, string qpassword, string username, string password);
 
         [OperationContract]
         bool ResetPassword(string username, string email);

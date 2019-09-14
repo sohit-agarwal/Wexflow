@@ -114,8 +114,8 @@ namespace Wexflow.Server
             // Profiles
             //
             SearchAdministrators();
-            SaveUserWorkflows();
             GetUserWorkflows();
+            SaveUserWorkflows();
         }
 
         private string DocH1(string title)
@@ -153,7 +153,7 @@ namespace Wexflow.Server
                 + DocH2("Manager")
                 + DocGet("workflows", "Returns the list of workflows.")
                 + DocGet("search?s={keyword}&u={username}&p={password}", "Search for workflows.")
-                + DocGet("searchApprovalWorkflows?s={keyword}&u={username}&p={password}", "Search for workflows.")
+                + DocGet("searchApprovalWorkflows?s={keyword}&u={username}&p={password}", "Search for approval workflows.")
                 + DocGet("workflow/{id}", "Returns a workflow from its id.")
                 + DocPost("start?w={id}&u={username}&p={password}", "Starts a workflow.")
                 + DocPost("stop?w={id}&u={username}&p={password}", "Stops a workflow.")
@@ -183,18 +183,18 @@ namespace Wexflow.Server
                 + DocGet("historyEntryStatusDateMin", "Returns history entry min date.")
                 + DocGet("historyEntryStatusDateMax", "Returns history entry max date.")
                 + DocH2("Users")
-                + DocGet("user?username={username}", "Returns a user from his username.")
-                + DocGet("password?u={username}", "Returns user's password (encrypted).")
-                + DocGet("searchUsers?keyword={keyword}&uo={orderBy}", "Searches for users.")
-                + DocPost("insertUser?username={username}&password={password}&up={userProfile}&email={email}", "Inserts a user.")
-                + DocPost("updateUser?userId={userId}&username={username}&password={password}&up={userProfile}&email={email}", "Inserts a user.")
-                + DocPost("updateUsernameAndEmailAndUserProfile?userId={userId}&username={username}&password={password}&up={userProfile}&email={email}", "Updates the username, the email and the user profile of a user.")
-                + DocPost("deleteUser?username={username}&password={password}", "Deletes a user.")
+                + DocGet("user?qu={username}&qp={password}&username={username}", "Returns a user from his username.")
+                + DocGet("password?qu={username}&qp={password}&u={username}", "Returns user's password (encrypted).")
+                + DocGet("searchUsers?qu={username}&qp={password}&keyword={keyword}&uo={orderBy}", "Searches for users.")
+                + DocPost("insertUser?qu={username}&qp={password}&username={username}&password={password}&up={userProfile}&email={email}", "Inserts a user.")
+                + DocPost("updateUser?qu={username}&qp={password}&userId={userId}&username={username}&password={password}&up={userProfile}&email={email}", "Inserts a user.")
+                + DocPost("updateUsernameAndEmailAndUserProfile?qu={username}&qp={password}&userId={userId}&username={username}&password={password}&up={userProfile}&email={email}", "Updates the username, the email and the user profile of a user.")
+                + DocPost("deleteUser?qu={username}&qp={password}&username={username}&password={password}", "Deletes a user.")
                 + DocPost("resetPassword?username={username}&email={email}", "Resets a password.")
                 + DocH2("Profiles")
-                + DocGet("searchAdmins?keyword={keyword}&uo={orderBy}", "Searches for administrators.")
-                + DocPost("saveUserWorkflows", "Saves user workflow relations.")
-                + DocGet("searchAdmins?u={userId}", "Returns user workflows.");
+                + DocGet("searchAdmins?qu={username}&qp={password}&keyword={keyword}&uo={orderBy}", "Searches for administrators.")
+                + DocGet("userWorkflows?qu={username}&qp={password}&u={userId}", "Returns user workflows.")
+                + DocPost("saveUserWorkflows", "Saves user workflow relations.");
 
                 var docBytes = Encoding.UTF8.GetBytes(doc);
 
@@ -214,7 +214,7 @@ namespace Wexflow.Server
             Get(Root + "workflows", args =>
             {
                 var workflows = Program.WexflowEngine.Workflows.Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.Name,
-                        (LaunchType) wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
+                        (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
                         wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
                         wf.IsExecutionGraphEmpty
                         , wf.LocalVariables.Select(v => new Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()
@@ -713,7 +713,7 @@ namespace Wexflow.Server
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
-                    taskNames = new [] { "TasksNames.json is not valid." };
+                    taskNames = new[] { "TasksNames.json is not valid." };
                 }
 
                 var taskNamesStr = JsonConvert.SerializeObject(taskNames);
@@ -1230,7 +1230,7 @@ namespace Wexflow.Server
                             , xtasks
                         );
 
-                        if(workflowLaunchType == LaunchType.Periodic)
+                        if (workflowLaunchType == LaunchType.Periodic)
                         {
                             xwf.Element(xn + "Settings").Add(
                                  new XElement(xn + "Setting"
@@ -1239,7 +1239,7 @@ namespace Wexflow.Server
                                 );
                         }
 
-                        if(workflowLaunchType == LaunchType.Cron)
+                        if (workflowLaunchType == LaunchType.Cron)
                         {
                             xwf.Element(xn + "Settings").Add(
                                  new XElement(xn + "Setting"
@@ -1522,7 +1522,7 @@ namespace Wexflow.Server
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
-                    
+
                     var resStr = JsonConvert.SerializeObject(false);
                     var resBytes = Encoding.UTF8.GetBytes(resStr);
 
@@ -1629,35 +1629,40 @@ namespace Wexflow.Server
         {
             Get(Root + "user", args =>
             {
+                string qusername = Request.Query["qu"].ToString();
+                string qpassword = Request.Query["qp"].ToString();
                 string username = Request.Query["username"].ToString();
 
-                var user = Program.WexflowEngine.GetUser(username);
-                //DateTime baseDate = new DateTime(1970, 1, 1);
-                string dateTimeFormat = Program.Config["DateTimeFormat"];
+                var othuser = Program.WexflowEngine.GetUser(qusername);
 
-                if (user != null)
+                if (othuser.Password.Equals(qpassword))
                 {
-                    User u = new User
-                    {
-                        Id = user.Id,
-                        Username = user.Username,
-                        Password = user.Password,
-                        UserProfile = (UserProfile)((int)user.UserProfile),
-                        Email = user.Email,
-                        //CreatedOn = (user.CreatedOn - baseDate).TotalMilliseconds,
-                        CreatedOn = user.CreatedOn.ToString(dateTimeFormat),
-                        //ModifiedOn = (user.ModifiedOn - baseDate).TotalMilliseconds
-                        ModifiedOn = user.ModifiedOn.ToString(dateTimeFormat)
-                    };
+                    var user = Program.WexflowEngine.GetUser(username);
+                    string dateTimeFormat = Program.Config["DateTimeFormat"];
 
-                    var uStr = JsonConvert.SerializeObject(u);
-                    var uBytes = Encoding.UTF8.GetBytes(uStr);
-
-                    return new Response
+                    if (user != null)
                     {
-                        ContentType = "application/json",
-                        Contents = s => s.Write(uBytes, 0, uBytes.Length)
-                    };
+                        var u = new User
+                        {
+                            Id = user.Id,
+                            Username = user.Username,
+                            Password = user.Password,
+                            UserProfile = (UserProfile)((int)user.UserProfile),
+                            Email = user.Email,
+                            CreatedOn = user.CreatedOn.ToString(dateTimeFormat),
+                            ModifiedOn = user.ModifiedOn.ToString(dateTimeFormat)
+                        };
+
+                        var uStr = JsonConvert.SerializeObject(u);
+                        var uBytes = Encoding.UTF8.GetBytes(uStr);
+
+                        return new Response
+                        {
+                            ContentType = "application/json",
+                            Contents = s => s.Write(uBytes, 0, uBytes.Length)
+                        };
+
+                    }
                 }
 
                 return new Response
@@ -1675,8 +1680,16 @@ namespace Wexflow.Server
         {
             Get(Root + "password", args =>
             {
+                string qusername = Request.Query["qu"].ToString();
+                string qpassword = Request.Query["qp"].ToString();
                 string username = Request.Query["u"].ToString();
-                string pass = Program.WexflowEngine.GetPassword(username);
+                string pass = string.Empty;
+
+                var user = Program.WexflowEngine.GetUser(qusername);
+                if (user.Password.Equals(qpassword))
+                {
+                    pass = Program.WexflowEngine.GetPassword(username);
+                }
 
                 var passStr = JsonConvert.SerializeObject(pass);
                 var passBytes = Encoding.UTF8.GetBytes(passStr);
@@ -1696,25 +1709,31 @@ namespace Wexflow.Server
         {
             Get(Root + "searchUsers", args =>
             {
+                string qusername = Request.Query["qu"].ToString();
+                string qpassword = Request.Query["qp"].ToString();
                 string keyword = Request.Query["keyword"].ToString();
                 int uo = int.Parse(Request.Query["uo"].ToString());
 
-                var users = Program.WexflowEngine.GetUsers(keyword, (UserOrderBy)uo);
-                //DateTime baseDate = new DateTime(1970, 1, 1);
-                string dateTimeFormat = Program.Config["DateTimeFormat"];
+                var q = new User[] { };
+                var user = Program.WexflowEngine.GetUser(qusername);
 
-                var q = users.Select(u => new User
+                if (user.Password.Equals(qpassword) && (user.UserProfile == Core.Db.UserProfile.SuperAdministrator || user.UserProfile == Core.Db.UserProfile.Administrator))
                 {
-                    Id = u.Id,
-                    Username = u.Username,
-                    Password = u.Password,
-                    UserProfile = (UserProfile)((int)u.UserProfile),
-                    Email = u.Email,
-                    //CreatedOn = (u.CreatedOn - baseDate).TotalMilliseconds,
-                    CreatedOn = u.CreatedOn.ToString(dateTimeFormat),
-                    //ModifiedOn = (u.ModifiedOn - baseDate).TotalMilliseconds
-                    ModifiedOn = u.ModifiedOn.ToString(dateTimeFormat)
-                }).ToArray();
+                    var users = Program.WexflowEngine.GetUsers(keyword, (UserOrderBy)uo);
+
+                    string dateTimeFormat = Program.Config["DateTimeFormat"];
+
+                    q = users.Select(u => new User
+                    {
+                        Id = u.Id,
+                        Username = u.Username,
+                        Password = u.Password,
+                        UserProfile = (UserProfile)((int)u.UserProfile),
+                        Email = u.Email,
+                        CreatedOn = u.CreatedOn.ToString(dateTimeFormat),
+                        ModifiedOn = u.ModifiedOn.ToString(dateTimeFormat)
+                    }).ToArray();
+                }
 
                 var qStr = JsonConvert.SerializeObject(q);
                 var qBytes = Encoding.UTF8.GetBytes(qStr);
@@ -1735,22 +1754,31 @@ namespace Wexflow.Server
         {
             Get(Root + "searchAdmins", args =>
             {
+                string qusername = Request.Query["qu"].ToString();
+                string qpassword = Request.Query["qp"].ToString();
                 string keyword = Request.Query["keyword"].ToString();
                 int uo = int.Parse(Request.Query["uo"].ToString());
 
-                var users = Program.WexflowEngine.GetAdministrators(keyword, (UserOrderBy)uo);
-                string dateTimeFormat = Program.Config["DateTimeFormat"];
+                var q = new User[] { };
 
-                var q = users.Select(u => new User
+                var user = Program.WexflowEngine.GetUser(qusername);
+
+                if (user.Password.Equals(qpassword) && (user.UserProfile == Core.Db.UserProfile.SuperAdministrator || user.UserProfile == Core.Db.UserProfile.Administrator))
                 {
-                    Id = u.Id,
-                    Username = u.Username,
-                    Password = u.Password,
-                    UserProfile = (UserProfile)((int)u.UserProfile),
-                    Email = u.Email,
-                    CreatedOn = u.CreatedOn.ToString(dateTimeFormat),
-                    ModifiedOn = u.ModifiedOn.ToString(dateTimeFormat)
-                }).ToArray();
+                    var users = Program.WexflowEngine.GetAdministrators(keyword, (UserOrderBy)uo);
+                    string dateTimeFormat = Program.Config["DateTimeFormat"];
+
+                    q = users.Select(u => new User
+                    {
+                        Id = u.Id,
+                        Username = u.Username,
+                        Password = u.Password,
+                        UserProfile = (UserProfile)((int)u.UserProfile),
+                        Email = u.Email,
+                        CreatedOn = u.CreatedOn.ToString(dateTimeFormat),
+                        ModifiedOn = u.ModifiedOn.ToString(dateTimeFormat)
+                    }).ToArray();
+                }
 
                 var qStr = JsonConvert.SerializeObject(q);
                 var qBytes = Encoding.UTF8.GetBytes(qStr);
@@ -1775,17 +1803,29 @@ namespace Wexflow.Server
                 {
                     var json = RequestStream.FromStream(Request.Body).AsString();
 
+                    var res = false;
                     JObject o = JObject.Parse(json);
-                    int userId = o.Value<int>("UserId");
-                    JArray jArray = o.Value<JArray>("UserWorkflows");
-                    Program.WexflowEngine.DeleteUserWorkflowRelations(userId);
-                    foreach (JObject item in jArray)
+
+                    var qusername = o.Value<string>("QUsername");
+                    var qpassword = o.Value<string>("QPassword");
+
+                    var user = Program.WexflowEngine.GetUser(qusername);
+
+                    if (user.Password.Equals(qpassword) && user.UserProfile == Core.Db.UserProfile.SuperAdministrator)
                     {
-                        var workflowId = item.Value<int>("WorkflowId");
-                        Program.WexflowEngine.InsertUserWorkflowRelation(userId, workflowId);
+                        int userId = o.Value<int>("UserId");
+                        JArray jArray = o.Value<JArray>("UserWorkflows");
+                        Program.WexflowEngine.DeleteUserWorkflowRelations(userId);
+                        foreach (JObject item in jArray)
+                        {
+                            var workflowId = item.Value<int>("WorkflowId");
+                            Program.WexflowEngine.InsertUserWorkflowRelation(userId, workflowId);
+                        }
+
+                        res = true;
                     }
 
-                    var resStr = JsonConvert.SerializeObject(true);
+                    var resStr = JsonConvert.SerializeObject(res);
                     var resBytes = Encoding.UTF8.GetBytes(resStr);
 
                     return new Response()
@@ -1808,7 +1848,7 @@ namespace Wexflow.Server
                     };
                 }
             });
-               
+
         }
 
         /// <summary>
@@ -1818,26 +1858,33 @@ namespace Wexflow.Server
         {
             Get(Root + "userWorkflows", args =>
             {
+                string qusername = Request.Query["qu"].ToString();
+                string qpassword = Request.Query["qp"].ToString();
                 var userId = int.Parse(Request.Query["u"].ToString());
 
                 var res = new WorkflowInfo[] { };
 
-                try
+                var user = Program.WexflowEngine.GetUser(qusername);
+
+                if (user.Password.Equals(qpassword) && user.UserProfile == Core.Db.UserProfile.SuperAdministrator)
                 {
-                    Core.Workflow[] workflows = Program.WexflowEngine.GetUserWorkflows(userId);
-                    res = workflows
-                        .ToList()
-                        .Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.Name,
-                        (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
-                        wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
-                        wf.IsExecutionGraphEmpty
-                       , wf.LocalVariables.Select(v => new Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()))
-                        .ToArray();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("An error occured while retrieving user workflows: ", e);
-                    
+                    try
+                    {
+                        Core.Workflow[] workflows = Program.WexflowEngine.GetUserWorkflows(userId);
+                        res = workflows
+                            .ToList()
+                            .Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.Name,
+                            (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
+                            wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
+                            wf.IsExecutionGraphEmpty
+                           , wf.LocalVariables.Select(v => new Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()))
+                            .ToArray();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("An error occured while retrieving user workflows: ", e);
+
+                    }
                 }
 
                 var resStr = JsonConvert.SerializeObject(res);
@@ -1859,6 +1906,8 @@ namespace Wexflow.Server
         {
             Post(Root + "insertUser", args =>
             {
+                string qusername = Request.Query["qu"].ToString();
+                string qpassword = Request.Query["qp"].ToString();
                 string username = Request.Query["username"].ToString();
                 string password = Request.Query["password"].ToString();
                 int userProfile = int.Parse(Request.Query["up"].ToString());
@@ -1866,9 +1915,15 @@ namespace Wexflow.Server
 
                 try
                 {
-                    Program.WexflowEngine.InsertUser(username, password, (Core.Db.UserProfile)userProfile, email);
+                    var res = false;
+                    var user = Program.WexflowEngine.GetUser(qusername);
+                    if (user.Password.Equals(qpassword) && user.UserProfile == Core.Db.UserProfile.SuperAdministrator)
+                    {
+                        Program.WexflowEngine.InsertUser(username, password, (Core.Db.UserProfile)userProfile, email);
+                        res = true;
+                    }
 
-                    var resStr = JsonConvert.SerializeObject(true);
+                    var resStr = JsonConvert.SerializeObject(res);
                     var resBytes = Encoding.UTF8.GetBytes(resStr);
 
                     return new Response
@@ -1900,6 +1955,8 @@ namespace Wexflow.Server
         {
             Post(Root + "updateUser", args =>
             {
+                string qusername = Request.Query["qu"].ToString();
+                string qpassword = Request.Query["qp"].ToString();
                 int userId = int.Parse(Request.Query["userId"].ToString());
                 string username = Request.Query["username"].ToString();
                 string password = Request.Query["password"].ToString();
@@ -1908,9 +1965,15 @@ namespace Wexflow.Server
 
                 try
                 {
-                    Program.WexflowEngine.UpdateUser(userId, username, password, (Core.Db.UserProfile)userProfile, email);
+                    var res = false;
+                    var user = Program.WexflowEngine.GetUser(qusername);
+                    if (user.Password.Equals(qpassword) && (user.UserProfile == Core.Db.UserProfile.SuperAdministrator || user.UserProfile == Core.Db.UserProfile.Administrator))
+                    {
+                        Program.WexflowEngine.UpdateUser(userId, username, password, (Core.Db.UserProfile)userProfile, email);
+                        res = true;
+                    }
 
-                    var resStr = JsonConvert.SerializeObject(true);
+                    var resStr = JsonConvert.SerializeObject(res);
                     var resBytes = Encoding.UTF8.GetBytes(resStr);
 
                     return new Response
@@ -1943,16 +2006,24 @@ namespace Wexflow.Server
         {
             Post(Root + "updateUsernameAndEmailAndUserProfile", args =>
             {
+                string qusername = Request.Query["qu"].ToString();
+                string qpassword = Request.Query["qp"].ToString();
                 int userId = int.Parse(Request.Query["userId"].ToString());
                 string username = Request.Query["username"].ToString();
                 string email = Request.Query["email"].ToString();
                 int up = int.Parse(Request.Query["up"].ToString());
-                
+
                 try
                 {
-                    Program.WexflowEngine.UpdateUsernameAndEmailAndUserProfile(userId, username, email, up);
+                    var res = false;
+                    var user = Program.WexflowEngine.GetUser(qusername);
+                    if (user.Password.Equals(qpassword) && (user.UserProfile == Core.Db.UserProfile.SuperAdministrator || user.UserProfile == Core.Db.UserProfile.Administrator))
+                    {
+                        Program.WexflowEngine.UpdateUsernameAndEmailAndUserProfile(userId, username, email, up);
+                        res = true;
+                    }
 
-                    var resStr = JsonConvert.SerializeObject(true);
+                    var resStr = JsonConvert.SerializeObject(res);
                     var resBytes = Encoding.UTF8.GetBytes(resStr);
 
                     return new Response
@@ -1985,14 +2056,22 @@ namespace Wexflow.Server
         {
             Post(Root + "deleteUser", args =>
             {
+                string qusername = Request.Query["qu"].ToString();
+                string qpassword = Request.Query["qp"].ToString();
                 string username = Request.Query["username"].ToString();
                 string password = Request.Query["password"].ToString();
 
                 try
                 {
-                    Program.WexflowEngine.DeleteUser(username, password);
+                    var res = false;
+                    var user = Program.WexflowEngine.GetUser(qusername);
+                    if (user.Password.Equals(qpassword) && (user.UserProfile == Core.Db.UserProfile.SuperAdministrator || user.UserProfile == Core.Db.UserProfile.Administrator))
+                    {
+                        Program.WexflowEngine.DeleteUser(username, password);
+                        res = true;
+                    }
 
-                    var resStr = JsonConvert.SerializeObject(true);
+                    var resStr = JsonConvert.SerializeObject(res);
                     var resBytes = Encoding.UTF8.GetBytes(resStr);
 
                     return new Response
@@ -2143,18 +2222,18 @@ namespace Wexflow.Server
                 HistoryEntry[] entries = Program.WexflowEngine.GetHistoryEntries(keyword, fromDate, toDate, page,
                     entriesCount, (EntryOrderBy)heo);
 
-                Contracts.HistoryEntry[] q =  entries.Select(e =>
-                    new Contracts.HistoryEntry
-                    {
-                        Id = e.Id,
-                        WorkflowId = e.WorkflowId,
-                        Name = e.Name,
-                        LaunchType = (LaunchType)((int)e.LaunchType),
-                        Description = e.Description,
-                        Status = (Contracts.Status)((int)e.Status),
-                        //StatusDate = (e.StatusDate - baseDate).TotalMilliseconds
-                        StatusDate = e.StatusDate.ToString(Program.Config["DateTimeFormat"])
-                    }).ToArray();
+                Contracts.HistoryEntry[] q = entries.Select(e =>
+                   new Contracts.HistoryEntry
+                   {
+                       Id = e.Id,
+                       WorkflowId = e.WorkflowId,
+                       Name = e.Name,
+                       LaunchType = (LaunchType)((int)e.LaunchType),
+                       Description = e.Description,
+                       Status = (Contracts.Status)((int)e.Status),
+                       //StatusDate = (e.StatusDate - baseDate).TotalMilliseconds
+                       StatusDate = e.StatusDate.ToString(Program.Config["DateTimeFormat"])
+                   }).ToArray();
 
                 var qStr = JsonConvert.SerializeObject(q);
                 var qBytes = Encoding.UTF8.GetBytes(qStr);

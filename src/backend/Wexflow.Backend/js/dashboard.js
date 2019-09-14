@@ -1,4 +1,4 @@
-﻿function Dashboard () {
+﻿function Dashboard() {
     "use strict";
 
     var uri = Common.trimEnd(Settings.Uri, "/");
@@ -34,12 +34,18 @@
     var heo = 1;
     var from = null;
     var to = null;
+    var qusername = "";
+    var qpassword = "";
 
-    if (suser === null || suser === "" ) {
+    if (suser === null || suser === "") {
         Common.redirectToLoginPage();
     } else {
         var user = JSON.parse(suser);
-        Common.get(uri + "/user?username=" + encodeURIComponent(user.Username), function (u) {
+
+        qusername = user.Username;
+        qpassword = user.Password;
+
+        Common.get(uri + "/user?qu=" + encodeURIComponent(qusername) + "&qp=" + encodeURIComponent(qpassword) + "&username=" + encodeURIComponent(user.Username), function (u) {
             if (user.Password !== u.Password) {
                 Common.redirectToLoginPage();
             } else {
@@ -66,9 +72,9 @@
                 }
 
                 Common.get(uri + "/entryStatusDateMin",
-                    function(dateMin) {
+                    function (dateMin) {
                         Common.get(uri + "/entryStatusDateMax",
-                            function(dateMax) {
+                            function (dateMax) {
 
                                 from = new Date(dateMin);
                                 to = new Date(dateMax);
@@ -78,7 +84,7 @@
                                     from.getYear() === to.getYear()) {
                                     to.setDate(to.getDate() + 1);
                                 }
-                                Common.get(uri + "/entriesCountByDate?s=" + encodeURIComponent(txtSearch.value) + "&from=" + from.getTime() + "&to=" + to.getTime(), function(count) {
+                                Common.get(uri + "/entriesCountByDate?s=" + encodeURIComponent(txtSearch.value) + "&from=" + from.getTime() + "&to=" + to.getTime(), function (count) {
 
                                     updateStatusCount();
 
@@ -237,7 +243,7 @@
         var entriesCount = getEntriesCount();
 
         Common.get(uri + "/searchEntriesByPageOrderBy?s=" + encodeURIComponent(txtSearch.value) + "&from=" + from.getTime() + "&to=" + to.getTime() + "&page=" + page + "&entriesCount=" + entriesCount + "&heo=" + heo, function (data) {
-            
+
             var items = [];
             for (var i = 0; i < data.length; i++) {
                 var val = data[i];
@@ -437,7 +443,7 @@
             };
 
         }, function () {
-                Common.toastError("An error occured while retrieving entries. Check that Wexflow server is running correctly.");
+            Common.toastError("An error occured while retrieving entries. Check that Wexflow server is running correctly.");
         });
     }
 

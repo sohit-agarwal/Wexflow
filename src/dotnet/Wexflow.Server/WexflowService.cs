@@ -188,7 +188,7 @@ namespace Wexflow.Server
                     var check = WexflowWindowsService.WexflowEngine.CheckUserWorkflow(user.Id, workflowDbId);
                     if (check)
                     {
-                       return WexflowWindowsService.WexflowEngine.StopWorkflow(workflowId);
+                        return WexflowWindowsService.WexflowEngine.StopWorkflow(workflowId);
                     }
                 }
             }
@@ -812,7 +812,7 @@ namespace Wexflow.Server
 
                     var path = (string)wi.SelectToken("Path");
                     var dbId = WexflowWindowsService.WexflowEngine.SaveWorkflow(xdoc.ToString());
-                    if(user.UserProfile == Core.Db.UserProfile.Administrator)
+                    if (user.UserProfile == Core.Db.UserProfile.Administrator)
                     {
                         WexflowWindowsService.WexflowEngine.InsertUserWorkflowRelation(user.Id, dbId);
                     }
@@ -1134,27 +1134,30 @@ namespace Wexflow.Server
 
         [WebInvoke(Method = "GET",
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "user?username={username}")]
-        public User GetUser(string username)
+            UriTemplate = "user?qu={qusername}&qp={qpassword}&username={username}")]
+        public User GetUser(string qusername, string qpassword, string username)
         {
-            var user = WexflowWindowsService.WexflowEngine.GetUser(username);
-            //DateTime baseDate = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-            string dateTimeFormat = ConfigurationManager.AppSettings["DateTimeFormat"];
+            var othuser = WexflowWindowsService.WexflowEngine.GetUser(qusername);
 
-            if (user != null)
+            if (othuser.Password.Equals(qpassword))
             {
-                return new User
+
+                var user = WexflowWindowsService.WexflowEngine.GetUser(username);
+                string dateTimeFormat = ConfigurationManager.AppSettings["DateTimeFormat"];
+
+                if (user != null)
                 {
-                    Id = user.Id,
-                    Username = user.Username,
-                    Password = user.Password,
-                    UserProfile = (UserProfile)((int)user.UserProfile),
-                    Email = user.Email,
-                    //CreatedOn = user.CreatedOn.ToUniversalTime().Subtract(baseDate).TotalMilliseconds,
-                    CreatedOn = user.CreatedOn.ToString(dateTimeFormat),
-                    //ModifiedOn = user.ModifiedOn.ToUniversalTime().Subtract(baseDate).TotalMilliseconds
-                    ModifiedOn = user.ModifiedOn.ToString(dateTimeFormat)
-                };
+                    return new User
+                    {
+                        Id = user.Id,
+                        Username = user.Username,
+                        Password = user.Password,
+                        UserProfile = (UserProfile)((int)user.UserProfile),
+                        Email = user.Email,
+                        CreatedOn = user.CreatedOn.ToString(dateTimeFormat),
+                        ModifiedOn = user.ModifiedOn.ToString(dateTimeFormat)
+                    };
+                }
             }
 
             return null;
@@ -1185,46 +1188,56 @@ namespace Wexflow.Server
 
         [WebInvoke(Method = "GET",
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "searchUsers?keyword={keyword}&uo={uo}")]
-        public User[] SearchUsers(string keyword, int uo)
+            UriTemplate = "searchUsers?qu={qusername}&qp={qpassword}&keyword={keyword}&uo={uo}")]
+        public User[] SearchUsers(string qusername, string qpassword, string keyword, int uo)
         {
-            var users = WexflowWindowsService.WexflowEngine.GetUsers(keyword, (UserOrderBy)uo);
-            DateTime baseDate = new DateTime(1970, 1, 1);
-            string dateTimeFormat = ConfigurationManager.AppSettings["DateTimeFormat"];
+            var user = WexflowWindowsService.WexflowEngine.GetUser(qusername);
 
-            return users.Select(u => new User
+            if (user.Password.Equals(qpassword) && (user.UserProfile == Core.Db.UserProfile.SuperAdministrator || user.UserProfile == Core.Db.UserProfile.Administrator))
             {
-                Id = u.Id,
-                Username = u.Username,
-                Password = u.Password,
-                UserProfile = (UserProfile)((int)u.UserProfile),
-                Email = u.Email,
-                //CreatedOn = (u.CreatedOn - baseDate).TotalMilliseconds,
-                CreatedOn = u.CreatedOn.ToString(dateTimeFormat),
-                //ModifiedOn = (u.ModifiedOn - baseDate).TotalMilliseconds
-                ModifiedOn = u.ModifiedOn.ToString(dateTimeFormat)
-            }).ToArray();
+                var users = WexflowWindowsService.WexflowEngine.GetUsers(keyword, (UserOrderBy)uo);
+                string dateTimeFormat = ConfigurationManager.AppSettings["DateTimeFormat"];
+
+                return users.Select(u => new User
+                {
+                    Id = u.Id,
+                    Username = u.Username,
+                    Password = u.Password,
+                    UserProfile = (UserProfile)((int)u.UserProfile),
+                    Email = u.Email,
+                    CreatedOn = u.CreatedOn.ToString(dateTimeFormat),
+                    ModifiedOn = u.ModifiedOn.ToString(dateTimeFormat)
+                }).ToArray();
+            }
+
+            return new User[] { };
         }
 
         [WebInvoke(Method = "GET",
            ResponseFormat = WebMessageFormat.Json,
-           UriTemplate = "searchAdmins?keyword={keyword}&uo={uo}")]
-        public User[] SearchAdministrators(string keyword, int uo)
+           UriTemplate = "searchAdmins?qu={qusername}&qp={qpassword}&keyword={keyword}&uo={uo}")]
+        public User[] SearchAdministrators(string qusername, string qpassword, string keyword, int uo)
         {
-            var users = WexflowWindowsService.WexflowEngine.GetAdministrators(keyword, (UserOrderBy)uo);
-            DateTime baseDate = new DateTime(1970, 1, 1);
-            string dateTimeFormat = ConfigurationManager.AppSettings["DateTimeFormat"];
+            var user = WexflowWindowsService.WexflowEngine.GetUser(qusername);
 
-            return users.Select(u => new User
+            if (user.Password.Equals(qpassword) && (user.UserProfile == Core.Db.UserProfile.SuperAdministrator || user.UserProfile == Core.Db.UserProfile.Administrator))
             {
-                Id = u.Id,
-                Username = u.Username,
-                Password = u.Password,
-                UserProfile = (UserProfile)((int)u.UserProfile),
-                Email = u.Email,
-                CreatedOn = u.CreatedOn.ToString(dateTimeFormat),
-                ModifiedOn = u.ModifiedOn.ToString(dateTimeFormat)
-            }).ToArray();
+                var users = WexflowWindowsService.WexflowEngine.GetAdministrators(keyword, (UserOrderBy)uo);
+                string dateTimeFormat = ConfigurationManager.AppSettings["DateTimeFormat"];
+
+                return users.Select(u => new User
+                {
+                    Id = u.Id,
+                    Username = u.Username,
+                    Password = u.Password,
+                    UserProfile = (UserProfile)((int)u.UserProfile),
+                    Email = u.Email,
+                    CreatedOn = u.CreatedOn.ToString(dateTimeFormat),
+                    ModifiedOn = u.ModifiedOn.ToString(dateTimeFormat)
+                }).ToArray();
+            }
+
+            return new User[] { };
         }
 
         [WebInvoke(Method = "POST",
@@ -1240,16 +1253,26 @@ namespace Wexflow.Server
                 reader.Dispose();
 
                 JObject o = JObject.Parse(json);
-                int userId = o.Value<int>("UserId");
-                JArray jArray = o.Value<JArray>("UserWorkflows");
-                WexflowWindowsService.WexflowEngine.DeleteUserWorkflowRelations(userId);
-                foreach (JObject item in jArray)
+                var qusername = o.Value<string>("QUsername");
+                var qpassword = o.Value<string>("QPassword");
+
+                var user = WexflowWindowsService.WexflowEngine.GetUser(qusername);
+
+                if (user.Password.Equals(qpassword) && user.UserProfile == Core.Db.UserProfile.SuperAdministrator)
                 {
-                    var workflowId = item.Value<int>("WorkflowId");
-                    WexflowWindowsService.WexflowEngine.InsertUserWorkflowRelation(userId, workflowId);
+                    int userId = o.Value<int>("UserId");
+                    JArray jArray = o.Value<JArray>("UserWorkflows");
+                    WexflowWindowsService.WexflowEngine.DeleteUserWorkflowRelations(userId);
+                    foreach (JObject item in jArray)
+                    {
+                        var workflowId = item.Value<int>("WorkflowId");
+                        WexflowWindowsService.WexflowEngine.InsertUserWorkflowRelation(userId, workflowId);
+                    }
+
+                    return true;
                 }
 
-                return true;
+                return false;
             }
             catch (Exception e)
             {
@@ -1261,21 +1284,28 @@ namespace Wexflow.Server
 
         [WebInvoke(Method = "GET",
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "userWorkflows?u={userId}")]
-        public WorkflowInfo[] GetUserWorkflows(int userId)
+            UriTemplate = "userWorkflows?qu={qusername}&qp={qpassword}&u={userId}")]
+        public WorkflowInfo[] GetUserWorkflows(string qusername, string qpassword, int userId)
         {
             try
             {
-                var workflows = WexflowWindowsService.WexflowEngine.GetUserWorkflows(userId);
-                var res = workflows
-                    .ToList()
-                    .Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.Name,
-                    (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
-                    wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
-                    wf.IsExecutionGraphEmpty
-                   , wf.LocalVariables.Select(v => new Core.Service.Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()))
-                    .ToArray();
-                return res;
+                var user = WexflowWindowsService.WexflowEngine.GetUser(qusername);
+
+                if (user.Password.Equals(qpassword) && user.UserProfile == Core.Db.UserProfile.SuperAdministrator)
+                {
+                    var workflows = WexflowWindowsService.WexflowEngine.GetUserWorkflows(userId);
+                    var res = workflows
+                        .ToList()
+                        .Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.Name,
+                        (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
+                        wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
+                        wf.IsExecutionGraphEmpty
+                       , wf.LocalVariables.Select(v => new Core.Service.Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()))
+                        .ToArray();
+                    return res;
+                }
+
+                return new WorkflowInfo[] { };
             }
             catch (Exception e)
             {
@@ -1286,21 +1316,32 @@ namespace Wexflow.Server
 
         [WebInvoke(Method = "GET",
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "password?u={username}")]
-        public string GetPassword(string username)
+            UriTemplate = "password?qu={qusername}&qp={qpassword}&u={username}")]
+        public string GetPassword(string qusername, string qpassword, string username)
         {
-            return WexflowWindowsService.WexflowEngine.GetPassword(username);
+            var user = WexflowWindowsService.WexflowEngine.GetUser(qusername);
+            if (user.Password.Equals(qpassword))
+            {
+                return WexflowWindowsService.WexflowEngine.GetPassword(username);
+            }
+
+            return string.Empty;
         }
 
         [WebInvoke(Method = "POST",
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "insertUser?username={username}&password={password}&up={userProfile}&email={email}")]
-        public bool InsertUser(string username, string password, int userProfile, string email)
+            UriTemplate = "insertUser?qu={qusername}&qp={qpassword}&username={username}&password={password}&up={userProfile}&email={email}")]
+        public bool InsertUser(string qusername, string qpassword, string username, string password, int userProfile, string email)
         {
             try
             {
-                WexflowWindowsService.WexflowEngine.InsertUser(username, password, (Core.Db.UserProfile)userProfile, email);
-                return true;
+                var user = WexflowWindowsService.WexflowEngine.GetUser(qusername);
+                if (user.Password.Equals(qpassword) && user.UserProfile == Core.Db.UserProfile.SuperAdministrator)
+                {
+                    WexflowWindowsService.WexflowEngine.InsertUser(username, password, (Core.Db.UserProfile)userProfile, email);
+                    return true;
+                }
+                return false;
             }
             catch (Exception e)
             {
@@ -1311,13 +1352,18 @@ namespace Wexflow.Server
 
         [WebInvoke(Method = "POST",
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "updateUser?userId={userId}&username={username}&password={password}&up={userProfile}&email={email}")]
-        public bool UpdateUser(int userId, string username, string password, int userProfile, string email)
+            UriTemplate = "updateUser?qu={qusername}&qp={qpassword}&userId={userId}&username={username}&password={password}&up={userProfile}&email={email}")]
+        public bool UpdateUser(string qusername, string qpassword, int userId, string username, string password, int userProfile, string email)
         {
             try
             {
-                WexflowWindowsService.WexflowEngine.UpdateUser(userId, username, password, (Core.Db.UserProfile)userProfile, email);
-                return true;
+                var user = WexflowWindowsService.WexflowEngine.GetUser(qusername);
+                if (user.Password.Equals(qpassword) && (user.UserProfile == Core.Db.UserProfile.SuperAdministrator || user.UserProfile == Core.Db.UserProfile.Administrator))
+                {
+                    WexflowWindowsService.WexflowEngine.UpdateUser(userId, username, password, (Core.Db.UserProfile)userProfile, email);
+                    return true;
+                }
+                return false;
             }
             catch (Exception e)
             {
@@ -1328,13 +1374,18 @@ namespace Wexflow.Server
 
         [WebInvoke(Method = "POST",
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "updateUsernameAndEmailAndUserProfile?userId={userId}&username={username}&email={email}&up={up}")]
-        public bool UpdateUsernameAndEmailAndUserProfile(int userId, string username, string email, int up)
+            UriTemplate = "updateUsernameAndEmailAndUserProfile?qu={qusername}&qp={qpassword}&userId={userId}&username={username}&email={email}&up={up}")]
+        public bool UpdateUsernameAndEmailAndUserProfile(string qusername, string qpassword, int userId, string username, string email, int up)
         {
             try
             {
-                WexflowWindowsService.WexflowEngine.UpdateUsernameAndEmailAndUserProfile(userId, username, email, up);
-                return true;
+                var user = WexflowWindowsService.WexflowEngine.GetUser(qusername);
+                if (user.Password.Equals(qpassword) && (user.UserProfile == Core.Db.UserProfile.SuperAdministrator || user.UserProfile == Core.Db.UserProfile.Administrator))
+                {
+                    WexflowWindowsService.WexflowEngine.UpdateUsernameAndEmailAndUserProfile(userId, username, email, up);
+                    return true;
+                }
+                return false;
             }
             catch (Exception e)
             {
@@ -1345,13 +1396,18 @@ namespace Wexflow.Server
 
         [WebInvoke(Method = "POST",
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "deleteUser?username={username}&password={password}")]
-        public bool DeleteUser(string username, string password)
+            UriTemplate = "deleteUser?qu={qusername}&qp={qpassword}&username={username}&password={password}")]
+        public bool DeleteUser(string qusername, string qpassword, string username, string password)
         {
             try
             {
-                WexflowWindowsService.WexflowEngine.DeleteUser(username, password);
-                return true;
+                var user = WexflowWindowsService.WexflowEngine.GetUser(qusername);
+                if (user.Password.Equals(qpassword) && (user.UserProfile == Core.Db.UserProfile.SuperAdministrator || user.UserProfile == Core.Db.UserProfile.Administrator))
+                {
+                    WexflowWindowsService.WexflowEngine.DeleteUser(username, password);
+                    return true;
+                }
+                return false;
             }
             catch (Exception e)
             {
@@ -1660,7 +1716,7 @@ namespace Wexflow.Server
                                     Console.WriteLine(e);
                                     res &= false;
                                 }
-                                
+
                             }
                         }
                         return res;
