@@ -66,6 +66,13 @@ namespace Wexflow.Server
             ResumeWorkflow();
 
             //
+            // Approval
+            //
+            SearchApprovalWorkflows();
+            ApproveWorkflow();
+            DisapproveWorkflow();
+
+            //
             // Designer
             // 
             GetTasks();
@@ -82,13 +89,6 @@ namespace Wexflow.Server
             DeleteWorkflow();
             DeleteWorkflows();
             GetExecutionGraph();
-
-            //
-            // Approval
-            //
-            SearchApprovalWorkflows();
-            ApproveWorkflow();
-            DisapproveWorkflow();
 
             //
             // Users
