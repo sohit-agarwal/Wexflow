@@ -91,6 +91,14 @@ namespace Wexflow.Server
             GetExecutionGraph();
 
             //
+            // History
+            //
+            GetHistoryEntriesCountByDate();
+            SearchHistoryEntriesByPageOrderBy();
+            GetHistoryEntryStatusDateMin();
+            GetHistoryEntryStatusDateMax();
+
+            //
             // Users
             //
             GetUser();
@@ -101,14 +109,6 @@ namespace Wexflow.Server
             UpdateUsernameAndEmailAndUserProfile();
             DeleteUser();
             ResetPassword();
-
-            //
-            // History
-            //
-            GetHistoryEntriesCountByDate();
-            SearchHistoryEntriesByPageOrderBy();
-            GetHistoryEntryStatusDateMin();
-            GetHistoryEntryStatusDateMax();
 
             //
             // Profiles
@@ -177,6 +177,11 @@ namespace Wexflow.Server
                 + DocPost("delete?w={id}&u={username}&p={password}", "Deletes a workflow.")
                 + DocPost("deleteWorkflows", "Deletes workflows.")
                 + DocGet("graph/{id}", "Returns the execution graph of the workflow.")
+                + DocH2("History")
+                + DocGet("historyEntriesCountByDate?s={keyword}&from={date}&to={date}", "Returns history entries count by keyword and date filter.")
+                + DocGet("searchHistoryEntriesByPageOrderBy?s={keyword}&from={date}&to={date}&page={page}&entriesCount={entriesCount}&heo={orderBy}", "Searches for history entries.")
+                + DocGet("historyEntryStatusDateMin", "Returns history entry min date.")
+                + DocGet("historyEntryStatusDateMax", "Returns history entry max date.")
                 + DocH2("Users")
                 + DocGet("user?username={username}", "Returns a user from his username.")
                 + DocGet("password?u={username}", "Returns user's password (encrypted).")
@@ -186,11 +191,6 @@ namespace Wexflow.Server
                 + DocPost("updateUsernameAndEmailAndUserProfile?userId={userId}&username={username}&password={password}&up={userProfile}&email={email}", "Updates the username, the email and the user profile of a user.")
                 + DocPost("deleteUser?username={username}&password={password}", "Deletes a user.")
                 + DocPost("resetPassword?username={username}&email={email}", "Resets a password.")
-                + DocH2("History")
-                + DocGet("historyEntriesCountByDate?s={keyword}&from={date}&to={date}", "Returns history entries count by keyword and date filter.")
-                + DocGet("searchHistoryEntriesByPageOrderBy?s={keyword}&from={date}&to={date}&page={page}&entriesCount={entriesCount}&heo={orderBy}", "Searches for history entries.")
-                + DocGet("historyEntryStatusDateMin", "Returns history entry min date.")
-                + DocGet("historyEntryStatusDateMax", "Returns history entry max date.")
                 + DocH2("Profiles")
                 + DocGet("searchAdmins?keyword={keyword}&uo={orderBy}", "Searches for administrators.")
                 + DocPost("saveUserWorkflows", "Saves user workflow relations.")
