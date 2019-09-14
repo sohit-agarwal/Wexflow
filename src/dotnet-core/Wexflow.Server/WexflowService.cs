@@ -32,6 +32,17 @@ namespace Wexflow.Server
 
         public WexflowService(IAppConfiguration appConfig)
         {
+            //
+            // Index
+            //
+            Get("/", _ =>
+            {
+                return Response.AsRedirect(Root);
+            });
+
+            //
+            // Hello
+            //
             Hello();
 
             //
@@ -101,7 +112,7 @@ namespace Wexflow.Server
 
         private void Hello()
         {
-            Get(Root, args => "Hello from Wexflow workflow engine running on CoreCLR");
+            Get(Root, args => "Wexflow server running on CoreCLR.");
         }
 
         /// <summary>
