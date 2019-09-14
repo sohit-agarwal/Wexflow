@@ -1133,7 +1133,10 @@ namespace Wexflow.Server
                         //var path = (string)wi.SelectToken("Path");
                         //xdoc.Save(path);
                         var dbId = Program.WexflowEngine.SaveWorkflow(xdoc.ToString());
-                        Program.WexflowEngine.InsertUserWorkflowRelation(user.Id, dbId);
+                        if (user.UserProfile == Core.Db.UserProfile.Administrator)
+                        {
+                            Program.WexflowEngine.InsertUserWorkflowRelation(user.Id, dbId);
+                        }
                     }
                     else
                     {

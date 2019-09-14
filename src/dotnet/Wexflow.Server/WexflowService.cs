@@ -812,7 +812,10 @@ namespace Wexflow.Server
 
                     var path = (string)wi.SelectToken("Path");
                     var dbId = WexflowWindowsService.WexflowEngine.SaveWorkflow(xdoc.ToString());
-                    WexflowWindowsService.WexflowEngine.InsertUserWorkflowRelation(user.Id, dbId);
+                    if(user.UserProfile == Core.Db.UserProfile.Administrator)
+                    {
+                        WexflowWindowsService.WexflowEngine.InsertUserWorkflowRelation(user.Id, dbId);
+                    }
                 }
                 else
                 {
