@@ -29,35 +29,35 @@ namespace Wexflow.Server
     [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
     public class WexflowService : IWexflowService
     {
-        [WebInvoke(Method = "GET",
-            ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "workflows")]
-        public WorkflowInfo[] GetWorkflows()
-        {
-            return WexflowWindowsService.WexflowEngine.Workflows.Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.Name,
-                    (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
-                    wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
-                    wf.IsExecutionGraphEmpty
-                    , wf.LocalVariables.Select(v => new Core.Service.Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()
-                    ))
-                .ToArray();
-        }
+        //[WebInvoke(Method = "GET",
+        //    ResponseFormat = WebMessageFormat.Json,
+        //    UriTemplate = "workflows")]
+        //public WorkflowInfo[] GetWorkflows()
+        //{
+        //    return WexflowWindowsService.WexflowEngine.Workflows.Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.Name,
+        //            (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
+        //            wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
+        //            wf.IsExecutionGraphEmpty
+        //            , wf.LocalVariables.Select(v => new Core.Service.Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()
+        //            ))
+        //        .ToArray();
+        //}
 
-        [WebInvoke(Method = "GET",
-            ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "approvalWorkflows")]
-        public WorkflowInfo[] GetApprovalWorkflows()
-        {
-            return WexflowWindowsService.WexflowEngine.Workflows
-                    .Where(w => w.IsApproval)
-                    .Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.Name,
-                                (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
-                                wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
-                                wf.IsExecutionGraphEmpty
-                                , wf.LocalVariables.Select(v => new Core.Service.Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()
-                    ))
-                .ToArray();
-        }
+        //[WebInvoke(Method = "GET",
+        //    ResponseFormat = WebMessageFormat.Json,
+        //    UriTemplate = "approvalWorkflows")]
+        //public WorkflowInfo[] GetApprovalWorkflows()
+        //{
+        //    return WexflowWindowsService.WexflowEngine.Workflows
+        //            .Where(w => w.IsApproval)
+        //            .Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.Name,
+        //                        (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
+        //                        wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
+        //                        wf.IsExecutionGraphEmpty
+        //                        , wf.LocalVariables.Select(v => new Core.Service.Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()
+        //            ))
+        //        .ToArray();
+        //}
 
         [WebInvoke(Method = "GET",
             ResponseFormat = WebMessageFormat.Json,
@@ -304,17 +304,36 @@ namespace Wexflow.Server
 
         [WebInvoke(Method = "GET",
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "workflow/{id}")]
-        public WorkflowInfo GetWorkflow(string id)
+            UriTemplate = "workflow?u={username}&p={password}&w={id}")]
+        public WorkflowInfo GetWorkflow(string username, string password, int id)
         {
-            var wf = WexflowWindowsService.WexflowEngine.GetWorkflow(int.Parse(id));
+            WorkflowInfo wi = null;
+            var wf = WexflowWindowsService.WexflowEngine.GetWorkflow(id);
             if (wf != null)
             {
-                return new WorkflowInfo(wf.DbId, wf.Id, wf.Name, (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description,
+                wi = new WorkflowInfo(wf.DbId, wf.Id, wf.Name, (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description,
                     wf.IsRunning, wf.IsPaused, wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression
                     , wf.IsExecutionGraphEmpty
                     , wf.LocalVariables.Select(v => new Core.Service.Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()
                     );
+
+                var user = WexflowWindowsService.WexflowEngine.GetUser(username);
+
+                if (user.Password.Equals(password))
+                {
+                    if (user.UserProfile == Core.Db.UserProfile.SuperAdministrator)
+                    {
+                        return wi;
+                    }
+                    else if (user.UserProfile == Core.Db.UserProfile.Administrator)
+                    {
+                        var check = WexflowWindowsService.WexflowEngine.CheckUserWorkflow(user.Id, wf.DbId);
+                        if (check)
+                        {
+                            return wi;
+                        }
+                    }
+                }
             }
 
             return null;
@@ -576,7 +595,7 @@ namespace Wexflow.Server
                 {
                     if (user.UserProfile == Core.Db.UserProfile.SuperAdministrator)
                     {
-                        WexflowWindowsService.WexflowEngine.SaveWorkflow(xml);
+                        WexflowWindowsService.WexflowEngine.SaveWorkflow(user.Id, user.UserProfile, xml);
                         return true;
                     }
                     else if (user.UserProfile == Core.Db.UserProfile.Administrator)
@@ -585,7 +604,7 @@ namespace Wexflow.Server
                         var check = WexflowWindowsService.WexflowEngine.CheckUserWorkflow(user.Id, workflowDbId);
                         if (check)
                         {
-                            WexflowWindowsService.WexflowEngine.SaveWorkflow(xml);
+                            WexflowWindowsService.WexflowEngine.SaveWorkflow(user.Id, user.UserProfile, xml);
                             return true;
                         }
                     }
@@ -811,11 +830,11 @@ namespace Wexflow.Server
                     xdoc.Add(xwf);
 
                     var path = (string)wi.SelectToken("Path");
-                    var dbId = WexflowWindowsService.WexflowEngine.SaveWorkflow(xdoc.ToString());
-                    if (user.UserProfile == Core.Db.UserProfile.Administrator)
-                    {
-                        WexflowWindowsService.WexflowEngine.InsertUserWorkflowRelation(user.Id, dbId);
-                    }
+                    WexflowWindowsService.WexflowEngine.SaveWorkflow(user.Id, user.UserProfile, xdoc.ToString());
+                    //if (user.UserProfile == Core.Db.UserProfile.Administrator)
+                    //{
+                    //    WexflowWindowsService.WexflowEngine.InsertUserWorkflowRelation(user.Id, dbId);
+                    //}
                 }
                 else
                 {
@@ -1002,7 +1021,7 @@ namespace Wexflow.Server
                         }
 
                         //xdoc.Save(wf.WorkflowFilePath);
-                        WexflowWindowsService.WexflowEngine.SaveWorkflow(xdoc.ToString());
+                        WexflowWindowsService.WexflowEngine.SaveWorkflow(user.Id, user.UserProfile, xdoc.ToString());
                     }
                 }
 
@@ -1163,28 +1182,28 @@ namespace Wexflow.Server
             return null;
         }
 
-        [WebInvoke(Method = "GET",
-            ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "users")]
-        public User[] GetUsers()
-        {
-            var users = WexflowWindowsService.WexflowEngine.GetUsers();
-            //DateTime baseDate = new DateTime(1970, 1, 1);
-            string dateTimeFormat = ConfigurationManager.AppSettings["DateTimeFormat"];
+        //[WebInvoke(Method = "GET",
+        //    ResponseFormat = WebMessageFormat.Json,
+        //    UriTemplate = "users")]
+        //public User[] GetUsers()
+        //{
+        //    var users = WexflowWindowsService.WexflowEngine.GetUsers();
+        //    //DateTime baseDate = new DateTime(1970, 1, 1);
+        //    string dateTimeFormat = ConfigurationManager.AppSettings["DateTimeFormat"];
 
-            return users.Select(u => new User
-            {
-                Id = u.Id,
-                Username = u.Username,
-                Password = u.Password,
-                UserProfile = (UserProfile)((int)u.UserProfile),
-                Email = u.Email,
-                //CreatedOn = (u.CreatedOn - baseDate).TotalMilliseconds,
-                CreatedOn = u.CreatedOn.ToString(dateTimeFormat),
-                //ModifiedOn = (u.ModifiedOn - baseDate).TotalMilliseconds
-                ModifiedOn = u.ModifiedOn.ToString(dateTimeFormat)
-            }).ToArray();
-        }
+        //    return users.Select(u => new User
+        //    {
+        //        Id = u.Id,
+        //        Username = u.Username,
+        //        Password = u.Password,
+        //        UserProfile = (UserProfile)((int)u.UserProfile),
+        //        Email = u.Email,
+        //        //CreatedOn = (u.CreatedOn - baseDate).TotalMilliseconds,
+        //        CreatedOn = u.CreatedOn.ToString(dateTimeFormat),
+        //        //ModifiedOn = (u.ModifiedOn - baseDate).TotalMilliseconds
+        //        ModifiedOn = u.ModifiedOn.ToString(dateTimeFormat)
+        //    }).ToArray();
+        //}
 
         [WebInvoke(Method = "GET",
             ResponseFormat = WebMessageFormat.Json,
@@ -1314,19 +1333,19 @@ namespace Wexflow.Server
             }
         }
 
-        [WebInvoke(Method = "GET",
-            ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "password?qu={qusername}&qp={qpassword}&u={username}")]
-        public string GetPassword(string qusername, string qpassword, string username)
-        {
-            var user = WexflowWindowsService.WexflowEngine.GetUser(qusername);
-            if (user.Password.Equals(qpassword))
-            {
-                return WexflowWindowsService.WexflowEngine.GetPassword(username);
-            }
+        //[WebInvoke(Method = "GET",
+        //    ResponseFormat = WebMessageFormat.Json,
+        //    UriTemplate = "password?qu={qusername}&qp={qpassword}&u={username}")]
+        //public string GetPassword(string qusername, string qpassword, string username)
+        //{
+        //    var user = WexflowWindowsService.WexflowEngine.GetUser(qusername);
+        //    if (user.Password.Equals(qpassword))
+        //    {
+        //        return WexflowWindowsService.WexflowEngine.GetPassword(username);
+        //    }
 
-            return string.Empty;
-        }
+        //    return string.Empty;
+        //}
 
         [WebInvoke(Method = "POST",
             ResponseFormat = WebMessageFormat.Json,
@@ -1418,29 +1437,34 @@ namespace Wexflow.Server
 
         [WebInvoke(Method = "POST",
             ResponseFormat = WebMessageFormat.Json,
-            UriTemplate = "resetPassword?username={username}&email={email}")]
-        public bool ResetPassword(string username, string email)
+            UriTemplate = "resetPassword?u={username}")]
+        public bool ResetPassword(string username)
         {
             try
             {
-                string newPassword = "wexflow" + GenerateRandomNumber();
-                string newPasswordHash = Db.GetMd5(newPassword);
+                var user = WexflowWindowsService.WexflowEngine.GetUser(username);
 
-                // Send email
-                string subject = "Wexflow - Password reset of user " + username;
-                string body = "Your new password is: " + newPassword;
+                if (user != null && !string.IsNullOrEmpty(user.Email))
+                {
+                    string newPassword = "wexflow" + GenerateRandomNumber();
+                    string newPasswordHash = Db.GetMd5(newPassword);
 
-                string host = ConfigurationManager.AppSettings["Smtp.Host"];
-                int port = int.Parse(ConfigurationManager.AppSettings["Smtp.Port"]);
-                bool enableSsl = bool.Parse(ConfigurationManager.AppSettings["Smtp.EnableSsl"]);
-                string smtpUser = ConfigurationManager.AppSettings["Smtp.User"];
-                string smtpPassword = ConfigurationManager.AppSettings["Smtp.Password"];
-                string from = ConfigurationManager.AppSettings["Smtp.From"];
+                    // Send email
+                    string subject = "Wexflow - Password reset of user " + username;
+                    string body = "Your new password is: " + newPassword;
 
-                Send(host, port, enableSsl, smtpUser, smtpPassword, email, from, subject, body);
+                    string host = ConfigurationManager.AppSettings["Smtp.Host"];
+                    int port = int.Parse(ConfigurationManager.AppSettings["Smtp.Port"]);
+                    bool enableSsl = bool.Parse(ConfigurationManager.AppSettings["Smtp.EnableSsl"]);
+                    string smtpUser = ConfigurationManager.AppSettings["Smtp.User"];
+                    string smtpPassword = ConfigurationManager.AppSettings["Smtp.Password"];
+                    string from = ConfigurationManager.AppSettings["Smtp.From"];
 
-                // Update password
-                WexflowWindowsService.WexflowEngine.UpdatePassword(username, newPasswordHash);
+                    Send(host, port, enableSsl, smtpUser, smtpPassword, user.Email, from, subject, body);
+
+                    // Update password
+                    WexflowWindowsService.WexflowEngine.UpdatePassword(username, newPasswordHash);
+                }
 
                 return true;
             }

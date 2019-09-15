@@ -7,11 +7,11 @@ namespace Wexflow.Server
     [ServiceContract(Namespace = "http://wexflow.com/")]
     public interface IWexflowService
     {
-        [OperationContract]
-        WorkflowInfo[] GetWorkflows();
+        //[OperationContract]
+        //WorkflowInfo[] GetWorkflows();
 
-        [OperationContract]
-        WorkflowInfo[] GetApprovalWorkflows();
+        //[OperationContract]
+        //WorkflowInfo[] GetApprovalWorkflows();
 
         [OperationContract]
         WorkflowInfo[] Search(string keyword, string username, string password);
@@ -38,7 +38,7 @@ namespace Wexflow.Server
         bool DisapproveWorkflow(string id, string username, string password);
 
         [OperationContract]
-        WorkflowInfo GetWorkflow(string id);
+        WorkflowInfo GetWorkflow(string username, string password, int id);
 
         [OperationContract]
         TaskInfo[] GetTasks(string id);
@@ -88,8 +88,8 @@ namespace Wexflow.Server
         [OperationContract]
         User GetUser(string qusername, string qpassword, string username);
 
-        [OperationContract]
-        User[] GetUsers();
+        //[OperationContract]
+        //User[] GetUsers();
 
         [OperationContract]
         User[] SearchUsers(string qusername, string qpassword, string keyword, int uo);
@@ -103,8 +103,8 @@ namespace Wexflow.Server
         [OperationContract]
         User[] SearchAdministrators(string qusername, string qpassword, string keyword, int uo);
 
-        [OperationContract]
-        string GetPassword(string qusername, string qpassword, string username);
+        //[OperationContract]
+        //string GetPassword(string qusername, string qpassword, string username);
 
         [OperationContract]
         bool InsertUser(string qusername, string qpassword, string username, string password, int userProfile, string email);
@@ -119,7 +119,7 @@ namespace Wexflow.Server
         bool DeleteUser(string qusername, string qpassword, string username, string password);
 
         [OperationContract]
-        bool ResetPassword(string username, string email);
+        bool ResetPassword(string username);
 
         [OperationContract]
         HistoryEntry[] GetHistoryEntries();

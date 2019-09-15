@@ -63,8 +63,8 @@
     var workflows = {};
     var workflowInfos = {};
     var workflowTasks = {};
-    var timer = null;
-    var timerInterval = 300; // ms
+    //var timer = null;
+    //var timerInterval = 1000; // ms
     var saveCalled = false;
     var editors = new Map();
     var editorChanged = false;
@@ -76,7 +76,7 @@
     var timeoutInterval = 300; // Timeout interval after db query
     var maxRetries = 10;
     var retries = 0;
-    var statusRetries = 0;
+    //var statusRetries = 0;
 
     var rightPanelHtml = "<div style='margin: 0 0 10px 0;'><button id='wf-xml' type='button' class='wf-action-left btn btn-dark btn-xs'>Xml</button> <input id='wf-theme' type='checkbox' checked data-toggle='toggle' data-size='mini' data-on='Bright' data-off='Dark' data-width='70' style='display: none;'><small id='wf-xml-shortcut' style='float: right; margin: 7px; display: none;'> CTRL+ALT+H: Keyboard shortcuts</small></div>" +
         "<pre id='wf-xml-container' style='display: none;'></pre>" +
@@ -91,7 +91,7 @@
         "<tr><td class='wf-title'>Approval</td><td class='wf-value'><input id='wf-approval' type='checkbox' /></td></tr>" +
         "<tr><td class='wf-title'>Description</td><td class='wf-value'><input id='wf-desc' type='text' /></td></tr>" +
         //"<tr><td class='wf-title'>Path</td><td id='wf-path' class='wf-value'></td></tr>" +
-        "<tr><td class='wf-title'>Status</td><td id='wf-status' class='wf-value'></td></tr>" +
+        //"<tr><td class='wf-title'>Status</td><td id='wf-status' class='wf-value'></td></tr>" +
         "</tbody>" +
         "</table>" +
         "<div id='wf-local-vars'>" +
@@ -165,19 +165,19 @@
                         document.getElementById("wf-cancel").style.display = "none";
                         document.getElementById("wf-save").style.display = "none";
                         document.getElementById("wf-delete").style.display = "none";
-                        clearInterval(timer);
+                        //clearInterval(timer);
                     } else {
                         Common.toastError("An error occured while deleting workflows.");
                     }
                 }, function () {
                     Common.toastError("An error occured while deleting workflows.");
-                    }, {
+                }, {
                         "Username": username,
                         "Password": password,
                         "WorkflowsToDelete": workflowsToDelete
                     });
             }
-        } 
+        }
     };
 
     // CTRL+S
@@ -642,7 +642,7 @@
     function save(workflowId, selectedWorkflowId, selectWorkflow, scrollToWorkflow, callback) {
         currentWorkflowId = workflowId;
         document.getElementById("wf-save").disabled = true;
-        clearInterval(timer);
+        //clearInterval(timer);
         workflowInfos[workflowId] = workflowInfos[selectedWorkflowId];
         workflowTasks[workflowId] = workflowTasks[selectedWorkflowId];
 
@@ -719,7 +719,7 @@
                 editorWorkflowId = currentWorkflowId;
                 workflowInfos[currentWorkflowId] = workflowInfos[workflowId];
                 workflowTasks[currentWorkflowId] = workflowTasks[workflowId];
-                
+
 
                 if (workflowId !== currentWorkflowId) {
                     deleteEditor(workflowId);
@@ -797,7 +797,7 @@
                         }
 
                         // Update the status
-                        updateWorkflowStatus(currentWorkflowId);
+                        //updateWorkflowStatus(currentWorkflowId);
 
                         // Show the xml button
                         document.getElementById("wf-xml").style.display = "inline";
@@ -982,7 +982,7 @@
                     }
 
                     // Update the status
-                    updateWorkflowStatus(currentWorkflowId);
+                    //updateWorkflowStatus(currentWorkflowId);
 
                     // Reload XML
                     if (typeof workflowEditor !== "undefined" && loadXmlCalled === true) {
@@ -1036,78 +1036,78 @@
         }, json);
     }
 
-    function updateWorkflowStatus(workflowId) {
-        Common.get(uri + "/workflow/" + workflowId,
-            function (workflow) {
-                //console.log("updateWorkflowStatus.workflowId: " + workflowId);
-                if (typeof workflow !== "undefined") {
-                    updateStatusTimer(workflow);
-                    statusRetries = 0;
-                } else {
-                    if (statusRetries < maxRetries) {
-                        setTimeout(function () {
-                            //console.log("updateWorkflowStatus.error");
-                            updateWorkflowStatus(workflowId);
-                        }, timeoutInterval);
-                        statusRetries++;
-                    } else {
-                        statusRetries = 0;
-                    }
-                }
-            });
-    }
+    //function updateWorkflowStatus(workflowId) {
+    //    Common.get(uri + "/workflow?u=" + encodeURIComponent(username) + "&p=" + encodeURIComponent(password) + "&w=" + workflowId,
+    //        function (workflow) {
+    //            //console.log("updateWorkflowStatus.workflowId: " + workflowId);
+    //            if (typeof workflow !== "undefined") {
+    //                updateStatusTimer(workflow);
+    //                statusRetries = 0;
+    //            } else {
+    //                if (statusRetries < maxRetries) {
+    //                    setTimeout(function () {
+    //                        //console.log("updateWorkflowStatus.error");
+    //                        updateWorkflowStatus(workflowId);
+    //                    }, timeoutInterval);
+    //                    statusRetries++;
+    //                } else {
+    //                    statusRetries = 0;
+    //                }
+    //            }
+    //        });
+    //}
 
-    function updateStatusTimer(workflow) {
-        clearInterval(timer);
+    //function updateStatusTimer(workflow) {
+    //    clearInterval(timer);
 
-        if (workflow.IsEnabled === true) {
-            timer = setInterval(function () {
-                updateStatus(workflow.Id, false);
-            }, timerInterval);
+    //    if (workflow.IsEnabled === true) {
+    //        timer = setInterval(function () {
+    //            updateStatus(workflow.Id, false);
+    //        }, timerInterval);
 
-            updateStatus(workflow.Id, true);
-        } else {
-            updateStatus(workflow.Id, true);
-        }
-    }
+    //        updateStatus(workflow.Id, true);
+    //    } else {
+    //        updateStatus(workflow.Id, true);
+    //    }
+    //}
 
-    function workflowStatusChanged(workflow) {
-        var changed = workflows[workflow.Id].IsRunning !== workflow.IsRunning || workflows[workflow.Id].IsPaused !== workflow.IsPaused || workflows[workflow.Id].IsWaitingForApproval !== workflow.IsWaitingForApproval;
-        workflows[workflow.Id].IsRunning = workflow.IsRunning;
-        workflows[workflow.Id].IsPaused = workflow.IsPaused;
-        workflows[workflow.Id].IsWaitingForApproval = workflow.IsWaitingForApproval;
-        return changed;
-    }
+    //function workflowStatusChanged(workflow) {
+    //    var changed = workflows[workflow.Id].IsRunning !== workflow.IsRunning || workflows[workflow.Id].IsPaused !== workflow.IsPaused || workflows[workflow.Id].IsWaitingForApproval !== workflow.IsWaitingForApproval;
+    //    workflows[workflow.Id].IsRunning = workflow.IsRunning;
+    //    workflows[workflow.Id].IsPaused = workflow.IsPaused;
+    //    workflows[workflow.Id].IsWaitingForApproval = workflow.IsWaitingForApproval;
+    //    return changed;
+    //}
 
-    function updateStatus(workflowId, force) {
-        getWorkflow(workflowId,
-            function (workflow) {
-                if (typeof workflow !== "undefined") {
-                    if (workflow.IsEnabled === false) {
-                        notify("This workflow is disabled.");
-                    } else {
-                        if (force === false && workflowStatusChanged(workflow) === false) return;
+    //function updateStatus(workflowId, force) {
+    //    getWorkflow(workflowId,
+    //        function (workflow) {
+    //            if (typeof workflow !== "undefined") {
+    //                if (workflow.IsEnabled === false) {
+    //                    notify("This workflow is disabled.");
+    //                } else {
+    //                    if (force === false && workflowStatusChanged(workflow) === false) return;
 
-                        if (workflow.IsApproval === true && workflow.IsWaitingForApproval === true && workflow.IsPaused === false) {
-                            notify("This workflow is waiting for approval...");
-                        } else {
-                            if (workflow.IsRunning === true && workflow.IsPaused === false) {
-                                notify("This workflow is running...");
-                            }
-                            else if (workflow.IsPaused === true) {
-                                notify("This workflow is suspended.");
-                            } else {
-                                notify("");
-                            }
-                        }
-                    }
-                }
-            });
-    }
+    //                    if (workflow.IsApproval === true && workflow.IsWaitingForApproval === true && workflow.IsPaused === false) {
+    //                        notify("This workflow is waiting for approval...");
+    //                    } else {
+    //                        if (workflow.IsRunning === true && workflow.IsPaused === false) {
+    //                            notify("This workflow is running...");
+    //                        }
+    //                        else if (workflow.IsPaused === true) {
+    //                            notify("This workflow is suspended.");
+    //                        } else {
+    //                            notify("");
+    //                        }
+    //                    }
+    //                }
+    //            }
+    //        });
+    //}
 
-    function notify(status) {
-        document.getElementById("wf-status").innerHTML = status;
-    }
+    //function notify(status) {
+    //    document.getElementById("wf-status").innerHTML = status;
+    //}
 
     function deleteEditor(workflowId) {
         editors.delete(workflowId);
@@ -1122,7 +1122,7 @@
                 function (res) {
                     if (res === true) {
                         Common.toastSuccess("Workflow " + workflowId + " deleted with success.");
-                        clearInterval(timer);
+                        //clearInterval(timer);
                         setTimeout(function () {
                             loadWorkflows();
                             document.getElementById("wf-designer-right-panel").style.display = "none";
@@ -1515,7 +1515,7 @@
     }
 
     function getWorkflow(wid, func) {
-        Common.get(uri + "/workflow/" + wid,
+        Common.get(uri + "/workflow?u=" + encodeURIComponent(username) + "&p=" + encodeURIComponent(password) + "&w=" + wid,
             function (w) {
                 func(w);
             });
@@ -1863,7 +1863,7 @@
                                 }
 
                                 // Update the status
-                                updateWorkflowStatus(selectedId);
+                                //updateWorkflowStatus(selectedId);
 
                                 // Show the xml button
                                 document.getElementById("wf-xml").style.display = "inline";
@@ -2015,8 +2015,7 @@
                 //document.getElementById("wf-path").innerHTML = workflow.Path;
 
                 // Status
-                updateWorkflowStatus(workflow.Id);
-                //updateStatusTimer(workflow);
+                //updateWorkflowStatus(workflow.Id);
 
                 // Local variables
                 if (workflow.LocalVariables.length > 0) {
@@ -2137,7 +2136,7 @@
             }
 
             // Update the status
-            updateWorkflowStatus(selectedId);
+            //updateWorkflowStatus(selectedId);
 
             loadRightPanel(selectedId, true);
         }

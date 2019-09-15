@@ -28,7 +28,7 @@ function Login(){
         } else {
             Common.get(uri + "/user?qu=" + encodeURIComponent(username) + "&qp=" + encodeURIComponent(passwordHash) + "&username=" + encodeURIComponent(username), function (user) {
                 if (typeof user === "undefined" || user === null) {
-                    Common.toastInfo("The user " + username + " does not exist.");
+                    Common.toastError("Wrong credentials.");
                 } else {
                     if (passwordHash === user.Password) {
                         authorize(username, passwordHash, user.UserProfile);

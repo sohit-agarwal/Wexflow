@@ -65,18 +65,18 @@ namespace Wexflow.Core.Service.Client
             webClient.UploadString(uri, string.Empty);
         }
 
-        public WorkflowInfo GetWorkflow(int id)
+        public WorkflowInfo GetWorkflow(string username, string password, int id)
         {
-            string uri = Uri + "/workflow/" + id;
+            string uri = Uri + "/workflow?u=" + username + "&p=" + password + "&w=" + id;
             var webClient = new WebClient();
             var response = webClient.DownloadString(uri);
             var workflow = JsonConvert.DeserializeObject<WorkflowInfo>(response);
             return workflow;
         }
 
-        public User GetUser(string username)
+        public User GetUser(string qusername, string qpassword, string username)
         {
-            string uri = Uri + "/user?username=" + username;
+            string uri = Uri + "/user?qu=" + qusername + "&qp=" + qpassword + "&username=" + username;
             var webClient = new WebClient();
             var response = webClient.DownloadString(uri);
             var user = JsonConvert.DeserializeObject<User>(response);

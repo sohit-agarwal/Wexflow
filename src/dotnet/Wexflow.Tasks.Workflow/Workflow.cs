@@ -16,20 +16,20 @@ namespace Wexflow.Tasks.Workflow
         Disapprove
     }
 
-    public class Workflow:Task
+    public class Workflow : Task
     {
         public string WexflowWebServiceUri { get; }
         public string Username { get; }
         public string Password { get; }
         public WorkflowAction Action { get; }
         public int[] WorkflowIds { get; }
-        
+
         public Workflow(XElement xe, Core.Workflow wf) : base(xe, wf)
         {
             WexflowWebServiceUri = GetSetting("wexflowWebServiceUri");
             Username = GetSetting("username");
             Password = GetSetting("password");
-            Action = (WorkflowAction) Enum.Parse(typeof(WorkflowAction), GetSetting("action"), true);
+            Action = (WorkflowAction)Enum.Parse(typeof(WorkflowAction), GetSetting("action"), true);
             WorkflowIds = GetSettingsInt("id");
         }
 
@@ -41,7 +41,7 @@ namespace Wexflow.Tasks.Workflow
             foreach (var id in WorkflowIds)
             {
                 WexflowServiceClient client = new WexflowServiceClient(WexflowWebServiceUri);
-                WorkflowInfo wfInfo = client.GetWorkflow(id);
+                WorkflowInfo wfInfo = client.GetWorkflow(Username, Password, id);
                 switch (Action)
                 {
                     case WorkflowAction.Start:
@@ -67,7 +67,7 @@ namespace Wexflow.Tasks.Workflow
                         else
                         {
                             success = false;
-                            ErrorFormat("Can't suspend the workflow {0} because it's not running.", Workflow.Id);   
+                            ErrorFormat("Can't suspend the workflow {0} because it's not running.", Workflow.Id);
                         }
                         break;
                     case WorkflowAction.Resume:
@@ -135,7 +135,7 @@ namespace Wexflow.Tasks.Workflow
             {
                 status = Core.Status.Error;
             }
-            
+
             return new TaskStatus(status);
         }
     }

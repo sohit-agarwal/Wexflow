@@ -233,8 +233,10 @@ namespace Wexflow.Core
         /// Saves a workflow in the database.
         /// </summary>
         /// <param name="xml">XML of the workflow.</param>
+        /// <param name="userId">User id.</param>
+        /// <param name="userProfile">User profile.</param>
         /// <returns>Workflow db id.</returns>
-        public int SaveWorkflow(string xml)
+        public int SaveWorkflow(int userId, UserProfile userProfile, string xml)
         {
             try
             {
@@ -255,6 +257,12 @@ namespace Wexflow.Core
                     if (workflow == null) // insert
                     {
                         int dbId = Database.InsertWorkflow(new Db.Workflow { Xml = xml });
+
+                        if (userProfile == UserProfile.Administrator)
+                        {
+                            InsertUserWorkflowRelation(userId, dbId);
+                        }
+
                         var wfFromDb = Database.GetWorkflow(dbId);
                         var newWorkflow = LoadWorkflowFromDatabase(wfFromDb);
 

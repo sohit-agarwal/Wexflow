@@ -53,8 +53,8 @@ namespace Wexflow.Clients.Manager
                 }
                 else
                 {
-                    User user = _wexflowServiceClient.GetUser(username);
                     string password = GetMd5(txtPassword.Text);
+                    User user = _wexflowServiceClient.GetUser(username, password, username);
 
                     if (user == null)
                     {

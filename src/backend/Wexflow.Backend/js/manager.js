@@ -184,7 +184,7 @@
             }
 
             function getWorkflow(wid, func) {
-                Common.get(uri + "/workflow/" + wid, function (d) {
+                Common.get(uri + "/workflow?u=" + encodeURIComponent(username) + "&p=" + encodeURIComponent(password) + "&w=" + wid, function (d) {
                     func(d);
                 });
             }

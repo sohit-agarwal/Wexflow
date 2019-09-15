@@ -204,7 +204,7 @@ namespace Wexflow.Clients.Manager
                     _windowsServiceWasStopped = false;
                     backgroundWorker1.RunWorkerAsync();
                 }
-                return _wexflowServiceClient.GetWorkflow(id);
+                return _wexflowServiceClient.GetWorkflow(Login.Username, Login.Password, id);
             }
             
 			_windowsServiceWasStopped = true;
