@@ -1939,7 +1939,7 @@
             <returns>An array of FtpListItem objects</returns>
             <example><code source="..\Examples\GetListing.cs" lang="cs" /></example>
         </member>
-        <member name="M:FluentFTP.FtpClient.GetListingInternal(System.String,System.Boolean)">
+        <member name="M:FluentFTP.FtpClient.GetListingInternal(System.String,FluentFTP.FtpListOption,System.Boolean)">
             <summary>
             Get the records of a file listing and retry if temporary failure.
             </summary>
@@ -2012,7 +2012,7 @@
             <param name="token">Cancellation Token</param>
             <returns>An array of items retrieved in the listing</returns>
         </member>
-        <member name="M:FluentFTP.FtpClient.GetListingInternalAsync(System.String,System.Boolean,System.Threading.CancellationToken)">
+        <member name="M:FluentFTP.FtpClient.GetListingInternalAsync(System.String,FluentFTP.FtpListOption,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Get the records of a file listing and retry if temporary failure.
             </summary>
@@ -3714,6 +3714,11 @@
             items for some reason.
             </summary>
         </member>
+        <member name="F:FluentFTP.FtpListOption.UseStat">
+            <summary>
+            Force the use of STAT command for getting file listings
+            </summary>
+        </member>
         <member name="T:FluentFTP.FtpLocalExists">
             <summary>
             Determines how we handle partially downloaded files
@@ -3988,6 +3993,11 @@
         <member name="F:FluentFTP.FtpServer.FTP2S3Gateway">
             <summary>
             Definitely FTP2S3 gateway server
+            </summary>
+        </member>
+        <member name="F:FluentFTP.FtpServer.XLight">
+            <summary>
+            Definitely XLight FTP server
             </summary>
         </member>
         <member name="T:FluentFTP.FtpSpecialPermissions">
@@ -4474,11 +4484,10 @@
             </summary>
             <param name="client">An existing <see cref="T:FluentFTP.FtpClient"/> object</param>
         </member>
-        <member name="M:FluentFTP.FtpListParser.Init(FluentFTP.FtpOperatingSystem)">
+        <member name="M:FluentFTP.FtpListParser.Init(FluentFTP.FtpOperatingSystem,FluentFTP.FtpParser)">
             <summary>
             Try to auto-detect which parser is suitable given a system string.
             </summary>
-            <param name="system">result of SYST command</param>
         </member>
         <member name="M:FluentFTP.FtpListParser.ParseSingleLine(System.String,System.String,System.Collections.Generic.List{FluentFTP.FtpCapability},System.Boolean)">
             <summary>
