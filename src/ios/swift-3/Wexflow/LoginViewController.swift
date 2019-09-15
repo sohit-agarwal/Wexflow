@@ -58,7 +58,9 @@ class LoginViewController: UIViewController {
         
         if usernameTextField.text != nil && !(usernameTextField.text?.isEmpty)! && passwordTextField.text != nil && !(passwordTextField.text?.isEmpty)! {
         
-            let url = URL(string: WexflowServerUrl + "user?username=" + usernameTextField.text!)
+            let pass = self.md5(string: self.passwordTextField.text!)
+            
+            let url = URL(string: WexflowServerUrl + "user?qu="+usernameTextField.text!+"&qp="+pass+"&username=" + usernameTextField.text!)
             URLSession.shared.dataTask(with: url!) { (data, response, error) in
                 if error != nil {
                     //print(error!)
@@ -73,9 +75,7 @@ class LoginViewController: UIViewController {
                     let user = jsonResponse as? [String: Any]
                     let password = user!["Password"] as! String
                     let userProfile = user!["UserProfile"] as! Int
-                    
-                    let pass = self.md5(string: self.passwordTextField.text!)
-                    
+
                     if (userProfile == 0 || userProfile == 1) && pass == password {
                         LoginViewController.Username = self.usernameTextField.text!
                         LoginViewController.Password = password

@@ -19,7 +19,7 @@ class UpdateButtonsTask {
     private Workflow doInBackground(Boolean force) {
         try {
             this.force = force;
-            return this.client.getWorkflow(this.activity.getWorkflowId());
+            return this.client.getWorkflow(LoginActivity.Username, LoginActivity.Password, this.activity.getWorkflowId());
         } catch (Exception e) {
             this.exception = e;
             return null;

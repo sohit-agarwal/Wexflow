@@ -149,12 +149,13 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 uri = sharedPref.getString(SettingsActivity.KEY_PREF_WEXFLOW_URI, getResources().getString(R.string.pref_wexflow_defualt_value));
                 client = new WexflowServiceClient(uri);
-                User user = client.getUser(mUsername);
+                String passwordHash = md5(this.mPassword);
+                User user = client.getUser(mUsername, passwordHash,  mUsername);
 
                 String password = user.getPassword();
                 UserProfile up = user.getUserProfile();
 
-                if((up.equals(UserProfile.SuperAdministrator) || up.equals(UserProfile.Administrator)) &&  password.equals(md5(this.mPassword)))
+                if((up.equals(UserProfile.SuperAdministrator) || up.equals(UserProfile.Administrator)) &&  password.equals(passwordHash))
                 {
                     return true;
                 }

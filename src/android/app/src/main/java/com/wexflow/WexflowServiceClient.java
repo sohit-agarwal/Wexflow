@@ -122,14 +122,14 @@ class WexflowServiceClient {
         return workflows;
     }
 
-    Workflow getWorkflow(int id) throws IOException, JSONException {
-        String uri = this.uri + "/workflow/" + id;
+    Workflow getWorkflow(String username, String password, int id) throws IOException, JSONException {
+        String uri = this.uri + "/workflow?u=" + username + "&p=" + password + "&w=" + id;
         JSONObject jsonObject = getJSONObject(uri);
         return Workflow.fromJSONObject(jsonObject);
     }
 
-    User getUser(String username)throws IOException, JSONException {
-        String uri = this.uri + "/user?username=" + username;
+    User getUser(String qusername, String qpassword, String username)throws IOException, JSONException {
+        String uri = this.uri + "/user?qu="+qusername+"&qp="+qpassword+"&username=" + username;
         JSONObject jsonObject = getJSONObject(uri);
         return User.fromJSONObject(jsonObject);
     }

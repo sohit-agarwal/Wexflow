@@ -156,7 +156,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func updateButtons(force: Bool){
         if self.workflowId > -1 {
-            let url = URL(string: WexflowServerUrl + "workflow/" + String(self.workflowId))
+            let url = URL(string: WexflowServerUrl + "workflow?u=" + LoginViewController.Username + "&p=" + LoginViewController.Password + "&w=" + String(self.workflowId))
             URLSession.shared.dataTask(with: url!) { (data, response, error) in
                 if error != nil {
                     //print(error!)
