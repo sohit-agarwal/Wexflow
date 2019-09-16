@@ -39,7 +39,12 @@ I am looking for macOS testers. If you want to help, reply to this [issue](https
 
 # What's New?
 
-Take a look at the brand new [version 4.5](https://github.com/aelassas/Wexflow/releases/tag/v4.5). This version includes an [iOS app](https://github.com/aelassas/Wexflow/wiki/Usage#ios-manager) for managing workflows, [Vimeo integration](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation#audio-and-video-tasks) and bug fixes.
+Take a look at the brand new [version 4.6](https://github.com/aelassas/Wexflow/releases/tag/v4.6). This version includes new features such as [Slack integration](https://github.com/aelassas/Wexflow/wiki/Slack) and [user profiles](https://github.com/aelassas/Wexflow/wiki/Usage#profiles), bug fixes, performance and security enhancements, and under the hood updates.
+
+macOS issues have been fixed in this version which runs 100% on macOS starting from macOS 10.12 (Sierra) thanks to open source contributors.
+
+This version has also been depthly tested on Windows and Linux and runs 100% on Windows and Linux.
+
 
 # Continuous Integration
 
@@ -137,6 +142,7 @@ Moreover, the "Designer" page allows to edit workflow files through its Web XML 
 - [x] [Flowchart workflows](https://github.com/aelassas/Wexflow/wiki/Samples#flowchart-workflows).
 - [x] [Approval workflows](https://github.com/aelassas/Wexflow/wiki/Samples#approval-workflows).
 - [x] [100+ built-in tasks](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation).
+- [x] [User-driven](https://github.com/aelassas/Wexflow/wiki/User-driven).
 - [x] [Cron scheduling](https://github.com/aelassas/Wexflow/wiki/Cron-scheduling).
 - [x] [Extensive logging and incident reporting](https://github.com/aelassas/Wexflow/wiki/Logging).
 - [x] [Real-time stats](https://github.com/aelassas/Wexflow/wiki/Usage#dashboard).
@@ -170,6 +176,7 @@ Discover more about the features in [details](https://github.com/aelassas/Wexflo
 - [Instagram integration](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation#social-media-tasks): Automatically upload images and videos to Instagram through Instagram API.
 - [Twitter integration](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation#social-media-tasks): Automatically send tweets through Twitter API.
 - [Reddit integration](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation#social-media-tasks): Automatically send posts and links to Reddit through Reddit API.
+- [Slack integration](https://github.com/aelassas/Wexflow/wiki/Slack): Automatically send messages to Slack channels.
 - Batch encrypting and decrypting large files.
 - Batch converting, resizing and cropping images.
 - Creating and sending reports and invoices by email.
