@@ -19,7 +19,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
+    <DocumentationFile>D:\dev\Wexflow\src\src\dotnet-core\Wexflow.Core\Wexflow.Core.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

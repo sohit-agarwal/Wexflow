@@ -109,7 +109,8 @@ Source: "..\src\dotnet\Wexflow.Server\bin\Release\Tweetinvi.WebLogic.dll"; DestD
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Autofac.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Nito.AsyncEx.Context.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Nito.AsyncEx.Tasks.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\dotnet\Wexflow.Server\bin\Release\Nito.Disposables.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\src\dotnet\Wexflow.Server\bin\Release\Nito.Disposables.dll"; DestDir: "{app}"; Flags: ignoreversion
+ Source: "..\src\dotnet\Wexflow.Tasks.Twitter\bin\x86\Release\Nito.Disposables.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Reflection.TypeExtensions.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Net.Http.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Security.Cryptography.Algorithms.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -438,12 +439,12 @@ Type: files; Name: "C:\Wexflow\Database\Wexflow.db"
 procedure InitializeWizard();
 begin
   CreateDir('C:\Wexflow');
-  CreateDir('C:\Wexflow\Database');
-  CreateDir('C:\Wexflow\Workflows');
+  //CreateDir('C:\Wexflow\Database');
+  //CreateDir('C:\Wexflow\Workflows');
   CreateDir('C:\Wexflow\Tasks');
   CreateDir('C:\Wexflow\Temp');
   CreateDir('C:\Wexflow\Temp\Workflows');
   CreateDir('C:\Wexflow\Approval');
-  CreateDir('C:\Wexflow\Trash');  
+  //CreateDir('C:\Wexflow\Trash');  
   //CreateDir('C:\WexflowTesting');
 end;
