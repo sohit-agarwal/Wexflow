@@ -1,6 +1,6 @@
 ::@echo off
 
-set version=4.6
+set version=4.7
 set dst=wexflow
 set zip=wexflow-%version%-macos-dotnet-core.zip
 set dstDir=.\%dst%
@@ -17,6 +17,8 @@ mkdir %dstDir%\%backend%\images\
 mkdir %dstDir%\%backend%\css\
 mkdir %dstDir%\%backend%\css\images\
 mkdir %dstDir%\%backend%\js\
+mkdir %dstDir%\Wexflow.Scripts.MongoDB
+mkdir %dstDir%\Wexflow.Scripts.MongoDB\Workflows
 
 :: WexflowTesting
 xcopy ..\samples\WexflowTesting\* %dstDir%\WexflowTesting\ /s /e
@@ -79,6 +81,11 @@ copy "..\src\backend\Wexflow.Backend\js\profiles.min.js" %dstDir%\%backend%\js
 :: Wexflow server
 dotnet publish ..\src\dotnet-core\Wexflow.Server\Wexflow.Server.csproj --force --output %~dp0\%dstDir%\Wexflow.Server
 copy dotnet-core\macos\appsettings.json %dstDir%\Wexflow.Server
+
+:: MongoDB script
+dotnet publish ..\src\dotnet-core\Wexflow.Scripts.MongoDB\Wexflow.Scripts.MongoDB.csproj --force --output %~dp0\%dstDir%\Wexflow.Scripts.MongoDB
+copy dotnet-core\macos\MongoDB\appsettings.json %dstDir%\Wexflow.Scripts.MongoDB
+xcopy "..\samples\MongoDB\dotnet-core\macos\*" %dstDir%\Wexflow.Scripts.MongoDB\Workflows /s /e
 
 :: License
 :: copy ..\LICENSE.txt %dstDir%

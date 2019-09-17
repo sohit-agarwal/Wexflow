@@ -15,7 +15,7 @@ namespace Wexflow.Core.Service.Contracts
     public class WorkflowInfo:IComparable
     {
         [DataMember]
-        public int DbId { get; private set; }
+        public string DbId { get; private set; }
         [DataMember]
         public int Id { get; private set; }
         [DataMember]
@@ -43,7 +43,7 @@ namespace Wexflow.Core.Service.Contracts
         [DataMember]
         public Variable[] LocalVariables { get; set; }
 
-        public WorkflowInfo(int dbId, int id, string name, LaunchType launchType, bool isEnabled, bool isApproval, bool isWaitingForApproval, string desc, bool isRunning, bool isPaused, string period, string cronExpression, bool isExecutionGraphEmpty, Variable[] localVariables)
+        public WorkflowInfo(string dbId, int id, string name, LaunchType launchType, bool isEnabled, bool isApproval, bool isWaitingForApproval, string desc, bool isRunning, bool isPaused, string period, string cronExpression, bool isExecutionGraphEmpty, Variable[] localVariables)
         {
             DbId = dbId;
             Id = id;

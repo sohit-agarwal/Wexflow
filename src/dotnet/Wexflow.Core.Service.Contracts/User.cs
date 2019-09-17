@@ -13,7 +13,7 @@ namespace Wexflow.Core.Service.Contracts
     public class User
     {
         [DataMember]
-        public int Id { get; set; }
+        public string Id { get; set; }
         [DataMember]
         public string Username { get; set; }
         [DataMember]

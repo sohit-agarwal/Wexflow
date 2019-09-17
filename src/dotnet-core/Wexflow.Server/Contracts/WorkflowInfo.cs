@@ -12,7 +12,7 @@ namespace Wexflow.Server.Contracts
 
     public class WorkflowInfo:IComparable
     {
-        public int DbId { get; set; }
+        public string DbId { get; set; }
 
         public int Id { get;  set; }
 
@@ -40,7 +40,7 @@ namespace Wexflow.Server.Contracts
 
         public Variable[] LocalVariables { get; set; }
 
-        public WorkflowInfo(int dbId, int id, string name, LaunchType launchType, bool isEnabled, bool isApproval, bool isWaitingForApproval, string desc, bool isRunning, bool isPaused, string period, string cronExpression, bool isExecutionGraphEmpty, Variable[] localVariables)
+        public WorkflowInfo(string dbId, int id, string name, LaunchType launchType, bool isEnabled, bool isApproval, bool isWaitingForApproval, string desc, bool isRunning, bool isPaused, string period, string cronExpression, bool isExecutionGraphEmpty, Variable[] localVariables)
         {
             DbId = dbId;
             Id = id;

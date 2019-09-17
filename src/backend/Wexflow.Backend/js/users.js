@@ -180,7 +180,7 @@
                         var userIdTd = row.getElementsByClassName("userid")[0];
 
                         if (typeof userIdTd !== "undefined" && userIdTd !== null) {
-                            var userId = parseInt(userIdTd.innerHTML);
+                            var userId = userIdTd.innerHTML;
                             if (userId === selectedUserId) {
                                 row.scrollIntoView(true);
                             }
@@ -201,7 +201,7 @@
                         selectedUsernameTd = this.getElementsByClassName("username")[0];
                         selectedUserProfileTd = this.getElementsByClassName("userprofile")[0];
                         selectedUsername = selectedUsernameTd.innerHTML;
-                        selectedUserId = parseInt(this.getElementsByClassName("userid")[0].innerHTML);
+                        selectedUserId = this.getElementsByClassName("userid")[0].innerHTML;
                         selectedUserProfile = userProfileToInt(this.getElementsByClassName("userprofile")[0].innerHTML);
 
                         loadRightPanel();

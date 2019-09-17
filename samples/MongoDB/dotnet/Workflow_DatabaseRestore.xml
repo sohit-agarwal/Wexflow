@@ -1,0 +1,28 @@
+<Workflow xmlns="urn:wexflow-schema" id="86" name="Workflow_DatabaseRestore" description="Workflow_DatabaseRestore">
+	<Settings>
+		<Setting name="launchType" value="trigger" />
+		<Setting name="enabled" value="true" />
+	</Settings>
+	<Tasks>
+		<Task id="1" name="DatabaseRestore" description="Restoring database" enabled="true">
+			<Setting name="serverConnection" value="AELASSAS-PC\SQLEXPRESS01" />
+			<Setting name="databaseName" value="HELLOWORLD" />
+			<Setting name="backupFilePath" value="C:\WexflowTesting\DatabaseRestore\HELLOWORLD.bak" />
+		</Task>
+		<Task id="2" name="FilesLoader" description="Loading files" enabled="true">
+			<Setting name="file" value="C:\WexflowTesting\file1.txt" />
+		</Task>
+		<Task id="3" name="FilesCopier" description="Copying files" enabled="true">
+			<Setting name="selectFiles" value="2" />
+			<Setting name="destFolder" value="C:\WexflowTesting\DatabaseRestore\" />
+			<Setting name="overwrite" value="true" />
+		</Task>
+	</Tasks>
+	<ExecutionGraph>
+		<Task id="1"><Parent id="-1" /></Task>
+		<OnSuccess>
+			<Task id="2"><Parent id="-1" /></Task>
+			<Task id="3"><Parent id="2" /></Task>
+		</OnSuccess>
+	</ExecutionGraph>
+</Workflow>

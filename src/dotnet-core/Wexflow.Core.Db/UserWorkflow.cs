@@ -1,12 +1,8 @@
-﻿using LiteDB;
-
-namespace Wexflow.Core.Db
+﻿namespace Wexflow.Core.Db
 {
     public class UserWorkflow
     {
-        [BsonId]
-        public int Id { get; set; }
-        public int UserId { get; set; }
-        public int WorkflowId { get; set; }
+        public string UserId { get; set; }
+        public string WorkflowId { get; set; }
     }
 }

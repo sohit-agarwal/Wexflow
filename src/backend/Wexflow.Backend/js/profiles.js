@@ -16,7 +16,7 @@
     var btnSave = document.getElementById("users-save-action");
     var suser = getUser();
     var uo = 0;
-    var selectedUserId = -1;
+    var selectedUserId = "";
     var selectedUsername = "";
     var workflows = [];
     var userWorkflows = [];    // [{"UserId": 1, "WorkflowId": 6}, ...]
@@ -133,7 +133,7 @@
                         var userIdTd = row.getElementsByClassName("userid")[0];
 
                         if (typeof userIdTd !== "undefined" && userIdTd !== null) {
-                            var userId = parseInt(userIdTd.innerHTML);
+                            var userId = userIdTd.innerHTML;
                             if (userId === selectedUserId) {
                                 row.scrollIntoView(true);
                             }
@@ -150,7 +150,7 @@
 
                         this.className += "selected";
 
-                        selectedUserId = parseInt(this.getElementsByClassName("userid")[0].innerHTML);
+                        selectedUserId = this.getElementsByClassName("userid")[0].innerHTML;
                         var selectedUsernameTd = this.getElementsByClassName("username")[0];
                         selectedUsername = selectedUsernameTd.innerHTML;
 
@@ -242,6 +242,7 @@
 
             // Check the boxes from the relations in db
             Common.get(uri + "/userWorkflows?qu=" + encodeURIComponent(username) + "&qp=" + encodeURIComponent(password) + "&u=" + selectedUserId, function (res) {
+                
                 var workflowsTable = document.getElementById("wf-workflows-table");
                 var rows = (workflowsTable.getElementsByTagName("tbody")[0]).getElementsByTagName("tr");
                 for (var i = 0; i < rows.length; i++) {

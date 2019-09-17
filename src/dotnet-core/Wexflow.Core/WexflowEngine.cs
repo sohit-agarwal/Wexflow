@@ -13,6 +13,21 @@ using Wexflow.Core.Db;
 namespace Wexflow.Core
 {
     /// <summary>
+    /// Database type
+    /// </summary>
+    public enum DbType
+    {
+        /// <summary>
+        /// MongoDB
+        /// </summary>
+        MongoDB,
+        /// <summary>
+        /// LiteDB
+        /// </summary>
+        LiteDB
+    }
+
+    /// <summary>
     /// Wexflow engine.
     /// </summary>
     public class WexflowEngine
@@ -63,6 +78,10 @@ namespace Wexflow.Core
         /// </summary>
         public IList<Workflow> Workflows { get; private set; }
         /// <summary>
+        /// Database type.
+        /// </summary>
+        public DbType DbType { get; private set; }
+        /// <summary>
         /// Database connection string.
         /// </summary>
         public string ConnectionString { get; private set; }
@@ -105,8 +124,21 @@ namespace Wexflow.Core
 
             LoadSettings();
 
-            Database = new Db.Db(ConnectionString);
-            Database.Init();
+
+            switch (DbType)
+            {
+                case DbType.MongoDB:
+                    Database = new MongoDB.Db(ConnectionString);
+                    break;
+                case DbType.LiteDB:
+                    Database = new LiteDB.Db(ConnectionString);
+                    break;
+            }
+
+            if (Database != null)
+            {
+                Database.Init();
+            }
 
             LoadGlobalVariables();
 
@@ -136,6 +168,7 @@ namespace Wexflow.Core
             XsdPath = GetWexflowSetting(xdoc, "xsd");
             TasksNamesFile = GetWexflowSetting(xdoc, "tasksNamesFile");
             TasksSettingsFile = GetWexflowSetting(xdoc, "tasksSettingsFile");
+            DbType = (DbType)Enum.Parse(typeof(DbType), GetWexflowSetting(xdoc, "dbType"), true);
             ConnectionString = GetWexflowSetting(xdoc, "connectionString");
             GlobalVariablesFile = GetWexflowSetting(xdoc, "globalVariablesFile");
             MaxRetries = int.Parse(GetWexflowSetting(xdoc, "maxRetries"));
@@ -210,7 +243,7 @@ namespace Wexflow.Core
             try
             {
                 var wf = new Workflow(
-                      workflow.Id
+                      workflow.GetDbId()
                     , workflow.Xml
                     , TempFolder
                     , WorkflowsTempFolder
@@ -224,7 +257,7 @@ namespace Wexflow.Core
             }
             catch (Exception e)
             {
-                Logger.ErrorFormat("An error occured while loading the workflow : {0} Please check the workflow configuration. Error: {1}", workflow.Id, e.Message);
+                Logger.ErrorFormat("An error occured while loading the workflow : {0} Please check the workflow configuration. Error: {1}", workflow.GetDbId(), e.Message);
                 return null;
             }
         }
@@ -236,7 +269,7 @@ namespace Wexflow.Core
         /// <param name="userId">User id.</param>
         /// <param name="userProfile">User profile.</param>
         /// <returns>Workflow db id.</returns>
-        public int SaveWorkflow(int userId, UserProfile userProfile, string xml)
+        public string SaveWorkflow(string userId, UserProfile userProfile, string xml)
         {
             try
             {
@@ -256,7 +289,7 @@ namespace Wexflow.Core
 
                     if (workflow == null) // insert
                     {
-                        int dbId = Database.InsertWorkflow(new Db.Workflow { Xml = xml });
+                        string dbId = Database.InsertWorkflow(new Db.Workflow { Xml = xml });
 
                         if (userProfile == UserProfile.Administrator)
                         {
@@ -275,9 +308,9 @@ namespace Wexflow.Core
                     {
                         var workflowFromDb = Database.GetWorkflow(workflow.DbId);
                         workflowFromDb.Xml = xml;
-                        Database.UpdateWorkflow(workflowFromDb);
+                        Database.UpdateWorkflow(workflow.DbId, workflowFromDb);
 
-                        var changedWorkflow = Workflows.SingleOrDefault(wf => wf.DbId == workflowFromDb.Id);
+                        var changedWorkflow = Workflows.SingleOrDefault(wf => wf.DbId == workflowFromDb.GetDbId());
 
                         if (changedWorkflow != null)
                         {
@@ -302,14 +335,14 @@ namespace Wexflow.Core
                 Logger.ErrorFormat("Error while saving a workflow: {0}", e.Message);
             }
 
-            return -1;
+            return "-1";
         }
 
         /// <summary>
         /// Deletes a workflow from the database.
         /// </summary>
         /// <param name="dbId">DB ID.</param>
-        public void DeleteWorkflow(int dbId)
+        public void DeleteWorkflow(string dbId)
         {
             try
             {
@@ -337,7 +370,7 @@ namespace Wexflow.Core
         /// Deletes workflows from the database.
         /// </summary>
         /// <param name="dbIds">DB IDs</param>
-        public bool DeleteWorkflows(int[] dbIds)
+        public bool DeleteWorkflows(string[] dbIds)
         {
             try
             {
@@ -371,7 +404,7 @@ namespace Wexflow.Core
         /// </summary>
         /// <param name="userId">User DB ID.</param>
         /// <param name="workflowId">Workflow DB ID.</param>
-        public void InsertUserWorkflowRelation(int userId, int workflowId)
+        public void InsertUserWorkflowRelation(string userId, string workflowId)
         {
             try
             {
@@ -387,7 +420,7 @@ namespace Wexflow.Core
         /// Deletes user workflow relations.
         /// </summary>
         /// <param name="userId">User DB ID.</param>
-        public void DeleteUserWorkflowRelations(int userId)
+        public void DeleteUserWorkflowRelations(string userId)
         {
             try
             {
@@ -404,7 +437,7 @@ namespace Wexflow.Core
         /// </summary>
         /// <param name="userId">User DB ID.</param>
         /// <returns>User worklofws.</returns>
-        public Workflow[] GetUserWorkflows(int userId)
+        public Workflow[] GetUserWorkflows(string userId)
         {
             try
             {
@@ -425,7 +458,7 @@ namespace Wexflow.Core
         /// <param name="userId">User id.</param>
         /// <param name="workflowId">Workflow db id.</param>
         /// <returns>true/false.</returns>
-        public bool CheckUserWorkflow(int userId, int workflowId)
+        public bool CheckUserWorkflow(string userId, string workflowId)
         {
             try
             {
@@ -757,11 +790,10 @@ namespace Wexflow.Core
         /// <param name="password">Password.</param>
         /// <param name="userProfile">User's profile.</param>
         /// <param name="email">User's email.</param>
-        public void UpdateUser(int userId, string username, string password, UserProfile userProfile, string email)
+        public void UpdateUser(string userId, string username, string password, UserProfile userProfile, string email)
         {
-            Database.UpdateUser(new User
+            Database.UpdateUser(userId, new User
             {
-                Id = userId,
                 Username = username,
                 Password = password,
                 UserProfile = userProfile,
@@ -776,7 +808,7 @@ namespace Wexflow.Core
         /// <param name="username">New username.</param>
         /// <param name="email">New email.</param>
         /// <param name="up">User profile.</param>
-        public void UpdateUsernameAndEmailAndUserProfile(int userId, string username, string email, int up)
+        public void UpdateUsernameAndEmailAndUserProfile(string userId, string username, string email, int up)
         {
             Database.UpdateUsernameAndEmailAndUserProfile(userId, username, email, (UserProfile)up);
         }
@@ -788,7 +820,9 @@ namespace Wexflow.Core
         /// <param name="password">Password.</param>
         public void DeleteUser(string username, string password)
         {
+            var user = Database.GetUser(username);
             Database.DeleteUser(username, password);
+            Database.DeleteUserWorkflowRelationsByUserId(user.GetId());
         }
 
         /// <summary>

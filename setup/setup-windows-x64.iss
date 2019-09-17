@@ -1,5 +1,5 @@
 #define MyAppName "Wexflow"
-#define MyAppVersion "4.6"
+#define MyAppVersion "4.7"
 #define MyAppPublisher "Akram El Assas"
 #define MyAppPublisherURL "https://wexflow.github.io/"
 #define MyAppExeName "Wexflow.Clients.Manager.exe"
@@ -98,7 +98,7 @@ Source: "..\libs\NUglify.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\SharpScss.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\x64\libsass.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\YamlDotNet.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\libs\LiteDB.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\libs\LiteDB.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Vimeo.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 ; Tweetinvi
@@ -117,7 +117,7 @@ Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Nito.AsyncEx.Tasks.dll"; D
 ;Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Nito.Disposables.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Tasks.Twitter\bin\x64\Release\Nito.Disposables.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Reflection.TypeExtensions.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Net.Http.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Net.Http.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Security.Cryptography.Algorithms.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Security.Cryptography.Encoding.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Security.Cryptography.Primitives.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -129,8 +129,18 @@ Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\InstagramApiSharp.dll"; De
 ; SlackAPI
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\SlackAPI.dll"; DestDir: "{app}"; Flags: ignoreversion
 
+; LiteDB
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\LiteDB.dll"; DestDir: "{app}"; Flags: ignoreversion
+
+; MongoDB
+Source: "..\src\dotnet\Wexflow.Core.MongoDB\bin\x64\Release\*.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Net.Http.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Runtime.InteropServices.RuntimeInformation.dll"; DestDir: "{app}"; Flags: ignoreversion
+
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Wexflow.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Wexflow.Core.Db.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Wexflow.Core.LiteDB.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Wexflow.Core.MongoDB.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Wexflow.Core.Service.Client.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Wexflow.Core.Service.Contracts.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Wexflow.Core.Service.Cross.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -406,6 +416,12 @@ Source: "..\src\dotnet\Wexflow.Core\Workflow.xsd"; DestDir: "C:\Wexflow\"; Flags
 Source: "..\src\dotnet\Wexflow.Core\GlobalVariables.xml"; DestDir: "C:\Wexflow\"; Flags: ignoreversion recursesubdirs uninsneveruninstall
 Source: "..\samples\WexflowTesting\*"; DestDir: "C:\WexflowTesting\"; Components: samples; Flags: ignoreversion recursesubdirs uninsneveruninstall
 
+; Wexflow.Scripts.MongoDB
+Source: "..\src\dotnet\Wexflow.Scripts.MongoDB\bin\x64\Release\Wexflow.Scripts.MongoDB.exe"; DestDir: "{app}\Wexflow.Scripts.MongoDB"; Flags: ignoreversion recursesubdirs
+Source: ".\dotnet\Wexflow.Scripts.MongoDB\Wexflow.Scripts.MongoDB.exe.config"; DestDir: "{app}\Wexflow.Scripts.MongoDB"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Scripts.MongoDB\bin\x64\Release\*.dll"; DestDir: "{app}\Wexflow.Scripts.MongoDB"; Flags: ignoreversion recursesubdirs
+Source: "..\samples\MongoDB\dotnet\*.xml"; DestDir: "{app}\Wexflow.Scripts.MongoDB\Workflows"; Flags: ignoreversion recursesubdirs
+
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
@@ -416,6 +432,7 @@ Name: "{commonprograms}\{#MyAppName}\Backend"; Filename: "{app}\Backend\index.ht
 Name: "{commonprograms}\{#MyAppName}\Configuration"; Filename: "C:\Wexflow\";
 Name: "{commonprograms}\{#MyAppName}\Documentation"; Filename: "{app}\Documentation";
 Name: "{commonprograms}\{#MyAppName}\Logs"; Filename: "{app}\Wexflow.log";
+Name: "{commonprograms}\{#MyAppName}\Install MongoDB samples"; Filename: "{app}\Wexflow.Scripts.MongoDB\Wexflow.Scripts.MongoDB.exe";
 Name: "{commonprograms}\{#MyAppName}\Uninstall"; Filename: "{uninstallexe}";
 
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\Manager\{#MyAppExeName}"; Tasks: desktopicon

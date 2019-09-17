@@ -40,6 +40,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Wexflow.Core.Db\Wexflow.Core.Db.csproj" />
+    <ProjectReference Include="..\Wexflow.Core.LiteDB\Wexflow.Core.LiteDB.csproj" />
+    <ProjectReference Include="..\Wexflow.Core.MongoDB\Wexflow.Core.MongoDB.csproj" />
   </ItemGroup>
 
   <ItemGroup>

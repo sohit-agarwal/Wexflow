@@ -3,7 +3,7 @@
     public class HistoryEntry
     {
         
-        public int Id { get; set; }
+        public string Id { get; set; }
         
         public int WorkflowId { get; set; }
         

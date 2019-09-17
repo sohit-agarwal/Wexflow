@@ -1,11 +1,7 @@
-﻿using LiteDB;
-
-namespace Wexflow.Core.Db
+﻿namespace Wexflow.Core.Db
 {
     public class StatusCount
     {
-        [BsonId]
-        public int Id { get; set; }
         public int PendingCount { get; set; }
         public int RunningCount { get; set; }
         public int DoneCount { get; set; }

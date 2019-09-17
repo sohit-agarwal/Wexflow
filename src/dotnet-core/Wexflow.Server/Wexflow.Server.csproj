@@ -21,6 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Wexflow.Core.LiteDB\Wexflow.Core.LiteDB.csproj" />
+    <ProjectReference Include="..\Wexflow.Core.MongoDB\Wexflow.Core.MongoDB.csproj" />
     <ProjectReference Include="..\Wexflow.Core\Wexflow.Core.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.Approval\Wexflow.Tasks.Approval.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.CsvToSql\Wexflow.Tasks.CsvToSql.csproj" />

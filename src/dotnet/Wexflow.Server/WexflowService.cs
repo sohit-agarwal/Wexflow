@@ -84,7 +84,7 @@ namespace Wexflow.Server
                 }
                 else if (user.UserProfile == Core.Db.UserProfile.Administrator)
                 {
-                    return WexflowWindowsService.WexflowEngine.GetUserWorkflows(user.Id)
+                    return WexflowWindowsService.WexflowEngine.GetUserWorkflows(user.GetId())
                                             .ToList()
                                             .Where(wf =>
                                                 wf.Name.ToUpper().Contains(keywordToUpper) || wf.Description.ToUpper().Contains(keywordToUpper))
@@ -126,7 +126,7 @@ namespace Wexflow.Server
                 }
                 else if (user.UserProfile == Core.Db.UserProfile.Administrator)
                 {
-                    return WexflowWindowsService.WexflowEngine.GetUserWorkflows(user.Id)
+                    return WexflowWindowsService.WexflowEngine.GetUserWorkflows(user.GetId())
                                             .ToList()
                                             .Where(wf =>
                                                 wf.IsApproval &&
@@ -160,7 +160,7 @@ namespace Wexflow.Server
                 else if (user.UserProfile == Core.Db.UserProfile.Administrator)
                 {
                     var workflowDbId = WexflowWindowsService.WexflowEngine.Workflows.First(w => w.Id == workflowId).DbId;
-                    var check = WexflowWindowsService.WexflowEngine.CheckUserWorkflow(user.Id, workflowDbId);
+                    var check = WexflowWindowsService.WexflowEngine.CheckUserWorkflow(user.GetId(), workflowDbId);
                     if (check)
                     {
                         WexflowWindowsService.WexflowEngine.StartWorkflow(workflowId);
@@ -185,7 +185,7 @@ namespace Wexflow.Server
                 else if (user.UserProfile == Core.Db.UserProfile.Administrator)
                 {
                     var workflowDbId = WexflowWindowsService.WexflowEngine.Workflows.First(w => w.Id == workflowId).DbId;
-                    var check = WexflowWindowsService.WexflowEngine.CheckUserWorkflow(user.Id, workflowDbId);
+                    var check = WexflowWindowsService.WexflowEngine.CheckUserWorkflow(user.GetId(), workflowDbId);
                     if (check)
                     {
                         return WexflowWindowsService.WexflowEngine.StopWorkflow(workflowId);
@@ -212,7 +212,7 @@ namespace Wexflow.Server
                 else if (user.UserProfile == Core.Db.UserProfile.Administrator)
                 {
                     var workflowDbId = WexflowWindowsService.WexflowEngine.Workflows.First(w => w.Id == workflowId).DbId;
-                    var check = WexflowWindowsService.WexflowEngine.CheckUserWorkflow(user.Id, workflowDbId);
+                    var check = WexflowWindowsService.WexflowEngine.CheckUserWorkflow(user.GetId(), workflowDbId);
                     if (check)
                     {
                         return WexflowWindowsService.WexflowEngine.SuspendWorkflow(workflowId);
@@ -239,7 +239,7 @@ namespace Wexflow.Server
                 else if (user.UserProfile == Core.Db.UserProfile.Administrator)
                 {
                     var workflowDbId = WexflowWindowsService.WexflowEngine.Workflows.First(w => w.Id == workflowId).DbId;
-                    var check = WexflowWindowsService.WexflowEngine.CheckUserWorkflow(user.Id, workflowDbId);
+                    var check = WexflowWindowsService.WexflowEngine.CheckUserWorkflow(user.GetId(), workflowDbId);
                     if (check)
                     {
                         WexflowWindowsService.WexflowEngine.ResumeWorkflow(workflowId);
@@ -264,7 +264,7 @@ namespace Wexflow.Server
                 else if (user.UserProfile == Core.Db.UserProfile.Administrator)
                 {
                     var workflowDbId = WexflowWindowsService.WexflowEngine.Workflows.First(w => w.Id == workflowId).DbId;
-                    var check = WexflowWindowsService.WexflowEngine.CheckUserWorkflow(user.Id, workflowDbId);
+                    var check = WexflowWindowsService.WexflowEngine.CheckUserWorkflow(user.GetId(), workflowDbId);
                     if (check)
                     {
                         return WexflowWindowsService.WexflowEngine.ApproveWorkflow(workflowId);
@@ -291,7 +291,7 @@ namespace Wexflow.Server
                 else if (user.UserProfile == Core.Db.UserProfile.Administrator)
                 {
                     var workflowDbId = WexflowWindowsService.WexflowEngine.Workflows.First(w => w.Id == workflowId).DbId;
-                    var check = WexflowWindowsService.WexflowEngine.CheckUserWorkflow(user.Id, workflowDbId);
+                    var check = WexflowWindowsService.WexflowEngine.CheckUserWorkflow(user.GetId(), workflowDbId);
                     if (check)
                     {
                         return WexflowWindowsService.WexflowEngine.DisapproveWorkflow(workflowId);
@@ -327,7 +327,7 @@ namespace Wexflow.Server
                     }
                     else if (user.UserProfile == Core.Db.UserProfile.Administrator)
                     {
-                        var check = WexflowWindowsService.WexflowEngine.CheckUserWorkflow(user.Id, wf.DbId);
+                        var check = WexflowWindowsService.WexflowEngine.CheckUserWorkflow(user.GetId(), wf.DbId);
                         if (check)
                         {
                             return wi;
@@ -595,16 +595,16 @@ namespace Wexflow.Server
                 {
                     if (user.UserProfile == Core.Db.UserProfile.SuperAdministrator)
                     {
-                        WexflowWindowsService.WexflowEngine.SaveWorkflow(user.Id, user.UserProfile, xml);
+                        WexflowWindowsService.WexflowEngine.SaveWorkflow(user.GetId(), user.UserProfile, xml);
                         return true;
                     }
                     else if (user.UserProfile == Core.Db.UserProfile.Administrator)
                     {
                         var workflowDbId = WexflowWindowsService.WexflowEngine.Workflows.First(w => w.Id == workflowId).DbId;
-                        var check = WexflowWindowsService.WexflowEngine.CheckUserWorkflow(user.Id, workflowDbId);
+                        var check = WexflowWindowsService.WexflowEngine.CheckUserWorkflow(user.GetId(), workflowDbId);
                         if (check)
                         {
-                            WexflowWindowsService.WexflowEngine.SaveWorkflow(user.Id, user.UserProfile, xml);
+                            WexflowWindowsService.WexflowEngine.SaveWorkflow(user.GetId(), user.UserProfile, xml);
                             return true;
                         }
                     }
@@ -680,7 +680,7 @@ namespace Wexflow.Server
                 {
                     var id = o.Value<int>("Id");
                     var workflowDbId = WexflowWindowsService.WexflowEngine.Workflows.First(w => w.Id == id).DbId;
-                    var check = WexflowWindowsService.WexflowEngine.CheckUserWorkflow(user.Id, workflowDbId);
+                    var check = WexflowWindowsService.WexflowEngine.CheckUserWorkflow(user.GetId(), workflowDbId);
                     if (!check)
                     {
                         return false;
@@ -830,7 +830,7 @@ namespace Wexflow.Server
                     xdoc.Add(xwf);
 
                     var path = (string)wi.SelectToken("Path");
-                    WexflowWindowsService.WexflowEngine.SaveWorkflow(user.Id, user.UserProfile, xdoc.ToString());
+                    WexflowWindowsService.WexflowEngine.SaveWorkflow(user.GetId(), user.UserProfile, xdoc.ToString());
                     //if (user.UserProfile == Core.Db.UserProfile.Administrator)
                     //{
                     //    WexflowWindowsService.WexflowEngine.InsertUserWorkflowRelation(user.Id, dbId);
@@ -1021,7 +1021,7 @@ namespace Wexflow.Server
                         }
 
                         //xdoc.Save(wf.WorkflowFilePath);
-                        WexflowWindowsService.WexflowEngine.SaveWorkflow(user.Id, user.UserProfile, xdoc.ToString());
+                        WexflowWindowsService.WexflowEngine.SaveWorkflow(user.GetId(), user.UserProfile, xdoc.ToString());
                     }
                 }
 
@@ -1055,7 +1055,7 @@ namespace Wexflow.Server
                         }
                         else if (user.UserProfile == Core.Db.UserProfile.Administrator)
                         {
-                            var check = WexflowWindowsService.WexflowEngine.CheckUserWorkflow(user.Id, wf.DbId);
+                            var check = WexflowWindowsService.WexflowEngine.CheckUserWorkflow(user.GetId(), wf.DbId);
                             if (check)
                             {
                                 WexflowWindowsService.WexflowEngine.DeleteWorkflow(wf.DbId);
@@ -1142,7 +1142,7 @@ namespace Wexflow.Server
             return entries.Select(e =>
                 new Entry
                 {
-                    Id = e.Id,
+                    Id = e.GetDbId(),
                     WorkflowId = e.WorkflowId,
                     Name = e.Name,
                     LaunchType = (LaunchType)((int)e.LaunchType),
@@ -1168,7 +1168,7 @@ namespace Wexflow.Server
                 {
                     return new User
                     {
-                        Id = user.Id,
+                        Id = user.GetId(),
                         Username = user.Username,
                         Password = user.Password,
                         UserProfile = (UserProfile)((int)user.UserProfile),
@@ -1219,7 +1219,7 @@ namespace Wexflow.Server
 
                 return users.Select(u => new User
                 {
-                    Id = u.Id,
+                    Id = u.GetId(),
                     Username = u.Username,
                     Password = u.Password,
                     UserProfile = (UserProfile)((int)u.UserProfile),
@@ -1246,7 +1246,7 @@ namespace Wexflow.Server
 
                 return users.Select(u => new User
                 {
-                    Id = u.Id,
+                    Id = u.GetId(),
                     Username = u.Username,
                     Password = u.Password,
                     UserProfile = (UserProfile)((int)u.UserProfile),
@@ -1279,12 +1279,12 @@ namespace Wexflow.Server
 
                 if (user.Password.Equals(qpassword) && user.UserProfile == Core.Db.UserProfile.SuperAdministrator)
                 {
-                    int userId = o.Value<int>("UserId");
+                    string userId = o.Value<string>("UserId");
                     JArray jArray = o.Value<JArray>("UserWorkflows");
                     WexflowWindowsService.WexflowEngine.DeleteUserWorkflowRelations(userId);
                     foreach (JObject item in jArray)
                     {
-                        var workflowId = item.Value<int>("WorkflowId");
+                        var workflowId = item.Value<string>("WorkflowId");
                         WexflowWindowsService.WexflowEngine.InsertUserWorkflowRelation(userId, workflowId);
                     }
 
@@ -1304,7 +1304,7 @@ namespace Wexflow.Server
         [WebInvoke(Method = "GET",
             ResponseFormat = WebMessageFormat.Json,
             UriTemplate = "userWorkflows?qu={qusername}&qp={qpassword}&u={userId}")]
-        public WorkflowInfo[] GetUserWorkflows(string qusername, string qpassword, int userId)
+        public WorkflowInfo[] GetUserWorkflows(string qusername, string qpassword, string userId)
         {
             try
             {
@@ -1372,7 +1372,7 @@ namespace Wexflow.Server
         [WebInvoke(Method = "POST",
             ResponseFormat = WebMessageFormat.Json,
             UriTemplate = "updateUser?qu={qusername}&qp={qpassword}&userId={userId}&username={username}&password={password}&up={userProfile}&email={email}")]
-        public bool UpdateUser(string qusername, string qpassword, int userId, string username, string password, int userProfile, string email)
+        public bool UpdateUser(string qusername, string qpassword, string userId, string username, string password, int userProfile, string email)
         {
             try
             {
@@ -1394,7 +1394,7 @@ namespace Wexflow.Server
         [WebInvoke(Method = "POST",
             ResponseFormat = WebMessageFormat.Json,
             UriTemplate = "updateUsernameAndEmailAndUserProfile?qu={qusername}&qp={qpassword}&userId={userId}&username={username}&email={email}&up={up}")]
-        public bool UpdateUsernameAndEmailAndUserProfile(string qusername, string qpassword, int userId, string username, string email, int up)
+        public bool UpdateUsernameAndEmailAndUserProfile(string qusername, string qpassword, string userId, string username, string email, int up)
         {
             try
             {
@@ -1516,7 +1516,7 @@ namespace Wexflow.Server
             return entries.Select(e =>
                 new HistoryEntry
                 {
-                    Id = e.Id,
+                    Id = e.GetDbId(),
                     WorkflowId = e.WorkflowId,
                     Name = e.Name,
                     LaunchType = (LaunchType)((int)e.LaunchType),
@@ -1537,7 +1537,7 @@ namespace Wexflow.Server
             return entries.Select(e =>
                 new HistoryEntry
                 {
-                    Id = e.Id,
+                    Id = e.GetDbId(),
                     WorkflowId = e.WorkflowId,
                     Name = e.Name,
                     LaunchType = (LaunchType)((int)e.LaunchType),
@@ -1558,7 +1558,7 @@ namespace Wexflow.Server
             return entries.Select(e =>
                 new HistoryEntry
                 {
-                    Id = e.Id,
+                    Id = e.GetDbId(),
                     WorkflowId = e.WorkflowId,
                     Name = e.Name,
                     LaunchType = (LaunchType)((int)e.LaunchType),
@@ -1586,7 +1586,7 @@ namespace Wexflow.Server
             return entries.Select(e =>
                 new HistoryEntry
                 {
-                    Id = e.Id,
+                    Id = e.GetDbId(),
                     WorkflowId = e.WorkflowId,
                     Name = e.Name,
                     LaunchType = (LaunchType)((int)e.LaunchType),
@@ -1612,7 +1612,7 @@ namespace Wexflow.Server
             var q = entries.Select(e =>
                 new Entry
                 {
-                    Id = e.Id,
+                    Id = e.GetDbId(),
                     WorkflowId = e.WorkflowId,
                     Name = e.Name,
                     LaunchType = (LaunchType)((int)e.LaunchType),
@@ -1713,7 +1713,7 @@ namespace Wexflow.Server
                 var o = JObject.Parse(json);
                 var username = o.Value<string>("Username");
                 var password = o.Value<string>("Password");
-                var workflowDbIds = JsonConvert.DeserializeObject<int[]>(((JArray)o.SelectToken("WorkflowsToDelete")).ToString());
+                var workflowDbIds = JsonConvert.DeserializeObject<string[]>(((JArray)o.SelectToken("WorkflowsToDelete")).ToString());
 
                 var user = WexflowWindowsService.WexflowEngine.GetUser(username);
                 if (user.Password.Equals(password))
@@ -1728,7 +1728,7 @@ namespace Wexflow.Server
                         var res = true;
                         foreach (var id in workflowDbIds)
                         {
-                            var check = WexflowWindowsService.WexflowEngine.CheckUserWorkflow(user.Id, id);
+                            var check = WexflowWindowsService.WexflowEngine.CheckUserWorkflow(user.GetId(), id);
                             if (check)
                             {
                                 try

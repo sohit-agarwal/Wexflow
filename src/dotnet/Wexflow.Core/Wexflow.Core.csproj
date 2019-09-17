@@ -153,8 +153,16 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Wexflow.Core.Db\Wexflow.Core.Db.csproj">
-      <Project>{2bbb9f04-49d7-49a7-a065-4b2c81e66307}</Project>
+      <Project>{ffe105a5-1c72-4e7d-bc48-5f5902376893}</Project>
       <Name>Wexflow.Core.Db</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Core.LiteDB\Wexflow.Core.LiteDB.csproj">
+      <Project>{2bbb9f04-49d7-49a7-a065-4b2c81e66307}</Project>
+      <Name>Wexflow.Core.LiteDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Core.MongoDB\Wexflow.Core.MongoDB.csproj">
+      <Project>{18fddb89-d389-4f8f-b878-d874fef8b99e}</Project>
+      <Name>Wexflow.Core.MongoDB</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

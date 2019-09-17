@@ -6,7 +6,7 @@ namespace Wexflow.Core.Service.Contracts
     public class HistoryEntry
     {
         [DataMember]
-        public int Id { get; set; }
+        public string Id { get; set; }
         [DataMember]
         public int WorkflowId { get; set; }
         [DataMember]
@@ -18,7 +18,6 @@ namespace Wexflow.Core.Service.Contracts
         [DataMember]
         public Status Status { get; set; }
         [DataMember]
-        //public double StatusDate { get; set; }
         public string StatusDate { get; set; }
     }
 }

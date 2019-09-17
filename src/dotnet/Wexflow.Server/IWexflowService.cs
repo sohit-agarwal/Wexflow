@@ -98,7 +98,7 @@ namespace Wexflow.Server
         bool SaveUserWorkflows(Stream streamdata);
 
         [OperationContract]
-        WorkflowInfo[] GetUserWorkflows(string qusername, string qpassword, int userId);
+        WorkflowInfo[] GetUserWorkflows(string qusername, string qpassword, string userId);
 
         [OperationContract]
         User[] SearchAdministrators(string qusername, string qpassword, string keyword, int uo);
@@ -110,10 +110,10 @@ namespace Wexflow.Server
         bool InsertUser(string qusername, string qpassword, string username, string password, int userProfile, string email);
 
         [OperationContract]
-        bool UpdateUser(string qusername, string qpassword, int userId, string username, string password, int userProfile, string email);
+        bool UpdateUser(string qusername, string qpassword, string userId, string username, string password, int userProfile, string email);
 
         [OperationContract]
-        bool UpdateUsernameAndEmailAndUserProfile(string qusername, string qpassword, int userId, string username, string email, int up);
+        bool UpdateUsernameAndEmailAndUserProfile(string qusername, string qpassword, string userId, string username, string email, int up);
 
         [OperationContract]
         bool DeleteUser(string qusername, string qpassword, string username, string password);
