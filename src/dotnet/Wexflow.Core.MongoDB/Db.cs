@@ -57,7 +57,7 @@ namespace Wexflow.Core.MongoDB
             var col = _db.GetCollection<Workflow>("workflows");
             var wf = new Workflow { Xml = workflow.Xml };
             col.InsertOne(wf);
-            return wf.Id.ToString();
+            return wf.Id;
         }
 
         public override Core.Db.Workflow GetWorkflow(string id)
@@ -212,7 +212,7 @@ namespace Wexflow.Core.MongoDB
         public override Core.Db.User GetUser(string username)
         {
             var col = _db.GetCollection<User>("users");
-            User user = col.Find(u => u.Username == username).FirstOrDefault();
+            var user = col.Find(u => u.Username == username).FirstOrDefault();
             return user;
         }
 
@@ -433,7 +433,6 @@ namespace Wexflow.Core.MongoDB
             var col = _db.GetCollection<HistoryEntry>("entries");
 
             return col.Find(e => (e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower)) && e.StatusDate > from && e.StatusDate < to).CountDocuments();
-
         }
 
         public override DateTime GetHistoryEntryStatusDateMin()

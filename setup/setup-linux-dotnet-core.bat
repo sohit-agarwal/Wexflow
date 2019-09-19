@@ -19,6 +19,7 @@ mkdir %dstDir%\%backend%\css\images\
 mkdir %dstDir%\%backend%\js\
 mkdir %dstDir%\Wexflow.Scripts.MongoDB
 mkdir %dstDir%\Wexflow.Scripts.MongoDB\Workflows
+mkdir %dstDir%\Wexflow.Scripts.RavenDB
 
 :: WexflowTesting
 xcopy ..\samples\WexflowTesting\* %dstDir%\WexflowTesting\ /s /e
@@ -86,6 +87,10 @@ copy dotnet-core\linux\appsettings.json %dstDir%\Wexflow.Server
 dotnet publish ..\src\dotnet-core\Wexflow.Scripts.MongoDB\Wexflow.Scripts.MongoDB.csproj --force --output %~dp0\%dstDir%\Wexflow.Scripts.MongoDB
 copy dotnet-core\linux\MongoDB\appsettings.json %dstDir%\Wexflow.Scripts.MongoDB
 xcopy "..\samples\MongoDB\dotnet-core\linux\*" %dstDir%\Wexflow.Scripts.MongoDB\Workflows /s /e
+
+:: RavenDB script
+dotnet publish ..\src\dotnet-core\Wexflow.Scripts.RavenDB\Wexflow.Scripts.RavenDB.csproj --force --output %~dp0\%dstDir%\Wexflow.Scripts.RavenDB
+copy dotnet-core\linux\RavenDB\appsettings.json %dstDir%\Wexflow.Scripts.RavenDB
 
 :: License
 :: copy ..\LICENSE.txt %dstDir%

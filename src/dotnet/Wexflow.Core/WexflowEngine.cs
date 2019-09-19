@@ -17,13 +17,17 @@ namespace Wexflow.Core
     public enum DbType
     {
         /// <summary>
+        /// LiteDB
+        /// </summary>
+        LiteDB,
+        /// <summary>
         /// MongoDB
         /// </summary>
         MongoDB,
         /// <summary>
-        /// LiteDB
+        /// RavenDB
         /// </summary>
-        LiteDB
+        RavenDB
     }
 
     /// <summary>
@@ -119,12 +123,16 @@ namespace Wexflow.Core
 
             switch (DbType)
             {
-                case DbType.MongoDB:
-                    Database = new MongoDB.Db(ConnectionString);
-                    break;
                 case DbType.LiteDB:
                     Database = new LiteDB.Db(ConnectionString);
                     break;
+                case DbType.MongoDB:
+                    Database = new MongoDB.Db(ConnectionString);
+                    break;
+                case DbType.RavenDB:
+                    Database = new RavenDB.Db(ConnectionString);
+                    break;
+
             }
 
             if(Database != null)

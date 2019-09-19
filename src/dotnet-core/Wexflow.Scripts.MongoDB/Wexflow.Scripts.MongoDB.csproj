@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Wexflow.Core.Db\Wexflow.Core.Db.csproj" />
     <ProjectReference Include="..\Wexflow.Core.MongoDB\Wexflow.Core.MongoDB.csproj" />
+    <ProjectReference Include="..\Wexflow.Scripts.Core\Wexflow.Scripts.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

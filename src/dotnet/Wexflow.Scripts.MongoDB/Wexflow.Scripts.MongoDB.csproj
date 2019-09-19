@@ -110,6 +110,10 @@
       <Project>{18fddb89-d389-4f8f-b878-d874fef8b99e}</Project>
       <Name>Wexflow.Core.MongoDB</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Scripts.Core\Wexflow.Scripts.Core.csproj">
+      <Project>{61a3d5e0-6d95-43ee-bec5-2dc10771735f}</Project>
+      <Name>Wexflow.Scripts.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Wexflow.ico" />

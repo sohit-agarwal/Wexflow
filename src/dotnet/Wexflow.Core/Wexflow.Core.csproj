@@ -164,6 +164,10 @@
       <Project>{18fddb89-d389-4f8f-b878-d874fef8b99e}</Project>
       <Name>Wexflow.Core.MongoDB</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Core.RavenDB\Wexflow.Core.RavenDB.csproj">
+      <Project>{15a456e4-6992-4586-97aa-4f0279434de5}</Project>
+      <Name>Wexflow.Core.RavenDB</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
