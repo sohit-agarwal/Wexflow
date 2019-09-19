@@ -11,6 +11,7 @@ using Npgsql;
 using System.IO;
 using System.Data.OleDb;
 using Teradata.Client.Provider;
+using System.Data.Odbc;
 
 namespace Wexflow.Tasks.Sql
 {
@@ -22,10 +23,11 @@ namespace Wexflow.Tasks.Sql
         MySql,
         Sqlite,
         PostGreSql,
-        Teradata
+        Teradata,
+        Odbc
     }
 
-    public class Sql:Task
+    public class Sql : Task
     {
         public Type DbType { get; set; }
         public string ConnectionString { get; set; }
@@ -152,6 +154,13 @@ namespace Wexflow.Tasks.Sql
                     using (var conn = new TdConnection(ConnectionString))
                     {
                         var comm = new TdCommand(sql, conn);
+                        ExecSql(conn, comm);
+                    }
+                    break;
+                case Type.Odbc:
+                    using (var conn = new OdbcConnection(ConnectionString))
+                    {
+                        var comm = new OdbcCommand(sql, conn);
                         ExecSql(conn, comm);
                     }
                     break;

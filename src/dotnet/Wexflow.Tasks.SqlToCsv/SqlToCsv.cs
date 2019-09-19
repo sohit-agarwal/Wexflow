@@ -12,6 +12,7 @@ using System.Threading;
 using System.Xml.Linq;
 using Teradata.Client.Provider;
 using Wexflow.Core;
+using System.Data.Odbc;
 
 namespace Wexflow.Tasks.SqlToCsv
 {
@@ -23,7 +24,8 @@ namespace Wexflow.Tasks.SqlToCsv
         MySql,
         Sqlite,
         PostGreSql,
-        Teradata
+        Teradata,
+        Odbc
     }
 
     public class SqlToCsv : Task
@@ -164,6 +166,13 @@ namespace Wexflow.Tasks.SqlToCsv
                 case Type.Teradata:
                     using (var connection = new TdConnection(ConnectionString))
                     using (var command = new TdCommand(sql, connection))
+                    {
+                        ConvertToCsv(connection, command);
+                    }
+                    break;
+                case Type.Odbc:
+                    using (var connection = new OdbcConnection(ConnectionString))
+                    using (var command = new OdbcCommand(sql, connection))
                     {
                         ConvertToCsv(connection, command);
                     }
