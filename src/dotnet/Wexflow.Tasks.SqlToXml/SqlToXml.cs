@@ -13,6 +13,7 @@ using System.Threading;
 using System.Xml.Linq;
 using Teradata.Client.Provider;
 using Wexflow.Core;
+using System.Data.Odbc;
 
 namespace Wexflow.Tasks.SqlToXml
 {
@@ -24,7 +25,8 @@ namespace Wexflow.Tasks.SqlToXml
         MySql,
         Sqlite,
         PostGreSql,
-        Teradata
+        Teradata,
+        Odbc
     }
 
     public class SqlToXml : Task
@@ -153,6 +155,13 @@ namespace Wexflow.Tasks.SqlToXml
                 case Type.Teradata:
                     using (var connenction = new TdConnection(ConnectionString))
                     using (var command = new TdCommand(sql, connenction))
+                    {
+                        ConvertToXml(connenction, command);
+                    }
+                    break;
+                case Type.Odbc:
+                    using (var connenction = new OdbcConnection(ConnectionString))
+                    using (var command = new OdbcCommand(sql, connenction))
                     {
                         ConvertToXml(connenction, command);
                     }
