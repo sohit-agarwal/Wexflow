@@ -129,8 +129,9 @@ Source: "..\src\dotnet\Wexflow.Server\bin\Release\LiteDB.dll"; DestDir: "{app}";
 
 ; MongoDB
 Source: "..\src\dotnet\Wexflow.Core.MongoDB\bin\x86\Release\*.dll"; DestDir: "{app}"; Flags: ignoreversion
-;Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Net.Http.dll"; DestDir: "{app}"; Flags: ignoreversion
-;Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Runtime.InteropServices.RuntimeInformation.dll"; DestDir: "{app}"; Flags: ignoreversion
+
+; CosmosDB
+Source: "..\src\dotnet\Wexflow.Core.CosmosDB\bin\x86\Release\*.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 ; RavenDB
 Source: "..\src\dotnet\Wexflow.Core.RavenDB\bin\x86\Release\*.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -428,6 +429,12 @@ Source: "..\src\dotnet\Wexflow.Scripts.RavenDB\bin\x86\Release\Wexflow.Scripts.R
 Source: ".\dotnet\Wexflow.Scripts.RavenDB\Wexflow.Scripts.RavenDB.exe.config"; DestDir: "{app}\Wexflow.Scripts.RavenDB"; Flags: ignoreversion recursesubdirs
 Source: "..\src\dotnet\Wexflow.Scripts.RavenDB\bin\x86\Release\*.dll"; DestDir: "{app}\Wexflow.Scripts.RavenDB"; Flags: ignoreversion recursesubdirs
 
+; Wexflow.Scripts.CosmosDB
+Source: "..\src\dotnet\Wexflow.Scripts.CosmosDB\bin\x86\Release\Wexflow.Scripts.CosmosDB.exe"; DestDir: "{app}\Wexflow.Scripts.CosmosDB"; Flags: ignoreversion recursesubdirs
+Source: ".\dotnet\Wexflow.Scripts.CosmosDB\Wexflow.Scripts.CosmosDB.exe.config"; DestDir: "{app}\Wexflow.Scripts.CosmosDB"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Scripts.CosmosDB\bin\x86\Release\*.dll"; DestDir: "{app}\Wexflow.Scripts.CosmosDB"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Core.CosmosDB\bin\x86\Release\*.dll"; DestDir: "{app}\Wexflow.Scripts.CosmosDB"; Flags: ignoreversion
+
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
@@ -438,6 +445,7 @@ Name: "{commonprograms}\{#MyAppName}\Backend"; Filename: "{app}\Backend\index.ht
 Name: "{commonprograms}\{#MyAppName}\Configuration"; Filename: "C:\Wexflow\";
 Name: "{commonprograms}\{#MyAppName}\Documentation"; Filename: "{app}\Documentation";
 Name: "{commonprograms}\{#MyAppName}\Logs"; Filename: "{app}\Wexflow.log";
+Name: "{commonprograms}\{#MyAppName}\Install CosmosDB samples"; Filename: "{app}\Wexflow.Scripts.CosmosDB\Wexflow.Scripts.CosmosDB.exe";
 Name: "{commonprograms}\{#MyAppName}\Install MongoDB samples"; Filename: "{app}\Wexflow.Scripts.MongoDB\Wexflow.Scripts.MongoDB.exe";
 Name: "{commonprograms}\{#MyAppName}\Install RavenDB samples"; Filename: "{app}\Wexflow.Scripts.RavenDB\Wexflow.Scripts.RavenDB.exe";
 Name: "{commonprograms}\{#MyAppName}\Uninstall"; Filename: "{uninstallexe}";

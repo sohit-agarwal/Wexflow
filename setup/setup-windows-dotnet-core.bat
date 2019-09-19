@@ -18,6 +18,7 @@ mkdir %dstDir%\%backend%\js\
 mkdir %dstDir%\Wexflow.Scripts.MongoDB
 mkdir %dstDir%\Wexflow.Scripts.MongoDB\Workflows
 mkdir %dstDir%\Wexflow.Scripts.RavenDB
+mkdir %dstDir%\Wexflow.Scripts.CosmosDB
 
 :: WexflowTesting
 xcopy ..\samples\WexflowTesting\* %dstDir%\WexflowTesting\ /s /e
@@ -89,6 +90,11 @@ copy dotnet-core\windows\install-MongoDB.bat %dstDir%
 dotnet publish ..\src\dotnet-core\Wexflow.Scripts.RavenDB\Wexflow.Scripts.RavenDB.csproj --force --output %~dp0\%dstDir%\Wexflow.Scripts.RavenDB
 copy dotnet-core\windows\RavenDB\appsettings.json %dstDir%\Wexflow.Scripts.RavenDB
 copy dotnet-core\windows\install-RavenDB.bat %dstDir%
+
+:: CosmosDB script
+dotnet publish ..\src\dotnet-core\Wexflow.Scripts.CosmosDB\Wexflow.Scripts.CosmosDB.csproj --force --output %~dp0\%dstDir%\Wexflow.Scripts.CosmosDB
+copy dotnet-core\windows\CosmosDB\appsettings.json %dstDir%\Wexflow.Scripts.CosmosDB
+copy dotnet-core\windows\install-CosmosDB.bat %dstDir%
 
 :: License
 :: copy ..\LICENSE.txt %dstDir%

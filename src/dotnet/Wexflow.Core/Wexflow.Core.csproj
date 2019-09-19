@@ -152,6 +152,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Wexflow.Core.CosmosDB\Wexflow.Core.CosmosDB.csproj">
+      <Project>{2311d99b-0524-40c5-a647-6b2200f15a47}</Project>
+      <Name>Wexflow.Core.CosmosDB</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Core.Db\Wexflow.Core.Db.csproj">
       <Project>{ffe105a5-1c72-4e7d-bc48-5f5902376893}</Project>
       <Name>Wexflow.Core.Db</Name>

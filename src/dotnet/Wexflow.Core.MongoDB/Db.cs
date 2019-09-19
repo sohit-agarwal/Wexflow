@@ -53,7 +53,7 @@ namespace Wexflow.Core.MongoDB
         {
             // StatusCount
             ClearStatusCount();
-            var statusCountCol = _db.GetCollection<StatusCount>("statusCount");
+            var statusCountCol = _db.GetCollection<StatusCount>(Core.Db.StatusCount.DocumentName);
 
             var statusCount = new StatusCount
             {
@@ -72,7 +72,7 @@ namespace Wexflow.Core.MongoDB
             ClearEntries();
 
             // Insert default user if necessary
-            var usersCol = _db.GetCollection<User>("users");
+            var usersCol = _db.GetCollection<User>(Core.Db.User.DocumentName);
             if (usersCol.CountDocuments(FilterDefinition<User>.Empty) == 0)
             {
                 InsertDefaultUser();
@@ -81,13 +81,13 @@ namespace Wexflow.Core.MongoDB
 
         public override IEnumerable<Core.Db.Workflow> GetWorkflows()
         {
-            var col = _db.GetCollection<Workflow>("workflows");
+            var col = _db.GetCollection<Workflow>(Core.Db.Workflow.DocumentName);
             return col.Find(FilterDefinition<Workflow>.Empty).ToEnumerable();
         }
 
         public override string InsertWorkflow(Core.Db.Workflow workflow)
         {
-            var col = _db.GetCollection<Workflow>("workflows");
+            var col = _db.GetCollection<Workflow>(Core.Db.Workflow.DocumentName);
             var wf = new Workflow { Xml = workflow.Xml };
             col.InsertOne(wf);
             return wf.Id;
@@ -95,13 +95,13 @@ namespace Wexflow.Core.MongoDB
 
         public override Core.Db.Workflow GetWorkflow(string id)
         {
-            var col = _db.GetCollection<Workflow>("workflows");
+            var col = _db.GetCollection<Workflow>(Core.Db.Workflow.DocumentName);
             return col.Find(w => w.Id == id).FirstOrDefault();
         }
 
         public override void UpdateWorkflow(string dbId, Core.Db.Workflow workflow)
         {
-            var col = _db.GetCollection<Workflow>("workflows");
+            var col = _db.GetCollection<Workflow>(Core.Db.Workflow.DocumentName);
             var update = Builders<Workflow>.Update
                 .Set(w => w.Xml, workflow.Xml);
 
@@ -110,25 +110,25 @@ namespace Wexflow.Core.MongoDB
 
         public override void DeleteWorkflow(string id)
         {
-            var col = _db.GetCollection<Workflow>("workflows");
+            var col = _db.GetCollection<Workflow>(Core.Db.Workflow.DocumentName);
             col.DeleteOne(e => e.Id == id);
         }
 
         public override void DeleteUserWorkflowRelationsByWorkflowId(string workflowDbId)
         {
-            var col = _db.GetCollection<UserWorkflow>("userworkflow");
+            var col = _db.GetCollection<UserWorkflow>(Core.Db.UserWorkflow.DocumentName);
             col.DeleteMany(uw => uw.WorkflowId == workflowDbId);
         }
 
         public override void DeleteWorkflows(string[] ids)
         {
-            var col = _db.GetCollection<Workflow>("workflows");
+            var col = _db.GetCollection<Workflow>(Core.Db.Workflow.DocumentName);
             col.DeleteMany(e => ids.Contains(e.Id));
         }
 
         public override void InsertUserWorkflowRelation(Core.Db.UserWorkflow userWorkflow)
         {
-            var col = _db.GetCollection<UserWorkflow>("userworkflow");
+            var col = _db.GetCollection<UserWorkflow>(Core.Db.UserWorkflow.DocumentName);
             var uw = new UserWorkflow
             {
                 UserId = userWorkflow.UserId,
@@ -139,26 +139,26 @@ namespace Wexflow.Core.MongoDB
 
         public override void DeleteUserWorkflowRelationsByUserId(string userId)
         {
-            var col = _db.GetCollection<UserWorkflow>("userworkflow");
+            var col = _db.GetCollection<UserWorkflow>(Core.Db.UserWorkflow.DocumentName);
             col.DeleteMany(uw => uw.UserId == userId);
         }
 
         public override IEnumerable<string> GetUserWorkflows(string userId)
         {
-            var col = _db.GetCollection<UserWorkflow>("userworkflow");
+            var col = _db.GetCollection<UserWorkflow>(Core.Db.UserWorkflow.DocumentName);
             return col.Find(uw => uw.UserId == userId).ToEnumerable().Select(uw => uw.WorkflowId);
         }
 
         public override bool CheckUserWorkflow(string userId, string workflowId)
         {
-            var col = _db.GetCollection<UserWorkflow>("userworkflow");
+            var col = _db.GetCollection<UserWorkflow>(Core.Db.UserWorkflow.DocumentName);
             var res = col.Find(uw => uw.UserId == userId && uw.WorkflowId == workflowId).FirstOrDefault();
             return res != null;
         }
 
         public override IEnumerable<Core.Db.User> GetAdministrators(string keyword, UserOrderBy uo)
         {
-            var col = _db.GetCollection<User>("users");
+            var col = _db.GetCollection<User>(Core.Db.User.DocumentName);
             var keywordToLower = keyword.ToLower();
 
             switch (uo)
@@ -174,32 +174,32 @@ namespace Wexflow.Core.MongoDB
 
         public override void ClearStatusCount()
         {
-            var col = _db.GetCollection<StatusCount>("statusCount");
+            var col = _db.GetCollection<StatusCount>(Core.Db.StatusCount.DocumentName);
             col.DeleteMany(FilterDefinition<StatusCount>.Empty);
         }
 
         public override void ClearEntries()
         {
-            var col = _db.GetCollection<Entry>("entries");
+            var col = _db.GetCollection<Entry>(Core.Db.Entry.DocumentName);
             col.DeleteMany(FilterDefinition<Entry>.Empty);
         }
 
         public override Core.Db.StatusCount GetStatusCount()
         {
-            var col = _db.GetCollection<StatusCount>("statusCount");
+            var col = _db.GetCollection<StatusCount>(Core.Db.StatusCount.DocumentName);
             var statusCount = col.Find(FilterDefinition<StatusCount>.Empty).FirstOrDefault();
             return statusCount;
         }
 
         public override IEnumerable<Core.Db.Entry> GetEntries()
         {
-            var col = _db.GetCollection<Entry>("entries");
+            var col = _db.GetCollection<Entry>(Core.Db.Entry.DocumentName);
             return col.Find(FilterDefinition<Entry>.Empty).ToEnumerable();
         }
 
         public override void InsertUser(Core.Db.User user)
         {
-            var col = _db.GetCollection<User>("users");
+            var col = _db.GetCollection<User>(Core.Db.User.DocumentName);
             user.CreatedOn = DateTime.Now;
             var nu = new User
             {
@@ -217,7 +217,7 @@ namespace Wexflow.Core.MongoDB
 
         public override void UpdateUser(string id, Core.Db.User user)
         {
-            var col = _db.GetCollection<User>("users");
+            var col = _db.GetCollection<User>(Core.Db.User.DocumentName);
             var update = Builders<User>.Update
                 .Set(u => u.ModifiedOn, DateTime.Now)
                 .Set(u => u.Username, user.Username)
@@ -230,7 +230,7 @@ namespace Wexflow.Core.MongoDB
 
         public override void UpdateUsernameAndEmailAndUserProfile(string userId, string username, string email, UserProfile up)
         {
-            var col = _db.GetCollection<User>("users");
+            var col = _db.GetCollection<User>(Core.Db.User.DocumentName);
 
             var update = Builders<User>.Update
                 .Set(u => u.ModifiedOn, DateTime.Now)
@@ -244,14 +244,14 @@ namespace Wexflow.Core.MongoDB
 
         public override Core.Db.User GetUser(string username)
         {
-            var col = _db.GetCollection<User>("users");
+            var col = _db.GetCollection<User>(Core.Db.User.DocumentName);
             var user = col.Find(u => u.Username == username).FirstOrDefault();
             return user;
         }
 
         public override void DeleteUser(string username, string password)
         {
-            var col = _db.GetCollection<User>("users");
+            var col = _db.GetCollection<User>(Core.Db.User.DocumentName);
             var user = col.Find(u => u.Username == username).FirstOrDefault();
             if (user != null && user.Password == password)
             {
@@ -266,20 +266,20 @@ namespace Wexflow.Core.MongoDB
 
         public override string GetPassword(string username)
         {
-            var col = _db.GetCollection<User>("users");
+            var col = _db.GetCollection<User>(Core.Db.User.DocumentName);
             User user = col.Find(u => u.Username == username).First();
             return user.Password;
         }
 
         public override IEnumerable<Core.Db.User> GetUsers()
         {
-            var col = _db.GetCollection<User>("users");
+            var col = _db.GetCollection<User>(Core.Db.User.DocumentName);
             return col.Find(FilterDefinition<User>.Empty).ToEnumerable();
         }
 
         public override IEnumerable<Core.Db.User> GetUsers(string keyword, UserOrderBy uo)
         {
-            var col = _db.GetCollection<User>("users");
+            var col = _db.GetCollection<User>(Core.Db.User.DocumentName);
             var keywordToLower = keyword.ToLower();
 
             switch (uo)
@@ -295,7 +295,7 @@ namespace Wexflow.Core.MongoDB
 
         public override void UpdatePassword(string username, string password)
         {
-            var col = _db.GetCollection<User>("users");
+            var col = _db.GetCollection<User>(Core.Db.User.DocumentName);
             var dbUser = col.Find(u => u.Username == username).First();
             dbUser.Password = password;
 
@@ -307,27 +307,27 @@ namespace Wexflow.Core.MongoDB
 
         public override IEnumerable<Core.Db.HistoryEntry> GetHistoryEntries()
         {
-            var col = _db.GetCollection<HistoryEntry>("historyEntries");
+            var col = _db.GetCollection<HistoryEntry>(Core.Db.HistoryEntry.DocumentName);
             return col.Find(FilterDefinition<HistoryEntry>.Empty).ToEnumerable();
         }
 
         public override IEnumerable<Core.Db.HistoryEntry> GetHistoryEntries(string keyword)
         {
             var keywordToUpper = keyword.ToUpper();
-            var col = _db.GetCollection<HistoryEntry>("historyEntries");
+            var col = _db.GetCollection<HistoryEntry>(Core.Db.HistoryEntry.DocumentName);
             return col.Find(e => e.Name.ToUpper().Contains(keywordToUpper) || e.Description.ToUpper().Contains(keywordToUpper)).ToEnumerable();
         }
 
         public override IEnumerable<Core.Db.HistoryEntry> GetHistoryEntries(string keyword, int page, int entriesCount)
         {
             var keywordToUpper = keyword.ToUpper();
-            var col = _db.GetCollection<HistoryEntry>("historyEntries");
+            var col = _db.GetCollection<HistoryEntry>(Core.Db.HistoryEntry.DocumentName);
             return col.Find(e => e.Name.ToUpper().Contains(keywordToUpper) || e.Description.ToUpper().Contains(keywordToUpper)).ToEnumerable().Skip((page - 1) * entriesCount).Take(entriesCount);
         }
 
         public override IEnumerable<Core.Db.HistoryEntry> GetHistoryEntries(string keyword, DateTime from, DateTime to, int page, int entriesCount, EntryOrderBy heo)
         {
-            var col = _db.GetCollection<HistoryEntry>("historyEntries");
+            var col = _db.GetCollection<HistoryEntry>(Core.Db.HistoryEntry.DocumentName);
             var keywordToLower = keyword.ToLower();
             int skip = (page - 1) * entriesCount;
 
@@ -387,7 +387,7 @@ namespace Wexflow.Core.MongoDB
 
         public override IEnumerable<Core.Db.Entry> GetEntries(string keyword, DateTime from, DateTime to, int page, int entriesCount, EntryOrderBy eo)
         {
-            var col = _db.GetCollection<Entry>("entries");
+            var col = _db.GetCollection<Entry>(Core.Db.Entry.DocumentName);
             var keywordToLower = keyword.ToLower();
             int skip = (page - 1) * entriesCount;
 
@@ -448,14 +448,14 @@ namespace Wexflow.Core.MongoDB
         public override long GetHistoryEntriesCount(string keyword)
         {
             var keywordToUpper = keyword.ToUpper();
-            var col = _db.GetCollection<HistoryEntry>("historyEntries");
+            var col = _db.GetCollection<HistoryEntry>(Core.Db.HistoryEntry.DocumentName);
             return col.Find(e => e.Name.ToUpper().Contains(keywordToUpper) || e.Description.ToUpper().Contains(keywordToUpper)).CountDocuments();
         }
 
         public override long GetHistoryEntriesCount(string keyword, DateTime from, DateTime to)
         {
             var keywordToLower = keyword.ToLower();
-            var col = _db.GetCollection<HistoryEntry>("historyEntries");
+            var col = _db.GetCollection<HistoryEntry>(Core.Db.HistoryEntry.DocumentName);
 
             return col.Find(e => (e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower)) && e.StatusDate > from && e.StatusDate < to).CountDocuments();
         }
@@ -463,14 +463,14 @@ namespace Wexflow.Core.MongoDB
         public override long GetEntriesCount(string keyword, DateTime from, DateTime to)
         {
             var keywordToLower = keyword.ToLower();
-            var col = _db.GetCollection<HistoryEntry>("entries");
+            var col = _db.GetCollection<HistoryEntry>(Core.Db.Entry.DocumentName);
 
             return col.Find(e => (e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower)) && e.StatusDate > from && e.StatusDate < to).CountDocuments();
         }
 
         public override DateTime GetHistoryEntryStatusDateMin()
         {
-            var col = _db.GetCollection<HistoryEntry>("historyEntries");
+            var col = _db.GetCollection<HistoryEntry>(Core.Db.HistoryEntry.DocumentName);
             var q = col.Find(FilterDefinition<HistoryEntry>.Empty).Sort(Builders<HistoryEntry>.Sort.Ascending(e => e.StatusDate)).ToEnumerable();
             if (q.Any())
             {
@@ -482,7 +482,7 @@ namespace Wexflow.Core.MongoDB
 
         public override DateTime GetHistoryEntryStatusDateMax()
         {
-            var col = _db.GetCollection<HistoryEntry>("historyEntries");
+            var col = _db.GetCollection<HistoryEntry>(Core.Db.HistoryEntry.DocumentName);
             var q = col.Find(FilterDefinition<HistoryEntry>.Empty).Sort(Builders<HistoryEntry>.Sort.Descending(e => e.StatusDate)).ToEnumerable();
             if (q.Any())
             {
@@ -494,7 +494,7 @@ namespace Wexflow.Core.MongoDB
 
         public override DateTime GetEntryStatusDateMin()
         {
-            var col = _db.GetCollection<Entry>("entries");
+            var col = _db.GetCollection<Entry>(Core.Db.Entry.DocumentName);
             var q = col.Find(FilterDefinition<Entry>.Empty).Sort(Builders<Entry>.Sort.Ascending(e => e.StatusDate)).ToEnumerable();
             if (q.Any())
             {
@@ -506,7 +506,7 @@ namespace Wexflow.Core.MongoDB
 
         public override DateTime GetEntryStatusDateMax()
         {
-            var col = _db.GetCollection<Entry>("entries");
+            var col = _db.GetCollection<Entry>(Core.Db.Entry.DocumentName);
             var q = col.Find(FilterDefinition<Entry>.Empty).Sort(Builders<Entry>.Sort.Descending(e => e.StatusDate)).ToEnumerable();
             if (q.Any())
             {
@@ -518,7 +518,7 @@ namespace Wexflow.Core.MongoDB
 
         public override void IncrementDisabledCount()
         {
-            var col = _db.GetCollection<StatusCount>("statusCount");
+            var col = _db.GetCollection<StatusCount>(Core.Db.StatusCount.DocumentName);
             var statusCount = col.Find(FilterDefinition<StatusCount>.Empty).FirstOrDefault();
             if (statusCount != null)
             {
@@ -533,7 +533,7 @@ namespace Wexflow.Core.MongoDB
 
         public override void IncrementRunningCount()
         {
-            var col = _db.GetCollection<StatusCount>("statusCount");
+            var col = _db.GetCollection<StatusCount>(Core.Db.StatusCount.DocumentName);
             var statusCount = col.Find(FilterDefinition<StatusCount>.Empty).FirstOrDefault();
             if (statusCount != null)
             {
@@ -548,13 +548,13 @@ namespace Wexflow.Core.MongoDB
 
         public override Core.Db.Entry GetEntry(int workflowId)
         {
-            var col = _db.GetCollection<Entry>("entries");
+            var col = _db.GetCollection<Entry>(Core.Db.Entry.DocumentName);
             return col.Find(e => e.WorkflowId == workflowId).FirstOrDefault();
         }
 
         public override void InsertEntry(Core.Db.Entry entry)
         {
-            var col = _db.GetCollection<Entry>("entries");
+            var col = _db.GetCollection<Entry>(Core.Db.Entry.DocumentName);
             var ie = new Entry
             {
                 Description = entry.Description,
@@ -575,7 +575,7 @@ namespace Wexflow.Core.MongoDB
 
         public override void UpdateEntry(string id, Core.Db.Entry entry)
         {
-            var col = _db.GetCollection<Entry>("entries");
+            var col = _db.GetCollection<Entry>(Core.Db.Entry.DocumentName);
             var update = Builders<Entry>.Update
                 .Set(e => e.Name, entry.Name)
                 .Set(e => e.Description, entry.Description)
@@ -589,7 +589,7 @@ namespace Wexflow.Core.MongoDB
 
         public override void IncrementDisapprovedCount()
         {
-            var col = _db.GetCollection<StatusCount>("statusCount");
+            var col = _db.GetCollection<StatusCount>(Core.Db.StatusCount.DocumentName);
             var statusCount = col.Find(FilterDefinition<StatusCount>.Empty).FirstOrDefault();
             if (statusCount != null)
             {
@@ -604,7 +604,7 @@ namespace Wexflow.Core.MongoDB
 
         public override void IncrementDoneCount()
         {
-            var col = _db.GetCollection<StatusCount>("statusCount");
+            var col = _db.GetCollection<StatusCount>(Core.Db.StatusCount.DocumentName);
             var statusCount = col.Find(FilterDefinition<StatusCount>.Empty).FirstOrDefault();
             if (statusCount != null)
             {
@@ -619,7 +619,7 @@ namespace Wexflow.Core.MongoDB
 
         public override void IncrementWarningCount()
         {
-            var col = _db.GetCollection<StatusCount>("statusCount");
+            var col = _db.GetCollection<StatusCount>(Core.Db.StatusCount.DocumentName);
             var statusCount = col.Find(FilterDefinition<StatusCount>.Empty).FirstOrDefault();
             if (statusCount != null)
             {
@@ -634,7 +634,7 @@ namespace Wexflow.Core.MongoDB
 
         public override void IncrementFailedCount()
         {
-            var col = _db.GetCollection<StatusCount>("statusCount");
+            var col = _db.GetCollection<StatusCount>(Core.Db.StatusCount.DocumentName);
             var statusCount = col.Find(FilterDefinition<StatusCount>.Empty).FirstOrDefault();
             if (statusCount != null)
             {
@@ -649,7 +649,7 @@ namespace Wexflow.Core.MongoDB
 
         public override void InsertHistoryEntry(Core.Db.HistoryEntry entry)
         {
-            var col = _db.GetCollection<HistoryEntry>("historyEntries");
+            var col = _db.GetCollection<HistoryEntry>(Core.Db.HistoryEntry.DocumentName);
             var he = new HistoryEntry
             {
                 Description = entry.Description,
@@ -671,7 +671,7 @@ namespace Wexflow.Core.MongoDB
 
         public override void DecrementRunningCount()
         {
-            var col = _db.GetCollection<StatusCount>("statusCount");
+            var col = _db.GetCollection<StatusCount>(Core.Db.StatusCount.DocumentName);
             var statusCount = col.Find(FilterDefinition<StatusCount>.Empty).FirstOrDefault();
             if (statusCount != null)
             {
@@ -686,7 +686,7 @@ namespace Wexflow.Core.MongoDB
 
         public override void IncrementStoppedCount()
         {
-            var col = _db.GetCollection<StatusCount>("statusCount");
+            var col = _db.GetCollection<StatusCount>(Core.Db.StatusCount.DocumentName);
             var statusCount = col.Find(FilterDefinition<StatusCount>.Empty).FirstOrDefault();
             if (statusCount != null)
             {
@@ -701,7 +701,7 @@ namespace Wexflow.Core.MongoDB
 
         public override void IncrementPendingCount()
         {
-            var col = _db.GetCollection<StatusCount>("statusCount");
+            var col = _db.GetCollection<StatusCount>(Core.Db.StatusCount.DocumentName);
             var statusCount = col.Find(FilterDefinition<StatusCount>.Empty).FirstOrDefault();
             if (statusCount != null)
             {
@@ -716,7 +716,7 @@ namespace Wexflow.Core.MongoDB
 
         public override void DecrementPendingCount()
         {
-            var col = _db.GetCollection<StatusCount>("statusCount");
+            var col = _db.GetCollection<StatusCount>(Core.Db.StatusCount.DocumentName);
             var statusCount = col.Find(FilterDefinition<StatusCount>.Empty).FirstOrDefault();
             if (statusCount != null)
             {

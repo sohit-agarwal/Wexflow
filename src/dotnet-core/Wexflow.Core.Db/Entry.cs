@@ -24,6 +24,8 @@ namespace Wexflow.Core.Db
 
     public class Entry
     {
+        public static readonly string DocumentName = "entries";
+
         public int WorkflowId { get; set; }
         public string Name { get; set; }
         public LaunchType LaunchType { get; set; }

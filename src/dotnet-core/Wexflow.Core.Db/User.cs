@@ -11,7 +11,8 @@ namespace Wexflow.Core.Db
 
     public class User
     {
-        //public int Id { get; set; }
+        public static readonly string DocumentName = "users";
+
         public string Username { get; set; }
         public string Password { get; set; }
         public UserProfile UserProfile { get; set; }
