@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Authentication;
 using Wexflow.Core.Db;
 
 namespace Wexflow.Core.MongoDB
@@ -12,7 +13,39 @@ namespace Wexflow.Core.MongoDB
 
         public Db(string connectionString) : base(connectionString)
         {
-            var client = new MongoClient(ConnectionString);
+            string mongoUrl = string.Empty;
+            bool enabledSslProtocols = false;
+            SslProtocols sslProtocols = SslProtocols.None;
+
+            var connectionStringParts = ConnectionString.Split(';');
+            foreach (var part in connectionStringParts)
+            {
+                if (!string.IsNullOrEmpty(part.Trim()))
+                {
+                    string connPart = part.TrimStart(' ').TrimEnd(' ');
+                    if (connPart.StartsWith("MongoUrl="))
+                    {
+                        mongoUrl = connPart.Replace("MongoUrl=", string.Empty);
+                    }
+                    else if (connPart.StartsWith("EnabledSslProtocols="))
+                    {
+                        enabledSslProtocols = bool.Parse(connPart.Replace("EnabledSslProtocols=", string.Empty));
+                    }
+                    else if (connPart.StartsWith("SslProtocols="))
+                    {
+                        sslProtocols = (SslProtocols)Enum.Parse(typeof(SslProtocols), connPart.Replace("SslProtocols=", string.Empty), true);
+                    }
+                }
+            }
+
+            var settings = MongoClientSettings.FromUrl(new MongoUrl(mongoUrl));
+
+            if (enabledSslProtocols)
+            {
+                settings.SslSettings = new SslSettings() { EnabledSslProtocols = sslProtocols };
+            }
+
+            var client = new MongoClient(settings);
             _db = client.GetDatabase("wexflow-dotnet-core");
         }
 

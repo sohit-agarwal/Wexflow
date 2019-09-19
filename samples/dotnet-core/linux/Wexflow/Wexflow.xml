@@ -10,8 +10,8 @@
   <Setting name="dbType" value="LiteDB" />
   <!--LiteDB-->
   <Setting name="connectionString" value="Filename=/opt/wexflow/Wexflow/Database/Wexflow.db; Mode=Exclusive" />
-  <!--MongoDB-->
-  <!--<Setting name="connectionString" value="mongodb://localhost:27017" />-->
+  <!--MongoDB. SslProtocols: None|Ssl2|Ssl3|Tls|Default|Tls11|Tls12-->
+  <!--<Setting name="connectionString" value="MongoUrl=mongodb://localhost:27017;EnabledSslProtocols=false;SslProtocols=None" />-->
   <!--RavenDB-->
   <!--<Setting name="connectionString" value="http://localhost:8080" />-->
   <Setting name="globalVariablesFile" value="/opt/wexflow/Wexflow/GlobalVariables.xml" />
