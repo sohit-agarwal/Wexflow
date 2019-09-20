@@ -262,6 +262,11 @@ Source: "..\src\dotnet\Wexflow.Clients.Manager\bin\x64\Release\Wexflow.Core.Serv
 Source: "..\src\dotnet\Wexflow.Clients.Manager\bin\x64\Release\Newtonsoft.Json.dll"; DestDir: "{app}\Manager"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Clients.Manager\bin\x64\Release\Wexflow.Core.Service.Contracts.dll"; DestDir: "{app}\Manager"; Flags: ignoreversion
 
+; Wexflow.Clients.CommandLine
+Source: "..\src\dotnet\Wexflow.Clients.CommandLine\bin\x64\Release\Wexflow.Clients.CommandLine.exe"; DestDir: "{app}\Wexflow.Clients.CommandLine"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.CommandLine\bin\x64\Release\Wexflow.Clients.CommandLine.exe.config"; DestDir: "{app}\Wexflow.Clients.CommandLine"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Clients.CommandLine\bin\x64\Release\*.dll"; DestDir: "{app}\Wexflow.Clients.CommandLine"; Flags: ignoreversion
+
 ; Wexflow Backend
 Source: "..\src\backend\Wexflow.Backend\index.html"; DestDir: "{app}\Backend"; Flags: ignoreversion
 Source: "..\src\backend\Wexflow.Backend\forgot-password.html"; DestDir: "{app}\Backend"; Flags: ignoreversion

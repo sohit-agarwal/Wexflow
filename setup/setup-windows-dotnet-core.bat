@@ -96,6 +96,9 @@ dotnet publish ..\src\dotnet-core\Wexflow.Scripts.CosmosDB\Wexflow.Scripts.Cosmo
 copy dotnet-core\windows\CosmosDB\appsettings.json %dstDir%\Wexflow.Scripts.CosmosDB
 copy dotnet-core\windows\install-CosmosDB.bat %dstDir%
 
+:: Wexflow.Clients.CommandLine
+dotnet publish ..\src\dotnet-core\Wexflow.Clients.CommandLine\Wexflow.Clients.CommandLine.csproj --force --output %~dp0\%dstDir%\Wexflow.Clients.CommandLine
+
 :: License
 :: copy ..\LICENSE.txt %dstDir%
 
