@@ -961,27 +961,19 @@ namespace Wexflow.Server
                     var xml = RequestStream.FromStream(Request.Body).AsString();
                     xml = CleanupXml(xml);
 
-                    var schemas = new XmlSchemaSet();
-                    schemas.Add("urn:wexflow-schema", Program.WexflowEngine.XsdPath);
-
                     var xdoc = XDocument.Parse(xml);
-                    string msg = string.Empty;
-                    xdoc.Validate(schemas, (o, e) =>
-                    {
-                        msg += e.Message + Environment.NewLine;
-                    });
 
-                    if (!string.IsNullOrEmpty(msg))
-                    {
-                        var resFalseStr = JsonConvert.SerializeObject(false);
-                        var resFalseBytes = Encoding.UTF8.GetBytes(resFalseStr);
-
-                        return new Response()
-                        {
-                            ContentType = "application/json",
-                            Contents = s => s.Write(resFalseBytes, 0, resFalseBytes.Length)
-                        };
-                    }
+                    new Core.Workflow(
+                            "-1"
+                          , xdoc.ToString()
+                          , Program.WexflowEngine.TempFolder
+                          , Program.WexflowEngine.WorkflowsTempFolder
+                          , Program.WexflowEngine.TasksFolder
+                          , Program.WexflowEngine.ApprovalFolder
+                          , Program.WexflowEngine.XsdPath
+                          , Program.WexflowEngine.Database
+                          , Program.WexflowEngine.GlobalVariables
+                        );
 
                     var resStr = JsonConvert.SerializeObject(true);
                     var resBytes = Encoding.UTF8.GetBytes(resStr);
@@ -1108,6 +1100,7 @@ namespace Wexflow.Server
                 .TrimEnd(trimChars)
                 .Replace("\\r", string.Empty)
                 .Replace("\\n", string.Empty)
+                .Replace("\\t", string.Empty)
                 .Replace("\\\"", "\"")
                 .Replace("\\\\", "\\");
         }

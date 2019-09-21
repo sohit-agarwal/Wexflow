@@ -548,22 +548,22 @@ namespace Wexflow.Server
 
                 xml = CleanupXml(xml);
 
-                var schemas = new XmlSchemaSet();
-                schemas.Add("urn:wexflow-schema", WexflowWindowsService.WexflowEngine.XsdPath);
-
                 var xdoc = XDocument.Parse(xml);
-                string msg = string.Empty;
-                xdoc.Validate(schemas, (o, e) =>
-                {
-                    msg += e.Message + Environment.NewLine;
-                });
 
-                if (!string.IsNullOrEmpty(msg))
-                {
-                    return false;
-                }
+                new Core.Workflow(
+                        "-1"
+                      , xdoc.ToString()
+                      , WexflowWindowsService.WexflowEngine.TempFolder
+                      , WexflowWindowsService.WexflowEngine.WorkflowsTempFolder
+                      , WexflowWindowsService.WexflowEngine.TasksFolder
+                      , WexflowWindowsService.WexflowEngine.ApprovalFolder
+                      , WexflowWindowsService.WexflowEngine.XsdPath
+                      , WexflowWindowsService.WexflowEngine.Database
+                      , WexflowWindowsService.WexflowEngine.GlobalVariables
+                    );
 
                 return true;
+
             }
             catch (Exception e)
             {
@@ -650,6 +650,7 @@ namespace Wexflow.Server
                 .TrimEnd(trimChars)
                 .Replace("\\r", string.Empty)
                 .Replace("\\n", string.Empty)
+                .Replace("\\t", string.Empty)
                 .Replace("\\\"", "\"")
                 .Replace("\\\\", "\\");
         }
