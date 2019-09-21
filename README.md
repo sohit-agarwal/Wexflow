@@ -39,11 +39,9 @@ I am looking for macOS testers. If you want to help, reply to this [issue](https
 
 # What's New?
 
-Take a look at the brand new [version 4.6](https://github.com/aelassas/Wexflow/releases/tag/v4.6). This version includes new features such as [Slack integration](https://github.com/aelassas/Wexflow/wiki/Slack) and [user profiles](https://github.com/aelassas/Wexflow/wiki/Usage#profiles), bug fixes, performance and security enhancements, and under the hood updates.
+Take a look at the brand new [version 4.7](https://github.com/aelassas/Wexflow/releases/tag/v4.6). This version brings support of [CosmosDB](https://github.com/aelassas/Wexflow/wiki/CosmosDB), [MangoDB](https://github.com/aelassas/Wexflow/wiki/MongoDB) and [RavenDB](https://github.com/aelassas/Wexflow/wiki/RavenDB). As well as a new [command line client](https://github.com/aelassas/Wexflow/wiki/Command-line-client) for querying Wexflow server.
 
-macOS issues have been fixed in this version which runs 100% on macOS starting from macOS 10.12 (Sierra) thanks to open source contributors.
-
-This version has also been depthly tested on Windows and Linux and runs 100% on Windows and Linux.
+This version has been depthly tested on Windows, Linux and macOS, and runs 100% on Windows, Linux and macOS.
 
 
 # Continuous Integration
@@ -105,7 +103,7 @@ Wexflow makes use of [.NET Core](https://www.microsoft.com/net/download), a cros
 
 Wexflow also makes use of [Quartz.NET](https://www.quartz-scheduler.net/) open source job scheduling system that is used in large scale enterprise systems. Thus, Wexflow offers flexibility in planning workflow jobs such as [cron workflows](https://github.com/aelassas/Wexflow/wiki/Cron-scheduling).
 
-Furthermore, Wexflow makes use of [LiteDB](http://www.litedb.org/) serverless NoSQL Document Store database in its server and backend which enhance and improve the performance of this workflow engine.
+Furthermore, Wexflow makes use of must popular databases such as [CosmosDB](https://github.com/aelassas/Wexflow/wiki/CosmosDB), [MangoDB](https://github.com/aelassas/Wexflow/wiki/MongoDB), [RavenDB](https://github.com/aelassas/Wexflow/wiki/RavenDB) and [LiteDB](http://www.litedb.org/) serverless NoSQL Document Store database in its server and back end which enhance and improve the performance of this workflow engine. The user can choose between the database of his choice at the installation.
 
 Wexflow comes with a back end too, so you can search and filter among all your workflows, have real-time statistics on your workflows, manage your workflows with ease, design your workflows with ease, and track your workflows with ease:
 
