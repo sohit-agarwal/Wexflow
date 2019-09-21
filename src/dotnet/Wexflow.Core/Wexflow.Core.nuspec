@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Wexflow</id>
-    <version>4.7.0</version>
+    <version>4.8.0</version>
     <title>Wexflow</title>
     <authors>Akram El Assas</authors>
     <owners>akram.elassas</owners>
@@ -11,7 +11,7 @@
     <repository type="git" url="https://github.com/aelassas/Wexflow" />
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Core assembly of Wexflow workflow engine.</description>
-    <releaseNotes>Added MongoDB, RavenDB and CosmosDB database layers.</releaseNotes>
+    <releaseNotes>Bug fixes, performance enhancements and under the hood updates.</releaseNotes>
     <copyright>Copyright (c) 2019 Akram El Assas.</copyright>
     <tags>Wexflow Workflow</tags>
   </metadata>
