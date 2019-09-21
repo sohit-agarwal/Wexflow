@@ -105,8 +105,8 @@
         "<div id='wf-tasks'>" +
         "</div>" +
         "<button type='button' id='wf-add-task' class='btn btn-dark btn-xs'>New task</button>" +
-        "<h3 id='wf-execution-graph-title'>Execution graph</h3>" +
-        "<div id='wf-execution-graph'></div>";
+        "<h3 id='wf-execution-graph-title'><a class='colpsible-panel' data-toggle='collapse' data-parent='#accordion' style='font-weight: bold' href='#wf-execution-graph'>Execution graph</a></h3>" +
+        "<div id='wf-execution-graph' class='panel-collapse collapse in'></div>";
 
     var html = "<div id='wf-container'>"
         + "<div id='wf-search'>"
