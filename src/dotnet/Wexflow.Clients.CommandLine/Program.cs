@@ -1,12 +1,9 @@
 ﻿using CommandLine;
 using CommandLine.Text;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Wexflow.Core.Service.Client;
 using Wexflow.Core.Service.Contracts;
 

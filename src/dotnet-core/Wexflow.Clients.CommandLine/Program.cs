@@ -1,11 +1,11 @@
 ﻿using CommandLine;
+using CommandLine.Text;
 using Microsoft.Extensions.Configuration;
 using System;
-using Wexflow.Core.Service.Client;
-using Wexflow.Core.Service.Contracts;
 using System.Linq;
 using System.Threading;
-using CommandLine.Text;
+using Wexflow.Core.Service.Client;
+using Wexflow.Core.Service.Contracts;
 
 namespace Wexflow.Clients.CommandLine
 {
