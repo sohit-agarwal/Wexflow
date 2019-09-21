@@ -144,6 +144,7 @@ Moreover, the "Designer" page allows to edit workflow files through its Web XML 
 - [x] [100+ built-in tasks](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation).
 - [x] [User-driven](https://github.com/aelassas/Wexflow/wiki/User-driven).
 - [x] [Cron scheduling](https://github.com/aelassas/Wexflow/wiki/Cron-scheduling).
+- [x] [CosmosDB, MongoDB, RavenDB and LiteDB support](https://github.com/aelassas/Wexflow/wiki/Databases).
 - [x] [Extensive logging and incident reporting](https://github.com/aelassas/Wexflow/wiki/Logging).
 - [x] [Real-time stats](https://github.com/aelassas/Wexflow/wiki/Usage#dashboard).
 - [x] [RESTful API](https://github.com/aelassas/Wexflow/wiki/RESTful-API).
