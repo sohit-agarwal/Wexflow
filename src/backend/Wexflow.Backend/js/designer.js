@@ -1149,18 +1149,23 @@
         }
     }
 
+    var collapseCreateId = 0;
     function addTask(workflowId, taskNames) {
         var wfTask = document.createElement("div");
         wfTask.className = "wf-task";
         var newTaskHtml =
             "<h5 class='wf-task-title'>" +
-            "<label class='wf-task-title-label'>Task</label>" +
+            "<a class='wf-task-title-label colpsible-panel' data-toggle='collapse' data-parent='#accordion' style='font-weight: bold' href='#collapseCreate" + collapseCreateId+"'>"+
+            //"<label class='wf-task-title-label'>Task</label>" +
+            "Task" +
+            "</a>" +
             "<button type='button' class='wf-remove-task btn btn-danger btn-xs' style='display: block;'>Delete</button>" +
             "<button type='button' class='wf-show-doc btn btn-dark btn-xs'>Documentation</button>" +
             "<button type='button' class='wf-show-taskxml btn btn-dark btn-xs'>Xml</button>" +
             "<button type='button' class='wf-add-setting btn btn-dark btn-xs'>New setting</button>" +
             "</h5>" +
-            "<table class='wf-designer-table'>" +
+            "<div id='collapseCreate" + collapseCreateId + "' class='panel-collapse collapse in'>" +
+            "<table id='collapseOne' class='wf-designer-table'>" +
             "<tbody>" +
             "<tr><td class='wf-taskxml' colspan='2'><pre><code class='wf-taskxml-container'></code></pre></td></tr>" +
             "<tr><td class='wf-title'>Id</td><td class='wf-value'><input class='wf-task-id' type='text' /></td></tr>" +
@@ -1178,9 +1183,12 @@
             "</tbody>" +
             "</table>" +
             "<table class='wf-designer-table wf-settings'>" +
-            "</table>";
+            "</table>" +
+            "</div>";
 
         wfTask.innerHTML = newTaskHtml;
+
+        collapseCreateId++;
 
         var lastTask = document.getElementsByClassName("wf-task")[workflowTasks[workflowId].length - 1];
         if (typeof lastTask !== "undefined" && lastTask !== null) {
@@ -1204,7 +1212,7 @@
         var wfTaskId = wfTask.getElementsByClassName("wf-task-id")[0];
         wfTaskId.onkeyup = function () {
             workflowTasks[workflowId][index].Id = wfTaskId.value;
-            this.parentElement.parentElement.parentElement.parentElement.parentElement.getElementsByClassName(
+            this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getElementsByClassName(
                 "wf-task-title-label")[0].innerHTML = "Task " + wfTaskId.value;
             loadExecutionGraph();
         };
@@ -1222,7 +1230,7 @@
                     function (settings) {
 
                         var wfAddSetting =
-                            wfTaskName.parentElement.parentElement.parentElement.parentElement.parentElement
+                            wfTaskName.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement
                                 .getElementsByClassName("wf-add-setting")[0];
                         workflowTasks[workflowId][index].Settings = [];
                         wfSettingsTable.innerHTML = "";
@@ -1387,7 +1395,7 @@
         cell3.innerHTML = "<button type='button' class='wf-remove-attribute btn btn-danger btn-xs'>Delete</button>";
 
         var taskIndex =
-            getElementIndex(btn.parentElement.parentElement.parentElement.parentElement.parentElement);
+            getElementIndex(btn.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement);
         var task = workflowTasks[workflowId][taskIndex];
 
         var settingIndex = getElementIndex(btn.parentElement.parentElement);
@@ -1417,7 +1425,7 @@
     }
 
     function removeAttribute(workflowId, btn) {
-        var taskIndex = getElementIndex(btn.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement);
+        var taskIndex = getElementIndex(btn.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement);
         var task = workflowTasks[workflowId][taskIndex];
 
         var settingIndex = getElementIndex(btn.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement);
@@ -1428,7 +1436,7 @@
     }
 
     function removeSetting(workflowId, btn) {
-        var taskIndex = getElementIndex(btn.parentElement.parentElement.parentElement.parentElement.parentElement);
+        var taskIndex = getElementIndex(btn.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement);
         var task = workflowTasks[workflowId][taskIndex];
         var index = getElementIndex(btn.parentElement.parentElement);
         task.Settings = deleteRow(task.Settings, index);
@@ -2170,15 +2178,19 @@
             function (taskNames) {
 
                 for (var i = 0; i < tasks.length; i++) {
+                    
                     var task = tasks[i];
 
                     tasksHtml += "<div class='wf-task'>" +
-                        "<h5 class='wf-task-title'><label class='wf-task-title-label'>Task " + task.Id + "</label>" +
+                        //"<h5 class='wf-task-title'><label class='wf-task-title-label'>Task " + task.Id + "</label>" +
+                        "<h5 class='wf-task-title'>" +
+                        "<a class='wf-task-title-label colpsible-panel' data-toggle='collapse' data-parent='#accordion' style='font-weight: bold' href='#collapse" + task.Id + "'>" + "Task " + task.Id + "</a>" +
                         "<button type='button' class='wf-remove-task btn btn-danger btn-xs'>Delete</button>" +
                         "<button type='button' class='wf-show-doc btn btn-dark btn-xs'>Documentation</button>" +
                         "<button type='button' class='wf-show-taskxml btn btn-dark btn-xs'>Xml</button>" +
                         "<button type='button' class='wf-add-setting btn btn-dark btn-xs'>New setting</button>" +
                         "</h5>" +
+                        "<div id='collapse" + task.Id + "' class='panel-collapse collapse in'>" +
                         "<table class='wf-designer-table'>" +
                         "<tbody>" +
                         "<tr><td class='wf-taskxml' colspan='2'><pre><code class='wf-taskxml-container'></code></pre></td></tr>" +
@@ -2234,7 +2246,8 @@
 
                     tasksHtml += "</tbody>" +
                         "</table>" +
-                        "</div > ";
+                        "</div>" +
+                        "</div>";
                 }
 
                 document.getElementById("wf-tasks").innerHTML = tasksHtml;
