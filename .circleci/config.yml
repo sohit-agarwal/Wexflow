@@ -25,7 +25,7 @@ jobs:
      - checkout
      - run:
          name: "Build"
-         working_directory: ~/code/src/ios/swift-3
+         working_directory: ~/code/src/ios/
          command: xcodebuild clean build -scheme "Wexflow" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
          
 workflows:
