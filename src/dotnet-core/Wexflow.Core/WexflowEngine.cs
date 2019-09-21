@@ -302,6 +302,25 @@ namespace Wexflow.Core
 
                     if (workflow == null) // insert
                     {
+                        // check the workflow before to save it
+                        try
+                        {
+                            new Workflow("-1"
+                            , xml
+                            , TempFolder
+                            , WorkflowsTempFolder
+                            , TasksFolder
+                            , ApprovalFolder
+                            , XsdPath
+                            , Database
+                            , GlobalVariables
+                            );
+                        }
+                        catch (Exception e)
+                        {
+                            Logger.ErrorFormat("An error occured while saving the workflow {0}:", e, xml);
+                            return "-1";
+                        }
                         string dbId = Database.InsertWorkflow(new Db.Workflow { Xml = xml });
 
                         if (userProfile == UserProfile.Administrator)
@@ -319,6 +338,26 @@ namespace Wexflow.Core
                     }
                     else // update
                     {
+                        // check the workflow before to save it
+                        try
+                        {
+                            new Workflow("-1"
+                            , xml
+                            , TempFolder
+                            , WorkflowsTempFolder
+                            , TasksFolder
+                            , ApprovalFolder
+                            , XsdPath
+                            , Database
+                            , GlobalVariables
+                            );
+                        }
+                        catch (Exception e)
+                        {
+                            Logger.ErrorFormat("An error occured while saving the workflow {0}:", e, xml);
+                            return "-1";
+                        }
+
                         var workflowFromDb = Database.GetWorkflow(workflow.DbId);
                         workflowFromDb.Xml = xml;
                         Database.UpdateWorkflow(workflow.DbId, workflowFromDb);
@@ -522,65 +561,72 @@ namespace Wexflow.Core
 
         private void ScheduleWorkflow(Workflow wf)
         {
-            if (wf.IsEnabled)
+            try
             {
-                if (wf.LaunchType == LaunchType.Startup)
+                if (wf.IsEnabled)
                 {
-                    wf.Start();
-                }
-                else if (wf.LaunchType == LaunchType.Periodic)
-                {
-                    IDictionary<string, object> map = new Dictionary<string, object>();
-                    map.Add("workflow", wf);
-
-                    string jobIdentity = "Workflow Job " + wf.Id;
-                    IJobDetail jobDetail = JobBuilder.Create<WorkflowJob>()
-                        .WithIdentity(jobIdentity)
-                        .SetJobData(new JobDataMap(map))
-                        .Build();
-
-                    ITrigger trigger = TriggerBuilder.Create()
-                        .ForJob(jobDetail)
-                        .WithSimpleSchedule(x => x.WithInterval(wf.Period).RepeatForever())
-                        .WithIdentity("Workflow Trigger " + wf.Id)
-                        .StartNow()
-                        .Build();
-
-                    var jobKey = new JobKey(jobIdentity);
-                    if (QuartzScheduler.CheckExists(jobKey).Result)
+                    if (wf.LaunchType == LaunchType.Startup)
                     {
-                        QuartzScheduler.DeleteJob(jobKey);
+                        wf.Start();
                     }
-
-                    QuartzScheduler.ScheduleJob(jobDetail, trigger).Wait();
-
-                }
-                else if (wf.LaunchType == LaunchType.Cron)
-                {
-                    IDictionary<string, object> map = new Dictionary<string, object>();
-                    map.Add("workflow", wf);
-
-                    string jobIdentity = "Workflow Job " + wf.Id;
-                    IJobDetail jobDetail = JobBuilder.Create<WorkflowJob>()
-                        .WithIdentity(jobIdentity)
-                        .SetJobData(new JobDataMap(map))
-                        .Build();
-
-                    ITrigger trigger = TriggerBuilder.Create()
-                        .ForJob(jobDetail)
-                        .WithCronSchedule(wf.CronExpression)
-                        .WithIdentity("Workflow Trigger " + wf.Id)
-                        .StartNow()
-                        .Build();
-
-                    var jobKey = new JobKey(jobIdentity);
-                    if (QuartzScheduler.CheckExists(jobKey).Result)
+                    else if (wf.LaunchType == LaunchType.Periodic)
                     {
-                        QuartzScheduler.DeleteJob(jobKey);
-                    }
+                        IDictionary<string, object> map = new Dictionary<string, object>();
+                        map.Add("workflow", wf);
 
-                    QuartzScheduler.ScheduleJob(jobDetail, trigger).Wait();
+                        string jobIdentity = "Workflow Job " + wf.Id;
+                        IJobDetail jobDetail = JobBuilder.Create<WorkflowJob>()
+                            .WithIdentity(jobIdentity)
+                            .SetJobData(new JobDataMap(map))
+                            .Build();
+
+                        ITrigger trigger = TriggerBuilder.Create()
+                            .ForJob(jobDetail)
+                            .WithSimpleSchedule(x => x.WithInterval(wf.Period).RepeatForever())
+                            .WithIdentity("Workflow Trigger " + wf.Id)
+                            .StartNow()
+                            .Build();
+
+                        var jobKey = new JobKey(jobIdentity);
+                        if (QuartzScheduler.CheckExists(jobKey).Result)
+                        {
+                            QuartzScheduler.DeleteJob(jobKey);
+                        }
+
+                        QuartzScheduler.ScheduleJob(jobDetail, trigger).Wait();
+
+                    }
+                    else if (wf.LaunchType == LaunchType.Cron)
+                    {
+                        IDictionary<string, object> map = new Dictionary<string, object>();
+                        map.Add("workflow", wf);
+
+                        string jobIdentity = "Workflow Job " + wf.Id;
+                        IJobDetail jobDetail = JobBuilder.Create<WorkflowJob>()
+                            .WithIdentity(jobIdentity)
+                            .SetJobData(new JobDataMap(map))
+                            .Build();
+
+                        ITrigger trigger = TriggerBuilder.Create()
+                            .ForJob(jobDetail)
+                            .WithCronSchedule(wf.CronExpression)
+                            .WithIdentity("Workflow Trigger " + wf.Id)
+                            .StartNow()
+                            .Build();
+
+                        var jobKey = new JobKey(jobIdentity);
+                        if (QuartzScheduler.CheckExists(jobKey).Result)
+                        {
+                            QuartzScheduler.DeleteJob(jobKey);
+                        }
+
+                        QuartzScheduler.ScheduleJob(jobDetail, trigger).Wait();
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                Logger.ErrorFormat("An error occured while scheduling the workflow {0}: ", e, wf);
             }
         }
 

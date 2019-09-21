@@ -386,7 +386,8 @@ namespace Wexflow.Server
             var wf = WexflowWindowsService.WexflowEngine.GetWorkflow(int.Parse(id));
             if (wf != null)
             {
-                return wf.XDoc.ToString();
+                //return wf.XDoc.ToString();
+                return wf.Xml;
             }
 
             return string.Empty;
@@ -595,7 +596,11 @@ namespace Wexflow.Server
                 {
                     if (user.UserProfile == Core.Db.UserProfile.SuperAdministrator)
                     {
-                        WexflowWindowsService.WexflowEngine.SaveWorkflow(user.GetId(), user.UserProfile, xml);
+                        var res = WexflowWindowsService.WexflowEngine.SaveWorkflow(user.GetId(), user.UserProfile, xml);
+                        if (res == "-1")
+                        {
+                            return false;
+                        }
                         return true;
                     }
                     else if (user.UserProfile == Core.Db.UserProfile.Administrator)
@@ -604,7 +609,11 @@ namespace Wexflow.Server
                         var check = WexflowWindowsService.WexflowEngine.CheckUserWorkflow(user.GetId(), workflowDbId);
                         if (check)
                         {
-                            WexflowWindowsService.WexflowEngine.SaveWorkflow(user.GetId(), user.UserProfile, xml);
+                            var res = WexflowWindowsService.WexflowEngine.SaveWorkflow(user.GetId(), user.UserProfile, xml);
+                            if (res == "-1")
+                            {
+                                return false;
+                            }
                             return true;
                         }
                     }
@@ -830,11 +839,15 @@ namespace Wexflow.Server
                     xdoc.Add(xwf);
 
                     var path = (string)wi.SelectToken("Path");
-                    WexflowWindowsService.WexflowEngine.SaveWorkflow(user.GetId(), user.UserProfile, xdoc.ToString());
+                    var res = WexflowWindowsService.WexflowEngine.SaveWorkflow(user.GetId(), user.UserProfile, xdoc.ToString());
                     //if (user.UserProfile == Core.Db.UserProfile.Administrator)
                     //{
                     //    WexflowWindowsService.WexflowEngine.InsertUserWorkflowRelation(user.Id, dbId);
                     //}
+                    if (res == "-1")
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
@@ -1021,7 +1034,12 @@ namespace Wexflow.Server
                         }
 
                         //xdoc.Save(wf.WorkflowFilePath);
-                        WexflowWindowsService.WexflowEngine.SaveWorkflow(user.GetId(), user.UserProfile, xdoc.ToString());
+                        var res = WexflowWindowsService.WexflowEngine.SaveWorkflow(user.GetId(), user.UserProfile, xdoc.ToString());
+
+                        if(res == "-1")
+                        {
+                            return false;
+                        }
                     }
                 }
 

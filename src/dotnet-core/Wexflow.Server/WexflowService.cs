@@ -706,10 +706,11 @@ namespace Wexflow.Server
         {
             Get(Root + "xml/{id}", args =>
             {
-                var wf = Program.WexflowEngine.GetWorkflow(args.id);
+                Core.Workflow wf = Program.WexflowEngine.GetWorkflow(args.id);
                 if (wf != null)
                 {
-                    var xmlStr = JsonConvert.SerializeObject(wf.XDoc.ToString());
+                    //var xmlStr = JsonConvert.SerializeObject(wf.XDoc.ToString());
+                    var xmlStr = JsonConvert.SerializeObject(wf.Xml);
                     var xmlBytes = Encoding.UTF8.GetBytes(xmlStr);
 
                     return new Response()
@@ -1031,8 +1032,15 @@ namespace Wexflow.Server
                     {
                         if (user.UserProfile == Core.Db.UserProfile.SuperAdministrator)
                         {
-                            Program.WexflowEngine.SaveWorkflow(user.GetId(), user.UserProfile, xml);
-                            res = true;
+                            var id = Program.WexflowEngine.SaveWorkflow(user.GetId(), user.UserProfile, xml);
+                            if (id == "-1")
+                            {
+                                res = false;
+                            }
+                            else
+                            {
+                                res = true;
+                            }
                         }
                         else if (user.UserProfile == Core.Db.UserProfile.Administrator)
                         {
@@ -1040,8 +1048,15 @@ namespace Wexflow.Server
                             var check = Program.WexflowEngine.CheckUserWorkflow(user.GetId(), workflowDbId);
                             if (check)
                             {
-                                Program.WexflowEngine.SaveWorkflow(user.GetId(), user.UserProfile, xml);
-                                res = true;
+                                var id = Program.WexflowEngine.SaveWorkflow(user.GetId(), user.UserProfile, xml);
+                                if (id == "-1")
+                                {
+                                    res = false;
+                                }
+                                else
+                                {
+                                    res = true;
+                                }
                             }
                         }
                     }
@@ -1281,11 +1296,22 @@ namespace Wexflow.Server
 
                         //var path = (string)wi.SelectToken("Path");
                         //xdoc.Save(path);
-                        Program.WexflowEngine.SaveWorkflow(user.GetId(), user.UserProfile, xdoc.ToString());
+                        var id = Program.WexflowEngine.SaveWorkflow(user.GetId(), user.UserProfile, xdoc.ToString());
                         //if (user.UserProfile == Core.Db.UserProfile.Administrator)
                         //{
                         //    Program.WexflowEngine.InsertUserWorkflowRelation(user.GetId(), dbId);
                         //}
+                        if (id == "-1")
+                        {
+                            var qFalseStr = JsonConvert.SerializeObject(false);
+                            var qFalseBytes = Encoding.UTF8.GetBytes(qFalseStr);
+
+                            return new Response()
+                            {
+                                ContentType = "application/json",
+                                Contents = s => s.Write(qFalseBytes, 0, qFalseBytes.Length)
+                            };
+                        }
                     }
                     else
                     {
@@ -1471,7 +1497,18 @@ namespace Wexflow.Server
                             }
 
                             //xdoc.Save(wf.WorkflowFilePath);
-                            Program.WexflowEngine.SaveWorkflow(user.GetId(), user.UserProfile, xdoc.ToString());
+                            var qid = Program.WexflowEngine.SaveWorkflow(user.GetId(), user.UserProfile, xdoc.ToString());
+                            if (qid == "-1")
+                            {
+                                var falseStr = JsonConvert.SerializeObject(false);
+                                var falseBytes = Encoding.UTF8.GetBytes(falseStr);
+
+                                return new Response()
+                                {
+                                    ContentType = "application/json",
+                                    Contents = s => s.Write(falseBytes, 0, falseBytes.Length)
+                                };
+                            }
                         }
                     }
 
