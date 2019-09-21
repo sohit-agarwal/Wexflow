@@ -39,7 +39,7 @@ I am looking for macOS testers. If you want to help, reply to this [issue](https
 
 # What's New?
 
-Take a look at the brand new [version 4.7](https://github.com/aelassas/Wexflow/releases/tag/v4.6). This version brings support of [CosmosDB](https://github.com/aelassas/Wexflow/wiki/CosmosDB), [MangoDB](https://github.com/aelassas/Wexflow/wiki/MongoDB) and [RavenDB](https://github.com/aelassas/Wexflow/wiki/RavenDB). As well as a new [command line client](https://github.com/aelassas/Wexflow/wiki/Command-line-client) for querying Wexflow server.
+Take a look at the brand new [version 4.7](https://github.com/aelassas/Wexflow/releases/tag/v4.7). This version brings support of [CosmosDB](https://github.com/aelassas/Wexflow/wiki/CosmosDB), [MangoDB](https://github.com/aelassas/Wexflow/wiki/MongoDB) and [RavenDB](https://github.com/aelassas/Wexflow/wiki/RavenDB). As well as a new [command line client](https://github.com/aelassas/Wexflow/wiki/Command-line-client) for querying Wexflow server.
 
 This version has been depthly tested on Windows, Linux and macOS, and runs 100% on Windows, Linux and macOS.
 
