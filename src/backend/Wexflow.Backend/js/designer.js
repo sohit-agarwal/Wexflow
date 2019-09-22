@@ -106,7 +106,7 @@
         "</div>" +
         "<button type='button' id='wf-add-task' class='btn btn-dark btn-xs'>New task</button>" +
         "<h3 id='wf-execution-graph-title'><a class='colpsible-panel' data-toggle='collapse' data-parent='#accordion' style='font-weight: bold' href='#wf-execution-graph'>Execution graph</a></h3>" +
-        "<div id='wf-execution-graph' class='panel-collapse collapse in'></div>";
+        "<div id='wf-execution-graph' class='panel-collapse collapse'></div>";
 
     var html = "<div id='wf-container'>"
         + "<div id='wf-search'>"
@@ -2190,7 +2190,7 @@
                         "<button type='button' class='wf-show-taskxml btn btn-dark btn-xs'>Xml</button>" +
                         "<button type='button' class='wf-add-setting btn btn-dark btn-xs'>New setting</button>" +
                         "</h5>" +
-                        "<div id='collapse" + task.Id + "' class='panel-collapse collapse in'>" +
+                        "<div id='collapse" + task.Id + "' class='panel-collapse collapse'>" +
                         "<table class='wf-designer-table'>" +
                         "<tbody>" +
                         "<tr><td class='wf-taskxml' colspan='2'><pre><code class='wf-taskxml-container'></code></pre></td></tr>" +

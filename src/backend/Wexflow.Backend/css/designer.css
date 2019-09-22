@@ -131,6 +131,14 @@ body {
     overflow-x: hidden;
 }
 
+#wf-designer-right-panel a:visited, a:active, a:link{
+    text-decoration: none;
+}
+
+#wf-designer-right-panel a:hover{
+    text-decoration: underline;
+}
+
 #wf-local-vars, #wf-tasks, .wf-task, .wf-add-setting-title {
     margin-top: 10px;
 }
