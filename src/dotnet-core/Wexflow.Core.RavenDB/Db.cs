@@ -15,14 +15,33 @@ namespace Wexflow.Core.RavenDB
 {
     public class Db : Core.Db.Db
     {
-        private static string _databaseName = "wexflow-dotnet-core";
+        private string _databaseName = "wexflow-dotnet-core";
         private DocumentStore _store;
 
         public Db(string connectionString) : base(connectionString)
         {
+            string ravenUrl = string.Empty;
+
+            var connectionStringParts = ConnectionString.Split(';');
+            foreach (var part in connectionStringParts)
+            {
+                if (!string.IsNullOrEmpty(part.Trim()))
+                {
+                    string connPart = part.TrimStart(' ').TrimEnd(' ');
+                    if (connPart.StartsWith("DatabaseName="))
+                    {
+                        _databaseName = connPart.Replace("DatabaseName=", string.Empty);
+                    }
+                    else if (connPart.StartsWith("RavenUrl="))
+                    {
+                        ravenUrl = connPart.Replace("RavenUrl=", string.Empty);
+                    }
+                }
+            }
+
             _store = new DocumentStore
             {
-                Urls = new string[] { ConnectionString },
+                Urls = new string[] { ravenUrl },
                 Database = _databaseName
             };
 

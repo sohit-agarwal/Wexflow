@@ -11,11 +11,11 @@
   <!--LiteDB-->
   <Setting name="connectionString" value="Filename=C:\Wexflow-dotnet-core\Database\Wexflow.db; Mode=Exclusive" />
   <!--MongoDB. SslProtocols: None|Ssl2|Ssl3|Tls|Default|Tls11|Tls12-->
-  <!--<Setting name="connectionString" value="MongoUrl=mongodb://localhost:27017;EnabledSslProtocols=false;SslProtocols=None" />-->
+  <!--<Setting name="connectionString" value="DatabaseName=wexflow-dotnet-core;MongoUrl=mongodb://localhost:27017;EnabledSslProtocols=false;SslProtocols=None" />-->
   <!--RavenDB-->
-  <!--<Setting name="connectionString" value="http://localhost:8080" />-->
+  <!--<Setting name="connectionString" value="DatabaseName=wexflow-dotnet-core;RavenUrl=http://localhost:8080" />-->
   <!--CosmosDB-->
-  <!--<Setting name="connectionString" value="EndpointUrl=URL;AuthorizationKey=KEY" />-->
+  <!--<Setting name="connectionString" value="DatabaseName=wexflow-dotnet-core;EndpointUrl=URL;AuthorizationKey=KEY" />-->
   <Setting name="globalVariablesFile" value="C:\Wexflow-dotnet-core\GlobalVariables.xml" />
   <Setting name="maxRetries" value="5" />
   <Setting name="retryTimeout" value="700" />

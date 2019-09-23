@@ -8,7 +8,7 @@ namespace Wexflow.Core.CosmosDB
 {
     public class Db : Core.Db.Db
     {
-        private static readonly string databaseName = "wexflow-dotnet-core";
+        private string _databaseName = "wexflow-dotnet-core";
 
         private string _endpointUrl;
         private string _authorizationKey;
@@ -23,7 +23,11 @@ namespace Wexflow.Core.CosmosDB
                 if (!string.IsNullOrEmpty(part.Trim()))
                 {
                     string connPart = part.TrimStart(' ').TrimEnd(' ');
-                    if (connPart.StartsWith("EndpointUrl="))
+                    if (connPart.StartsWith("DatabaseName="))
+                    {
+                        _databaseName = connPart.Replace("DatabaseName=", string.Empty);
+                    }
+                    else if (connPart.StartsWith("EndpointUrl="))
                     {
                         _endpointUrl = connPart.Replace("EndpointUrl=", string.Empty);
                     }
@@ -36,13 +40,13 @@ namespace Wexflow.Core.CosmosDB
 
             _helper = new Helper(_endpointUrl, _authorizationKey);
 
-            _helper.CreateDatabaseIfNotExists(databaseName);
-            _helper.CreateDocumentCollectionIfNotExists(databaseName, Core.Db.Entry.DocumentName);
-            _helper.CreateDocumentCollectionIfNotExists(databaseName, Core.Db.HistoryEntry.DocumentName);
-            _helper.CreateDocumentCollectionIfNotExists(databaseName, Core.Db.StatusCount.DocumentName);
-            _helper.CreateDocumentCollectionIfNotExists(databaseName, Core.Db.User.DocumentName);
-            _helper.CreateDocumentCollectionIfNotExists(databaseName, Core.Db.UserWorkflow.DocumentName);
-            _helper.CreateDocumentCollectionIfNotExists(databaseName, Core.Db.Workflow.DocumentName);
+            _helper.CreateDatabaseIfNotExists(_databaseName);
+            _helper.CreateDocumentCollectionIfNotExists(_databaseName, Core.Db.Entry.DocumentName);
+            _helper.CreateDocumentCollectionIfNotExists(_databaseName, Core.Db.HistoryEntry.DocumentName);
+            _helper.CreateDocumentCollectionIfNotExists(_databaseName, Core.Db.StatusCount.DocumentName);
+            _helper.CreateDocumentCollectionIfNotExists(_databaseName, Core.Db.User.DocumentName);
+            _helper.CreateDocumentCollectionIfNotExists(_databaseName, Core.Db.UserWorkflow.DocumentName);
+            _helper.CreateDocumentCollectionIfNotExists(_databaseName, Core.Db.Workflow.DocumentName);
         }
 
         public override void Init()
@@ -63,13 +67,13 @@ namespace Wexflow.Core.CosmosDB
             };
 
             //_helper.
-            _helper.CreateDocument(databaseName, Core.Db.StatusCount.DocumentName, statusCount);
+            _helper.CreateDocument(_databaseName, Core.Db.StatusCount.DocumentName, statusCount);
 
             // Entries
             ClearEntries();
 
             // Insert default user if necessary
-            var usersCol = _helper.ReadDocumentFeed(databaseName, Core.Db.User.DocumentName);
+            var usersCol = _helper.ReadDocumentFeed(_databaseName, Core.Db.User.DocumentName);
             if (usersCol.Length == 0)
             {
                 InsertDefaultUser();
@@ -81,7 +85,7 @@ namespace Wexflow.Core.CosmosDB
             using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
             {
                 UserWorkflow userWorkflow = client.CreateDocumentQuery<UserWorkflow>(
-                UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.UserWorkflow.DocumentName))
+                UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.UserWorkflow.DocumentName))
                 .Where(uw => uw.UserId == userId && uw.WorkflowId == workflowId)
                 .AsEnumerable().ToArray()
                 .FirstOrDefault();
@@ -92,12 +96,12 @@ namespace Wexflow.Core.CosmosDB
 
         public override void ClearEntries()
         {
-            _helper.DeleteAllDocuments(databaseName, Core.Db.Entry.DocumentName);
+            _helper.DeleteAllDocuments(_databaseName, Core.Db.Entry.DocumentName);
         }
 
         public override void ClearStatusCount()
         {
-            _helper.DeleteAllDocuments(databaseName, Core.Db.StatusCount.DocumentName);
+            _helper.DeleteAllDocuments(_databaseName, Core.Db.StatusCount.DocumentName);
         }
 
         public override void DecrementPendingCount()
@@ -105,13 +109,13 @@ namespace Wexflow.Core.CosmosDB
             using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
             {
                 StatusCount statusCount = client.CreateDocumentQuery<StatusCount>(
-                UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.StatusCount.DocumentName))
+                UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.StatusCount.DocumentName))
                 .AsEnumerable().ToArray()
                 .First();
 
                 statusCount.PendingCount--;
 
-                _helper.ReplaceDocument(databaseName, Core.Db.StatusCount.DocumentName, statusCount, statusCount.Id);
+                _helper.ReplaceDocument(_databaseName, Core.Db.StatusCount.DocumentName, statusCount, statusCount.Id);
             }
         }
 
@@ -120,13 +124,13 @@ namespace Wexflow.Core.CosmosDB
             using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
             {
                 StatusCount statusCount = client.CreateDocumentQuery<StatusCount>(
-                UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.StatusCount.DocumentName))
+                UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.StatusCount.DocumentName))
                 .AsEnumerable().ToArray()
                 .First();
 
                 statusCount.RunningCount--;
 
-                _helper.ReplaceDocument(databaseName, Core.Db.StatusCount.DocumentName, statusCount, statusCount.Id);
+                _helper.ReplaceDocument(_databaseName, Core.Db.StatusCount.DocumentName, statusCount, statusCount.Id);
             }
         }
 
@@ -135,14 +139,14 @@ namespace Wexflow.Core.CosmosDB
             using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
             {
                 var user = client.CreateDocumentQuery<User>(
-                UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.User.DocumentName))
+                UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.User.DocumentName))
                 .Where(u => u.Username == username && u.Password == password)
                 .AsEnumerable().ToArray()
                 .FirstOrDefault();
 
                 if (user != null)
                 {
-                    _helper.DeleteDocument(databaseName, Core.Db.User.DocumentName, user.Id);
+                    _helper.DeleteDocument(_databaseName, Core.Db.User.DocumentName, user.Id);
                     DeleteUserWorkflowRelationsByUserId(user.Id);
                 }
             }
@@ -153,14 +157,14 @@ namespace Wexflow.Core.CosmosDB
             using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
             {
                 var rels = client.CreateDocumentQuery<UserWorkflow>(
-                UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.UserWorkflow.DocumentName))
+                UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.UserWorkflow.DocumentName))
                 .Where(uw => uw.UserId == userId)
                 .AsEnumerable().ToArray()
                 .ToArray();
 
                 foreach (var rel in rels)
                 {
-                    _helper.DeleteDocument(databaseName, Core.Db.UserWorkflow.DocumentName, rel.Id);
+                    _helper.DeleteDocument(_databaseName, Core.Db.UserWorkflow.DocumentName, rel.Id);
                 }
             }
         }
@@ -170,14 +174,14 @@ namespace Wexflow.Core.CosmosDB
             using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
             {
                 var rels = client.CreateDocumentQuery<UserWorkflow>(
-                UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.UserWorkflow.DocumentName))
+                UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.UserWorkflow.DocumentName))
                 .Where(uw => uw.WorkflowId == workflowDbId)
                 .AsEnumerable().ToArray()
                 .ToArray();
 
                 foreach (var rel in rels)
                 {
-                    _helper.DeleteDocument(databaseName, Core.Db.UserWorkflow.DocumentName, rel.Id);
+                    _helper.DeleteDocument(_databaseName, Core.Db.UserWorkflow.DocumentName, rel.Id);
                 }
             }
         }
@@ -187,14 +191,14 @@ namespace Wexflow.Core.CosmosDB
             using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
             {
                 var workflow = client.CreateDocumentQuery<Workflow>(
-                UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.Workflow.DocumentName))
+                UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.Workflow.DocumentName))
                 .Where(w => w.Id == id)
                 .AsEnumerable().ToArray()
                 .FirstOrDefault();
 
                 if (workflow != null)
                 {
-                    _helper.DeleteDocument(databaseName, Core.Db.Workflow.DocumentName, workflow.Id);
+                    _helper.DeleteDocument(_databaseName, Core.Db.Workflow.DocumentName, workflow.Id);
                 }
             }
         }
@@ -204,14 +208,14 @@ namespace Wexflow.Core.CosmosDB
             using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
             {
                 var workflows = client.CreateDocumentQuery<Workflow>(
-                UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.Workflow.DocumentName))
+                UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.Workflow.DocumentName))
                 .Where(w => ids.Contains(w.Id))
                 .AsEnumerable().ToArray()
                 .ToArray();
 
                 foreach (var workflow in workflows)
                 {
-                    _helper.DeleteDocument(databaseName, Core.Db.Workflow.DocumentName, workflow.Id);
+                    _helper.DeleteDocument(_databaseName, Core.Db.Workflow.DocumentName, workflow.Id);
                 }
             }
         }
@@ -226,14 +230,14 @@ namespace Wexflow.Core.CosmosDB
                 {
                     case UserOrderBy.UsernameAscending:
                         return client.CreateDocumentQuery<User>(
-                               UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.User.DocumentName))
+                               UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.User.DocumentName))
                                .Where(u => u.Username.ToLower().Contains(keywordToLower) && u.UserProfile == UserProfile.Administrator)
                                .OrderBy(u => u.Username)
                                .AsEnumerable().ToArray();
 
                     case UserOrderBy.UsernameDescending:
                         return client.CreateDocumentQuery<User>(
-                               UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.User.DocumentName))
+                               UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.User.DocumentName))
                                .Where(u => u.Username.ToLower().Contains(keywordToLower) && u.UserProfile == UserProfile.Administrator)
                                .OrderByDescending(u => u.Username)
                                .AsEnumerable().ToArray();
@@ -248,7 +252,7 @@ namespace Wexflow.Core.CosmosDB
             using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
             {
                 return client.CreateDocumentQuery<Entry>(
-                              UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.Entry.DocumentName))
+                              UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.Entry.DocumentName))
                               .AsEnumerable().ToArray()
                               .ToArray();
             }
@@ -267,7 +271,7 @@ namespace Wexflow.Core.CosmosDB
 
                         return
                             client.CreateDocumentQuery<Entry>(
-                              UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.Entry.DocumentName))
+                              UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.Entry.DocumentName))
                             .Where(e => (e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower)) && e.StatusDate > from && e.StatusDate < to)
                             .OrderBy(e => e.StatusDate)
                             .Skip((page - 1) * entriesCount).Take(entriesCount)
@@ -277,7 +281,7 @@ namespace Wexflow.Core.CosmosDB
 
                         return
                            client.CreateDocumentQuery<Entry>(
-                             UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.Entry.DocumentName))
+                             UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.Entry.DocumentName))
                            .Where(e => (e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower)) && e.StatusDate > from && e.StatusDate < to)
                            .OrderByDescending(e => e.StatusDate)
                            .Skip((page - 1) * entriesCount).Take(entriesCount)
@@ -287,7 +291,7 @@ namespace Wexflow.Core.CosmosDB
 
                         return
                            client.CreateDocumentQuery<Entry>(
-                             UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.Entry.DocumentName))
+                             UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.Entry.DocumentName))
                            .Where(e => (e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower)) && e.StatusDate > from && e.StatusDate < to)
                            .OrderBy(e => e.WorkflowId)
                            .Skip((page - 1) * entriesCount).Take(entriesCount)
@@ -297,7 +301,7 @@ namespace Wexflow.Core.CosmosDB
 
                         return
                            client.CreateDocumentQuery<Entry>(
-                             UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.Entry.DocumentName))
+                             UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.Entry.DocumentName))
                            .Where(e => (e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower)) && e.StatusDate > from && e.StatusDate < to)
                            .OrderByDescending(e => e.WorkflowId)
                            .Skip((page - 1) * entriesCount).Take(entriesCount)
@@ -307,7 +311,7 @@ namespace Wexflow.Core.CosmosDB
 
                         return
                            client.CreateDocumentQuery<Entry>(
-                             UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.Entry.DocumentName))
+                             UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.Entry.DocumentName))
                            .Where(e => (e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower)) && e.StatusDate > from && e.StatusDate < to)
                            .OrderBy(e => e.Name)
                            .Skip((page - 1) * entriesCount).Take(entriesCount)
@@ -317,7 +321,7 @@ namespace Wexflow.Core.CosmosDB
 
                         return
                            client.CreateDocumentQuery<Entry>(
-                             UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.Entry.DocumentName))
+                             UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.Entry.DocumentName))
                            .Where(e => (e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower)) && e.StatusDate > from && e.StatusDate < to)
                            .OrderByDescending(e => e.Name)
                            .Skip((page - 1) * entriesCount).Take(entriesCount)
@@ -327,7 +331,7 @@ namespace Wexflow.Core.CosmosDB
 
                         return
                            client.CreateDocumentQuery<Entry>(
-                             UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.Entry.DocumentName))
+                             UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.Entry.DocumentName))
                            .Where(e => (e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower)) && e.StatusDate > from && e.StatusDate < to)
                            .OrderBy(e => e.LaunchType)
                            .Skip((page - 1) * entriesCount).Take(entriesCount)
@@ -337,7 +341,7 @@ namespace Wexflow.Core.CosmosDB
 
                         return
                            client.CreateDocumentQuery<Entry>(
-                             UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.Entry.DocumentName))
+                             UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.Entry.DocumentName))
                            .Where(e => (e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower)) && e.StatusDate > from && e.StatusDate < to)
                            .OrderByDescending(e => e.LaunchType)
                            .Skip((page - 1) * entriesCount).Take(entriesCount)
@@ -347,7 +351,7 @@ namespace Wexflow.Core.CosmosDB
 
                         return
                            client.CreateDocumentQuery<Entry>(
-                             UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.Entry.DocumentName))
+                             UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.Entry.DocumentName))
                            .Where(e => (e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower)) && e.StatusDate > from && e.StatusDate < to)
                            .OrderBy(e => e.Description)
                            .Skip((page - 1) * entriesCount).Take(entriesCount)
@@ -357,7 +361,7 @@ namespace Wexflow.Core.CosmosDB
 
                         return
                            client.CreateDocumentQuery<Entry>(
-                             UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.Entry.DocumentName))
+                             UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.Entry.DocumentName))
                            .Where(e => (e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower)) && e.StatusDate > from && e.StatusDate < to)
                            .OrderByDescending(e => e.Description)
                            .Skip((page - 1) * entriesCount).Take(entriesCount)
@@ -367,7 +371,7 @@ namespace Wexflow.Core.CosmosDB
 
                         return
                            client.CreateDocumentQuery<Entry>(
-                             UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.Entry.DocumentName))
+                             UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.Entry.DocumentName))
                            .Where(e => (e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower)) && e.StatusDate > from && e.StatusDate < to)
                            .OrderBy(e => e.Status)
                            .Skip((page - 1) * entriesCount).Take(entriesCount)
@@ -377,7 +381,7 @@ namespace Wexflow.Core.CosmosDB
 
                         return
                            client.CreateDocumentQuery<Entry>(
-                             UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.Entry.DocumentName))
+                             UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.Entry.DocumentName))
                            .Where(e => (e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower)) && e.StatusDate > from && e.StatusDate < to)
                            .OrderByDescending(e => e.Status)
                            .Skip((page - 1) * entriesCount).Take(entriesCount)
@@ -394,7 +398,7 @@ namespace Wexflow.Core.CosmosDB
             {
                 return
                         client.CreateDocumentQuery<Entry>(
-                            UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.Entry.DocumentName))
+                            UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.Entry.DocumentName))
                         .Where(e => e.StatusDate > from && e.StatusDate < to)
                         .AsEnumerable().ToArray()
                         .Count();
@@ -407,7 +411,7 @@ namespace Wexflow.Core.CosmosDB
             {
                 return
                         client.CreateDocumentQuery<Entry>(
-                            UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.Entry.DocumentName))
+                            UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.Entry.DocumentName))
                         .Where(e => e.WorkflowId == workflowId)
                         .AsEnumerable().ToArray()
                         .FirstOrDefault();
@@ -420,7 +424,7 @@ namespace Wexflow.Core.CosmosDB
             {
                 var q =
                         client.CreateDocumentQuery<Entry>(
-                            UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.Entry.DocumentName))
+                            UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.Entry.DocumentName))
                         .OrderByDescending(e => e.StatusDate)
                         .AsEnumerable().ToArray();
 
@@ -439,7 +443,7 @@ namespace Wexflow.Core.CosmosDB
             {
                 var q =
                         client.CreateDocumentQuery<Entry>(
-                            UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.Entry.DocumentName))
+                            UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.Entry.DocumentName))
                         .OrderBy(e => e.StatusDate)
                         .AsEnumerable().ToArray();
 
@@ -458,7 +462,7 @@ namespace Wexflow.Core.CosmosDB
             {
                 return
                         client.CreateDocumentQuery<HistoryEntry>(
-                            UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.HistoryEntry.DocumentName))
+                            UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.HistoryEntry.DocumentName))
                         .AsEnumerable().ToArray();
 
             }
@@ -472,7 +476,7 @@ namespace Wexflow.Core.CosmosDB
 
                 return
                         client.CreateDocumentQuery<HistoryEntry>(
-                            UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.HistoryEntry.DocumentName))
+                            UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.HistoryEntry.DocumentName))
                         .Where(e => e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower))
                         .AsEnumerable().ToArray();
 
@@ -487,7 +491,7 @@ namespace Wexflow.Core.CosmosDB
                 int skip = (page - 1) * entriesCount;
                 return
                         client.CreateDocumentQuery<HistoryEntry>(
-                            UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.HistoryEntry.DocumentName))
+                            UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.HistoryEntry.DocumentName))
                         .Where(e => (e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower)))
                         .Skip((page - 1) * entriesCount).Take(entriesCount)
                         .AsEnumerable().ToArray();
@@ -508,7 +512,7 @@ namespace Wexflow.Core.CosmosDB
 
                         return
                             client.CreateDocumentQuery<HistoryEntry>(
-                              UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.HistoryEntry.DocumentName))
+                              UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.HistoryEntry.DocumentName))
                             .Where(e => (e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower)) && e.StatusDate > from && e.StatusDate < to)
                             .OrderBy(e => e.StatusDate)
                             .Skip((page - 1) * entriesCount).Take(entriesCount)
@@ -518,7 +522,7 @@ namespace Wexflow.Core.CosmosDB
 
                         return
                            client.CreateDocumentQuery<HistoryEntry>(
-                             UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.HistoryEntry.DocumentName))
+                             UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.HistoryEntry.DocumentName))
                            .Where(e => (e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower)) && e.StatusDate > from && e.StatusDate < to)
                            .OrderByDescending(e => e.StatusDate)
                            .Skip((page - 1) * entriesCount).Take(entriesCount)
@@ -528,7 +532,7 @@ namespace Wexflow.Core.CosmosDB
 
                         return
                            client.CreateDocumentQuery<HistoryEntry>(
-                             UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.HistoryEntry.DocumentName))
+                             UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.HistoryEntry.DocumentName))
                            .Where(e => (e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower)) && e.StatusDate > from && e.StatusDate < to)
                            .OrderBy(e => e.WorkflowId)
                            .Skip((page - 1) * entriesCount).Take(entriesCount)
@@ -538,7 +542,7 @@ namespace Wexflow.Core.CosmosDB
 
                         return
                            client.CreateDocumentQuery<HistoryEntry>(
-                             UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.HistoryEntry.DocumentName))
+                             UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.HistoryEntry.DocumentName))
                            .Where(e => (e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower)) && e.StatusDate > from && e.StatusDate < to)
                            .OrderByDescending(e => e.WorkflowId)
                            .Skip((page - 1) * entriesCount).Take(entriesCount)
@@ -548,7 +552,7 @@ namespace Wexflow.Core.CosmosDB
 
                         return
                            client.CreateDocumentQuery<HistoryEntry>(
-                             UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.HistoryEntry.DocumentName))
+                             UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.HistoryEntry.DocumentName))
                            .Where(e => (e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower)) && e.StatusDate > from && e.StatusDate < to)
                            .OrderBy(e => e.Name)
                            .Skip((page - 1) * entriesCount).Take(entriesCount)
@@ -558,7 +562,7 @@ namespace Wexflow.Core.CosmosDB
 
                         return
                            client.CreateDocumentQuery<HistoryEntry>(
-                             UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.HistoryEntry.DocumentName))
+                             UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.HistoryEntry.DocumentName))
                            .Where(e => (e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower)) && e.StatusDate > from && e.StatusDate < to)
                            .OrderByDescending(e => e.Name)
                            .Skip((page - 1) * entriesCount).Take(entriesCount)
@@ -568,7 +572,7 @@ namespace Wexflow.Core.CosmosDB
 
                         return
                            client.CreateDocumentQuery<HistoryEntry>(
-                             UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.HistoryEntry.DocumentName))
+                             UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.HistoryEntry.DocumentName))
                            .Where(e => (e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower)) && e.StatusDate > from && e.StatusDate < to)
                            .OrderBy(e => e.LaunchType)
                            .Skip((page - 1) * entriesCount).Take(entriesCount)
@@ -578,7 +582,7 @@ namespace Wexflow.Core.CosmosDB
 
                         return
                            client.CreateDocumentQuery<HistoryEntry>(
-                             UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.HistoryEntry.DocumentName))
+                             UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.HistoryEntry.DocumentName))
                            .Where(e => (e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower)) && e.StatusDate > from && e.StatusDate < to)
                            .OrderByDescending(e => e.LaunchType)
                            .Skip((page - 1) * entriesCount).Take(entriesCount)
@@ -588,7 +592,7 @@ namespace Wexflow.Core.CosmosDB
 
                         return
                            client.CreateDocumentQuery<HistoryEntry>(
-                             UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.HistoryEntry.DocumentName))
+                             UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.HistoryEntry.DocumentName))
                            .Where(e => (e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower)) && e.StatusDate > from && e.StatusDate < to)
                            .OrderBy(e => e.Description)
                            .Skip((page - 1) * entriesCount).Take(entriesCount)
@@ -598,7 +602,7 @@ namespace Wexflow.Core.CosmosDB
 
                         return
                            client.CreateDocumentQuery<HistoryEntry>(
-                             UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.HistoryEntry.DocumentName))
+                             UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.HistoryEntry.DocumentName))
                            .Where(e => (e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower)) && e.StatusDate > from && e.StatusDate < to)
                            .OrderByDescending(e => e.Description)
                            .Skip((page - 1) * entriesCount).Take(entriesCount)
@@ -608,7 +612,7 @@ namespace Wexflow.Core.CosmosDB
 
                         return
                            client.CreateDocumentQuery<HistoryEntry>(
-                             UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.HistoryEntry.DocumentName))
+                             UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.HistoryEntry.DocumentName))
                            .Where(e => (e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower)) && e.StatusDate > from && e.StatusDate < to)
                            .OrderBy(e => e.Status)
                            .Skip((page - 1) * entriesCount).Take(entriesCount)
@@ -618,7 +622,7 @@ namespace Wexflow.Core.CosmosDB
 
                         return
                            client.CreateDocumentQuery<HistoryEntry>(
-                             UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.HistoryEntry.DocumentName))
+                             UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.HistoryEntry.DocumentName))
                            .Where(e => (e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower)) && e.StatusDate > from && e.StatusDate < to)
                            .OrderByDescending(e => e.Status)
                            .Skip((page - 1) * entriesCount).Take(entriesCount)
@@ -636,7 +640,7 @@ namespace Wexflow.Core.CosmosDB
                 var keywordToLower = keyword.ToLower();
                 return
                         client.CreateDocumentQuery<HistoryEntry>(
-                            UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.HistoryEntry.DocumentName))
+                            UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.HistoryEntry.DocumentName))
                         .Where(e => (e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower)))
                         .AsEnumerable().ToArray()
                         .Count();
@@ -652,7 +656,7 @@ namespace Wexflow.Core.CosmosDB
                 var keywordToLower = keyword.ToLower();
                 return
                         client.CreateDocumentQuery<HistoryEntry>(
-                            UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.HistoryEntry.DocumentName))
+                            UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.HistoryEntry.DocumentName))
                         .Where(e => (e.Name.ToLower().Contains(keywordToLower) || e.Description.ToLower().Contains(keywordToLower)) && e.StatusDate > from && e.StatusDate < to)
                         .AsEnumerable().ToArray()
                         .Count();
@@ -666,7 +670,7 @@ namespace Wexflow.Core.CosmosDB
             {
                 var q =
                         client.CreateDocumentQuery<HistoryEntry>(
-                            UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.HistoryEntry.DocumentName))
+                            UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.HistoryEntry.DocumentName))
                         .OrderByDescending(e => e.StatusDate)
                         .AsEnumerable().ToArray();
 
@@ -685,7 +689,7 @@ namespace Wexflow.Core.CosmosDB
             {
                 var q =
                         client.CreateDocumentQuery<HistoryEntry>(
-                            UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.HistoryEntry.DocumentName))
+                            UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.HistoryEntry.DocumentName))
                         .OrderBy(e => e.StatusDate)
                         .AsEnumerable().ToArray();
 
@@ -704,7 +708,7 @@ namespace Wexflow.Core.CosmosDB
             {
                 return
                         client.CreateDocumentQuery<User>(
-                            UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.User.DocumentName))
+                            UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.User.DocumentName))
                         .Where(u => u.Username == username)
                         .AsEnumerable().ToArray()
                         .First()
@@ -718,7 +722,7 @@ namespace Wexflow.Core.CosmosDB
             {
                 return
                         client.CreateDocumentQuery<StatusCount>(
-                            UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.StatusCount.DocumentName))
+                            UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.StatusCount.DocumentName))
                         .AsEnumerable().ToArray()
                         .FirstOrDefault();
             }
@@ -730,7 +734,7 @@ namespace Wexflow.Core.CosmosDB
             {
                 return
                         client.CreateDocumentQuery<User>(
-                            UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.User.DocumentName))
+                            UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.User.DocumentName))
                         .Where(u => u.Username == username)
                         .AsEnumerable().ToArray()
                         .FirstOrDefault();
@@ -741,7 +745,7 @@ namespace Wexflow.Core.CosmosDB
         {
             using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
             {
-                var col = _helper.ReadDocumentFeed(databaseName, Core.Db.User.DocumentName);
+                var col = _helper.ReadDocumentFeed(_databaseName, Core.Db.User.DocumentName);
                 if (col.Length == 0)
                 {
                     return new User[] { };
@@ -749,7 +753,7 @@ namespace Wexflow.Core.CosmosDB
 
                 return
                         client.CreateDocumentQuery<User>(
-                            UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.User.DocumentName))
+                            UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.User.DocumentName))
                         .AsEnumerable().ToArray();
             }
         }
@@ -764,13 +768,13 @@ namespace Wexflow.Core.CosmosDB
                 {
                     case UserOrderBy.UsernameAscending:
                         return client.CreateDocumentQuery<User>(
-                            UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.User.DocumentName))
+                            UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.User.DocumentName))
                             .Where(u => u.Username.ToLower().Contains(keywordToLower))
                             .OrderBy(u => u.Username)
                             .AsEnumerable().ToArray();
                     case UserOrderBy.UsernameDescending:
                         return client.CreateDocumentQuery<User>(
-                           UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.User.DocumentName))
+                           UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.User.DocumentName))
                            .Where(u => u.Username.ToLower().Contains(keywordToLower))
                            .OrderByDescending(u => u.Username)
                            .AsEnumerable().ToArray();
@@ -786,7 +790,7 @@ namespace Wexflow.Core.CosmosDB
             {
                 return
                         client.CreateDocumentQuery<UserWorkflow>(
-                            UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.UserWorkflow.DocumentName))
+                            UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.UserWorkflow.DocumentName))
                         .Where(uw => uw.UserId == userId)
                         .AsEnumerable().ToArray()
                         .Select(uw => uw.WorkflowId);
@@ -799,7 +803,7 @@ namespace Wexflow.Core.CosmosDB
             {
                 return
                         client.CreateDocumentQuery<Workflow>(
-                            UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.Workflow.DocumentName))
+                            UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.Workflow.DocumentName))
                         .Where(w => w.Id == id)
                         .AsEnumerable().ToArray()
                         .FirstOrDefault();
@@ -811,7 +815,7 @@ namespace Wexflow.Core.CosmosDB
             using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
             {
                 return client.CreateDocumentQuery<Workflow>(
-                                UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.Workflow.DocumentName))
+                                UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.Workflow.DocumentName))
                             .AsEnumerable().ToArray();
             }
         }
@@ -821,13 +825,13 @@ namespace Wexflow.Core.CosmosDB
             using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
             {
                 StatusCount statusCount = client.CreateDocumentQuery<StatusCount>(
-                UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.StatusCount.DocumentName))
+                UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.StatusCount.DocumentName))
                 .AsEnumerable().ToArray()
                 .First();
 
                 statusCount.DisabledCount++;
 
-                _helper.ReplaceDocument(databaseName, Core.Db.StatusCount.DocumentName, statusCount, statusCount.Id);
+                _helper.ReplaceDocument(_databaseName, Core.Db.StatusCount.DocumentName, statusCount, statusCount.Id);
             }
         }
 
@@ -836,13 +840,13 @@ namespace Wexflow.Core.CosmosDB
             using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
             {
                 StatusCount statusCount = client.CreateDocumentQuery<StatusCount>(
-                UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.StatusCount.DocumentName))
+                UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.StatusCount.DocumentName))
                 .AsEnumerable().ToArray()
                 .First();
 
                 statusCount.DisapprovedCount++;
 
-                _helper.ReplaceDocument(databaseName, Core.Db.StatusCount.DocumentName, statusCount, statusCount.Id);
+                _helper.ReplaceDocument(_databaseName, Core.Db.StatusCount.DocumentName, statusCount, statusCount.Id);
             }
         }
 
@@ -851,13 +855,13 @@ namespace Wexflow.Core.CosmosDB
             using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
             {
                 StatusCount statusCount = client.CreateDocumentQuery<StatusCount>(
-                UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.StatusCount.DocumentName))
+                UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.StatusCount.DocumentName))
                 .AsEnumerable().ToArray()
                 .First();
 
                 statusCount.DoneCount++;
 
-                _helper.ReplaceDocument(databaseName, Core.Db.StatusCount.DocumentName, statusCount, statusCount.Id);
+                _helper.ReplaceDocument(_databaseName, Core.Db.StatusCount.DocumentName, statusCount, statusCount.Id);
             }
         }
 
@@ -866,13 +870,13 @@ namespace Wexflow.Core.CosmosDB
             using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
             {
                 StatusCount statusCount = client.CreateDocumentQuery<StatusCount>(
-                UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.StatusCount.DocumentName))
+                UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.StatusCount.DocumentName))
                 .AsEnumerable().ToArray()
                 .First();
 
                 statusCount.FailedCount++;
 
-                _helper.ReplaceDocument(databaseName, Core.Db.StatusCount.DocumentName, statusCount, statusCount.Id);
+                _helper.ReplaceDocument(_databaseName, Core.Db.StatusCount.DocumentName, statusCount, statusCount.Id);
             }
         }
 
@@ -881,13 +885,13 @@ namespace Wexflow.Core.CosmosDB
             using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
             {
                 StatusCount statusCount = client.CreateDocumentQuery<StatusCount>(
-                UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.StatusCount.DocumentName))
+                UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.StatusCount.DocumentName))
                 .AsEnumerable().ToArray()
                 .First();
 
                 statusCount.PendingCount++;
 
-                _helper.ReplaceDocument(databaseName, Core.Db.StatusCount.DocumentName, statusCount, statusCount.Id);
+                _helper.ReplaceDocument(_databaseName, Core.Db.StatusCount.DocumentName, statusCount, statusCount.Id);
             }
         }
 
@@ -896,13 +900,13 @@ namespace Wexflow.Core.CosmosDB
             using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
             {
                 StatusCount statusCount = client.CreateDocumentQuery<StatusCount>(
-                UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.StatusCount.DocumentName))
+                UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.StatusCount.DocumentName))
                 .AsEnumerable().ToArray()
                 .First();
 
                 statusCount.RunningCount++;
 
-                _helper.ReplaceDocument(databaseName, Core.Db.StatusCount.DocumentName, statusCount, statusCount.Id);
+                _helper.ReplaceDocument(_databaseName, Core.Db.StatusCount.DocumentName, statusCount, statusCount.Id);
             }
         }
 
@@ -911,13 +915,13 @@ namespace Wexflow.Core.CosmosDB
             using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
             {
                 StatusCount statusCount = client.CreateDocumentQuery<StatusCount>(
-                UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.StatusCount.DocumentName))
+                UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.StatusCount.DocumentName))
                 .AsEnumerable().ToArray()
                 .First();
 
                 statusCount.StoppedCount++;
 
-                _helper.ReplaceDocument(databaseName, Core.Db.StatusCount.DocumentName, statusCount, statusCount.Id);
+                _helper.ReplaceDocument(_databaseName, Core.Db.StatusCount.DocumentName, statusCount, statusCount.Id);
             }
         }
 
@@ -926,13 +930,13 @@ namespace Wexflow.Core.CosmosDB
             using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
             {
                 StatusCount statusCount = client.CreateDocumentQuery<StatusCount>(
-                UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.StatusCount.DocumentName))
+                UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.StatusCount.DocumentName))
                 .AsEnumerable().ToArray()
                 .First();
 
                 statusCount.WarningCount++;
 
-                _helper.ReplaceDocument(databaseName, Core.Db.StatusCount.DocumentName, statusCount, statusCount.Id);
+                _helper.ReplaceDocument(_databaseName, Core.Db.StatusCount.DocumentName, statusCount, statusCount.Id);
             }
         }
 
@@ -940,7 +944,7 @@ namespace Wexflow.Core.CosmosDB
         {
             using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
             {
-                _helper.CreateDocument(databaseName,
+                _helper.CreateDocument(_databaseName,
                     Core.Db.Entry.DocumentName,
                     new Entry
                     {
@@ -959,7 +963,7 @@ namespace Wexflow.Core.CosmosDB
         {
             using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
             {
-                _helper.CreateDocument(databaseName,
+                _helper.CreateDocument(_databaseName,
                     Core.Db.HistoryEntry.DocumentName,
                     new HistoryEntry
                     {
@@ -978,7 +982,7 @@ namespace Wexflow.Core.CosmosDB
         {
             using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
             {
-                _helper.CreateDocument(databaseName,
+                _helper.CreateDocument(_databaseName,
                     Core.Db.User.DocumentName,
                     new User
                     {
@@ -998,7 +1002,7 @@ namespace Wexflow.Core.CosmosDB
         {
             using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
             {
-                _helper.CreateDocument(databaseName,
+                _helper.CreateDocument(_databaseName,
                     Core.Db.UserWorkflow.DocumentName,
                     new UserWorkflow
                     {
@@ -1014,7 +1018,7 @@ namespace Wexflow.Core.CosmosDB
         {
             using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
             {
-                var response = _helper.CreateDocument(databaseName,
+                var response = _helper.CreateDocument(_databaseName,
                     Core.Db.Workflow.DocumentName,
                     new Workflow
                     {
@@ -1028,7 +1032,7 @@ namespace Wexflow.Core.CosmosDB
 
         public override void UpdateEntry(string id, Core.Db.Entry entry)
         {
-            _helper.ReplaceDocument(databaseName,
+            _helper.ReplaceDocument(_databaseName,
                 Core.Db.Entry.DocumentName,
                 new Entry
                 {
@@ -1048,14 +1052,14 @@ namespace Wexflow.Core.CosmosDB
             using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
             {
                 var user = client.CreateDocumentQuery<User>(
-                         UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.User.DocumentName))
+                         UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.User.DocumentName))
                     .Where(u => u.Username == username && u.Password == password)
                     .AsEnumerable().ToArray()
                     .FirstOrDefault();
 
                 if (user != null)
                 {
-                    _helper.ReplaceDocument(databaseName,
+                    _helper.ReplaceDocument(_databaseName,
                         Core.Db.User.DocumentName,
                         new User
                         {
@@ -1078,14 +1082,14 @@ namespace Wexflow.Core.CosmosDB
             using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
             {
                 var uu = client.CreateDocumentQuery<User>(
-                        UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.User.DocumentName))
+                        UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.User.DocumentName))
                    .Where(u => u.Id == id)
                    .AsEnumerable().ToArray()
                    .FirstOrDefault();
 
                 if (uu != null)
                 {
-                    _helper.ReplaceDocument(databaseName, Core.Db.User.DocumentName,
+                    _helper.ReplaceDocument(_databaseName, Core.Db.User.DocumentName,
                     new User
                     {
                         Id = id,
@@ -1107,14 +1111,14 @@ namespace Wexflow.Core.CosmosDB
             using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
             {
                 var user = client.CreateDocumentQuery<User>(
-                         UriFactory.CreateDocumentCollectionUri(databaseName, Core.Db.User.DocumentName))
+                         UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.User.DocumentName))
                     .Where(u => u.Id == userId)
                     .AsEnumerable().ToArray()
                     .FirstOrDefault();
 
                 if (user != null)
                 {
-                    _helper.ReplaceDocument(databaseName,
+                    _helper.ReplaceDocument(_databaseName,
                         Core.Db.User.DocumentName,
                         new User
                         {
@@ -1134,7 +1138,7 @@ namespace Wexflow.Core.CosmosDB
 
         public override void UpdateWorkflow(string dbId, Core.Db.Workflow workflow)
         {
-            _helper.ReplaceDocument(databaseName,
+            _helper.ReplaceDocument(_databaseName,
                         Core.Db.Workflow.DocumentName,
                         new Workflow
                         {

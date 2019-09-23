@@ -13,6 +13,7 @@ namespace Wexflow.Core.MongoDB
 
         public Db(string connectionString) : base(connectionString)
         {
+            string databaseName = "wexflow";
             string mongoUrl = string.Empty;
             bool enabledSslProtocols = false;
             SslProtocols sslProtocols = SslProtocols.None;
@@ -23,7 +24,11 @@ namespace Wexflow.Core.MongoDB
                 if (!string.IsNullOrEmpty(part.Trim()))
                 {
                     string connPart = part.TrimStart(' ').TrimEnd(' ');
-                    if (connPart.StartsWith("MongoUrl="))
+                    if (connPart.StartsWith("DatabaseName="))
+                    {
+                        databaseName = connPart.Replace("DatabaseName=", string.Empty);
+                    }
+                    else if (connPart.StartsWith("MongoUrl="))
                     {
                         mongoUrl = connPart.Replace("MongoUrl=", string.Empty);
                     }
@@ -46,7 +51,7 @@ namespace Wexflow.Core.MongoDB
             }
 
             var client = new MongoClient(settings);
-            _db = client.GetDatabase("wexflow");
+            _db = client.GetDatabase(databaseName);
         }
 
         public override void Init()
