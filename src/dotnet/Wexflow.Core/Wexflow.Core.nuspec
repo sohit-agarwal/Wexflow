@@ -30,7 +30,7 @@
     <file src=".\bin\Debug\LiteDB.dll" target="lib\net461\LiteDB.dll"/>-->
     
     <file src="..\..\..\src\dotnet-core\Wexflow.Core\bin\Debug\netcoreapp3.0\Wexflow.Core.dll" target="lib\netcoreapp3.0\Wexflow.Core.dll"/>
-    <file src="..\..\..\src\dotnet-core\Wexflow.Core\bin\Debug\netcoreapp3.0\Wexflow.Core.xml" target="lib\netcoreapp3.0\Wexflow.Core.xml"/>
+    <!--<file src="..\..\..\src\dotnet-core\Wexflow.Core\bin\Debug\netcoreapp3.0\Wexflow.Core.xml" target="lib\netcoreapp3.0\Wexflow.Core.xml"/>-->
     <file src="..\..\..\src\dotnet-core\Wexflow.Core\bin\Debug\netcoreapp3.0\Wexflow.Core.Db.dll" target="lib\netcoreapp3.0\Wexflow.Core.Db.dll"/>
     <file src="..\..\..\src\dotnet-core\Wexflow.Core\bin\Debug\netcoreapp3.0\Wexflow.Core.LiteDB.dll" target="lib\netcoreapp3.0\Wexflow.Core.LiteDB.dll"/>
     <file src="..\..\..\src\dotnet-core\Wexflow.Core\bin\Debug\netcoreapp3.0\Wexflow.Core.MongoDB.dll" target="lib\netcoreapp3.0\Wexflow.Core.MongoDB.dll"/>
