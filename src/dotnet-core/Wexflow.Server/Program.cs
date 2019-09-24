@@ -3,13 +3,9 @@ using log4net.Config;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading;
 using System.Xml;
 using Wexflow.Core;
 
@@ -50,14 +46,6 @@ namespace Wexflow.Server
 
             Console.Write("Press any key to stop Wexflow server...");
             Console.ReadKey();
-        }
-
-        public void ConfigureServices(IServiceCollection services)
-        {
-        }
-
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-        {
         }
 
     }

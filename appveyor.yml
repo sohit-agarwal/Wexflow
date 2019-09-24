@@ -28,6 +28,7 @@ platform: Any CPU
 configuration: Release
 
 before_build: 
+  - ps: dotnet --list-sdks
   - nuget restore
 
 # to add several configurations to build matrix:
