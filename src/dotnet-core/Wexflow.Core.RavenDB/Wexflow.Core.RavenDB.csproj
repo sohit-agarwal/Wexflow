@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+	<DebugType>Full</DebugType>
     <Platforms>AnyCPU;x64;x86</Platforms>
   </PropertyGroup>
 

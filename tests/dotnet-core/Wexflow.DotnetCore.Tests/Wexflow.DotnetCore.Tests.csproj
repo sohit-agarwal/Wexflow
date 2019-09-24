@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <IsPackable>false</IsPackable>
-	<DebugType>full</DebugType>
+	<DebugType>Full</DebugType>
 	<Platforms>AnyCPU;x64;x86</Platforms>
   </PropertyGroup>
 
