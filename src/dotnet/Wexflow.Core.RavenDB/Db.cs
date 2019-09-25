@@ -895,7 +895,7 @@ namespace Wexflow.Core.RavenDB
                 {
                     using (EventLog eventLog = new EventLog("Application"))
                     {
-                        eventLog.Source = "Application";
+                        eventLog.Source = "Wexflow";
                         eventLog.WriteEntry(e.ToString(), EventLogEntryType.Error, 101, 1);
                     }
                     return null;
