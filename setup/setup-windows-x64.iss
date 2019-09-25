@@ -143,6 +143,9 @@ Source: "..\src\dotnet\Wexflow.Core.RavenDB\bin\x64\Release\*.dll"; DestDir: "{a
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Net.Http.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Buffers.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Runtime.InteropServices.RuntimeInformation.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Runtime.CompilerServices.Unsafe.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Threading.Tasks.Extensions.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Numerics.Vectors.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Wexflow.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Wexflow.Core.Db.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -442,8 +445,8 @@ Source: "..\src\dotnet\Wexflow.Scripts.RavenDB\bin\x64\Release\*.dll"; DestDir: 
 ; Wexflow.Scripts.CosmosDB
 Source: "..\src\dotnet\Wexflow.Scripts.CosmosDB\bin\x64\Release\Wexflow.Scripts.CosmosDB.exe"; DestDir: "{app}\Wexflow.Scripts.CosmosDB"; Flags: ignoreversion recursesubdirs
 Source: ".\dotnet\Wexflow.Scripts.CosmosDB\Wexflow.Scripts.CosmosDB.exe.config"; DestDir: "{app}\Wexflow.Scripts.CosmosDB"; Flags: ignoreversion recursesubdirs
-Source: "..\src\dotnet\Wexflow.Scripts.CosmosDB\bin\x64\Release\*.dll"; DestDir: "{app}\Wexflow.Scripts.CosmosDB"; Flags: ignoreversion recursesubdirs
 Source: "..\src\dotnet\Wexflow.Core.CosmosDB\bin\x64\Release\*.dll"; DestDir: "{app}\Wexflow.Scripts.CosmosDB"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Scripts.CosmosDB\bin\x64\Release\*.dll"; DestDir: "{app}\Wexflow.Scripts.CosmosDB"; Flags: ignoreversion recursesubdirs
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 

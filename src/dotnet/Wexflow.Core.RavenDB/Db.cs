@@ -7,6 +7,7 @@ using Raven.Client.ServerWide;
 using Raven.Client.ServerWide.Operations;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using Wexflow.Core.Db;
@@ -890,8 +891,13 @@ namespace Wexflow.Core.RavenDB
                     var user = col.FirstOrDefault(u => u.Username == username);
                     return user;
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    using (EventLog eventLog = new EventLog("Application"))
+                    {
+                        eventLog.Source = "Application";
+                        eventLog.WriteEntry(e.ToString(), EventLogEntryType.Error, 101, 1);
+                    }
                     return null;
                 }
             }
