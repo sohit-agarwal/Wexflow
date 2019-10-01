@@ -52,6 +52,7 @@
     <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.InstagramUploadVideo\Wexflow.Tasks.InstagramUploadVideo.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.ListEntities\Wexflow.Tasks.ListEntities.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.ListFiles\Wexflow.Tasks.ListFiles.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.MailsReceiver\Wexflow.Tasks.MailsReceiver.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.MailsSender\Wexflow.Tasks.MailsSender.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Md5\Wexflow.Tasks.Md5.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.MessageCorrect\Wexflow.Tasks.MessageCorrect.csproj" />

@@ -441,6 +441,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wexflow.Core.Service.Client
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wexflow.Core.Service.Contracts", "src\dotnet-core\Wexflow.Core.Service.Contracts\Wexflow.Core.Service.Contracts.csproj", "{1839D340-57B5-497A-84C6-4802C462197D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wexflow.Tasks.MailsReceiver", "src\dotnet-core\Wexflow.Tasks.MailsReceiver\Wexflow.Tasks.MailsReceiver.csproj", "{5A243540-9DF3-4DFB-93EB-60D3D94B0DA8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -3717,6 +3719,22 @@ Global
 		{1839D340-57B5-497A-84C6-4802C462197D}.Release|x64.Build.0 = Release|x64
 		{1839D340-57B5-497A-84C6-4802C462197D}.Release|x86.ActiveCfg = Release|x86
 		{1839D340-57B5-497A-84C6-4802C462197D}.Release|x86.Build.0 = Release|x86
+		{5A243540-9DF3-4DFB-93EB-60D3D94B0DA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A243540-9DF3-4DFB-93EB-60D3D94B0DA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A243540-9DF3-4DFB-93EB-60D3D94B0DA8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{5A243540-9DF3-4DFB-93EB-60D3D94B0DA8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{5A243540-9DF3-4DFB-93EB-60D3D94B0DA8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5A243540-9DF3-4DFB-93EB-60D3D94B0DA8}.Debug|x64.Build.0 = Debug|Any CPU
+		{5A243540-9DF3-4DFB-93EB-60D3D94B0DA8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5A243540-9DF3-4DFB-93EB-60D3D94B0DA8}.Debug|x86.Build.0 = Debug|Any CPU
+		{5A243540-9DF3-4DFB-93EB-60D3D94B0DA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A243540-9DF3-4DFB-93EB-60D3D94B0DA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A243540-9DF3-4DFB-93EB-60D3D94B0DA8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{5A243540-9DF3-4DFB-93EB-60D3D94B0DA8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{5A243540-9DF3-4DFB-93EB-60D3D94B0DA8}.Release|x64.ActiveCfg = Release|Any CPU
+		{5A243540-9DF3-4DFB-93EB-60D3D94B0DA8}.Release|x64.Build.0 = Release|Any CPU
+		{5A243540-9DF3-4DFB-93EB-60D3D94B0DA8}.Release|x86.ActiveCfg = Release|Any CPU
+		{5A243540-9DF3-4DFB-93EB-60D3D94B0DA8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3938,6 +3956,7 @@ Global
 		{774FFB3B-0CE2-4FDB-9BC9-44E7BC2F5A7C} = {ADDBA7DE-6E55-4A2D-9C89-9E75B3EDCF42}
 		{A187CA99-8928-4548-9072-73A84A81A323} = {70481AA7-1FB5-4F5B-AFE8-07C9E819CF1F}
 		{1839D340-57B5-497A-84C6-4802C462197D} = {70481AA7-1FB5-4F5B-AFE8-07C9E819CF1F}
+		{5A243540-9DF3-4DFB-93EB-60D3D94B0DA8} = {6CC60633-28FB-45F3-8434-A79D00150CB2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {694D69C8-AA13-4F54-BAAA-5B967F1A8F9C}

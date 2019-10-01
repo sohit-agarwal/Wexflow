@@ -61,6 +61,7 @@
     <ProjectReference Include="..\Wexflow.Tasks.InstagramUploadVideo\Wexflow.Tasks.InstagramUploadVideo.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.ListEntities\Wexflow.Tasks.ListEntities.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.ListFiles\Wexflow.Tasks.ListFiles.csproj" />
+    <ProjectReference Include="..\Wexflow.Tasks.MailsReceiver\Wexflow.Tasks.MailsReceiver.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.MailsSender\Wexflow.Tasks.MailsSender.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.Md5\Wexflow.Tasks.Md5.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.MessageCorrect\Wexflow.Tasks.MessageCorrect.csproj" />

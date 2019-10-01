@@ -36,6 +36,7 @@
 	"InstagramUploadVideo",
 	"ListEntities",
 	"ListFiles",
+	"MailsReceiver",
 	"MailsSender",
 	"Md5",
 	"MessageCorrect",

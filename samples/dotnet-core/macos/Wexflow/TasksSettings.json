@@ -35,6 +35,7 @@
 	"InstagramUploadImage": [ "selectFiles", "username", "password" ],
 	"InstagramUploadVideo": [ "selectFiles", "username", "password" ],
 	"ListEntities": [ ],
+	"MailsReceiver": [ "host", "port", "enableSsl", "user", "password", "messageCount", "deleteMessages" ],
 	"ListFiles": [ ],
 	"MailsSender": [ "selectFiles", "selectAttachments", "host", "port", "enableSsl", "user", "password" ],
 	"Md5": [ "selectFiles" ],
