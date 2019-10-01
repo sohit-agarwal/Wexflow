@@ -56,26 +56,21 @@ namespace Wexflow.Tasks.MailsReceiver
                         string messageFileName = "message_" + i + "_" + string.Format("{0:yyyy-MM-dd-HH-mm-ss-fff}", message.Date);
                         string messagePath = Path.Combine(Workflow.WorkflowTempFolder, messageFileName + ".eml");
                         message.WriteTo(messagePath);
-                        //File.WriteAllBytes(messagePath, message.RawMessage);
                         Files.Add(new FileInf(messagePath, Id));
                         Logger.InfoFormat("Message {0} received. Path: {1}", i, messagePath);
 
                         // save attachments
-                        //if (message.MessagePart.MessageParts != null)
-                        //{
                         var attachments = message.Attachments.ToList();
                         foreach (var attachment in attachments)
                         {
                             if (attachment.IsAttachment)
                             {
                                 string attachmentPath = Path.Combine(Workflow.WorkflowTempFolder, messageFileName + "_" + attachment.ContentId);
-                                //File.WriteAllBytes(attachmentPath, attachment.Body);
                                 attachment.WriteTo(attachmentPath);
                                 Files.Add(new FileInf(attachmentPath, Id));
                                 Logger.InfoFormat("Attachment {0} of mail {1} received. Path: {2}", attachment.ContentId, i, attachmentPath);
                             }
                         }
-                        //}
 
                         if (DeleteMessages)
                         {
@@ -87,6 +82,8 @@ namespace Wexflow.Tasks.MailsReceiver
                             atLeastOneSucceed = true;
                         }
                     }
+
+                    client.Disconnect(true);
                 }
             }
             catch (ThreadAbortException)
