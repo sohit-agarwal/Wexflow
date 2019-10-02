@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace Wexflow.Tasks.FilesCopier
 {
-    public class FilesCopier:Task
+    public class FilesCopier : Task
     {
         public string DestFolder { get; private set; }
         public bool Overwrite { get; private set; }
@@ -42,12 +42,16 @@ namespace Wexflow.Tasks.FilesCopier
                         : string.Empty;
 
                     if (preservedFolderStruct.StartsWith(Path.DirectorySeparatorChar))
+                    {
                         preservedFolderStruct = preservedFolderStruct.Remove(0, 1);
+                    }
 
                     destPath = Path.Combine(DestFolder, preservedFolderStruct, file.FileName);
                 }
                 else
+                {
                     destPath = Path.Combine(DestFolder, file.FileName);
+                }
 
                 try
                 {
@@ -72,7 +76,7 @@ namespace Wexflow.Tasks.FilesCopier
                     success = false;
                 }
             }
-            
+
             var status = Status.Success;
 
             if (!success && atLeastOneSucceed)
