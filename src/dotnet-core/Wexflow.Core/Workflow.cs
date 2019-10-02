@@ -221,7 +221,7 @@ namespace Wexflow.Core
             GlobalVariables = globalVariables;
             Check();
             LoadLocalVariables();
-            Load();
+            Load(Xml);
 
             if (!IsEnabled)
             {
@@ -293,15 +293,15 @@ namespace Wexflow.Core
             }
         }
 
-        private void Parse(string src, string dest)
+        private string Parse(string src)
         {
+            var dest = string.Empty;
+
             //
             // Parse global variables.
             //
-            //FileStream fsSrc = new FileStream(src, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-            //FileStream fsDest = new FileStream(dest, FileMode.CreateNew, FileAccess.ReadWrite, FileShare.None);
-            using (StreamReader sr = new StreamReader(src))
-            using (StreamWriter sw = new StreamWriter(dest, false))
+            using (StringReader sr = new StringReader(src))
+            using (StringWriter sw = new StringWriter())
             {
                 string line;
                 while ((line = sr.ReadLine()) != null)
@@ -312,13 +312,14 @@ namespace Wexflow.Core
                     }
                     sw.WriteLine(line);
                 }
+                dest = sw.ToString();
             }
 
             //
             // Load local variables with their final values (parsed)
             //
             List<Variable> localVariablesParsed = new List<Variable>();
-            using (var xmlReader = XmlReader.Create(dest))
+            using (var xmlReader = XmlReader.Create(new StringReader(dest)))
             {
                 var xmlNameTable = xmlReader.NameTable;
                 if (xmlNameTable != null)
@@ -331,7 +332,7 @@ namespace Wexflow.Core
                     throw new Exception("xmlNameTable of " + Id + " is null");
                 }
 
-                var xdoc = XDocument.Load(dest);
+                var xdoc = XDocument.Parse(dest);
 
                 foreach (var xvariable in xdoc.XPathSelectElements("/wf:Workflow/wf:LocalVariables/wf:Variable",
                     XmlNamespaceManager))
@@ -352,9 +353,9 @@ namespace Wexflow.Core
             //
             // Parse local variables.
             //
-            string tmpDest = Path.Combine(Path.GetDirectoryName(dest), Path.GetFileNameWithoutExtension(dest) + "_" + Guid.NewGuid() + ".xml");
-            using (StreamReader sr = new StreamReader(dest))
-            using (StreamWriter sw = new StreamWriter(tmpDest, false))
+            var res = string.Empty;
+            using (StringReader sr = new StringReader(dest))
+            using (StringWriter sw = new StringWriter())
             {
                 string line;
                 while ((line = sr.ReadLine()) != null)
@@ -365,20 +366,18 @@ namespace Wexflow.Core
                     }
                     sw.WriteLine(line);
                 }
+                res = sw.ToString();
             }
-            File.Delete(dest);
-            File.Move(tmpDest, dest);
-            //File.Copy(tmpDest, dest, true);
 
+            return res;
         }
 
-        private void Load()
+        private void Load(string xml)
         {
             FilesPerTask.Clear();
             EntitiesPerTask.Clear();
 
-            //FileStream fs = new FileStream(workflowFilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
-            using (var xmlReader = XmlReader.Create(new StringReader(Xml)))
+            using (var xmlReader = XmlReader.Create(new StringReader(xml)))
             {
                 var xmlNameTable = xmlReader.NameTable;
                 if (xmlNameTable != null)
@@ -392,8 +391,7 @@ namespace Wexflow.Core
                 }
 
                 // Loading settings
-                //var xdoc = XDocument.Load(workflowFilePath);
-                var xdoc = XDocument.Parse(Xml);
+                var xdoc = XDocument.Parse(xml);
                 XDoc = xdoc;
                 XNamespaceWf = "urn:wexflow-schema";
 
@@ -802,12 +800,10 @@ namespace Wexflow.Core
             }
 
             //
-            // TODO Parse the workflow file (Global variables and local variables.)
+            // Parse the workflow file (Global variables and local variables.)
             //
-            //string src = WorkflowFilePath;
-            //string dest = Path.Combine(WorkflowsTempFolder, Path.GetFileNameWithoutExtension(WorkflowFilePath) + "_" +  Guid.NewGuid() + ".xml");
-            //Parse(src, dest);
-            //Load(dest);
+            var dest = Parse(Xml);
+            Load(dest);
 
             Database.IncrementRunningCount();
 
@@ -840,7 +836,7 @@ namespace Wexflow.Core
                 LaunchType = ((Db.LaunchType)(int)LaunchType),
                 Description = Description
             };
-            
+
             var thread = new Thread(() =>
                 {
                     try
@@ -940,7 +936,7 @@ namespace Wexflow.Core
                                     _historyEntry.Status = Db.Status.Failed;
                                     break;
                                 case Status.Disapproved:
-                                    if(ExecutionGraph.OnDisapproved != null)
+                                    if (ExecutionGraph.OnDisapproved != null)
                                     {
                                         var disapprovedTasks = NodesToTasks(ExecutionGraph.OnDisapproved.Nodes);
                                         RunTasks(ExecutionGraph.OnDisapproved.Nodes, disapprovedTasks, true);
@@ -968,7 +964,7 @@ namespace Wexflow.Core
                     }
                     finally
                     {
-                        //Load(WorkflowFilePath); // Reload the original workflow
+                        Load(Xml); // Reload the original workflow
 
                         // Cleanup
                         foreach (List<FileInf> files in FilesPerTask.Values) files.Clear();
@@ -976,7 +972,6 @@ namespace Wexflow.Core
                         _thread = null;
                         IsRunning = false;
                         IsDisapproved = false;
-                        //File.Delete(dest);
                         GC.Collect();
 
                         Logger.InfoFormat("{0} Workflow finished.", LogTag);
@@ -1080,7 +1075,7 @@ namespace Wexflow.Core
                 }
             }
 
-            if(IsDisapproved)
+            if (IsDisapproved)
             {
                 return Status.Disapproved;
             }
@@ -1112,7 +1107,7 @@ namespace Wexflow.Core
                 if (!atLeastOneSucceed && status.Status == Status.Success) atLeastOneSucceed = true;
             }
 
-            if(tasks.Count() > 0 && !success && atLeastOneSucceed)
+            if (tasks.Count() > 0 && !success && atLeastOneSucceed)
             {
                 warning = true;
             }
