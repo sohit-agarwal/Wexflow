@@ -21,6 +21,7 @@
 	"FilesExist": [ "file", "folder" ],
 	"FilesInfo": [ "selectFiles" ],
 	"FilesLoader": [ "file", "folder", "regexPattern", "recursive" ],
+	"FilesLoaderEx": [ "file", "folder", "regexPattern", "recursive", "addMaxCreateDate", "addMinCreateDate", "addMaxModifyDate", "addMinModifyDate" ],
 	"FilesMover": [ "selectFiles", "destFolder", "overwrite" ],
 	"FilesRemover": [ "selectFiles" ],
 	"FilesRenamer": [ "selectFiles", "overwrite" ],
