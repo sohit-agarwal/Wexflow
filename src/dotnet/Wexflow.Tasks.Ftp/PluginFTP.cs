@@ -8,7 +8,7 @@ namespace Wexflow.Tasks.Ftp
 {
     public class PluginFtp : PluginBase
     {
-        private const int BufferSize = 8192;
+        private const int BufferSize = 1 * 1024 * 1024; // 1 MB
 
         public PluginFtp(Task task, string server, int port, string user, string password, string path)
             :base(task, server, port, user, password, path)
