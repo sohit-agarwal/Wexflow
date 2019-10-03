@@ -171,6 +171,53 @@ namespace Wexflow.Server
 
         [WebInvoke(Method = "POST",
             ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "startWithVariables")]
+        public void StartWorkflowWithVariables(Stream streamdata)
+        {
+            StreamReader reader = new StreamReader(streamdata);
+            string json = reader.ReadToEnd();
+            reader.Close();
+            reader.Dispose();
+
+            var o = JObject.Parse(json);
+            var workflowId = o.Value<int>("WorkflowId");
+            var username = o.Value<string>("Username");
+            var password = o.Value<string>("Password");
+            var variables = o.Value<JArray>("Variables");
+
+            List<Core.Variable> vars = new List<Core.Variable>();
+            foreach (var variable in variables)
+            {
+                vars.Add(new Core.Variable { Key = variable.Value<string>("Name"), Value = variable.Value<string>("Value") });
+            }
+
+            var workflow = WexflowWindowsService.WexflowEngine.Workflows.First(w => w.Id == workflowId);
+
+            var user = WexflowWindowsService.WexflowEngine.GetUser(username);
+            if (user.Password.Equals(password))
+            {
+                if (user.UserProfile == Core.Db.UserProfile.SuperAdministrator)
+                {
+                    workflow.RestVariables.Clear();
+                    workflow.RestVariables.AddRange(vars);
+                    WexflowWindowsService.WexflowEngine.StartWorkflow(workflowId);
+                }
+                else if (user.UserProfile == Core.Db.UserProfile.Administrator)
+                {
+                    var workflowDbId = workflow.DbId;
+                    var check = WexflowWindowsService.WexflowEngine.CheckUserWorkflow(user.GetId(), workflowDbId);
+                    if (check)
+                    {
+                        workflow.RestVariables.Clear();
+                        workflow.RestVariables.AddRange(vars);
+                        WexflowWindowsService.WexflowEngine.StartWorkflow(workflowId);
+                    }
+                }
+            }
+        }
+
+        [WebInvoke(Method = "POST",
+            ResponseFormat = WebMessageFormat.Json,
             UriTemplate = "stop?w={id}&u={username}&p={password}")]
         public bool StopWorkflow(string id, string username, string password)
         {
@@ -1037,7 +1084,7 @@ namespace Wexflow.Server
                         //xdoc.Save(wf.WorkflowFilePath);
                         var res = WexflowWindowsService.WexflowEngine.SaveWorkflow(user.GetId(), user.UserProfile, xdoc.ToString());
 
-                        if(res == "-1")
+                        if (res == "-1")
                         {
                             return false;
                         }
