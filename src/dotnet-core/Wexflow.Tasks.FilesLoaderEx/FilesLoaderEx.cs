@@ -73,7 +73,7 @@ namespace Wexflow.Tasks.FilesLoaderEx
                 {
                     foreach (string folder in Folders)
                     {
-                        foreach (string file in Directory.GetFiles(folder))
+                        foreach (string file in Directory.GetFiles(folder).OrderBy(f => f))
                         {
                             if (string.IsNullOrEmpty(RegexPattern) || Regex.IsMatch(file, RegexPattern))
                             {
@@ -111,7 +111,7 @@ namespace Wexflow.Tasks.FilesLoaderEx
                     RemoveRange(tmpFiles, folderFiles.OrderBy(f => f.FileInfo.CreationTime).Take(RemoveMinCreateDate));
                     RemoveRange(tmpFiles, folderFiles.OrderBy(f => f.FileInfo.CreationTime).TakeLast(RemoveMaxCreateDate));
                     RemoveRange(tmpFiles, folderFiles.OrderBy(f => f.FileInfo.LastWriteTime).Take(RemoveMinModifyDate));
-                    RemoveRange(tmpFiles, folderFiles.OrderBy(f => f.FileInfo.LastWriteTime).Take(RemoveMaxModifyDate));
+                    RemoveRange(tmpFiles, folderFiles.OrderBy(f => f.FileInfo.LastWriteTime).TakeLast(RemoveMaxModifyDate));
                     AddFiles(tmpFiles);
                 }
             }
@@ -147,7 +147,7 @@ namespace Wexflow.Tasks.FilesLoaderEx
 
         private string[] GetFilesRecursive(string dir)
         {
-            return Directory.GetFiles(dir, "*.*", SearchOption.AllDirectories);
+            return Directory.GetFiles(dir, "*.*", SearchOption.AllDirectories).OrderBy(f => f).ToArray();
         }
 
         private void RemoveRange(List<FileInf> items, IEnumerable<FileInf> remove)
