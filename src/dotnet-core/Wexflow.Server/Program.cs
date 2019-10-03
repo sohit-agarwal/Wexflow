@@ -28,10 +28,14 @@ namespace Wexflow.Server
             XmlConfigurator.Configure(repo, log4NetConfig["log4net"]);
 
             string wexflowSettingsFile = Config["WexflowSettingsFile"];
-            if ((Environment.OSVersion.Platform == PlatformID.Unix ||
-                 Environment.OSVersion.Platform == PlatformID.MacOSX) &&
-                !string.IsNullOrWhiteSpace(Config["WexflowSettingsFileUnix"]))
-                wexflowSettingsFile = Config["WexflowSettingsFileUnix"];
+            if (Environment.OSVersion.Platform == PlatformID.Unix)
+            {
+                wexflowSettingsFile = Config["WexflowSettingsFileLinux"];
+            }
+            else if (Environment.OSVersion.Platform == PlatformID.MacOSX)
+            {
+                wexflowSettingsFile = Config["WexflowSettingsFileMacOS"];
+            }
 
             WexflowEngine = new WexflowEngine(wexflowSettingsFile);
             WexflowEngine.Run();

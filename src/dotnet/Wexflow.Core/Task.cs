@@ -170,6 +170,30 @@ namespace Wexflow.Core
         }
 
         /// <summary>
+        /// Returns a setting value from its name and returns a default value if the setting value is not found.
+        /// </summary>
+        /// <param name="name">Setting name.</param>
+        /// <param name="defaultValue">Default value.</param>
+        /// <returns>Setting value.</returns>
+        public int GetSettingInt(string name, int defaultValue)
+        {
+            var value = GetSetting(name, defaultValue.ToString());
+            return int.Parse(value);
+        }
+
+        /// <summary>
+        /// Returns a setting value from its name and returns a default value if the setting value is not found.
+        /// </summary>
+        /// <param name="name">Setting name.</param>
+        /// <param name="defaultValue">Default value.</param>
+        /// <returns>Setting value.</returns>
+        public bool GetSettingBool(string name, bool defaultValue)
+        {
+            var value = GetSetting(name, defaultValue.ToString());
+            return bool.Parse(value);
+        }
+
+        /// <summary>
         /// Returns a list of setting values from a setting name.
         /// </summary>
         /// <param name="name">Setting name.</param>
