@@ -41,6 +41,7 @@ Wexflow-coverage-dotnet.xml
 Wexflow-coverage-dotnet-core.xml
 packages/
 Wexflow.Core.xml
+.idea
 
 # Xcode
 #

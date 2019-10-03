@@ -21,6 +21,7 @@
 	"FilesExist",
 	"FilesInfo",
 	"FilesLoader",
+	"FilesLoaderEx",
 	"FilesMover",
 	"FilesRemover",
 	"FilesRenamer",
