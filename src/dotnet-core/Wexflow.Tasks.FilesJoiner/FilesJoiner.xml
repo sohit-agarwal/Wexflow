@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Tasks>
+  <!--
+    FilesJoiner is a sequential task that concatenates a collection of files.
+   
+   The generated file will be loaded by the FileConcat task so that other tasks can select
+   it through the selectFiles option.
+
+   This task should be used to joiner a single file splitted with "FilesSplitter" task, the original file name is restaured from first loaded file name withtou "_1" extension part.
+  -->
+  <Task id="$int" name="FilesJoiner" description="$string" enabled="true|false">
+    <!-- 
+      The files loaded by the task having as id $taskId will be
+      joiner into one single file.
+    -->
+    <Setting name="selectFiles" value="$taskId" />
+    <!-- You can add as many selecteFiles as you want.-->
+  </Task>
+</Tasks>

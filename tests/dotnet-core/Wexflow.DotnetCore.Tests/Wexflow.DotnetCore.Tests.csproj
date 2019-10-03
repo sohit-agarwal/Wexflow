@@ -30,6 +30,7 @@
     <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.FilesExist\Wexflow.Tasks.FilesExist.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.FilesInfo\Wexflow.Tasks.FilesInfo.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.FilesLoaderEx\Wexflow.Tasks.FilesLoaderEx.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.FilesJoiner\Wexflow.Tasks.FilesJoiner.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.FilesLoader\Wexflow.Tasks.FilesLoader.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.FilesMover\Wexflow.Tasks.FilesMover.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.FilesRemover\Wexflow.Tasks.FilesRemover.csproj" />

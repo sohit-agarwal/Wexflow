@@ -187,7 +187,7 @@ namespace Wexflow.Core
         /// <param name="name">Setting name.</param>
         /// <param name="defaultValue">Default value.</param>
         /// <returns>Setting value.</returns>
-        public bool GetSettingInt(string name, bool defaultValue)
+        public bool GetSettingBool(string name, bool defaultValue)
         {
             var value = GetSetting(name, defaultValue.ToString());
             return bool.Parse(value);
