@@ -15,6 +15,14 @@ namespace Wexflow.DotnetCore.Tests
             ? @"/opt/wexflow/Wexflow/Wexflow.xml"
             : @"C:\Wexflow-dotnet-core\Wexflow.xml");
 
+        public static readonly string TempFolder = IsUnixPlatform
+            ? @"/opt/wexflow/Wexflow/Temp/"
+            : @"C:\Wexflow-dotnet-core\Temp\";
+
+        public static readonly string SourceFilesFolder = IsUnixPlatform
+            ? "/opt/wexflow/WexflowTesting/"
+            : @"C:\WexflowTesting\";
+
         public static void Run()
         {
             WexflowEngine.Run();
