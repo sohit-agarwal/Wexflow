@@ -448,7 +448,6 @@ namespace Wexflow.Server
         {
             Post(Root + "startWithVariables", args =>
             {
-
                 var json = RequestStream.FromStream(Request.Body).AsString();
 
                 var o = JObject.Parse(json);

@@ -989,6 +989,7 @@ namespace Wexflow.Core
                     finally
                     {
                         Load(Xml); // Reload the original workflow
+                        RestVariables.Clear();
 
                         // Cleanup
                         foreach (List<FileInf> files in FilesPerTask.Values) files.Clear();
