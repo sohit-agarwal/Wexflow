@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Wexflow.DotnetCore.Tests
+namespace Wexflow.Tests
 {
     [TestClass]
     public class FilesLoaderEx
@@ -12,7 +12,7 @@ namespace Wexflow.DotnetCore.Tests
         private static readonly string ExpectedResult138AddMaxCreateDate =
             "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n"+
             "<WexflowProcessing>\r\n"+
-            "  <Workflow id=\"139\" name=\"Workflow_FilesLoaderEx_AddMaxCreateDate\" description=\"Workflow_FilesLoaderEx_AddMaxCreateDate\">\r\n"+
+            "  <Workflow id=\"132\" name=\"Workflow_FilesLoaderEx_AddMaxCreateDate\" description=\"Workflow_FilesLoaderEx_AddMaxCreateDate\">\r\n"+
             "    <Files>\r\n"+
             "      <File taskId=\"1\" path=\"" + SourceFilesFolder + "file4.txt\" name=\"file4.txt\" renameTo=\"\" renameToOrName=\"file4.txt\" />\r\n"+
             "      <File taskId=\"1\" path=\"" + SourceFilesFolder + "file5.txt\" name=\"file5.txt\" renameTo=\"\" renameToOrName=\"file5.txt\" />\r\n"+
@@ -23,7 +23,7 @@ namespace Wexflow.DotnetCore.Tests
         private static readonly string ExpectedResult139AddMinCreateDate =
             "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n"+
             "<WexflowProcessing>\r\n"+
-            "  <Workflow id=\"140\" name=\"Workflow_FilesLoaderEx_AddMinCreateDate\" description=\"Workflow_FilesLoaderEx_AddMinCreateDate\">\r\n"+
+            "  <Workflow id=\"133\" name=\"Workflow_FilesLoaderEx_AddMinCreateDate\" description=\"Workflow_FilesLoaderEx_AddMinCreateDate\">\r\n"+
             "    <Files>\r\n"+
             "      <File taskId=\"1\" path=\"" + SourceFilesFolder + "file1.txt\" name=\"file1.txt\" renameTo=\"\" renameToOrName=\"file1.txt\" />\r\n"+
             "      <File taskId=\"1\" path=\"" + SourceFilesFolder + "file2.txt\" name=\"file2.txt\" renameTo=\"\" renameToOrName=\"file2.txt\" />\r\n"+
@@ -34,7 +34,7 @@ namespace Wexflow.DotnetCore.Tests
         private static readonly string ExpectedResult140AddMaxModifyDate =
             "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n"+
             "<WexflowProcessing>\r\n"+
-            "  <Workflow id=\"141\" name=\"Workflow_FilesLoaderEx_AddMaxModifyDate\" description=\"Workflow_FilesLoaderEx_AddMaxModifyDate\">\r\n"+
+            "  <Workflow id=\"134\" name=\"Workflow_FilesLoaderEx_AddMaxModifyDate\" description=\"Workflow_FilesLoaderEx_AddMaxModifyDate\">\r\n"+
             "    <Files>\r\n"+
             "      <File taskId=\"1\" path=\"" + SourceFilesFolder + "file4.txt\" name=\"file4.txt\" renameTo=\"\" renameToOrName=\"file4.txt\" />\r\n"+
             "      <File taskId=\"1\" path=\"" + SourceFilesFolder + "file5.txt\" name=\"file5.txt\" renameTo=\"\" renameToOrName=\"file5.txt\" />\r\n"+
@@ -45,7 +45,7 @@ namespace Wexflow.DotnetCore.Tests
         private static readonly string ExpectedResult141AddMinModifyDate =
             "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n"+
             "<WexflowProcessing>\r\n"+
-            "  <Workflow id=\"142\" name=\"Workflow_FilesLoaderEx_AddMinModifyDate\" description=\"Workflow_FilesLoaderEx_AddMinModifyDate\">\r\n"+
+            "  <Workflow id=\"135\" name=\"Workflow_FilesLoaderEx_AddMinModifyDate\" description=\"Workflow_FilesLoaderEx_AddMinModifyDate\">\r\n"+
             "    <Files>\r\n"+
             "      <File taskId=\"1\" path=\"" + SourceFilesFolder + "file1.txt\" name=\"file1.txt\" renameTo=\"\" renameToOrName=\"file1.txt\" />\r\n"+
             "      <File taskId=\"1\" path=\"" + SourceFilesFolder + "file2.txt\" name=\"file2.txt\" renameTo=\"\" renameToOrName=\"file2.txt\" />\r\n"+
@@ -56,7 +56,7 @@ namespace Wexflow.DotnetCore.Tests
         private static readonly string ExpectedResult142RemoveMaxCreateDate =
             "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n"+
             "<WexflowProcessing>\r\n"+
-            "  <Workflow id=\"143\" name=\"Workflow_FilesLoaderEx_RemoveMaxCreateDate\" description=\"Workflow_FilesLoaderEx_RemoveMaxCreateDate\">\r\n"+
+            "  <Workflow id=\"136\" name=\"Workflow_FilesLoaderEx_RemoveMaxCreateDate\" description=\"Workflow_FilesLoaderEx_RemoveMaxCreateDate\">\r\n"+
             "    <Files>\r\n"+
             "      <File taskId=\"1\" path=\"" + SourceFilesFolder + "file1.txt\" name=\"file1.txt\" renameTo=\"\" renameToOrName=\"file1.txt\" />\r\n"+
             "      <File taskId=\"1\" path=\"" + SourceFilesFolder + "file2.txt\" name=\"file2.txt\" renameTo=\"\" renameToOrName=\"file2.txt\" />\r\n"+
@@ -68,7 +68,7 @@ namespace Wexflow.DotnetCore.Tests
         private static readonly string ExpectedResult143RemoveMinCreateDate =
             "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n"+
             "<WexflowProcessing>\r\n"+
-            "  <Workflow id=\"144\" name=\"Workflow_FilesLoaderEx_RemoveMinCreateDate\" description=\"Workflow_FilesLoaderEx_RemoveMinCreateDate\">\r\n"+
+            "  <Workflow id=\"137\" name=\"Workflow_FilesLoaderEx_RemoveMinCreateDate\" description=\"Workflow_FilesLoaderEx_RemoveMinCreateDate\">\r\n"+
             "    <Files>\r\n"+
             "      <File taskId=\"1\" path=\"" + SourceFilesFolder + "file3.txt\" name=\"file3.txt\" renameTo=\"\" renameToOrName=\"file3.txt\" />\r\n"+
             "      <File taskId=\"1\" path=\"" + SourceFilesFolder + "file4.txt\" name=\"file4.txt\" renameTo=\"\" renameToOrName=\"file4.txt\" />\r\n"+
@@ -80,7 +80,7 @@ namespace Wexflow.DotnetCore.Tests
         private static readonly string ExpectedResult144RemoveMaxModifyDate =
             "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n"+
             "<WexflowProcessing>\r\n"+
-            "  <Workflow id=\"145\" name=\"Workflow_FilesLoaderEx_RemoveMaxModifyDate\" description=\"Workflow_FilesLoaderEx_RemoveMaxModifyDate\">\r\n"+
+            "  <Workflow id=\"138\" name=\"Workflow_FilesLoaderEx_RemoveMaxModifyDate\" description=\"Workflow_FilesLoaderEx_RemoveMaxModifyDate\">\r\n"+
             "    <Files>\r\n"+
             "      <File taskId=\"1\" path=\"" + SourceFilesFolder + "file1.txt\" name=\"file1.txt\" renameTo=\"\" renameToOrName=\"file1.txt\" />\r\n"+
             "      <File taskId=\"1\" path=\"" + SourceFilesFolder + "file2.txt\" name=\"file2.txt\" renameTo=\"\" renameToOrName=\"file2.txt\" />\r\n"+
@@ -92,7 +92,7 @@ namespace Wexflow.DotnetCore.Tests
         private static readonly string ExpectedResult145RemoveMinModifyDate =
             "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n"+
             "<WexflowProcessing>\r\n"+
-            "  <Workflow id=\"146\" name=\"Workflow_FilesLoaderEx_RemoveMinModifyDate\" description=\"Workflow_FilesLoaderEx_RemoveMinModifyDate\">\r\n"+
+            "  <Workflow id=\"139\" name=\"Workflow_FilesLoaderEx_RemoveMinModifyDate\" description=\"Workflow_FilesLoaderEx_RemoveMinModifyDate\">\r\n"+
             "    <Files>\r\n"+
             "      <File taskId=\"1\" path=\"" + SourceFilesFolder + "file3.txt\" name=\"file3.txt\" renameTo=\"\" renameToOrName=\"file3.txt\" />\r\n"+
             "      <File taskId=\"1\" path=\"" + SourceFilesFolder + "file4.txt\" name=\"file4.txt\" renameTo=\"\" renameToOrName=\"file4.txt\" />\r\n"+
@@ -130,27 +130,27 @@ namespace Wexflow.DotnetCore.Tests
         }
 
         [TestMethod]
-        public void FilesLoaderExTest_139AddMaxCreateDate() => Execute(139, ExpectedResult138AddMaxCreateDate);
+        public void FilesLoaderExTest_132AddMaxCreateDate() => Execute(132, ExpectedResult138AddMaxCreateDate);
 
         [TestMethod]
-        public void FilesLoaderExTest_140AddMinCreateDate() => Execute(140, ExpectedResult139AddMinCreateDate);
+        public void FilesLoaderExTest_133AddMinCreateDate() => Execute(133, ExpectedResult139AddMinCreateDate);
 
         [TestMethod]
-        public void FilesLoaderExTest_141AddMaxModifyDate() => Execute(141, ExpectedResult140AddMaxModifyDate);
+        public void FilesLoaderExTest_134AddMaxModifyDate() => Execute(134, ExpectedResult140AddMaxModifyDate);
 
         [TestMethod]
-        public void FilesLoaderExTest_142AddMinModifyDate() => Execute(142, ExpectedResult141AddMinModifyDate);
+        public void FilesLoaderExTest_135AddMinModifyDate() => Execute(135, ExpectedResult141AddMinModifyDate);
 
         [TestMethod]
-        public void FilesLoaderExTest_143RemoveMaxCreateDate() => Execute(143, ExpectedResult142RemoveMaxCreateDate);
+        public void FilesLoaderExTest_136RemoveMaxCreateDate() => Execute(136, ExpectedResult142RemoveMaxCreateDate);
 
         [TestMethod]
-        public void FilesLoaderExTest_144RemoveMinCreateDate() => Execute(144, ExpectedResult143RemoveMinCreateDate);
+        public void FilesLoaderExTest_137RemoveMinCreateDate() => Execute(137, ExpectedResult143RemoveMinCreateDate);
 
         [TestMethod]
-        public void FilesLoaderExTest_145RemoveMaxModifyDate() => Execute(145, ExpectedResult144RemoveMaxModifyDate);
+        public void FilesLoaderExTest_138RemoveMaxModifyDate() => Execute(138, ExpectedResult144RemoveMaxModifyDate);
 
         [TestMethod]
-        public void FilesLoaderExTest_146RemoveMinModifyDate() => Execute(146, ExpectedResult145RemoveMinModifyDate);
+        public void FilesLoaderExTest_139RemoveMinModifyDate() => Execute(139, ExpectedResult145RemoveMinModifyDate);
     }
 }

@@ -96,6 +96,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FilesLoaderEx.cs" />
     <Compile Include="Slack.cs" />
     <Compile Include="Vimeo.cs" />
     <Compile Include="VimeoListUploads.cs" />
@@ -294,6 +295,10 @@
     <ProjectReference Include="..\..\..\src\dotnet\Wexflow.Tasks.FilesInfo\Wexflow.Tasks.FilesInfo.csproj">
       <Project>{4c64fc9a-edad-4741-9b1d-76f11a73532a}</Project>
       <Name>Wexflow.Tasks.FilesInfo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\dotnet\Wexflow.Tasks.FilesLoaderEx\Wexflow.Tasks.FilesLoaderEx.csproj">
+      <Project>{4d7ebc75-a7ed-4163-aebf-30a34ade0333}</Project>
+      <Name>Wexflow.Tasks.FilesLoaderEx</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\src\dotnet\Wexflow.Tasks.FilesLoader\Wexflow.Tasks.FilesLoader.csproj">
       <Project>{d9dd665a-a147-462c-bcee-3008559728b5}</Project>
