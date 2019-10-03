@@ -49,7 +49,9 @@ namespace Wexflow.Core
                 _renameTo = value;
 
                 if (!string.IsNullOrEmpty(value))
+                {
                     RenameToOrName = value;
+                }
             }
         }
         /// <summary>

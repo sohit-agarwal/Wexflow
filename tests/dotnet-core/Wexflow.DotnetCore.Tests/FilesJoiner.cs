@@ -29,7 +29,7 @@ namespace Wexflow.DotnetCore.Tests
             Helper.StartWorkflow(57);
             files = GetFiles();
             Assert.AreEqual(510, files.Length);*/
-            Helper.StartWorkflow(1001);
+            Helper.StartWorkflow(1002);
             Assert.AreEqual(true, true);
         }
 

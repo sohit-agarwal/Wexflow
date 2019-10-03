@@ -13,14 +13,12 @@ namespace Wexflow.Tasks.FilesJoiner
     {
         public string DestFolder { get; }
         public bool Overwrite { get; }
-        public bool DeleteSplittedFiles { get; }
 
         public FilesJoiner(XElement xe, Workflow wf)
             : base(xe, wf)
         {
             DestFolder = GetSetting("destFolder", string.Empty);
             Overwrite = bool.Parse(GetSetting("overwrite", "false"));
-            DeleteSplittedFiles = GetSettingBool("deleteSplittedFiles", false);
         }
 
         private (string RenamedPath, int Number) GetNumberPart(string path)
@@ -98,7 +96,15 @@ namespace Wexflow.Tasks.FilesJoiner
             if (files.Length > 0)
             {
                 var tempPath = Path.Combine(Workflow.WorkflowTempFolder, fileName);
-                var destFilePath = tempPath;
+                var destFilePath = string.IsNullOrEmpty(DestFolder)
+                    ? tempPath
+                    : Path.Combine(Path.Combine(DestFolder, fileName));
+
+                if (!string.IsNullOrEmpty(DestFolder) && File.Exists(destFilePath) && !Overwrite)
+                {
+                    ErrorFormat("Destination file {0} already exists.", destFilePath);
+                    return false;
+                }
 
                 if (File.Exists(tempPath))
                     File.Delete(tempPath);
@@ -130,15 +136,20 @@ namespace Wexflow.Tasks.FilesJoiner
                     {
                         if (!string.IsNullOrEmpty(DestFolder))
                         {
-                            destFilePath = Path.Combine(DestFolder, fileName);
-                            if (Overwrite && File.Exists(tempPath))
-                                File.Delete(destFilePath);
-                            File.Move(tempPath, destFilePath);
-                        }
+                            if (File.Exists(destFilePath))
+                            {
+                                if (Overwrite)
+                                {
+                                    File.Delete(destFilePath);
+                                }
+                                else
+                                {
+                                    ErrorFormat("Destination file {0} already exists.", destFilePath);
+                                    return false;
+                                }
+                            }
 
-                        if (DeleteSplittedFiles)
-                        {
-                            //
+                            File.Move(tempPath, destFilePath);
                         }
                     }
                 }
