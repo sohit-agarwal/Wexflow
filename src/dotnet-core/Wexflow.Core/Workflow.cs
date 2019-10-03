@@ -173,6 +173,10 @@ namespace Wexflow.Core
         /// </summary>
         public Variable[] LocalVariables { get; private set; }
         /// <summary>
+        /// Rest variables.
+        /// </summary>
+        public List<Variable> RestVariables { get; private set; }
+        /// <summary>
         /// Tasks folder.
         /// </summary>
         public string TasksFolder { get; private set; }
@@ -219,6 +223,7 @@ namespace Wexflow.Core
             EntitiesPerTask = new Dictionary<int, List<Entity>>();
             Hashtable = new Hashtable();
             GlobalVariables = globalVariables;
+            RestVariables = new List<Variable>();
             Check();
             LoadLocalVariables();
             Load(Xml);
@@ -369,7 +374,26 @@ namespace Wexflow.Core
                 res = sw.ToString();
             }
 
-            return res;
+            //
+            // Parse Rest variables.
+            //
+            var res2 = string.Empty;
+            using (StringReader sr = new StringReader(res))
+            using (StringWriter sw = new StringWriter())
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    foreach (var variable in RestVariables)
+                    {
+                        line = line.Replace("$" + variable.Key, variable.Value);
+                    }
+                    sw.WriteLine(line);
+                }
+                res2 = sw.ToString();
+            }
+
+            return res2;
         }
 
         private void Load(string xml)

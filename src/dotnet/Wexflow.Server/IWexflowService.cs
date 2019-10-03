@@ -23,6 +23,9 @@ namespace Wexflow.Server
         void StartWorkflow(string id, string username, string password);
 
         [OperationContract]
+        void StartWorkflowWithVariables(Stream streamdata);
+
+        [OperationContract]
         bool StopWorkflow(string id, string username, string password);
 
         [OperationContract]

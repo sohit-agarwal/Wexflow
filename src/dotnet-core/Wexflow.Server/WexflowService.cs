@@ -12,7 +12,6 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading;
 using System.Xml.Linq;
-using System.Xml.Schema;
 using System.Xml.XPath;
 using Wexflow.Core;
 using Wexflow.Core.Db;
@@ -61,6 +60,7 @@ namespace Wexflow.Server
             Search();
             GetWorkflow();
             StartWorkflow();
+            StartWorkflowWithVariables();
             StopWorkflow();
             SuspendWorkflow();
             ResumeWorkflow();
@@ -156,6 +156,7 @@ namespace Wexflow.Server
                 + DocGet("searchApprovalWorkflows?s={keyword}&u={username}&p={password}", "Search for approval workflows.")
                 + DocGet("workflow?u={username}&p={password}&w={id}", "Returns a workflow from its id.")
                 + DocPost("start?w={id}&u={username}&p={password}", "Starts a workflow.")
+                + DocPost("startWithVariables", "Starts a workflow with variables.")
                 + DocPost("stop?w={id}&u={username}&p={password}", "Stops a workflow.")
                 + DocPost("suspend?w={id}&u={username}&p={password}", "Suspends a workflow.")
                 + DocPost("resume?w={id}&u={username}&p={password}", "Resumes a workflow.")
@@ -428,6 +429,59 @@ namespace Wexflow.Server
                         var check = Program.WexflowEngine.CheckUserWorkflow(user.GetId(), workflowDbId);
                         if (check)
                         {
+                            Program.WexflowEngine.StartWorkflow(workflowId);
+                        }
+                    }
+                }
+
+                return new Response
+                {
+                    ContentType = "application/json"
+                };
+            });
+        }
+
+        /// <summary>
+        /// Starts a workflow with variables.
+        /// </summary>
+        private void StartWorkflowWithVariables()
+        {
+            Post(Root + "startWithVariables", args =>
+            {
+
+                var json = RequestStream.FromStream(Request.Body).AsString();
+
+                var o = JObject.Parse(json);
+                var workflowId = o.Value<int>("WorkflowId");
+                var username = o.Value<string>("Username");
+                var password = o.Value<string>("Password");
+                var variables = o.Value<JArray>("Variables");
+
+                List<Core.Variable> vars = new List<Core.Variable>();
+                foreach (var variable in variables)
+                {
+                    vars.Add(new Core.Variable { Key = variable.Value<string>("Name"), Value = variable.Value<string>("Value") });
+                }
+
+                var workflow = Program.WexflowEngine.Workflows.First(w => w.Id == workflowId);
+
+                var user = Program.WexflowEngine.GetUser(username);
+                if (user.Password.Equals(password))
+                {
+                    if (user.UserProfile == Core.Db.UserProfile.SuperAdministrator)
+                    {
+                        workflow.RestVariables.Clear();
+                        workflow.RestVariables.AddRange(vars);
+                        Program.WexflowEngine.StartWorkflow(workflowId);
+                    }
+                    else if (user.UserProfile == Core.Db.UserProfile.Administrator)
+                    {
+                        var workflowDbId = workflow.DbId;
+                        var check = Program.WexflowEngine.CheckUserWorkflow(user.GetId(), workflowDbId);
+                        if (check)
+                        {
+                            workflow.RestVariables.Clear();
+                            workflow.RestVariables.AddRange(vars);
                             Program.WexflowEngine.StartWorkflow(workflowId);
                         }
                     }
