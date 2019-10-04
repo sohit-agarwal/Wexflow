@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Wexflow.DotnetCore.Tests
@@ -6,36 +7,63 @@ namespace Wexflow.DotnetCore.Tests
     [TestClass]
     public class FilesJoiner
     {
-//        private static readonly string FilesSplitterFolder = @"C:\WexflowTesting\FilesSplitter\";
-        private static readonly string FilesSplitterFolder = @"C:\WexflowTesting\FilesSplitter\";
+        private static readonly string TempFolder = Path.Combine(Helper.TempFolder, "147");
+
+        private static readonly string SourceFilesFolder =
+            Path.Combine(Helper.SourceFilesFolder, "FilesJoiner") + Path.DirectorySeparatorChar;
+
+        private const string ExpectedResultFileA = "file-a-1\r\n" +
+                                                   "file-a-2\r\n" +
+                                                   "file-a-3\r\n" +
+                                                   "file-a-4\r\n" +
+                                                   "file-a-5\r\n" +
+                                                   "file-a-6\r\n" +
+                                                   "file-a-7\r\n" +
+                                                   "file-a-8\r\n" +
+                                                   "file-a-9\r\n" +
+                                                   "file-a-10\r\n" +
+                                                   "file-a-11";
+
+        private const string ExpectedResultFileB = "file-b-1\r\n" +
+                                                   "file-b-2\r\n" +
+                                                   "file-b-3";
+
+        private const string ExpectedResultFileC = "file-c-1";
+        private const string ExpectedResultFileD = "file-d";
 
         [TestInitialize]
         public void TestInitialize()
         {
-//            Helper.DeleteFiles(FilesSplitterFolder);
+            Helper.DeleteFilesAndFolders(TempFolder);
         }
 
         [TestCleanup]
         public void TestCleanup()
         {
-//            Helper.DeleteFiles(FilesSplitterFolder);
         }
 
         [TestMethod]
-        public void FilesSplitterTest()
+        public void FilesJoinerTest()
         {
-            /*string[] files = GetFiles();
-            Assert.AreEqual(0, files.Length);
-            Helper.StartWorkflow(57);
-            files = GetFiles();
-            Assert.AreEqual(510, files.Length);*/
-            Helper.StartWorkflow(1002);
-            Assert.AreEqual(true, true);
-        }
+            var files = Directory.GetFiles(SourceFilesFolder);
+            Assert.AreEqual(16, files.Length);
 
-        private string[] GetFiles()
-        {
-            return Directory.GetFiles(FilesSplitterFolder, "*_*");
+            Helper.StartWorkflow(147);
+
+            files = Directory.GetFiles(TempFolder, "*", SearchOption.AllDirectories).OrderBy(f => f).ToArray();
+            Assert.AreEqual(4, files.Length);
+
+            var content = File.ReadAllText(files[0]);
+            Assert.AreEqual(ExpectedResultFileA, content);
+
+            content = File.ReadAllText(files[1]);
+            Assert.AreEqual(ExpectedResultFileB, content);
+
+            content = File.ReadAllText(files[2]);
+            Assert.AreEqual(ExpectedResultFileC, content);
+
+            content = File.ReadAllText(files[3]);
+            Assert.AreEqual(ExpectedResultFileD, content);
         }
     }
 }
