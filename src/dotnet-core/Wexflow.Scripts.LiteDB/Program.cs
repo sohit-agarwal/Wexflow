@@ -45,7 +45,7 @@ namespace Wexflow.Scripts.LiteDB
 
             var workflowsFolder = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "..", "..",
-                "samples", "MongoDB", "dotnet-core", platformFolder);
+                "samples", "workflows", "dotnet-core", platformFolder);
 
             if (!Directory.Exists(workflowsFolder)) throw new DirectoryNotFoundException("Invalid workflows folder: " + workflowsFolder);
             if (File.Exists(path)) File.Delete(path);

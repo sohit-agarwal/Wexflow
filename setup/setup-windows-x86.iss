@@ -1,5 +1,5 @@
 #define MyAppName "Wexflow"
-#define MyAppVersion "4.8"
+#define MyAppVersion "4.9"
 #define MyAppPublisher "Akram El Assas"
 #define MyAppPublisherURL "https://wexflow.github.io/"
 #define MyAppExeName "Wexflow.Clients.Manager.exe"
@@ -431,7 +431,7 @@ Source: "..\samples\WexflowTesting\*"; DestDir: "C:\WexflowTesting\"; Components
 Source: "..\src\dotnet\Wexflow.Scripts.MongoDB\bin\x86\Release\Wexflow.Scripts.MongoDB.exe"; DestDir: "{app}\Wexflow.Scripts.MongoDB"; Flags: ignoreversion recursesubdirs
 Source: ".\dotnet\Wexflow.Scripts.MongoDB\Wexflow.Scripts.MongoDB.exe.config"; DestDir: "{app}\Wexflow.Scripts.MongoDB"; Flags: ignoreversion recursesubdirs
 Source: "..\src\dotnet\Wexflow.Scripts.MongoDB\bin\x86\Release\*.dll"; DestDir: "{app}\Wexflow.Scripts.MongoDB"; Flags: ignoreversion recursesubdirs
-Source: "..\samples\MongoDB\dotnet\*.xml"; DestDir: "{app}\Wexflow.Scripts.MongoDB\Workflows"; Flags: ignoreversion recursesubdirs
+Source: "..\samples\workflows\dotnet\*.xml"; DestDir: "{app}\Wexflow.Scripts.MongoDB\Workflows"; Flags: ignoreversion recursesubdirs
 
 ; Wexflow.Scripts.RavenDB
 Source: "..\src\dotnet\Wexflow.Scripts.RavenDB\bin\x86\Release\Wexflow.Scripts.RavenDB.exe"; DestDir: "{app}\Wexflow.Scripts.RavenDB"; Flags: ignoreversion recursesubdirs
