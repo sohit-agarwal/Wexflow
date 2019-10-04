@@ -94,6 +94,7 @@ namespace Wexflow.DotnetCore.Tests
 
         public static void DeleteFilesAndFolders(string folder)
         {
+            if (!Directory.Exists(folder)) return;
             DeleteFiles(folder);
 
             foreach (var dir in Directory.GetDirectories(folder))
@@ -104,6 +105,7 @@ namespace Wexflow.DotnetCore.Tests
 
         public static void DeleteFiles(string dir)
         {
+            if (!Directory.Exists(dir)) return;
             foreach (var file in Directory.GetFiles(dir))
             {
                 File.Delete(file);
