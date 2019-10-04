@@ -32,7 +32,7 @@ namespace Wexflow.Server
             {
                 wexflowSettingsFile = Config["WexflowSettingsFileLinux"];
             }
-            else if (Environment.OSVersion.Platform == PlatformID.MacOSX && !string.IsNullOrWhiteSpace(Config["WexflowSettingsFileMacOS"]))
+            else if (Environment.OSVersion.Platform == PlatformID.MacOSX && !string.IsNullOrEmpty(Config["WexflowSettingsFileMacOS"]))
             {
                 wexflowSettingsFile = Config["WexflowSettingsFileMacOS"];
             }
