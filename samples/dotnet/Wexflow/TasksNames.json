@@ -20,6 +20,7 @@
 	"FilesEqual",
 	"FilesExist",
 	"FilesInfo",
+	"FilesJoiner",
 	"FilesLoader",
 	"FilesLoaderEx",
 	"FilesMover",

@@ -12,6 +12,7 @@
 	"FilesEqual",
 	"FilesExist",
 	"FilesInfo",
+	"FilesJoiner",
 	"FilesConcat",
 	"FilesLoader",
 	"FilesLoaderEx",

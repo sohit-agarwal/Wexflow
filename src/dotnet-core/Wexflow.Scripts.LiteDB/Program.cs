@@ -38,18 +38,19 @@ namespace Wexflow.Scripts.LiteDB
         private static void BuildDatabase(string info, string platformFolder)
         {
             Console.WriteLine($"=== Build {info} database ===");
-            var dbPath = Path.Combine(
+            var path = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "..", "..",
                 "samples", "dotnet-core", platformFolder, "Wexflow", "Database", "Wexflow.db");
+            var connString = "Filename=" + path + "; Mode=Exclusive";
 
             var workflowsFolder = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "..", "..",
                 "samples", "MongoDB", "dotnet-core", platformFolder);
 
             if (!Directory.Exists(workflowsFolder)) throw new DirectoryNotFoundException("Invalid workflows folder: " + workflowsFolder);
-            if (File.Exists(dbPath)) File.Delete(dbPath);
+            if (File.Exists(path)) File.Delete(path);
 
-            var db = new Db(dbPath);
+            var db = new Db(connString);
             Helper.InsertWorkflowsAndUser(db, workflowsFolder);
         }
     }

@@ -258,6 +258,10 @@
       <Project>{4c64fc9a-edad-4741-9b1d-76f11a73532a}</Project>
       <Name>Wexflow.Tasks.FilesInfo</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.FilesJoiner\Wexflow.Tasks.FilesJoiner.csproj">
+      <Project>{fc422775-d1f9-4566-b96d-e34530733f4a}</Project>
+      <Name>Wexflow.Tasks.FilesJoiner</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.FilesLoaderEx\Wexflow.Tasks.FilesLoaderEx.csproj">
       <Project>{4d7ebc75-a7ed-4163-aebf-30a34ade0333}</Project>
       <Name>Wexflow.Tasks.FilesLoaderEx</Name>

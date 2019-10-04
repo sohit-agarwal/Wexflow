@@ -13,6 +13,7 @@
 	"FilesEqual": [ "file1", "file2" ],
 	"FilesExist": [ "file", "folder" ],
 	"FilesInfo": [ "selectFiles" ],
+	"FilesJoiner": [ "selectFiles", "destFolder", "overwrite" ],
 	"FilesLoader": [ "file", "folder", "regexPattern", "recursive" ],
 	"FilesLoaderEx": [ "file", "folder", "regexPattern", "recursive", "addMaxCreateDate", "addMinCreateDate", "addMaxModifyDate", "addMinModifyDate", "removeMaxCreateDate", "removeMinCreateDate", "removeMaxModifyDate", "removeMinModifyDate" ],
 	"FilesMover": [ "selectFiles", "destFolder", "overwrite" ],

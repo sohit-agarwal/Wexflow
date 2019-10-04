@@ -2,7 +2,7 @@
 <Tasks>
   <!--
     FilesLoaderEx is a sequential task that loads a collection of files located in folders or through the file option.
-    This task is inherited from FilesLoader task, but by default result is empty, you must configure file system attributes rules to populate result -->
+    This task is inherited from FilesLoader task, but by default result is empty, you must configure file system attributes rules to populate result. -->
   -->
   <Task id="$int" name="FilesLoaderEx" description="$string" enabled="true|false">
     <!-- The files located the the folder option will be loaded. For example, if the option 
