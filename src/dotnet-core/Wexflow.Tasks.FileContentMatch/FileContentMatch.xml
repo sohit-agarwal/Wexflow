@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Tasks>
+  <!--
+    FileContentMatch is a flowchart task that checks whether the content of a file matches a regex pattern.
+  -->
+  <Task id="$int" name="FileContentMatch" description="$string" enabled="true|false">
+    <!-- The path of the file to check. Example: C:\WexflowTesting\file1.txt -->
+    <Setting name="file" value="$string" />
+    <!-- The regex pattern. It is case sensitive! Ex: .*\.boo -->
+    <Setting name="pattern" value=".*\.txt" />
+  </Task>
+</Tasks>

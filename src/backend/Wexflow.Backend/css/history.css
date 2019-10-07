@@ -1,0 +1,121 @@
+﻿body {
+    background: #FFFFFF;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+}
+
+#header {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 43px;
+    background: #29A85C;
+    color: #FFFFFF;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+    #header a {
+        color: #FFFFFF;
+        font-size: 12px;
+        margin: 20px;
+        float: left;
+        font-weight: bold;
+        -webkit-font-smoothing: antialiased;
+        line-height: 5px;
+        white-space: nowrap;
+    }
+
+    #header .header-right {
+        float: right;
+    }
+
+    #header #lnk-manager, #lnk-designer, #lnk-approval, #lnk-users, #lnk-profiles {
+        display: none;
+    }
+
+#entries-action {
+    position: absolute;
+    top: 55px;
+    right: 0;
+    left: 5px;
+    display: none;
+}
+
+    #entries-action label {
+        font-weight: bold;
+    }
+
+    #entries-action .action-right {
+        float: right;
+    }
+
+    #entries-action #btn-search {
+        margin-right: 10px;
+        margin-left: 5px;
+    }
+
+    #entries-action #txt-from, #txt-to {
+        width: 120px;
+        margin-right: 15px;
+        margin-left: 5px;
+    }
+
+#entries {
+    position: absolute;
+    top: 90px;
+    right: 0;
+    left: 10px;
+    bottom: 0;
+    overflow: auto;
+    display: none;
+}
+
+#entries .thead-dark {
+    background: #272727;
+    color: #EEEEEE;
+}
+
+#entries tbody tr:hover{
+    background: #EEEEEE;
+}
+
+    #entries #entries-table .status {
+        width: 95px;
+    }
+
+    #entries #entries-table .date {
+        width: 120px;
+    }
+
+    #entries #entries-table .id {
+        width: 45px;
+    }
+
+    #entries #entries-table .name {
+        width: 200px;
+    }
+
+    #entries #entries-table .lt {
+        width: 100px;
+    }
+
+    #entries #entries-table .desc {
+        width: 200px;
+    }
+
+    #entries #entries-table tr:hover {
+        cursor: default;
+    }
+
+    #entries #entries-table th:hover {
+        cursor: pointer;
+    }
+
+    #entries #entries-table .selected, #entries #entries-table .selected:hover {
+        background-color: #ffb347;
+    }
+
+#entries-table img {
+    margin-right: 10px;
+}

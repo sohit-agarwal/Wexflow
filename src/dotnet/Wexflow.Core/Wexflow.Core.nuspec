@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Wexflow</id>
+    <version>4.9.0</version>
+    <title>Wexflow</title>
+    <authors>Akram El Assas</authors>
+    <owners>akram.elassas</owners>
+    <license type="file">LICENSE.txt</license>
+    <projectUrl>https://wexflow.github.io</projectUrl>
+    <repository type="git" url="https://github.com/aelassas/Wexflow" />
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Core assembly of Wexflow workflow engine.</description>
+    <releaseNotes>Bug fixes, performance enhancements and under the hood updates.</releaseNotes>
+    <copyright>Copyright (c) 2019 Akram El Assas.</copyright>
+    <tags>Wexflow Workflow</tags>
+  </metadata>
+  <files>
+    <file src="..\..\..\LICENSE.txt" target="" />
+
+    <file src=".\bin\Debug\Wexflow.Core.Db.dll" target="lib\net461\Wexflow.Core.Db.dll"/>
+    <file src=".\bin\Debug\Wexflow.Core.LiteDB.dll" target="lib\net461\Wexflow.Core.LiteDB.dll"/>
+    <file src=".\bin\Debug\Wexflow.Core.MongoDB.dll" target="lib\net461\Wexflow.Core.MongoDB.dll"/>
+    <file src=".\bin\Debug\Wexflow.Core.RavenDB.dll" target="lib\net461\Wexflow.Core.RavenDB.dll"/>
+    <file src=".\bin\Debug\Wexflow.Core.CosmosDB.dll" target="lib\net461\Wexflow.Core.CosmosDB.dll"/>
+    <!--<file src="..\..\..\libs\log4net.dll" target="lib\net461\log4net.dll"/>
+    <file src="..\..\..\libs\Quartz.dll" target="lib\net461\Quartz.dll"/>
+    <file src="..\..\..\libs\Common.Logging.Core.dll" target="lib\net461\Common.Logging.Core.dll"/>
+    <file src="..\..\..\libs\Common.Logging.dll" target="lib\net461\Common.Logging.dll"/>
+    <file src=".\bin\Debug\LiteDB.dll" target="lib\net461\LiteDB.dll"/>-->
+    
+    <file src="..\..\..\src\dotnet-core\Wexflow.Core\bin\Debug\netcoreapp3.0\Wexflow.Core.dll" target="lib\netcoreapp3.0\Wexflow.Core.dll"/>
+    <!--<file src="..\..\..\src\dotnet-core\Wexflow.Core\bin\Debug\netcoreapp3.0\Wexflow.Core.xml" target="lib\netcoreapp3.0\Wexflow.Core.xml"/>-->
+    <file src="..\..\..\src\dotnet-core\Wexflow.Core\bin\Debug\netcoreapp3.0\Wexflow.Core.Db.dll" target="lib\netcoreapp3.0\Wexflow.Core.Db.dll"/>
+    <file src="..\..\..\src\dotnet-core\Wexflow.Core\bin\Debug\netcoreapp3.0\Wexflow.Core.LiteDB.dll" target="lib\netcoreapp3.0\Wexflow.Core.LiteDB.dll"/>
+    <file src="..\..\..\src\dotnet-core\Wexflow.Core\bin\Debug\netcoreapp3.0\Wexflow.Core.MongoDB.dll" target="lib\netcoreapp3.0\Wexflow.Core.MongoDB.dll"/>
+    <file src="..\..\..\src\dotnet-core\Wexflow.Core\bin\Debug\netcoreapp3.0\Wexflow.Core.RavenDB.dll" target="lib\netcoreapp3.0\Wexflow.Core.RavenDB.dll"/>
+    <file src="..\..\..\src\dotnet-core\Wexflow.Core\bin\Debug\netcoreapp3.0\Wexflow.Core.CosmosDB.dll" target="lib\netcoreapp3.0\Wexflow.Core.CosmosDB.dll"/>
+  </files>
+</package>

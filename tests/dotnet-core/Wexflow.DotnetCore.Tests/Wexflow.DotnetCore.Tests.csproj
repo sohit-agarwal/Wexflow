@@ -1,0 +1,92 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+	<DebugType>Full</DebugType>
+	<Platforms>AnyCPU;x64;x86</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="2.0.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Core\Wexflow.Core.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Approval\Wexflow.Tasks.Approval.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.CsvToSql\Wexflow.Tasks.CsvToSql.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.CsvToXml\Wexflow.Tasks.CsvToXml.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.EnvironmentVariable\Wexflow.Tasks.EnvironmentVariable.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.FileContentMatch\Wexflow.Tasks.FileContentMatch.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.FileExists\Wexflow.Tasks.FileExists.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.FileMatch\Wexflow.Tasks.FileMatch.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.FilesConcat\Wexflow.Tasks.FilesConcat.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.FilesCopier\Wexflow.Tasks.FilesCopier.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.FilesDecryptor\Wexflow.Tasks.FilesDecryptor.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.FilesEncryptor\Wexflow.Tasks.FilesEncryptor.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.FilesEqual\Wexflow.Tasks.FilesEqual.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.FilesExist\Wexflow.Tasks.FilesExist.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.FilesInfo\Wexflow.Tasks.FilesInfo.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.FilesLoaderEx\Wexflow.Tasks.FilesLoaderEx.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.FilesJoiner\Wexflow.Tasks.FilesJoiner.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.FilesLoader\Wexflow.Tasks.FilesLoader.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.FilesMover\Wexflow.Tasks.FilesMover.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.FilesRemover\Wexflow.Tasks.FilesRemover.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.FilesRenamer\Wexflow.Tasks.FilesRenamer.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.FilesSplitter\Wexflow.Tasks.FilesSplitter.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.FolderExists\Wexflow.Tasks.FolderExists.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Ftp\Wexflow.Tasks.Ftp.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Guid\Wexflow.Tasks.Guid.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.HttpDelete\Wexflow.Tasks.HttpDelete.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.HttpGet\Wexflow.Tasks.HttpGet.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.HttpPatch\Wexflow.Tasks.HttpPatch.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.HttpPost\Wexflow.Tasks.HttpPost.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.HttpPut\Wexflow.Tasks.HttpPut.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Http\Wexflow.Tasks.Http.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.ImagesConcat\Wexflow.Tasks.ImagesConcat.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.ImagesCropper\Wexflow.Tasks.ImagesCropper.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.ImagesOverlay\Wexflow.Tasks.ImagesOverlay.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.ImagesResizer\Wexflow.Tasks.ImagesResizer.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.ImagesTransformer\Wexflow.Tasks.ImagesTransformer.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.InstagramUploadImage\Wexflow.Tasks.InstagramUploadImage.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.InstagramUploadVideo\Wexflow.Tasks.InstagramUploadVideo.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.ListEntities\Wexflow.Tasks.ListEntities.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.ListFiles\Wexflow.Tasks.ListFiles.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.MailsReceiver\Wexflow.Tasks.MailsReceiver.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.MailsSender\Wexflow.Tasks.MailsSender.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Md5\Wexflow.Tasks.Md5.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.MessageCorrect\Wexflow.Tasks.MessageCorrect.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Mkdir\Wexflow.Tasks.Mkdir.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Movedir\Wexflow.Tasks.Movedir.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Now\Wexflow.Tasks.Now.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Ping\Wexflow.Tasks.Ping.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.ProcessInfo\Wexflow.Tasks.ProcessInfo.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.ProcessLauncher\Wexflow.Tasks.ProcessLauncher.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.RedditListComments\Wexflow.Tasks.RedditListComments.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.RedditListPosts\Wexflow.Tasks.RedditListPosts.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Reddit\Wexflow.Tasks.Reddit.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Rmdir\Wexflow.Tasks.Rmdir.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Sha1\Wexflow.Tasks.Sha1.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Sha256\Wexflow.Tasks.Sha256.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Sha512\Wexflow.Tasks.Sha512.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Slack\Wexflow.Tasks.Slack.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Template\Wexflow.Tasks.Template.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.TextsDecryptor\Wexflow.Tasks.TextsDecryptor.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.TextsEncryptor\Wexflow.Tasks.TextsEncryptor.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Touch\Wexflow.Tasks.Touch.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Twitter\Wexflow.Tasks.Twitter.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Unzip\Wexflow.Tasks.Unzip.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.VimeoListUploads\Wexflow.Tasks.VimeoListUploads.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Vimeo\Wexflow.Tasks.Vimeo.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Wait\Wexflow.Tasks.Wait.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.XmlToCsv\Wexflow.Tasks.XmlToCsv.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Xslt\Wexflow.Tasks.Xslt.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.YouTubeListUploads\Wexflow.Tasks.YouTubeListUploads.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.YouTubeSearch\Wexflow.Tasks.YouTubeSearch.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.YouTube\Wexflow.Tasks.YouTube.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Zip\Wexflow.Tasks.Zip.csproj" />
+  </ItemGroup>
+
+</Project>

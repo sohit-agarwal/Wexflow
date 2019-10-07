@@ -3,7 +3,7 @@
 #---------------------------------#
 
 # Build worker image (VM template)
-image: Visual Studio 2017
+image: Visual Studio 2019
 
 # scripts that are called at very beginning, before repo cloning
 init:
@@ -17,7 +17,7 @@ clone_folder: c:\projects\wexflow
 #---------------------------------#
 
 # build platform, i.e. x86, x64, Any CPU. This setting is optional.
-platform: x86
+platform: Any CPU
 
 # to add several platforms to build matrix:
 #platform:
@@ -25,7 +25,11 @@ platform: x86
 #  - Any CPU
 
 # build Configuration, i.e. Debug, Release, etc.
-configuration: Debug
+configuration: Release
+
+before_build: 
+  - ps: dotnet --list-sdks
+  - nuget restore
 
 # to add several configurations to build matrix:
 #configuration:
@@ -34,7 +38,7 @@ configuration: Debug
 
 build:
   parallel: true                   # enable MSBuild parallel builds
-  project: Wexflow.vs2017.sln      # path to Visual Studio solution or project
+  project: Wexflow.sln      # path to Visual Studio solution or project
   verbosity: normal                # MSBuild verbosity level quiet|minimal|normal|detailed
 
 test: off

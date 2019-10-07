@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,6 +13,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 class WexflowServiceClient {
 
@@ -27,7 +30,7 @@ class WexflowServiceClient {
         disableKeepAlive();
     }
 
-    private static void post(String urlString) throws IOException {
+    private static boolean post(String urlString) throws IOException {
         HttpURLConnection urlConnection;
 
         URL url = new URL(urlString);
@@ -39,8 +42,24 @@ class WexflowServiceClient {
         urlConnection.setReadTimeout(READ_TIMEOUT);
         urlConnection.setConnectTimeout(CONNECTION_TIMEOUT);
         urlConnection.setDoOutput(true);
-        urlConnection.getResponseCode();
+        urlConnection.connect();
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "utf-8"));
+        StringBuilder sb = new StringBuilder();
+        String responseLine;
+        while ((responseLine = br.readLine()) != null) {
+            sb.append(responseLine.trim());
+        }
+
+        String response = sb.toString();
+
+        if(response.isEmpty()){
+            return true;
+        }
+
+        return  Boolean.valueOf(response);
     }
+
 
     private static String getString(String urlString) throws IOException {
         HttpURLConnection urlConnection;
@@ -92,7 +111,7 @@ class WexflowServiceClient {
     }
 
     List<Workflow> getWorkflows() throws IOException, JSONException {
-        String uri = this.uri + "/workflows";
+        String uri = this.uri + "/search?s=&u=" + LoginActivity.Username + "&p=" + LoginActivity.Password;
         JSONArray jsonArray = getJSONArray(uri);
         List<Workflow> workflows = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -103,29 +122,45 @@ class WexflowServiceClient {
         return workflows;
     }
 
-    Workflow getWorkflow(int id) throws IOException, JSONException {
-        String uri = this.uri + "/workflow/" + id;
+    Workflow getWorkflow(String username, String password, int id) throws IOException, JSONException {
+        String uri = this.uri + "/workflow?u=" + username + "&p=" + password + "&w=" + id;
         JSONObject jsonObject = getJSONObject(uri);
         return Workflow.fromJSONObject(jsonObject);
     }
 
-    void start(int id) throws IOException {
-        String uri = this.uri + "/start/" + id;
-        post(uri);
+    User getUser(String qusername, String qpassword, String username)throws IOException, JSONException {
+        String uri = this.uri + "/user?qu="+qusername+"&qp="+qpassword+"&username=" + username;
+        JSONObject jsonObject = getJSONObject(uri);
+        return User.fromJSONObject(jsonObject);
     }
 
-    void suspend(int id) throws IOException {
-        String uri = this.uri + "/suspend/" + id;
-        post(uri);
+    Boolean start(int id) throws IOException {
+        String uri = this.uri + "/start?w=" + id + "&u=" + LoginActivity.Username + "&p=" + LoginActivity.Password;
+        return post(uri);
     }
 
-    void resume(int id) throws IOException {
-        String uri = this.uri + "/resume/" + id;
-        post(uri);
+    Boolean suspend(int id) throws IOException {
+        String uri = this.uri + "/suspend?w=" + id + "&u=" + LoginActivity.Username + "&p=" + LoginActivity.Password;
+        return post(uri);
     }
 
-    void stop(int id) throws IOException {
-        String uri = this.uri + "/stop/" + id;
-        post(uri);
+    Boolean resume(int id) throws IOException {
+        String uri = this.uri + "/resume?w=" + id + "&u=" + LoginActivity.Username + "&p=" + LoginActivity.Password;
+        return post(uri);
+    }
+
+    Boolean stop(int id) throws IOException {
+        String uri = this.uri + "/stop?w=" + id + "&u=" + LoginActivity.Username + "&p=" + LoginActivity.Password;
+        return post(uri);
+    }
+
+    Boolean approve(int id) throws IOException {
+        String uri = this.uri + "/approve?w=" + id + "&u=" + LoginActivity.Username + "&p=" + LoginActivity.Password;
+        return post(uri);
+    }
+
+    Boolean disapprove(int id) throws IOException {
+        String uri = this.uri + "/disapprove?w=" + id + "&u=" + LoginActivity.Username + "&p=" + LoginActivity.Password;
+        return post(uri);
     }
 }

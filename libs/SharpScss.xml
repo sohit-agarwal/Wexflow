@@ -1,0 +1,586 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SharpScss</name>
+    </assembly>
+    <members>
+        <member name="T:SharpScss.LibSass">
+            <summary>
+            Struct and functions of libsass used manually. All other functions/types are defined in LibSass.Generated.cs
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_alloc_memory(SharpScss.LibSass.size_t)">
+            <summary>
+            to allocate buffer to be filled
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_copy_c_string(SharpScss.LibSass.StringUtf8)">
+            <summary>
+            to allocate a buffer from existing string
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_free_memory(System.IntPtr)">
+            <summary>
+            to free overtaken memory when done
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_string_quote(SharpScss.LibSass.StringUtf8,System.SByte)">
+            <summary>
+            Some convenient string helper function
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.libsass_version">
+            <summary>
+            Implemented sass language version Hardcoded version 3.4 for time being
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.libsass_language_version">
+            <summary>
+            Get compiled libsass language
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_make_null">
+            <summary>
+            Creator functions for all value types
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_delete_value(SharpScss.LibSass.Sass_Value)">
+            <summary>
+            Generic destructor function for all types Will release memory of all associated
+            Sass_Values Means we will delete recursively for lists and maps
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_clone_value(SharpScss.LibSass.Sass_Value)">
+            <summary>
+            Make a deep cloned copy of the given sass value
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_value_op(SharpScss.LibSass.Sass_OP,SharpScss.LibSass.Sass_Value,SharpScss.LibSass.Sass_Value)">
+            <summary>
+            Execute an operation for two Sass_Values and return the result as a Sass_Value
+            too
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_value_stringify(SharpScss.LibSass.Sass_Value,System.Boolean,System.Int32)">
+            <summary>
+            Stringify a Sass_Values and also return the result as a Sass_Value (of type
+            STRING)
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_value_get_tag(SharpScss.LibSass.Sass_Value)">
+            <summary>
+            Return the sass tag for a generic sass value Check is needed before accessing
+            specific values!
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_value_is_null(SharpScss.LibSass.Sass_Value)">
+            <summary>
+            Check value to be of a specific type Can also be used before accessing
+            properties!
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_number_get_value(SharpScss.LibSass.Sass_Value)">
+            <summary>
+            Getters and setters for Sass_Number
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_string_get_value(SharpScss.LibSass.Sass_Value)">
+            <summary>
+            Getters and setters for Sass_String
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_boolean_get_value(SharpScss.LibSass.Sass_Value)">
+            <summary>
+            Getters and setters for Sass_Boolean
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_color_get_r(SharpScss.LibSass.Sass_Value)">
+            <summary>
+            Getters and setters for Sass_Color
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_list_get_length(SharpScss.LibSass.Sass_Value)">
+            <summary>
+            Getter for the number of items in list
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_list_get_separator(SharpScss.LibSass.Sass_Value)">
+            <summary>
+            Getters and setters for Sass_List
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_list_get_value(SharpScss.LibSass.Sass_Value,SharpScss.LibSass.size_t)">
+            <summary>
+            Getters and setters for Sass_List values
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_map_get_length(SharpScss.LibSass.Sass_Value)">
+            <summary>
+            Getter for the number of items in map
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_map_get_key(SharpScss.LibSass.Sass_Value,SharpScss.LibSass.size_t)">
+            <summary>
+            Getters and setters for Sass_Map keys and values
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_error_get_message(SharpScss.LibSass.Sass_Value)">
+            <summary>
+            Getters and setters for Sass_Error
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_warning_get_message(SharpScss.LibSass.Sass_Value)">
+            <summary>
+            Getters and setters for Sass_Warning
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_make_importer_list(SharpScss.LibSass.size_t)">
+            <summary>
+            Creator for sass custom importer return argument list
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_make_importer(SharpScss.LibSass.Sass_Importer_Fn,System.Double,System.IntPtr)">
+            <summary>
+            Creators for custom importer callback (with some additional pointer) The pointer
+            is mostly used to store the callback into the actual binding
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_importer_get_function(SharpScss.LibSass.Sass_Importer_Entry)">
+            <summary>
+            Getters for import function descriptors
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_delete_importer(SharpScss.LibSass.Sass_Importer_Entry)">
+            <summary>
+            Deallocator for associated memory
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_make_import_list(SharpScss.LibSass.size_t)">
+            <summary>
+            Creator for sass custom importer return argument list
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_make_import_entry(SharpScss.LibSass.StringUtf8,SharpScss.LibSass.StringUtf8,SharpScss.LibSass.StringUtf8)">
+            <summary>
+            Creator for a single import entry returned by the custom importer inside the
+            list
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_import_set_error(SharpScss.LibSass.Sass_Import_Entry,SharpScss.LibSass.StringUtf8,SharpScss.LibSass.size_t,SharpScss.LibSass.size_t)">
+            <summary>
+            set error message to abort import and to print out a message (path from existing
+            object is used in output)
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_import_set_list_entry(SharpScss.LibSass.Sass_Import_List,SharpScss.LibSass.size_t,SharpScss.LibSass.Sass_Import_Entry)">
+            <summary>
+            Setters to insert an entry into the import list (you may also use [] access
+            directly) Since we are dealing with pointers they should have a guaranteed and
+            fixed size
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_callee_get_name(SharpScss.LibSass.Sass_Callee_Entry)">
+            <summary>
+            Getters for callee entry
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_env_get_lexical(SharpScss.LibSass.Sass_Env_Frame,SharpScss.LibSass.StringUtf8)">
+            <summary>
+            Getters and Setters for environments (lexical, local and global)
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_import_get_imp_path(SharpScss.LibSass.Sass_Import_Entry)">
+            <summary>
+            Getters for import entry
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_import_take_source(SharpScss.LibSass.Sass_Import_Entry)">
+            <summary>
+            Explicit functions to take ownership of these items The property on our struct
+            will be reset to NULL
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_import_get_error_line(SharpScss.LibSass.Sass_Import_Entry)">
+            <summary>
+            Getters from import error entry
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_delete_import_list(SharpScss.LibSass.Sass_Import_List)">
+            <summary>
+            Deallocator for associated memory (incl. entries)
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_delete_import(SharpScss.LibSass.Sass_Import_Entry)">
+            <summary>
+            Just in case we have some stray import structs
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_make_function_list(SharpScss.LibSass.size_t)">
+            <summary>
+            Creators for sass function list and function descriptors
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_function_get_list_entry(SharpScss.LibSass.Sass_Function_List,SharpScss.LibSass.size_t)">
+            <summary>
+            Setters and getters for callbacks on function lists
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_function_get_signature(SharpScss.LibSass.Sass_Function_Entry)">
+            <summary>
+            Getters for custom function descriptors
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_make_options">
+            <summary>
+            Create and initialize an option struct
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_make_file_context(SharpScss.LibSass.StringUtf8)">
+            <summary>
+            Create and initialize a specific context
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_compile_file_context(SharpScss.LibSass.Sass_File_Context)">
+            <summary>
+            Call the compilation step for the specific context
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_make_file_compiler(SharpScss.LibSass.Sass_File_Context)">
+            <summary>
+            Create a sass compiler instance for more control
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_compiler_parse(SharpScss.LibSass.Sass_Compiler)">
+            <summary>
+            Execute the different compilation steps individually Usefull if you only want to
+            query the included files
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_delete_compiler(SharpScss.LibSass.Sass_Compiler)">
+            <summary>
+            Release all memory allocated with the compiler This does _not_ include any
+            contexts or options
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_delete_file_context(SharpScss.LibSass.Sass_File_Context)">
+            <summary>
+            Release all memory allocated and also ourself
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_file_context_get_context(SharpScss.LibSass.Sass_File_Context)">
+            <summary>
+            Getters for context from specific implementation
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_context_get_options(SharpScss.LibSass.Sass_Context)">
+            <summary>
+            Getters for Context_Options from Sass_Context
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_option_get_precision(SharpScss.LibSass.Sass_Options)">
+            <summary>
+            Getters for Context_Option values
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_option_set_precision(SharpScss.LibSass.Sass_Options,System.Int32)">
+            <summary>
+            Setters for Context_Option values
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_context_get_output_string(SharpScss.LibSass.Sass_Context)">
+            <summary>
+            Getters for Sass_Context values
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_option_get_include_path_size(SharpScss.LibSass.Sass_Options)">
+            <summary>
+            Getters for options include path array
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_context_get_included_files_size(SharpScss.LibSass.Sass_Context)">
+            <summary>
+            Calculate the size of the stored null terminated array
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_context_take_error_json(SharpScss.LibSass.Sass_Context)">
+            <summary>
+            Take ownership of memory (value on context is set to 0)
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_compiler_get_state(SharpScss.LibSass.Sass_Compiler)">
+            <summary>
+            Getters for Sass_Compiler options
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_option_push_import_extension(SharpScss.LibSass.Sass_Options,SharpScss.LibSass.StringUtf8)">
+            <summary>
+            Push function for import extenions
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_option_push_plugin_path(SharpScss.LibSass.Sass_Options,SharpScss.LibSass.StringUtf8)">
+            <summary>
+            Push function for paths (no manipulation support for now)
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_find_file(SharpScss.LibSass.StringUtf8,SharpScss.LibSass.Sass_Options)">
+            <summary>
+            Resolve a file via the given include paths in the sass option struct find_file
+            looks for the exact file name while find_include does a regular sass include
+            </summary>
+        </member>
+        <member name="M:SharpScss.LibSass.sass_compiler_find_file(SharpScss.LibSass.StringUtf8,SharpScss.LibSass.Sass_Compiler)">
+            <summary>
+            Resolve a file relative to last import or include paths in the sass option
+            struct find_file looks for the exact file name while find_include does a
+            regular sass include
+            </summary>
+        </member>
+        <member name="T:SharpScss.Scss">
+            <summary>
+            Scss to css converter using libsass from https://github.com/sass/libsass.
+            </summary>
+        </member>
+        <member name="P:SharpScss.Scss.Version">
+            <summary>
+            Gets the libsass version.
+            </summary>
+        </member>
+        <member name="P:SharpScss.Scss.LanguageVersion">
+            <summary>
+            Gets the libsass language version.
+            </summary>
+        </member>
+        <member name="M:SharpScss.Scss.ConvertToCss(System.String,SharpScss.ScssOptions)">
+            <summary>
+            Converts the specified scss content string.
+            </summary>
+            <param name="scss">A scss content.</param>
+            <param name="options">The options.</param>
+            <returns>The result of the conversion</returns>
+            <exception cref="T:System.ArgumentNullException">if scss is null</exception>
+        </member>
+        <member name="M:SharpScss.Scss.ConvertFileToCss(System.String,SharpScss.ScssOptions)">
+            <summary>
+            Converts a scss content from the specified scss file.
+            </summary>
+            <param name="scssFile">A scss file.</param>
+            <param name="options">The options.</param>
+            <returns>The result of the conversion</returns>
+            <exception cref="T:System.ArgumentNullException">if scss is null</exception>
+        </member>
+        <member name="M:SharpScss.Scss.FromCore(System.String,System.Boolean,SharpScss.ScssOptions)">
+            <summary>
+            Shared conversion method.
+            </summary>
+            <param name="fromStringOrFile">From string or file.</param>
+            <param name="fromFile">if set to <c>true</c> <paramref name="fromStringOrFile"/> is a scss file; otherwise it is a scss content.</param>
+            <param name="options">The options.</param>
+            <returns>The result of the conversion</returns>
+        </member>
+        <member name="T:SharpScss.ScssException">
+            <summary>
+            Exception used by <see cref="T:SharpScss.Scss"/> to report errors from libsass.
+            </summary>
+        </member>
+        <member name="M:SharpScss.ScssException.#ctor(System.Int32,System.Int32,System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharpScss.ScssException" /> class.
+            </summary>
+            <param name="line">The line.</param>
+            <param name="column">The column.</param>
+            <param name="file">The file.</param>
+            <param name="message">The message that describes the error.</param>
+            <param name="errorText">The error text.</param>
+        </member>
+        <member name="P:SharpScss.ScssException.Line">
+            <summary>
+            Gets the line the exception occured.
+            </summary>
+        </member>
+        <member name="P:SharpScss.ScssException.Column">
+            <summary>
+            Gets the column the exception occured.
+            </summary>
+        </member>
+        <member name="P:SharpScss.ScssException.File">
+            <summary>
+            Gets the file the exception occured.
+            </summary>
+        </member>
+        <member name="P:SharpScss.ScssException.ErrorText">
+            <summary>
+            Gets a short error message describing the error. For a full message use the <see cref="P:System.Exception.Message"/> property.
+            </summary>
+        </member>
+        <member name="T:SharpScss.ScssOptions">
+            <summary>
+            Options used by <see cref="M:SharpScss.Scss.ConvertToCss(System.String,SharpScss.ScssOptions)"/> and <see cref="M:SharpScss.Scss.ConvertFileToCss(System.String,SharpScss.ScssOptions)"/>.
+            </summary>
+        </member>
+        <member name="T:SharpScss.ScssOptions.TryImportDelegate">
+            <summary>
+            Delegates that tries to import the specified file.
+            </summary>
+            <param name="file">The file to import.</param>
+            <param name="parentPath">The path of the parent file that is trying to import <paramref name="file"/>.</param>
+            <param name="scss">The output scss if import was found.</param>
+            <param name="map">The output map if import was found. May be null</param>
+            <returns><c>true</c> if import was found; <c>false</c> otherwise</returns>
+        </member>
+        <member name="M:SharpScss.ScssOptions.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharpScss.ScssOptions"/> class.
+            </summary>
+        </member>
+        <member name="P:SharpScss.ScssOptions.OutputStyle">
+            <summary>
+            Gets or sets the output style. Default is <see cref="F:SharpScss.ScssOutputStyle.Nested"/>
+            </summary>
+        </member>
+        <member name="P:SharpScss.ScssOptions.GenerateSourceMap">
+            <summary>
+            Gets or sets a value indicating whether to generate source map (result in <see cref="P:SharpScss.ScssResult.SourceMap"/>
+            </summary>
+            <remarks>
+            Note that <see cref="P:SharpScss.ScssOptions.OutputFile"/> should be setup. <see cref="P:SharpScss.ScssOptions.SourceMapFile"/> will then automatically
+            map to <see cref="P:SharpScss.ScssOptions.OutputFile"/> + ".map" unless specified.
+            </remarks>
+        </member>
+        <member name="P:SharpScss.ScssOptions.SourceComments">
+            <summary>
+            Gets or sets a value indicating whether to enable additional debugging information in the output file as CSS comments. Default is <c>false</c>
+            </summary>
+        </member>
+        <member name="P:SharpScss.ScssOptions.SourceMapEmbed">
+            <summary>
+            Gets or sets a value indicating whether to embed the source map as a data URI. Default is <c>false</c>
+            </summary>
+        </member>
+        <member name="P:SharpScss.ScssOptions.SourceMapContents">
+            <summary>
+            Gets or sets a value indicating whether to include the contents in the source map information. Default is <c>false</c>
+            </summary>
+        </member>
+        <member name="P:SharpScss.ScssOptions.OmitSourceMapUrl">
+            <summary>
+            Gets or sets a value indicating whether to enable or disable the inclusion of source map information in the output file. Default is <c>false</c>
+            </summary>
+            <remarks>
+            If this is set to <c>true</c>, the <see cref="P:SharpScss.ScssOptions.OutputFile"/> must be setup to avoid unexpected behavior.
+            </remarks>
+        </member>
+        <member name="P:SharpScss.ScssOptions.IsIndentedSyntaxSource">
+            <summary>
+            Gets or sets a value indicating whether the scss content to transform is using indented syntax.
+            </summary>
+        </member>
+        <member name="P:SharpScss.ScssOptions.Indent">
+            <summary>
+            Gets or sets the indent string. Default is 2 spaces.
+            </summary>
+        </member>
+        <member name="P:SharpScss.ScssOptions.Linefeed">
+            <summary>
+            Gets or sets the linefeed. Default is LF (\n)
+            </summary>
+        </member>
+        <member name="P:SharpScss.ScssOptions.InputFile">
+            <summary>
+            Gets or sets the name of the input file. See remarks for more information.
+            </summary>
+            <remarks>
+            This is recommended when <see cref="P:SharpScss.ScssOptions.GenerateSourceMap"/> so that they can properly refer back to their intended files.
+            Note also that this is not used to load the data from a file. Use <see cref="M:SharpScss.Scss.ConvertFileToCss(System.String,SharpScss.ScssOptions)"/> instead.
+            </remarks>
+        </member>
+        <member name="P:SharpScss.ScssOptions.OutputFile">
+            <summary>
+            Gets or sets the location of the output file. This is recommended when <see cref="P:SharpScss.ScssOptions.GenerateSourceMap"/> so that they can properly refer back to their intended files.
+            </summary>
+        </member>
+        <member name="P:SharpScss.ScssOptions.SourceMapFile">
+            <summary>
+            Gets or sets the intended location of the source map file. Note that is used when <see cref="P:SharpScss.ScssOptions.GenerateSourceMap"/> is set. By default, if this property is not set,
+            the <see cref="P:SharpScss.ScssOptions.OutputFile"/> + ".map" extension will be used. Default is <c>null</c>
+            </summary>
+        </member>
+        <member name="P:SharpScss.ScssOptions.SourceMapRoot">
+            <summary>
+            Gets or sets the value that will be emitted as sourceRoot in the source map information. Default is null.
+            </summary>
+        </member>
+        <member name="P:SharpScss.ScssOptions.IncludePaths">
+            <summary>
+            Gets the include paths that will be used to search for @import directives in scss content.
+            </summary>
+        </member>
+        <member name="P:SharpScss.ScssOptions.TryImport">
+            <summary>
+            Gets or sets a dynamic delegate used to resolve imports dynamically.
+            </summary>
+        </member>
+        <member name="T:SharpScss.ScssOutputStyle">
+            <summary>
+            Determines the output format of the final CSS style used by <see cref="M:SharpScss.Scss.ConvertToCss(System.String,SharpScss.ScssOptions)"/> and <see cref="M:SharpScss.Scss.ConvertFileToCss(System.String,SharpScss.ScssOptions)"/>.
+            </summary>
+        </member>
+        <member name="F:SharpScss.ScssOutputStyle.Nested">
+            <summary>
+            Nested format.
+            </summary>
+        </member>
+        <member name="F:SharpScss.ScssOutputStyle.Expanded">
+            <summary>
+            Expanded format.
+            </summary>
+        </member>
+        <member name="F:SharpScss.ScssOutputStyle.Compact">
+            <summary>
+            Compact format.
+            </summary>
+        </member>
+        <member name="F:SharpScss.ScssOutputStyle.Compressed">
+            <summary>
+            Compressed format.
+            </summary>
+        </member>
+        <member name="F:SharpScss.ScssOutputStyle.Inspect">
+            <summary>
+            TODO: No documentation.
+            </summary>
+        </member>
+        <member name="F:SharpScss.ScssOutputStyle.Sass">
+            <summary>
+            TODO: No documentation.
+            </summary>
+        </member>
+        <member name="T:SharpScss.ScssResult">
+            <summary>
+            The result of CSS rendering by <see cref="M:SharpScss.Scss.ConvertToCss(System.String,SharpScss.ScssOptions)"/> and <see cref="M:SharpScss.Scss.ConvertFileToCss(System.String,SharpScss.ScssOptions)"/>.
+            </summary>
+        </member>
+        <member name="M:SharpScss.ScssResult.#ctor(System.String,System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:SharpScss.ScssResult" /> struct.
+            </summary>
+            <param name="css">The Css.</param>
+            <param name="sourceMap">The source SourceMap.</param>
+            <param name="includedFiles">The included files.</param>
+        </member>
+        <member name="P:SharpScss.ScssResult.Css">
+            <summary>
+            Gets the generated CSS.
+            </summary>
+        </member>
+        <member name="P:SharpScss.ScssResult.SourceMap">
+            <summary>
+            Gets the source map (may be null if <see cref="P:SharpScss.ScssOptions.GenerateSourceMap"/> was <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:SharpScss.ScssResult.IncludedFiles">
+            <summary>
+            Gets the included files used to generate this result when converting the input scss content.
+            </summary>
+        </member>
+    </members>
+</doc>

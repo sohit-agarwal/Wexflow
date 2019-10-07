@@ -9,6 +9,7 @@ import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton btnStop;
     private TextView txtInfo;
     private ListView lvWorkflows;
+    private Button btnRefresh;
+    private Button btnApprove;
+    private Button btnDisapprove;
     private int workflowId;
     private SparseArray<Workflow> workflows;
 
@@ -38,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         this.uri = sharedPref.getString(SettingsActivity.KEY_PREF_WEXFLOW_URI, this.getResources().getString(R.string.pref_wexflow_defualt_value));
 
         final MainActivity activity = this;
-        this.btnStart = (ImageButton) findViewById(R.id.btnStart);
+        this.btnStart = findViewById(R.id.btnStart);
         this.btnStart.setEnabled(false);
         this.btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        this.btnSuspend = (ImageButton) findViewById(R.id.btnSuspend);
+        this.btnSuspend = findViewById(R.id.btnSuspend);
         this.btnSuspend.setEnabled(false);
         this.btnSuspend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        this.btnResume = (ImageButton) findViewById(R.id.btnResume);
+        this.btnResume = findViewById(R.id.btnResume);
         this.btnResume.setEnabled(false);
         this.btnResume.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        this.btnStop = (ImageButton) findViewById(R.id.btnStop);
+        this.btnStop = findViewById(R.id.btnStop);
         this.btnStop.setEnabled(false);
         this.btnStop.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,9 +82,41 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        this.txtInfo = (TextView) findViewById(R.id.txtInfo);
+        this.txtInfo = findViewById(R.id.txtInfo);
 
-        this.lvWorkflows = (ListView) findViewById(R.id.lvWorkflows);
+        this.lvWorkflows = findViewById(R.id.lvWorkflows);
+
+        this.btnRefresh = findViewById(R.id.btnRefresh);
+        this.btnRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadWorkflows();
+            }
+        });
+
+        this.btnApprove = findViewById(R.id.btnApprove);
+        this.btnApprove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActionTask actionTask = new ActionTask(activity);
+                actionTask.execute(ActionType.Approve);
+            }
+        });
+
+        this.btnDisapprove = findViewById(R.id.btnDisapprove);
+        this.btnDisapprove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActionTask actionTask = new ActionTask(activity);
+                actionTask.execute(ActionType.Disapprove);
+            }
+        });
+
+        loadWorkflows();
+    }
+
+    private void loadWorkflows(){
+        this.txtInfo.setText("");
         WorkflowsTask workflowsTask = new WorkflowsTask(this);
         workflowsTask.execute();
     }
@@ -106,9 +142,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public Boolean workflowStatusChanged(Workflow workflow) {
-        Boolean changed = this.workflows.get(workflow.getId()).getRunning() != workflow.getRunning() || this.workflows.get(workflow.getId()).getPaused() != workflow.getPaused();
+        Boolean changed = this.workflows.get(workflow.getId()).getRunning() != workflow.getRunning() || this.workflows.get(workflow.getId()).getPaused() != workflow.getPaused() || this.workflows.get(workflow.getId()).getWaitingForApproval() != workflow.getWaitingForApproval();
         this.workflows.get(workflow.getId()).setRunning(workflow.getRunning());
         this.workflows.get(workflow.getId()).setPaused(workflow.getPaused());
+        this.workflows.get(workflow.getId()).setWaitingForApproval(workflow.getWaitingForApproval());
         return changed;
     }
 
@@ -126,6 +163,14 @@ public class MainActivity extends AppCompatActivity {
 
     public ImageButton getBtnStop() {
         return btnStop;
+    }
+
+    public Button getBtnApprove() {
+        return btnApprove;
+    }
+
+    public Button getBtnDisapprove() {
+        return btnDisapprove;
     }
 
     public TextView getTxtInfo() {

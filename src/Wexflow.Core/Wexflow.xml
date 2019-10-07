@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<Wexflow>
-  <Setting name="workflowsFolder" value="C:\Wexflow\Workflows" />
-  <Setting name="trashFolder" value="C:\Wexflow\Trash" />
-  <Setting name="tempFolder" value="C:\Wexflow\Temp" />
-  <Setting name="xsd" value="C:\Wexflow\Workflow.xsd" />
-  <Setting name="tasksNamesFile" value="C:\Wexflow\TasksNames.json" />
-  <Setting name="tasksSettingsFile" value="C:\Wexflow\TasksSettings.json" />
-</Wexflow>

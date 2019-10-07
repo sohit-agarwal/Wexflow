@@ -1,0 +1,1 @@
+uglifyjs jquery.min.js jquery.toast.min.js bootstrap.min.js bootstrap-toggle.min.js common.js authenticate.js cytoscape-dagre.min.js highlight.pack.js designer.js -o designer.min.js -c -m

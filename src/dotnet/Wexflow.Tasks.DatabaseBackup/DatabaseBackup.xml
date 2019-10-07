@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Tasks>
+  <!--
+    DatabaseBackup is a sequential task that backups a database (SQL Server).
+    
+    The backup generated is loaded by this task so that other tasks can select it through the selectFiles option.
+    
+    If Windows authentication is used to connect to SQL Server, you need to update the configuration of Wexflow Windows Service so that the service is run as the user who authenticates to SQL Server.
+  -->
+  <Task id="$int" name="DatabaseBackup" description="$string" enabled="true|false">
+    <!-- The server connection. Ex: localhost-->
+    <Setting name="serverConnection" value="$string" />
+    <!-- The name of the database to backup. -->
+    <Setting name="databaseName" value="$string" />
+    <!-- The path of the backup file. Ex: C:\WexflowTesting\DatabaseBackup\HELLOWORLD.bak-->
+    <Setting name="backupFilePath" value="$string" />
+    <!-- Optional and defaults to false. Indicates whether to overwrite the existing backup or not.-->
+    <Setting name="overwrite" value="true|false" />
+  </Task>
+</Tasks>

@@ -19,7 +19,7 @@ class UpdateButtonsTask {
     private Workflow doInBackground(Boolean force) {
         try {
             this.force = force;
-            return this.client.getWorkflow(this.activity.getWorkflowId());
+            return this.client.getWorkflow(LoginActivity.Username, LoginActivity.Password, this.activity.getWorkflowId());
         } catch (Exception e) {
             this.exception = e;
             return null;
@@ -44,14 +44,21 @@ class UpdateButtonsTask {
                 this.activity.getBtnStop().setEnabled(workflow.getRunning() && !workflow.getPaused());
                 this.activity.getBtnSuspend().setEnabled(workflow.getRunning() && !workflow.getPaused());
                 this.activity.getBtnResume().setEnabled(workflow.getPaused());
+                this.activity.getBtnApprove().setEnabled(workflow.getApproval() && workflow.getWaitingForApproval());
+                this.activity.getBtnDisapprove().setEnabled(workflow.getApproval() && workflow.getWaitingForApproval());
 
-                if (workflow.getRunning() && !workflow.getPaused()) {
-                    this.activity.getTxtInfo().setText(R.string.workflow_running);
-                } else if (workflow.getPaused()) {
-                    this.activity.getTxtInfo().setText(R.string.workflow_suspended);
-                } else {
-                    this.activity.getTxtInfo().setText("");
+                if(workflow.getApproval() && workflow.getWaitingForApproval() && !workflow.getPaused()){
+                    this.activity.getTxtInfo().setText(R.string.workflow_waiting_for_approval);
+                }else{
+                    if (workflow.getRunning() && !workflow.getPaused()) {
+                        this.activity.getTxtInfo().setText(R.string.workflow_running);
+                    } else if (workflow.getPaused()) {
+                        this.activity.getTxtInfo().setText(R.string.workflow_suspended);
+                    } else {
+                        this.activity.getTxtInfo().setText("");
+                    }
                 }
+
             }
         }
     }

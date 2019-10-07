@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+	<DebugType>Full</DebugType>
+    <Platforms>AnyCPU;x64;x86</Platforms>
+    <PackageId>Wexflow</PackageId>
+    <Version>4.2.0</Version>
+    <Authors>Akram El Assas</Authors>
+    <Company>Wexflow</Company>
+    <Product>Wexflow</Product>
+    <Description>Core assembly of Wexflow workflow engine.</Description>
+    <Copyright>Copyright (c) 2019 Akram El Assas.</Copyright>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageProjectUrl>https://wexflow.github.io</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/aelassas/Wexflow</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="GlobalVariables.xml" />
+    <None Remove="Workflow.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="GlobalVariables.xml" />
+    <Content Include="Workflow.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Quartz" Version="3.0.7" />
+    <PackageReference Include="Quartz.Serialization.Json" Version="3.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Wexflow.Core.CosmosDB\Wexflow.Core.CosmosDB.csproj" />
+    <ProjectReference Include="..\Wexflow.Core.Db\Wexflow.Core.Db.csproj" />
+    <ProjectReference Include="..\Wexflow.Core.LiteDB\Wexflow.Core.LiteDB.csproj" />
+    <ProjectReference Include="..\Wexflow.Core.MongoDB\Wexflow.Core.MongoDB.csproj" />
+    <ProjectReference Include="..\Wexflow.Core.RavenDB\Wexflow.Core.RavenDB.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Workflow.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+
+</Project>

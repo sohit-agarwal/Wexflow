@@ -1,0 +1,1 @@
+uglifycss bootstrap.min.css jquery-ui.min.css history.css --output history.min.css

@@ -71,19 +71,23 @@ class ListViewAdapter extends BaseAdapter {
 
         LayoutInflater inflater = activity.getLayoutInflater();
 
-        if (convertView == null) {
+        //if (convertView == null) {
+        convertView = inflater.inflate(R.layout.row, parent, false);
 
-            convertView = inflater.inflate(R.layout.row, parent, false);
-
-            txtId = (TextView) convertView.findViewById(R.id.txtId);
-            txtName = (TextView) convertView.findViewById(R.id.txtName);
-            txtLaunchType = (TextView) convertView.findViewById(R.id.txtLaunchType);
-
-        }
+        txtId = convertView.findViewById(R.id.txtId);
+        txtName = convertView.findViewById(R.id.txtName);
+        txtLaunchType = convertView.findViewById(R.id.txtLaunchType);
+        //}
 
         if (position == selectedPos) {
+            txtId.setTextColor(ContextCompat.getColor(txtId.getContext(), R.color.list_row_selected_text));
+            txtName.setTextColor(ContextCompat.getColor(txtName.getContext(), R.color.list_row_selected_text));
+            txtLaunchType.setTextColor(ContextCompat.getColor(txtLaunchType.getContext(), R.color.list_row_selected_text));
             convertView.setBackgroundColor(ContextCompat.getColor(convertView.getContext(), R.color.list_row_selected_bg));
         } else {
+            txtId.setTextColor(ContextCompat.getColor(txtId.getContext(), R.color.list_row_text));
+            txtName.setTextColor(ContextCompat.getColor(txtName.getContext(), R.color.list_row_text));
+            txtLaunchType.setTextColor(ContextCompat.getColor(txtLaunchType.getContext(), R.color.list_row_text));
             convertView.setBackgroundColor(ContextCompat.getColor(convertView.getContext(), R.color.list_row_default_bg));
         }
 

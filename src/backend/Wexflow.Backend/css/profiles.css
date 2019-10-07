@@ -1,0 +1,168 @@
+﻿body {
+    background: #FFFFFF;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+}
+
+.jq-toast-single {
+    width: 300px;
+}
+
+#header {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 43px;
+    background: #29A85C;
+    color: #FFFFFF;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+#header a {
+    color: #FFFFFF;
+    font-size: 12px;
+    margin: 20px;
+    float: left;
+    font-weight: bold;
+    -webkit-font-smoothing: antialiased;
+    line-height: 5px;
+    white-space: nowrap;
+}
+
+#header .header-right {
+    float: right;
+}
+
+#header #lnk-manager, #lnk-designer, #lnk-approval, #lnk-users {
+    display: none;
+}
+
+#profiles {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+#users-search {
+    margin-bottom: 10px;
+}
+
+#users-search #users-search-action {
+    margin-left: 5px;
+    width: 75px;
+}
+
+#users-search #users-search-text {
+    margin-left: 10px;
+    width: 250px;
+}
+
+#users-container {
+    position: absolute;
+    top: 10px;
+    bottom: 0;
+    left: 0;
+    width: 360px;
+}
+
+#users-table {
+    position: absolute;
+    top: 38px;
+    left: 10px;
+    bottom: 0;
+    width: 340px;
+    overflow: auto;
+}
+
+#users-table .thead-dark {
+    background: #272727;
+    color: #EEEEEE;
+}
+
+#users-table tbody tr:hover {
+    background: #EEEEEE;
+}
+
+#users-table #wf-users-table tbody tr:hover {
+    cursor: pointer;
+}
+
+#users-table #wf-users-table .selected, #users-table #wf-users-table .selected:hover {
+    background-color: #ffb347;
+}
+
+#users-table #wf-users-table #th-username {
+    cursor: pointer;
+}
+
+#users-table #wf-users-table #th-id, #users-table #wf-users-table .userid {
+    display: none;
+}
+
+#right-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 360px;
+}
+
+#users-save-action {
+    float: right;
+    width: 75px;
+    margin-top: 10px;
+    margin-right: 10px;
+    display: none;
+}
+
+#workflows {
+    position: absolute;
+    top: 50px;
+    bottom: 0;
+    right: 10px;
+    left: 10px;
+    overflow: auto;
+}
+
+/* start of table style */
+
+#workflows .thead-dark {
+    background: #272727;
+    color: #EEEEEE;
+}
+
+#workflows tbody tr:hover {
+    background: #EEEEEE;
+}
+
+#workflows #workflows-table .wf-id {
+    width: 45px;
+}
+
+#workflows #workflows-table .wf-n {
+    width: 200px;
+}
+
+#workflows #workflows-table .wf-lt {
+    width: 100px;
+}
+
+#workflows #workflows-table .wf-e {
+    width: 75px;
+}
+
+#workflows #workflows-table .wf-a {
+    width: 75px;
+}
+
+#workflows #workflows-table tbody tr:hover {
+    cursor: pointer;
+}
+
+#workflows #workflows-table .selected, #workflows #workflows-table .selected:hover {
+    background-color: #ffb347;
+}

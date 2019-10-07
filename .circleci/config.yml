@@ -1,0 +1,36 @@
+version: 2.0
+
+jobs:
+  "android":
+    working_directory: ~/code
+    docker:
+      - image: circleci/android:api-26
+    environment:
+      JVM_OPTS: -Xmx4G
+    steps:
+      - checkout
+      - run:
+          name: "Install project dependencies"
+          working_directory: ~/code/src/android
+          command: ./gradlew androidDependencies
+      - run:
+          name: "Build"
+          working_directory: ~/code/src/android
+          command: ./gradlew clean build --stacktrace
+  "ios":
+   working_directory: ~/code
+   macos:
+     xcode: "8.3.3"
+   steps:
+     - checkout
+     - run:
+         name: "Build"
+         working_directory: ~/code/src/ios/
+         command: xcodebuild clean build -scheme "Wexflow" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+         
+workflows:
+  version: 2
+  build:
+    jobs:
+      - "android"
+      - "ios"
