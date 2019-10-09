@@ -1,5 +1,8 @@
 package com.wexflow;
 
+import android.util.Base64;
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -8,6 +11,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -30,18 +34,27 @@ class WexflowServiceClient {
         disableKeepAlive();
     }
 
-    private static boolean post(String urlString) throws IOException {
+    private static String toBase64(String str) throws UnsupportedEncodingException {
+        byte[] data = str.getBytes("UTF-8");
+        String base64 = Base64.encodeToString(data, Base64.DEFAULT);
+        return base64;
+    }
+
+    private static boolean post(String urlString, String username, String password) throws IOException {
         HttpURLConnection urlConnection;
 
         URL url = new URL(urlString);
 
         urlConnection = (HttpURLConnection) url.openConnection();
+        String auth = "Basic " + toBase64(username + ":" + password).replace("\n","");
+        urlConnection.setRequestProperty("Authorization", auth);
         urlConnection.setRequestMethod("POST");
         urlConnection.setRequestProperty("Connection", "close");
         urlConnection.setUseCaches(false);
         urlConnection.setReadTimeout(READ_TIMEOUT);
         urlConnection.setConnectTimeout(CONNECTION_TIMEOUT);
         urlConnection.setDoOutput(true);
+        urlConnection.setDoInput(true);
         urlConnection.connect();
 
         BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "utf-8"));
@@ -61,21 +74,24 @@ class WexflowServiceClient {
     }
 
 
-    private static String getString(String urlString) throws IOException {
+    private static String getString(String urlString, String username, String password) throws IOException {
         HttpURLConnection urlConnection;
 
         URL url = new URL(urlString);
 
         urlConnection = (HttpURLConnection) url.openConnection();
+        String auth = "Basic " + toBase64(username + ":" + password).replace("\n","");
+        urlConnection.setRequestProperty("Authorization", auth);
         urlConnection.setRequestMethod("GET");
-        urlConnection.setRequestProperty("Connection", "close");
+        //urlConnection.setRequestProperty("Connection", "close");
         urlConnection.setUseCaches(false);
         urlConnection.setReadTimeout(READ_TIMEOUT);
         urlConnection.setConnectTimeout(CONNECTION_TIMEOUT);
-        urlConnection.setDoOutput(true);
+        //urlConnection.setDoOutput(true);
+        //urlConnection.setDoInput(false);
         urlConnection.connect();
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+        /*BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
 
         StringBuilder sb = new StringBuilder();
         String line;
@@ -84,16 +100,28 @@ class WexflowServiceClient {
         }
         br.close();
 
+        return sb.toString();*/
+
+        //int responseCode = urlConnection.getResponseCode();
+        BufferedInputStream in = new BufferedInputStream(urlConnection.getInputStream());
+        byte[] contents = new byte[1024];
+
+        int bytesRead;
+        StringBuilder sb = new StringBuilder();
+        while((bytesRead = in.read(contents)) != -1) {
+            sb.append(new String(contents, 0, bytesRead));
+        }
+
         return sb.toString();
     }
 
-    private static JSONArray getJSONArray(String url) throws IOException, JSONException {
-        String json = getString(url);
+    private static JSONArray getJSONArray(String url, String username, String password) throws IOException, JSONException {
+        String json = getString(url, username, password);
         return new JSONArray(json);
     }
 
-    private static JSONObject getJSONObject(String url) throws IOException, JSONException {
-        String json = getString(url);
+    private static JSONObject getJSONObject(String url, String username, String password) throws IOException, JSONException {
+        String json = getString(url, username, password);
         return new JSONObject(json);
     }
 
@@ -111,8 +139,8 @@ class WexflowServiceClient {
     }
 
     List<Workflow> getWorkflows() throws IOException, JSONException {
-        String uri = this.uri + "/search?s=&u=" + LoginActivity.Username + "&p=" + LoginActivity.Password;
-        JSONArray jsonArray = getJSONArray(uri);
+        String uri = this.uri + "/search?s=";
+        JSONArray jsonArray = getJSONArray(uri, LoginActivity.Username, LoginActivity.Password);
         List<Workflow> workflows = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -123,44 +151,44 @@ class WexflowServiceClient {
     }
 
     Workflow getWorkflow(String username, String password, int id) throws IOException, JSONException {
-        String uri = this.uri + "/workflow?u=" + username + "&p=" + password + "&w=" + id;
-        JSONObject jsonObject = getJSONObject(uri);
+        String uri = this.uri + "/workflow?w=" + id;
+        JSONObject jsonObject = getJSONObject(uri, username, password);
         return Workflow.fromJSONObject(jsonObject);
     }
 
     User getUser(String qusername, String qpassword, String username)throws IOException, JSONException {
-        String uri = this.uri + "/user?qu="+qusername+"&qp="+qpassword+"&username=" + username;
-        JSONObject jsonObject = getJSONObject(uri);
+        String uri = this.uri + "/user?username=" + username;
+        JSONObject jsonObject = getJSONObject(uri, qusername, qpassword);
         return User.fromJSONObject(jsonObject);
     }
 
     Boolean start(int id) throws IOException {
-        String uri = this.uri + "/start?w=" + id + "&u=" + LoginActivity.Username + "&p=" + LoginActivity.Password;
-        return post(uri);
+        String uri = this.uri + "/start?w=" + id;
+        return post(uri, LoginActivity.Username, LoginActivity.Password);
     }
 
     Boolean suspend(int id) throws IOException {
-        String uri = this.uri + "/suspend?w=" + id + "&u=" + LoginActivity.Username + "&p=" + LoginActivity.Password;
-        return post(uri);
+        String uri = this.uri + "/suspend?w=" + id;
+        return post(uri, LoginActivity.Username, LoginActivity.Password);
     }
 
     Boolean resume(int id) throws IOException {
         String uri = this.uri + "/resume?w=" + id + "&u=" + LoginActivity.Username + "&p=" + LoginActivity.Password;
-        return post(uri);
+        return post(uri, LoginActivity.Username, LoginActivity.Password);
     }
 
     Boolean stop(int id) throws IOException {
-        String uri = this.uri + "/stop?w=" + id + "&u=" + LoginActivity.Username + "&p=" + LoginActivity.Password;
-        return post(uri);
+        String uri = this.uri + "/stop?w=" + id;
+        return post(uri, LoginActivity.Username, LoginActivity.Password);
     }
 
     Boolean approve(int id) throws IOException {
-        String uri = this.uri + "/approve?w=" + id + "&u=" + LoginActivity.Username + "&p=" + LoginActivity.Password;
-        return post(uri);
+        String uri = this.uri + "/approve?w=" + id;
+        return post(uri, LoginActivity.Username, LoginActivity.Password);
     }
 
     Boolean disapprove(int id) throws IOException {
-        String uri = this.uri + "/disapprove?w=" + id + "&u=" + LoginActivity.Username + "&p=" + LoginActivity.Password;
-        return post(uri);
+        String uri = this.uri + "/disapprove?w=" + id;
+        return post(uri, LoginActivity.Username, LoginActivity.Password);
     }
 }
