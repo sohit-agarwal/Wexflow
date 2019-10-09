@@ -142,13 +142,21 @@ Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Runtime.CompilerService
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Threading.Tasks.Extensions.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Numerics.Vectors.dll"; DestDir: "{app}"; Flags: ignoreversion
 
+; Nancy
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\Nancy.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\Nancy.Owin.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\Owin.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\Microsoft.Owin.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\Microsoft.Owin.Host.HttpListener.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\Microsoft.Owin.Hosting.dll"; DestDir: "{app}"; Flags: ignoreversion
+
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Core.Db.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Core.LiteDB.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Core.MongoDB.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Core.Service.Client.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Core.Service.Contracts.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Core.Service.Cross.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Core.Service.Cross.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Debug\Wexflow.Core.xml"; DestDir: "{app}"; Flags: ignoreversion
 
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Tasks.CsvToXml.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -252,6 +260,8 @@ Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Tasks.Approval.dll"; D
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Tasks.VimeoListUploads.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Tasks.Vimeo.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Tasks.Slack.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Tasks.FilesLoaderEx.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Tasks.FilesJoiner.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 ; Wexflow Manager
 Source: "..\src\dotnet\Wexflow.Clients.Manager\bin\Release\Wexflow.Clients.Manager.exe"; DestDir: "{app}\Manager"; Flags: ignoreversion
@@ -415,6 +425,8 @@ Source: "..\src\dotnet\Wexflow.Tasks.Approval\Approval.xml"; DestDir: "{app}\Doc
 Source: "..\src\dotnet\Wexflow.Tasks.VimeoListUploads\VimeoListUploads.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 Source: "..\src\dotnet\Wexflow.Tasks.Vimeo\Vimeo.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 Source: "..\src\dotnet\Wexflow.Tasks.Slack\Slack.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.FilesLoaderEx\FilesLoaderEx.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.FilesJoiner\FilesJoiner.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 
 Source: "..\LICENSE.txt"; DestDir: "{app}\"; Flags: ignoreversion recursesubdirs
 

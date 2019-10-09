@@ -1,6 +1,6 @@
 ﻿namespace Wexflow.Server
 {
-    partial class WexflowWindowsService
+    partial class WexflowServer
     {
         /// <summary> 
         /// Variable nécessaire au concepteur.

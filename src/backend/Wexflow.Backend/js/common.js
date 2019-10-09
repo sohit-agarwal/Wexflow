@@ -12,7 +12,7 @@
         return string;
     },
 
-    get: function (url, callback, errorCallback) {
+    get: function (url, callback, errorCallback, auth) {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200 && callback) {
@@ -28,10 +28,11 @@
             if (errorCallback) errorCallback();
         };
         xmlhttp.open("GET", url, true);
+        if (auth) xmlhttp.setRequestHeader("Authorization", auth);
         xmlhttp.send();
     },
 
-    post: function (url, callback, errorCallback, json) {
+    post: function (url, callback, errorCallback, json, auth) {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200 && callback) {
@@ -48,6 +49,7 @@
         };
         xmlhttp.open("POST", url, true);
         //xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        if (auth) xmlhttp.setRequestHeader("Authorization", auth);
         xmlhttp.send(JSON.stringify(json));
     },
 

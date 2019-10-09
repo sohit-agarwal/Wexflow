@@ -11,7 +11,7 @@ using Wexflow.Core;
 
 namespace Wexflow.Server
 {
-    public class Program
+    public class WexflowServer
     {
         public static IConfiguration Config;
         public static WexflowEngine WexflowEngine;
