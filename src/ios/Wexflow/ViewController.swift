@@ -156,8 +156,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func updateButtons(force: Bool){
         if self.workflowId > -1 {
-            let url = URL(string: WexflowServerUrl + "workflow?u=" + LoginViewController.Username + "&p=" + LoginViewController.Password + "&w=" + String(self.workflowId))
-            URLSession.shared.dataTask(with: url!) { (data, response, error) in
+            let url = URL(string: WexflowServerUrl + "workflow?w=" + String(self.workflowId))
+            let request = NSMutableURLRequest(url: url! as URL)
+            request.httpMethod = "GET"
+            let auth = "Basic " + LoginViewController.toBase64(str: LoginViewController.Username + ":" + LoginViewController.Password)
+            request.setValue(auth, forHTTPHeaderField: "Authorization")
+            
+            URLSession.shared.dataTask(with: request as URLRequest) { (data, response, error) in
                 if error != nil {
                     //print(error!)
                     DispatchQueue.main.async{
@@ -230,8 +235,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     //this function is fetching the json from URL
     func loadWorkflows(){
         self.workflows.removeAll()
-        let url = URL(string: WexflowServerUrl + "search?s=&u=" + LoginViewController.Username + "&p=" + LoginViewController.Password)
-        URLSession.shared.dataTask(with: url!) { (data, response, error) in
+        let url = URL(string: WexflowServerUrl + "search?s=")
+        let request = NSMutableURLRequest(url: url! as URL)
+        request.httpMethod = "GET"
+        let auth = "Basic " + LoginViewController.toBase64(str: LoginViewController.Username + ":" + LoginViewController.Password)
+        request.setValue(auth, forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request as URLRequest) { (data, response, error) in
             if error != nil {
                 //print(error!)
                 DispatchQueue.main.async{
@@ -292,6 +302,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func post(url: URL, message: String, hasResult: Bool){
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
+        let auth = "Basic " + LoginViewController.toBase64(str: LoginViewController.Username + ":" + LoginViewController.Password)
+        request.setValue(auth, forHTTPHeaderField: "Authorization")
+        
         request.setValue("close", forHTTPHeaderField: "Connection")
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -325,7 +338,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBAction func onStartClick(_ sender: UIButton) {
         if workflowId != -1 {
-            let url = URL(string: WexflowServerUrl + "start?w=" + String(workflowId) + "&u=" + LoginViewController.Username + "&p=" + LoginViewController.Password)
+            let url = URL(string: WexflowServerUrl + "start?w=" + String(workflowId))
             let message = "Workflow " + String(workflowId) + " started."
             post(url: url!, message: message, hasResult: false)
         }
@@ -333,7 +346,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBAction func onSuspendClick(_ sender: UIButton) {
         if workflowId != -1 {
-            let url = URL(string: WexflowServerUrl + "suspend?w=" + String(workflowId) + "&u=" + LoginViewController.Username + "&p=" + LoginViewController.Password)
+            let url = URL(string: WexflowServerUrl + "suspend?w=" + String(workflowId))
             let message = "Workflow " + String(workflowId) + " suspended."
             post(url: url!, message: message, hasResult: true)
         }
@@ -341,7 +354,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBAction func onResumeClick(_ sender: UIButton) {
         if workflowId != -1 {
-            let url = URL(string: WexflowServerUrl + "resume?w=" + String(workflowId) + "&u=" + LoginViewController.Username + "&p=" + LoginViewController.Password)
+            let url = URL(string: WexflowServerUrl + "resume?w=" + String(workflowId))
             let message =  "Workflow " + String(workflowId) + " resumed."
             post(url: url!, message: message, hasResult: false)
         }
@@ -349,7 +362,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBAction func onStopClick(_ sender: UIButton) {
         if workflowId != -1 {
-            let url = URL(string: WexflowServerUrl + "stop?w=" + String(workflowId) + "&u=" + LoginViewController.Username + "&p=" + LoginViewController.Password)
+            let url = URL(string: WexflowServerUrl + "stop?w=" + String(workflowId))
             let message = "Workflow " + String(workflowId) + " stopped."
             post(url: url!, message: message, hasResult: true)
         }
@@ -357,7 +370,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBAction func onApproveClick(_ sender: UIButton) {
         if workflowId != -1 {
-            let url = URL(string: WexflowServerUrl + "approve?w=" + String(workflowId) + "&u=" + LoginViewController.Username + "&p=" + LoginViewController.Password)
+            let url = URL(string: WexflowServerUrl + "approve?w=" + String(workflowId))
             let message = "Workflow " + String(workflowId) + " approved."
             post(url: url!, message: message, hasResult: false)
         }
@@ -365,7 +378,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBAction func onDisapproveClick(_ sender: UIButton) {
         if workflowId != -1 {
-            let url = URL(string: WexflowServerUrl + "disapprove?w=" + String(workflowId) + "&u=" + LoginViewController.Username + "&p=" + LoginViewController.Password)
+            let url = URL(string: WexflowServerUrl + "disapprove?w=" + String(workflowId))
             let message = "Workflow " + String(workflowId) + " disapproved."
             post(url: url!, message: message, hasResult: false)
         }

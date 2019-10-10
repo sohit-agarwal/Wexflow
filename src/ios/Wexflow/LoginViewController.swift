@@ -60,8 +60,14 @@ class LoginViewController: UIViewController {
         
             let pass = self.md5(string: self.passwordTextField.text!)
             
-            let url = URL(string: WexflowServerUrl + "user?qu="+usernameTextField.text!+"&qp="+pass+"&username=" + usernameTextField.text!)
-            URLSession.shared.dataTask(with: url!) { (data, response, error) in
+            let url = URL(string: WexflowServerUrl + "user?username=" + usernameTextField.text!)
+            let session = URLSession.shared
+            let request = NSMutableURLRequest(url: url! as URL)
+            request.httpMethod = "GET"
+            let auth = "Basic " + LoginViewController.toBase64(str: usernameTextField.text! + ":" + pass)
+            request.setValue(auth, forHTTPHeaderField: "Authorization")
+            
+            session.dataTask(with: request as URLRequest) { (data, response, error) in
                 if error != nil {
                     //print(error!)
                     DispatchQueue.main.async{
@@ -119,6 +125,13 @@ class LoginViewController: UIViewController {
     @IBAction func onSettingsClick(_ sender: UIButton) {
         let settings_app: URL = URL(string: UIApplicationOpenSettingsURLString)!
         UIApplication.shared.open(settings_app)
+    }
+    
+    static func toBase64(str: String) -> String{
+        let data = (str).data(using: String.Encoding.utf8)
+        let base64 = data!.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
+        let res = base64.replacingOccurrences(of: "\n", with: "")
+        return res
     }
     
     func md5(string: String) -> String {
