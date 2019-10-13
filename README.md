@@ -57,7 +57,7 @@ This version has been depthly tested on Windows, Linux and macOS, and runs 100% 
 |[Bitrise](https://www.bitrise.io/) (iOS)|macOS| src/ios | [![Build Status](https://app.bitrise.io/app/f8006552bdd4ee80/status.svg?token=Yd_71TrG-cqFvEC1oV5teQ)](https://app.bitrise.io/app/f8006552bdd4ee80)|
 |[CircleCI](https://circleci.com/) (iOS)|macOS| src/ios | [![CircleCI](https://circleci.com/gh/aelassas/Wexflow.svg?style=shield)](https://circleci.com/gh/aelassas/Wexflow)|
 |[FOSSA](https://fossa.com/) (All projects)| Linux | All projects | [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Faelassas%2FWexflow.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Faelassas%2FWexflow?ref=badge_shield)|
-|[Codecov](https://codecov.io/) (.NET and .NET Core)|Windows| Wexflow.sln |![codecov](https://codecov.io/gh/aelassas/Wexflow/branch/master/graph/badge.svg)|
+<!--|[Codecov](https://codecov.io/) (.NET and .NET Core)|Windows| Wexflow.sln |![codecov](https://codecov.io/gh/aelassas/Wexflow/branch/master/graph/badge.svg)|-->
 
 <!--|[Coveralls](https://coveralls.io/) (.NET and .NET Core)|Linux| Wexflow.sln |[![Coverage Status](https://badgen.net/coveralls/c/github/aelassas/Wexflow)](https://coveralls.io/github/aelassas/Wexflow?branch=master)|-->
 
