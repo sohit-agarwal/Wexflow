@@ -1982,6 +1982,7 @@
                     "Period": workflow.Period,
                     "CronExpression": workflow.CronExpression,
                     "IsEnabled": workflow.IsEnabled,
+                    "IsApproval": workflow.IsApproval,
                     "Description": workflow.Description,
                     "Path": workflow.Path,
                     "IsNew": false,
