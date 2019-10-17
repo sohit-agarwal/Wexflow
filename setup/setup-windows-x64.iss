@@ -465,6 +465,7 @@ Source: "..\src\dotnet\Wexflow.Scripts.CosmosDB\bin\x64\Release\*.dll"; DestDir:
 [Icons]
 Name: "{commonprograms}\{#MyAppName}\Manager"; Filename: "{app}\Manager\{#MyAppExeName}";
 Name: "{commonprograms}\{#MyAppName}\Backend"; Filename: "{app}\Backend\index.html";
+Name: "{commonprograms}\{#MyAppName}\Swagger"; Filename: "http://localhost:8000";
 ;Name: "{commonprograms}\{#MyAppName}\Start Wexflow Windows Service"; Filename: {sys}\sc.exe; Parameters: "start Wexflow" ; IconFilename: "{app}\Wexflow.ico";
 ;Name: "{commonprograms}\{#MyAppName}\Stop Wexflow Windows Service"; Filename: {sys}\sc.exe; Parameters: "stop Wexflow" ; IconFilename: "{app}\Wexflow.ico";
 Name: "{commonprograms}\{#MyAppName}\Configuration"; Filename: "C:\Wexflow\";
