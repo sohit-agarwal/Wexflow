@@ -155,6 +155,9 @@ Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Microsoft.Owin.dll"; DestD
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Microsoft.Owin.Host.HttpListener.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Microsoft.Owin.Hosting.dll"; DestDir: "{app}"; Flags: ignoreversion
 
+; Swagger UI
+Source: "..\src\dotnet\Wexflow.Server\swagger-ui\*"; DestDir: "{app}\swagger-ui"; Flags: ignoreversion recursesubdirs
+
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Wexflow.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Wexflow.Core.Db.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Wexflow.Core.LiteDB.dll"; DestDir: "{app}"; Flags: ignoreversion
