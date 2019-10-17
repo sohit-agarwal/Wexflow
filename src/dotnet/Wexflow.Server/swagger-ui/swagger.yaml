@@ -448,7 +448,7 @@ paths:
   /isCronExpressionValid:
     get:
      tags:
-     - "Manager"
+     - "Designer"
      summary: "Checks if a cron expression is valid"
      description: ""
      produces:
