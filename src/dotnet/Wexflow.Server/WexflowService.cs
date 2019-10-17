@@ -1229,9 +1229,26 @@ namespace Wexflow.Server
                         }
                         else if (user.UserProfile == Core.Db.UserProfile.Administrator)
                         {
-                            var workflowDbId = WexflowServer.WexflowEngine.Workflows.First(w => w.Id == workflowId).DbId;
-                            var check = WexflowServer.WexflowEngine.CheckUserWorkflow(user.GetId(), workflowDbId);
-                            if (check)
+                            var workflow = WexflowServer.WexflowEngine.Workflows.FirstOrDefault(w => w.Id == workflowId);
+
+                            if (workflow != null)
+                            {
+                                var workflowDbId = workflow.DbId;
+                                var check = WexflowServer.WexflowEngine.CheckUserWorkflow(user.GetId(), workflowDbId);
+                                if (check)
+                                {
+                                    var id = WexflowServer.WexflowEngine.SaveWorkflow(user.GetId(), user.UserProfile, xml);
+                                    if (id == "-1")
+                                    {
+                                        res = false;
+                                    }
+                                    else
+                                    {
+                                        res = true;
+                                    }
+                                }
+                            }
+                            else
                             {
                                 var id = WexflowServer.WexflowEngine.SaveWorkflow(user.GetId(), user.UserProfile, xml);
                                 if (id == "-1")
