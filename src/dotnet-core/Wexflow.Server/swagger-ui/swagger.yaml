@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  description: "Wexflow RESTful API."
+  description: "Wexflow's RESTful API."
   version: "5.0"
   title: "Swagger Wexflow"
   contact:

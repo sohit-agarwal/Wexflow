@@ -29,6 +29,7 @@ body {
     -webkit-font-smoothing: antialiased;
     line-height: 5px;
     white-space: nowrap;
+    text-decoration: none;
 }
 
 #header .header-right {
