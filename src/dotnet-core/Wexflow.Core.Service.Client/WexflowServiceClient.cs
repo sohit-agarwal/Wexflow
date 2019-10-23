@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Net;
+using System.Security.Cryptography;
+using System.Text;
 using Wexflow.Core.Service.Contracts;
 
 namespace Wexflow.Core.Service.Client
@@ -13,17 +15,35 @@ namespace Wexflow.Core.Service.Client
             Uri = uri.TrimEnd('/');
         }
 
-        public static string Base64Encode(string plainText)
+        private static string GetMd5(string input)
         {
-            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            // Use input string to calculate MD5 hash
+            using (MD5 md5 = MD5.Create())
+            {
+                byte[] inputBytes = Encoding.ASCII.GetBytes(input);
+                byte[] hashBytes = md5.ComputeHash(inputBytes);
+
+                // Convert the byte array to hexadecimal string
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < hashBytes.Length; i++)
+                {
+                    sb.Append(hashBytes[i].ToString("x2"));
+                }
+                return sb.ToString();
+            }
+        }
+
+        private static string Base64Encode(string plainText)
+        {
+            var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
             return System.Convert.ToBase64String(plainTextBytes);
         }
 
         public WorkflowInfo[] Search(string keyword, string username, string password)
         {
             string uri = Uri + "/search?s=" + keyword;
-            var webClient = new WebClient { Encoding = System.Text.Encoding.UTF8 };
-            webClient.Headers.Add("Authorization", Base64Encode(username + ":" + password));
+            var webClient = new WebClient { Encoding = Encoding.UTF8 };
+            webClient.Headers.Add("Authorization", Base64Encode(username + ":" + GetMd5(password)));
             var response = webClient.DownloadString(uri);
             var workflows = JsonConvert.DeserializeObject<WorkflowInfo[]>(response);
             return workflows;
@@ -33,7 +53,7 @@ namespace Wexflow.Core.Service.Client
         {
             string uri = Uri + "/start?w=" + id;
             var webClient = new WebClient();
-            webClient.Headers.Add("Authorization", Base64Encode(username + ":" + password));
+            webClient.Headers.Add("Authorization", Base64Encode(username + ":" + GetMd5(password)));
             webClient.UploadString(uri, string.Empty);
         }
 
@@ -41,7 +61,7 @@ namespace Wexflow.Core.Service.Client
         {
             string uri = Uri + "/stop?w=" + id;
             var webClient = new WebClient();
-            webClient.Headers.Add("Authorization", Base64Encode(username + ":" + password));
+            webClient.Headers.Add("Authorization", Base64Encode(username + ":" + GetMd5(password)));
             webClient.UploadString(uri, string.Empty);
         }
 
@@ -49,7 +69,7 @@ namespace Wexflow.Core.Service.Client
         {
             string uri = Uri + "/suspend?w=" + id;
             var webClient = new WebClient();
-            webClient.Headers.Add("Authorization", Base64Encode(username + ":" + password));
+            webClient.Headers.Add("Authorization", Base64Encode(username + ":" + GetMd5(password)));
             webClient.UploadString(uri, string.Empty);
         }
 
@@ -57,7 +77,7 @@ namespace Wexflow.Core.Service.Client
         {
             string uri = Uri + "/resume?w=" + id;
             var webClient = new WebClient();
-            webClient.Headers.Add("Authorization", Base64Encode(username + ":" + password));
+            webClient.Headers.Add("Authorization", Base64Encode(username + ":" + GetMd5(password)));
             webClient.UploadString(uri, string.Empty);
         }
 
@@ -65,7 +85,7 @@ namespace Wexflow.Core.Service.Client
         {
             string uri = Uri + "/approve?w=" + id;
             var webClient = new WebClient();
-            webClient.Headers.Add("Authorization", Base64Encode(username + ":" + password));
+            webClient.Headers.Add("Authorization", Base64Encode(username + ":" + GetMd5(password)));
             webClient.UploadString(uri, string.Empty);
         }
 
@@ -73,7 +93,7 @@ namespace Wexflow.Core.Service.Client
         {
             string uri = Uri + "/disapprove?w=" + id;
             var webClient = new WebClient();
-            webClient.Headers.Add("Authorization", Base64Encode(username + ":" + password));
+            webClient.Headers.Add("Authorization", Base64Encode(username + ":" + GetMd5(password)));
             webClient.UploadString(uri, string.Empty);
         }
 
@@ -81,7 +101,7 @@ namespace Wexflow.Core.Service.Client
         {
             string uri = Uri + "/workflow?w=" + id;
             var webClient = new WebClient();
-            webClient.Headers.Add("Authorization", Base64Encode(username + ":" + password));
+            webClient.Headers.Add("Authorization", Base64Encode(username + ":" + GetMd5(password)));
             var response = webClient.DownloadString(uri);
             var workflow = JsonConvert.DeserializeObject<WorkflowInfo>(response);
             return workflow;
@@ -91,7 +111,7 @@ namespace Wexflow.Core.Service.Client
         {
             string uri = Uri + "/user?username=" + username;
             var webClient = new WebClient();
-            webClient.Headers.Add("Authorization", Base64Encode(qusername + ":" + qpassword));
+            webClient.Headers.Add("Authorization", Base64Encode(qusername + ":" + GetMd5(qpassword)));
             var response = webClient.DownloadString(uri);
             var user = JsonConvert.DeserializeObject<User>(response);
             return user;

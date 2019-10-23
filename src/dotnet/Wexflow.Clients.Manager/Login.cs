@@ -53,7 +53,7 @@ namespace Wexflow.Clients.Manager
                 }
                 else
                 {
-                    string password = GetMd5(txtPassword.Text);
+                    string password = txtPassword.Text;
                     User user = _wexflowServiceClient.GetUser(username, password, username);
 
                     if (user == null)
@@ -68,10 +68,10 @@ namespace Wexflow.Clients.Manager
                         }
                         else
                         {
-                            if (user.Password == password)
+                            if (user.Password == GetMd5(password))
                             {
                                 Username = user.Username;
-                                Password = user.Password;
+                                Password = password;
 
                                 Manager manager = new Manager();
                                 manager.Show();
@@ -90,7 +90,7 @@ namespace Wexflow.Clients.Manager
             {
                 MessageBox.Show(@"An error occured during the authentication.", "Wexflow", MessageBoxButtons.OK);
             }
-            
+
         }
 
         public static string GetMd5(string input)
