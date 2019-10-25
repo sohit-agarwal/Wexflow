@@ -6,12 +6,11 @@ using System.Threading;
 
 namespace Wexflow.Tasks.Touch
 {
-    public class Touch:Task
+    public class Touch : Task
     {
         public string[] Tfiles { get; private set; }
 
-        public Touch(XElement xe, Workflow wf)
-            : base(xe, wf)
+        public Touch(XElement xe, Workflow wf) : base(xe, wf)
         {
             Tfiles = GetSettings("file");
         }
@@ -30,7 +29,7 @@ namespace Wexflow.Tasks.Touch
                     TouchFile(file);
                     InfoFormat("File {0} created.", file);
                     Files.Add(new FileInf(file, Id));
-                    
+
                     if (!atLeastOneSucceed) atLeastOneSucceed = true;
                 }
                 catch (ThreadAbortException)

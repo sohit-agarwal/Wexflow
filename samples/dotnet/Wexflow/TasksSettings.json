@@ -82,6 +82,7 @@
 	"Tgz": [ "selectFiles", "tgzFileName" ],
 	"Torrent": [ "selectFiles", "saveFolder" ],
 	"Touch": [ "file" ],
+	"Twilio": [ "accountSid", "authToken", "from", "to", "message" ],
 	"Twitter": [ "selectFiles", "consumerKey", "consumerSecret", "accessToken", "accessTokenSecret" ],
 	"UglifyCss": [ "selectFiles" ],
 	"UglifyHtml": [ "selectFiles" ],

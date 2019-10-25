@@ -59,6 +59,7 @@
 	"TextsDecryptor": [ "selectFiles" ],
 	"TextsEncryptor": [ "selectFiles" ],
 	"Touch": [ "file" ],
+	"Twilio": [ "accountSid", "authToken", "from", "to", "message" ],
 	"Twitter": [ "selectFiles", "consumerKey", "consumerSecret", "accessToken", "accessTokenSecret" ],
 	"Unzip": [ "selectFiles", "destDir", "password" ],
 	"Vimeo": [ "token" ],

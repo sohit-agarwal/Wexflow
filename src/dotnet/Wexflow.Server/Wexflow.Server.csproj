@@ -537,6 +537,10 @@
       <Project>{701d8879-706f-4cf0-9783-41076e560124}</Project>
       <Name>Wexflow.Tasks.Touch</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Tasks.Twilio\Wexflow.Tasks.Twilio.csproj">
+      <Project>{c9e28222-5024-4e6d-b034-457c3bd788e9}</Project>
+      <Name>Wexflow.Tasks.Twilio</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.Twitter\Wexflow.Tasks.Twitter.csproj">
       <Project>{d1b9e2ba-e783-4c26-89e8-28e13ae3220c}</Project>
       <Name>Wexflow.Tasks.Twitter</Name>
