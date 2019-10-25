@@ -44,6 +44,7 @@ namespace Wexflow.Tasks.Twilio
                 if (message.ErrorCode != null)
                 {
                     ErrorFormat("An error occured while sending the SMS: ErrorCode={0}, ErrorMessage={1}", message.ErrorCode, message.ErrorMessage);
+                    success = false;
                 }
                 else
                 {
