@@ -10,12 +10,16 @@ namespace Wexflow.Tasks.FilesMover
     {
         public string DestFolder { get; private set; }
         public bool Overwrite { get; private set; }
+        public string PreserveFolderStructFrom { get; private set; }
+        public bool AllowCreateDirectory { get; private set; }
 
         public FilesMover(XElement xe, Workflow wf)
             : base(xe, wf)
         {
             DestFolder = GetSetting("destFolder");
             Overwrite = bool.Parse(GetSetting("overwrite", "false"));
+            PreserveFolderStructFrom = GetSetting("preserveFolderStructFrom");
+            AllowCreateDirectory = GetSettingBool("allowCreateDirectory", true);
         }
 
         public override TaskStatus Run()
@@ -33,7 +37,25 @@ namespace Wexflow.Tasks.FilesMover
                 string destFilePath;
                 if (!string.IsNullOrEmpty(fileName))
                 {
-                    destFilePath = Path.Combine(DestFolder, fileName);
+                    if (!string.IsNullOrWhiteSpace(PreserveFolderStructFrom) &&
+                        file.Path.StartsWith(PreserveFolderStructFrom, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        var preservedFolderStruct = Path.GetDirectoryName(file.Path);
+                        preservedFolderStruct = preservedFolderStruct.Length > PreserveFolderStructFrom.Length
+                            ? preservedFolderStruct.Remove(0, PreserveFolderStructFrom.Length)
+                            : string.Empty;
+
+                        if (preservedFolderStruct.StartsWith(Path.DirectorySeparatorChar.ToString()))
+                        {
+                            preservedFolderStruct = preservedFolderStruct.Remove(0, 1);
+                        }
+
+                        destFilePath = Path.Combine(DestFolder, preservedFolderStruct, file.FileName);
+                    }
+                    else
+                    {
+                        destFilePath = Path.Combine(DestFolder, fileName);
+                    }
                 }
                 else
                 {
@@ -43,6 +65,12 @@ namespace Wexflow.Tasks.FilesMover
 
                 try
                 {
+                    if (AllowCreateDirectory && !Directory.Exists(Path.GetDirectoryName(destFilePath)))
+                    {
+                        InfoFormat("Creating directory: {0}", Path.GetDirectoryName(destFilePath));
+                        Directory.CreateDirectory(Path.GetDirectoryName(destFilePath));
+                    }
+
                     if (File.Exists(destFilePath))
                     {
                         if (Overwrite)
