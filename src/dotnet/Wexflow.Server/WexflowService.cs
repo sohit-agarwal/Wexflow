@@ -1144,8 +1144,10 @@ namespace Wexflow.Server
                     var user = WexflowServer.WexflowEngine.GetUser(username);
                     if (user.Password.Equals(password))
                     {
-                        var xml = RequestStream.FromStream(Request.Body).AsString();
-                        xml = CleanupXml(xml);
+                        var json = RequestStream.FromStream(Request.Body).AsString();
+                        JObject o = JObject.Parse(json);
+                        var xml = o.Value<string>("xml");
+                        //xml = CleanupXml(xml);
 
                         var xdoc = XDocument.Parse(xml);
 
@@ -1210,7 +1212,7 @@ namespace Wexflow.Server
                     //string username = o.Value<string>("username");
                     //string password = o.Value<string>("password");
                     string xml = (string)o.SelectToken("xml");
-                    xml = CleanupXml(xml);
+                    //xml = CleanupXml(xml);
 
                     var user = WexflowServer.WexflowEngine.GetUser(username);
                     if (user.Password.Equals(password))

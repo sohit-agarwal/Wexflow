@@ -695,7 +695,7 @@
                 retries = 0;
             }
 
-        }, xml, auth);   // End of isXmlWorkflowValid.
+        }, { "xml": xml }, auth);   // End of isXmlWorkflowValid.
     }
 
     function saveXml(xml, workflowId, selectedWorkflowId, selectWorkflow, scrollToWorkflow, callback) {
