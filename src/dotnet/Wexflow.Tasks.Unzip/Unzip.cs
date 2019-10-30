@@ -12,12 +12,14 @@ namespace Wexflow.Tasks.Unzip
     {
         public string DestDir { get; private set; }
         public string Password { get; private set; }
+        public bool CreateSubDirectoryWithDateTime { get; private set; }
 
         public Unzip(XElement xe, Workflow wf)
             : base(xe, wf)
         {
             DestDir = GetSetting("destDir");
             Password = GetSetting("password", string.Empty);
+            CreateSubDirectoryWithDateTime = GetSettingBool("createSubDirectoryWithDateTime", true);
         }
 
         public override TaskStatus Run()
@@ -35,9 +37,13 @@ namespace Wexflow.Tasks.Unzip
                 {
                     try
                     {
-                        string destFolder = Path.Combine(DestDir
-                            , Path.GetFileNameWithoutExtension(zip.Path) + "_" + string.Format("{0:yyyy-MM-dd-HH-mm-ss-fff}", DateTime.Now));
-                        Directory.CreateDirectory(destFolder);
+                        string destFolder = CreateSubDirectoryWithDateTime
+                            ? Path.Combine(DestDir,
+                                Path.GetFileNameWithoutExtension(zip.Path) + "_" +
+                                string.Format("{0:yyyy-MM-dd-HH-mm-ss-fff}", DateTime.Now))
+                            : DestDir;
+                        if (!Directory.Exists(destFolder))
+                            Directory.CreateDirectory(destFolder);
                         ExtractZipFile(zip.Path, Password, destFolder);
 
                         foreach (var file in Directory.GetFiles(destFolder, "*.*", SearchOption.AllDirectories))

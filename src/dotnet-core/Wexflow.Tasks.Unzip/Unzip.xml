@@ -13,5 +13,7 @@
     <!-- You can add as many selectFiles as you want.-->
     <!-- Required. Destination directory where the archives will be extracted.-->
     <Setting name="destDir" value="$string" />
+    <!-- Optional and defaults to true. Create sub directory into destination dir with file name and current date time of extraction process. -->
+    <Setting name="createSubDirectoryWithDateTime" value="$bool" />
   </Task>
 </Tasks>

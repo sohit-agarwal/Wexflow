@@ -21,5 +21,20 @@
           Otherwise the file is not overwritten.
     -->
     <Setting name="overwrite" value="true|false" />
+    <!--
+      Optional and defaults to empty. Preserve Directory Structure from a Source Path Point.
+      For example:
+      Sources:
+        C:\MyFolder\Folder-1\file1.txt
+        C:\MyFolder\Folder-2\file2.txt
+      DestFolder: D:\Backup
+      PreserveFolderStructFrom: C:\MyFolder\
+      Output files path:
+        D:\Backup\Folder-1\file1.txt
+        D:\Backup\Folder-2\file2.txt
+     -->
+    <Setting name="preserveFolderStructFrom" value="$string" />
+    <!-- Optional and defaults to true. true to create destination directory if it does not exist. -->
+    <Setting name="allowCreateDirectory" value="true|false" />
   </Task>
 </Tasks>
