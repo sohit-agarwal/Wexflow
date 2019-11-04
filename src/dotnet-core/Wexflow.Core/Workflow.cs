@@ -386,7 +386,10 @@ namespace Wexflow.Core
                 {
                     foreach (var variable in RestVariables)
                     {
-                        line = line.Replace("$" + variable.Key, variable.Value);
+                        if (variable != null)
+                        {
+                            line = line.Replace("$" + variable.Key, variable.Value);
+                        }
                     }
                     sw.WriteLine(line);
                 }
@@ -988,9 +991,6 @@ namespace Wexflow.Core
                     }
                     finally
                     {
-                        Load(Xml); // Reload the original workflow
-                        RestVariables.Clear();
-
                         // Cleanup
                         foreach (List<FileInf> files in FilesPerTask.Values) files.Clear();
                         foreach (List<Entity> entities in EntitiesPerTask.Values) entities.Clear();
@@ -1006,6 +1006,11 @@ namespace Wexflow.Core
                         {
                             var job = _jobsQueue.Dequeue();
                             job.Workflow.Start();
+                        }
+                        else
+                        {
+                            Load(Xml); // Reload the original workflow
+                            RestVariables.Clear();
                         }
                     }
                 });
