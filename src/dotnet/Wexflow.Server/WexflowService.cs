@@ -1361,11 +1361,7 @@ namespace Wexflow.Server
                     JObject o = JObject.Parse(json);
                     var wi = o.SelectToken("WorkflowInfo");
                     int currentWorkflowId = (int)wi.SelectToken("Id");
-                    //var isNew = (bool)wi.SelectToken("IsNew");
                     var isNew = !WexflowServer.WexflowEngine.Workflows.Any(w => w.Id == currentWorkflowId);
-
-                    //var username = o.Value<string>("Username");
-                    //var password = o.Value<string>("Password");
 
                     var auth = GetAuth(Request);
                     var username = auth.Username;
@@ -1385,8 +1381,7 @@ namespace Wexflow.Server
 
                     if (user.UserProfile == Core.Db.UserProfile.Administrator && !isNew)
                     {
-                        var id = o.Value<int>("Id");
-                        var workflowDbId = WexflowServer.WexflowEngine.Workflows.First(w => w.Id == id).DbId;
+                        var workflowDbId = WexflowServer.WexflowEngine.Workflows.First(w => w.Id == currentWorkflowId).DbId;
                         var check = WexflowServer.WexflowEngine.CheckUserWorkflow(user.GetId(), workflowDbId);
                         if (!check)
                         {
@@ -1535,13 +1530,8 @@ namespace Wexflow.Server
 
                         xdoc.Add(xwf);
 
-                        //var path = (string)wi.SelectToken("Path");
-                        //xdoc.Save(path);
                         var id = WexflowServer.WexflowEngine.SaveWorkflow(user.GetId(), user.UserProfile, xdoc.ToString());
-                        //if (user.UserProfile == Core.Db.UserProfile.Administrator)
-                        //{
-                        //    Program.WexflowEngine.InsertUserWorkflowRelation(user.GetId(), dbId);
-                        //}
+
                         if (id == "-1")
                         {
                             var qFalseStr = JsonConvert.SerializeObject(false);
@@ -1558,8 +1548,7 @@ namespace Wexflow.Server
                     {
                         XNamespace xn = "urn:wexflow-schema";
 
-                        int id = int.Parse((string)o.SelectToken("Id"));
-                        var wf = WexflowServer.WexflowEngine.GetWorkflow(id);
+                        var wf = WexflowServer.WexflowEngine.GetWorkflow(currentWorkflowId);
                         if (wf != null)
                         {
                             var xdoc = wf.XDoc;

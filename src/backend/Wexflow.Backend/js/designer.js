@@ -907,9 +907,6 @@
     function saveWorkflowQuery(workflowId, selectedWorkflowId, scrollToWorkflow, callback) {
         var workflowEditor = getEditor(currentWorkflowId);
         var json = {
-            //"Username": username,
-            //"Password": password,
-            "Id": selectedWorkflowId,
             "WorkflowInfo": workflowInfos[workflowId],
             "Tasks": workflowTasks[workflowId]
         };
