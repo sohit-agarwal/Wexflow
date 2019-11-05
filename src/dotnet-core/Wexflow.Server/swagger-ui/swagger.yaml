@@ -1061,8 +1061,6 @@ definitions:
          type: "boolean"
        IsEnabled:
          type: "boolean"
-       IsNew:
-         type: "boolean"
        LaunchType:
          type: "integer"
          format: "int64"
