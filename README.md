@@ -41,7 +41,7 @@ I am looking for macOS testers. If you want to help, reply to this [issue](https
 
 Take a look at the [version 5.0](https://github.com/aelassas/Wexflow/releases/tag/v5.0). This version includes an addition of Swagger UI, bug fixes, performance enhancements and under the hood updates.
 
-This version has been depthly tested on Windows, Linux and macOS, and runs 100% on Windows, Linux and macOS.
+This version has been depthly tested on Windows, Linux, macOS and the cloud, and runs 100% on Windows, Linux, macOS and the cloud.
 
 
 # Continuous Integration
