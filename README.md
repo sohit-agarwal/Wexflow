@@ -102,9 +102,9 @@ Wexflow makes use of [.NET Core](https://www.microsoft.com/net/download), a cros
 
 Wexflow also makes use of [Quartz.NET](https://www.quartz-scheduler.net/) open source job scheduling system that is used in large scale enterprise systems. Thus, Wexflow offers flexibility in planning workflow jobs such as [cron workflows](https://github.com/aelassas/Wexflow/wiki/Cron-scheduling).
 
-Furthermore, Wexflow makes use of must popular databases such as [CosmosDB](https://github.com/aelassas/Wexflow/wiki/CosmosDB), [MongoDB](https://github.com/aelassas/Wexflow/wiki/MongoDB), [RavenDB](https://github.com/aelassas/Wexflow/wiki/RavenDB) and [LiteDB](http://www.litedb.org/) serverless NoSQL Document Store database in its server and back end which enhance and improve the performance of this workflow engine. The user can choose between the database of his choice at the installation.
+Furthermore, Wexflow makes use of most popular databases such as [CosmosDB](https://github.com/aelassas/Wexflow/wiki/CosmosDB), [MongoDB](https://github.com/aelassas/Wexflow/wiki/MongoDB), [RavenDB](https://github.com/aelassas/Wexflow/wiki/RavenDB) and [LiteDB](http://www.litedb.org/) serverless NoSQL Document Store database in its server and backend which enhance and improve the performance of this workflow engine. The user can choose between the database of his choice at the installation.
 
-Wexflow comes with a back end too, so you can search and filter among all your workflows, have real-time statistics on your workflows, manage your workflows with ease, design your workflows with ease, and track your workflows with ease:
+Wexflow comes with a backend too, so you can search and filter among all your workflows, have real-time statistics on your workflows, manage your workflows with ease, design your workflows with ease, and track your workflows with ease:
 
 ![Dashboard](https://aelassas.github.io/wexflow/images/wbo-dashboard-4.4-2.png)
 
@@ -112,7 +112,7 @@ Just to give you an idea of what Wexflow does, this is a screenshot from the "De
 
 ![Designer](https://aelassas.github.io/wexflow/images/wbo-designer-4.4-1.png)
 
-Moreover, the "Designer" page allows to edit workflow files through its Web XML editor:
+Moreover, the "Designer" page allows to edit workflows through its Web XML editor:
 
 ![Designer](https://aelassas.github.io/wexflow/images/wbo-designer-4.4-2.png)
 
@@ -134,7 +134,7 @@ Moreover, the "Designer" page allows to edit workflow files through its Web XML 
 - [x] [Easy to install and effortless configuration](https://github.com/aelassas/Wexflow/wiki/Installation).
 - [x] [Straightforward and easy to use](https://github.com/aelassas/Wexflow/wiki/Usage).
 - [x] [A cross-platform workflow server](https://github.com/aelassas/Wexflow/wiki/Workflow-server).
-- [x] [A cross-platform back end](https://github.com/aelassas/Wexflow/wiki/Usage#backend).
+- [x] [A cross-platform backend](https://github.com/aelassas/Wexflow/wiki/Usage#backend).
 - [x] [An Android app for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#android-manager).
 - [x] [An iOS app for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#ios-manager).
 - [x] [Sequential workflows](https://github.com/aelassas/Wexflow/wiki/Samples#sequential-workflows).
