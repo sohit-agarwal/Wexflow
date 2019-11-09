@@ -39,7 +39,7 @@ I am looking for macOS testers. If you want to help, reply to this [issue](https
 
 # What's New?
 
-Take a look at the [version 5.0](https://github.com/aelassas/Wexflow/releases/tag/v5.0). This version includes an addition of Swagger UI, bug fixes, performance enhancements and under the hood updates.
+Take a look at the [version 5.1](https://github.com/aelassas/Wexflow/releases/tag/v5.1). This version includes Twilio integration for sending SMS messages, bug fixes, performance enhancements and under the hood updates.
 
 This version has been depthly tested on Windows, Linux, macOS and the cloud, and runs 100% on Windows, Linux, macOS and the cloud.
 
@@ -177,6 +177,7 @@ Discover more about the features in [details](https://github.com/aelassas/Wexflo
 - [Twitter integration](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation#social-media-tasks): Automatically send tweets through Twitter API.
 - [Reddit integration](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation#social-media-tasks): Automatically send posts and links to Reddit through Reddit API.
 - [Slack integration](https://github.com/aelassas/Wexflow/wiki/Slack): Automatically send messages to Slack channels.
+- [Twilio integration](https://github.com/aelassas/Wexflow/wiki/Twilio): Automatically send SMS messages.
 - Batch encrypting and decrypting large files.
 - Batch converting, resizing and cropping images.
 - Creating and sending reports and invoices by email.
