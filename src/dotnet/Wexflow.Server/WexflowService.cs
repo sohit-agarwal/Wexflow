@@ -36,14 +36,8 @@ namespace Wexflow.Server
             //
             Get("/", _ =>
             {
-                //return Response.AsRedirect(Root);
                 return Response.AsRedirect("/swagger-ui/index.html");
             });
-
-            //
-            // Doc
-            //
-            //Doc();
 
             //
             // Dashboard
@@ -57,7 +51,6 @@ namespace Wexflow.Server
             //
             // Manager
             //
-            //GetWorkflows();
             Search();
             GetWorkflow();
             StartWorkflow();
@@ -78,6 +71,7 @@ namespace Wexflow.Server
             // 
             GetTasks();
             GetWorkflowXml();
+            GetWorkflowJson();
             GetTaskNames();
             GetSettings();
             GetTaskXml();
@@ -118,119 +112,6 @@ namespace Wexflow.Server
             GetUserWorkflows();
             SaveUserWorkflows();
         }
-
-        private string DocH1(string title)
-        {
-            return "<h1>" + title + "</h1>";
-        }
-
-        private string DocH2(string title)
-        {
-            return "<h2>" + title + "</h2>";
-        }
-
-        private string DocGet(string name, string description)
-        {
-            return "<b>GET</b> " + Root + name + "<br/>" + description + "<br/><br/>";
-        }
-
-        private string DocPost(string name, string description)
-        {
-            return "<b>POST</b> " + Root + name + "<br/>" + description + "<br/><br/>";
-        }
-
-        private void Doc()
-        {
-            Get(Root, args =>
-            {
-                var doc =
-                  DocH1("Wexflow server running on CoreCLR")
-                + DocH2("Dashboard")
-                + DocGet("statusCount", "Returns status count.")
-                + DocGet("entriesCountByDate?s={keyword}&from={date}&to={date}", "Returns entries count by keyword and date filter.")
-                + DocGet("searchEntriesByPageOrderBy?s={keyword}&from={date}&to={date}&page={page}&entriesCount={entriesCount}&heo={orderBy}", "Searches for entries.")
-                + DocGet("entryStatusDateMin", "Returns entry min date.")
-                + DocGet("entryStatusDateMax", "Returns entry max date.")
-                + DocH2("Manager")
-                //+ DocGet("workflows", "Returns the list of workflows.")
-                + DocGet("search?s={keyword}", "Search for workflows.")
-                + DocGet("searchApprovalWorkflows?s={keyword}", "Search for approval workflows.")
-                + DocGet("workflow?w={id}", "Returns a workflow from its id.")
-                + DocPost("start?w={id}", "Starts a workflow.")
-                + DocPost("startWithVariables", "Starts a workflow with variables.")
-                + DocPost("stop?w={id}", "Stops a workflow.")
-                + DocPost("suspend?w={id}", "Suspends a workflow.")
-                + DocPost("resume?w={id}", "Resumes a workflow.")
-                + DocPost("approve?w={id}", "Approves a workflow.")
-                + DocPost("disapprove?w={id}", "Disapproves a workflow.")
-                + DocH2("Designer")
-                + DocGet("tasks/{id}", "Returns workflow's tasks.")
-                + DocGet("xml/{id}", "Returns a workflow as XML.")
-                + DocGet("taskNames", "Returns task names.")
-                + DocGet("settings/{taskName}", "Returns task settings.")
-                + DocPost("taskToXml", "Returns a task as XML.")
-                + DocGet("isWorkflowIdValid/{id}", "Checks if a workflow id is valid.")
-                + DocGet("isCronExpressionValid?e={cronExpression}", "Checks if a cron expression is valid.")
-                + DocGet("isPeriodValid/{period}", "Checks if a period is valid.")
-                + DocPost("isXmlWorkflowValid", "Checks if the XML of a workflow is valid.")
-                + DocPost("saveXml", "Saves a workflow from XML.")
-                + DocPost("save", "Saves a workflow from JSON.")
-                + DocPost("delete?w={id}", "Deletes a workflow.")
-                + DocPost("deleteWorkflows", "Deletes workflows.")
-                + DocGet("graph/{id}", "Returns the execution graph of the workflow.")
-                + DocH2("History")
-                + DocGet("historyEntriesCountByDate?s={keyword}&from={date}&to={date}", "Returns history entries count by keyword and date filter.")
-                + DocGet("searchHistoryEntriesByPageOrderBy?s={keyword}&from={date}&to={date}&page={page}&entriesCount={entriesCount}&heo={orderBy}", "Searches for history entries.")
-                + DocGet("historyEntryStatusDateMin", "Returns history entry min date.")
-                + DocGet("historyEntryStatusDateMax", "Returns history entry max date.")
-                + DocH2("Users")
-                + DocGet("user?username={username}", "Returns a user from his username.")
-                //+ DocGet("password?u={username}", "Returns user's password (encrypted).")
-                + DocGet("searchUsers?keyword={keyword}&uo={orderBy}", "Searches for users.")
-                + DocPost("insertUser?username={username}&password={password}&up={userProfile}&email={email}", "Inserts a user.")
-                + DocPost("updateUser?userId={userId}&username={username}&password={password}&up={userProfile}&email={email}", "Updates a user.")
-                + DocPost("updateUsernameAndEmailAndUserProfile?userId={userId}&username={username}&password={password}&up={userProfile}&email={email}", "Updates the username, the email and the user profile of a user.")
-                + DocPost("deleteUser?username={username}&password={password}", "Deletes a user.")
-                + DocPost("resetPassword?username={username}", "Resets a password.")
-                + DocH2("Profiles")
-                + DocGet("searchAdmins?keyword={keyword}&uo={orderBy}", "Searches for administrators.")
-                + DocGet("userWorkflows?u={userId}", "Returns user workflows.")
-                + DocPost("saveUserWorkflows", "Saves user workflow relations.");
-
-                var docBytes = Encoding.UTF8.GetBytes(doc);
-
-                return new Response()
-                {
-                    ContentType = "text/html",
-                    Contents = s => s.Write(docBytes, 0, docBytes.Length)
-                };
-            });
-        }
-
-        /// <summary>
-        /// Returns the list of workflows.
-        /// </summary>
-        //private void GetWorkflows()
-        //{
-        //    Get(Root + "workflows", args =>
-        //    {
-        //        var workflows = Program.WexflowEngine.Workflows.Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.Name,
-        //                (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
-        //                wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
-        //                wf.IsExecutionGraphEmpty
-        //                , wf.LocalVariables.Select(v => new Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()
-        //                ))
-        //            .ToArray();
-        //        var workflowsStr = JsonConvert.SerializeObject(workflows);
-        //        var workflowsBytes = Encoding.UTF8.GetBytes(workflowsStr);
-
-        //        return new Response()
-        //        {
-        //            ContentType = "application/json",
-        //            Contents = s => s.Write(workflowsBytes, 0, workflowsBytes.Length)
-        //        };
-        //    });
-        //}
 
         /// <summary>
         /// Search for workflows.
@@ -825,6 +706,83 @@ namespace Wexflow.Server
                         {
                             ContentType = "application/json",
                             Contents = s => s.Write(xmlBytes, 0, xmlBytes.Length)
+                        };
+                    }
+                }
+
+                return new Response()
+                {
+                    ContentType = "application/json"
+                };
+            });
+        }
+
+        /// <summary>
+        /// Returns a workflow as JSON.
+        /// </summary>
+        private void GetWorkflowJson()
+        {
+            Get(Root + "json/{id}", args =>
+            {
+                var auth = GetAuth(Request);
+                var username = auth.Username;
+                var password = auth.Password;
+
+                var user = WexflowServer.WexflowEngine.GetUser(username);
+                if (user.Password.Equals(password))
+                {
+                    Core.Workflow wf = WexflowServer.WexflowEngine.GetWorkflow(args.id);
+                    if (wf != null)
+                    {
+                        var variables = new List<Contracts.Variable>();
+                        foreach (var variable in wf.LocalVariables)
+                        {
+                            variables.Add(new Contracts.Variable { Key = variable.Key, Value = variable.Value });
+                        }
+
+                        var wi = new Contracts.Workflow.WorkflowInfo
+                        {
+                            Id = wf.Id,
+                            Name = wf.Name,
+                            LaunchType = (int)wf.LaunchType,
+                            Period = wf.Period.ToString(),
+                            CronExpression = wf.CronExpression,
+                            IsEnabled = wf.IsEnabled,
+                            IsApproval = wf.IsApproval,
+                            Description = wf.Description,
+                            LocalVariables = variables.ToArray()
+                        };
+
+                        var tasks = new List<TaskInfo>();
+                        foreach (var task in wf.Tasks)
+                        {
+                            var settings = new List<SettingInfo>();
+                            foreach (var setting in task.Settings)
+                            {
+                                var attributes = new List<AttributeInfo>();
+                                foreach (var attr in setting.Attributes)
+                                {
+                                    attributes.Add(new AttributeInfo(attr.Name, attr.Value));
+                                }
+
+                                settings.Add(new SettingInfo(setting.Name, setting.Value, attributes.ToArray()));
+                            }
+                            tasks.Add(new TaskInfo(task.Id, task.Name, task.Description, task.IsEnabled, settings.ToArray()));
+                        }
+
+                        var workflow = new Contracts.Workflow.Workflow
+                        {
+                            WorkflowInfo = wi,
+                            Tasks = tasks.ToArray()
+                        };
+
+                        var jsonStr = JsonConvert.SerializeObject(workflow);
+                        var jsonbBytes = Encoding.UTF8.GetBytes(jsonStr);
+
+                        return new Response()
+                        {
+                            ContentType = "application/json",
+                            Contents = s => s.Write(jsonbBytes, 0, jsonbBytes.Length)
                         };
                     }
                 }

@@ -175,6 +175,8 @@
     <Compile Include="Contracts\User.cs" />
     <Compile Include="Contracts\Variable.cs" />
     <Compile Include="Contracts\WorkflowInfo.cs" />
+    <Compile Include="Contracts\Workflow\Workflow.cs" />
+    <Compile Include="Contracts\Workflow\WorkflowInfo.cs" />
     <Compile Include="IAppConfiguration.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
