@@ -97,7 +97,6 @@ namespace Wexflow.Server
             // Users
             //
             GetUser();
-            //GetPassword();
             SearchUsers();
             InsertUser();
             UpdateUser();
@@ -1954,35 +1953,6 @@ namespace Wexflow.Server
 
             });
         }
-
-        /// <summary>
-        /// Returns user's password (encrypted).
-        /// </summary>
-        //private void GetPassword()
-        //{
-        //    Get(Root + "password", args =>
-        //    {
-        //        string qusername = Request.Query["qu"].ToString();
-        //        string qpassword = Request.Query["qp"].ToString();
-        //        string username = Request.Query["u"].ToString();
-        //        string pass = string.Empty;
-
-        //        var user = Program.WexflowEngine.GetUser(qusername);
-        //        if (user.Password.Equals(qpassword))
-        //        {
-        //            pass = Program.WexflowEngine.GetPassword(username);
-        //        }
-
-        //        var passStr = JsonConvert.SerializeObject(pass);
-        //        var passBytes = Encoding.UTF8.GetBytes(passStr);
-
-        //        return new Response
-        //        {
-        //            ContentType = "application/json",
-        //            Contents = s => s.Write(passBytes, 0, passBytes.Length)
-        //        };
-        //    });
-        //}
 
         /// <summary>
         /// Searches for users.
