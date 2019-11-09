@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentFTP" Version="28.0.0" />
+    <PackageReference Include="FluentFTP" Version="28.0.1" />
     <PackageReference Include="SSH.NET" Version="2016.1.0" />
   </ItemGroup>
 
