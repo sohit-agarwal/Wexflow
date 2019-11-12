@@ -13,6 +13,7 @@ namespace Wexflow.Tasks.Unzip
         public string DestDir { get; private set; }
         public string Password { get; private set; }
         public bool CreateSubDirectoryWithDateTime { get; private set; }
+        public bool Overwrite { get; private set; }
 
         public Unzip(XElement xe, Workflow wf)
             : base(xe, wf)
@@ -20,6 +21,7 @@ namespace Wexflow.Tasks.Unzip
             DestDir = GetSetting("destDir");
             Password = GetSetting("password", string.Empty);
             CreateSubDirectoryWithDateTime = GetSettingBool("createSubDirectoryWithDateTime", true);
+            Overwrite = GetSettingBool("overwrite", false);
         }
 
         public override TaskStatus Run()
@@ -44,7 +46,7 @@ namespace Wexflow.Tasks.Unzip
                             : DestDir;
                         if (!Directory.Exists(destFolder))
                             Directory.CreateDirectory(destFolder);
-                        ExtractZipFile(zip.Path, Password, destFolder);
+                        ExtractZipFile(zip.Path, Password, destFolder, Overwrite);
 
                         foreach (var file in Directory.GetFiles(destFolder, "*.*", SearchOption.AllDirectories))
                         {
@@ -82,7 +84,7 @@ namespace Wexflow.Tasks.Unzip
             return new TaskStatus(status, false);
         }
 
-        public void ExtractZipFile(string archiveFilenameIn, string password, string outFolder)
+        public void ExtractZipFile(string archiveFilenameIn, string password, string outFolder, bool overwrite)
         {
             ZipFile zf = null;
             try
@@ -112,6 +114,9 @@ namespace Wexflow.Tasks.Unzip
                     string directoryName = Path.GetDirectoryName(fullZipToPath);
                     if (!string.IsNullOrEmpty(directoryName))
                         Directory.CreateDirectory(directoryName);
+
+                    if (overwrite && File.Exists(fullZipToPath))
+                        File.Delete(fullZipToPath);
 
                     // Unzip file in buffered chunks. This is just as fast as unpacking to a buffer the full size
                     // of the file, but does not waste memory.
