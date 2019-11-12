@@ -61,7 +61,7 @@
 	"Touch": [ "file" ],
 	"Twilio": [ "accountSid", "authToken", "from", "to", "message" ],
 	"Twitter": [ "selectFiles", "consumerKey", "consumerSecret", "accessToken", "accessTokenSecret" ],
-	"Unzip": [ "selectFiles", "destDir", "password", "createSubDirectoryWithDateTime" ],
+	"Unzip": [ "selectFiles", "destDir", "password", "overwrite", "createSubDirectoryWithDateTime" ],
 	"Vimeo": [ "token" ],
 	"VimeoListUploads": [ "token" ],
 	"Wait": [ "duration" ],

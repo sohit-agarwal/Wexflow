@@ -15,6 +15,11 @@
     <Setting name="destDir" value="$string" />
     <!-- Optional. The ZIP archive password if necessary.-->
     <Setting name="password" value="$string" />
+    <!--
+          Optional and defaults to false. If the destination file exist, the task will overwrite it if this setting option is set to true.
+          Otherwise the file is not overwritten.
+    -->
+    <Setting name="overwrite" value="true|false" />
     <!-- Optional and defaults to true. Create sub directory into destination dir with file name and current date time of extraction process. -->
     <Setting name="createSubDirectoryWithDateTime" value="$bool" />
   </Task>
