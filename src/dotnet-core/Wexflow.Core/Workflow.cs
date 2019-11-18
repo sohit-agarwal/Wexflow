@@ -101,6 +101,10 @@ namespace Wexflow.Core
         /// </summary>
         public bool IsApproval { get; private set; }
         /// <summary>
+        /// Shows whether workflow jobs are executed in parallel. Otherwise jobs are queued. Defaults to true.
+        /// </summary>
+        public bool EnableParallelJobs { get; private set; }
+        /// <summary>
         /// Shows whether this workflow is waiting for approval.
         /// </summary>
         public bool IsWaitingForApproval { get; set; }
@@ -445,6 +449,9 @@ namespace Wexflow.Core
                 IsEnabled = bool.Parse(GetWorkflowSetting(xdoc, "enabled", true));
                 var isApprovalStr = GetWorkflowSetting(xdoc, "approval", false);
                 IsApproval = bool.Parse(string.IsNullOrEmpty(isApprovalStr) ? "false" : isApprovalStr);
+
+                var enableParallelJobsStr = GetWorkflowSetting(xdoc, "enableParallelJobs", false);
+                EnableParallelJobs = bool.Parse(string.IsNullOrEmpty(enableParallelJobsStr) ? "true" : enableParallelJobsStr);
 
                 if (xdoc.Root != null)
                 {
@@ -819,10 +826,26 @@ namespace Wexflow.Core
         /// </summary>
         public void Start()
         {
-            if (IsRunning)
+            if (IsRunning && !EnableParallelJobs)
             {
                 var job = new Job { Workflow = this, QueuedOn = DateTime.Now };
                 _jobsQueue.Enqueue(job);
+                return;
+            }
+            else if (IsRunning && EnableParallelJobs)
+            {
+                var workflow = new Workflow(
+                      DbId
+                    , Xml
+                    , WexflowTempFolder
+                    , WorkflowsTempFolder
+                    , TasksFolder
+                    , ApprovalFolder
+                    , XsdPath
+                    , Database
+                    , GlobalVariables
+                    );
+                workflow.Start();
                 return;
             }
 
