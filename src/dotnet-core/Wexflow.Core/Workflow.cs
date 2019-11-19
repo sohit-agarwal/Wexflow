@@ -188,6 +188,10 @@ namespace Wexflow.Core
         /// Workflow jobs.
         /// </summary>
         public Dictionary<Guid, Workflow> Jobs { get; private set; }
+        /// <summary>
+        /// Instance Id.
+        /// </summary>
+        public Guid InstanceId { get; private set; }
 
         private Queue<Job> _jobsQueue;
         private Thread _thread;
@@ -860,8 +864,8 @@ namespace Wexflow.Core
                 return workflow.Start();
             }
 
-            var instanceId = Guid.NewGuid();
-            Jobs.Add(instanceId, this);
+            InstanceId = Guid.NewGuid();
+            Jobs.Add(InstanceId, this);
 
             //
             // Parse the workflow file (Global variables and local variables.)
@@ -1038,6 +1042,7 @@ namespace Wexflow.Core
 
                         Logger.InfoFormat("{0} Workflow finished.", LogTag);
                         JobId++;
+                        Jobs.Remove(InstanceId);
 
                         if (_jobsQueue.Count > 0)
                         {
@@ -1055,7 +1060,7 @@ namespace Wexflow.Core
             _thread = thread;
             thread.Start();
 
-            return instanceId;
+            return InstanceId;
         }
 
         private Task[] NodesToTasks(Node[] nodes)
@@ -1481,6 +1486,7 @@ namespace Wexflow.Core
                     _historyEntry.StatusDate = DateTime.Now;
                     Database.InsertHistoryEntry(_historyEntry);
                     IsDisapproved = false;
+                    Jobs.Remove(InstanceId);
 
                     if (_jobsQueue.Count > 0)
                     {

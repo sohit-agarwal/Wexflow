@@ -245,8 +245,15 @@ namespace Wexflow.Clients.Manager
             var wfId = GetSlectedWorkflowId();
             if (wfId > -1)
             {
-                _wexflowServiceClient.SuspendWorkflow(wfId, _jobs[wfId], Login.Username, Login.Password);
-                UpdateButtons(wfId, true);
+                if (_jobs.ContainsKey(wfId))
+                {
+                    _wexflowServiceClient.SuspendWorkflow(wfId, _jobs[wfId], Login.Username, Login.Password);
+                    UpdateButtons(wfId, true);
+                }
+                else
+                {
+                    MessageBox.Show("Job id not found.");
+                }
             }
         }
 
@@ -255,7 +262,14 @@ namespace Wexflow.Clients.Manager
             var wfId = GetSlectedWorkflowId();
             if (wfId > -1)
             {
-                _wexflowServiceClient.ResumeWorkflow(wfId, _jobs[wfId], Login.Username, Login.Password);
+                if (_jobs.ContainsKey(wfId))
+                {
+                    _wexflowServiceClient.ResumeWorkflow(wfId, _jobs[wfId], Login.Username, Login.Password);
+                }
+                else
+                {
+                    MessageBox.Show("Job id not found.");
+                }
             }
         }
 
@@ -264,8 +278,15 @@ namespace Wexflow.Clients.Manager
             var wfId = GetSlectedWorkflowId();
             if (wfId > -1)
             {
-                _wexflowServiceClient.StopWorkflow(wfId, _jobs[wfId], Login.Username, Login.Password);
-                UpdateButtons(wfId, true);
+                if (_jobs.ContainsKey(wfId))
+                {
+                    _wexflowServiceClient.StopWorkflow(wfId, _jobs[wfId], Login.Username, Login.Password);
+                    UpdateButtons(wfId, true);
+                }
+                else
+                {
+                    MessageBox.Show("Job id not found.");
+                }
             }
         }
 
@@ -516,8 +537,15 @@ namespace Wexflow.Clients.Manager
             var wfId = GetSlectedWorkflowId();
             if (wfId > -1)
             {
-                _wexflowServiceClient.ApproveWorkflow(wfId, _jobs[wfId], Login.Username, Login.Password);
-                UpdateButtons(wfId, true);
+                if (_jobs.ContainsKey(wfId))
+                {
+                    _wexflowServiceClient.ApproveWorkflow(wfId, _jobs[wfId], Login.Username, Login.Password);
+                    UpdateButtons(wfId, true);
+                }
+                else
+                {
+                    MessageBox.Show("Job id not found.");
+                }
             }
         }
 
@@ -526,8 +554,15 @@ namespace Wexflow.Clients.Manager
             var wfId = GetSlectedWorkflowId();
             if (wfId > -1)
             {
-                _wexflowServiceClient.DisapproveWorkflow(wfId, _jobs[wfId], Login.Username, Login.Password);
-                UpdateButtons(wfId, true);
+                if (_jobs.ContainsKey(wfId))
+                {
+                    _wexflowServiceClient.DisapproveWorkflow(wfId, _jobs[wfId], Login.Username, Login.Password);
+                    UpdateButtons(wfId, true);
+                }
+                else
+                {
+                    MessageBox.Show("Job id not found.");
+                }
             }
         }
     }
