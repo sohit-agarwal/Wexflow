@@ -31,6 +31,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var selectedIndex = -1
     var previousSelectedCell:WorkflowTableViewCell? = nil
     var timer:Timer? = nil
+    var jobs:[Int:String] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -299,7 +300,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
     }
     
-    func post(url: URL, message: String, hasResult: Bool){
+    func post(url: URL, message: String, hasResult: Bool, workflowId: Int){
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         let auth = "Basic " + LoginViewController.toBase64(str: LoginViewController.Username + ":" + LoginViewController.Password)
@@ -318,15 +319,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
             if hasResult {
                 let response = String(data: data!, encoding: .utf8)
-                let result = response?.bool
-                if result! {
-                    DispatchQueue.main.async{
-                        self.toast(message: message)
-                    }
-                }else{
-                    DispatchQueue.main.async{
-                        self.toast(message: "Not supported.")
-                    }
+                
+                if response == "true" || response == "false" {
+                  let result = response?.bool
+                  if result! {
+                      DispatchQueue.main.async{
+                          self.toast(message: message)
+                      }
+                  }else{
+                      DispatchQueue.main.async{
+                          self.toast(message: "Not supported.")
+                      }
+                  }
+                }else if !response!.isEmpty{
+                    self.jobs[workflowId] = response!.replacingOccurrences(of: "\"", with: "")
                 }
             }else{
                 DispatchQueue.main.async{
@@ -340,47 +346,47 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if workflowId != -1 {
             let url = URL(string: WexflowServerUrl + "start?w=" + String(workflowId))
             let message = "Workflow " + String(workflowId) + " started."
-            post(url: url!, message: message, hasResult: false)
+            post(url: url!, message: message, hasResult: true, workflowId: workflowId)
         }
     }
     
     @IBAction func onSuspendClick(_ sender: UIButton) {
         if workflowId != -1 {
-            let url = URL(string: WexflowServerUrl + "suspend?w=" + String(workflowId))
+            let url = URL(string: WexflowServerUrl + "suspend?w=" + String(workflowId) + "&i=" + jobs[workflowId]!)
             let message = "Workflow " + String(workflowId) + " suspended."
-            post(url: url!, message: message, hasResult: true)
+            post(url: url!, message: message, hasResult: true, workflowId: workflowId)
         }
     }
     
     @IBAction func onResumeClick(_ sender: UIButton) {
         if workflowId != -1 {
-            let url = URL(string: WexflowServerUrl + "resume?w=" + String(workflowId))
+            let url = URL(string: WexflowServerUrl + "resume?w=" + String(workflowId) + "&i=" + jobs[workflowId]!)
             let message =  "Workflow " + String(workflowId) + " resumed."
-            post(url: url!, message: message, hasResult: false)
+            post(url: url!, message: message, hasResult: false, workflowId: workflowId)
         }
     }
     
     @IBAction func onStopClick(_ sender: UIButton) {
         if workflowId != -1 {
-            let url = URL(string: WexflowServerUrl + "stop?w=" + String(workflowId))
+            let url = URL(string: WexflowServerUrl + "stop?w=" + String(workflowId) + "&i=" + jobs[workflowId]!)
             let message = "Workflow " + String(workflowId) + " stopped."
-            post(url: url!, message: message, hasResult: true)
+            post(url: url!, message: message, hasResult: true, workflowId: workflowId)
         }
     }
     
     @IBAction func onApproveClick(_ sender: UIButton) {
         if workflowId != -1 {
-            let url = URL(string: WexflowServerUrl + "approve?w=" + String(workflowId))
+            let url = URL(string: WexflowServerUrl + "approve?w=" + String(workflowId) + "&i=" + jobs[workflowId]!)
             let message = "Workflow " + String(workflowId) + " approved."
-            post(url: url!, message: message, hasResult: false)
+            post(url: url!, message: message, hasResult: false, workflowId: workflowId)
         }
     }
     
     @IBAction func onDisapproveClick(_ sender: UIButton) {
         if workflowId != -1 {
-            let url = URL(string: WexflowServerUrl + "disapprove?w=" + String(workflowId))
+            let url = URL(string: WexflowServerUrl + "disapprove?w=" + String(workflowId) + "&i=" + jobs[workflowId]!)
             let message = "Workflow " + String(workflowId) + " disapproved."
-            post(url: url!, message: message, hasResult: false)
+            post(url: url!, message: message, hasResult: false, workflowId: workflowId)
         }
     }
     
