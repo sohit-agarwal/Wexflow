@@ -245,6 +245,10 @@ paths:
           name: w
           type: "number"
           description: Workflow id
+        - in: query
+          name: i
+          type: "string"
+          description: Instance id
      responses:
         200:
           description: "successful operation"
@@ -264,6 +268,10 @@ paths:
           name: w
           type: "number"
           description: Workflow id
+        - in: query
+          name: i
+          type: "string"
+          description: Instance id
      responses:
         200:
           description: "successful operation"
@@ -283,6 +291,10 @@ paths:
           name: w
           type: "number"
           description: Workflow id
+        - in: query
+          name: i
+          type: "string"
+          description: Instance id
      responses:
         200:
           description: "successful operation"
@@ -302,6 +314,10 @@ paths:
           name: w
           type: "number"
           description: Workflow id
+        - in: query
+          name: i
+          type: "string"
+          description: Instance id
      responses:
         200:
           description: "successful operation"
@@ -321,6 +337,10 @@ paths:
           name: w
           type: "number"
           description: Workflow id
+        - in: query
+          name: i
+          type: "string"
+          description: Instance id
      responses:
         200:
           description: "successful operation"

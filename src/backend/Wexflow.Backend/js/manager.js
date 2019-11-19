@@ -9,6 +9,7 @@
     var lnkUsers = document.getElementById("lnk-users");
     var lnkProfiles = document.getElementById("lnk-profiles");
     var selectedId = -1;
+    var instanceIds = [];
     var workflows = {};
     var timer = null;
     var timerInterval = 1000; // ms
@@ -264,11 +265,13 @@
 
                 startButton.onclick = function () {
                     var startUri = uri + "/start?w=" + selectedId;
-                    Common.post(startUri, function () { }, function () { }, "", auth);
+                    Common.post(startUri, function (res) {
+                        instanceIds[selectedId] = res;
+                    }, function () { }, "", auth);
                 };
 
                 suspendButton.onclick = function () {
-                    var suspendUri = uri + "/suspend?w=" + selectedId;
+                    var suspendUri = uri + "/suspend?w=" + selectedId + "&i=" + instanceIds[selectedId];
                     Common.post(suspendUri, function (res) {
                         if (res === true) {
                             updateButtons(selectedId, true);
@@ -279,12 +282,12 @@
                 };
 
                 resumeButton.onclick = function () {
-                    var resumeUri = uri + "/resume?w=" + selectedId;
+                    var resumeUri = uri + "/resume?w=" + selectedId + "&i=" + instanceIds[selectedId];
                     Common.post(resumeUri, function () { }, function () { }, "", auth);
                 };
 
                 stopButton.onclick = function () {
-                    var stopUri = uri + "/stop?w=" + selectedId;
+                    var stopUri = uri + "/stop?w=" + selectedId + "&i=" + instanceIds[selectedId];
                     Common.post(stopUri,
                         function (res) {
                             if (res === true) {

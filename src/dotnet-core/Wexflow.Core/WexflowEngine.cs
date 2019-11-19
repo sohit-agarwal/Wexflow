@@ -257,6 +257,7 @@ namespace Wexflow.Core
             {
                 var wf = new Workflow(
                       1
+                    , new Dictionary<Guid, Workflow>()
                     , workflow.GetDbId()
                     , workflow.Xml
                     , TempFolder
@@ -307,7 +308,8 @@ namespace Wexflow.Core
                         try
                         {
                             new Workflow(
-                             1
+                              1
+                            , new Dictionary<Guid, Workflow>()
                             , "-1"
                             , xml
                             , TempFolder
@@ -346,6 +348,7 @@ namespace Wexflow.Core
                         {
                             new Workflow(
                               1
+                            , new Dictionary<Guid, Workflow>()
                             , "-1"
                             , xml
                             , TempFolder
@@ -676,7 +679,7 @@ namespace Wexflow.Core
         /// Starts a workflow.
         /// </summary>
         /// <param name="workflowId">Workflow Id.</param>
-        public void StartWorkflow(int workflowId)
+        public Guid StartWorkflow(int workflowId)
         {
             var wf = GetWorkflow(workflowId);
 
@@ -686,15 +689,22 @@ namespace Wexflow.Core
             }
             else
             {
-                if (wf.IsEnabled) wf.Start();
+                if (wf.IsEnabled)
+                {
+                    var instanceId = wf.Start();
+                    return instanceId;
+                }
             }
+
+            return Guid.Empty;
         }
 
         /// <summary>
         /// Stops a workflow.
         /// </summary>
         /// <param name="workflowId">Workflow Id.</param>
-        public bool StopWorkflow(int workflowId)
+        /// <param name="instanceId">Job instance Id.</param>
+        public bool StopWorkflow(int workflowId, Guid instanceId)
         {
             var wf = GetWorkflow(workflowId);
 
@@ -704,7 +714,19 @@ namespace Wexflow.Core
             }
             else
             {
-                if (wf.IsEnabled) return wf.Stop();
+                if (wf.IsEnabled)
+                {
+                    var innerWf = wf.Jobs.Where(kvp => kvp.Key.Equals(instanceId)).Select(kvp => kvp.Value).FirstOrDefault();
+
+                    if (innerWf == null)
+                    {
+                        Logger.ErrorFormat("Instance {0} not found.", instanceId);
+                    }
+                    else
+                    {
+                        return innerWf.Stop();
+                    }
+                }
             }
 
             return false;
@@ -714,7 +736,8 @@ namespace Wexflow.Core
         /// Suspends a workflow.
         /// </summary>
         /// <param name="workflowId">Workflow Id.</param>
-        public bool SuspendWorkflow(int workflowId)
+        /// <param name="instanceId">Job instance Id.</param>
+        public bool SuspendWorkflow(int workflowId, Guid instanceId)
         {
             var wf = GetWorkflow(workflowId);
 
@@ -724,7 +747,19 @@ namespace Wexflow.Core
             }
             else
             {
-                if (wf.IsEnabled) return wf.Suspend();
+                if (wf.IsEnabled)
+                {
+                    var innerWf = wf.Jobs.Where(kvp => kvp.Key.Equals(instanceId)).Select(kvp => kvp.Value).FirstOrDefault();
+
+                    if (innerWf == null)
+                    {
+                        Logger.ErrorFormat("Instance {0} not found.", instanceId);
+                    }
+                    else
+                    {
+                        return innerWf.Suspend();
+                    }
+                }
             }
 
             return false;
@@ -734,7 +769,8 @@ namespace Wexflow.Core
         /// Resumes a workflow.
         /// </summary>
         /// <param name="workflowId">Workflow Id.</param>
-        public void ResumeWorkflow(int workflowId)
+        /// <param name="instanceId">Job instance Id.</param>
+        public void ResumeWorkflow(int workflowId, Guid instanceId)
         {
             var wf = GetWorkflow(workflowId);
 
@@ -744,7 +780,19 @@ namespace Wexflow.Core
             }
             else
             {
-                if (wf.IsEnabled) wf.Resume();
+                if (wf.IsEnabled)
+                {
+                    var innerWf = wf.Jobs.Where(kvp => kvp.Key.Equals(instanceId)).Select(kvp => kvp.Value).FirstOrDefault();
+
+                    if (innerWf == null)
+                    {
+                        Logger.ErrorFormat("Instance {0} not found.", instanceId);
+                    }
+                    else
+                    {
+                        innerWf.Resume();
+                    }
+                }
             }
         }
 
@@ -752,7 +800,8 @@ namespace Wexflow.Core
         /// Resumes a workflow.
         /// </summary>
         /// <param name="workflowId">Workflow Id.</param>
-        public bool ApproveWorkflow(int workflowId)
+        /// <param name="instanceId">Job instance Id.</param>
+        public bool ApproveWorkflow(int workflowId, Guid instanceId)
         {
             try
             {
@@ -766,8 +815,20 @@ namespace Wexflow.Core
 
                 if (wf.IsApproval)
                 {
-                    wf.Approve();
-                    return true;
+                    if (wf.IsEnabled)
+                    {
+                        var innerWf = wf.Jobs.Where(kvp => kvp.Key.Equals(instanceId)).Select(kvp => kvp.Value).FirstOrDefault();
+
+                        if (innerWf == null)
+                        {
+                            Logger.ErrorFormat("Instance {0} not found.", instanceId);
+                        }
+                        else
+                        {
+                            innerWf.Approve();
+                            return true;
+                        }
+                    }
                 }
 
                 return false;
@@ -783,7 +844,8 @@ namespace Wexflow.Core
         /// Resumes a workflow.
         /// </summary>
         /// <param name="workflowId">Workflow Id.</param>
-        public bool DisapproveWorkflow(int workflowId)
+        /// <param name="instanceId">Job instance Id.</param>
+        public bool DisapproveWorkflow(int workflowId, Guid instanceId)
         {
             try
             {
@@ -797,8 +859,20 @@ namespace Wexflow.Core
 
                 if (wf.IsApproval)
                 {
-                    wf.Disapprove();
-                    return true;
+                    if (wf.IsEnabled)
+                    {
+                        var innerWf = wf.Jobs.Where(kvp => kvp.Key.Equals(instanceId)).Select(kvp => kvp.Value).FirstOrDefault();
+
+                        if (innerWf == null)
+                        {
+                            Logger.ErrorFormat("Instance {0} not found.", instanceId);
+                        }
+                        else
+                        {
+                            innerWf.Disapprove();
+                            return true;
+                        }
+                    }
                 }
 
                 return false;

@@ -184,6 +184,10 @@ namespace Wexflow.Core
         /// Tasks folder.
         /// </summary>
         public string TasksFolder { get; private set; }
+        /// <summary>
+        /// Workflow jobs.
+        /// </summary>
+        public Dictionary<Guid, Workflow> Jobs { get; private set; }
 
         private Queue<Job> _jobsQueue;
         private Thread _thread;
@@ -193,6 +197,7 @@ namespace Wexflow.Core
         /// Creates a new workflow.
         /// </summary>
         /// <param name="jobId">First job Id.</param>
+        /// <param name="jobs">Workflow jobs.</param>
         /// <param name="dbId">Database ID.</param>
         /// <param name="xml">XML of the workflow.</param>
         /// <param name="wexflowTempFolder">Wexflow temp folder.</param>
@@ -204,6 +209,7 @@ namespace Wexflow.Core
         /// <param name="globalVariables">Global variables.</param>
         public Workflow(
               int jobId
+            , Dictionary<Guid, Workflow> jobs
             , string dbId
             , string xml
             , string wexflowTempFolder
@@ -215,6 +221,7 @@ namespace Wexflow.Core
             , Variable[] globalVariables)
         {
             JobId = jobId;
+            Jobs = jobs;
             _jobsQueue = new Queue<Job>();
             _thread = null;
             DbId = dbId;
@@ -826,18 +833,20 @@ namespace Wexflow.Core
         /// <summary>
         /// Starts this workflow.
         /// </summary>
-        public void Start()
+        /// <returns>Instance Id.</returns>
+        public Guid Start()
         {
             if (IsRunning && !EnableParallelJobs)
             {
                 var job = new Job { Workflow = this, QueuedOn = DateTime.Now };
                 _jobsQueue.Enqueue(job);
-                return;
+                return Guid.Empty;
             }
             else if (IsRunning && EnableParallelJobs)
             {
                 var workflow = new Workflow(
                       ++JobId
+                    , Jobs
                     , DbId
                     , Xml
                     , WexflowTempFolder
@@ -848,9 +857,11 @@ namespace Wexflow.Core
                     , Database
                     , GlobalVariables
                     );
-                workflow.Start();
-                return;
+                return workflow.Start();
             }
+
+            var instanceId = Guid.NewGuid();
+            Jobs.Add(instanceId, this);
 
             //
             // Parse the workflow file (Global variables and local variables.)
@@ -1043,6 +1054,8 @@ namespace Wexflow.Core
 
             _thread = thread;
             thread.Start();
+
+            return instanceId;
         }
 
         private Task[] NodesToTasks(Node[] nodes)
