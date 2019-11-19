@@ -1,5 +1,6 @@
 ﻿using CommandLine;
 using CommandLine.Text;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -41,13 +42,17 @@ namespace Wexflow.Clients.CommandLine
         {
             try
             {
+                IConfiguration config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .Build();
+
                 var parser = new Parser(cfg => cfg.CaseInsensitiveEnumValues = true);
                 var res = parser.ParseArguments<Options>(args)
                    .WithParsed(o =>
                    {
-                       var client = new WexflowServiceClient(ConfigurationManager.AppSettings["WexflowWebServiceUri"]);
-                       var username = ConfigurationManager.AppSettings["Username"];
-                       var password = ConfigurationManager.AppSettings["Password"];
+                       var client = new WexflowServiceClient(config["WexflowWebServiceUri"]);
+                       var username = config["Username"];
+                       var password = config["Password"];
 
                        var workflows = client.Search(string.Empty, username, password);
                        if (!workflows.Any(w => w.Id == o.WorkflowId))
