@@ -13,5 +13,17 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.0.100
-    - name: Build with dotnet
+    - name: Build Wexflow.Server.csproj
       run: dotnet build src/dotnet-core/Wexflow.Server/Wexflow.Server.csproj --configuration Release
+    - name: Build Wexflow.Clients.CommandLine.csproj
+      run: dotnet build src/dotnet-core/Wexflow.Clients.CommandLine/Wexflow.Clients.CommandLine.csproj --configuration Release
+    - name: Build Wexflow.Scripts.LiteDB.csproj
+      run: dotnet build src/dotnet-core/Wexflow.Scripts.LiteDB/Wexflow.Scripts.LiteDB.csproj --configuration Release
+    - name: Build Wexflow.Scripts.MongoDB.csproj
+      run: dotnet build src/dotnet-core/Wexflow.Scripts.MongoDB/Wexflow.Scripts.MongoDB.csproj --configuration Release
+    - name: Build Wexflow.Scripts.RavenDB.csproj
+      run: dotnet build src/dotnet-core/Wexflow.Scripts.RavenDB/Wexflow.Scripts.RavenDB.csproj --configuration Release
+    - name: Build Wexflow.Scripts.CosmosDB.csproj
+      run: dotnet build src/dotnet-core/Wexflow.Scripts.CosmosDB/Wexflow.Scripts.CosmosDB.csproj --configuration Release       
+    - name: Build Wexflow.DotnetCore.Tests.csproj
+      run: dotnet build tests/dotnet-core/Wexflow.DotnetCore.Tests/Wexflow.DotnetCore.Tests.csproj --configuration Release    
