@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
@@ -49,49 +50,50 @@ namespace Wexflow.Core.Service.Client
             return workflows;
         }
 
-        public void StartWorkflow(int id, string username, string password)
+        public Guid StartWorkflow(int id, string username, string password)
         {
             string uri = Uri + "/start?w=" + id;
             var webClient = new WebClient();
             webClient.Headers.Add("Authorization", Base64Encode(username + ":" + GetMd5(password)));
-            webClient.UploadString(uri, string.Empty);
+            var instanceId = webClient.UploadString(uri, string.Empty);
+            return Guid.Parse(instanceId.Replace("\"", string.Empty));
         }
 
-        public void StopWorkflow(int id, string username, string password)
+        public void StopWorkflow(int id, Guid instanceId, string username, string password)
         {
-            string uri = Uri + "/stop?w=" + id;
+            string uri = Uri + "/stop?w=" + id + "&i=" + instanceId;
             var webClient = new WebClient();
             webClient.Headers.Add("Authorization", Base64Encode(username + ":" + GetMd5(password)));
             webClient.UploadString(uri, string.Empty);
         }
 
-        public void SuspendWorkflow(int id, string username, string password)
+        public void SuspendWorkflow(int id, Guid instanceId, string username, string password)
         {
-            string uri = Uri + "/suspend?w=" + id;
+            string uri = Uri + "/suspend?w=" + id + "&i=" + instanceId;
             var webClient = new WebClient();
             webClient.Headers.Add("Authorization", Base64Encode(username + ":" + GetMd5(password)));
             webClient.UploadString(uri, string.Empty);
         }
 
-        public void ResumeWorkflow(int id, string username, string password)
+        public void ResumeWorkflow(int id, Guid instanceId, string username, string password)
         {
-            string uri = Uri + "/resume?w=" + id;
+            string uri = Uri + "/resume?w=" + id + "&i=" + instanceId;
             var webClient = new WebClient();
             webClient.Headers.Add("Authorization", Base64Encode(username + ":" + GetMd5(password)));
             webClient.UploadString(uri, string.Empty);
         }
 
-        public void ApproveWorkflow(int id, string username, string password)
+        public void ApproveWorkflow(int id, Guid instanceId, string username, string password)
         {
-            string uri = Uri + "/approve?w=" + id;
+            string uri = Uri + "/approve?w=" + id + "&i=" + instanceId;
             var webClient = new WebClient();
             webClient.Headers.Add("Authorization", Base64Encode(username + ":" + GetMd5(password)));
             webClient.UploadString(uri, string.Empty);
         }
 
-        public void DisapproveWorkflow(int id, string username, string password)
+        public void DisapproveWorkflow(int id, Guid instanceId, string username, string password)
         {
-            string uri = Uri + "/disapprove?w=" + id;
+            string uri = Uri + "/disapprove?w=" + id + "&i=" + instanceId;
             var webClient = new WebClient();
             webClient.Headers.Add("Authorization", Base64Encode(username + ":" + GetMd5(password)));
             webClient.UploadString(uri, string.Empty);

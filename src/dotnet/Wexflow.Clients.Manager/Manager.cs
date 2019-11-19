@@ -26,6 +26,7 @@ namespace Wexflow.Clients.Manager
         private WexflowServiceClient _wexflowServiceClient;
         private WorkflowInfo[] _workflows;
         private Dictionary<int, WorkflowInfo> _workflowsPerId;
+        private Dictionary<int, Guid> _jobs;
         private bool _windowsServiceWasStopped;
         private Timer _timer;
         private Exception _exception;
@@ -35,6 +36,8 @@ namespace Wexflow.Clients.Manager
 
         public Manager()
         {
+            _jobs = new Dictionary<int, Guid>();
+
             InitializeComponent();
 
             LoadWorkflows();
@@ -47,7 +50,8 @@ namespace Wexflow.Clients.Manager
                 if (root != null)
                 {
                     XmlNodeList nodeList = root.SelectNodes("/configuration/log4net/appender/file/@value");
-                    if (nodeList != null && nodeList.Count > 0) {
+                    if (nodeList != null && nodeList.Count > 0)
+                    {
                         _logfile = nodeList[0].Value;
                     }
                 }
@@ -143,8 +147,8 @@ namespace Wexflow.Clients.Manager
         {
             if (_exception != null)
             {
-	            textBoxInfo.Text = "";
-	            dataGridViewWorkflows.DataSource = new SortableBindingList<WorkflowDataInfo>();
+                textBoxInfo.Text = "";
+                dataGridViewWorkflows.DataSource = new SortableBindingList<WorkflowDataInfo>();
                 ShowError();
                 return;
             }
@@ -182,7 +186,7 @@ namespace Wexflow.Clients.Manager
             var wfId = -1;
             if (dataGridViewWorkflows.SelectedRows.Count > 0)
             {
-                if(Program.DebugMode || Program.IsWexflowWindowsServiceRunning())
+                if (Program.DebugMode || Program.IsWexflowWindowsServiceRunning())
                 {
                     wfId = int.Parse(dataGridViewWorkflows.SelectedRows[0].Cells[ColumnId].Value.ToString());
                 }
@@ -206,9 +210,9 @@ namespace Wexflow.Clients.Manager
                 }
                 return _wexflowServiceClient.GetWorkflow(Login.Username, Login.Password, id);
             }
-            
-			_windowsServiceWasStopped = true;
-			HandleNonRunningWindowsService();
+
+            _windowsServiceWasStopped = true;
+            HandleNonRunningWindowsService();
 
             return null;
         }
@@ -224,7 +228,15 @@ namespace Wexflow.Clients.Manager
             var wfId = GetSlectedWorkflowId();
             if (wfId > -1)
             {
-                _wexflowServiceClient.StartWorkflow(wfId, Login.Username, Login.Password);
+                var instanceId = _wexflowServiceClient.StartWorkflow(wfId, Login.Username, Login.Password);
+                if (_jobs.ContainsKey(wfId))
+                {
+                    _jobs[wfId] = instanceId;
+                }
+                else
+                {
+                    _jobs.Add(wfId, instanceId);
+                }
             }
         }
 
@@ -233,7 +245,7 @@ namespace Wexflow.Clients.Manager
             var wfId = GetSlectedWorkflowId();
             if (wfId > -1)
             {
-                _wexflowServiceClient.SuspendWorkflow(wfId, Login.Username, Login.Password);
+                _wexflowServiceClient.SuspendWorkflow(wfId, _jobs[wfId], Login.Username, Login.Password);
                 UpdateButtons(wfId, true);
             }
         }
@@ -243,7 +255,7 @@ namespace Wexflow.Clients.Manager
             var wfId = GetSlectedWorkflowId();
             if (wfId > -1)
             {
-                _wexflowServiceClient.ResumeWorkflow(wfId, Login.Username, Login.Password);
+                _wexflowServiceClient.ResumeWorkflow(wfId, _jobs[wfId], Login.Username, Login.Password);
             }
         }
 
@@ -252,7 +264,7 @@ namespace Wexflow.Clients.Manager
             var wfId = GetSlectedWorkflowId();
             if (wfId > -1)
             {
-                _wexflowServiceClient.StopWorkflow(wfId, Login.Username, Login.Password);
+                _wexflowServiceClient.StopWorkflow(wfId, _jobs[wfId], Login.Username, Login.Password);
                 UpdateButtons(wfId, true);
             }
         }
@@ -273,7 +285,7 @@ namespace Wexflow.Clients.Manager
 
                 if (workflow != null && workflow.IsEnabled)
                 {
-                    _timer = new Timer {Interval = 500};
+                    _timer = new Timer { Interval = 500 };
                     _timer.Tick += (o, ea) => UpdateButtons(wfId, false);
                     _timer.Start();
 
@@ -368,7 +380,7 @@ namespace Wexflow.Clients.Manager
         {
             var wfId = GetSlectedWorkflowId();
             if (wfId > -1)
-            { 
+            {
                 var workflow = GetWorkflow(wfId);
 
                 if (workflow != null && workflow.IsEnabled)
@@ -377,7 +389,7 @@ namespace Wexflow.Clients.Manager
                     {
                         ButtonStart_Click(this, null);
                     }
-                    else if(workflow.IsPaused)
+                    else if (workflow.IsPaused)
                     {
                         ButtonResume_Click(this, null);
                     }
@@ -415,7 +427,7 @@ namespace Wexflow.Clients.Manager
         {
             var about = _resources.GetString("Form1_toolStripMenuItem1_Click_About");
             var title = _resources.GetString("Form1_toolStripMenuItem1_Click_About_Title");
-                
+
             if (MessageBox.Show(about
                 , title
                 , MessageBoxButtons.YesNo
@@ -437,11 +449,11 @@ namespace Wexflow.Clients.Manager
 
         private void ButtonRestart_Click(object sender, EventArgs e)
         {
-            if(_timer != null)
+            if (_timer != null)
             {
                 _timer.Stop();
             }
-            
+
             textBoxInfo.Text = "Restarting Wexflow server...";
             _workflows = new WorkflowInfo[] { };
             BindDataGridView();
@@ -452,7 +464,7 @@ namespace Wexflow.Clients.Manager
         {
             string errorMsg;
             _serviceRestarted = RestartWindowsService(Program.WexflowServiceName, out errorMsg);
-            
+
             if (!_serviceRestarted)
             {
                 MessageBox.Show("An error occurred while restoring Wexflow server: " + errorMsg);
@@ -504,7 +516,7 @@ namespace Wexflow.Clients.Manager
             var wfId = GetSlectedWorkflowId();
             if (wfId > -1)
             {
-                _wexflowServiceClient.ApproveWorkflow(wfId, Login.Username, Login.Password);
+                _wexflowServiceClient.ApproveWorkflow(wfId, _jobs[wfId], Login.Username, Login.Password);
                 UpdateButtons(wfId, true);
             }
         }
@@ -514,7 +526,7 @@ namespace Wexflow.Clients.Manager
             var wfId = GetSlectedWorkflowId();
             if (wfId > -1)
             {
-                _wexflowServiceClient.DisapproveWorkflow(wfId, Login.Username, Login.Password);
+                _wexflowServiceClient.DisapproveWorkflow(wfId, _jobs[wfId], Login.Username, Login.Password);
                 UpdateButtons(wfId, true);
             }
         }

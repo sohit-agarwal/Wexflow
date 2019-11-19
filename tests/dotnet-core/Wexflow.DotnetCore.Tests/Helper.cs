@@ -39,9 +39,9 @@ namespace Wexflow.DotnetCore.Tests
             WexflowEngine.Stop(false, false);
         }
 
-        public static void StartWorkflow(int workflowId)
+        public static System.Guid StartWorkflow(int workflowId)
         {
-            WexflowEngine.StartWorkflow(workflowId);
+            var instanceId = WexflowEngine.StartWorkflow(workflowId);
 
             // Wait until the workflow finishes
             Thread.Sleep(1000);
@@ -55,36 +55,38 @@ namespace Wexflow.DotnetCore.Tests
                 isRunning = workflow.IsRunning;
                 isWaitingForApproval = workflow.IsWaitingForApproval;
             }
+
+            return instanceId;
         }
 
-        public static void StartWorkflowAsync(int workflowId)
+        public static System.Guid StartWorkflowAsync(int workflowId)
         {
-            WexflowEngine.StartWorkflow(workflowId);
+            return WexflowEngine.StartWorkflow(workflowId);
         }
 
-        public static void StopWorkflow(int workflowId)
+        public static void StopWorkflow(int workflowId, System.Guid instanceId)
         {
-            WexflowEngine.StopWorkflow(workflowId);
+            WexflowEngine.StopWorkflow(workflowId, instanceId);
         }
 
-        public static void SuspendWorkflow(int workflowId)
+        public static void SuspendWorkflow(int workflowId, System.Guid instanceId)
         {
-            WexflowEngine.SuspendWorkflow(workflowId);
+            WexflowEngine.SuspendWorkflow(workflowId, instanceId);
         }
 
-        public static void ResumeWorkflow(int workflowId)
+        public static void ResumeWorkflow(int workflowId, System.Guid instanceId)
         {
-            WexflowEngine.ResumeWorkflow(workflowId);
+            WexflowEngine.ResumeWorkflow(workflowId, instanceId);
         }
 
-        public static void ApproveWorkflow(int workflowId)
+        public static void ApproveWorkflow(int workflowId, System.Guid instanceId)
         {
-            WexflowEngine.ApproveWorkflow(workflowId);
+            WexflowEngine.ApproveWorkflow(workflowId, instanceId);
         }
 
-        public static void DisapproveWorkflow(int workflowId)
+        public static void DisapproveWorkflow(int workflowId, System.Guid instanceId)
         {
-            WexflowEngine.DisapproveWorkflow(workflowId);
+            WexflowEngine.DisapproveWorkflow(workflowId, instanceId);
         }
 
         public static Core.Workflow GetWorkflow(int workflowId)

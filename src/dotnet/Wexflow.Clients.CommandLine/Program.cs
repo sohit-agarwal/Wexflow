@@ -1,6 +1,7 @@
 ﻿using CommandLine;
 using CommandLine.Text;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Threading;
@@ -29,6 +30,9 @@ namespace Wexflow.Clients.CommandLine
             [Option('i', "workflowId", Required = true, HelpText = "Workflow Id")]
             public int WorkflowId { get; set; }
 
+            [Option('j', "jobId", Required = false, HelpText = "Job instance id (Guid)")]
+            public string JobId { get; set; }
+
             [Option('w', "wait", Required = false, HelpText = "Wait until workflow finishes", Default = false)]
             public bool Wait { get; set; }
         }
@@ -56,7 +60,8 @@ namespace Wexflow.Clients.CommandLine
                        switch (o.Operation)
                        {
                            case Operation.Start:
-                               client.StartWorkflow(o.WorkflowId, username, password);
+                               var instanceId = client.StartWorkflow(o.WorkflowId, username, password);
+                               Console.WriteLine("JobId: {0}", instanceId);
 
                                if (o.Wait)
                                {
@@ -79,7 +84,7 @@ namespace Wexflow.Clients.CommandLine
                                    Console.WriteLine("Workflow {0} is not running to be suspended.", o.WorkflowId);
                                    return;
                                }
-                               client.SuspendWorkflow(o.WorkflowId, username, password);
+                               client.SuspendWorkflow(o.WorkflowId, Guid.Parse(o.JobId), username, password);
                                break;
 
                            case Operation.Stop:
@@ -89,7 +94,7 @@ namespace Wexflow.Clients.CommandLine
                                    Console.WriteLine("Workflow {0} is not running to be stopped.", o.WorkflowId);
                                    return;
                                }
-                               client.StopWorkflow(o.WorkflowId, username, password);
+                               client.StopWorkflow(o.WorkflowId, Guid.Parse(o.JobId), username, password);
                                break;
 
                            case Operation.Resume:
@@ -99,7 +104,7 @@ namespace Wexflow.Clients.CommandLine
                                    Console.WriteLine("Workflow {0} is not suspended to be resumed.", o.WorkflowId);
                                    return;
                                }
-                               client.ResumeWorkflow(o.WorkflowId, username, password);
+                               client.ResumeWorkflow(o.WorkflowId, Guid.Parse(o.JobId), username, password);
                                break;
 
                            case Operation.Approve:
@@ -109,7 +114,7 @@ namespace Wexflow.Clients.CommandLine
                                    Console.WriteLine("Workflow {0} is not waiting for approval to be approved.", o.WorkflowId);
                                    return;
                                }
-                               client.ApproveWorkflow(o.WorkflowId, username, password);
+                               client.ApproveWorkflow(o.WorkflowId, Guid.Parse(o.JobId), username, password);
                                break;
 
                            case Operation.Disapprove:
@@ -119,7 +124,7 @@ namespace Wexflow.Clients.CommandLine
                                    Console.WriteLine("Workflow {0} is not waiting for approval to be disapproved.", o.WorkflowId);
                                    return;
                                }
-                               client.DisapproveWorkflow(o.WorkflowId, username, password);
+                               client.DisapproveWorkflow(o.WorkflowId, Guid.Parse(o.JobId), username, password);
                                break;
 
                        }

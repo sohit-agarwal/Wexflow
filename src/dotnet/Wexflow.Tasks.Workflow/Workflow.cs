@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml.Linq;
 using Wexflow.Core;
 using Wexflow.Core.Service.Client;
@@ -23,9 +24,11 @@ namespace Wexflow.Tasks.Workflow
         public string Password { get; }
         public WorkflowAction Action { get; }
         public int[] WorkflowIds { get; }
+        public Dictionary<int, Guid> Jobs { get; }
 
         public Workflow(XElement xe, Core.Workflow wf) : base(xe, wf)
         {
+            Jobs = new Dictionary<int, Guid>();
             WexflowWebServiceUri = GetSetting("wexflowWebServiceUri");
             Username = GetSetting("username");
             Password = GetSetting("password");
@@ -52,7 +55,15 @@ namespace Wexflow.Tasks.Workflow
                         }
                         else
                         {
-                            client.StartWorkflow(id, Username, Password);
+                            var instanceId = client.StartWorkflow(id, Username, Password);
+                            if (Jobs.ContainsKey(id))
+                            {
+                                Jobs[id] = instanceId;
+                            }
+                            else
+                            {
+                                Jobs.Add(id, instanceId);
+                            }
                             InfoFormat("Workflow {0} started.", id);
                             if (!atLeastOneSucceed) atLeastOneSucceed = true;
                         }
@@ -60,7 +71,7 @@ namespace Wexflow.Tasks.Workflow
                     case WorkflowAction.Suspend:
                         if (wfInfo.IsRunning)
                         {
-                            client.SuspendWorkflow(id, Username, Password);
+                            client.SuspendWorkflow(id, Jobs[id], Username, Password);
                             InfoFormat("Workflow {0} suspended.", id);
                             if (!atLeastOneSucceed) atLeastOneSucceed = true;
                         }
@@ -73,7 +84,7 @@ namespace Wexflow.Tasks.Workflow
                     case WorkflowAction.Resume:
                         if (wfInfo.IsPaused)
                         {
-                            client.ResumeWorkflow(id, Username, Password);
+                            client.ResumeWorkflow(id, Jobs[id], Username, Password);
                             InfoFormat("Workflow {0} resumed.", id);
                             if (!atLeastOneSucceed) atLeastOneSucceed = true;
                         }
@@ -86,7 +97,7 @@ namespace Wexflow.Tasks.Workflow
                     case WorkflowAction.Stop:
                         if (wfInfo.IsRunning)
                         {
-                            client.StopWorkflow(id, Username, Password);
+                            client.StopWorkflow(id, Jobs[id], Username, Password);
                             InfoFormat("Workflow {0} stopped.", id);
                             if (!atLeastOneSucceed) atLeastOneSucceed = true;
                         }
@@ -99,7 +110,7 @@ namespace Wexflow.Tasks.Workflow
                     case WorkflowAction.Approve:
                         if (wfInfo.IsApproval && wfInfo.IsWaitingForApproval)
                         {
-                            client.ApproveWorkflow(id, Username, Password);
+                            client.ApproveWorkflow(id, Jobs[id], Username, Password);
                             InfoFormat("Workflow {0} approved.", id);
                             if (!atLeastOneSucceed) atLeastOneSucceed = true;
                         }
@@ -112,7 +123,7 @@ namespace Wexflow.Tasks.Workflow
                     case WorkflowAction.Disapprove:
                         if (wfInfo.IsApproval && wfInfo.IsWaitingForApproval)
                         {
-                            client.DisapproveWorkflow(id, Username, Password);
+                            client.DisapproveWorkflow(id, Jobs[id], Username, Password);
                             InfoFormat("Workflow {0} disapproved.", id);
                             if (!atLeastOneSucceed) atLeastOneSucceed = true;
                         }
