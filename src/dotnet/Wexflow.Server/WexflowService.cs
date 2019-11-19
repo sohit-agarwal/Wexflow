@@ -1109,7 +1109,8 @@ namespace Wexflow.Server
                         var xdoc = XDocument.Parse(xml);
 
                         new Core.Workflow(
-                                "-1"
+                                1   
+                              , "-1"
                               , xdoc.ToString()
                               , WexflowServer.WexflowEngine.TempFolder
                               , WexflowServer.WexflowEngine.WorkflowsTempFolder

@@ -247,7 +247,8 @@ namespace Wexflow.Core
             try
             {
                 var wf = new Workflow(
-                      workflow.GetDbId()
+                      1
+                    , workflow.GetDbId()
                     , workflow.Xml
                     , TempFolder
                     , WorkflowsTempFolder
@@ -296,7 +297,9 @@ namespace Wexflow.Core
                         // check the workflow before to save it
                         try
                         {
-                            new Workflow("-1"
+                            new Workflow(
+                              1
+                            , "-1"
                             , xml
                             , TempFolder
                             , WorkflowsTempFolder
@@ -332,7 +335,9 @@ namespace Wexflow.Core
                         // check the workflow before to save it
                         try
                         {
-                            new Workflow("-1"
+                            new Workflow(
+                              1
+                            , "-1"
                             , xml
                             , TempFolder
                             , WorkflowsTempFolder

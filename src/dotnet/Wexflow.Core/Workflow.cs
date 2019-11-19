@@ -192,6 +192,7 @@ namespace Wexflow.Core
         /// <summary>
         /// Creates a new workflow.
         /// </summary>
+        /// <param name="jobId">First job Id.</param>
         /// <param name="dbId">Database ID.</param>
         /// <param name="xml">XML of the workflow.</param>
         /// <param name="wexflowTempFolder">Wexflow temp folder.</param>
@@ -202,7 +203,8 @@ namespace Wexflow.Core
         /// <param name="database">Database.</param>
         /// <param name="globalVariables">Global variables.</param>
         public Workflow(
-              string dbId
+              int jobId
+            , string dbId
             , string xml
             , string wexflowTempFolder
             , string workflowsTempFolder
@@ -212,7 +214,7 @@ namespace Wexflow.Core
             , Db.Db database
             , Variable[] globalVariables)
         {
-            JobId = 1;
+            JobId = jobId;
             _jobsQueue = new Queue<Job>();
             _thread = null;
             DbId = dbId;
@@ -835,7 +837,8 @@ namespace Wexflow.Core
             else if (IsRunning && EnableParallelJobs)
             {
                 var workflow = new Workflow(
-                      DbId
+                      ++JobId
+                    , DbId
                     , Xml
                     , WexflowTempFolder
                     , WorkflowsTempFolder
