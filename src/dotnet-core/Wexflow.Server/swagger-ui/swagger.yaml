@@ -324,11 +324,11 @@ paths:
      consumes:
       - "application/json" 
   
-  /disapprove:
+  /reject:
     post:
      tags:
      - "Manager"
-     summary: "Disapproves a workflow"
+     summary: "Rejects a workflow"
      description: ""
      produces:
        - "application/json"

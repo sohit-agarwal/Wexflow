@@ -343,7 +343,7 @@
                     Common.disableButton(disapproveButton, true);
                     Common.disableButton(approveButton, true);
                     Common.disableButton(stopButton, true);
-                    var disapproveUri = uri + "/disapprove?w=" + selectedId + "&i=" + instanceIds[selectedId];
+                    var disapproveUri = uri + "/reject?w=" + selectedId + "&i=" + instanceIds[selectedId];
                     Common.post(disapproveUri,
                         function (res) {
                             if (res === true) {

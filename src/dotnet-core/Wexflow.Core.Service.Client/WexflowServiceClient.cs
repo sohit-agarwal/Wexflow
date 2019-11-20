@@ -93,7 +93,7 @@ namespace Wexflow.Core.Service.Client
 
         public void DisapproveWorkflow(int id, Guid instanceId, string username, string password)
         {
-            string uri = Uri + "/disapprove?w=" + id + "&i=" + instanceId;
+            string uri = Uri + "/reject?w=" + id + "&i=" + instanceId;
             var webClient = new WebClient();
             webClient.Headers.Add("Authorization", Base64Encode(username + ":" + GetMd5(password)));
             webClient.UploadString(uri, string.Empty);

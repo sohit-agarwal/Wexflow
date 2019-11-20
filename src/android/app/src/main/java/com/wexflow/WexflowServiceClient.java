@@ -190,7 +190,7 @@ class WexflowServiceClient {
     Boolean disapprove(int id) throws IOException {
         String instanceId = JOBS.get(id);
         if(instanceId != null) {
-            String uri = this.uri + "/disapprove?w=" + id+ "&i=" + instanceId;
+            String uri = this.uri + "/reject?w=" + id+ "&i=" + instanceId;
             return Boolean.valueOf(post(uri, LoginActivity.Username, LoginActivity.Password));
         }
         return false;

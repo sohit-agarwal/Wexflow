@@ -64,7 +64,7 @@ namespace Wexflow.Server
             //
             SearchApprovalWorkflows();
             ApproveWorkflow();
-            DisapproveWorkflow();
+            RejectWorkflow();
 
             //
             // Designer
@@ -601,11 +601,11 @@ namespace Wexflow.Server
         }
 
         /// <summary>
-        /// Disapproves a workflow.
+        /// Rejects a workflow.
         /// </summary>
-        private void DisapproveWorkflow()
+        private void RejectWorkflow()
         {
-            Post(Root + "disapprove", args =>
+            Post(Root + "reject", args =>
             {
                 bool res = false;
 
