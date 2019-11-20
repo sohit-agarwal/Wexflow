@@ -564,7 +564,7 @@ namespace Wexflow.Core
 
                     // OnDisapproved
                     GraphEvent onDisapproved = null;
-                    var xOnDispproved = xExectionGraph.XPathSelectElement("wf:OnDisapproved", XmlNamespaceManager);
+                    var xOnDispproved = xExectionGraph.XPathSelectElement("wf:OnRejected", XmlNamespaceManager);
                     if (xOnDispproved != null)
                     {
                         var onDisapproveNodes = GetTaskNodes(xOnDispproved);
@@ -584,7 +584,7 @@ namespace Wexflow.Core
         {
             var nodes = xExectionGraph
                 .Elements()
-                .Where(xe => xe.Name.LocalName != "OnSuccess" && xe.Name.LocalName != "OnWarning" && xe.Name.LocalName != "OnError" && xe.Name.LocalName != "OnDisapproved")
+                .Where(xe => xe.Name.LocalName != "OnSuccess" && xe.Name.LocalName != "OnWarning" && xe.Name.LocalName != "OnError" && xe.Name.LocalName != "OnRejected")
                 .Select(XNodeToNode)
                 .ToArray();
 

@@ -24,9 +24,9 @@
 		<Task id="2"><Parent id="1" /></Task>
 		<!-- You can add other tasks here depending on your need. -->
 		<Task id="3"><Parent id="2" /></Task>
-		<OnDisapproved>
+		<OnRejected>
 			<!-- You can add other tasks here depending on your need. -->
 			<Task id="4"><Parent id="-1" /></Task>
-		</OnDisapproved>
+		</OnRejected>
 	</ExecutionGraph>	
 </Workflow>
