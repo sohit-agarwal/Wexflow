@@ -26,7 +26,7 @@ class WexflowServiceClient {
 
     private final String uri;
 
-    private static Dictionary<Integer, String> JOBS = new Hashtable<>();
+    public static Dictionary<Integer, String> JOBS = new Hashtable<>();
 
     WexflowServiceClient(String uri) {
         this.uri = uri.replaceAll("/+$", "");

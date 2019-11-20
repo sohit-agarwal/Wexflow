@@ -78,7 +78,7 @@ class ActionTask {
                     stringBuilder.append("was approved.");
                     break;
                 case Disapprove:
-                    stringBuilder.append("was disapproved.");
+                    stringBuilder.append("was rejected.");
                     break;
                 default:
                     break;
