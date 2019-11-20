@@ -174,6 +174,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 let jsonResponse = try! JSONSerialization.jsonObject(with: data!, options: [])
                 let workflow = jsonResponse as? [String: Any]
                 let id = workflow!["Id"] as! Int
+                let instanceId = workflow!["InstanceId"] as! String
                 let name = workflow!["Name"] as! String
                 let launchType = LaunchType(rawValue: (workflow!["LaunchType"] as? Int)!)
                 let isEnabled = workflow!["IsEnabled"] as! Bool
@@ -182,7 +183,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 let isRunning = workflow!["IsRunning"] as! Bool
                 let isPaused = workflow!["IsPaused"] as! Bool
                 
-                let wf = Workflow(id: id, name: name, launchType: launchType!, isEnabled: isEnabled, isApproval: isApproval, isWaitingForApproval: isWaitingForApproval, isRunning: isRunning, isPaused: isPaused)
+                let wf = Workflow(id: id, instanceId: instanceId, name: name, launchType: launchType!, isEnabled: isEnabled, isApproval: isApproval, isWaitingForApproval: isWaitingForApproval, isRunning: isRunning, isPaused: isPaused)
                 
                 DispatchQueue.main.async{
                     if !wf.isEnabled {
@@ -224,6 +225,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                                 self.infoLabel.text = "";
                             }
                         }
+                        
+                        if wf.isRunning{
+                            self.jobs[wf.id] = wf.instanceId
+                        }
+                        
                     }
                 }
                 
@@ -257,6 +263,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             if jsonArray != nil {
                 for workflow in jsonArray! {
                     let id = workflow["Id"] as! Int
+                    let instanceId = workflow["InstanceId"] as! String
                     let name = workflow["Name"] as! String
                     let launchType = LaunchType(rawValue: (workflow["LaunchType"] as? Int)!)
                     let isEnabled = workflow["IsEnabled"] as! Bool
@@ -265,7 +272,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     let isRunning = workflow["IsRunning"] as! Bool
                     let isPaused = workflow["IsPaused"] as! Bool
                     
-                    self.workflows.append(Workflow(id: id, name: name, launchType: launchType!, isEnabled: isEnabled, isApproval: isApproval, isWaitingForApproval: isWaitingForApproval, isRunning: isRunning, isPaused: isPaused))
+                    self.workflows.append(Workflow(id: id, instanceId: instanceId, name: name, launchType: launchType!, isEnabled: isEnabled, isApproval: isApproval, isWaitingForApproval: isWaitingForApproval, isRunning: isRunning, isPaused: isPaused))
                     self.workflows.sort(by: { $0.id < $1.id })
                 }
             }else{
@@ -384,8 +391,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBAction func onDisapproveClick(_ sender: UIButton) {
         if workflowId != -1 {
-            let url = URL(string: WexflowServerUrl + "disapprove?w=" + String(workflowId) + "&i=" + jobs[workflowId]!)
-            let message = "Workflow " + String(workflowId) + " disapproved."
+            let url = URL(string: WexflowServerUrl + "reject?w=" + String(workflowId) + "&i=" + jobs[workflowId]!)
+            let message = "Workflow " + String(workflowId) + " rejected."
             post(url: url!, message: message, hasResult: false, workflowId: workflowId)
         }
     }
@@ -420,6 +427,7 @@ enum LaunchType: Int {
 struct Workflow{
     
     let id: Int
+    let instanceId: String
     let name: String
     let launchType: LaunchType
     let isEnabled: Bool
@@ -428,9 +436,10 @@ struct Workflow{
     var isRunning:Bool
     var isPaused:Bool
     
-    public init(id: Int, name: String, launchType: LaunchType, isEnabled: Bool, isApproval: Bool, isWaitingForApproval: Bool, isRunning: Bool, isPaused: Bool) {
+    public init(id: Int, instanceId: String, name: String, launchType: LaunchType, isEnabled: Bool, isApproval: Bool, isWaitingForApproval: Bool, isRunning: Bool, isPaused: Bool) {
         
         self.id = id
+        self.instanceId = instanceId
         self.name = name
         self.launchType = launchType
         self.isEnabled = isEnabled
