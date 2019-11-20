@@ -185,7 +185,7 @@
             this.buttonDisapprove.Name = "buttonDisapprove";
             this.buttonDisapprove.Size = new System.Drawing.Size(75, 23);
             this.buttonDisapprove.TabIndex = 10;
-            this.buttonDisapprove.Text = "Disapprove";
+            this.buttonDisapprove.Text = "Reject";
             this.buttonDisapprove.UseVisualStyleBackColor = true;
             this.buttonDisapprove.Click += new System.EventHandler(this.ButtonDisapprove_Click);
             // 

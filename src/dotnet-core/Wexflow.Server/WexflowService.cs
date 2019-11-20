@@ -139,7 +139,7 @@ namespace Wexflow.Server
                             .ToList()
                             .Where(wf =>
                                 wf.Name.ToUpper().Contains(keywordToUpper) || wf.Description.ToUpper().Contains(keywordToUpper))
-                            .Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.Name,
+                            .Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.InstanceId, wf.Name,
                                 (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
                                 wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
                                 wf.IsExecutionGraphEmpty
@@ -152,7 +152,7 @@ namespace Wexflow.Server
                                                 .ToList()
                                                 .Where(wf =>
                                                     wf.Name.ToUpper().Contains(keywordToUpper) || wf.Description.ToUpper().Contains(keywordToUpper))
-                                                .Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.Name,
+                                                .Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.InstanceId, wf.Name,
                                                     (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
                                                     wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
                                                     wf.IsExecutionGraphEmpty
@@ -200,7 +200,7 @@ namespace Wexflow.Server
                             .Where(wf =>
                                 wf.IsApproval &&
                                 (wf.Name.ToUpper().Contains(keywordToUpper) || wf.Description.ToUpper().Contains(keywordToUpper)))
-                            .Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.Name,
+                            .Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.InstanceId, wf.Name,
                                 (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
                                 wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
                                 wf.IsExecutionGraphEmpty
@@ -214,7 +214,7 @@ namespace Wexflow.Server
                                                 .Where(wf =>
                                                     wf.IsApproval &&
                                                     (wf.Name.ToUpper().Contains(keywordToUpper) || wf.Description.ToUpper().Contains(keywordToUpper)))
-                                                .Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.Name,
+                                                .Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.InstanceId, wf.Name,
                                                     (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
                                                     wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
                                                     wf.IsExecutionGraphEmpty
@@ -251,7 +251,7 @@ namespace Wexflow.Server
                 Core.Workflow wf = WexflowServer.WexflowEngine.GetWorkflow(id);
                 if (wf != null)
                 {
-                    var workflow = new WorkflowInfo(wf.DbId, wf.Id, wf.Name, (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description,
+                    var workflow = new WorkflowInfo(wf.DbId, wf.Id, wf.InstanceId, wf.Name, (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description,
                         wf.IsRunning, wf.IsPaused, wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
                         wf.IsExecutionGraphEmpty
                         , wf.LocalVariables.Select(v => new Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()
@@ -2167,7 +2167,7 @@ namespace Wexflow.Server
                         Core.Workflow[] workflows = WexflowServer.WexflowEngine.GetUserWorkflows(userId);
                         res = workflows
                             .ToList()
-                            .Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.Name,
+                            .Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.InstanceId, wf.Name,
                             (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
                             wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
                             wf.IsExecutionGraphEmpty

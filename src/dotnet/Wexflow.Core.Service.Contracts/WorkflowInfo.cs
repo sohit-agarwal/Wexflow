@@ -19,6 +19,8 @@ namespace Wexflow.Core.Service.Contracts
         [DataMember]
         public int Id { get; private set; }
         [DataMember]
+        public Guid InstanceId { get; private set; }
+        [DataMember]
         public string Name { get; private set; }
         [DataMember]
         public LaunchType LaunchType { get; private set; }
@@ -43,10 +45,11 @@ namespace Wexflow.Core.Service.Contracts
         [DataMember]
         public Variable[] LocalVariables { get; set; }
 
-        public WorkflowInfo(string dbId, int id, string name, LaunchType launchType, bool isEnabled, bool isApproval, bool isWaitingForApproval, string desc, bool isRunning, bool isPaused, string period, string cronExpression, bool isExecutionGraphEmpty, Variable[] localVariables)
+        public WorkflowInfo(string dbId, int id, Guid instanceId, string name, LaunchType launchType, bool isEnabled, bool isApproval, bool isWaitingForApproval, string desc, bool isRunning, bool isPaused, string period, string cronExpression, bool isExecutionGraphEmpty, Variable[] localVariables)
         {
             DbId = dbId;
             Id = id;
+            InstanceId = instanceId;
             Name = name;
             LaunchType = launchType;
             IsEnabled = isEnabled;

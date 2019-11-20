@@ -1,7 +1,6 @@
 ﻿using CommandLine;
 using CommandLine.Text;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Threading;
@@ -19,12 +18,12 @@ namespace Wexflow.Clients.CommandLine
             Resume,
             Stop,
             Approve,
-            Disapprove
+            Reject
         }
 
         class Options
         {
-            [Option('o', "operation", Required = true, HelpText = "start|suspend|resume|stop|approve|disapprove")]
+            [Option('o', "operation", Required = true, HelpText = "start|suspend|resume|stop|approve|reject")]
             public Operation Operation { get; set; }
 
             [Option('i', "workflowId", Required = true, HelpText = "Workflow Id")]
@@ -117,11 +116,11 @@ namespace Wexflow.Clients.CommandLine
                                client.ApproveWorkflow(o.WorkflowId, Guid.Parse(o.JobId), username, password);
                                break;
 
-                           case Operation.Disapprove:
+                           case Operation.Reject:
                                workflow = client.GetWorkflow(username, password, o.WorkflowId);
                                if (!workflow.IsWaitingForApproval)
                                {
-                                   Console.WriteLine("Workflow {0} is not waiting for approval to be disapproved.", o.WorkflowId);
+                                   Console.WriteLine("Workflow {0} is not waiting for approval to be rejected.", o.WorkflowId);
                                    return;
                                }
                                client.DisapproveWorkflow(o.WorkflowId, Guid.Parse(o.JobId), username, password);

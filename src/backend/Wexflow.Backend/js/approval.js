@@ -24,7 +24,7 @@
         + "<button id='wf-resume' type='button' class='btn btn-secondary btn-xs'>Resume</button>"
         + "<button id='wf-stop' type='button' class='btn btn-danger btn-xs'>Stop</button>"
         + "<button id='wf-approve' type='button' class='btn btn-primary btn-xs'>Approve</button>"
-        + "<button id='wf-disapprove' type='button' class='btn btn-danger btn-xs'>Disapprove</button>"
+        + "<button id='wf-disapprove' type='button' class='btn btn-danger btn-xs'>Reject</button>"
         + "</div>"
         + "<div id='wf-notifier'>"
         + "<input id='wf-notifier-text' type='text' name='fname' readonly>"
@@ -274,6 +274,14 @@
                         } else {
                             updateButtons(selectedId, true);
                         }
+
+                        Common.get(uri + "/workflow?w=" + selectedId, function (w) {
+                            if (w.IsRunning === true) {
+                                instanceIds[selectedId] = w.InstanceId;
+                            }
+
+                        }, function () { }, auth);
+
                     };
                 }
 
@@ -340,12 +348,12 @@
                         function (res) {
                             if (res === true) {
                                 updateButtons(selectedId, true);
-                                Common.toastSuccess("The workflow " + selectedId + " was disapproved.");
+                                Common.toastSuccess("The workflow " + selectedId + " was rejected.");
                             } else {
                                 Common.disableButton(disapproveButton, true);
                                 Common.disableButton(approveButton, false);
                                 Common.disableButton(stopButton, false);
-                                Common.toastError("An error occured while disapproving the workflow " + selectedId + ".");
+                                Common.toastError("An error occured while rejecting the workflow " + selectedId + ".");
                             }
                         },
                         function () { }, "", auth);

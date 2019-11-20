@@ -316,6 +316,18 @@ namespace Wexflow.Clients.Manager
                 {
                     UpdateButtons(wfId, true);
                 }
+
+                if (workflow.IsRunning)
+                {
+                    if(!_jobs.ContainsKey(wfId))
+                    {
+                        _jobs.Add(wfId, workflow.InstanceId);
+                    }
+                    else
+                    {
+                        _jobs[wfId] = workflow.InstanceId;
+                    }
+                }
             }
         }
 

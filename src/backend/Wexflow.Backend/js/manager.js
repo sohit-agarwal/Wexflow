@@ -260,6 +260,14 @@
                         } else {
                             updateButtons(selectedId, true);
                         }
+
+                        Common.get(uri + "/workflow?w=" + selectedId, function (w) {
+                            if (w.IsRunning === true) {
+                                instanceIds[selectedId] = w.InstanceId;
+                            }
+
+                        }, function () { }, auth);
+
                     };
                 }
 
