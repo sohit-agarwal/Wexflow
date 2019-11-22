@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml;
 using System.Xml.Linq;
@@ -382,6 +383,16 @@ namespace Wexflow.Core
                 string line;
                 while ((line = sr.ReadLine()) != null)
                 {
+                    string pattern = @"{.*?}";
+                    Match m = Regex.Match(line, pattern, RegexOptions.IgnoreCase);
+                    if (m.Success)
+                    {
+                        if (m.Value.StartsWith("{date:"))
+                        {
+                            var replaceValue = DateTime.Now.ToString(m.Value.Remove(m.Value.Length - 1).Remove(0, 6));
+                            line = Regex.Replace(line, pattern, replaceValue);
+                        }
+                    }
                     foreach (var variable in localVariablesParsed)
                     {
                         line = line.Replace("$" + variable.Key, variable.Value);
