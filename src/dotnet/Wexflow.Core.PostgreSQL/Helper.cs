@@ -22,11 +22,11 @@ namespace Wexflow.Core.PostgreSQL
             {
                 conn.Open();
 
-                var command = new NpgsqlCommand("SELECT oid FROM pg_database WHERE datname = '" + databaseName + "'", conn);
+                var command = new NpgsqlCommand("SELECT COUNT(*) FROM pg_database WHERE datname = '" + databaseName + "'", conn);
 
-                var obj = command.ExecuteScalar();
+                var count = (int)command.ExecuteScalar();
 
-                if (obj == null)
+                if (count == 0)
                 {
                     command = new NpgsqlCommand("CREATE DATABASE " + databaseName, conn);
 
