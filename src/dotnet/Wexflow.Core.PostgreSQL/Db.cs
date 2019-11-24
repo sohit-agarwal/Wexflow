@@ -185,27 +185,85 @@ namespace Wexflow.Core.PostgreSQL
 
         public override void DeleteUser(string username, string password)
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("DELETE FROM " + Core.Db.User.DocumentName
+                    + " WHERE " + User.ColumnName_Username + " = '" + username + "'"
+                    + " AND " + User.ColumnName_Password + " = '" + password + "'"
+                    + ";", conn);
+
+                command.ExecuteNonQuery();
+            }
         }
 
         public override void DeleteUserWorkflowRelationsByUserId(string userId)
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("DELETE FROM " + Core.Db.UserWorkflow.DocumentName
+                    + " WHERE " + UserWorkflow.ColumnName_UserId + " = " + int.Parse(userId) + ";", conn);
+
+                command.ExecuteNonQuery();
+            }
         }
 
         public override void DeleteUserWorkflowRelationsByWorkflowId(string workflowDbId)
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("DELETE FROM " + Core.Db.UserWorkflow.DocumentName
+                    + " WHERE " + UserWorkflow.ColumnName_WorkflowId + " = " + int.Parse(workflowDbId) + ";", conn);
+
+                command.ExecuteNonQuery();
+            }
         }
 
         public override void DeleteWorkflow(string id)
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("DELETE FROM " + Core.Db.Workflow.DocumentName
+                    + " WHERE " + Workflow.ColumnName_Id + " = " + int.Parse(id) + ";", conn);
+
+                command.ExecuteNonQuery();
+            }
         }
 
         public override void DeleteWorkflows(string[] ids)
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var builder = new StringBuilder("(");
+
+                for (int i = 0; i < ids.Length; i++)
+                {
+                    var id = ids[i];
+                    builder.Append(id);
+                    if (i < ids.Length - 1)
+                    {
+                        builder.Append(", ");
+                    }
+                    else
+                    {
+                        builder.Append(")");
+                    }
+                }
+
+                var command = new NpgsqlCommand("DELETE FROM " + Core.Db.Workflow.DocumentName
+                    + " WHERE " + Workflow.ColumnName_Id + " IN " + builder.ToString() + ";", conn);
+
+                command.ExecuteNonQuery();
+            }
         }
 
         public override IEnumerable<Core.Db.User> GetAdministrators(string keyword, UserOrderBy uo)
