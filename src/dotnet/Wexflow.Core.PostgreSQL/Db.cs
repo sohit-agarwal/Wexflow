@@ -107,7 +107,20 @@ namespace Wexflow.Core.PostgreSQL
 
         public override bool CheckUserWorkflow(string userId, string workflowId)
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT COUNT(*) FROM " + Core.Db.UserWorkflow.DocumentName
+                    + " WHERE " + UserWorkflow.ColumnName_UserId + "=" + int.Parse(userId)
+                    + " AND " + UserWorkflow.ColumnName_WorkflowId + "=" + int.Parse(workflowId)
+                    + ";", conn);
+
+                var count = (int)command.ExecuteScalar();
+
+                return count > 0;
+
+            }
         }
 
         public override void ClearEntries()
