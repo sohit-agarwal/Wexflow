@@ -149,12 +149,38 @@ namespace Wexflow.Core.PostgreSQL
 
         public override void DecrementPendingCount()
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT " + StatusCount.ColumnName_PendingCount + " FROM " + Core.Db.StatusCount.DocumentName + ";", conn);
+
+                var count = (int)command.ExecuteScalar();
+
+                count--;
+
+                command = new NpgsqlCommand("UPDATE " + Core.Db.StatusCount.DocumentName + " SET " + StatusCount.ColumnName_PendingCount + " = " + count + ";", conn);
+
+                command.ExecuteNonQuery();
+            }
         }
 
         public override void DecrementRunningCount()
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT " + StatusCount.ColumnName_RunningCount + " FROM " + Core.Db.StatusCount.DocumentName + ";", conn);
+
+                var count = (int)command.ExecuteScalar();
+
+                count--;
+
+                command = new NpgsqlCommand("UPDATE " + Core.Db.StatusCount.DocumentName + " SET " + StatusCount.ColumnName_RunningCount + " = " + count + ";", conn);
+
+                command.ExecuteNonQuery();
+            }
         }
 
         public override void DeleteUser(string username, string password)
@@ -299,42 +325,146 @@ namespace Wexflow.Core.PostgreSQL
 
         public override void IncrementDisabledCount()
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT " + StatusCount.ColumnName_DisabledCount + " FROM " + Core.Db.StatusCount.DocumentName + ";", conn);
+
+                var count = (int)command.ExecuteScalar();
+
+                count++;
+
+                command = new NpgsqlCommand("UPDATE " + Core.Db.StatusCount.DocumentName + " SET " + StatusCount.ColumnName_DisabledCount + " = " + count + ";", conn);
+
+                command.ExecuteNonQuery();
+            }
         }
 
         public override void IncrementDisapprovedCount()
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT " + StatusCount.ColumnName_DisapprovedCount + " FROM " + Core.Db.StatusCount.DocumentName + ";", conn);
+
+                var count = (int)command.ExecuteScalar();
+
+                count++;
+
+                command = new NpgsqlCommand("UPDATE " + Core.Db.StatusCount.DocumentName + " SET " + StatusCount.ColumnName_DisapprovedCount + " = " + count + ";", conn);
+
+                command.ExecuteNonQuery();
+            }
         }
 
         public override void IncrementDoneCount()
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT " + StatusCount.ColumnName_DoneCount + " FROM " + Core.Db.StatusCount.DocumentName + ";", conn);
+
+                var count = (int)command.ExecuteScalar();
+
+                count++;
+
+                command = new NpgsqlCommand("UPDATE " + Core.Db.StatusCount.DocumentName + " SET " + StatusCount.ColumnName_DoneCount + " = " + count + ";", conn);
+
+                command.ExecuteNonQuery();
+            }
         }
 
         public override void IncrementFailedCount()
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT " + StatusCount.ColumnName_FailedCount + " FROM " + Core.Db.StatusCount.DocumentName + ";", conn);
+
+                var count = (int)command.ExecuteScalar();
+
+                count++;
+
+                command = new NpgsqlCommand("UPDATE " + Core.Db.StatusCount.DocumentName + " SET " + StatusCount.ColumnName_FailedCount + " = " + count + ";", conn);
+
+                command.ExecuteNonQuery();
+            }
         }
 
         public override void IncrementPendingCount()
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT " + StatusCount.ColumnName_PendingCount + " FROM " + Core.Db.StatusCount.DocumentName + ";", conn);
+
+                var count = (int)command.ExecuteScalar();
+
+                count++;
+
+                command = new NpgsqlCommand("UPDATE " + Core.Db.StatusCount.DocumentName + " SET " + StatusCount.ColumnName_PendingCount + " = " + count + ";", conn);
+
+                command.ExecuteNonQuery();
+            }
         }
 
         public override void IncrementRunningCount()
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT " + StatusCount.ColumnName_RunningCount + " FROM " + Core.Db.StatusCount.DocumentName + ";", conn);
+
+                var count = (int)command.ExecuteScalar();
+
+                count++;
+
+                command = new NpgsqlCommand("UPDATE " + Core.Db.StatusCount.DocumentName + " SET " + StatusCount.ColumnName_RunningCount + " = " + count + ";", conn);
+
+                command.ExecuteNonQuery();
+            }
         }
 
         public override void IncrementStoppedCount()
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT " + StatusCount.ColumnName_StoppedCount + " FROM " + Core.Db.StatusCount.DocumentName + ";", conn);
+
+                var count = (int)command.ExecuteScalar();
+
+                count++;
+
+                command = new NpgsqlCommand("UPDATE " + Core.Db.StatusCount.DocumentName + " SET " + StatusCount.ColumnName_StoppedCount + " = " + count + ";", conn);
+
+                command.ExecuteNonQuery();
+            }
         }
 
         public override void IncrementWarningCount()
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT " + StatusCount.ColumnName_WarningCount + " FROM " + Core.Db.StatusCount.DocumentName + ";", conn);
+
+                var count = (int)command.ExecuteScalar();
+
+                count++;
+
+                command = new NpgsqlCommand("UPDATE " + Core.Db.StatusCount.DocumentName + " SET " + StatusCount.ColumnName_WarningCount + " = " + count + ";", conn);
+
+                command.ExecuteNonQuery();
+            }
         }
 
         public override void InsertEntry(Core.Db.Entry entry)
