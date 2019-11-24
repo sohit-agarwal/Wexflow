@@ -530,7 +530,7 @@ namespace Wexflow.Core.PostgreSQL
                     + "'" + user.Username + "'" + ", "
                     + "'" + user.Password + "'" + ", "
                     + "'" + user.Email + "'" + ", "
-                    + "'" + user.CreatedOn + "'" + ", "
+                    + "'" + DateTime.Now + "'" + ", "
                     + "'" + user.ModifiedOn + "'" + ");"
                     , conn);
 
@@ -540,37 +540,129 @@ namespace Wexflow.Core.PostgreSQL
 
         public override void InsertUserWorkflowRelation(Core.Db.UserWorkflow userWorkflow)
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("INSERT INTO " + Core.Db.UserWorkflow.DocumentName + "("
+                    + UserWorkflow.ColumnName_UserId + ", "
+                    + UserWorkflow.ColumnName_WorkflowId + ") VALUES("
+                    + int.Parse(userWorkflow.UserId) + ", "
+                    + int.Parse(userWorkflow.WorkflowId) + ");"
+                    , conn);
+
+                command.ExecuteNonQuery();
+            }
         }
 
         public override string InsertWorkflow(Core.Db.Workflow workflow)
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("INSERT INTO " + Core.Db.Workflow.DocumentName + "("
+                    + Workflow.ColumnName_Xml + ") VALUES("
+                    + "'" + workflow.Xml + "'" + ") RETURNING " + Workflow.ColumnName_Id + ";"
+                    , conn);
+
+                var id = (int)command.ExecuteScalar();
+
+                return id.ToString();
+            }
         }
 
         public override void UpdateEntry(string id, Core.Db.Entry entry)
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("UPDATE " + Core.Db.Entry.DocumentName + " SET "
+                    + Entry.ColumnName_Name + " = '" + entry.Name + "', "
+                    + Entry.ColumnName_Description + " = '" + entry.Description + "', "
+                    + Entry.ColumnName_LaunchType + " = " + (int)entry.LaunchType + ", "
+                    + Entry.ColumnName_StatusDate + " = '" + entry.StatusDate + "', "
+                    + Entry.ColumnName_Status + " = " + (int)entry.Status + ", "
+                    + Entry.ColumnName_WorkflowId + " = " + entry.WorkflowId
+                    + " WHERE "
+                    + Entry.ColumnName_Id + " = " + int.Parse(id) + ";"
+                    , conn);
+
+                command.ExecuteNonQuery();
+            }
         }
 
         public override void UpdatePassword(string username, string password)
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("UPDATE " + Core.Db.User.DocumentName + " SET "
+                    + User.ColumnName_Password + " = '" + password + "'"
+                    + " WHERE "
+                    + User.ColumnName_Username + " = '" + username + "';"
+                    , conn);
+
+                command.ExecuteNonQuery();
+            }
         }
 
         public override void UpdateUser(string id, Core.Db.User user)
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("UPDATE " + Core.Db.User.DocumentName + " SET "
+                    + User.ColumnName_Username + " = '" + user.Username + "', "
+                    + User.ColumnName_Password + " = '" + user.Password + "', "
+                    + User.ColumnName_UserProfile + " = " + (int)user.UserProfile + ", "
+                    + User.ColumnName_Email + " = '" + user.Email + "', "
+                    + User.ColumnName_CreatedOn + " = '" + user.CreatedOn + "', "
+                    + User.ColumnName_ModifiedOn + " = '" + DateTime.Now + "'"
+                    + " WHERE "
+                    + User.ColumnName_Id + " = " + int.Parse(id) + ";"
+                    , conn);
+
+                command.ExecuteNonQuery();
+            }
         }
 
         public override void UpdateUsernameAndEmailAndUserProfile(string userId, string username, string email, UserProfile up)
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("UPDATE " + Core.Db.User.DocumentName + " SET "
+                    + User.ColumnName_Username + " = '" + username + "', "
+                    + User.ColumnName_UserProfile + " = " + (int)up + ", "
+                    + User.ColumnName_Email + " = '" + email + "', "
+                    + User.ColumnName_ModifiedOn + " = '" + DateTime.Now + "'"
+                    + " WHERE "
+                    + User.ColumnName_Id + " = " + int.Parse(userId) + ";"
+                    , conn);
+
+                command.ExecuteNonQuery();
+            }
         }
 
         public override void UpdateWorkflow(string dbId, Core.Db.Workflow workflow)
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("UPDATE " + Core.Db.Workflow.DocumentName + " SET "
+                    + Workflow.ColumnName_Xml + " = '" + workflow.Xml + "'"
+                    + " WHERE "
+                    + User.ColumnName_Id + " = " + int.Parse(dbId) + ";"
+                    , conn);
+
+                command.ExecuteNonQuery();
+            }
         }
     }
 }
