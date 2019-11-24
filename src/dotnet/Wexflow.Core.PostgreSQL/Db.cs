@@ -268,7 +268,45 @@ namespace Wexflow.Core.PostgreSQL
 
         public override IEnumerable<Core.Db.User> GetAdministrators(string keyword, UserOrderBy uo)
         {
-            throw new NotImplementedException();
+            List<User> admins = new List<User>();
+
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT " + User.ColumnName_Id + ", "
+                    + User.ColumnName_Username + ", "
+                    + User.ColumnName_Password + ", "
+                    + User.ColumnName_Email + ", "
+                    + User.ColumnName_UserProfile + ", "
+                    + User.ColumnName_CreatedOn + ", "
+                    + User.ColumnName_ModifiedOn
+                    + " FROM " + Core.Db.User.DocumentName
+                    + " WHERE " + "(LOWER(" + User.ColumnName_Username + ")" + " LIKE '%" + keyword.ToLower() + "%'"
+                    + " AND " + User.ColumnName_UserProfile + " = " + (int)UserProfile.Administrator + ")"
+                    + " ORDER BY " + User.ColumnName_Username + (uo == UserOrderBy.UsernameAscending ? " ASC" : " DESC")
+                    + ";", conn);
+
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var admin = new User
+                    {
+                        Id = (int)reader[User.ColumnName_Id],
+                        Username = (string)reader[User.ColumnName_Username],
+                        Password = (string)reader[User.ColumnName_Password],
+                        Email = (string)reader[User.ColumnName_Email],
+                        UserProfile = (UserProfile)((int)reader[User.ColumnName_UserProfile]),
+                        CreatedOn = (DateTime)reader[User.ColumnName_CreatedOn],
+                        ModifiedOn = (DateTime)reader[User.ColumnName_ModifiedOn]
+                    };
+
+                    admins.Add(admin);
+                }
+            }
+
+            return admins;
         }
 
         public override IEnumerable<Core.Db.Entry> GetEntries()
@@ -462,12 +500,88 @@ namespace Wexflow.Core.PostgreSQL
 
         public override IEnumerable<Core.Db.HistoryEntry> GetHistoryEntries(string keyword)
         {
-            throw new NotImplementedException();
+            List<HistoryEntry> entries = new List<HistoryEntry>();
+
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT "
+                    + HistoryEntry.ColumnName_Id + ", "
+                    + HistoryEntry.ColumnName_Name + ", "
+                    + HistoryEntry.ColumnName_Description + ", "
+                    + HistoryEntry.ColumnName_LaunchType + ", "
+                    + HistoryEntry.ColumnName_Status + ", "
+                    + HistoryEntry.ColumnName_StatusDate + ", "
+                    + HistoryEntry.ColumnName_WorkflowId
+                    + " FROM " + Core.Db.HistoryEntry.DocumentName
+                    + " WHERE " + "LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.ToLower() + "%'"
+                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.ToLower() + "%';", conn);
+
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var entry = new HistoryEntry
+                    {
+                        Id = (int)reader[HistoryEntry.ColumnName_Id],
+                        Name = (string)reader[HistoryEntry.ColumnName_Name],
+                        Description = (string)reader[HistoryEntry.ColumnName_Description],
+                        LaunchType = (LaunchType)((int)reader[HistoryEntry.ColumnName_LaunchType]),
+                        Status = (Status)((int)reader[HistoryEntry.ColumnName_Status]),
+                        StatusDate = (DateTime)reader[HistoryEntry.ColumnName_StatusDate],
+                        WorkflowId = (int)reader[HistoryEntry.ColumnName_WorkflowId]
+                    };
+
+                    entries.Add(entry);
+                }
+
+                return entries;
+            }
         }
 
         public override IEnumerable<Core.Db.HistoryEntry> GetHistoryEntries(string keyword, int page, int entriesCount)
         {
-            throw new NotImplementedException();
+            List<HistoryEntry> entries = new List<HistoryEntry>();
+
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT "
+                    + HistoryEntry.ColumnName_Id + ", "
+                    + HistoryEntry.ColumnName_Name + ", "
+                    + HistoryEntry.ColumnName_Description + ", "
+                    + HistoryEntry.ColumnName_LaunchType + ", "
+                    + HistoryEntry.ColumnName_Status + ", "
+                    + HistoryEntry.ColumnName_StatusDate + ", "
+                    + HistoryEntry.ColumnName_WorkflowId
+                    + " FROM " + Core.Db.HistoryEntry.DocumentName
+                    + " WHERE " + "LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.ToLower() + "%'"
+                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.ToLower() + "%'"
+                    + " LIMIT " + entriesCount + " OFFSET " + (page - 1) * entriesCount + ";"
+                    , conn);
+
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var entry = new HistoryEntry
+                    {
+                        Id = (int)reader[HistoryEntry.ColumnName_Id],
+                        Name = (string)reader[HistoryEntry.ColumnName_Name],
+                        Description = (string)reader[HistoryEntry.ColumnName_Description],
+                        LaunchType = (LaunchType)((int)reader[HistoryEntry.ColumnName_LaunchType]),
+                        Status = (Status)((int)reader[HistoryEntry.ColumnName_Status]),
+                        StatusDate = (DateTime)reader[HistoryEntry.ColumnName_StatusDate],
+                        WorkflowId = (int)reader[HistoryEntry.ColumnName_WorkflowId]
+                    };
+
+                    entries.Add(entry);
+                }
+
+                return entries;
+            }
         }
 
         public override IEnumerable<Core.Db.HistoryEntry> GetHistoryEntries(string keyword, DateTime from, DateTime to, int page, int entriesCount, EntryOrderBy heo)
@@ -703,7 +817,44 @@ namespace Wexflow.Core.PostgreSQL
 
         public override IEnumerable<Core.Db.User> GetUsers(string keyword, UserOrderBy uo)
         {
-            throw new NotImplementedException();
+            List<User> users = new List<User>();
+
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT " + User.ColumnName_Id + ", "
+                    + User.ColumnName_Username + ", "
+                    + User.ColumnName_Password + ", "
+                    + User.ColumnName_Email + ", "
+                    + User.ColumnName_UserProfile + ", "
+                    + User.ColumnName_CreatedOn + ", "
+                    + User.ColumnName_ModifiedOn
+                    + " FROM " + Core.Db.User.DocumentName
+                    + " WHERE " + "LOWER(" + User.ColumnName_Username + ")" + " LIKE '%" + keyword.ToLower() + "%'"
+                    + " ORDER BY " + User.ColumnName_Username + (uo == UserOrderBy.UsernameAscending ? " ASC" : " DESC")
+                    + ";", conn);
+
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var user = new User
+                    {
+                        Id = (int)reader[User.ColumnName_Id],
+                        Username = (string)reader[User.ColumnName_Username],
+                        Password = (string)reader[User.ColumnName_Password],
+                        Email = (string)reader[User.ColumnName_Email],
+                        UserProfile = (UserProfile)((int)reader[User.ColumnName_UserProfile]),
+                        CreatedOn = (DateTime)reader[User.ColumnName_CreatedOn],
+                        ModifiedOn = (DateTime)reader[User.ColumnName_ModifiedOn]
+                    };
+
+                    users.Add(user);
+                }
+            }
+
+            return users;
         }
 
         public override IEnumerable<string> GetUserWorkflows(string userId)
