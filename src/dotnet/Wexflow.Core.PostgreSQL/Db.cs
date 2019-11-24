@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Npgsql;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,11 +10,14 @@ namespace Wexflow.Core.PostgreSQL
 {
     public class Db : Core.Db.Db
     {
-        private string _databaseName = "wexflow";
+        private string _connectionString;
+        private string _databaseName;
         private Helper _helper;
 
         public Db(string connectionString) : base(connectionString)
         {
+            _connectionString = connectionString;
+
             var connectionStringParts = ConnectionString.Split(';');
 
             foreach (var part in connectionStringParts)
@@ -36,13 +40,69 @@ namespace Wexflow.Core.PostgreSQL
             _helper.CreateTableIfNotExists(Core.Db.HistoryEntry.DocumentName, HistoryEntry.TableStruct);
             _helper.CreateTableIfNotExists(Core.Db.StatusCount.DocumentName, StatusCount.TableStruct);
             _helper.CreateTableIfNotExists(Core.Db.User.DocumentName, User.TableStruct);
-            _helper.CreateTableIfNotExists(Core.Db.UserWorkflow.DocumentName, UserWorkflow.TableStruct) ;
+            _helper.CreateTableIfNotExists(Core.Db.UserWorkflow.DocumentName, UserWorkflow.TableStruct);
             _helper.CreateTableIfNotExists(Core.Db.Workflow.DocumentName, Workflow.TableStruct);
         }
 
         public override void Init()
         {
-            throw new NotImplementedException();
+            // StatusCount
+            ClearStatusCount();
+
+            var statusCount = new StatusCount
+            {
+                PendingCount = 0,
+                RunningCount = 0,
+                DoneCount = 0,
+                FailedCount = 0,
+                WarningCount = 0,
+                DisabledCount = 0,
+                StoppedCount = 0
+            };
+
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("INSERT INTO " + Core.Db.StatusCount.DocumentName + "("
+                    + StatusCount.ColumnName_PendingCount + ", "
+                    + StatusCount.ColumnName_RunningCount + ", "
+                    + StatusCount.ColumnName_DoneCount + ", "
+                    + StatusCount.ColumnName_FailedCount + ", "
+                    + StatusCount.ColumnName_WarningCount + ", "
+                    + StatusCount.ColumnName_DisabledCount + ", "
+                    + StatusCount.ColumnName_StoppedCount + ", "
+                    + StatusCount.ColumnName_DisapprovedCount + ") VALUES("
+                    + statusCount.PendingCount + ", "
+                    + statusCount.RunningCount + ", "
+                    + statusCount.DoneCount + ", "
+                    + statusCount.FailedCount + ", "
+                    + statusCount.WarningCount + ", "
+                    + statusCount.DisabledCount + ", "
+                    + statusCount.StoppedCount + ", "
+                    + statusCount.DisapprovedCount + ");"
+                    , conn);
+
+                command.ExecuteNonQuery();
+            }
+
+            // Entries
+            ClearEntries();
+
+            // Insert default user if necessary
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT COUNT(*) FROM " + Core.Db.User.DocumentName + ";", conn);
+
+                var usersCount = (int)command.ExecuteScalar();
+
+                if (usersCount == 0)
+                {
+                    InsertDefaultUser();
+                }
+            }
         }
 
         public override bool CheckUserWorkflow(string userId, string workflowId)
@@ -52,12 +112,26 @@ namespace Wexflow.Core.PostgreSQL
 
         public override void ClearEntries()
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("DELETE FROM " + Core.Db.Entry.DocumentName + ";", conn);
+
+                command.ExecuteNonQuery();
+            }
         }
 
         public override void ClearStatusCount()
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("DELETE FROM " + Core.Db.StatusCount.DocumentName + ";", conn);
+
+                command.ExecuteNonQuery();
+            }
         }
 
         public override void DecrementPendingCount()
@@ -262,7 +336,25 @@ namespace Wexflow.Core.PostgreSQL
 
         public override void InsertUser(Core.Db.User user)
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("INSERT INTO " + Core.Db.User.DocumentName + "("
+                    + User.ColumnName_Username + ", "
+                    + User.ColumnName_Password + ", "
+                    + User.ColumnName_Email + ", "
+                    + User.ColumnName_CreatedOn + ", "
+                    + User.ColumnName_ModifiedOn + ") VALUES("
+                    + "'" + user.Username + "'" + ", "
+                    + "'" + user.Password + "'" + ", "
+                    + "'" + user.Email + "'" + ", "
+                    + "'" + user.CreatedOn + "'" + ", "
+                    + "'" + user.ModifiedOn + "'" + ");"
+                    , conn);
+
+                command.ExecuteNonQuery();
+            }
         }
 
         public override void InsertUserWorkflowRelation(Core.Db.UserWorkflow userWorkflow)

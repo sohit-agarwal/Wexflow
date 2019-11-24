@@ -2,7 +2,15 @@
 {
     public class User : Core.Db.User
     {
-        public static readonly string TableStruct = "(ID SERIAL PRIMARY KEY, USERNAME CHAR(128), PASSWORD CHAR(128), USER_PROFILE INT, EMAIL CHAR(128), CREATED_ON TIMESTAMP, MODIFIED_ON TIMESTAMP)";
+        public static readonly string ColumnName_Id = "ID";
+        public static readonly string ColumnName_Username = "USERNAME";
+        public static readonly string ColumnName_Password = "PASSWORD";
+        public static readonly string ColumnName_UserProfile = "USER_PROFILE";
+        public static readonly string ColumnName_Email = "EMAIL";
+        public static readonly string ColumnName_CreatedOn = "CREATED_ON";
+        public static readonly string ColumnName_ModifiedOn = "MODIFIED_ON";
+
+        public static readonly string TableStruct = "(" + ColumnName_Id + " SERIAL PRIMARY KEY, " + ColumnName_Username + " VARCHAR(255), " + ColumnName_Password + " VARCHAR(255), " + ColumnName_UserProfile + " INT, " + ColumnName_Email + " VARCHAR(255), " + ColumnName_CreatedOn + " TIMESTAMP, " + ColumnName_ModifiedOn + " TIMESTAMP)";
 
         public int Id { get; set; }
 

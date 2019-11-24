@@ -2,7 +2,11 @@
 {
     public class UserWorkflow : Core.Db.UserWorkflow
     {
-        public static readonly string TableStruct = "(ID SERIAL PRIMARY KEY, USER_ID CHAR(128), WORKFLOW_ID CHAR(128))";
+        public static readonly string ColumnName_Id = "ID";
+        public static readonly string ColumnName_UserId = "USER_ID";
+        public static readonly string ColumnName_WorkflowId = "WORKFLOW_ID";
+
+        public static readonly string TableStruct = "(" + ColumnName_Id + " SERIAL PRIMARY KEY, " + ColumnName_UserId + " INT, " + ColumnName_WorkflowId + " INT)";
 
         public string Id { get; set; }
     }

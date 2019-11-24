@@ -28,7 +28,7 @@ namespace Wexflow.Core.PostgreSQL
 
                 if (count == 0)
                 {
-                    command = new NpgsqlCommand("CREATE DATABASE " + databaseName, conn);
+                    command = new NpgsqlCommand("CREATE DATABASE " + databaseName + ";", conn);
 
                     command.ExecuteNonQuery();
                 }
@@ -42,7 +42,7 @@ namespace Wexflow.Core.PostgreSQL
             {
                 conn.Open();
 
-                var command = new NpgsqlCommand("CREATE TABLE IF NOT EXISTS " + tableName + tableStruct, conn);
+                var command = new NpgsqlCommand("CREATE TABLE IF NOT EXISTS " + tableName + tableStruct + ";", conn);
 
                 command.ExecuteNonQuery();
             }
