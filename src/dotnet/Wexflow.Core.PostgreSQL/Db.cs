@@ -469,12 +469,50 @@ namespace Wexflow.Core.PostgreSQL
 
         public override void InsertEntry(Core.Db.Entry entry)
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("INSERT INTO " + Core.Db.Entry.DocumentName + "("
+                    + Entry.ColumnName_Name + ", "
+                    + Entry.ColumnName_Description + ", "
+                    + Entry.ColumnName_LaunchType + ", "
+                    + Entry.ColumnName_StatusDate + ", "
+                    + Entry.ColumnName_Status + ", "
+                    + Entry.ColumnName_WorkflowId + ") VALUES("
+                    + "'" + entry.Name + "'" + ", "
+                    + "'" + entry.Description + "'" + ", "
+                    + (int)entry.LaunchType + ", "
+                    + "'" + entry.StatusDate + "'" + ", "
+                    + (int)entry.Status + ");"
+                    , conn);
+
+                command.ExecuteNonQuery();
+            }
         }
 
         public override void InsertHistoryEntry(Core.Db.HistoryEntry entry)
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("INSERT INTO " + Core.Db.HistoryEntry.DocumentName + "("
+                    + HistoryEntry.ColumnName_Name + ", "
+                    + HistoryEntry.ColumnName_Description + ", "
+                    + HistoryEntry.ColumnName_LaunchType + ", "
+                    + HistoryEntry.ColumnName_StatusDate + ", "
+                    + HistoryEntry.ColumnName_Status + ", "
+                    + HistoryEntry.ColumnName_WorkflowId + ") VALUES("
+                    + "'" + entry.Name + "'" + ", "
+                    + "'" + entry.Description + "'" + ", "
+                    + (int)entry.LaunchType + ", "
+                    + "'" + entry.StatusDate + "'" + ", "
+                    + (int)entry.Status + ");"
+                    , conn);
+
+                command.ExecuteNonQuery();
+            }
         }
 
         public override void InsertUser(Core.Db.User user)
