@@ -273,7 +273,42 @@ namespace Wexflow.Core.PostgreSQL
 
         public override IEnumerable<Core.Db.Entry> GetEntries()
         {
-            throw new NotImplementedException();
+            List<Entry> entries = new List<Entry>();
+
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT "
+                    + Entry.ColumnName_Id + ", "
+                    + Entry.ColumnName_Name + ", "
+                    + Entry.ColumnName_Description + ", "
+                    + Entry.ColumnName_LaunchType + ", "
+                    + Entry.ColumnName_Status + ", "
+                    + Entry.ColumnName_StatusDate + ", "
+                    + Entry.ColumnName_WorkflowId
+                    + " FROM " + Core.Db.Entry.DocumentName + ";", conn);
+
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var entry = new Entry
+                    {
+                        Id = (int)reader[Entry.ColumnName_Id],
+                        Name = (string)reader[Entry.ColumnName_Name],
+                        Description = (string)reader[Entry.ColumnName_Description],
+                        LaunchType = (LaunchType)((int)reader[Entry.ColumnName_LaunchType]),
+                        Status = (Status)((int)reader[Entry.ColumnName_Status]),
+                        StatusDate = (DateTime)reader[Entry.ColumnName_StatusDate],
+                        WorkflowId = (int)reader[Entry.ColumnName_WorkflowId]
+                    };
+
+                    entries.Add(entry);
+                }
+
+                return entries;
+            }
         }
 
         public override IEnumerable<Core.Db.Entry> GetEntries(string keyword, DateTime from, DateTime to, int page, int entriesCount, EntryOrderBy eo)
@@ -283,27 +318,146 @@ namespace Wexflow.Core.PostgreSQL
 
         public override long GetEntriesCount(string keyword, DateTime from, DateTime to)
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT COUNT(*)"
+                    + " FROM " + Core.Db.Entry.DocumentName
+                    + " WHERE " + "(LOWER(" + Entry.ColumnName_Name + ") LIKE '%" + keyword.ToLower() + "%'"
+                    + " OR " + "LOWER(" + Entry.ColumnName_Description + ") LIKE '%" + keyword.ToLower() + "%')"
+                    + " AND (" + Entry.ColumnName_Status + " BETWEEN '" + from + "'::timestamp AND '" + to + "'::timestamp);", conn);
+
+                var count = (int)command.ExecuteScalar();
+
+                return count;
+            }
         }
 
         public override Core.Db.Entry GetEntry(int workflowId)
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT "
+                    + Entry.ColumnName_Id + ", "
+                    + Entry.ColumnName_Name + ", "
+                    + Entry.ColumnName_Description + ", "
+                    + Entry.ColumnName_LaunchType + ", "
+                    + Entry.ColumnName_Status + ", "
+                    + Entry.ColumnName_StatusDate + ", "
+                    + Entry.ColumnName_WorkflowId
+                    + " FROM " + Core.Db.Entry.DocumentName
+                    + " WHERE " + Entry.ColumnName_WorkflowId + " = " + workflowId + ";", conn);
+
+                var reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    var entry = new Entry
+                    {
+                        Id = (int)reader[Entry.ColumnName_Id],
+                        Name = (string)reader[Entry.ColumnName_Name],
+                        Description = (string)reader[Entry.ColumnName_Description],
+                        LaunchType = (LaunchType)((int)reader[Entry.ColumnName_LaunchType]),
+                        Status = (Status)((int)reader[Entry.ColumnName_Status]),
+                        StatusDate = (DateTime)reader[Entry.ColumnName_StatusDate],
+                        WorkflowId = (int)reader[Entry.ColumnName_WorkflowId]
+                    };
+
+                    return entry;
+                }
+
+            }
+
+            return null;
         }
 
         public override DateTime GetEntryStatusDateMax()
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT " + Entry.ColumnName_StatusDate
+                    + " FROM " + Core.Db.Entry.DocumentName
+                    + " ORDER BY " + Core.Db.Entry.DocumentName + " DESC LIMIT 1;", conn);
+
+                var reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    var statusDate = (DateTime)reader[Entry.ColumnName_StatusDate];
+
+                    return statusDate;
+                }
+            }
+
+            return DateTime.Now;
         }
 
         public override DateTime GetEntryStatusDateMin()
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT " + Entry.ColumnName_StatusDate
+                    + " FROM " + Core.Db.Entry.DocumentName
+                    + " ORDER BY " + Core.Db.Entry.DocumentName + " ASC LIMIT 1;", conn);
+
+                var reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    var statusDate = (DateTime)reader[Entry.ColumnName_StatusDate];
+
+                    return statusDate;
+                }
+            }
+
+            return DateTime.Now;
         }
 
         public override IEnumerable<Core.Db.HistoryEntry> GetHistoryEntries()
         {
-            throw new NotImplementedException();
+            List<HistoryEntry> entries = new List<HistoryEntry>();
+
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT "
+                    + HistoryEntry.ColumnName_Id + ", "
+                    + HistoryEntry.ColumnName_Name + ", "
+                    + HistoryEntry.ColumnName_Description + ", "
+                    + HistoryEntry.ColumnName_LaunchType + ", "
+                    + HistoryEntry.ColumnName_Status + ", "
+                    + HistoryEntry.ColumnName_StatusDate + ", "
+                    + HistoryEntry.ColumnName_WorkflowId
+                    + " FROM " + Core.Db.HistoryEntry.DocumentName + ";", conn);
+
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var entry = new HistoryEntry
+                    {
+                        Id = (int)reader[HistoryEntry.ColumnName_Id],
+                        Name = (string)reader[HistoryEntry.ColumnName_Name],
+                        Description = (string)reader[HistoryEntry.ColumnName_Description],
+                        LaunchType = (LaunchType)((int)reader[HistoryEntry.ColumnName_LaunchType]),
+                        Status = (Status)((int)reader[HistoryEntry.ColumnName_Status]),
+                        StatusDate = (DateTime)reader[HistoryEntry.ColumnName_StatusDate],
+                        WorkflowId = (int)reader[HistoryEntry.ColumnName_WorkflowId]
+                    };
+
+                    entries.Add(entry);
+                }
+
+                return entries;
+            }
         }
 
         public override IEnumerable<Core.Db.HistoryEntry> GetHistoryEntries(string keyword)
@@ -323,22 +477,83 @@ namespace Wexflow.Core.PostgreSQL
 
         public override long GetHistoryEntriesCount(string keyword)
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT COUNT(*)"
+                    + " FROM " + Core.Db.HistoryEntry.DocumentName
+                    + " WHERE " + "LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.ToLower() + "%'"
+                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.ToLower() + "%';", conn);
+
+                var count = (int)command.ExecuteScalar();
+
+                return count;
+            }
         }
 
         public override long GetHistoryEntriesCount(string keyword, DateTime from, DateTime to)
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT COUNT(*)"
+                    + " FROM " + Core.Db.HistoryEntry.DocumentName
+                    + " WHERE " + "(LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.ToLower() + "%'"
+                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.ToLower() + "%')"
+                    + " AND (" + HistoryEntry.ColumnName_Status + " BETWEEN '" + from + "'::timestamp AND '" + to + "'::timestamp);", conn);
+
+                var count = (int)command.ExecuteScalar();
+
+                return count;
+            }
         }
 
         public override DateTime GetHistoryEntryStatusDateMax()
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT " + HistoryEntry.ColumnName_StatusDate
+                    + " FROM " + Core.Db.HistoryEntry.DocumentName
+                    + " ORDER BY " + Core.Db.HistoryEntry.DocumentName + " DESC LIMIT 1;", conn);
+
+                var reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    var statusDate = (DateTime)reader[HistoryEntry.ColumnName_StatusDate];
+
+                    return statusDate;
+                }
+            }
+
+            return DateTime.Now;
         }
 
         public override DateTime GetHistoryEntryStatusDateMin()
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT " + HistoryEntry.ColumnName_StatusDate
+                    + " FROM " + Core.Db.HistoryEntry.DocumentName
+                    + " ORDER BY " + Core.Db.HistoryEntry.DocumentName + " ASC LIMIT 1;", conn);
+
+                var reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    var statusDate = (DateTime)reader[HistoryEntry.ColumnName_StatusDate];
+
+                    return statusDate;
+                }
+            }
+
+            return DateTime.Now;
         }
 
         public override string GetPassword(string username)
