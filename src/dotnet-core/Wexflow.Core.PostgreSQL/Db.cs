@@ -1,9 +1,7 @@
 ﻿using Npgsql;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Wexflow.Core.Db;
 
 namespace Wexflow.Core.PostgreSQL
@@ -351,7 +349,113 @@ namespace Wexflow.Core.PostgreSQL
 
         public override IEnumerable<Core.Db.Entry> GetEntries(string keyword, DateTime from, DateTime to, int page, int entriesCount, EntryOrderBy eo)
         {
-            throw new NotImplementedException();
+            List<Entry> entries = new List<Entry>();
+
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var sqlBuilder = new StringBuilder("SELECT "
+                    + Entry.ColumnName_Id + ", "
+                    + Entry.ColumnName_Name + ", "
+                    + Entry.ColumnName_Description + ", "
+                    + Entry.ColumnName_LaunchType + ", "
+                    + Entry.ColumnName_Status + ", "
+                    + Entry.ColumnName_StatusDate + ", "
+                    + Entry.ColumnName_WorkflowId
+                    + " FROM " + Core.Db.Entry.DocumentName
+                    + " WHERE " + "(LOWER(" + Entry.ColumnName_Name + ") LIKE '%" + keyword.ToLower() + "%'"
+                    + " OR " + "LOWER(" + Entry.ColumnName_Description + ") LIKE '%" + keyword.ToLower() + "%')"
+                    + " AND (" + Entry.ColumnName_Status + " BETWEEN '" + from + "'::timestamp AND '" + to + "'::timestamp)"
+                    + " ORDER BY ");
+
+                switch (eo)
+                {
+                    case EntryOrderBy.StatusDateAscending:
+
+                        sqlBuilder.Append(Entry.ColumnName_StatusDate).Append(" ASC");
+                        break;
+
+                    case EntryOrderBy.StatusDateDescending:
+
+                        sqlBuilder.Append(Entry.ColumnName_StatusDate).Append(" DESC");
+                        break;
+
+                    case EntryOrderBy.WorkflowIdAscending:
+
+                        sqlBuilder.Append(Entry.ColumnName_WorkflowId).Append(" ASC");
+                        break;
+
+                    case EntryOrderBy.WorkflowIdDescending:
+
+                        sqlBuilder.Append(Entry.ColumnName_WorkflowId).Append(" DESC");
+                        break;
+
+                    case EntryOrderBy.NameAscending:
+
+                        sqlBuilder.Append(Entry.ColumnName_Name).Append(" ASC");
+                        break;
+
+                    case EntryOrderBy.NameDescending:
+
+                        sqlBuilder.Append(Entry.ColumnName_Name).Append(" DESC");
+                        break;
+
+                    case EntryOrderBy.LaunchTypeAscending:
+
+                        sqlBuilder.Append(Entry.ColumnName_LaunchType).Append(" ASC");
+                        break;
+
+                    case EntryOrderBy.LaunchTypeDescending:
+
+                        sqlBuilder.Append(Entry.ColumnName_LaunchType).Append(" DESC");
+                        break;
+
+                    case EntryOrderBy.DescriptionAscending:
+
+                        sqlBuilder.Append(Entry.ColumnName_Description).Append(" ASC");
+                        break;
+
+                    case EntryOrderBy.DescriptionDescending:
+
+                        sqlBuilder.Append(Entry.ColumnName_Description).Append(" DESC");
+                        break;
+
+                    case EntryOrderBy.StatusAscending:
+
+                        sqlBuilder.Append(Entry.ColumnName_Status).Append(" ASC");
+                        break;
+
+                    case EntryOrderBy.StatusDescending:
+
+                        sqlBuilder.Append(Entry.ColumnName_Status).Append(" DESC");
+                        break;
+                }
+
+                sqlBuilder.Append(" LIMIT ").Append(entriesCount).Append(" OFFSET ").Append((page - 1) * entriesCount).Append(";");
+
+                var command = new NpgsqlCommand(sqlBuilder.ToString(), conn);
+
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var entry = new Entry
+                    {
+                        Id = (int)reader[Entry.ColumnName_Id],
+                        Name = (string)reader[Entry.ColumnName_Name],
+                        Description = (string)reader[Entry.ColumnName_Description],
+                        LaunchType = (LaunchType)((int)reader[Entry.ColumnName_LaunchType]),
+                        Status = (Status)((int)reader[Entry.ColumnName_Status]),
+                        StatusDate = (DateTime)reader[Entry.ColumnName_StatusDate],
+                        WorkflowId = (int)reader[Entry.ColumnName_WorkflowId]
+                    };
+
+                    entries.Add(entry);
+                }
+
+                return entries;
+            }
         }
 
         public override long GetEntriesCount(string keyword, DateTime from, DateTime to)
@@ -586,7 +690,113 @@ namespace Wexflow.Core.PostgreSQL
 
         public override IEnumerable<Core.Db.HistoryEntry> GetHistoryEntries(string keyword, DateTime from, DateTime to, int page, int entriesCount, EntryOrderBy heo)
         {
-            throw new NotImplementedException();
+            List<HistoryEntry> entries = new List<HistoryEntry>();
+
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var sqlBuilder = new StringBuilder("SELECT "
+                    + HistoryEntry.ColumnName_Id + ", "
+                    + HistoryEntry.ColumnName_Name + ", "
+                    + HistoryEntry.ColumnName_Description + ", "
+                    + HistoryEntry.ColumnName_LaunchType + ", "
+                    + HistoryEntry.ColumnName_Status + ", "
+                    + HistoryEntry.ColumnName_StatusDate + ", "
+                    + HistoryEntry.ColumnName_WorkflowId
+                    + " FROM " + Core.Db.HistoryEntry.DocumentName
+                    + " WHERE " + "(LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.ToLower() + "%'"
+                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.ToLower() + "%')"
+                    + " AND (" + HistoryEntry.ColumnName_Status + " BETWEEN '" + from + "'::timestamp AND '" + to + "'::timestamp)"
+                    + " ORDER BY ");
+
+                switch (heo)
+                {
+                    case EntryOrderBy.StatusDateAscending:
+
+                        sqlBuilder.Append(HistoryEntry.ColumnName_StatusDate).Append(" ASC");
+                        break;
+
+                    case EntryOrderBy.StatusDateDescending:
+
+                        sqlBuilder.Append(HistoryEntry.ColumnName_StatusDate).Append(" DESC");
+                        break;
+
+                    case EntryOrderBy.WorkflowIdAscending:
+
+                        sqlBuilder.Append(HistoryEntry.ColumnName_WorkflowId).Append(" ASC");
+                        break;
+
+                    case EntryOrderBy.WorkflowIdDescending:
+
+                        sqlBuilder.Append(HistoryEntry.ColumnName_WorkflowId).Append(" DESC");
+                        break;
+
+                    case EntryOrderBy.NameAscending:
+
+                        sqlBuilder.Append(HistoryEntry.ColumnName_Name).Append(" ASC");
+                        break;
+
+                    case EntryOrderBy.NameDescending:
+
+                        sqlBuilder.Append(HistoryEntry.ColumnName_Name).Append(" DESC");
+                        break;
+
+                    case EntryOrderBy.LaunchTypeAscending:
+
+                        sqlBuilder.Append(HistoryEntry.ColumnName_LaunchType).Append(" ASC");
+                        break;
+
+                    case EntryOrderBy.LaunchTypeDescending:
+
+                        sqlBuilder.Append(HistoryEntry.ColumnName_LaunchType).Append(" DESC");
+                        break;
+
+                    case EntryOrderBy.DescriptionAscending:
+
+                        sqlBuilder.Append(HistoryEntry.ColumnName_Description).Append(" ASC");
+                        break;
+
+                    case EntryOrderBy.DescriptionDescending:
+
+                        sqlBuilder.Append(HistoryEntry.ColumnName_Description).Append(" DESC");
+                        break;
+
+                    case EntryOrderBy.StatusAscending:
+
+                        sqlBuilder.Append(HistoryEntry.ColumnName_Status).Append(" ASC");
+                        break;
+
+                    case EntryOrderBy.StatusDescending:
+
+                        sqlBuilder.Append(HistoryEntry.ColumnName_Status).Append(" DESC");
+                        break;
+                }
+
+                sqlBuilder.Append(" LIMIT ").Append(entriesCount).Append(" OFFSET ").Append((page - 1) * entriesCount).Append(";");
+
+                var command = new NpgsqlCommand(sqlBuilder.ToString(), conn);
+
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var entry = new HistoryEntry
+                    {
+                        Id = (int)reader[HistoryEntry.ColumnName_Id],
+                        Name = (string)reader[HistoryEntry.ColumnName_Name],
+                        Description = (string)reader[HistoryEntry.ColumnName_Description],
+                        LaunchType = (LaunchType)((int)reader[HistoryEntry.ColumnName_LaunchType]),
+                        Status = (Status)((int)reader[HistoryEntry.ColumnName_Status]),
+                        StatusDate = (DateTime)reader[HistoryEntry.ColumnName_StatusDate],
+                        WorkflowId = (int)reader[HistoryEntry.ColumnName_WorkflowId]
+                    };
+
+                    entries.Add(entry);
+                }
+
+                return entries;
+            }
         }
 
         public override long GetHistoryEntriesCount(string keyword)
