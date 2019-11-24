@@ -9,6 +9,9 @@ namespace Wexflow.Core.PostgreSQL
     public class Db : Core.Db.Db
     {
         private string _connectionString;
+        private string _server;
+        private string _userId;
+        private string _password;
         private string _databaseName;
         private Helper _helper;
 
@@ -23,17 +26,28 @@ namespace Wexflow.Core.PostgreSQL
                 if (!string.IsNullOrEmpty(part.Trim()))
                 {
                     string connPart = part.TrimStart(' ').TrimEnd(' ');
-                    if (connPart.StartsWith("Database="))
+                    if (connPart.StartsWith("Server="))
+                    {
+                        _server = connPart.Replace("Server=", string.Empty);
+                    }
+                    else if (connPart.StartsWith("User Id="))
+                    {
+                        _userId = connPart.Replace("User Id=", string.Empty);
+                    }
+                    else if (connPart.StartsWith("Password="))
+                    {
+                        _password = connPart.Replace("Password=", string.Empty);
+                    }
+                    else if (connPart.StartsWith("Database="))
                     {
                         _databaseName = connPart.Replace("Database=", string.Empty);
-                        break;
                     }
                 }
             }
 
             _helper = new Helper(connectionString);
 
-            _helper.CreateDatabaseIfNotExists(_databaseName);
+            _helper.CreateDatabaseIfNotExists(_server, _userId, _password, _databaseName);
             _helper.CreateTableIfNotExists(Core.Db.Entry.DocumentName, Entry.TableStruct);
             _helper.CreateTableIfNotExists(Core.Db.HistoryEntry.DocumentName, HistoryEntry.TableStruct);
             _helper.CreateTableIfNotExists(Core.Db.StatusCount.DocumentName, StatusCount.TableStruct);
@@ -94,7 +108,7 @@ namespace Wexflow.Core.PostgreSQL
 
                 var command = new NpgsqlCommand("SELECT COUNT(*) FROM " + Core.Db.User.DocumentName + ";", conn);
 
-                var usersCount = (int)command.ExecuteScalar();
+                var usersCount = (long)command.ExecuteScalar();
 
                 if (usersCount == 0)
                 {
@@ -114,7 +128,7 @@ namespace Wexflow.Core.PostgreSQL
                     + " AND " + UserWorkflow.ColumnName_WorkflowId + "=" + int.Parse(workflowId)
                     + ";", conn);
 
-                var count = (int)command.ExecuteScalar();
+                var count = (long)command.ExecuteScalar();
 
                 return count > 0;
 
@@ -366,7 +380,7 @@ namespace Wexflow.Core.PostgreSQL
                     + " FROM " + Core.Db.Entry.DocumentName
                     + " WHERE " + "(LOWER(" + Entry.ColumnName_Name + ") LIKE '%" + keyword.ToLower() + "%'"
                     + " OR " + "LOWER(" + Entry.ColumnName_Description + ") LIKE '%" + keyword.ToLower() + "%')"
-                    + " AND (" + Entry.ColumnName_Status + " BETWEEN '" + from + "'::timestamp AND '" + to + "'::timestamp)"
+                    + " AND (" + Entry.ColumnName_StatusDate + " BETWEEN '" + from + "'::timestamp AND '" + to + "'::timestamp)"
                     + " ORDER BY ");
 
                 switch (eo)
@@ -468,9 +482,9 @@ namespace Wexflow.Core.PostgreSQL
                     + " FROM " + Core.Db.Entry.DocumentName
                     + " WHERE " + "(LOWER(" + Entry.ColumnName_Name + ") LIKE '%" + keyword.ToLower() + "%'"
                     + " OR " + "LOWER(" + Entry.ColumnName_Description + ") LIKE '%" + keyword.ToLower() + "%')"
-                    + " AND (" + Entry.ColumnName_Status + " BETWEEN '" + from + "'::timestamp AND '" + to + "'::timestamp);", conn);
+                    + " AND (" + Entry.ColumnName_StatusDate + " BETWEEN '" + from + "'::timestamp AND '" + to + "'::timestamp);", conn);
 
-                var count = (int)command.ExecuteScalar();
+                var count = (long)command.ExecuteScalar();
 
                 return count;
             }
@@ -707,7 +721,7 @@ namespace Wexflow.Core.PostgreSQL
                     + " FROM " + Core.Db.HistoryEntry.DocumentName
                     + " WHERE " + "(LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.ToLower() + "%'"
                     + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.ToLower() + "%')"
-                    + " AND (" + HistoryEntry.ColumnName_Status + " BETWEEN '" + from + "'::timestamp AND '" + to + "'::timestamp)"
+                    + " AND (" + HistoryEntry.ColumnName_StatusDate + " BETWEEN '" + from + "'::timestamp AND '" + to + "'::timestamp)"
                     + " ORDER BY ");
 
                 switch (heo)
@@ -810,7 +824,7 @@ namespace Wexflow.Core.PostgreSQL
                     + " WHERE " + "LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.ToLower() + "%'"
                     + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.ToLower() + "%';", conn);
 
-                var count = (int)command.ExecuteScalar();
+                var count = (long)command.ExecuteScalar();
 
                 return count;
             }
@@ -826,9 +840,9 @@ namespace Wexflow.Core.PostgreSQL
                     + " FROM " + Core.Db.HistoryEntry.DocumentName
                     + " WHERE " + "(LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.ToLower() + "%'"
                     + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.ToLower() + "%')"
-                    + " AND (" + HistoryEntry.ColumnName_Status + " BETWEEN '" + from + "'::timestamp AND '" + to + "'::timestamp);", conn);
+                    + " AND (" + HistoryEntry.ColumnName_StatusDate + " BETWEEN '" + from + "'::timestamp AND '" + to + "'::timestamp);", conn);
 
-                var count = (int)command.ExecuteScalar();
+                var count = (long)command.ExecuteScalar();
 
                 return count;
             }
@@ -1313,7 +1327,8 @@ namespace Wexflow.Core.PostgreSQL
                     + "'" + entry.Description + "'" + ", "
                     + (int)entry.LaunchType + ", "
                     + "'" + entry.StatusDate + "'" + ", "
-                    + (int)entry.Status + ");"
+                    + (int)entry.Status + ", "
+                    + entry.WorkflowId + ");"
                     , conn);
 
                 command.ExecuteNonQuery();
@@ -1337,7 +1352,8 @@ namespace Wexflow.Core.PostgreSQL
                     + "'" + entry.Description + "'" + ", "
                     + (int)entry.LaunchType + ", "
                     + "'" + entry.StatusDate + "'" + ", "
-                    + (int)entry.Status + ");"
+                    + (int)entry.Status + ", "
+                    + entry.WorkflowId + ");"
                     , conn);
 
                 command.ExecuteNonQuery();
@@ -1353,11 +1369,13 @@ namespace Wexflow.Core.PostgreSQL
                 var command = new NpgsqlCommand("INSERT INTO " + Core.Db.User.DocumentName + "("
                     + User.ColumnName_Username + ", "
                     + User.ColumnName_Password + ", "
+                    + User.ColumnName_UserProfile + ", "
                     + User.ColumnName_Email + ", "
                     + User.ColumnName_CreatedOn + ", "
                     + User.ColumnName_ModifiedOn + ") VALUES("
                     + "'" + user.Username + "'" + ", "
                     + "'" + user.Password + "'" + ", "
+                    + (int)user.UserProfile + ", "
                     + "'" + user.Email + "'" + ", "
                     + "'" + DateTime.Now + "'" + ", "
                     + "'" + user.ModifiedOn + "'" + ");"

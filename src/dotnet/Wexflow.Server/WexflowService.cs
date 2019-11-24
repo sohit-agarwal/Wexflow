@@ -1939,8 +1939,7 @@ namespace Wexflow.Server
                 var auth = GetAuth(Request);
                 var qusername = auth.Username;
                 var qpassword = auth.Password;
-                //string qusername = Request.Query["qu"].ToString();
-                //string qpassword = Request.Query["qp"].ToString();
+               
                 string username = Request.Query["username"].ToString();
 
                 var othuser = WexflowServer.WexflowEngine.GetUser(qusername);

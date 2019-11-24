@@ -1,9 +1,4 @@
 ﻿using Npgsql;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Wexflow.Core.PostgreSQL
 {
@@ -16,15 +11,15 @@ namespace Wexflow.Core.PostgreSQL
             _connectionString = connectionString;
         }
 
-        public void CreateDatabaseIfNotExists(string databaseName)
+        public void CreateDatabaseIfNotExists(string server, string userId, string password, string databaseName)
         {
-            using (var conn = new NpgsqlConnection(_connectionString))
+            using (var conn = new NpgsqlConnection("Server=" + server + ";User Id=" + userId + ";Password=" + password + ";"))
             {
                 conn.Open();
 
                 var command = new NpgsqlCommand("SELECT COUNT(*) FROM pg_database WHERE datname = '" + databaseName + "'", conn);
 
-                var count = (int)command.ExecuteScalar();
+                var count = (long)command.ExecuteScalar();
 
                 if (count == 0)
                 {

@@ -168,6 +168,10 @@
       <Project>{18fddb89-d389-4f8f-b878-d874fef8b99e}</Project>
       <Name>Wexflow.Core.MongoDB</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Core.PostgreSQL\Wexflow.Core.PostgreSQL.csproj">
+      <Project>{f6070c45-b535-489d-99fb-86f6c9175257}</Project>
+      <Name>Wexflow.Core.PostgreSQL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Core.RavenDB\Wexflow.Core.RavenDB.csproj">
       <Project>{15a456e4-6992-4586-97aa-4f0279434de5}</Project>
       <Name>Wexflow.Core.RavenDB</Name>

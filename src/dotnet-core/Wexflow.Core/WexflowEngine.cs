@@ -32,7 +32,11 @@ namespace Wexflow.Core
         /// <summary>
         /// RavenDB
         /// </summary>
-        RavenDB
+        RavenDB,
+        /// <summary>
+        /// PostgreSQL
+        /// </summary>
+        PostgreSQL
     }
 
     /// <summary>
@@ -145,6 +149,9 @@ namespace Wexflow.Core
                     break;
                 case DbType.RavenDB:
                     Database = new RavenDB.Db(ConnectionString);
+                    break;
+                case DbType.PostgreSQL:
+                    Database = new PostgreSQL.Db(ConnectionString);
                     break;
             }
 

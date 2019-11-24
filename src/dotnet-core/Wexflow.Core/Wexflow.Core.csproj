@@ -43,6 +43,7 @@
     <ProjectReference Include="..\Wexflow.Core.Db\Wexflow.Core.Db.csproj" />
     <ProjectReference Include="..\Wexflow.Core.LiteDB\Wexflow.Core.LiteDB.csproj" />
     <ProjectReference Include="..\Wexflow.Core.MongoDB\Wexflow.Core.MongoDB.csproj" />
+    <ProjectReference Include="..\Wexflow.Core.PostgreSQL\Wexflow.Core.PostgreSQL.csproj" />
     <ProjectReference Include="..\Wexflow.Core.RavenDB\Wexflow.Core.RavenDB.csproj" />
   </ItemGroup>
 
