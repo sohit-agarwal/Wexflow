@@ -368,17 +368,87 @@ namespace Wexflow.Core.PostgreSQL
 
         public override IEnumerable<string> GetUserWorkflows(string userId)
         {
-            throw new NotImplementedException();
+            List<string> workflowIds = new List<string>();
+
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT " + UserWorkflow.ColumnName_Id + ", "
+                    + UserWorkflow.ColumnName_UserId + ", "
+                    + UserWorkflow.ColumnName_WorkflowId
+                    + " FROM " + Core.Db.UserWorkflow.DocumentName
+                    + " WHERE " + UserWorkflow.ColumnName_UserId + " = " + int.Parse(userId)
+                    + ";", conn);
+
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var workflowId = (int)reader[UserWorkflow.ColumnName_WorkflowId];
+
+                    workflowIds.Add(workflowId.ToString());
+                }
+            }
+
+            return workflowIds;
         }
 
         public override Core.Db.Workflow GetWorkflow(string id)
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT " + Workflow.ColumnName_Id + ", "
+                    + Workflow.ColumnName_Xml
+                    + " FROM " + Core.Db.Workflow.DocumentName
+                    + " WHERE " + Workflow.ColumnName_Id + " = " + int.Parse(id) + ";", conn);
+
+                var reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    var workflow = new Workflow
+                    {
+                        Id = (int)reader[Workflow.ColumnName_Id],
+                        Xml = (string)reader[Workflow.ColumnName_Xml]
+                    };
+
+                    return workflow;
+                }
+            }
+
+            return null;
         }
 
         public override IEnumerable<Core.Db.Workflow> GetWorkflows()
         {
-            throw new NotImplementedException();
+            List<Core.Db.Workflow> workflows = new List<Core.Db.Workflow>();
+
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT " + Workflow.ColumnName_Id + ", "
+                    + Workflow.ColumnName_Xml
+                    + " FROM " + Core.Db.Workflow.DocumentName + ";", conn);
+
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var workflow = new Workflow
+                    {
+                        Id = (int)reader[Workflow.ColumnName_Id],
+                        Xml = (string)reader[Workflow.ColumnName_Xml]
+                    };
+
+                    workflows.Add(workflow);
+                }
+            }
+
+            return workflows;
         }
 
         public override void IncrementDisabledCount()
