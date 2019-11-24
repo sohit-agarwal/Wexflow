@@ -25,5 +25,7 @@ jobs:
       run: dotnet build src/dotnet-core/Wexflow.Scripts.RavenDB/Wexflow.Scripts.RavenDB.csproj --configuration Release
     - name: Build Wexflow.Scripts.CosmosDB.csproj
       run: dotnet build src/dotnet-core/Wexflow.Scripts.CosmosDB/Wexflow.Scripts.CosmosDB.csproj --configuration Release       
+    - name: Build Wexflow.Scripts.PostgreSQL.csproj
+      run: dotnet build src/dotnet-core/Wexflow.Scripts.PostgreSQL/Wexflow.Scripts.PostgreSQL.csproj --configuration Release       
     - name: Build Wexflow.DotnetCore.Tests.csproj
       run: dotnet build tests/dotnet-core/Wexflow.DotnetCore.Tests/Wexflow.DotnetCore.Tests.csproj --configuration Release    
