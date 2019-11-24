@@ -343,22 +343,147 @@ namespace Wexflow.Core.PostgreSQL
 
         public override string GetPassword(string username)
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT " + User.ColumnName_Password
+                    + " FROM " + Core.Db.User.DocumentName
+                    + " WHERE " + User.ColumnName_Username + " = '" + username + "'"
+                    + ";", conn);
+
+                var reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    var password = (string)reader[User.ColumnName_Password];
+
+                    return password;
+                }
+            }
+
+            return null;
         }
 
         public override Core.Db.StatusCount GetStatusCount()
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT " + StatusCount.ColumnName_Id + ", "
+                    + StatusCount.ColumnName_PendingCount + ", "
+                    + StatusCount.ColumnName_RunningCount + ", "
+                    + StatusCount.ColumnName_DoneCount + ", "
+                    + StatusCount.ColumnName_FailedCount + ", "
+                    + StatusCount.ColumnName_WarningCount + ", "
+                    + StatusCount.ColumnName_DisabledCount + ", "
+                    + StatusCount.ColumnName_StoppedCount + ", "
+                    + StatusCount.ColumnName_DisapprovedCount
+                    + " FROM " + Core.Db.StatusCount.DocumentName
+                    + ";", conn);
+
+                var reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    var statusCount = new StatusCount
+                    {
+                        Id = (int)reader[StatusCount.ColumnName_Id],
+                        PendingCount = (int)reader[StatusCount.ColumnName_PendingCount],
+                        RunningCount = (int)reader[StatusCount.ColumnName_RunningCount],
+                        DoneCount = (int)reader[StatusCount.ColumnName_DoneCount],
+                        FailedCount = (int)reader[StatusCount.ColumnName_FailedCount],
+                        WarningCount = (int)reader[StatusCount.ColumnName_WarningCount],
+                        DisabledCount = (int)reader[StatusCount.ColumnName_DisabledCount],
+                        StoppedCount = (int)reader[StatusCount.ColumnName_StoppedCount],
+                        DisapprovedCount = (int)reader[StatusCount.ColumnName_DisapprovedCount]
+                    };
+
+                    return statusCount;
+                }
+            }
+
+            return null;
         }
 
         public override Core.Db.User GetUser(string username)
         {
-            throw new NotImplementedException();
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT " + User.ColumnName_Id + ", "
+                    + User.ColumnName_Username + ", "
+                    + User.ColumnName_Password + ", "
+                    + User.ColumnName_Email + ", "
+                    + User.ColumnName_UserProfile + ", "
+                    + User.ColumnName_CreatedOn + ", "
+                    + User.ColumnName_ModifiedOn
+                    + " FROM " + Core.Db.User.DocumentName
+                    + " WHERE " + User.ColumnName_Username + " = '" + username + "'"
+                    + ";", conn);
+
+                var reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    var user = new User
+                    {
+                        Id = (int)reader[User.ColumnName_Id],
+                        Username = (string)reader[User.ColumnName_Username],
+                        Password = (string)reader[User.ColumnName_Password],
+                        Email = (string)reader[User.ColumnName_Email],
+                        UserProfile = (UserProfile)((int)reader[User.ColumnName_UserProfile]),
+                        CreatedOn = (DateTime)reader[User.ColumnName_CreatedOn],
+                        ModifiedOn = (DateTime)reader[User.ColumnName_ModifiedOn]
+                    };
+
+                    return user;
+                }
+            }
+
+            return null;
         }
 
         public override IEnumerable<Core.Db.User> GetUsers()
         {
-            throw new NotImplementedException();
+            List<User> users = new List<User>();
+
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT " + User.ColumnName_Id + ", "
+                    + User.ColumnName_Username + ", "
+                    + User.ColumnName_Password + ", "
+                    + User.ColumnName_Email + ", "
+                    + User.ColumnName_UserProfile + ", "
+                    + User.ColumnName_CreatedOn + ", "
+                    + User.ColumnName_ModifiedOn
+                    + " FROM " + Core.Db.User.DocumentName
+                    + ";", conn);
+
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    var user = new User
+                    {
+                        Id = (int)reader[User.ColumnName_Id],
+                        Username = (string)reader[User.ColumnName_Username],
+                        Password = (string)reader[User.ColumnName_Password],
+                        Email = (string)reader[User.ColumnName_Email],
+                        UserProfile = (UserProfile)((int)reader[User.ColumnName_UserProfile]),
+                        CreatedOn = (DateTime)reader[User.ColumnName_CreatedOn],
+                        ModifiedOn = (DateTime)reader[User.ColumnName_ModifiedOn]
+                    };
+
+                    users.Add(user);
+                }
+            }
+
+            return users;
         }
 
         public override IEnumerable<Core.Db.User> GetUsers(string keyword, UserOrderBy uo)
