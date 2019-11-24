@@ -1410,7 +1410,7 @@ namespace Wexflow.Core.PostgreSQL
 
                 var command = new NpgsqlCommand("INSERT INTO " + Core.Db.Workflow.DocumentName + "("
                     + Workflow.ColumnName_Xml + ") VALUES("
-                    + "'" + workflow.Xml + "'" + ") RETURNING " + Workflow.ColumnName_Id + ";"
+                    + "'" + workflow.Xml.Replace("'", "''") + "'" + ") RETURNING " + Workflow.ColumnName_Id + ";"
                     , conn);
 
                 var id = (int)command.ExecuteScalar();
