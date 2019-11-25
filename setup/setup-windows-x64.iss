@@ -138,6 +138,9 @@ Source: "..\src\dotnet\Wexflow.Core.MongoDB\bin\x64\Release\*.dll"; DestDir: "{a
 ; CosmosDB
 Source: "..\src\dotnet\Wexflow.Core.CosmosDB\bin\x64\Release\*.dll"; DestDir: "{app}"; Flags: ignoreversion
 
+; PostgreSQL
+Source: "..\src\dotnet\Wexflow.Core.PostgreSQL\bin\x64\Release\*.dll"; DestDir: "{app}"; Flags: ignoreversion
+
 ; RavenDB
 Source: "..\src\dotnet\Wexflow.Core.RavenDB\bin\x64\Release\*.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Net.Http.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -146,6 +149,13 @@ Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Runtime.InteropServ
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Runtime.CompilerServices.Unsafe.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Threading.Tasks.Extensions.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Numerics.Vectors.dll"; DestDir: "{app}"; Flags: ignoreversion
+
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Memory.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Microsoft.Bcl.AsyncInterfaces.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Net.Sockets.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Text.Encodings.Web.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Text.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.ValueTuple.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 ; Nancy
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Nancy.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -474,6 +484,11 @@ Source: ".\dotnet\Wexflow.Scripts.CosmosDB\Wexflow.Scripts.CosmosDB.exe.config";
 Source: "..\src\dotnet\Wexflow.Core.CosmosDB\bin\x64\Release\*.dll"; DestDir: "{app}\Wexflow.Scripts.CosmosDB"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Scripts.CosmosDB\bin\x64\Release\*.dll"; DestDir: "{app}\Wexflow.Scripts.CosmosDB"; Flags: ignoreversion recursesubdirs
 
+; Wexflow.Scripts.PostgreSQL
+Source: "..\src\dotnet\Wexflow.Scripts.PostgreSQL\bin\x64\Release\Wexflow.Scripts.PostgreSQL.exe"; DestDir: "{app}\Wexflow.Scripts.PostgreSQL"; Flags: ignoreversion recursesubdirs
+Source: ".\dotnet\Wexflow.Scripts.PostgreSQL\Wexflow.Scripts.PostgreSQL.exe.config"; DestDir: "{app}\Wexflow.Scripts.PostgreSQL"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Scripts.PostgreSQL\bin\x64\Release\*.dll"; DestDir: "{app}\Wexflow.Scripts.PostgreSQL"; Flags: ignoreversion recursesubdirs
+
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
@@ -488,6 +503,7 @@ Name: "{commonprograms}\{#MyAppName}\Logs"; Filename: "{app}\Wexflow.log";
 Name: "{commonprograms}\{#MyAppName}\Install CosmosDB samples"; Filename: "{app}\Wexflow.Scripts.CosmosDB\Wexflow.Scripts.CosmosDB.exe";
 Name: "{commonprograms}\{#MyAppName}\Install MongoDB samples"; Filename: "{app}\Wexflow.Scripts.MongoDB\Wexflow.Scripts.MongoDB.exe";
 Name: "{commonprograms}\{#MyAppName}\Install RavenDB samples"; Filename: "{app}\Wexflow.Scripts.RavenDB\Wexflow.Scripts.RavenDB.exe";
+Name: "{commonprograms}\{#MyAppName}\Install PostgreSQL samples"; Filename: "{app}\Wexflow.Scripts.PostgreSQL\Wexflow.Scripts.PostgreSQL.exe";
 Name: "{commonprograms}\{#MyAppName}\Uninstall"; Filename: "{uninstallexe}";
 
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\Manager\{#MyAppExeName}"; Tasks: desktopicon

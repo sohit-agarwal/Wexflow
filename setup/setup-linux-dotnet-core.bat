@@ -97,6 +97,10 @@ copy dotnet-core\linux\RavenDB\appsettings.json %dstDir%\Wexflow.Scripts.RavenDB
 dotnet publish ..\src\dotnet-core\Wexflow.Scripts.CosmosDB\Wexflow.Scripts.CosmosDB.csproj --force --output %~dp0\%dstDir%\Wexflow.Scripts.CosmosDB
 copy dotnet-core\linux\CosmosDB\appsettings.json %dstDir%\Wexflow.Scripts.CosmosDB
 
+:: PostgreSQL script
+dotnet publish ..\src\dotnet-core\Wexflow.Scripts.PostgreSQL\Wexflow.Scripts.PostgreSQL.csproj --force --output %~dp0\%dstDir%\Wexflow.Scripts.PostgreSQL
+copy dotnet-core\linux\PostgreSQL\appsettings.json %dstDir%\Wexflow.Scripts.PostgreSQL
+
 :: Wexflow.Clients.CommandLine
 dotnet publish ..\src\dotnet-core\Wexflow.Clients.CommandLine\Wexflow.Clients.CommandLine.csproj --force --output %~dp0\%dstDir%\Wexflow.Clients.CommandLine
 
