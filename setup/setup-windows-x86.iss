@@ -52,7 +52,7 @@ Source: "..\libs\log4net.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Renci.SshNet.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Mono.Security.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\libs\Npgsql.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\libs\Npgsql.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Oracle.ManagedDataAccess.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\MySql.Data.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\x86\System.Data.SQLite.dll"; DestDir: "{app}"; Flags: ignoreversion
