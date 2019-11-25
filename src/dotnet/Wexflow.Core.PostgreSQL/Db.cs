@@ -1503,7 +1503,7 @@ namespace Wexflow.Core.PostgreSQL
                 conn.Open();
 
                 var command = new NpgsqlCommand("UPDATE " + Core.Db.Workflow.DocumentName + " SET "
-                    + Workflow.ColumnName_Xml + " = '" + workflow.Xml + "'"
+                    + Workflow.ColumnName_Xml + " = '" + workflow.Xml.Replace("'", "''") + "'"
                     + " WHERE "
                     + User.ColumnName_Id + " = " + int.Parse(dbId) + ";"
                     , conn);
