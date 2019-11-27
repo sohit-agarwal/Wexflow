@@ -230,6 +230,7 @@ namespace Wexflow.Core
             , Variable[] globalVariables)
         {
             JobId = jobId;
+            ParallelJobId = jobId;
             Jobs = jobs;
             _jobsQueue = new Queue<Job>();
             _thread = null;
