@@ -138,6 +138,10 @@ namespace Wexflow.Core
         /// </summary>
         public int JobId { get; private set; }
         /// <summary>
+        /// Parallel job Id.
+        /// </summary>
+        public int ParallelJobId { get; private set; }
+        /// <summary>
         /// Log tag.
         /// </summary>
         public string LogTag { get { return string.Format("[{0} / {1}]", Name, JobId); } }
@@ -226,6 +230,7 @@ namespace Wexflow.Core
             , Variable[] globalVariables)
         {
             JobId = jobId;
+            ParallelJobId = jobId;
             Jobs = jobs;
             _jobsQueue = new Queue<Job>();
             _thread = null;
@@ -860,7 +865,7 @@ namespace Wexflow.Core
             else if (IsRunning && EnableParallelJobs)
             {
                 var workflow = new Workflow(
-                      ++JobId
+                      ++ParallelJobId
                     , Jobs
                     , DbId
                     , Xml
@@ -1052,7 +1057,7 @@ namespace Wexflow.Core
                         GC.Collect();
 
                         Logger.InfoFormat("{0} Workflow finished.", LogTag);
-                        JobId++;
+                        JobId = ++ParallelJobId;
                         Jobs.Remove(InstanceId);
 
                         if (_jobsQueue.Count > 0)
