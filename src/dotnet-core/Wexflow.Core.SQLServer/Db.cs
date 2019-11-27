@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Text;
+using System.Xml.Linq;
 using Wexflow.Core.Db;
 
 namespace Wexflow.Core.SQLServer
@@ -1179,7 +1181,7 @@ namespace Wexflow.Core.SQLServer
                     var workflow = new Workflow
                     {
                         Id = (int)reader[Workflow.ColumnName_Id],
-                        Xml = (string)reader[Workflow.ColumnName_Xml]
+                        Xml = XDocument.Parse((string)reader[Workflow.ColumnName_Xml]).ToString()
                     };
 
                     return workflow;
@@ -1199,7 +1201,8 @@ namespace Wexflow.Core.SQLServer
 
                 var command = new SqlCommand("SELECT " + Workflow.ColumnName_Id + ", "
                     + Workflow.ColumnName_Xml
-                    + " FROM " + Core.Db.Workflow.DocumentName + ";", conn);
+                    + " FROM " + Core.Db.Workflow.DocumentName
+                    + ";", conn);
 
                 var reader = command.ExecuteReader();
 
@@ -1208,7 +1211,7 @@ namespace Wexflow.Core.SQLServer
                     var workflow = new Workflow
                     {
                         Id = (int)reader[Workflow.ColumnName_Id],
-                        Xml = (string)reader[Workflow.ColumnName_Xml]
+                        Xml = XDocument.Parse((string)reader[Workflow.ColumnName_Xml]).ToString()
                     };
 
                     workflows.Add(workflow);
@@ -1462,9 +1465,10 @@ namespace Wexflow.Core.SQLServer
 
                 var command = new SqlCommand("INSERT INTO " + Core.Db.Workflow.DocumentName + "("
                     + Workflow.ColumnName_Xml + ") " + " OUTPUT INSERTED." + Workflow.ColumnName_Id + " VALUES("
-                    + "'" + workflow.Xml.Replace("'", "''") + "'" + ");"
+                    + "@XML" + ");"
                     , conn);
 
+                command.Parameters.Add("@XML", SqlDbType.Xml).Value = workflow.Xml;
                 var id = (int)command.ExecuteScalar();
 
                 return id.ToString();
@@ -1555,11 +1559,12 @@ namespace Wexflow.Core.SQLServer
                 conn.Open();
 
                 var command = new SqlCommand("UPDATE " + Core.Db.Workflow.DocumentName + " SET "
-                    + Workflow.ColumnName_Xml + " = '" + workflow.Xml.Replace("'", "''") + "'"
+                    + Workflow.ColumnName_Xml + " = @XML"
                     + " WHERE "
                     + User.ColumnName_Id + " = " + int.Parse(dbId) + ";"
                     , conn);
 
+                command.Parameters.Add("@XML", SqlDbType.Xml).Value = workflow.Xml;
                 command.ExecuteNonQuery();
             }
         }
