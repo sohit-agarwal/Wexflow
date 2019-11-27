@@ -739,6 +739,19 @@ namespace Wexflow.Core.CosmosDB
             }
         }
 
+        public override Core.Db.User GetUserByUserId(string userId)
+        {
+            using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
+            {
+                return
+                        client.CreateDocumentQuery<User>(
+                            UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.User.DocumentName))
+                        .Where(u => u.Id == userId)
+                        .AsEnumerable().ToArray()
+                        .FirstOrDefault();
+            }
+        }
+
         public override IEnumerable<Core.Db.User> GetUsers()
         {
             using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))

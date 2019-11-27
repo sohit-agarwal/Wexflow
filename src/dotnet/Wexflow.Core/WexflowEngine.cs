@@ -36,6 +36,10 @@ namespace Wexflow.Core
         /// PostgreSQL
         /// </summary>
         PostgreSQL,
+        /// <summary>
+        /// SQLServer
+        /// </summary>
+        SQLServer,
     }
 
     /// <summary>
@@ -146,7 +150,9 @@ namespace Wexflow.Core
                 case DbType.PostgreSQL:
                     Database = new PostgreSQL.Db(ConnectionString);
                     break;
-
+                case DbType.SQLServer:
+                    Database = new SQLServer.Db(ConnectionString);
+                    break;
             }
 
             if (Database != null)
@@ -319,7 +325,7 @@ namespace Wexflow.Core
                             , GlobalVariables
                             );
                         }
-                        catch(Exception e)
+                        catch (Exception e)
                         {
                             Logger.ErrorFormat("An error occured while saving the workflow {0}:", e, xml);
                             return "-1";
@@ -927,12 +933,14 @@ namespace Wexflow.Core
         /// <param name="email">User's email.</param>
         public void UpdateUser(string userId, string username, string password, UserProfile userProfile, string email)
         {
+            var user = Database.GetUserByUserId(userId);
             Database.UpdateUser(userId, new User
             {
                 Username = username,
                 Password = password,
                 UserProfile = userProfile,
-                Email = email
+                Email = email,
+                CreatedOn = user.CreatedOn
             });
         }
 

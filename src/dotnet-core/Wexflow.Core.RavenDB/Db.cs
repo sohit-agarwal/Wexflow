@@ -7,6 +7,7 @@ using Raven.Client.ServerWide;
 using Raven.Client.ServerWide.Operations;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using Wexflow.Core.Db;
@@ -15,7 +16,7 @@ namespace Wexflow.Core.RavenDB
 {
     public class Db : Core.Db.Db
     {
-        private string _databaseName = "wexflow-dotnet-core";
+        private string _databaseName = "wexflow";
         private DocumentStore _store;
 
         public Db(string connectionString) : base(connectionString)
@@ -251,11 +252,11 @@ namespace Wexflow.Core.RavenDB
             using (var session = _store.OpenSession())
             {
                 var col = session.Query<Workflow>();
- 
-                foreach(var id in ids)
+
+                foreach (var id in ids)
                 {
                     var wf = col.FirstOrDefault(w => w.Id == id);
-                    if(wf != null)
+                    if (wf != null)
                     {
                         session.Delete(wf);
                     }
@@ -890,7 +891,24 @@ namespace Wexflow.Core.RavenDB
                     var user = col.FirstOrDefault(u => u.Username == username);
                     return user;
                 }
-                catch (Exception)
+                catch
+                {
+                    return null;
+                }
+            }
+        }
+
+        public override Core.Db.User GetUserByUserId(string userId)
+        {
+            using (var session = _store.OpenSession())
+            {
+                try
+                {
+                    var col = session.Query<User>();
+                    var user = col.FirstOrDefault(u => u.Id == userId);
+                    return user;
+                }
+                catch
                 {
                     return null;
                 }

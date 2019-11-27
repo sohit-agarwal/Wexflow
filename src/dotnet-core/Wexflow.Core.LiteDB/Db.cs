@@ -375,6 +375,14 @@ namespace Wexflow.Core.LiteDB
             return user;
         }
 
+        public override Core.Db.User GetUserByUserId(string userId)
+        {
+            var col = _db.GetCollection<User>(Core.Db.User.DocumentName);
+            var id = int.Parse(userId);
+            User user = col.FindOne(u => u.Id == id);
+            return user;
+        }
+
         public override string GetPassword(string username)
         {
             var col = _db.GetCollection<User>(Core.Db.User.DocumentName);

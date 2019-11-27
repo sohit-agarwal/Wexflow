@@ -36,7 +36,11 @@ namespace Wexflow.Core
         /// <summary>
         /// PostgreSQL
         /// </summary>
-        PostgreSQL
+        PostgreSQL,
+        /// <summary>
+        /// SQLServer
+        /// </summary>
+        SQLServer
     }
 
     /// <summary>
@@ -152,6 +156,9 @@ namespace Wexflow.Core
                     break;
                 case DbType.PostgreSQL:
                     Database = new PostgreSQL.Db(ConnectionString);
+                    break;
+                case DbType.SQLServer:
+                    Database = new SQLServer.Db(ConnectionString);
                     break;
             }
 
@@ -937,12 +944,14 @@ namespace Wexflow.Core
         /// <param name="email">User's email.</param>
         public void UpdateUser(string userId, string username, string password, UserProfile userProfile, string email)
         {
+            var user = Database.GetUserByUserId(userId);
             Database.UpdateUser(userId, new User
             {
                 Username = username,
                 Password = password,
                 UserProfile = userProfile,
-                Email = email
+                Email = email,
+                CreatedOn = user.CreatedOn
             });
         }
 

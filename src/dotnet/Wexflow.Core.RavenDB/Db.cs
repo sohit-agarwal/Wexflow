@@ -903,6 +903,28 @@ namespace Wexflow.Core.RavenDB
             }
         }
 
+        public override Core.Db.User GetUserByUserId(string userId)
+        {
+            using (var session = _store.OpenSession())
+            {
+                try
+                {
+                    var col = session.Query<User>();
+                    var user = col.FirstOrDefault(u => u.Id == userId);
+                    return user;
+                }
+                catch (Exception e)
+                {
+                    using (EventLog eventLog = new EventLog("Application"))
+                    {
+                        eventLog.Source = "Wexflow";
+                        eventLog.WriteEntry(e.ToString(), EventLogEntryType.Error, 101, 1);
+                    }
+                    return null;
+                }
+            }
+        }
+
         public override IEnumerable<Core.Db.User> GetUsers()
         {
             using (var session = _store.OpenSession())

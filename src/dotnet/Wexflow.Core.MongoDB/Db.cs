@@ -254,6 +254,13 @@ namespace Wexflow.Core.MongoDB
             return user;
         }
 
+        public override Core.Db.User GetUserByUserId(string userId)
+        {
+            var col = _db.GetCollection<User>(Core.Db.User.DocumentName);
+            var user = col.Find(u => u.Id == userId).FirstOrDefault();
+            return user;
+        }
+
         public override void DeleteUser(string username, string password)
         {
             var col = _db.GetCollection<User>(Core.Db.User.DocumentName);

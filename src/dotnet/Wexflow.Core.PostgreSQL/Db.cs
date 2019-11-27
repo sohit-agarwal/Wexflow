@@ -538,7 +538,7 @@ namespace Wexflow.Core.PostgreSQL
 
                 var command = new NpgsqlCommand("SELECT " + Entry.ColumnName_StatusDate
                     + " FROM " + Core.Db.Entry.DocumentName
-                    + " ORDER BY " + Core.Db.Entry.DocumentName + " DESC LIMIT 1;", conn);
+                    + " ORDER BY " + Entry.ColumnName_StatusDate + " DESC LIMIT 1;", conn);
 
                 var reader = command.ExecuteReader();
 
@@ -561,7 +561,7 @@ namespace Wexflow.Core.PostgreSQL
 
                 var command = new NpgsqlCommand("SELECT " + Entry.ColumnName_StatusDate
                     + " FROM " + Core.Db.Entry.DocumentName
-                    + " ORDER BY " + Core.Db.Entry.DocumentName + " ASC LIMIT 1;", conn);
+                    + " ORDER BY " + Entry.ColumnName_StatusDate + " ASC LIMIT 1;", conn);
 
                 var reader = command.ExecuteReader();
 
@@ -856,7 +856,7 @@ namespace Wexflow.Core.PostgreSQL
 
                 var command = new NpgsqlCommand("SELECT " + HistoryEntry.ColumnName_StatusDate
                     + " FROM " + Core.Db.HistoryEntry.DocumentName
-                    + " ORDER BY " + Core.Db.HistoryEntry.DocumentName + " DESC LIMIT 1;", conn);
+                    + " ORDER BY " + HistoryEntry.ColumnName_StatusDate + " DESC LIMIT 1;", conn);
 
                 var reader = command.ExecuteReader();
 
@@ -879,7 +879,7 @@ namespace Wexflow.Core.PostgreSQL
 
                 var command = new NpgsqlCommand("SELECT " + HistoryEntry.ColumnName_StatusDate
                     + " FROM " + Core.Db.HistoryEntry.DocumentName
-                    + " ORDER BY " + Core.Db.HistoryEntry.DocumentName + " ASC LIMIT 1;", conn);
+                    + " ORDER BY " + HistoryEntry.ColumnName_StatusDate + " ASC LIMIT 1;", conn);
 
                 var reader = command.ExecuteReader();
 
@@ -975,6 +975,45 @@ namespace Wexflow.Core.PostgreSQL
                     + User.ColumnName_ModifiedOn
                     + " FROM " + Core.Db.User.DocumentName
                     + " WHERE " + User.ColumnName_Username + " = '" + username + "'"
+                    + ";", conn);
+
+                var reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    var user = new User
+                    {
+                        Id = (int)reader[User.ColumnName_Id],
+                        Username = (string)reader[User.ColumnName_Username],
+                        Password = (string)reader[User.ColumnName_Password],
+                        Email = (string)reader[User.ColumnName_Email],
+                        UserProfile = (UserProfile)((int)reader[User.ColumnName_UserProfile]),
+                        CreatedOn = (DateTime)reader[User.ColumnName_CreatedOn],
+                        ModifiedOn = (DateTime)reader[User.ColumnName_ModifiedOn]
+                    };
+
+                    return user;
+                }
+            }
+
+            return null;
+        }
+
+        public override Core.Db.User GetUserByUserId(string userId)
+        {
+            using (var conn = new NpgsqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new NpgsqlCommand("SELECT " + User.ColumnName_Id + ", "
+                    + User.ColumnName_Username + ", "
+                    + User.ColumnName_Password + ", "
+                    + User.ColumnName_Email + ", "
+                    + User.ColumnName_UserProfile + ", "
+                    + User.ColumnName_CreatedOn + ", "
+                    + User.ColumnName_ModifiedOn
+                    + " FROM " + Core.Db.User.DocumentName
+                    + " WHERE " + User.ColumnName_Id + " = '" + int.Parse(userId) + "'"
                     + ";", conn);
 
                 var reader = command.ExecuteReader();
