@@ -21,7 +21,7 @@
   <!--SQLServer-->
   <!--<Setting name="connectionString" value="Server=127.0.0.1;User Id=wexflow;Password=pwd;Database=wexflow_dotnet_core;" />-->
   <!--<Setting name="connectionString" value="Server=127.0.0.1;Trusted_Connection=True;Database=wexflow_dotnet_core;" />-->
-  <!--<Setting name="connectionString" value="Server=AELASSAS-PC\SQLEXPRESS01;Trusted_Connection=True;Database=wexflow_dotnet_core;" />-->
+  <!--<Setting name="connectionString" value="Server=.\SQLEXPRESS01;Trusted_Connection=True;Database=wexflow_dotnet_core;" />-->
   <!--MySQL-->
   <!--<Setting name="connectionString" value="Server=localhost;Database=wexflow_dotnet_core;Uid=root;Pwd=password;" />-->
   <Setting name="globalVariablesFile" value="C:\Wexflow-dotnet-core\GlobalVariables.xml" />

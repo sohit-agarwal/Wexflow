@@ -141,6 +141,12 @@ Source: "..\src\dotnet\Wexflow.Core.CosmosDB\bin\x64\Release\*.dll"; DestDir: "{
 ; PostgreSQL
 Source: "..\src\dotnet\Wexflow.Core.PostgreSQL\bin\x64\Release\*.dll"; DestDir: "{app}"; Flags: ignoreversion
 
+; SQLServer
+Source: "..\src\dotnet\Wexflow.Core.SQLServer\bin\x64\Release\Wexflow.Core.SQLServer.dll"; DestDir: "{app}"; Flags: ignoreversion
+
+; MySQL
+Source: "..\src\dotnet\Wexflow.Core.MySQL\bin\x64\Release\*.dll"; DestDir: "{app}"; Flags: ignoreversion
+
 ; RavenDB
 Source: "..\src\dotnet\Wexflow.Core.RavenDB\bin\x64\Release\*.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Net.Http.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -494,6 +500,11 @@ Source: "..\src\dotnet\Wexflow.Scripts.SQLServer\bin\x64\Release\Wexflow.Scripts
 Source: ".\dotnet\Wexflow.Scripts.SQLServer\Wexflow.Scripts.SQLServer.exe.config"; DestDir: "{app}\Wexflow.Scripts.SQLServer"; Flags: ignoreversion recursesubdirs
 Source: "..\src\dotnet\Wexflow.Scripts.SQLServer\bin\x64\Release\*.dll"; DestDir: "{app}\Wexflow.Scripts.SQLServer"; Flags: ignoreversion recursesubdirs
 
+; Wexflow.Scripts.MySQL
+Source: "..\src\dotnet\Wexflow.Scripts.MySQL\bin\x64\Release\Wexflow.Scripts.MySQL.exe"; DestDir: "{app}\Wexflow.Scripts.MySQL"; Flags: ignoreversion recursesubdirs
+Source: ".\dotnet\Wexflow.Scripts.MySQL\Wexflow.Scripts.MySQL.exe.config"; DestDir: "{app}\Wexflow.Scripts.MySQL"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Scripts.MySQL\bin\x64\Release\*.dll"; DestDir: "{app}\Wexflow.Scripts.MySQL"; Flags: ignoreversion recursesubdirs
+
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
@@ -510,6 +521,7 @@ Name: "{commonprograms}\{#MyAppName}\Install MongoDB samples"; Filename: "{app}\
 Name: "{commonprograms}\{#MyAppName}\Install RavenDB samples"; Filename: "{app}\Wexflow.Scripts.RavenDB\Wexflow.Scripts.RavenDB.exe";
 Name: "{commonprograms}\{#MyAppName}\Install PostgreSQL samples"; Filename: "{app}\Wexflow.Scripts.PostgreSQL\Wexflow.Scripts.PostgreSQL.exe";
 Name: "{commonprograms}\{#MyAppName}\Install SQL Server samples"; Filename: "{app}\Wexflow.Scripts.SQLServer\Wexflow.Scripts.SQLServer.exe";
+Name: "{commonprograms}\{#MyAppName}\Install MySQL samples"; Filename: "{app}\Wexflow.Scripts.MySQL\Wexflow.Scripts.MySQL.exe";
 Name: "{commonprograms}\{#MyAppName}\Uninstall"; Filename: "{uninstallexe}";
 
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\Manager\{#MyAppExeName}"; Tasks: desktopicon

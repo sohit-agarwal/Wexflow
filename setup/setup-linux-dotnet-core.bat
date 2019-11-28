@@ -105,6 +105,10 @@ copy dotnet-core\linux\PostgreSQL\appsettings.json %dstDir%\Wexflow.Scripts.Post
 dotnet publish ..\src\dotnet-core\Wexflow.Scripts.SQLServer\Wexflow.Scripts.SQLServer.csproj --force --output %~dp0\%dstDir%\Wexflow.Scripts.SQLServer
 copy dotnet-core\linux\SQLServer\appsettings.json %dstDir%\Wexflow.Scripts.SQLServer
 
+:: MySQL script
+dotnet publish ..\src\dotnet-core\Wexflow.Scripts.MySQL\Wexflow.Scripts.MySQL.csproj --force --output %~dp0\%dstDir%\Wexflow.Scripts.MySQL
+copy dotnet-core\linux\MySQL\appsettings.json %dstDir%\Wexflow.Scripts.MySQL
+
 :: Wexflow.Clients.CommandLine
 dotnet publish ..\src\dotnet-core\Wexflow.Clients.CommandLine\Wexflow.Clients.CommandLine.csproj --force --output %~dp0\%dstDir%\Wexflow.Clients.CommandLine
 

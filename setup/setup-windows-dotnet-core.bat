@@ -106,6 +106,11 @@ dotnet publish ..\src\dotnet-core\Wexflow.Scripts.SQLServer\Wexflow.Scripts.SQLS
 copy dotnet-core\windows\SQLServer\appsettings.json %dstDir%\Wexflow.Scripts.SQLServer
 copy dotnet-core\windows\install-SQLServer.bat %dstDir%
 
+:: MySQL script
+dotnet publish ..\src\dotnet-core\Wexflow.Scripts.MySQL\Wexflow.Scripts.MySQL.csproj --force --output %~dp0\%dstDir%\Wexflow.Scripts.MySQL
+copy dotnet-core\windows\MySQL\appsettings.json %dstDir%\Wexflow.Scripts.MySQL
+copy dotnet-core\windows\install-MySQL.bat %dstDir%
+
 :: Wexflow.Clients.CommandLine
 dotnet publish ..\src\dotnet-core\Wexflow.Clients.CommandLine\Wexflow.Clients.CommandLine.csproj --force --output %~dp0\%dstDir%\Wexflow.Clients.CommandLine
 
