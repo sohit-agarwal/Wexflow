@@ -123,6 +123,7 @@ namespace Wexflow.Core
             }
 
             Settings = settings.ToArray();
+            ServerLogs = new List<string>();
         }
 
         /// <summary>
@@ -339,6 +340,7 @@ namespace Wexflow.Core
         public void Info(string msg)
         {
             Logger.Info(BuildLogMsg(msg));
+            ServerLogs.Add(BuildLogMsg(msg));
         }
 
         /// <summary>
@@ -349,6 +351,7 @@ namespace Wexflow.Core
         public void InfoFormat(string msg, params object[] args)
         {
             Logger.InfoFormat(BuildLogMsg(msg), args);
+            ServerLogs.Add(BuildLogMsg(msg));
         }
 
         /// <summary>
@@ -358,6 +361,7 @@ namespace Wexflow.Core
         public void Debug(string msg)
         {
             Logger.Debug(BuildLogMsg(msg));
+            ServerLogs.Add(BuildLogMsg(msg));
         }
 
         /// <summary>
@@ -377,6 +381,7 @@ namespace Wexflow.Core
         public void Error(string msg)
         {
             Logger.Error(BuildLogMsg(msg));
+            ServerLogs.Add(BuildLogMsg(msg));
         }
 
         /// <summary>
@@ -409,5 +414,7 @@ namespace Wexflow.Core
         {
             Logger.Error(string.Format(BuildLogMsg(msg), args), e);
         }
+        public List<string> ServerLogs { get; set; }
+
     }
 }

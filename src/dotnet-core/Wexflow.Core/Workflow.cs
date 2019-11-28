@@ -1030,6 +1030,8 @@ namespace Wexflow.Core
                         }
 
                         _historyEntry.StatusDate = DateTime.Now;
+                        _historyEntry.ServerLogs = Logger.ServerLogs;
+                        Logger.ServerLogs.Clear();
                         Database.InsertHistoryEntry(_historyEntry);
 
                         Database.DecrementRunningCount();
@@ -1495,6 +1497,8 @@ namespace Wexflow.Core
                     Database.UpdateEntry(entry.GetDbId(), entry);
                     _historyEntry.Status = Db.Status.Stopped;
                     _historyEntry.StatusDate = DateTime.Now;
+                    _historyEntry.ServerLogs = Logger.ServerLogs;
+                    Logger.ServerLogs.Clear();
                     Database.InsertHistoryEntry(_historyEntry);
                     IsDisapproved = false;
                     Jobs.Remove(InstanceId);

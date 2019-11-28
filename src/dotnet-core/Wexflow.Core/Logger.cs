@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using log4net;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
@@ -11,7 +12,7 @@ namespace Wexflow.Core
     public static class Logger
     {
         private static readonly ILog Ilogger = LogManager.GetLogger(typeof(Logger));
-
+        public static List<string> ServerLogs = new List<string>();
         /// <summary>
         /// Logs an information message.
         /// </summary>
@@ -19,6 +20,7 @@ namespace Wexflow.Core
         public static void Info(string msg)
         {
             Ilogger.Info(msg);
+            ServerLogs.Add(msg);
         }
 
         /// <summary>
@@ -29,6 +31,7 @@ namespace Wexflow.Core
         public static void InfoFormat(string msg, params object[] args)
         {
             Ilogger.InfoFormat(msg, args);
+            ServerLogs.Add($"{string.Format(msg, args)}");
         }
 
         /// <summary>
@@ -38,6 +41,7 @@ namespace Wexflow.Core
         public static void Debug(string msg)
         {
             Ilogger.Debug(msg);
+            ServerLogs.Add(msg);
         }
 
         /// <summary>
@@ -48,6 +52,7 @@ namespace Wexflow.Core
         public static void DebugFormat(string msg, params object[] args)
         {
             Ilogger.DebugFormat(msg, args);
+            ServerLogs.Add($"{string.Format(msg, args)}");
         }
 
         /// <summary>
@@ -57,6 +62,7 @@ namespace Wexflow.Core
         public static void Error(string msg)
         {
             Ilogger.Error(msg);
+            ServerLogs.Add(msg);
         }
 
         /// <summary>
@@ -67,6 +73,7 @@ namespace Wexflow.Core
         public static void ErrorFormat(string msg, params object[] args)
         {
             Ilogger.ErrorFormat(msg, args);
+            ServerLogs.Add($"{string.Format(msg, args)}");
         }
 
         /// <summary>
@@ -77,6 +84,7 @@ namespace Wexflow.Core
         public static void Error(string msg, Exception e)
         {
             Ilogger.Error(msg, e);
+            ServerLogs.Add($"{msg} {e.Message}");
         }
 
         /// <summary>
@@ -88,6 +96,7 @@ namespace Wexflow.Core
         public static void ErrorFormat(string msg, Exception e, params object[] args)
         {
             Ilogger.Error(string.Format(msg, args), e);
+            ServerLogs.Add($"{string.Format(msg, args)} {e.Message}");
         }
     }
 }
