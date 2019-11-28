@@ -101,6 +101,10 @@ copy dotnet-core\macos\CosmosDB\appsettings.json %dstDir%\Wexflow.Scripts.Cosmos
 dotnet publish ..\src\dotnet-core\Wexflow.Scripts.PostgreSQL\Wexflow.Scripts.PostgreSQL.csproj --force --output %~dp0\%dstDir%\Wexflow.Scripts.PostgreSQL
 copy dotnet-core\macos\PostgreSQL\appsettings.json %dstDir%\Wexflow.Scripts.PostgreSQL
 
+:: SQLServer script
+dotnet publish ..\src\dotnet-core\Wexflow.Scripts.SQLServer\Wexflow.Scripts.SQLServer.csproj --force --output %~dp0\%dstDir%\Wexflow.Scripts.SQLServer
+copy dotnet-core\macos\SQLServer\appsettings.json %dstDir%\Wexflow.Scripts.SQLServer
+
 :: Wexflow.Clients.CommandLine
 dotnet publish ..\src\dotnet-core\Wexflow.Clients.CommandLine\Wexflow.Clients.CommandLine.csproj --force --output %~dp0\%dstDir%\Wexflow.Clients.CommandLine
 

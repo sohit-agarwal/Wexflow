@@ -101,6 +101,11 @@ dotnet publish ..\src\dotnet-core\Wexflow.Scripts.PostgreSQL\Wexflow.Scripts.Pos
 copy dotnet-core\windows\PostgreSQL\appsettings.json %dstDir%\Wexflow.Scripts.PostgreSQL
 copy dotnet-core\windows\install-PostgreSQL.bat %dstDir%
 
+:: SQLServer script
+dotnet publish ..\src\dotnet-core\Wexflow.Scripts.SQLServer\Wexflow.Scripts.SQLServer.csproj --force --output %~dp0\%dstDir%\Wexflow.Scripts.SQLServer
+copy dotnet-core\windows\SQLServer\appsettings.json %dstDir%\Wexflow.Scripts.SQLServer
+copy dotnet-core\windows\install-SQLServer.bat %dstDir%
+
 :: Wexflow.Clients.CommandLine
 dotnet publish ..\src\dotnet-core\Wexflow.Clients.CommandLine\Wexflow.Clients.CommandLine.csproj --force --output %~dp0\%dstDir%\Wexflow.Clients.CommandLine
 
