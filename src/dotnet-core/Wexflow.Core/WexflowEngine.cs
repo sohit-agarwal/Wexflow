@@ -40,7 +40,11 @@ namespace Wexflow.Core
         /// <summary>
         /// SQLServer
         /// </summary>
-        SQLServer
+        SQLServer,
+        /// <summary>
+        /// MySQL
+        /// </summary>
+        MySQL
     }
 
     /// <summary>
@@ -159,6 +163,9 @@ namespace Wexflow.Core
                     break;
                 case DbType.SQLServer:
                     Database = new SQLServer.Db(ConnectionString);
+                    break;
+                case DbType.MySQL:
+                    Database = new MySQL.Db(ConnectionString);
                     break;
             }
 

@@ -168,6 +168,10 @@
       <Project>{18fddb89-d389-4f8f-b878-d874fef8b99e}</Project>
       <Name>Wexflow.Core.MongoDB</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Core.MySQL\Wexflow.Core.MySQL.csproj">
+      <Project>{e7d38365-9ce1-45be-bdcd-c63a94921e27}</Project>
+      <Name>Wexflow.Core.MySQL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Core.PostgreSQL\Wexflow.Core.PostgreSQL.csproj">
       <Project>{f6070c45-b535-489d-99fb-86f6c9175257}</Project>
       <Name>Wexflow.Core.PostgreSQL</Name>
