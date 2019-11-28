@@ -28,6 +28,8 @@ jobs:
     - name: Build Wexflow.Scripts.PostgreSQL.csproj
       run: dotnet build src/dotnet-core/Wexflow.Scripts.PostgreSQL/Wexflow.Scripts.PostgreSQL.csproj --configuration Release
     - name: Build Wexflow.Scripts.SQLServer.csproj
-      run: dotnet build src/dotnet-core/Wexflow.Scripts.SQLServer/Wexflow.Scripts.SQLServer.csproj --configuration Release       
+      run: dotnet build src/dotnet-core/Wexflow.Scripts.SQLServer/Wexflow.Scripts.SQLServer.csproj --configuration Release
+    - name: Build Wexflow.Scripts.MySQL.csproj
+      run: dotnet build src/dotnet-core/Wexflow.Scripts.MySQL/Wexflow.Scripts.MySQL.csproj --configuration Release        
     - name: Build Wexflow.DotnetCore.Tests.csproj
       run: dotnet build tests/dotnet-core/Wexflow.DotnetCore.Tests/Wexflow.DotnetCore.Tests.csproj --configuration Release    
