@@ -1451,7 +1451,7 @@ namespace Wexflow.Core.MySQL
 
                 var command = new MySqlCommand("INSERT INTO " + Core.Db.Workflow.DocumentName + "("
                     + Workflow.ColumnName_Xml + ") VALUES("
-                    + "'" + workflow.Xml.Replace("'", "''") + "'" + "); SELECT LAST_INSERT_ID(); "
+                    + "'" + workflow.Xml.Replace("'", "''").Replace("\\", "\\\\") + "'" + "); SELECT LAST_INSERT_ID(); "
                     , conn);
 
                 var id = (ulong)command.ExecuteScalar();
@@ -1544,7 +1544,7 @@ namespace Wexflow.Core.MySQL
                 conn.Open();
 
                 var command = new MySqlCommand("UPDATE " + Core.Db.Workflow.DocumentName + " SET "
-                    + Workflow.ColumnName_Xml + " = '" + workflow.Xml.Replace("'", "''") + "'"
+                    + Workflow.ColumnName_Xml + " = '" + workflow.Xml.Replace("'", "''").Replace("\\", "\\\\") + "'"
                     + " WHERE "
                     + User.ColumnName_Id + " = " + int.Parse(dbId) + ";"
                     , conn);
