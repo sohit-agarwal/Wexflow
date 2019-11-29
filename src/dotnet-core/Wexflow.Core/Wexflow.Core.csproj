@@ -46,6 +46,7 @@
     <ProjectReference Include="..\Wexflow.Core.MySQL\Wexflow.Core.MySQL.csproj" />
     <ProjectReference Include="..\Wexflow.Core.PostgreSQL\Wexflow.Core.PostgreSQL.csproj" />
     <ProjectReference Include="..\Wexflow.Core.RavenDB\Wexflow.Core.RavenDB.csproj" />
+    <ProjectReference Include="..\Wexflow.Core.SQLite\Wexflow.Core.SQLite.csproj" />
     <ProjectReference Include="..\Wexflow.Core.SQLServer\Wexflow.Core.SQLServer.csproj" />
   </ItemGroup>
 

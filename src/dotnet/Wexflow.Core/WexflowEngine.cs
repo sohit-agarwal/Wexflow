@@ -43,7 +43,11 @@ namespace Wexflow.Core
         /// <summary>
         /// MySQL
         /// </summary>
-        MySQL
+        MySQL,
+        /// <summary>
+        /// SQLite
+        /// </summary>
+        SQLite
     }
 
     /// <summary>
@@ -159,6 +163,9 @@ namespace Wexflow.Core
                     break;
                 case DbType.MySQL:
                     Database = new MySQL.Db(ConnectionString);
+                    break;
+                case DbType.SQLite:
+                    Database = new SQLite.Db(ConnectionString);
                     break;
             }
 
