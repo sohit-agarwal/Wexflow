@@ -57,7 +57,7 @@ namespace Wexflow.Tasks.MailsReceiver
                         string messagePath = Path.Combine(Workflow.WorkflowTempFolder, messageFileName + ".eml");
                         message.WriteTo(messagePath);
                         Files.Add(new FileInf(messagePath, Id));
-                        Logger.InfoFormat("Message {0} received. Path: {1}", i, messagePath);
+                        InfoFormat("Message {0} received. Path: {1}", i, messagePath);
 
                         // save attachments
                         var attachments = message.Attachments.ToList();
@@ -68,7 +68,7 @@ namespace Wexflow.Tasks.MailsReceiver
                                 string attachmentPath = Path.Combine(Workflow.WorkflowTempFolder, messageFileName + "_" + attachment.ContentId);
                                 attachment.WriteTo(attachmentPath);
                                 Files.Add(new FileInf(attachmentPath, Id));
-                                Logger.InfoFormat("Attachment {0} of mail {1} received. Path: {2}", attachment.ContentId, i, attachmentPath);
+                                InfoFormat("Attachment {0} of mail {1} received. Path: {2}", attachment.ContentId, i, attachmentPath);
                             }
                         }
 

@@ -157,7 +157,7 @@ namespace Wexflow.Tasks.MediaInfo
 
                         xdoc.Root.Add(xfile);
                     }
-                    Logger.InfoFormat("MediaInfo of the file {0} generated.", file.Path);
+                    InfoFormat("MediaInfo of the file {0} generated.", file.Path);
 
                     if (!_atLeastOneSucceed) _atLeastOneSucceed = true;
                 }
