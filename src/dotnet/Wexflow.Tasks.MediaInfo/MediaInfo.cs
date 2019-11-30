@@ -47,7 +47,7 @@ namespace Wexflow.Tasks.MediaInfo
             return new TaskStatus(status, false);
         }
 
-        public static XDocument Inform(FileInf[] files)
+        public XDocument Inform(FileInf[] files)
         {
             var xdoc = new XDocument(new XElement("Files"));
             foreach (FileInf file in files)
