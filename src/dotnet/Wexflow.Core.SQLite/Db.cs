@@ -1581,7 +1581,7 @@ namespace Wexflow.Core.SQLite
 
                 using (var command = new SQLiteCommand("INSERT INTO " + Core.Db.Workflow.DocumentName + "("
                     + Workflow.ColumnName_Xml + ") VALUES("
-                    + "'" + workflow.Xml.Replace("'", "''").Replace("\\", "\\\\") + "'" + "); SELECT last_insert_rowid();; "
+                    + "'" + workflow.Xml.Replace("'", "''") + "'" + "); SELECT last_insert_rowid();; "
                     , conn))
                 {
 
@@ -1684,7 +1684,7 @@ namespace Wexflow.Core.SQLite
                 conn.Open();
 
                 using (var command = new SQLiteCommand("UPDATE " + Core.Db.Workflow.DocumentName + " SET "
-                    + Workflow.ColumnName_Xml + " = '" + workflow.Xml.Replace("'", "''").Replace("\\", "\\\\") + "'"
+                    + Workflow.ColumnName_Xml + " = '" + workflow.Xml.Replace("'", "''") + "'"
                     + " WHERE "
                     + User.ColumnName_Id + " = " + int.Parse(dbId) + ";"
                     , conn))
