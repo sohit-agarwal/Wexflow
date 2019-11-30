@@ -41,6 +41,10 @@ namespace Wexflow.Core
         /// </summary>
         public Workflow Workflow { get; private set; }
         /// <summary>
+        /// Log messages.
+        /// </summary>
+        public List<string> Logs { get; private set; }
+        /// <summary>
         /// Task files.
         /// </summary>
         public List<FileInf> Files
@@ -80,6 +84,7 @@ namespace Wexflow.Core
         /// <param name="wf">Workflow.</param>
 		protected Task(XElement xe, Workflow wf)
         {
+            Logs = new List<string>();
             _xElement = xe;
             var xId = xe.Attribute("id");
             if (xId == null) throw new Exception("Task id attribute not found.");
@@ -342,7 +347,9 @@ namespace Wexflow.Core
         /// <param name="msg">Log message.</param>
         public void Info(string msg)
         {
-            Logger.Info(BuildLogMsg(msg));
+            var message = BuildLogMsg(msg);
+            Logger.Info(message);
+            Logs.Add(message);
         }
 
         /// <summary>
@@ -352,7 +359,9 @@ namespace Wexflow.Core
         /// <param name="args">Arguments.</param>
         public void InfoFormat(string msg, params object[] args)
         {
-            Logger.InfoFormat(BuildLogMsg(msg), args);
+            var message = string.Format(BuildLogMsg(msg), args);
+            Logger.Info(message);
+            Logs.Add(message);
         }
 
         /// <summary>
@@ -361,7 +370,9 @@ namespace Wexflow.Core
         /// <param name="msg">Log message.</param>
         public void Debug(string msg)
         {
-            Logger.Debug(BuildLogMsg(msg));
+            var message = BuildLogMsg(msg);
+            Logger.Debug(msg);
+            Logs.Add(message);
         }
 
         /// <summary>
@@ -371,7 +382,9 @@ namespace Wexflow.Core
         /// <param name="args">Arguments.</param>
         public void DebugFormat(string msg, params object[] args)
         {
-            Logger.DebugFormat(BuildLogMsg(msg), args);
+            var message = string.Format(BuildLogMsg(msg), args);
+            Logger.DebugFormat(message);
+            Logs.Add(message);
         }
 
         /// <summary>
@@ -380,7 +393,9 @@ namespace Wexflow.Core
         /// <param name="msg">Log message.</param>
         public void Error(string msg)
         {
-            Logger.Error(BuildLogMsg(msg));
+            var message = BuildLogMsg(msg);
+            Logger.Error(message);
+            Logs.Add(message);
         }
 
         /// <summary>
@@ -390,7 +405,9 @@ namespace Wexflow.Core
         /// <param name="args">Arguments.</param>
         public void ErrorFormat(string msg, params object[] args)
         {
-            Logger.ErrorFormat(BuildLogMsg(msg), args);
+            var message = string.Format(BuildLogMsg(msg), args);
+            Logger.Error(message);
+            Logs.Add(message);
         }
 
         /// <summary>
@@ -400,7 +417,9 @@ namespace Wexflow.Core
         /// <param name="e">Exception.</param>
         public void Error(string msg, Exception e)
         {
-            Logger.Error(BuildLogMsg(msg), e);
+            var message = BuildLogMsg(msg);
+            Logger.Error(message, e);
+            Logs.Add(message + e);
         }
 
         /// <summary>
@@ -411,7 +430,9 @@ namespace Wexflow.Core
         /// <param name="args">Arguments.</param>
         public void ErrorFormat(string msg, Exception e, params object[] args)
         {
-            Logger.Error(string.Format(BuildLogMsg(msg), args), e);
+            var message = string.Format(BuildLogMsg(msg), args);
+            Logger.Error(message, e);
+            Logs.Add(message + e);
         }
     }
 }
