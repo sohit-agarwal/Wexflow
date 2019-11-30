@@ -111,6 +111,11 @@ dotnet publish ..\src\dotnet-core\Wexflow.Scripts.MySQL\Wexflow.Scripts.MySQL.cs
 copy dotnet-core\windows\MySQL\appsettings.json %dstDir%\Wexflow.Scripts.MySQL
 copy dotnet-core\windows\install-MySQL.bat %dstDir%
 
+:: SQLite script
+dotnet publish ..\src\dotnet-core\Wexflow.Scripts.SQLite\Wexflow.Scripts.SQLite.csproj --force --output %~dp0\%dstDir%\Wexflow.Scripts.SQLite
+copy dotnet-core\windows\SQLite\appsettings.json %dstDir%\Wexflow.Scripts.SQLite
+copy dotnet-core\windows\install-SQLite.bat %dstDir%
+
 :: Wexflow.Clients.CommandLine
 dotnet publish ..\src\dotnet-core\Wexflow.Clients.CommandLine\Wexflow.Clients.CommandLine.csproj --force --output %~dp0\%dstDir%\Wexflow.Clients.CommandLine
 

@@ -109,6 +109,10 @@ copy dotnet-core\linux\SQLServer\appsettings.json %dstDir%\Wexflow.Scripts.SQLSe
 dotnet publish ..\src\dotnet-core\Wexflow.Scripts.MySQL\Wexflow.Scripts.MySQL.csproj --force --output %~dp0\%dstDir%\Wexflow.Scripts.MySQL
 copy dotnet-core\linux\MySQL\appsettings.json %dstDir%\Wexflow.Scripts.MySQL
 
+:: SQLite script
+dotnet publish ..\src\dotnet-core\Wexflow.Scripts.SQLite\Wexflow.Scripts.SQLite.csproj --force --output %~dp0\%dstDir%\Wexflow.Scripts.SQLite
+copy dotnet-core\linux\SQLite\appsettings.json %dstDir%\Wexflow.Scripts.SQLite
+
 :: Wexflow.Clients.CommandLine
 dotnet publish ..\src\dotnet-core\Wexflow.Clients.CommandLine\Wexflow.Clients.CommandLine.csproj --force --output %~dp0\%dstDir%\Wexflow.Clients.CommandLine
 
