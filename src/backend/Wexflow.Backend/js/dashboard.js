@@ -304,7 +304,7 @@
 
                         Common.get(uri + "/entryLogs?id=" + entryId, function (logs) {
                             var grabMe = document.getElementById("grabMe");
-                            grabMe.innerHTML = logs.replace(/\r\n/g, "<br>");
+                            grabMe.innerHTML = Common.escape(logs).replace(/\r\n/g, "<br>");
 
                             new jBox('Modal', {
                                 width: 800,
