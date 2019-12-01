@@ -965,7 +965,8 @@ namespace Wexflow.Core.CosmosDB
                         LaunchType = entry.LaunchType,
                         Status = entry.Status,
                         StatusDate = entry.StatusDate,
-                        WorkflowId = entry.WorkflowId
+                        WorkflowId = entry.WorkflowId,
+                        Logs = entry.Logs
                     });
             }
         }
@@ -984,7 +985,8 @@ namespace Wexflow.Core.CosmosDB
                         LaunchType = entry.LaunchType,
                         Status = entry.Status,
                         StatusDate = entry.StatusDate,
-                        WorkflowId = entry.WorkflowId
+                        WorkflowId = entry.WorkflowId,
+                        Logs = entry.Logs
                     });
             }
         }
@@ -1052,7 +1054,8 @@ namespace Wexflow.Core.CosmosDB
                     LaunchType = entry.LaunchType,
                     Status = entry.Status,
                     StatusDate = entry.StatusDate,
-                    WorkflowId = entry.WorkflowId
+                    WorkflowId = entry.WorkflowId,
+                    Logs = entry.Logs
                 },
                 id);
         }
@@ -1157,5 +1160,32 @@ namespace Wexflow.Core.CosmosDB
                         },
                         dbId);
         }
+
+        public override string GetEntryLogs(string entryId)
+        {
+            using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
+            {
+                var entry = client.CreateDocumentQuery<Entry>(
+                         UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.Entry.DocumentName))
+                    .Where(e => e.Id == entryId)
+                    .AsEnumerable().ToArray()
+                    .First();
+                return entry.Logs;
+            }
+        }
+
+        public override string GetHistoryEntryLogs(string entryId)
+        {
+            using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
+            {
+                var entry = client.CreateDocumentQuery<HistoryEntry>(
+                         UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.HistoryEntry.DocumentName))
+                    .Where(e => e.Id == entryId)
+                    .AsEnumerable().ToArray()
+                    .First();
+                return entry.Logs;
+            }
+        }
+
     }
 }

@@ -270,7 +270,8 @@ namespace Wexflow.Core.LiteDB
                 Name = entry.Name,
                 Status = entry.Status,
                 StatusDate = entry.StatusDate,
-                WorkflowId = entry.WorkflowId
+                WorkflowId = entry.WorkflowId,
+                Logs = entry.Logs
             };
             col.Insert(ie);
             col.EnsureIndex(e => e.WorkflowId);
@@ -292,7 +293,8 @@ namespace Wexflow.Core.LiteDB
                 Name = entry.Name,
                 Status = entry.Status,
                 StatusDate = entry.StatusDate,
-                WorkflowId = entry.WorkflowId
+                WorkflowId = entry.WorkflowId,
+                Logs = entry.Logs
             };
             col.Update(e);
         }
@@ -481,7 +483,8 @@ namespace Wexflow.Core.LiteDB
                 Name = entry.Name,
                 Status = entry.Status,
                 StatusDate = entry.StatusDate,
-                WorkflowId = entry.WorkflowId
+                WorkflowId = entry.WorkflowId,
+                Logs = entry.Logs
             };
             col.Insert(he);
             col.EnsureIndex(e => e.WorkflowId);
@@ -1001,6 +1004,22 @@ namespace Wexflow.Core.LiteDB
             var col = _db.GetCollection<UserWorkflow>(Core.Db.UserWorkflow.DocumentName);
             var res = col.FindOne(uw => uw.UserId == userId && uw.WorkflowId == workflowId);
             return res != null;
+        }
+
+        public override string GetEntryLogs(string entryId)
+        {
+            var id = int.Parse(entryId);
+            var col = _db.GetCollection<Entry>(Core.Db.Entry.DocumentName);
+            var entry = col.FindOne(e => e.Id == id);
+            return entry.Logs;
+        }
+
+        public override string GetHistoryEntryLogs(string entryId)
+        {
+            var id = int.Parse(entryId);
+            var col = _db.GetCollection<HistoryEntry>(Core.Db.HistoryEntry.DocumentName);
+            var entry = col.FindOne(e => e.Id == id);
+            return entry.Logs;
         }
 
     }

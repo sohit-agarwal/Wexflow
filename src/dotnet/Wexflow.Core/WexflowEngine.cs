@@ -1190,5 +1190,25 @@ namespace Wexflow.Core
         {
             return Database.GetEntryStatusDateMax();
         }
+
+        /// <summary>
+        /// Returns entry logs.
+        /// </summary>
+        /// <param name="entryId">Entry id.</param>
+        /// <returns>Entry logs.</returns>
+        public string GetEntryLogs(string entryId)
+        {
+            return Database.GetEntryLogs(entryId);
+        }
+
+        /// <summary>
+        /// Returns entry logs.
+        /// </summary>
+        /// <param name="entryId">Entry id.</param>
+        /// <returns>Entry logs.</returns>
+        public string GetHistoryEntryLogs(string entryId)
+        {
+            return Database.GetHistoryEntryLogs(entryId);
+        }
     }
 }

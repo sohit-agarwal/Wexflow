@@ -16,7 +16,7 @@ namespace Wexflow.Core.RavenDB
 {
     public class Db : Core.Db.Db
     {
-        private string _databaseName = "wexflow";
+        private string _databaseName = "wexflow-dotnet-core";
         private DocumentStore _store;
 
         public Db(string connectionString) : base(connectionString)
@@ -1136,7 +1136,8 @@ namespace Wexflow.Core.RavenDB
                     Name = entry.Name,
                     Status = entry.Status,
                     StatusDate = entry.StatusDate,
-                    WorkflowId = entry.WorkflowId
+                    WorkflowId = entry.WorkflowId,
+                    Logs = entry.Logs
                 };
                 session.Store(ie);
                 session.SaveChanges();
@@ -1155,7 +1156,8 @@ namespace Wexflow.Core.RavenDB
                     Name = entry.Name,
                     Status = entry.Status,
                     StatusDate = entry.StatusDate,
-                    WorkflowId = entry.WorkflowId
+                    WorkflowId = entry.WorkflowId,
+                    Logs = entry.Logs
                 };
                 session.Store(he);
                 session.SaveChanges();
@@ -1222,6 +1224,7 @@ namespace Wexflow.Core.RavenDB
                 ue.Status = entry.Status;
                 ue.StatusDate = entry.StatusDate;
                 ue.WorkflowId = entry.WorkflowId;
+                ue.Logs = entry.Logs;
 
                 session.SaveChanges();
                 Wait();
@@ -1284,6 +1287,26 @@ namespace Wexflow.Core.RavenDB
 
                 session.SaveChanges();
                 Wait();
+            }
+        }
+
+        public override string GetEntryLogs(string entryId)
+        {
+            using (var session = _store.OpenSession())
+            {
+                var col = session.Query<Entry>();
+                var entry = col.First(e => e.Id == entryId);
+                return entry.Logs;
+            }
+        }
+
+        public override string GetHistoryEntryLogs(string entryId)
+        {
+            using (var session = _store.OpenSession())
+            {
+                var col = session.Query<HistoryEntry>();
+                var entry = col.First(e => e.Id == entryId);
+                return entry.Logs;
             }
         }
     }

@@ -1363,13 +1363,15 @@ namespace Wexflow.Core.MySQL
                     + Entry.ColumnName_LaunchType + ", "
                     + Entry.ColumnName_StatusDate + ", "
                     + Entry.ColumnName_Status + ", "
-                    + Entry.ColumnName_WorkflowId + ") VALUES("
+                    + Entry.ColumnName_WorkflowId + ", "
+                    + Entry.ColumnName_Logs + ") VALUES("
                     + "'" + entry.Name + "'" + ", "
                     + "'" + entry.Description + "'" + ", "
                     + (int)entry.LaunchType + ", "
                     + "'" + entry.StatusDate.ToString(DateTimeFormat) + "'" + ", "
                     + (int)entry.Status + ", "
-                    + entry.WorkflowId + ");"
+                    + entry.WorkflowId + ", "
+                    + "'" + (entry.Logs ?? "").Replace("'", "''").Replace("\\", "\\\\") + "'" + ");"
                     , conn);
 
                 command.ExecuteNonQuery();
@@ -1388,13 +1390,15 @@ namespace Wexflow.Core.MySQL
                     + HistoryEntry.ColumnName_LaunchType + ", "
                     + HistoryEntry.ColumnName_StatusDate + ", "
                     + HistoryEntry.ColumnName_Status + ", "
-                    + HistoryEntry.ColumnName_WorkflowId + ") VALUES("
+                    + HistoryEntry.ColumnName_WorkflowId + ", "
+                    + HistoryEntry.ColumnName_Logs + ") VALUES("
                     + "'" + entry.Name + "'" + ", "
                     + "'" + entry.Description + "'" + ", "
                     + (int)entry.LaunchType + ", "
                     + "'" + entry.StatusDate.ToString(DateTimeFormat) + "'" + ", "
                     + (int)entry.Status + ", "
-                    + entry.WorkflowId + ");"
+                    + entry.WorkflowId + ", "
+                    + "'" + (entry.Logs ?? "").Replace("'", "''").Replace("\\", "\\\\") + "'" + ");"
                     , conn);
 
                 command.ExecuteNonQuery();
@@ -1472,7 +1476,8 @@ namespace Wexflow.Core.MySQL
                     + Entry.ColumnName_LaunchType + " = " + (int)entry.LaunchType + ", "
                     + Entry.ColumnName_StatusDate + " = '" + entry.StatusDate.ToString(DateTimeFormat) + "', "
                     + Entry.ColumnName_Status + " = " + (int)entry.Status + ", "
-                    + Entry.ColumnName_WorkflowId + " = " + entry.WorkflowId
+                    + Entry.ColumnName_WorkflowId + " = " + entry.WorkflowId + ", "
+                    + Entry.ColumnName_Logs + " = '" + (entry.Logs ?? "").Replace("'", "''").Replace("\\", "\\\\") + "'"
                     + " WHERE "
                     + Entry.ColumnName_Id + " = " + int.Parse(id) + ";"
                     , conn);
@@ -1551,6 +1556,56 @@ namespace Wexflow.Core.MySQL
 
                 command.ExecuteNonQuery();
             }
+        }
+
+        public override string GetEntryLogs(string entryId)
+        {
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new MySqlCommand("SELECT " + Entry.ColumnName_Logs
+                    + " FROM " + Core.Db.Entry.DocumentName
+                    + " WHERE "
+                    + Entry.ColumnName_Id + " = " + int.Parse(entryId) + ";"
+                    , conn);
+
+                var reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    var logs = (string)reader[Entry.ColumnName_Logs];
+                    return logs;
+                }
+
+            }
+
+            return null;
+        }
+
+        public override string GetHistoryEntryLogs(string entryId)
+        {
+            using (var conn = new MySqlConnection(_connectionString))
+            {
+                conn.Open();
+
+                var command = new MySqlCommand("SELECT " + HistoryEntry.ColumnName_Logs
+                    + " FROM " + Core.Db.HistoryEntry.DocumentName
+                    + " WHERE "
+                    + HistoryEntry.ColumnName_Id + " = " + int.Parse(entryId) + ";"
+                    , conn);
+
+                var reader = command.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    var logs = (string)reader[HistoryEntry.ColumnName_Logs];
+                    return logs;
+                }
+
+            }
+
+            return null;
         }
     }
 }

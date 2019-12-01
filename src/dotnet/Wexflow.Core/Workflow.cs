@@ -947,14 +947,13 @@ namespace Wexflow.Core
                             bool error = true;
                             RunSequentialTasks(Tasks, ref success, ref warning, ref error);
 
-                            // TODO entry.Logs = Logs
-                            // TODO _historyEntry.Logs = Logs
                             if (IsDisapproved)
                             {
                                 LogWorkflowFinished();
                                 Database.IncrementDisapprovedCount();
                                 entry.Status = Db.Status.Disapproved;
                                 entry.StatusDate = DateTime.Now;
+                                entry.Logs = string.Join("\r\n", Logs);
                                 Database.UpdateEntry(entry.GetDbId(), entry);
                                 _historyEntry.Status = Db.Status.Disapproved;
                             }
@@ -966,6 +965,7 @@ namespace Wexflow.Core
                                     Database.IncrementDoneCount();
                                     entry.Status = Db.Status.Done;
                                     entry.StatusDate = DateTime.Now;
+                                    entry.Logs = string.Join("\r\n", Logs);
                                     Database.UpdateEntry(entry.GetDbId(), entry);
                                     _historyEntry.Status = Db.Status.Done;
 
@@ -976,6 +976,7 @@ namespace Wexflow.Core
                                     Database.IncrementWarningCount();
                                     entry.Status = Db.Status.Warning;
                                     entry.StatusDate = DateTime.Now;
+                                    entry.Logs = string.Join("\r\n", Logs);
                                     Database.UpdateEntry(entry.GetDbId(), entry);
                                     _historyEntry.Status = Db.Status.Warning;
                                 }
@@ -985,6 +986,7 @@ namespace Wexflow.Core
                                     Database.IncrementFailedCount();
                                     entry.Status = Db.Status.Failed;
                                     entry.StatusDate = DateTime.Now;
+                                    entry.Logs = string.Join("\r\n", Logs);
                                     Database.UpdateEntry(entry.GetDbId(), entry);
                                     _historyEntry.Status = Db.Status.Failed;
                                 }
@@ -1006,6 +1008,7 @@ namespace Wexflow.Core
                                     Database.IncrementDoneCount();
                                     entry.Status = Db.Status.Done;
                                     entry.StatusDate = DateTime.Now;
+                                    entry.Logs = string.Join("\r\n", Logs);
                                     Database.UpdateEntry(entry.GetDbId(), entry);
                                     _historyEntry.Status = Db.Status.Done;
                                     break;
@@ -1019,6 +1022,7 @@ namespace Wexflow.Core
                                     Database.IncrementWarningCount();
                                     entry.Status = Db.Status.Warning;
                                     entry.StatusDate = DateTime.Now;
+                                    entry.Logs = string.Join("\r\n", Logs);
                                     Database.UpdateEntry(entry.GetDbId(), entry);
                                     _historyEntry.Status = Db.Status.Warning;
                                     break;
@@ -1032,6 +1036,7 @@ namespace Wexflow.Core
                                     Database.IncrementFailedCount();
                                     entry.Status = Db.Status.Failed;
                                     entry.StatusDate = DateTime.Now;
+                                    entry.Logs = string.Join("\r\n", Logs);
                                     Database.UpdateEntry(entry.GetDbId(), entry);
                                     _historyEntry.Status = Db.Status.Failed;
                                     break;
@@ -1045,6 +1050,7 @@ namespace Wexflow.Core
                                     Database.IncrementDisapprovedCount();
                                     entry.Status = Db.Status.Disapproved;
                                     entry.StatusDate = DateTime.Now;
+                                    entry.Logs = string.Join("\r\n", Logs);
                                     Database.UpdateEntry(entry.GetDbId(), entry);
                                     _historyEntry.Status = Db.Status.Disapproved;
                                     break;
@@ -1052,6 +1058,7 @@ namespace Wexflow.Core
                         }
 
                         _historyEntry.StatusDate = DateTime.Now;
+                        _historyEntry.Logs = string.Join("\r\n", Logs);
                         Database.InsertHistoryEntry(_historyEntry);
 
                         Database.DecrementRunningCount();
@@ -1076,7 +1083,7 @@ namespace Wexflow.Core
                         IsDisapproved = false;
                         GC.Collect();
 
-                       
+
                         JobId = ++ParallelJobId;
                         Jobs.Remove(InstanceId);
 
