@@ -934,7 +934,7 @@ namespace Wexflow.Core
                         IsDisapproved = false;
                         var msg = string.Format("{0} Workflow started.", LogTag);
                         Logger.Info(msg);
-                        Logs.Add(msg);
+                        Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  INFO  - " + msg);
 
                         // Create the temp folder
                         CreateTempFolder();
@@ -1070,7 +1070,7 @@ namespace Wexflow.Core
                     {
                         var msg = string.Format("An error occured while running the workflow. Error: {0}", this);
                         Logger.Error(msg, e);
-                        Logs.Add(msg + e);
+                        Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  ERROR - " + msg + "\r\n" + e);
                     }
                     finally
                     {
@@ -1111,7 +1111,7 @@ namespace Wexflow.Core
         {
             var msg = string.Format("{0} Workflow finished.", LogTag);
             Logger.Info(msg);
-            Logs.Add(msg);
+            Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  INFO  - " + msg);
         }
 
         private Task[] NodesToTasks(Node[] nodes)
@@ -1557,7 +1557,7 @@ namespace Wexflow.Core
                 {
                     var msg = string.Format("An error occured while stopping the workflow : {0}", this);
                     Logger.Error(msg, e);
-                    Logs.Add(msg + e);
+                    Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  ERROR - " + msg + "\r\n" + e);
                 }
             }
 
@@ -1589,7 +1589,7 @@ namespace Wexflow.Core
                 {
                     var msg = string.Format("An error occured while suspending the workflow : {0}", this);
                     Logger.Error(msg, e);
-                    Logs.Add(msg);
+                    Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  ERROR - " + msg + "\r\n" + e);
                 }
             }
 
@@ -1619,7 +1619,7 @@ namespace Wexflow.Core
                 {
                     var msg = string.Format("An error occured while resuming the workflow : {0}", this);
                     Logger.Error(msg, e);
-                    Logs.Add(msg);
+                    Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  ERROR - " + msg + "\r\n" + e);
                 }
                 finally
                 {

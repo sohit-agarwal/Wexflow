@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -349,7 +350,7 @@ namespace Wexflow.Core
         {
             var message = BuildLogMsg(msg);
             Logger.Info(message);
-            Logs.Add(message);
+            Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  INFO  - " + message);
         }
 
         /// <summary>
@@ -361,7 +362,7 @@ namespace Wexflow.Core
         {
             var message = string.Format(BuildLogMsg(msg), args);
             Logger.Info(message);
-            Logs.Add(message);
+            Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  INFO  - " + message);
         }
 
         /// <summary>
@@ -372,7 +373,7 @@ namespace Wexflow.Core
         {
             var message = BuildLogMsg(msg);
             Logger.Debug(msg);
-            Logs.Add(message);
+            Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  DEBUG - " + message);
         }
 
         /// <summary>
@@ -384,7 +385,7 @@ namespace Wexflow.Core
         {
             var message = string.Format(BuildLogMsg(msg), args);
             Logger.DebugFormat(message);
-            Logs.Add(message);
+            Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  DEBUG - " + message);
         }
 
         /// <summary>
@@ -395,7 +396,7 @@ namespace Wexflow.Core
         {
             var message = BuildLogMsg(msg);
             Logger.Error(message);
-            Logs.Add(message);
+            Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  ERROR - " + message);
         }
 
         /// <summary>
@@ -407,7 +408,7 @@ namespace Wexflow.Core
         {
             var message = string.Format(BuildLogMsg(msg), args);
             Logger.Error(message);
-            Logs.Add(message);
+            Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  ERROR - " + message);
         }
 
         /// <summary>
@@ -419,7 +420,7 @@ namespace Wexflow.Core
         {
             var message = BuildLogMsg(msg);
             Logger.Error(message, e);
-            Logs.Add(message + e);
+            Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  ERROR - " + message + "\r\n" + e);
         }
 
         /// <summary>
@@ -432,7 +433,7 @@ namespace Wexflow.Core
         {
             var message = string.Format(BuildLogMsg(msg), args);
             Logger.Error(message, e);
-            Logs.Add(message + e);
+            Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  ERROR - " + message + "\r\n" + e);
         }
     }
 }

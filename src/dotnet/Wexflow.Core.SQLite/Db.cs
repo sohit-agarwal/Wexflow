@@ -8,7 +8,7 @@ namespace Wexflow.Core.SQLite
 {
     public class Db : Core.Db.Db
     {
-        private static readonly string DateTimeFormat = "yyyy-MM-dd HH:mm:ss.FFF";
+        private static readonly string DateTimeFormat = "yyyy-MM-dd HH:mm:ss.fff";
 
         private string _connectionString;
         private string _dataSource;

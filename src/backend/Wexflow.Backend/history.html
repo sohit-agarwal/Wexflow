@@ -7,6 +7,7 @@
 
     <!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="css/jquery-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/jBox.all.min.css" />
     <link rel="stylesheet" type="text/css" href="css/history.css" />-->
 
     <link rel="stylesheet" type="text/css" href="css/history.min.css" />
@@ -17,6 +18,7 @@
     <script type="text/javascript" src="js/authenticate.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/jBox.all.min.js"></script>
     <script type="text/javascript" src="js/history.js"></script>-->
 
     <script type="text/javascript" src="js/history.min.js"></script>
@@ -61,10 +63,11 @@
 
         <input id="txt-from" type="text" class="action-right">
         <label class="action-right">from</label>
+        <div style="display: none" id="grabMe"></div>
     </div>
     <div id="entries"></div>
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
             new History();
         });
     </script>

@@ -72,6 +72,7 @@
     <Content Include="css\history.css" />
     <Content Include="css\bootstrap.min.css.map" />
     <Content Include="css\history.min.css" />
+    <Content Include="css\jBox.all.min.css" />
     <Content Include="css\jquery.toast.min.css" />
     <Content Include="css\login.min.css" />
     <Content Include="css\approval.css" />
@@ -158,6 +159,7 @@
     <Content Include="js\uglify-approval.bat" />
     <Content Include="css\uglify-profiles.bat" />
     <Content Include="js\uglify-profiles.bat" />
+    <Content Include="js\jBox.all.min.js" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
