@@ -137,7 +137,7 @@ body {
 }
 
 #entries #entries-table tr:hover {
-    cursor: default;
+    cursor: pointer;
 }
 
 #entries #entries-table th:hover {
