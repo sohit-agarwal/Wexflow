@@ -934,7 +934,7 @@ namespace Wexflow.Core
                         IsDisapproved = false;
                         var msg = string.Format("{0} Workflow started.", LogTag);
                         Logger.Info(msg);
-                        Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  INFO  - " + msg);
+                        Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  INFO - " + msg);
 
                         // Create the temp folder
                         CreateTempFolder();
@@ -1111,7 +1111,7 @@ namespace Wexflow.Core
         {
             var msg = string.Format("{0} Workflow finished.", LogTag);
             Logger.Info(msg);
-            Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  INFO  - " + msg);
+            Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + " INFO  - " + msg);
         }
 
         private Task[] NodesToTasks(Node[] nodes)

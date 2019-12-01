@@ -350,7 +350,7 @@ namespace Wexflow.Core
         {
             var message = BuildLogMsg(msg);
             Logger.Info(message);
-            Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  INFO  - " + message);
+            Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  INFO - " + message);
         }
 
         /// <summary>
@@ -362,7 +362,7 @@ namespace Wexflow.Core
         {
             var message = string.Format(BuildLogMsg(msg), args);
             Logger.Info(message);
-            Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  INFO  - " + message);
+            Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  INFO - " + message);
         }
 
         /// <summary>
