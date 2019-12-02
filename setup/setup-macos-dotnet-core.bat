@@ -63,6 +63,8 @@ copy "..\src\backend\Wexflow.Backend\js\manager.min.js" %dstDir%\%backend%\js
 copy "..\src\backend\Wexflow.Backend\js\ace.js" %dstDir%\%backend%\js
 copy "..\src\backend\Wexflow.Backend\js\worker-xml.js" %dstDir%\%backend%\js
 copy "..\src\backend\Wexflow.Backend\js\mode-xml.js" %dstDir%\%backend%\js
+copy "..\src\backend\Wexflow.Backend\js\worker-json.js" %dstDir%\%backend%\js
+copy "..\src\backend\Wexflow.Backend\js\mode-json.js" %dstDir%\%backend%\js
 copy "..\src\backend\Wexflow.Backend\js\ext-searchbox.js" %dstDir%\%backend%\js
 copy "..\src\backend\Wexflow.Backend\js\ext-prompt.js" %dstDir%\%backend%\js
 copy "..\src\backend\Wexflow.Backend\js\ext-keybinding_menu.js" %dstDir%\%backend%\js

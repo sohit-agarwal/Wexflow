@@ -100,6 +100,7 @@
     <Content Include="js\history.min.js" />
     <Content Include="js\jquery.toast.min.js" />
     <Content Include="js\manager.min.js" />
+    <Content Include="js\mode-json.js" />
     <Content Include="js\mode-xml.js" />
     <Content Include="js\profiles.js" />
     <Content Include="js\profiles.min.js" />
@@ -214,6 +215,7 @@
     <Content Include="js\settings.js" />
     <Content Include="js\users.js" />
     <Content Include="js\users.min.js" />
+    <Content Include="js\worker-json.js" />
     <Content Include="js\worker-xml.js" />
     <Content Include="manager.html" />
     <Content Include="profiles.html" />
