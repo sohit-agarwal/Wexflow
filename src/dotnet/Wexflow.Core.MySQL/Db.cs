@@ -296,7 +296,7 @@ namespace Wexflow.Core.MySQL
                     + User.ColumnName_CreatedOn + ", "
                     + User.ColumnName_ModifiedOn
                     + " FROM " + Core.Db.User.DocumentName
-                    + " WHERE " + "(LOWER(" + User.ColumnName_Username + ")" + " LIKE '%" + keyword.ToLower() + "%'"
+                    + " WHERE " + "(LOWER(" + User.ColumnName_Username + ")" + " LIKE '%" + keyword.Replace("'", "''").Replace("\\", "\\\\").ToLower() + "%'"
                     + " AND " + User.ColumnName_UserProfile + " = " + (int)UserProfile.Administrator + ")"
                     + " ORDER BY " + User.ColumnName_Username + (uo == UserOrderBy.UsernameAscending ? " ASC" : " DESC")
                     + ";", conn);
@@ -380,8 +380,8 @@ namespace Wexflow.Core.MySQL
                     + Entry.ColumnName_StatusDate + ", "
                     + Entry.ColumnName_WorkflowId
                     + " FROM " + Core.Db.Entry.DocumentName
-                    + " WHERE " + "(LOWER(" + Entry.ColumnName_Name + ") LIKE '%" + keyword.ToLower() + "%'"
-                    + " OR " + "LOWER(" + Entry.ColumnName_Description + ") LIKE '%" + keyword.ToLower() + "%')"
+                    + " WHERE " + "(LOWER(" + Entry.ColumnName_Name + ") LIKE '%" + keyword.Replace("'", "''").Replace("\\", "\\\\").ToLower() + "%'"
+                    + " OR " + "LOWER(" + Entry.ColumnName_Description + ") LIKE '%" + keyword.Replace("'", "''").Replace("\\", "\\\\").ToLower() + "%')"
                     + " AND (" + Entry.ColumnName_StatusDate + " BETWEEN '" + from.ToString(DateTimeFormat) + "' AND '" + to.ToString(DateTimeFormat) + "')"
                     + " ORDER BY ");
 
@@ -482,8 +482,8 @@ namespace Wexflow.Core.MySQL
 
                 var command = new MySqlCommand("SELECT COUNT(*)"
                     + " FROM " + Core.Db.Entry.DocumentName
-                    + " WHERE " + "(LOWER(" + Entry.ColumnName_Name + ") LIKE '%" + keyword.ToLower() + "%'"
-                    + " OR " + "LOWER(" + Entry.ColumnName_Description + ") LIKE '%" + keyword.ToLower() + "%')"
+                    + " WHERE " + "(LOWER(" + Entry.ColumnName_Name + ") LIKE '%" + keyword.Replace("'", "''").Replace("\\", "\\\\").ToLower() + "%'"
+                    + " OR " + "LOWER(" + Entry.ColumnName_Description + ") LIKE '%" + keyword.Replace("'", "''").Replace("\\", "\\\\").ToLower() + "%')"
                     + " AND (" + Entry.ColumnName_StatusDate + " BETWEEN '" + from.ToString(DateTimeFormat) + "' AND '" + to.ToString(DateTimeFormat) + "');", conn);
 
                 var count = (long)command.ExecuteScalar();
@@ -635,8 +635,8 @@ namespace Wexflow.Core.MySQL
                     + HistoryEntry.ColumnName_StatusDate + ", "
                     + HistoryEntry.ColumnName_WorkflowId
                     + " FROM " + Core.Db.HistoryEntry.DocumentName
-                    + " WHERE " + "LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.ToLower() + "%'"
-                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.ToLower() + "%';", conn);
+                    + " WHERE " + "LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.Replace("'", "''").Replace("\\", "\\\\").ToLower() + "%'"
+                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.Replace("'", "''").Replace("\\", "\\\\").ToLower() + "%';", conn);
 
                 var reader = command.ExecuteReader();
 
@@ -677,8 +677,8 @@ namespace Wexflow.Core.MySQL
                     + HistoryEntry.ColumnName_StatusDate + ", "
                     + HistoryEntry.ColumnName_WorkflowId
                     + " FROM " + Core.Db.HistoryEntry.DocumentName
-                    + " WHERE " + "LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.ToLower() + "%'"
-                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.ToLower() + "%'"
+                    + " WHERE " + "LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.Replace("'", "''").Replace("\\", "\\\\").ToLower() + "%'"
+                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.Replace("'", "''").Replace("\\", "\\\\").ToLower() + "%'"
                     + " LIMIT " + entriesCount + " OFFSET " + (page - 1) * entriesCount + ";"
                     , conn);
 
@@ -721,8 +721,8 @@ namespace Wexflow.Core.MySQL
                     + HistoryEntry.ColumnName_StatusDate + ", "
                     + HistoryEntry.ColumnName_WorkflowId
                     + " FROM " + Core.Db.HistoryEntry.DocumentName
-                    + " WHERE " + "(LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.ToLower() + "%'"
-                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.ToLower() + "%')"
+                    + " WHERE " + "(LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.Replace("'", "''").Replace("\\", "\\\\").ToLower() + "%'"
+                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.Replace("'", "''").Replace("\\", "\\\\").ToLower() + "%')"
                     + " AND (" + HistoryEntry.ColumnName_StatusDate + " BETWEEN '" + from.ToString(DateTimeFormat) + "' AND '" + to.ToString(DateTimeFormat) + "')"
                     + " ORDER BY ");
 
@@ -823,8 +823,8 @@ namespace Wexflow.Core.MySQL
 
                 var command = new MySqlCommand("SELECT COUNT(*)"
                     + " FROM " + Core.Db.HistoryEntry.DocumentName
-                    + " WHERE " + "LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.ToLower() + "%'"
-                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.ToLower() + "%';", conn);
+                    + " WHERE " + "LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.Replace("'", "''").Replace("\\", "\\\\").ToLower() + "%'"
+                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.Replace("'", "''").Replace("\\", "\\\\").ToLower() + "%';", conn);
 
                 var count = (long)command.ExecuteScalar();
 
@@ -840,8 +840,8 @@ namespace Wexflow.Core.MySQL
 
                 var command = new MySqlCommand("SELECT COUNT(*)"
                     + " FROM " + Core.Db.HistoryEntry.DocumentName
-                    + " WHERE " + "(LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.ToLower() + "%'"
-                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.ToLower() + "%')"
+                    + " WHERE " + "(LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.Replace("'", "''").Replace("\\", "\\\\").ToLower() + "%'"
+                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.Replace("'", "''").Replace("\\", "\\\\").ToLower() + "%')"
                     + " AND (" + HistoryEntry.ColumnName_StatusDate + " BETWEEN '" + from.ToString(DateTimeFormat) + "' AND '" + to.ToString(DateTimeFormat) + "');", conn);
 
                 var count = (long)command.ExecuteScalar();
@@ -976,7 +976,7 @@ namespace Wexflow.Core.MySQL
                     + User.ColumnName_CreatedOn + ", "
                     + User.ColumnName_ModifiedOn
                     + " FROM " + Core.Db.User.DocumentName
-                    + " WHERE " + User.ColumnName_Username + " = '" + username + "'"
+                    + " WHERE " + User.ColumnName_Username + " = '" + username.Replace("'", "''").Replace("\\", "\\\\") + "'"
                     + ";", conn);
 
                 var reader = command.ExecuteReader();
@@ -1096,7 +1096,7 @@ namespace Wexflow.Core.MySQL
                     + User.ColumnName_CreatedOn + ", "
                     + User.ColumnName_ModifiedOn
                     + " FROM " + Core.Db.User.DocumentName
-                    + " WHERE " + "LOWER(" + User.ColumnName_Username + ")" + " LIKE '%" + keyword.ToLower() + "%'"
+                    + " WHERE " + "LOWER(" + User.ColumnName_Username + ")" + " LIKE '%" + keyword.Replace("'", "''").Replace("\\", "\\\\").ToLower() + "%'"
                     + " ORDER BY " + User.ColumnName_Username + (uo == UserOrderBy.UsernameAscending ? " ASC" : " DESC")
                     + ";", conn);
 
@@ -1365,8 +1365,8 @@ namespace Wexflow.Core.MySQL
                     + Entry.ColumnName_Status + ", "
                     + Entry.ColumnName_WorkflowId + ", "
                     + Entry.ColumnName_Logs + ") VALUES("
-                    + "'" + entry.Name + "'" + ", "
-                    + "'" + entry.Description + "'" + ", "
+                    + "'" + entry.Name.Replace("'", "''").Replace("\\", "\\\\") + "'" + ", "
+                    + "'" + entry.Description.Replace("'", "''").Replace("\\", "\\\\") + "'" + ", "
                     + (int)entry.LaunchType + ", "
                     + "'" + entry.StatusDate.ToString(DateTimeFormat) + "'" + ", "
                     + (int)entry.Status + ", "
@@ -1392,8 +1392,8 @@ namespace Wexflow.Core.MySQL
                     + HistoryEntry.ColumnName_Status + ", "
                     + HistoryEntry.ColumnName_WorkflowId + ", "
                     + HistoryEntry.ColumnName_Logs + ") VALUES("
-                    + "'" + entry.Name + "'" + ", "
-                    + "'" + entry.Description + "'" + ", "
+                    + "'" + entry.Name.Replace("'", "''").Replace("\\", "\\\\") + "'" + ", "
+                    + "'" + entry.Description.Replace("'", "''").Replace("\\", "\\\\") + "'" + ", "
                     + (int)entry.LaunchType + ", "
                     + "'" + entry.StatusDate.ToString(DateTimeFormat) + "'" + ", "
                     + (int)entry.Status + ", "
@@ -1418,10 +1418,10 @@ namespace Wexflow.Core.MySQL
                     + User.ColumnName_Email + ", "
                     + User.ColumnName_CreatedOn + ", "
                     + User.ColumnName_ModifiedOn + ") VALUES("
-                    + "'" + user.Username + "'" + ", "
-                    + "'" + user.Password + "'" + ", "
+                    + "'" + user.Username.Replace("'", "''").Replace("\\", "\\\\") + "'" + ", "
+                    + "'" + user.Password.Replace("'", "''").Replace("\\", "\\\\") + "'" + ", "
                     + (int)user.UserProfile + ", "
-                    + "'" + user.Email + "'" + ", "
+                    + "'" + user.Email.Replace("'", "''").Replace("\\", "\\\\") + "'" + ", "
                     + "'" + DateTime.Now.ToString(DateTimeFormat) + "'" + ", "
                     + (user.ModifiedOn == DateTime.MinValue ? "NULL" : "'" + user.ModifiedOn.ToString(DateTimeFormat) + "'") + ");"
                     , conn);
@@ -1471,8 +1471,8 @@ namespace Wexflow.Core.MySQL
                 conn.Open();
 
                 var command = new MySqlCommand("UPDATE " + Core.Db.Entry.DocumentName + " SET "
-                    + Entry.ColumnName_Name + " = '" + entry.Name + "', "
-                    + Entry.ColumnName_Description + " = '" + entry.Description + "', "
+                    + Entry.ColumnName_Name + " = '" + entry.Name.Replace("'", "''").Replace("\\", "\\\\") + "', "
+                    + Entry.ColumnName_Description + " = '" + entry.Description.Replace("'", "''").Replace("\\", "\\\\") + "', "
                     + Entry.ColumnName_LaunchType + " = " + (int)entry.LaunchType + ", "
                     + Entry.ColumnName_StatusDate + " = '" + entry.StatusDate.ToString(DateTimeFormat) + "', "
                     + Entry.ColumnName_Status + " = " + (int)entry.Status + ", "
@@ -1493,9 +1493,9 @@ namespace Wexflow.Core.MySQL
                 conn.Open();
 
                 var command = new MySqlCommand("UPDATE " + Core.Db.User.DocumentName + " SET "
-                    + User.ColumnName_Password + " = '" + password + "'"
+                    + User.ColumnName_Password + " = '" + password.Replace("'", "''").Replace("\\", "\\\\") + "'"
                     + " WHERE "
-                    + User.ColumnName_Username + " = '" + username + "';"
+                    + User.ColumnName_Username + " = '" + username.Replace("'", "''").Replace("\\", "\\\\") + "';"
                     , conn);
 
                 command.ExecuteNonQuery();
@@ -1509,10 +1509,10 @@ namespace Wexflow.Core.MySQL
                 conn.Open();
 
                 var command = new MySqlCommand("UPDATE " + Core.Db.User.DocumentName + " SET "
-                    + User.ColumnName_Username + " = '" + user.Username + "', "
-                    + User.ColumnName_Password + " = '" + user.Password + "', "
+                    + User.ColumnName_Username + " = '" + user.Username.Replace("'", "''").Replace("\\", "\\\\") + "', "
+                    + User.ColumnName_Password + " = '" + user.Password.Replace("'", "''").Replace("\\", "\\\\") + "', "
                     + User.ColumnName_UserProfile + " = " + (int)user.UserProfile + ", "
-                    + User.ColumnName_Email + " = '" + user.Email + "', "
+                    + User.ColumnName_Email + " = '" + user.Email.Replace("'", "''").Replace("\\", "\\\\") + "', "
                     + User.ColumnName_CreatedOn + " = '" + user.CreatedOn.ToString(DateTimeFormat) + "', "
                     + User.ColumnName_ModifiedOn + " = '" + DateTime.Now.ToString(DateTimeFormat) + "'"
                     + " WHERE "
@@ -1530,9 +1530,9 @@ namespace Wexflow.Core.MySQL
                 conn.Open();
 
                 var command = new MySqlCommand("UPDATE " + Core.Db.User.DocumentName + " SET "
-                    + User.ColumnName_Username + " = '" + username + "', "
+                    + User.ColumnName_Username + " = '" + username.Replace("'", "''").Replace("\\", "\\\\") + "', "
                     + User.ColumnName_UserProfile + " = " + (int)up + ", "
-                    + User.ColumnName_Email + " = '" + email + "', "
+                    + User.ColumnName_Email + " = '" + email.Replace("'", "''").Replace("\\", "\\\\") + "', "
                     + User.ColumnName_ModifiedOn + " = '" + DateTime.Now.ToString(DateTimeFormat) + "'"
                     + " WHERE "
                     + User.ColumnName_Id + " = " + int.Parse(userId) + ";"
