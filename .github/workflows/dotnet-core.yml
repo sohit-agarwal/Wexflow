@@ -12,7 +12,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.0.100
+        dotnet-version: 3.1.100
     - name: Build Wexflow.Server.csproj
       run: dotnet build src/dotnet-core/Wexflow.Server/Wexflow.Server.csproj --configuration Release
     - name: Build Wexflow.Clients.CommandLine.csproj
