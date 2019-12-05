@@ -2,7 +2,7 @@
 
 # What's New?
 
-Take a look at the [version 5.1](https://github.com/aelassas/Wexflow/releases/tag/v5.1). This version includes Twilio integration for sending SMS messages, bug fixes, performance enhancements and under the hood updates.
+Take a look at the [version 5.2](https://github.com/aelassas/Wexflow/releases/tag/v5.2). This version includes an upgrade to .NET Core 3.1 LTS, support for PostgreSQL, SQL Server, MySQL and SQLite, JSON editor, display of server logs in the backend, parallel jobs of the same workflow definition, bug fixes, performance enhancements and under the hood updates.
 
 This version has been depthly tested on Windows, Linux, macOS and the cloud, and runs 100% on Windows, Linux, macOS and the cloud.
 
