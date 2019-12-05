@@ -294,7 +294,7 @@ namespace Wexflow.Core.PostgreSQL
                     + User.ColumnName_CreatedOn + ", "
                     + User.ColumnName_ModifiedOn
                     + " FROM " + Core.Db.User.DocumentName
-                    + " WHERE " + "(LOWER(" + User.ColumnName_Username + ")" + " LIKE '%" + keyword.Replace("'", "''").ToLower() + "%'"
+                    + " WHERE " + "(LOWER(" + User.ColumnName_Username + ")" + " LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%'"
                     + " AND " + User.ColumnName_UserProfile + " = " + (int)UserProfile.Administrator + ")"
                     + " ORDER BY " + User.ColumnName_Username + (uo == UserOrderBy.UsernameAscending ? " ASC" : " DESC")
                     + ";", conn);
@@ -378,8 +378,8 @@ namespace Wexflow.Core.PostgreSQL
                     + Entry.ColumnName_StatusDate + ", "
                     + Entry.ColumnName_WorkflowId
                     + " FROM " + Core.Db.Entry.DocumentName
-                    + " WHERE " + "(LOWER(" + Entry.ColumnName_Name + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%'"
-                    + " OR " + "LOWER(" + Entry.ColumnName_Description + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%')"
+                    + " WHERE " + "(LOWER(" + Entry.ColumnName_Name + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%'"
+                    + " OR " + "LOWER(" + Entry.ColumnName_Description + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%')"
                     + " AND (" + Entry.ColumnName_StatusDate + " BETWEEN '" + from + "'::timestamp AND '" + to + "'::timestamp)"
                     + " ORDER BY ");
 
@@ -480,8 +480,8 @@ namespace Wexflow.Core.PostgreSQL
 
                 var command = new NpgsqlCommand("SELECT COUNT(*)"
                     + " FROM " + Core.Db.Entry.DocumentName
-                    + " WHERE " + "(LOWER(" + Entry.ColumnName_Name + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%'"
-                    + " OR " + "LOWER(" + Entry.ColumnName_Description + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%')"
+                    + " WHERE " + "(LOWER(" + Entry.ColumnName_Name + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%'"
+                    + " OR " + "LOWER(" + Entry.ColumnName_Description + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%')"
                     + " AND (" + Entry.ColumnName_StatusDate + " BETWEEN '" + from + "'::timestamp AND '" + to + "'::timestamp);", conn);
 
                 var count = (long)command.ExecuteScalar();
@@ -633,8 +633,8 @@ namespace Wexflow.Core.PostgreSQL
                     + HistoryEntry.ColumnName_StatusDate + ", "
                     + HistoryEntry.ColumnName_WorkflowId
                     + " FROM " + Core.Db.HistoryEntry.DocumentName
-                    + " WHERE " + "LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%'"
-                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%';", conn);
+                    + " WHERE " + "LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%'"
+                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%';", conn);
 
                 var reader = command.ExecuteReader();
 
@@ -675,8 +675,8 @@ namespace Wexflow.Core.PostgreSQL
                     + HistoryEntry.ColumnName_StatusDate + ", "
                     + HistoryEntry.ColumnName_WorkflowId
                     + " FROM " + Core.Db.HistoryEntry.DocumentName
-                    + " WHERE " + "LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%'"
-                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%'"
+                    + " WHERE " + "LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%'"
+                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%'"
                     + " LIMIT " + entriesCount + " OFFSET " + (page - 1) * entriesCount + ";"
                     , conn);
 
@@ -719,8 +719,8 @@ namespace Wexflow.Core.PostgreSQL
                     + HistoryEntry.ColumnName_StatusDate + ", "
                     + HistoryEntry.ColumnName_WorkflowId
                     + " FROM " + Core.Db.HistoryEntry.DocumentName
-                    + " WHERE " + "(LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%'"
-                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%')"
+                    + " WHERE " + "(LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%'"
+                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%')"
                     + " AND (" + HistoryEntry.ColumnName_StatusDate + " BETWEEN '" + from + "'::timestamp AND '" + to + "'::timestamp)"
                     + " ORDER BY ");
 
@@ -821,8 +821,8 @@ namespace Wexflow.Core.PostgreSQL
 
                 var command = new NpgsqlCommand("SELECT COUNT(*)"
                     + " FROM " + Core.Db.HistoryEntry.DocumentName
-                    + " WHERE " + "LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%'"
-                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%';", conn);
+                    + " WHERE " + "LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%'"
+                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%';", conn);
 
                 var count = (long)command.ExecuteScalar();
 
@@ -838,8 +838,8 @@ namespace Wexflow.Core.PostgreSQL
 
                 var command = new NpgsqlCommand("SELECT COUNT(*)"
                     + " FROM " + Core.Db.HistoryEntry.DocumentName
-                    + " WHERE " + "(LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%'"
-                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%')"
+                    + " WHERE " + "(LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%'"
+                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%')"
                     + " AND (" + HistoryEntry.ColumnName_StatusDate + " BETWEEN '" + from + "'::timestamp AND '" + to + "'::timestamp);", conn);
 
                 var count = (long)command.ExecuteScalar();
@@ -902,7 +902,7 @@ namespace Wexflow.Core.PostgreSQL
 
                 var command = new NpgsqlCommand("SELECT " + User.ColumnName_Password
                     + " FROM " + Core.Db.User.DocumentName
-                    + " WHERE " + User.ColumnName_Username + " = '" + username.Replace("'", "''") + "'"
+                    + " WHERE " + User.ColumnName_Username + " = '" + (username ?? "").Replace("'", "''") + "'"
                     + ";", conn);
 
                 var reader = command.ExecuteReader();
@@ -974,7 +974,7 @@ namespace Wexflow.Core.PostgreSQL
                     + User.ColumnName_CreatedOn + ", "
                     + User.ColumnName_ModifiedOn
                     + " FROM " + Core.Db.User.DocumentName
-                    + " WHERE " + User.ColumnName_Username + " = '" + username.Replace("'", "''") + "'"
+                    + " WHERE " + User.ColumnName_Username + " = '" + (username ?? "").Replace("'", "''") + "'"
                     + ";", conn);
 
                 var reader = command.ExecuteReader();
@@ -1094,7 +1094,7 @@ namespace Wexflow.Core.PostgreSQL
                     + User.ColumnName_CreatedOn + ", "
                     + User.ColumnName_ModifiedOn
                     + " FROM " + Core.Db.User.DocumentName
-                    + " WHERE " + "LOWER(" + User.ColumnName_Username + ")" + " LIKE '%" + keyword.Replace("'", "''").ToLower() + "%'"
+                    + " WHERE " + "LOWER(" + User.ColumnName_Username + ")" + " LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%'"
                     + " ORDER BY " + User.ColumnName_Username + (uo == UserOrderBy.UsernameAscending ? " ASC" : " DESC")
                     + ";", conn);
 
@@ -1363,8 +1363,8 @@ namespace Wexflow.Core.PostgreSQL
                     + Entry.ColumnName_Status + ", "
                     + Entry.ColumnName_WorkflowId + ", "
                     + Entry.ColumnName_Logs + ") VALUES("
-                    + "'" + entry.Name.Replace("'", "''") + "'" + ", "
-                    + "'" + entry.Description.Replace("'", "''") + "'" + ", "
+                    + "'" + (entry.Name ?? "").Replace("'", "''") + "'" + ", "
+                    + "'" + (entry.Description ?? "").Replace("'", "''") + "'" + ", "
                     + (int)entry.LaunchType + ", "
                     + "'" + entry.StatusDate + "'" + ", "
                     + (int)entry.Status + ", "
@@ -1390,8 +1390,8 @@ namespace Wexflow.Core.PostgreSQL
                     + HistoryEntry.ColumnName_Status + ", "
                     + HistoryEntry.ColumnName_WorkflowId + ", "
                     + HistoryEntry.ColumnName_Logs + ") VALUES("
-                    + "'" + entry.Name.Replace("'", "''") + "'" + ", "
-                    + "'" + entry.Description.Replace("'", "''") + "'" + ", "
+                    + "'" + (entry.Name ?? "").Replace("'", "''") + "'" + ", "
+                    + "'" + (entry.Description ?? "").Replace("'", "''") + "'" + ", "
                     + (int)entry.LaunchType + ", "
                     + "'" + entry.StatusDate + "'" + ", "
                     + (int)entry.Status + ", "
@@ -1416,10 +1416,10 @@ namespace Wexflow.Core.PostgreSQL
                     + User.ColumnName_Email + ", "
                     + User.ColumnName_CreatedOn + ", "
                     + User.ColumnName_ModifiedOn + ") VALUES("
-                    + "'" + user.Username.Replace("'", "''") + "'" + ", "
-                    + "'" + user.Password.Replace("'", "''") + "'" + ", "
+                    + "'" + (user.Username ?? "").Replace("'", "''") + "'" + ", "
+                    + "'" + (user.Password ?? "").Replace("'", "''") + "'" + ", "
                     + (int)user.UserProfile + ", "
-                    + "'" + user.Email.Replace("'", "''") + "'" + ", "
+                    + "'" + (user.Email ?? "").Replace("'", "''") + "'" + ", "
                     + "'" + DateTime.Now + "'" + ", "
                     + "'" + user.ModifiedOn + "'" + ");"
                     , conn);
@@ -1453,7 +1453,7 @@ namespace Wexflow.Core.PostgreSQL
 
                 var command = new NpgsqlCommand("INSERT INTO " + Core.Db.Workflow.DocumentName + "("
                     + Workflow.ColumnName_Xml + ") VALUES("
-                    + "'" + workflow.Xml.Replace("'", "''") + "'" + ") RETURNING " + Workflow.ColumnName_Id + ";"
+                    + "'" + (workflow.Xml ?? "").Replace("'", "''") + "'" + ") RETURNING " + Workflow.ColumnName_Id + ";"
                     , conn);
 
                 var id = (int)command.ExecuteScalar();
@@ -1469,8 +1469,8 @@ namespace Wexflow.Core.PostgreSQL
                 conn.Open();
 
                 var command = new NpgsqlCommand("UPDATE " + Core.Db.Entry.DocumentName + " SET "
-                    + Entry.ColumnName_Name + " = '" + entry.Name.Replace("'", "''") + "', "
-                    + Entry.ColumnName_Description + " = '" + entry.Description.Replace("'", "''") + "', "
+                    + Entry.ColumnName_Name + " = '" + (entry.Name ?? "").Replace("'", "''") + "', "
+                    + Entry.ColumnName_Description + " = '" + (entry.Description ?? "").Replace("'", "''") + "', "
                     + Entry.ColumnName_LaunchType + " = " + (int)entry.LaunchType + ", "
                     + Entry.ColumnName_StatusDate + " = '" + entry.StatusDate + "', "
                     + Entry.ColumnName_Status + " = " + (int)entry.Status + ", "
@@ -1491,9 +1491,9 @@ namespace Wexflow.Core.PostgreSQL
                 conn.Open();
 
                 var command = new NpgsqlCommand("UPDATE " + Core.Db.User.DocumentName + " SET "
-                    + User.ColumnName_Password + " = '" + password.Replace("'", "''") + "'"
+                    + User.ColumnName_Password + " = '" + (password ?? "").Replace("'", "''") + "'"
                     + " WHERE "
-                    + User.ColumnName_Username + " = '" + username.Replace("'", "''") + "';"
+                    + User.ColumnName_Username + " = '" + (username ?? "").Replace("'", "''") + "';"
                     , conn);
 
                 command.ExecuteNonQuery();
@@ -1507,8 +1507,8 @@ namespace Wexflow.Core.PostgreSQL
                 conn.Open();
 
                 var command = new NpgsqlCommand("UPDATE " + Core.Db.User.DocumentName + " SET "
-                    + User.ColumnName_Username + " = '" + user.Username.Replace("'", "''") + "', "
-                    + User.ColumnName_Password + " = '" + user.Password.Replace("'", "''") + "', "
+                    + User.ColumnName_Username + " = '" + (user.Username ?? "").Replace("'", "''") + "', "
+                    + User.ColumnName_Password + " = '" + (user.Password ?? "").Replace("'", "''") + "', "
                     + User.ColumnName_UserProfile + " = " + (int)user.UserProfile + ", "
                     + User.ColumnName_Email + " = '" + user.Email + "', "
                     + User.ColumnName_CreatedOn + " = '" + user.CreatedOn + "', "
@@ -1528,9 +1528,9 @@ namespace Wexflow.Core.PostgreSQL
                 conn.Open();
 
                 var command = new NpgsqlCommand("UPDATE " + Core.Db.User.DocumentName + " SET "
-                    + User.ColumnName_Username + " = '" + username.Replace("'", "''") + "', "
+                    + User.ColumnName_Username + " = '" + (username ?? "").Replace("'", "''") + "', "
                     + User.ColumnName_UserProfile + " = " + (int)up + ", "
-                    + User.ColumnName_Email + " = '" + email.Replace("'", "''") + "', "
+                    + User.ColumnName_Email + " = '" + (email ?? "").Replace("'", "''") + "', "
                     + User.ColumnName_ModifiedOn + " = '" + DateTime.Now + "'"
                     + " WHERE "
                     + User.ColumnName_Id + " = " + int.Parse(userId) + ";"
@@ -1547,7 +1547,7 @@ namespace Wexflow.Core.PostgreSQL
                 conn.Open();
 
                 var command = new NpgsqlCommand("UPDATE " + Core.Db.Workflow.DocumentName + " SET "
-                    + Workflow.ColumnName_Xml + " = '" + workflow.Xml.Replace("'", "''") + "'"
+                    + Workflow.ColumnName_Xml + " = '" + (workflow.Xml ?? "").Replace("'", "''") + "'"
                     + " WHERE "
                     + User.ColumnName_Id + " = " + int.Parse(dbId) + ";"
                     , conn);

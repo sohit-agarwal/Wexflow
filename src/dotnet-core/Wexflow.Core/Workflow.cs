@@ -202,6 +202,7 @@ namespace Wexflow.Core
         /// </summary>
         public List<string> Logs { get; private set; }
 
+        private bool _stopCalled;
         private Queue<Job> _jobsQueue;
         private Thread _thread;
         private HistoryEntry _historyEntry;
@@ -930,6 +931,7 @@ namespace Wexflow.Core
                 {
                     try
                     {
+                        _stopCalled = false;
                         IsRunning = true;
                         IsDisapproved = false;
                         var msg = string.Format("{0} Workflow started.", LogTag);
@@ -1065,6 +1067,7 @@ namespace Wexflow.Core
                     }
                     catch (ThreadAbortException)
                     {
+                        _stopCalled = true;
                     }
                     catch (Exception e)
                     {
@@ -1075,7 +1078,11 @@ namespace Wexflow.Core
                     finally
                     {
                         // Cleanup
-                        Logs.Clear();
+                        if (!_stopCalled)
+                        {
+                            Logs.Clear();
+                        }
+
                         foreach (List<FileInf> files in FilesPerTask.Values) files.Clear();
                         foreach (List<Entity> entities in EntitiesPerTask.Values) entities.Clear();
                         _thread = null;
@@ -1531,18 +1538,23 @@ namespace Wexflow.Core
             {
                 try
                 {
+                    _stopCalled = true;
                     _thread.Abort();
+                    var logs = string.Join("\r\n", Logs);
                     IsWaitingForApproval = false;
                     Database.DecrementRunningCount();
                     Database.IncrementStoppedCount();
                     var entry = Database.GetEntry(Id);
                     entry.Status = Db.Status.Stopped;
                     entry.StatusDate = DateTime.Now;
+                    entry.Logs = logs;
                     Database.UpdateEntry(entry.GetDbId(), entry);
                     _historyEntry.Status = Db.Status.Stopped;
                     _historyEntry.StatusDate = DateTime.Now;
+                    _historyEntry.Logs = logs;
                     Database.InsertHistoryEntry(_historyEntry);
                     IsDisapproved = false;
+                    Logs.Clear();
                     Jobs.Remove(InstanceId);
 
                     if (_jobsQueue.Count > 0)
@@ -1558,6 +1570,7 @@ namespace Wexflow.Core
                     var msg = string.Format("An error occured while stopping the workflow : {0}", this);
                     Logger.Error(msg, e);
                     Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  ERROR - " + msg + "\r\n" + e);
+                    _stopCalled = false;
                 }
             }
 

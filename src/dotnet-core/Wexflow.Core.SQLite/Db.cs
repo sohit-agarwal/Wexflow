@@ -299,7 +299,7 @@ namespace Wexflow.Core.SQLite
                     + User.ColumnName_CreatedOn + ", "
                     + User.ColumnName_ModifiedOn
                     + " FROM " + Core.Db.User.DocumentName
-                    + " WHERE " + "(LOWER(" + User.ColumnName_Username + ")" + " LIKE '%" + keyword.Replace("'", "''").ToLower() + "%'"
+                    + " WHERE " + "(LOWER(" + User.ColumnName_Username + ")" + " LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%'"
                     + " AND " + User.ColumnName_UserProfile + " = " + (int)UserProfile.Administrator + ")"
                     + " ORDER BY " + User.ColumnName_Username + (uo == UserOrderBy.UsernameAscending ? " ASC" : " DESC")
                     + ";", conn))
@@ -390,8 +390,8 @@ namespace Wexflow.Core.SQLite
                     + Entry.ColumnName_StatusDate + ", "
                     + Entry.ColumnName_WorkflowId
                     + " FROM " + Core.Db.Entry.DocumentName
-                    + " WHERE " + "(LOWER(" + Entry.ColumnName_Name + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%'"
-                    + " OR " + "LOWER(" + Entry.ColumnName_Description + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%')"
+                    + " WHERE " + "(LOWER(" + Entry.ColumnName_Name + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%'"
+                    + " OR " + "LOWER(" + Entry.ColumnName_Description + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%')"
                     + " AND (" + Entry.ColumnName_StatusDate + " BETWEEN '" + from.ToString(DateTimeFormat) + "' AND '" + to.ToString(DateTimeFormat) + "')"
                     + " ORDER BY ");
 
@@ -497,8 +497,8 @@ namespace Wexflow.Core.SQLite
 
                 using (var command = new SQLiteCommand("SELECT COUNT(*)"
                     + " FROM " + Core.Db.Entry.DocumentName
-                    + " WHERE " + "(LOWER(" + Entry.ColumnName_Name + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%'"
-                    + " OR " + "LOWER(" + Entry.ColumnName_Description + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%')"
+                    + " WHERE " + "(LOWER(" + Entry.ColumnName_Name + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%'"
+                    + " OR " + "LOWER(" + Entry.ColumnName_Description + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%')"
                     + " AND (" + Entry.ColumnName_StatusDate + " BETWEEN '" + from.ToString(DateTimeFormat) + "' AND '" + to.ToString(DateTimeFormat) + "');", conn))
                 {
 
@@ -666,8 +666,8 @@ namespace Wexflow.Core.SQLite
                     + HistoryEntry.ColumnName_StatusDate + ", "
                     + HistoryEntry.ColumnName_WorkflowId
                     + " FROM " + Core.Db.HistoryEntry.DocumentName
-                    + " WHERE " + "LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%'"
-                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%';", conn))
+                    + " WHERE " + "LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%'"
+                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%';", conn))
                 {
 
                     using (var reader = command.ExecuteReader())
@@ -714,8 +714,8 @@ namespace Wexflow.Core.SQLite
                     + HistoryEntry.ColumnName_StatusDate + ", "
                     + HistoryEntry.ColumnName_WorkflowId
                     + " FROM " + Core.Db.HistoryEntry.DocumentName
-                    + " WHERE " + "LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%'"
-                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%'"
+                    + " WHERE " + "LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%'"
+                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%'"
                     + " LIMIT " + entriesCount + " OFFSET " + (page - 1) * entriesCount + ";"
                     , conn))
                 {
@@ -762,8 +762,8 @@ namespace Wexflow.Core.SQLite
                     + HistoryEntry.ColumnName_StatusDate + ", "
                     + HistoryEntry.ColumnName_WorkflowId
                     + " FROM " + Core.Db.HistoryEntry.DocumentName
-                    + " WHERE " + "(LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%'"
-                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%')"
+                    + " WHERE " + "(LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%'"
+                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%')"
                     + " AND (" + HistoryEntry.ColumnName_StatusDate + " BETWEEN '" + from.ToString(DateTimeFormat) + "' AND '" + to.ToString(DateTimeFormat) + "')"
                     + " ORDER BY ");
 
@@ -868,8 +868,8 @@ namespace Wexflow.Core.SQLite
 
                 using (var command = new SQLiteCommand("SELECT COUNT(*)"
                     + " FROM " + Core.Db.HistoryEntry.DocumentName
-                    + " WHERE " + "LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%'"
-                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%';", conn))
+                    + " WHERE " + "LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%'"
+                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%';", conn))
                 {
 
                     var count = (long)command.ExecuteScalar();
@@ -887,8 +887,8 @@ namespace Wexflow.Core.SQLite
 
                 using (var command = new SQLiteCommand("SELECT COUNT(*)"
                     + " FROM " + Core.Db.HistoryEntry.DocumentName
-                    + " WHERE " + "(LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%'"
-                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%')"
+                    + " WHERE " + "(LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%'"
+                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%')"
                     + " AND (" + HistoryEntry.ColumnName_StatusDate + " BETWEEN '" + from.ToString(DateTimeFormat) + "' AND '" + to.ToString(DateTimeFormat) + "');", conn))
                 {
 
@@ -961,7 +961,7 @@ namespace Wexflow.Core.SQLite
 
                 using (var command = new SQLiteCommand("SELECT " + User.ColumnName_Password
                     + " FROM " + Core.Db.User.DocumentName
-                    + " WHERE " + User.ColumnName_Username + " = '" + username.Replace("'", "''") + "'"
+                    + " WHERE " + User.ColumnName_Username + " = '" + (username ?? "").Replace("'", "''") + "'"
                     + ";", conn))
                 {
 
@@ -1040,7 +1040,7 @@ namespace Wexflow.Core.SQLite
                     + User.ColumnName_CreatedOn + ", "
                     + User.ColumnName_ModifiedOn
                     + " FROM " + Core.Db.User.DocumentName
-                    + " WHERE " + User.ColumnName_Username + " = '" + username.Replace("'", "''") + "'"
+                    + " WHERE " + User.ColumnName_Username + " = '" + (username ?? "").Replace("'", "''") + "'"
                     + ";", conn))
                 {
 
@@ -1172,7 +1172,7 @@ namespace Wexflow.Core.SQLite
                     + User.ColumnName_CreatedOn + ", "
                     + User.ColumnName_ModifiedOn
                     + " FROM " + Core.Db.User.DocumentName
-                    + " WHERE " + "LOWER(" + User.ColumnName_Username + ")" + " LIKE '%" + keyword.Replace("'", "''").ToLower() + "%'"
+                    + " WHERE " + "LOWER(" + User.ColumnName_Username + ")" + " LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%'"
                     + " ORDER BY " + User.ColumnName_Username + (uo == UserOrderBy.UsernameAscending ? " ASC" : " DESC")
                     + ";", conn))
                 {
@@ -1487,8 +1487,8 @@ namespace Wexflow.Core.SQLite
                     + Entry.ColumnName_Status + ", "
                     + Entry.ColumnName_WorkflowId + ", "
                     + Entry.ColumnName_Logs + ") VALUES("
-                    + "'" + entry.Name.Replace("'", "''") + "'" + ", "
-                    + "'" + entry.Description.Replace("'", "''") + "'" + ", "
+                    + "'" + (entry.Name ?? "").Replace("'", "''") + "'" + ", "
+                    + "'" + (entry.Description ?? "").Replace("'", "''") + "'" + ", "
                     + (int)entry.LaunchType + ", "
                     + "'" + entry.StatusDate.ToString(DateTimeFormat) + "'" + ", "
                     + (int)entry.Status + ", "
@@ -1516,8 +1516,8 @@ namespace Wexflow.Core.SQLite
                     + HistoryEntry.ColumnName_Status + ", "
                     + HistoryEntry.ColumnName_WorkflowId + ", "
                     + HistoryEntry.ColumnName_Logs + ") VALUES("
-                    + "'" + entry.Name.Replace("'", "''") + "'" + ", "
-                    + "'" + entry.Description.Replace("'", "''") + "'" + ", "
+                    + "'" + (entry.Name ?? "").Replace("'", "''") + "'" + ", "
+                    + "'" + (entry.Description ?? "").Replace("'", "''") + "'" + ", "
                     + (int)entry.LaunchType + ", "
                     + "'" + entry.StatusDate.ToString(DateTimeFormat) + "'" + ", "
                     + (int)entry.Status + ", "
@@ -1544,10 +1544,10 @@ namespace Wexflow.Core.SQLite
                     + User.ColumnName_Email + ", "
                     + User.ColumnName_CreatedOn + ", "
                     + User.ColumnName_ModifiedOn + ") VALUES("
-                    + "'" + user.Username.Replace("'", "''") + "'" + ", "
-                    + "'" + user.Password.Replace("'", "''") + "'" + ", "
+                    + "'" + (user.Username ?? "").Replace("'", "''") + "'" + ", "
+                    + "'" + (user.Password ?? "").Replace("'", "''") + "'" + ", "
                     + (int)user.UserProfile + ", "
-                    + "'" + user.Email.Replace("'", "''") + "'" + ", "
+                    + "'" + (user.Email ?? "").Replace("'", "''") + "'" + ", "
                     + "'" + DateTime.Now.ToString(DateTimeFormat) + "'" + ", "
                     + (user.ModifiedOn == DateTime.MinValue ? "NULL" : "'" + user.ModifiedOn.ToString(DateTimeFormat) + "'") + ");"
                     , conn))
@@ -1585,7 +1585,7 @@ namespace Wexflow.Core.SQLite
 
                 using (var command = new SQLiteCommand("INSERT INTO " + Core.Db.Workflow.DocumentName + "("
                     + Workflow.ColumnName_Xml + ") VALUES("
-                    + "'" + workflow.Xml.Replace("'", "''") + "'" + "); SELECT last_insert_rowid();; "
+                    + "'" + (workflow.Xml ?? "").Replace("'", "''") + "'" + "); SELECT last_insert_rowid(); "
                     , conn))
                 {
 
@@ -1603,8 +1603,8 @@ namespace Wexflow.Core.SQLite
                 conn.Open();
 
                 using (var command = new SQLiteCommand("UPDATE " + Core.Db.Entry.DocumentName + " SET "
-                    + Entry.ColumnName_Name + " = '" + entry.Name.Replace("'", "''") + "', "
-                    + Entry.ColumnName_Description + " = '" + entry.Description.Replace("'", "''") + "', "
+                    + Entry.ColumnName_Name + " = '" + (entry.Name ?? "").Replace("'", "''") + "', "
+                    + Entry.ColumnName_Description + " = '" + (entry.Description ?? "").Replace("'", "''") + "', "
                     + Entry.ColumnName_LaunchType + " = " + (int)entry.LaunchType + ", "
                     + Entry.ColumnName_StatusDate + " = '" + entry.StatusDate.ToString(DateTimeFormat) + "', "
                     + Entry.ColumnName_Status + " = " + (int)entry.Status + ", "
@@ -1627,9 +1627,9 @@ namespace Wexflow.Core.SQLite
                 conn.Open();
 
                 using (var command = new SQLiteCommand("UPDATE " + Core.Db.User.DocumentName + " SET "
-                    + User.ColumnName_Password + " = '" + password.Replace("'", "''") + "'"
+                    + User.ColumnName_Password + " = '" + (password ?? "").Replace("'", "''") + "'"
                     + " WHERE "
-                    + User.ColumnName_Username + " = '" + username.Replace("'", "''") + "';"
+                    + User.ColumnName_Username + " = '" + (username ?? "").Replace("'", "''") + "';"
                     , conn))
                 {
 
@@ -1645,10 +1645,10 @@ namespace Wexflow.Core.SQLite
                 conn.Open();
 
                 using (var command = new SQLiteCommand("UPDATE " + Core.Db.User.DocumentName + " SET "
-                    + User.ColumnName_Username + " = '" + user.Username.Replace("'", "''") + "', "
-                    + User.ColumnName_Password + " = '" + user.Password.Replace("'", "''") + "', "
+                    + User.ColumnName_Username + " = '" + (user.Username ?? "").Replace("'", "''") + "', "
+                    + User.ColumnName_Password + " = '" + (user.Password ?? "").Replace("'", "''") + "', "
                     + User.ColumnName_UserProfile + " = " + (int)user.UserProfile + ", "
-                    + User.ColumnName_Email + " = '" + user.Email.Replace("'", "''") + "', "
+                    + User.ColumnName_Email + " = '" + (user.Email ?? "").Replace("'", "''") + "', "
                     + User.ColumnName_CreatedOn + " = '" + user.CreatedOn.ToString(DateTimeFormat) + "', "
                     + User.ColumnName_ModifiedOn + " = '" + DateTime.Now.ToString(DateTimeFormat) + "'"
                     + " WHERE "
@@ -1668,9 +1668,9 @@ namespace Wexflow.Core.SQLite
                 conn.Open();
 
                 using (var command = new SQLiteCommand("UPDATE " + Core.Db.User.DocumentName + " SET "
-                    + User.ColumnName_Username + " = '" + username.Replace("'", "''") + "', "
+                    + User.ColumnName_Username + " = '" + (username ?? "").Replace("'", "''") + "', "
                     + User.ColumnName_UserProfile + " = " + (int)up + ", "
-                    + User.ColumnName_Email + " = '" + email.Replace("'", "''") + "', "
+                    + User.ColumnName_Email + " = '" + (email ?? "").Replace("'", "''") + "', "
                     + User.ColumnName_ModifiedOn + " = '" + DateTime.Now.ToString(DateTimeFormat) + "'"
                     + " WHERE "
                     + User.ColumnName_Id + " = " + int.Parse(userId) + ";"
@@ -1689,7 +1689,7 @@ namespace Wexflow.Core.SQLite
                 conn.Open();
 
                 using (var command = new SQLiteCommand("UPDATE " + Core.Db.Workflow.DocumentName + " SET "
-                    + Workflow.ColumnName_Xml + " = '" + workflow.Xml.Replace("'", "''") + "'"
+                    + Workflow.ColumnName_Xml + " = '" + (workflow.Xml ?? "").Replace("'", "''") + "'"
                     + " WHERE "
                     + User.ColumnName_Id + " = " + int.Parse(dbId) + ";"
                     , conn))

@@ -303,7 +303,7 @@ namespace Wexflow.Core.SQLServer
                     + User.ColumnName_CreatedOn + ", "
                     + User.ColumnName_ModifiedOn
                     + " FROM " + Core.Db.User.DocumentName
-                    + " WHERE " + "(LOWER(" + User.ColumnName_Username + ")" + " LIKE '%" + keyword.Replace("'", "''").ToLower() + "%'"
+                    + " WHERE " + "(LOWER(" + User.ColumnName_Username + ")" + " LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%'"
                     + " AND " + User.ColumnName_UserProfile + " = " + (int)UserProfile.Administrator + ")"
                     + " ORDER BY " + User.ColumnName_Username + (uo == UserOrderBy.UsernameAscending ? " ASC" : " DESC")
                     + ";", conn);
@@ -387,8 +387,8 @@ namespace Wexflow.Core.SQLServer
                     + Entry.ColumnName_StatusDate + ", "
                     + Entry.ColumnName_WorkflowId
                     + " FROM " + Core.Db.Entry.DocumentName
-                    + " WHERE " + "(LOWER(" + Entry.ColumnName_Name + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%'"
-                    + " OR " + "LOWER(" + Entry.ColumnName_Description + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%')"
+                    + " WHERE " + "(LOWER(" + Entry.ColumnName_Name + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%'"
+                    + " OR " + "LOWER(" + Entry.ColumnName_Description + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%')"
                     + " AND (" + Entry.ColumnName_StatusDate + " BETWEEN CONVERT(DATETIME, '" + from.ToString(DateTimeFormat) + "') AND CONVERT(DATETIME, '" + to.ToString(DateTimeFormat) + "'))"
                     + " ORDER BY ");
 
@@ -491,8 +491,8 @@ namespace Wexflow.Core.SQLServer
 
                 var command = new SqlCommand("SELECT COUNT(*)"
                     + " FROM " + Core.Db.Entry.DocumentName
-                    + " WHERE " + "(LOWER(" + Entry.ColumnName_Name + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%'"
-                    + " OR " + "LOWER(" + Entry.ColumnName_Description + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%')"
+                    + " WHERE " + "(LOWER(" + Entry.ColumnName_Name + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%'"
+                    + " OR " + "LOWER(" + Entry.ColumnName_Description + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%')"
                     + " AND (" + Entry.ColumnName_StatusDate + " BETWEEN CONVERT(DATETIME, '" + from.ToString(DateTimeFormat) + "') AND CONVERT(DATETIME, '" + to.ToString(DateTimeFormat) + "'));", conn);
 
                 var count = (int)command.ExecuteScalar();
@@ -644,8 +644,8 @@ namespace Wexflow.Core.SQLServer
                     + HistoryEntry.ColumnName_StatusDate + ", "
                     + HistoryEntry.ColumnName_WorkflowId
                     + " FROM " + Core.Db.HistoryEntry.DocumentName
-                    + " WHERE " + "LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%'"
-                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%';", conn);
+                    + " WHERE " + "LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%'"
+                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%';", conn);
 
                 var reader = command.ExecuteReader();
 
@@ -686,8 +686,8 @@ namespace Wexflow.Core.SQLServer
                     + HistoryEntry.ColumnName_StatusDate + ", "
                     + HistoryEntry.ColumnName_WorkflowId
                     + " FROM " + Core.Db.HistoryEntry.DocumentName
-                    + " WHERE " + "LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%'"
-                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%'"
+                    + " WHERE " + "LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%'"
+                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%'"
                     + " OFFSET " + (page - 1) * entriesCount + " ROWS"
                     + " FETCH NEXT " + entriesCount + "ROWS ONLY;"
 
@@ -732,8 +732,8 @@ namespace Wexflow.Core.SQLServer
                     + HistoryEntry.ColumnName_StatusDate + ", "
                     + HistoryEntry.ColumnName_WorkflowId
                     + " FROM " + Core.Db.HistoryEntry.DocumentName
-                    + " WHERE " + "(LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%'"
-                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%')"
+                    + " WHERE " + "(LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%'"
+                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%')"
                     + " AND (" + HistoryEntry.ColumnName_StatusDate + " BETWEEN CONVERT(DATETIME, '" + from.ToString(DateTimeFormat) + "') AND CONVERT(DATETIME, '" + to.ToString(DateTimeFormat) + "'))"
                     + " ORDER BY ");
 
@@ -836,8 +836,8 @@ namespace Wexflow.Core.SQLServer
 
                 var command = new SqlCommand("SELECT COUNT(*)"
                     + " FROM " + Core.Db.HistoryEntry.DocumentName
-                    + " WHERE " + "LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%'"
-                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%';", conn);
+                    + " WHERE " + "LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%'"
+                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%';", conn);
 
                 var count = (int)command.ExecuteScalar();
 
@@ -853,8 +853,8 @@ namespace Wexflow.Core.SQLServer
 
                 var command = new SqlCommand("SELECT COUNT(*)"
                     + " FROM " + Core.Db.HistoryEntry.DocumentName
-                    + " WHERE " + "(LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%'"
-                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + keyword.Replace("'", "''").ToLower() + "%')"
+                    + " WHERE " + "(LOWER(" + HistoryEntry.ColumnName_Name + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%'"
+                    + " OR " + "LOWER(" + HistoryEntry.ColumnName_Description + ") LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%')"
                     + " AND (" + HistoryEntry.ColumnName_StatusDate + " BETWEEN CONVERT(DATETIME, '" + from.ToString(DateTimeFormat) + "') AND CONVERT(DATETIME, '" + to.ToString(DateTimeFormat) + "'));", conn);
 
                 var count = (int)command.ExecuteScalar();
@@ -917,7 +917,7 @@ namespace Wexflow.Core.SQLServer
 
                 var command = new SqlCommand("SELECT " + User.ColumnName_Password
                     + " FROM " + Core.Db.User.DocumentName
-                    + " WHERE " + User.ColumnName_Username + " = '" + username.Replace("'", "''") + "'"
+                    + " WHERE " + User.ColumnName_Username + " = '" + (username ?? "").Replace("'", "''") + "'"
                     + ";", conn);
 
                 var reader = command.ExecuteReader();
@@ -989,7 +989,7 @@ namespace Wexflow.Core.SQLServer
                     + User.ColumnName_CreatedOn + ", "
                     + User.ColumnName_ModifiedOn
                     + " FROM " + Core.Db.User.DocumentName
-                    + " WHERE " + User.ColumnName_Username + " = '" + username.Replace("'", "''") + "'"
+                    + " WHERE " + User.ColumnName_Username + " = '" + (username ?? "").Replace("'", "''") + "'"
                     + ";", conn);
 
                 var reader = command.ExecuteReader();
@@ -1109,7 +1109,7 @@ namespace Wexflow.Core.SQLServer
                     + User.ColumnName_CreatedOn + ", "
                     + User.ColumnName_ModifiedOn
                     + " FROM " + Core.Db.User.DocumentName
-                    + " WHERE " + "LOWER(" + User.ColumnName_Username + ")" + " LIKE '%" + keyword.Replace("'", "''").ToLower() + "%'"
+                    + " WHERE " + "LOWER(" + User.ColumnName_Username + ")" + " LIKE '%" + (keyword ?? "").Replace("'", "''").ToLower() + "%'"
                     + " ORDER BY " + User.ColumnName_Username + (uo == UserOrderBy.UsernameAscending ? " ASC" : " DESC")
                     + ";", conn);
 
@@ -1379,8 +1379,8 @@ namespace Wexflow.Core.SQLServer
                     + Entry.ColumnName_Status + ", "
                     + Entry.ColumnName_WorkflowId + ", "
                     + Entry.ColumnName_Logs + ") VALUES("
-                    + "'" + entry.Name.Replace("'", "''") + "'" + ", "
-                    + "'" + entry.Description.Replace("'", "''") + "'" + ", "
+                    + "'" + (entry.Name ?? "").Replace("'", "''") + "'" + ", "
+                    + "'" + (entry.Description ?? "").Replace("'", "''") + "'" + ", "
                     + (int)entry.LaunchType + ", "
                     + "'" + entry.StatusDate.ToString(DateTimeFormat) + "'" + ", "
                     + (int)entry.Status + ", "
@@ -1406,8 +1406,8 @@ namespace Wexflow.Core.SQLServer
                     + HistoryEntry.ColumnName_Status + ", "
                     + HistoryEntry.ColumnName_WorkflowId + ", "
                     + HistoryEntry.ColumnName_Logs + ") VALUES("
-                    + "'" + entry.Name.Replace("'", "''") + "'" + ", "
-                    + "'" + entry.Description.Replace("'", "''") + "'" + ", "
+                    + "'" + (entry.Name ?? "").Replace("'", "''") + "'" + ", "
+                    + "'" + (entry.Description ?? "").Replace("'", "''") + "'" + ", "
                     + (int)entry.LaunchType + ", "
                     + "'" + entry.StatusDate.ToString(DateTimeFormat) + "'" + ", "
                     + (int)entry.Status + ", "
@@ -1432,10 +1432,10 @@ namespace Wexflow.Core.SQLServer
                     + User.ColumnName_Email + ", "
                     + User.ColumnName_CreatedOn + ", "
                     + User.ColumnName_ModifiedOn + ") VALUES("
-                    + "'" + user.Username.Replace("'", "''") + "'" + ", "
-                    + "'" + user.Password.Replace("'", "''") + "'" + ", "
+                    + "'" + (user.Username ?? "").Replace("'", "''") + "'" + ", "
+                    + "'" + (user.Password ?? "").Replace("'", "''") + "'" + ", "
                     + (int)user.UserProfile + ", "
-                    + "'" + user.Email.Replace("'", "''") + "'" + ", "
+                    + "'" + (user.Email ?? "").Replace("'", "''") + "'" + ", "
                     + "'" + DateTime.Now.ToString(DateTimeFormat) + "'" + ", "
                     + (user.ModifiedOn == DateTime.MinValue ? "NULL" : "'" + user.ModifiedOn.ToString(DateTimeFormat) + "'") + ");"
                     , conn);
@@ -1486,8 +1486,8 @@ namespace Wexflow.Core.SQLServer
                 conn.Open();
 
                 var command = new SqlCommand("UPDATE " + Core.Db.Entry.DocumentName + " SET "
-                    + Entry.ColumnName_Name + " = '" + entry.Name.Replace("'", "''") + "', "
-                    + Entry.ColumnName_Description + " = '" + entry.Description.Replace("'", "''") + "', "
+                    + Entry.ColumnName_Name + " = '" + (entry.Name ?? "").Replace("'", "''") + "', "
+                    + Entry.ColumnName_Description + " = '" + (entry.Description ?? "").Replace("'", "''") + "', "
                     + Entry.ColumnName_LaunchType + " = " + (int)entry.LaunchType + ", "
                     + Entry.ColumnName_StatusDate + " = '" + entry.StatusDate.ToString(DateTimeFormat) + "', "
                     + Entry.ColumnName_Status + " = " + (int)entry.Status + ", "
@@ -1508,9 +1508,9 @@ namespace Wexflow.Core.SQLServer
                 conn.Open();
 
                 var command = new SqlCommand("UPDATE " + Core.Db.User.DocumentName + " SET "
-                    + User.ColumnName_Password + " = '" + password.Replace("'", "''") + "'"
+                    + User.ColumnName_Password + " = '" + (password ?? "").Replace("'", "''") + "'"
                     + " WHERE "
-                    + User.ColumnName_Username + " = '" + username.Replace("'", "''") + "';"
+                    + User.ColumnName_Username + " = '" + (username ?? "").Replace("'", "''") + "';"
                     , conn);
 
                 command.ExecuteNonQuery();
@@ -1524,10 +1524,10 @@ namespace Wexflow.Core.SQLServer
                 conn.Open();
 
                 var command = new SqlCommand("UPDATE " + Core.Db.User.DocumentName + " SET "
-                    + User.ColumnName_Username + " = '" + user.Username.Replace("'", "''") + "', "
-                    + User.ColumnName_Password + " = '" + user.Password.Replace("'", "''") + "', "
+                    + User.ColumnName_Username + " = '" + (user.Username ?? "").Replace("'", "''") + "', "
+                    + User.ColumnName_Password + " = '" + (user.Password ?? "").Replace("'", "''") + "', "
                     + User.ColumnName_UserProfile + " = " + (int)user.UserProfile + ", "
-                    + User.ColumnName_Email + " = '" + user.Email.Replace("'", "''") + "', "
+                    + User.ColumnName_Email + " = '" + (user.Email ?? "").Replace("'", "''") + "', "
                     + User.ColumnName_CreatedOn + " = '" + user.CreatedOn.ToString(DateTimeFormat) + "', "
                     + User.ColumnName_ModifiedOn + " = '" + DateTime.Now.ToString(DateTimeFormat) + "'"
                     + " WHERE "
@@ -1545,9 +1545,9 @@ namespace Wexflow.Core.SQLServer
                 conn.Open();
 
                 var command = new SqlCommand("UPDATE " + Core.Db.User.DocumentName + " SET "
-                    + User.ColumnName_Username + " = '" + username.Replace("'", "''") + "', "
+                    + User.ColumnName_Username + " = '" + (username ?? "").Replace("'", "''") + "', "
                     + User.ColumnName_UserProfile + " = " + (int)up + ", "
-                    + User.ColumnName_Email + " = '" + email.Replace("'", "''") + "', "
+                    + User.ColumnName_Email + " = '" + (email ?? "").Replace("'", "''") + "', "
                     + User.ColumnName_ModifiedOn + " = '" + DateTime.Now.ToString(DateTimeFormat) + "'"
                     + " WHERE "
                     + User.ColumnName_Id + " = " + int.Parse(userId) + ";"
