@@ -2,7 +2,7 @@
 
 # What's New?
 
-Take a look at the [version 5.2](https://github.com/aelassas/Wexflow/releases/tag/v5.2). This version includes an upgrade to .NET Core 3.1 LTS, support for PostgreSQL, SQL Server, MySQL and SQLite, JSON editor, display of server logs in the backend, parallel jobs of the same workflow definition, bug fixes, performance enhancements and under the hood updates.
+Take a look at the [version 5.2](https://github.com/aelassas/Wexflow/releases/tag/v5.2). This version includes an upgrade to .NET Core 3.1 LTS, support for [PostgreSQL](https://github.com/aelassas/Wexflow/wiki/PostgreSQL), [SQL Server](https://github.com/aelassas/Wexflow/wiki/SQL-Server), [MySQL](https://github.com/aelassas/Wexflow/wiki/MySQL) and [SQLite](https://github.com/aelassas/Wexflow/wiki/SQLite), JSON editor, display of server logs in the backend, parallel jobs of the same workflow definition, bug fixes, performance enhancements and under the hood updates.
 
 This version has been depthly tested on Windows, Linux, macOS and the cloud, and runs 100% on Windows, Linux, macOS and the cloud.
 
@@ -32,7 +32,7 @@ Wexflow makes use of [.NET Core](https://www.microsoft.com/net/download), a cros
 
 Wexflow also makes use of [Quartz.NET](https://www.quartz-scheduler.net/) open source job scheduling system that is used in large scale enterprise systems. Thus, Wexflow offers flexibility in planning workflow jobs such as [cron workflows](https://github.com/aelassas/Wexflow/wiki/Cron-scheduling).
 
-Furthermore, Wexflow makes use of most popular databases such as [CosmosDB](https://github.com/aelassas/Wexflow/wiki/CosmosDB), [MongoDB](https://github.com/aelassas/Wexflow/wiki/MongoDB), [RavenDB](https://github.com/aelassas/Wexflow/wiki/RavenDB) and [LiteDB](http://www.litedb.org/) serverless NoSQL Document Store database in its server and backend which enhance and improve the performance of this workflow engine. The user can choose between the database of his choice at the installation.
+Furthermore, Wexflow makes use of most popular databases such as [LiteDB](http://www.litedb.org/), [MongoDB](https://github.com/aelassas/Wexflow/wiki/MongoDB), [RavenDB](https://github.com/aelassas/Wexflow/wiki/RavenDB), [CosmosDB](https://github.com/aelassas/Wexflow/wiki/CosmosDB), [PostgreSQL](https://github.com/aelassas/Wexflow/wiki/PostgreSQL), [SQL Server](https://github.com/aelassas/Wexflow/wiki/SQL-Server), [MySQL](https://github.com/aelassas/Wexflow/wiki/MySQL) and [SQLite](https://github.com/aelassas/Wexflow/wiki/SQLite) in its server and backend which enhance and improve the performance of this workflow engine. The user can choose between the database of his choice at the installation.
 
 Wexflow comes with a backend too, so you can search and filter among all your workflows, have real-time statistics on your workflows, manage your workflows with ease, design your workflows with ease, and track your workflows with ease:
 
@@ -73,7 +73,8 @@ Moreover, the "Designer" page allows to edit workflows through its Web XML edito
 - [x] [100+ built-in tasks](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation).
 - [x] [User-driven](https://github.com/aelassas/Wexflow/wiki/User-driven).
 - [x] [Cron scheduling](https://github.com/aelassas/Wexflow/wiki/Cron-scheduling).
-- [x] [CosmosDB, MongoDB, RavenDB and LiteDB support](https://github.com/aelassas/Wexflow/wiki/Databases).
+- [x] [LiteDB, MongoDB, RavenDB and CosmosDB support](https://github.com/aelassas/Wexflow/wiki/Databases).
+- [x] [PostgreSQL, SQL Server, MySQL and SQLite support](https://github.com/aelassas/Wexflow/wiki/Databases).
 - [x] [Extensive logging and incident reporting](https://github.com/aelassas/Wexflow/wiki/Logging).
 - [x] [Real-time stats](https://github.com/aelassas/Wexflow/wiki/Usage#dashboard).
 - [x] [RESTful API](https://github.com/aelassas/Wexflow/wiki/RESTful-API).
