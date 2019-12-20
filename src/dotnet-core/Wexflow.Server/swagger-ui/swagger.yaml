@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   description: "Wexflow's RESTful API."
-  version: "5.2"
+  version: "5.3"
   title: "Swagger Wexflow"
   contact:
     email: "akram.elassas@gmail.com"
