@@ -185,6 +185,24 @@ namespace Wexflow.Core
         /// <param name="name">Setting name.</param>
         /// <param name="defaultValue">Default value.</param>
         /// <returns>Setting value.</returns>
+        public T GetSetting<T>(string name, T defaultValue = default(T))
+        {
+            var returnValue = GetSetting(name);
+
+            if (string.IsNullOrEmpty(returnValue))
+            {
+                return defaultValue;
+            }
+
+            return (T)Convert.ChangeType(returnValue, typeof(T), CultureInfo.InvariantCulture);
+        }
+
+        /// <summary>
+        /// Returns a setting value from its name and returns a default value if the setting value is not found.
+        /// </summary>
+        /// <param name="name">Setting name.</param>
+        /// <param name="defaultValue">Default value.</param>
+        /// <returns>Setting value.</returns>
         public int GetSettingInt(string name, int defaultValue)
         {
             var value = GetSetting(name, defaultValue.ToString());
