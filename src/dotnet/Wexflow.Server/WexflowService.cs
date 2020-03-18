@@ -142,7 +142,7 @@ namespace Wexflow.Server
                             .Where(wf =>
                                 wf.Name.ToUpper().Contains(keywordToUpper) || wf.Description.ToUpper().Contains(keywordToUpper))
                             .Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.InstanceId, wf.Name,
-                                (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
+                                (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.EnableParallelJobs, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
                                 wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
                                 wf.IsExecutionGraphEmpty
                                , wf.LocalVariables.Select(v => new Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()))
@@ -155,7 +155,7 @@ namespace Wexflow.Server
                                                 .Where(wf =>
                                                     wf.Name.ToUpper().Contains(keywordToUpper) || wf.Description.ToUpper().Contains(keywordToUpper))
                                                 .Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.InstanceId, wf.Name,
-                                                    (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
+                                                    (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.EnableParallelJobs, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
                                                     wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
                                                     wf.IsExecutionGraphEmpty
                                                    , wf.LocalVariables.Select(v => new Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()))
@@ -203,7 +203,7 @@ namespace Wexflow.Server
                                 wf.IsApproval &&
                                 (wf.Name.ToUpper().Contains(keywordToUpper) || wf.Description.ToUpper().Contains(keywordToUpper)))
                             .Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.InstanceId, wf.Name,
-                                (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
+                                (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.EnableParallelJobs, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
                                 wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
                                 wf.IsExecutionGraphEmpty
                                , wf.LocalVariables.Select(v => new Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()))
@@ -217,7 +217,7 @@ namespace Wexflow.Server
                                                     wf.IsApproval &&
                                                     (wf.Name.ToUpper().Contains(keywordToUpper) || wf.Description.ToUpper().Contains(keywordToUpper)))
                                                 .Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.InstanceId, wf.Name,
-                                                    (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
+                                                    (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.EnableParallelJobs, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
                                                     wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
                                                     wf.IsExecutionGraphEmpty
                                                    , wf.LocalVariables.Select(v => new Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()))
@@ -253,7 +253,7 @@ namespace Wexflow.Server
                 Core.Workflow wf = WexflowServer.WexflowEngine.GetWorkflow(id);
                 if (wf != null)
                 {
-                    var workflow = new WorkflowInfo(wf.DbId, wf.Id, wf.InstanceId, wf.Name, (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description,
+                    var workflow = new WorkflowInfo(wf.DbId, wf.Id, wf.InstanceId, wf.Name, (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.EnableParallelJobs, wf.IsWaitingForApproval, wf.Description,
                         wf.IsRunning, wf.IsPaused, wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
                         wf.IsExecutionGraphEmpty
                         , wf.LocalVariables.Select(v => new Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()
@@ -777,6 +777,7 @@ namespace Wexflow.Server
                             CronExpression = wf.CronExpression,
                             IsEnabled = wf.IsEnabled,
                             IsApproval = wf.IsApproval,
+                            EnableParallelJobs = wf.EnableParallelJobs,
                             Description = wf.Description,
                             LocalVariables = variables.ToArray()
                         };
@@ -1396,6 +1397,7 @@ namespace Wexflow.Server
 
                         bool isWorkflowEnabled = (bool)wi.SelectToken("IsEnabled");
                         bool isWorkflowApproval = (bool)wi.SelectToken("IsApproval");
+                        bool enableParallelJobs = (bool)wi.SelectToken("EnableParallelJobs");
                         string workflowDesc = (string)wi.SelectToken("Description");
 
                         // Local variables
@@ -1487,6 +1489,9 @@ namespace Wexflow.Server
                                 , new XElement(xn + "Setting"
                                 , new XAttribute("name", "approval")
                                 , new XAttribute("value", isWorkflowApproval.ToString().ToLower()))
+                                , new XElement(xn + "Setting"
+                                , new XAttribute("name", "enableParallelJobs")
+                                , new XAttribute("value", enableParallelJobs.ToString().ToLower()))
                             //, new XElement(xn + "Setting"
                             //    , new XAttribute("name", "period")
                             //    , new XAttribute("value", workflowPeriod.ToString(@"dd\.hh\:mm\:ss")))
@@ -1556,6 +1561,7 @@ namespace Wexflow.Server
 
                             bool isWorkflowEnabled = (bool)wi.SelectToken("IsEnabled");
                             bool isWorkflowApproval = (bool)(wi.SelectToken("IsApproval") ?? false);
+                            bool enableParallelJobs = (bool)(wi.SelectToken("EnableParallelJobs") ?? true);
                             string workflowDesc = (string)wi.SelectToken("Description");
 
                             //if(xdoc.Root == null) throw new Exception("Root is null");
@@ -1582,6 +1588,20 @@ namespace Wexflow.Server
                             else
                             {
                                 xwfApproval.Attribute("value").Value = isWorkflowApproval.ToString().ToLower();
+                            }
+
+                            var xwfEnableParallelJobs = xdoc.Root.XPathSelectElement("wf:Settings/wf:Setting[@name='enableParallelJobs']",
+                            wf.XmlNamespaceManager);
+                            if (xwfEnableParallelJobs == null)
+                            {
+                                xdoc.Root.XPathSelectElement("wf:Settings", wf.XmlNamespaceManager)
+                                    .Add(new XElement(xn + "Setting"
+                                            , new XAttribute("name", "enableParallelJobs")
+                                            , new XAttribute("value", enableParallelJobs.ToString().ToLower())));
+                            }
+                            else
+                            {
+                                xwfEnableParallelJobs.Attribute("value").Value = enableParallelJobs.ToString().ToLower();
                             }
 
                             var xwfPeriod = xdoc.Root.XPathSelectElement("wf:Settings/wf:Setting[@name='period']",
@@ -2169,7 +2189,7 @@ namespace Wexflow.Server
                         res = workflows
                             .ToList()
                             .Select(wf => new WorkflowInfo(wf.DbId, wf.Id, wf.InstanceId, wf.Name,
-                            (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
+                            (LaunchType)wf.LaunchType, wf.IsEnabled, wf.IsApproval, wf.EnableParallelJobs, wf.IsWaitingForApproval, wf.Description, wf.IsRunning, wf.IsPaused,
                             wf.Period.ToString(@"dd\.hh\:mm\:ss"), wf.CronExpression,
                             wf.IsExecutionGraphEmpty
                            , wf.LocalVariables.Select(v => new Contracts.Variable { Key = v.Key, Value = v.Value }).ToArray()))

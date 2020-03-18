@@ -26,6 +26,8 @@ namespace Wexflow.Server.Contracts
 
         public bool IsApproval { get; private set; }
         
+        public bool EnableParallelJobs { get; private set; }
+
         public bool IsWaitingForApproval { get; private set; }
 
         public string Description { get;  set; }
@@ -42,7 +44,7 @@ namespace Wexflow.Server.Contracts
 
         public Variable[] LocalVariables { get; set; }
 
-        public WorkflowInfo(string dbId, int id, Guid instanceId, string name, LaunchType launchType, bool isEnabled, bool isApproval, bool isWaitingForApproval, string desc, bool isRunning, bool isPaused, string period, string cronExpression, bool isExecutionGraphEmpty, Variable[] localVariables)
+        public WorkflowInfo(string dbId, int id, Guid instanceId, string name, LaunchType launchType, bool isEnabled, bool isApproval, bool enableParallelJobs, bool isWaitingForApproval, string desc, bool isRunning, bool isPaused, string period, string cronExpression, bool isExecutionGraphEmpty, Variable[] localVariables)
         {
             DbId = dbId;
             Id = id;
@@ -51,6 +53,7 @@ namespace Wexflow.Server.Contracts
             LaunchType = launchType;
             IsEnabled = isEnabled;
             IsApproval = isApproval;
+            EnableParallelJobs = enableParallelJobs;
             IsWaitingForApproval = isWaitingForApproval;
             Description = desc;
             IsRunning = isRunning;

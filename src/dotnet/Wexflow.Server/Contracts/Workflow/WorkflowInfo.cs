@@ -12,6 +12,8 @@
 
         public bool IsApproval { get; set; }
 
+        public bool EnableParallelJobs { get; set; }
+
         public string Description { get; set; }
 
         public string Period { get; set; }

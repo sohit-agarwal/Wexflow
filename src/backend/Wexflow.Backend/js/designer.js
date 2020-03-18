@@ -89,12 +89,13 @@
         "<tbody>" +
         "<tr><td class='wf-title'>Id</td><td class='wf-value'><input id='wf-id' type='text'  /></td></tr>" +
         "<tr><td class='wf-title'>Name</td><td class='wf-value'><input id='wf-name' type='text' /></td></tr>" +
+        "<tr><td class='wf-title'>Description</td><td class='wf-value'><input id='wf-desc' type='text' /></td></tr>" +
         "<tr><td class='wf-title'>LaunchType</td><td class='wf-value'><select id='wf-launchType'><option value=''></option><option value='startup'>Startup</option><option value='trigger'>Trigger</option><option value='periodic'>Periodic</option>><option value='cron'>Cron</option></select></td></tr>" +
         "<tr><td class='wf-title'>Period</td><td class='wf-value'><input id='wf-period' type='text' /></td></tr>" +
         "<tr><td class='wf-title'>Cron expression</td><td class='wf-value'><input id='wf-cron' type='text' /></td></tr>" +
         "<tr><td class='wf-title'>Enabled</td><td class='wf-value'><input id='wf-enabled' type='checkbox' checked/></td></tr>" +
         "<tr><td class='wf-title'>Approval</td><td class='wf-value'><input id='wf-approval' type='checkbox' /></td></tr>" +
-        "<tr><td class='wf-title'>Description</td><td class='wf-value'><input id='wf-desc' type='text' /></td></tr>" +
+        "<tr><td class='wf-title'>EnableParallelJobs</td><td class='wf-value'><input id='wf-enable-pj' type='checkbox' checked/></td></tr>" +
         //"<tr><td class='wf-title'>Path</td><td id='wf-path' class='wf-value'></td></tr>" +
         //"<tr><td class='wf-title'>Status</td><td id='wf-status' class='wf-value'></td></tr>" +
         "</tbody>" +
@@ -344,6 +345,7 @@
                         "CronExpression": document.getElementById("wf-cron").value,
                         "IsEnabled": document.getElementById("wf-enabled").checked,
                         "IsApproval": document.getElementById("wf-approval").checked,
+                        "EnableParallelJobs": document.getElementById("wf-enable-pj").checked,
                         "Description": document.getElementById("wf-desc").value,
                         "Path": "",
                         "LocalVariables": []
@@ -424,6 +426,14 @@
                 if (isInt(wfIdStr)) {
                     var workflowId = parseInt(wfIdStr);
                     workflowInfos[workflowId].IsApproval = this.checked;
+                }
+            };
+
+            document.getElementById("wf-enable-pj").onchange = function () {
+                var wfIdStr = document.getElementById("wf-id").value;
+                if (isInt(wfIdStr)) {
+                    var workflowId = parseInt(wfIdStr);
+                    workflowInfos[workflowId].EnableParallelJobs = this.checked;
                 }
             };
 
@@ -2504,6 +2514,12 @@
                 wfApproval.checked = workflow.IsApproval;
                 wfApproval.onchange = function () {
                     workflowInfos[workflowId].IsApproval = wfApproval.checked;
+                };
+
+                var wfEnableParallelJobs = document.getElementById("wf-enable-pj");
+                wfEnableParallelJobs.checked = workflow.EnableParallelJobs;
+                wfEnableParallelJobs.onchange = function () {
+                    workflowInfos[workflowId].EnableParallelJobs = wfEnableParallelJobs.checked;
                 };
 
                 var wfDesc = document.getElementById("wf-desc");
