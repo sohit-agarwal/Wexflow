@@ -1,1 +1,1 @@
-LiteDB version 4.1.4
+LiteDB version 5.0.4

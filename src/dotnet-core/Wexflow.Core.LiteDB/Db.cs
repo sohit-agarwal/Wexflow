@@ -49,14 +49,14 @@ namespace Wexflow.Core.LiteDB
         {
             var col = _db.GetCollection<StatusCount>(Core.Db.StatusCount.DocumentName);
             var statusCount = col.FindAll();
-            col.Delete(s => statusCount.Where(ss => ss.Id == s.Id).Count() > 0);
+            col.DeleteMany(s => statusCount.Where(ss => ss.Id == s.Id).Count() > 0);
         }
 
         public override void ClearEntries()
         {
             var col = _db.GetCollection<Entry>(Core.Db.Entry.DocumentName);
             var entries = col.FindAll();
-            col.Delete(e => entries.Where(ee => ee.Id == e.Id).Count() > 0);
+            col.DeleteMany(e => entries.Where(ee => ee.Id == e.Id).Count() > 0);
         }
 
         public override Core.Db.StatusCount GetStatusCount()
@@ -275,9 +275,11 @@ namespace Wexflow.Core.LiteDB
             };
             col.Insert(ie);
             col.EnsureIndex(e => e.WorkflowId);
-            col.EnsureIndex(e => e.Name, "LOWER($.Name)");
+            //col.EnsureIndex(e => e.Name, "LOWER($.Name)");
+            col.EnsureIndex(e => e.Name);
             col.EnsureIndex(e => e.LaunchType);
-            col.EnsureIndex(e => e.Description, "LOWER($.Name)");
+            //col.EnsureIndex(e => e.Description, "LOWER($.Name)");
+            col.EnsureIndex(e => e.Description);
             col.EnsureIndex(e => e.Status);
             col.EnsureIndex(e => e.StatusDate);
         }
@@ -302,7 +304,7 @@ namespace Wexflow.Core.LiteDB
         public void DeleteEntry(int workflowId)
         {
             var col = _db.GetCollection<Entry>(Core.Db.Entry.DocumentName);
-            col.Delete(e => e.WorkflowId == workflowId);
+            col.DeleteMany(e => e.WorkflowId == workflowId);
         }
 
         public override void InsertUser(Core.Db.User user)
@@ -318,7 +320,8 @@ namespace Wexflow.Core.LiteDB
                 Username = user.Username,
                 UserProfile = user.UserProfile
             });
-            col.EnsureIndex(u => u.Username, "LOWER($.Username)");
+            //col.EnsureIndex(u => u.Username, "LOWER($.Username)");
+            col.EnsureIndex(u => u.Username);
             col.EnsureIndex(u => u.UserProfile);
         }
 
@@ -361,7 +364,7 @@ namespace Wexflow.Core.LiteDB
             var user = col.FindOne(u => u.Username == username);
             if (user != null && user.Password == password)
             {
-                col.Delete(u => u.Username == username);
+                col.DeleteMany(u => u.Username == username);
                 DeleteUserWorkflowRelationsByUserId(user.Id.ToString());
             }
             else
@@ -402,7 +405,7 @@ namespace Wexflow.Core.LiteDB
         {
             var col = _db.GetCollection<User>(Core.Db.User.DocumentName);
             var keywordToLower = keyword.ToLower();
-            Query query = null;
+            BsonExpression query = null;
 
             if (!string.IsNullOrEmpty(keyword))
             {
@@ -414,7 +417,11 @@ namespace Wexflow.Core.LiteDB
                 case UserOrderBy.UsernameAscending:
                     if (query != null)
                     {
-                        return col.Find(Query.And(Query.All("Username"), query));
+                        //return col.Find(Query.And(Query.All("Username"), query));
+
+                        var q = Query.All("Username");
+                        q.Where.Add(query);
+                        return col.Find(q);
                     }
                     else
                     {
@@ -425,7 +432,11 @@ namespace Wexflow.Core.LiteDB
 
                     if (query != null)
                     {
-                        return col.Find(Query.And(Query.All("Username", Query.Descending), query));
+                        //return col.Find(Query.And(Query.All("Username", Query.Descending), query));
+
+                        var q = Query.All("Username", Query.Descending);
+                        q.Where.Add(query);
+                        return col.Find(q);
                     }
                     else
                     {
@@ -440,7 +451,7 @@ namespace Wexflow.Core.LiteDB
         {
             var col = _db.GetCollection<User>(Core.Db.User.DocumentName);
             var keywordToLower = keyword.ToLower();
-            Query query = null;
+            BsonExpression query = null;
 
             if (!string.IsNullOrEmpty(keyword))
             {
@@ -452,21 +463,37 @@ namespace Wexflow.Core.LiteDB
                 case UserOrderBy.UsernameAscending:
                     if (query != null)
                     {
-                        return col.Find(Query.And(Query.All("Username"), query));
+                        //return col.Find(Query.And(Query.All("Username"), query));
+
+                        var q = Query.All("Username");
+                        q.Where.Add(query);
+                        return col.Find(q);
                     }
                     else
                     {
-                        return col.Find(Query.And(Query.All("Username"), Query.EQ("UserProfile", UserProfile.Administrator.ToString())));
+                        //return col.Find(Query.And(Query.All("Username"), Query.EQ("UserProfile", UserProfile.Administrator.ToString())));
+
+                        var q = Query.All("Username");
+                        q.Where.Add(Query.EQ("UserProfile", UserProfile.Administrator.ToString()));
+                        return col.Find(q);
                     }
 
                 case UserOrderBy.UsernameDescending:
                     if (query != null)
                     {
-                        return col.Find(Query.And(Query.All("Username", Query.Descending), query));
+                        //return col.Find(Query.And(Query.All("Username", Query.Descending), query));
+
+                        var q = Query.All("Username", Query.Descending);
+                        q.Where.Add(query);
+                        return col.Find(q);
                     }
                     else
                     {
-                        return col.Find(Query.And(Query.All("Username", Query.Descending), Query.EQ("UserProfile", UserProfile.Administrator.ToString())));
+                        //return col.Find(Query.And(Query.All("Username", Query.Descending), Query.EQ("UserProfile", UserProfile.Administrator.ToString())));
+
+                        var q = Query.All("Username", Query.Descending);
+                        q.Where.Add(Query.EQ("UserProfile", UserProfile.Administrator.ToString()));
+                        return col.Find(q);
                     }
             }
 
@@ -488,9 +515,11 @@ namespace Wexflow.Core.LiteDB
             };
             col.Insert(he);
             col.EnsureIndex(e => e.WorkflowId);
-            col.EnsureIndex(e => e.Name, "LOWER($.Name)");
+            //col.EnsureIndex(e => e.Name, "LOWER($.Name)");
+            col.EnsureIndex(e => e.Name);
             col.EnsureIndex(e => e.LaunchType);
-            col.EnsureIndex(e => e.Description, "LOWER($.Name)");
+            //col.EnsureIndex(e => e.Description, "LOWER($.Name)");
+            col.EnsureIndex(e => e.Description);
             col.EnsureIndex(e => e.Status);
             col.EnsureIndex(e => e.StatusDate);
         }
@@ -504,7 +533,7 @@ namespace Wexflow.Core.LiteDB
         public void DeleteHistoryEntries(int workflowId)
         {
             var col = _db.GetCollection<HistoryEntry>(Core.Db.HistoryEntry.DocumentName);
-            col.Delete(e => e.WorkflowId == workflowId);
+            col.DeleteMany(e => e.WorkflowId == workflowId);
         }
 
         public override IEnumerable<Core.Db.HistoryEntry> GetHistoryEntries()
@@ -532,7 +561,7 @@ namespace Wexflow.Core.LiteDB
             var col = _db.GetCollection<HistoryEntry>(Core.Db.HistoryEntry.DocumentName);
             var keywordToLower = keyword.ToLower();
             int skip = (page - 1) * entriesCount;
-            Query query;
+            BsonExpression query;
 
             if (!string.IsNullOrEmpty(keyword))
             {
@@ -548,132 +577,240 @@ namespace Wexflow.Core.LiteDB
             {
                 case EntryOrderBy.StatusDateAscending:
 
+                    //return col.Find(
+                    //    Query.And(
+                    //        Query.All("StatusDate")
+                    //        , query
+                    //    )
+                    //    , skip
+                    //    , entriesCount
+                    //);
+
+                    var q1 = Query.All("StatusDate");
+                    q1.Where.Add(query);
+
                     return col.Find(
-                        Query.And(
-                            Query.All("StatusDate")
-                            , query
-                        )
+                        q1
                         , skip
                         , entriesCount
                     );
 
                 case EntryOrderBy.StatusDateDescending:
 
+                    //return col.Find(
+                    //    Query.And(
+                    //        Query.All("StatusDate", Query.Descending)
+                    //        , query
+                    //    )
+                    //    , skip
+                    //    , entriesCount
+                    //);
+
+                    var q2 = Query.All("StatusDate", Query.Descending);
+                    q2.Where.Add(query);
+
                     return col.Find(
-                        Query.And(
-                            Query.All("StatusDate", Query.Descending)
-                            , query
-                        )
+                        q2
                         , skip
                         , entriesCount
                     );
 
                 case EntryOrderBy.WorkflowIdAscending:
 
+                    //return col.Find(
+                    //    Query.And(
+                    //        Query.All("WorkflowId")
+                    //        , query
+                    //    )
+                    //    , skip
+                    //    , entriesCount
+                    //);
+
+                    var q3 = Query.All("WorkflowId");
+                    q3.Where.Add(query);
+
                     return col.Find(
-                        Query.And(
-                            Query.All("WorkflowId")
-                            , query
-                        )
+                       q3
                         , skip
                         , entriesCount
                     );
 
                 case EntryOrderBy.WorkflowIdDescending:
 
+                    //return col.Find(
+                    //    Query.And(
+                    //        Query.All("WorkflowId", Query.Descending)
+                    //        , query
+                    //    )
+                    //    , skip
+                    //    , entriesCount
+                    //);
+
+                    var q4 = Query.All("WorkflowId", Query.Descending);
+                    q4.Where.Add(query);
+
                     return col.Find(
-                        Query.And(
-                            Query.All("WorkflowId", Query.Descending)
-                            , query
-                        )
+                       q4
                         , skip
                         , entriesCount
                     );
 
                 case EntryOrderBy.NameAscending:
 
+                    //return col.Find(
+                    //    Query.And(
+                    //        Query.All("Name")
+                    //        , query
+                    //    )
+                    //    , skip
+                    //    , entriesCount
+                    //);
+
+                    var q5 = Query.All("Name");
+                    q5.Where.Add(query);
+
                     return col.Find(
-                        Query.And(
-                            Query.All("Name")
-                            , query
-                        )
+                        q5
                         , skip
                         , entriesCount
                     );
 
                 case EntryOrderBy.NameDescending:
 
+                    //return col.Find(
+                    //    Query.And(
+                    //        Query.All("Name", Query.Descending)
+                    //        , query
+                    //    )
+                    //    , skip
+                    //    , entriesCount
+                    //);
+
+                    var q6 = Query.All("Name", Query.Descending);
+                    q6.Where.Add(query);
+
                     return col.Find(
-                        Query.And(
-                            Query.All("Name", Query.Descending)
-                            , query
-                        )
+                        q6
                         , skip
                         , entriesCount
                     );
 
                 case EntryOrderBy.LaunchTypeAscending:
 
+                    //return col.Find(
+                    //    Query.And(
+                    //        Query.All("LaunchType")
+                    //        , query
+                    //    )
+                    //    , skip
+                    //    , entriesCount
+                    //);
+
+                    var q7 = Query.All("LaunchType");
+                    q7.Where.Add(query);
+
                     return col.Find(
-                        Query.And(
-                            Query.All("LaunchType")
-                            , query
-                        )
+                        q7
                         , skip
                         , entriesCount
                     );
 
                 case EntryOrderBy.LaunchTypeDescending:
 
+                    //return col.Find(
+                    //    Query.And(
+                    //        Query.All("LaunchType", Query.Descending)
+                    //        , query
+                    //    )
+                    //    , skip
+                    //    , entriesCount
+                    //);
+
+                    var q8 = Query.All("LaunchType", Query.Descending);
+                    q8.Where.Add(query);
+
                     return col.Find(
-                        Query.And(
-                            Query.All("LaunchType", Query.Descending)
-                            , query
-                        )
+                        q8
                         , skip
                         , entriesCount
                     );
 
                 case EntryOrderBy.DescriptionAscending:
 
+                    //return col.Find(
+                    //    Query.And(
+                    //        Query.All("Description")
+                    //        , query
+                    //    )
+                    //    , skip
+                    //    , entriesCount
+                    //);
+
+                    var q9 = Query.All("Description");
+                    q9.Where.Add(query);
+
                     return col.Find(
-                        Query.And(
-                            Query.All("Description")
-                            , query
-                        )
+                       q9
                         , skip
                         , entriesCount
                     );
 
                 case EntryOrderBy.DescriptionDescending:
 
+                    //return col.Find(
+                    //    Query.And(
+                    //        Query.All("Description", Query.Descending)
+                    //        , query
+                    //    )
+                    //    , skip
+                    //    , entriesCount
+                    //);
+
+                    var q10 = Query.All("Description", Query.Descending);
+                    q10.Where.Add(query);
+
                     return col.Find(
-                        Query.And(
-                            Query.All("Description", Query.Descending)
-                            , query
-                        )
+                        q10
                         , skip
                         , entriesCount
                     );
 
                 case EntryOrderBy.StatusAscending:
 
+                    //return col.Find(
+                    //    Query.And(
+                    //        Query.All("Status")
+                    //        , query
+                    //    )
+                    //    , skip
+                    //    , entriesCount
+                    //);
+
+                    var q11 = Query.All("Status");
+                    q11.Where.Add(query);
+
                     return col.Find(
-                        Query.And(
-                            Query.All("Status")
-                            , query
-                        )
+                        q11
                         , skip
                         , entriesCount
                     );
 
                 case EntryOrderBy.StatusDescending:
 
+                    //return col.Find(
+                    //    Query.And(
+                    //        Query.All("Status", Query.Descending)
+                    //        , query
+                    //    )
+                    //    , skip
+                    //    , entriesCount
+                    //);
+
+                    var q12 = Query.All("Status", Query.Descending);
+                    q12.Where.Add(query);
+
                     return col.Find(
-                        Query.And(
-                            Query.All("Status", Query.Descending)
-                            , query
-                        )
+                        q12
                         , skip
                         , entriesCount
                     );
@@ -687,7 +824,7 @@ namespace Wexflow.Core.LiteDB
             var col = _db.GetCollection<Entry>(Core.Db.Entry.DocumentName);
             var keywordToLower = keyword.ToLower();
             int skip = (page - 1) * entriesCount;
-            Query query;
+            BsonExpression query;
 
             if (!string.IsNullOrEmpty(keyword))
             {
@@ -703,132 +840,240 @@ namespace Wexflow.Core.LiteDB
             {
                 case EntryOrderBy.StatusDateAscending:
 
+                    //return col.Find(
+                    //    Query.And(
+                    //        Query.All("StatusDate")
+                    //        , query
+                    //    )
+                    //    , skip
+                    //    , entriesCount
+                    //);
+
+                    var q1 = Query.All("StatusDate");
+                    q1.Where.Add(query);
+
                     return col.Find(
-                        Query.And(
-                            Query.All("StatusDate")
-                            , query
-                        )
+                        q1
                         , skip
                         , entriesCount
                     );
 
                 case EntryOrderBy.StatusDateDescending:
 
+                    //return col.Find(
+                    //    Query.And(
+                    //        Query.All("StatusDate", Query.Descending)
+                    //        , query
+                    //    )
+                    //    , skip
+                    //    , entriesCount
+                    //);
+
+                    var q2 = Query.All("StatusDate", Query.Descending);
+                    q2.Where.Add(query);
+
                     return col.Find(
-                        Query.And(
-                            Query.All("StatusDate", Query.Descending)
-                            , query
-                        )
+                        q2
                         , skip
                         , entriesCount
                     );
 
                 case EntryOrderBy.WorkflowIdAscending:
 
+                    //return col.Find(
+                    //    Query.And(
+                    //        Query.All("WorkflowId")
+                    //        , query
+                    //    )
+                    //    , skip
+                    //    , entriesCount
+                    //);
+
+                    var q3 = Query.All("WorkflowId");
+                    q3.Where.Add(query);
+
                     return col.Find(
-                        Query.And(
-                            Query.All("WorkflowId")
-                            , query
-                        )
+                       q3
                         , skip
                         , entriesCount
                     );
 
                 case EntryOrderBy.WorkflowIdDescending:
 
+                    //return col.Find(
+                    //    Query.And(
+                    //        Query.All("WorkflowId", Query.Descending)
+                    //        , query
+                    //    )
+                    //    , skip
+                    //    , entriesCount
+                    //);
+
+                    var q4 = Query.All("WorkflowId", Query.Descending);
+                    q4.Where.Add(query);
+
                     return col.Find(
-                        Query.And(
-                            Query.All("WorkflowId", Query.Descending)
-                            , query
-                        )
+                       q4
                         , skip
                         , entriesCount
                     );
 
                 case EntryOrderBy.NameAscending:
 
+                    //return col.Find(
+                    //    Query.And(
+                    //        Query.All("Name")
+                    //        , query
+                    //    )
+                    //    , skip
+                    //    , entriesCount
+                    //);
+
+                    var q5 = Query.All("Name");
+                    q5.Where.Add(query);
+
                     return col.Find(
-                        Query.And(
-                            Query.All("Name")
-                            , query
-                        )
+                        q5
                         , skip
                         , entriesCount
                     );
 
                 case EntryOrderBy.NameDescending:
 
+                    //return col.Find(
+                    //    Query.And(
+                    //        Query.All("Name", Query.Descending)
+                    //        , query
+                    //    )
+                    //    , skip
+                    //    , entriesCount
+                    //);
+
+                    var q6 = Query.All("Name", Query.Descending);
+                    q6.Where.Add(query);
+
                     return col.Find(
-                        Query.And(
-                            Query.All("Name", Query.Descending)
-                            , query
-                        )
+                        q6
                         , skip
                         , entriesCount
                     );
 
                 case EntryOrderBy.LaunchTypeAscending:
 
+                    //return col.Find(
+                    //    Query.And(
+                    //        Query.All("LaunchType")
+                    //        , query
+                    //    )
+                    //    , skip
+                    //    , entriesCount
+                    //);
+
+                    var q7 = Query.All("LaunchType");
+                    q7.Where.Add(query);
+
                     return col.Find(
-                        Query.And(
-                            Query.All("LaunchType")
-                            , query
-                        )
+                        q7
                         , skip
                         , entriesCount
                     );
 
                 case EntryOrderBy.LaunchTypeDescending:
 
+                    //return col.Find(
+                    //    Query.And(
+                    //        Query.All("LaunchType", Query.Descending)
+                    //        , query
+                    //    )
+                    //    , skip
+                    //    , entriesCount
+                    //);
+
+                    var q8 = Query.All("LaunchType", Query.Descending);
+                    q8.Where.Add(query);
+
                     return col.Find(
-                        Query.And(
-                            Query.All("LaunchType", Query.Descending)
-                            , query
-                        )
+                        q8
                         , skip
                         , entriesCount
                     );
 
                 case EntryOrderBy.DescriptionAscending:
 
+                    //return col.Find(
+                    //    Query.And(
+                    //        Query.All("Description")
+                    //        , query
+                    //    )
+                    //    , skip
+                    //    , entriesCount
+                    //);
+
+                    var q9 = Query.All("Description");
+                    q9.Where.Add(query);
+
                     return col.Find(
-                        Query.And(
-                            Query.All("Description")
-                            , query
-                        )
+                       q9
                         , skip
                         , entriesCount
                     );
 
                 case EntryOrderBy.DescriptionDescending:
 
+                    //return col.Find(
+                    //    Query.And(
+                    //        Query.All("Description", Query.Descending)
+                    //        , query
+                    //    )
+                    //    , skip
+                    //    , entriesCount
+                    //);
+
+                    var q10 = Query.All("Description", Query.Descending);
+                    q10.Where.Add(query);
+
                     return col.Find(
-                        Query.And(
-                            Query.All("Description", Query.Descending)
-                            , query
-                        )
+                        q10
                         , skip
                         , entriesCount
                     );
 
                 case EntryOrderBy.StatusAscending:
 
+                    //return col.Find(
+                    //    Query.And(
+                    //        Query.All("Status")
+                    //        , query
+                    //    )
+                    //    , skip
+                    //    , entriesCount
+                    //);
+
+                    var q11 = Query.All("Status");
+                    q11.Where.Add(query);
+
                     return col.Find(
-                        Query.And(
-                            Query.All("Status")
-                            , query
-                        )
+                        q11
                         , skip
                         , entriesCount
                     );
 
                 case EntryOrderBy.StatusDescending:
 
+                    //return col.Find(
+                    //    Query.And(
+                    //        Query.All("Status", Query.Descending)
+                    //        , query
+                    //    )
+                    //    , skip
+                    //    , entriesCount
+                    //);
+
+                    var q12 = Query.All("Status", Query.Descending);
+                    q12.Where.Add(query);
+
                     return col.Find(
-                        Query.And(
-                            Query.All("Status", Query.Descending)
-                            , query
-                        )
+                        q12
                         , skip
                         , entriesCount
                     );
@@ -848,7 +1093,7 @@ namespace Wexflow.Core.LiteDB
         {
             var keywordToLower = keyword.ToLower();
             var col = _db.GetCollection<HistoryEntry>(Core.Db.HistoryEntry.DocumentName);
-            Query query;
+            BsonExpression query;
 
             if (!string.IsNullOrEmpty(keyword))
             {
@@ -867,7 +1112,7 @@ namespace Wexflow.Core.LiteDB
         {
             var keywordToLower = keyword.ToLower();
             var col = _db.GetCollection<Entry>(Core.Db.Entry.DocumentName);
-            Query query;
+            BsonExpression query;
 
             if (!string.IsNullOrEmpty(keyword))
             {
@@ -949,13 +1194,13 @@ namespace Wexflow.Core.LiteDB
         {
             var col = _db.GetCollection<Workflow>(Core.Db.Workflow.DocumentName);
             var i = int.Parse(id);
-            col.Delete(e => e.Id == i);
+            col.DeleteMany(e => e.Id == i);
         }
 
         public override void DeleteWorkflows(string[] ids)
         {
             var col = _db.GetCollection<Workflow>(Core.Db.Workflow.DocumentName);
-            col.Delete(e => ids.Contains(e.Id.ToString()));
+            col.DeleteMany(e => ids.Contains(e.Id.ToString()));
         }
 
         public override IEnumerable<Core.Db.Workflow> GetWorkflows()
@@ -984,13 +1229,13 @@ namespace Wexflow.Core.LiteDB
         public override void DeleteUserWorkflowRelationsByUserId(string userId)
         {
             var col = _db.GetCollection<UserWorkflow>(Core.Db.UserWorkflow.DocumentName);
-            col.Delete(uw => uw.UserId == userId);
+            col.DeleteMany(uw => uw.UserId == userId);
         }
 
         public override void DeleteUserWorkflowRelationsByWorkflowId(string workflowId)
         {
             var col = _db.GetCollection<UserWorkflow>(Core.Db.UserWorkflow.DocumentName);
-            col.Delete(uw => uw.WorkflowId == workflowId);
+            col.DeleteMany(uw => uw.WorkflowId == workflowId);
         }
 
         public override IEnumerable<string> GetUserWorkflows(string userId)
