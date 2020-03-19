@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Twilio" Version="5.35.1" />
+    <PackageReference Include="Twilio" Version="5.38.0" />
   </ItemGroup>
 
   <ItemGroup>
