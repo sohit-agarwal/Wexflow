@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <IsPackable>false</IsPackable>
 	<DebugType>Full</DebugType>
 	<Platforms>AnyCPU;x64;x86</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.0.0" />
     <PackageReference Include="MSTest.TestFramework" Version="2.0.0" />
   </ItemGroup>
@@ -76,6 +76,7 @@
     <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.TextsDecryptor\Wexflow.Tasks.TextsDecryptor.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.TextsEncryptor\Wexflow.Tasks.TextsEncryptor.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Touch\Wexflow.Tasks.Touch.csproj" />
+    <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Twilio\Wexflow.Tasks.Twilio.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Twitter\Wexflow.Tasks.Twitter.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.Unzip\Wexflow.Tasks.Unzip.csproj" />
     <ProjectReference Include="..\..\..\src\dotnet-core\Wexflow.Tasks.VimeoListUploads\Wexflow.Tasks.VimeoListUploads.csproj" />

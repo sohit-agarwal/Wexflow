@@ -47,7 +47,7 @@ namespace Wexflow.Tasks.MediaInfo
             return new TaskStatus(status, false);
         }
 
-        public static XDocument Inform(FileInf[] files)
+        public XDocument Inform(FileInf[] files)
         {
             var xdoc = new XDocument(new XElement("Files"));
             foreach (FileInf file in files)
@@ -157,7 +157,7 @@ namespace Wexflow.Tasks.MediaInfo
 
                         xdoc.Root.Add(xfile);
                     }
-                    Logger.InfoFormat("MediaInfo of the file {0} generated.", file.Path);
+                    InfoFormat("MediaInfo of the file {0} generated.", file.Path);
 
                     if (!_atLeastOneSucceed) _atLeastOneSucceed = true;
                 }

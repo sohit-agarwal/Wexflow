@@ -31,7 +31,23 @@ namespace Wexflow.Core
         /// <summary>
         /// RavenDB
         /// </summary>
-        RavenDB
+        RavenDB,
+        /// <summary>
+        /// PostgreSQL
+        /// </summary>
+        PostgreSQL,
+        /// <summary>
+        /// SQLServer
+        /// </summary>
+        SQLServer,
+        /// <summary>
+        /// MySQL
+        /// </summary>
+        MySQL,
+        /// <summary>
+        /// SQLite
+        /// </summary>
+        SQLite
     }
 
     /// <summary>
@@ -139,7 +155,18 @@ namespace Wexflow.Core
                 case DbType.RavenDB:
                     Database = new RavenDB.Db(ConnectionString);
                     break;
-
+                case DbType.PostgreSQL:
+                    Database = new PostgreSQL.Db(ConnectionString);
+                    break;
+                case DbType.SQLServer:
+                    Database = new SQLServer.Db(ConnectionString);
+                    break;
+                case DbType.MySQL:
+                    Database = new MySQL.Db(ConnectionString);
+                    break;
+                case DbType.SQLite:
+                    Database = new SQLite.Db(ConnectionString);
+                    break;
             }
 
             if (Database != null)
@@ -247,7 +274,9 @@ namespace Wexflow.Core
             try
             {
                 var wf = new Workflow(
-                      workflow.GetDbId()
+                      1
+                    , new Dictionary<Guid, Workflow>()
+                    , workflow.GetDbId()
                     , workflow.Xml
                     , TempFolder
                     , WorkflowsTempFolder
@@ -296,7 +325,10 @@ namespace Wexflow.Core
                         // check the workflow before to save it
                         try
                         {
-                            new Workflow("-1"
+                            new Workflow(
+                              1
+                            , new Dictionary<Guid, Workflow>()
+                            , "-1"
                             , xml
                             , TempFolder
                             , WorkflowsTempFolder
@@ -307,7 +339,7 @@ namespace Wexflow.Core
                             , GlobalVariables
                             );
                         }
-                        catch(Exception e)
+                        catch (Exception e)
                         {
                             Logger.ErrorFormat("An error occured while saving the workflow {0}:", e, xml);
                             return "-1";
@@ -332,7 +364,10 @@ namespace Wexflow.Core
                         // check the workflow before to save it
                         try
                         {
-                            new Workflow("-1"
+                            new Workflow(
+                              1
+                            , new Dictionary<Guid, Workflow>()
+                            , "-1"
                             , xml
                             , TempFolder
                             , WorkflowsTempFolder
@@ -661,7 +696,7 @@ namespace Wexflow.Core
         /// Starts a workflow.
         /// </summary>
         /// <param name="workflowId">Workflow Id.</param>
-        public void StartWorkflow(int workflowId)
+        public Guid StartWorkflow(int workflowId)
         {
             var wf = GetWorkflow(workflowId);
 
@@ -671,15 +706,22 @@ namespace Wexflow.Core
             }
             else
             {
-                if (wf.IsEnabled) wf.Start();
+                if (wf.IsEnabled)
+                {
+                    var instanceId = wf.Start();
+                    return instanceId;
+                }
             }
+
+            return Guid.Empty;
         }
 
         /// <summary>
         /// Stops a workflow.
         /// </summary>
         /// <param name="workflowId">Workflow Id.</param>
-        public bool StopWorkflow(int workflowId)
+        /// <param name="instanceId">Job instance Id.</param>
+        public bool StopWorkflow(int workflowId, Guid instanceId)
         {
             var wf = GetWorkflow(workflowId);
 
@@ -689,7 +731,19 @@ namespace Wexflow.Core
             }
             else
             {
-                if (wf.IsEnabled) return wf.Stop();
+                if (wf.IsEnabled)
+                {
+                    var innerWf = wf.Jobs.Where(kvp => kvp.Key.Equals(instanceId)).Select(kvp => kvp.Value).FirstOrDefault();
+
+                    if (innerWf == null)
+                    {
+                        Logger.ErrorFormat("Instance {0} not found.", instanceId);
+                    }
+                    else
+                    {
+                        return innerWf.Stop();
+                    }
+                }
             }
 
             return false;
@@ -699,7 +753,8 @@ namespace Wexflow.Core
         /// Suspends a workflow.
         /// </summary>
         /// <param name="workflowId">Workflow Id.</param>
-        public bool SuspendWorkflow(int workflowId)
+        /// <param name="instanceId">Job instance Id.</param>
+        public bool SuspendWorkflow(int workflowId, Guid instanceId)
         {
             var wf = GetWorkflow(workflowId);
 
@@ -709,7 +764,19 @@ namespace Wexflow.Core
             }
             else
             {
-                if (wf.IsEnabled) return wf.Suspend();
+                if (wf.IsEnabled)
+                {
+                    var innerWf = wf.Jobs.Where(kvp => kvp.Key.Equals(instanceId)).Select(kvp => kvp.Value).FirstOrDefault();
+
+                    if (innerWf == null)
+                    {
+                        Logger.ErrorFormat("Instance {0} not found.", instanceId);
+                    }
+                    else
+                    {
+                        return innerWf.Suspend();
+                    }
+                }
             }
 
             return false;
@@ -719,7 +786,8 @@ namespace Wexflow.Core
         /// Resumes a workflow.
         /// </summary>
         /// <param name="workflowId">Workflow Id.</param>
-        public void ResumeWorkflow(int workflowId)
+        /// <param name="instanceId">Job instance Id.</param>
+        public void ResumeWorkflow(int workflowId, Guid instanceId)
         {
             var wf = GetWorkflow(workflowId);
 
@@ -729,7 +797,19 @@ namespace Wexflow.Core
             }
             else
             {
-                if (wf.IsEnabled) wf.Resume();
+                if (wf.IsEnabled)
+                {
+                    var innerWf = wf.Jobs.Where(kvp => kvp.Key.Equals(instanceId)).Select(kvp => kvp.Value).FirstOrDefault();
+
+                    if (innerWf == null)
+                    {
+                        Logger.ErrorFormat("Instance {0} not found.", instanceId);
+                    }
+                    else
+                    {
+                        innerWf.Resume();
+                    }
+                }
             }
         }
 
@@ -737,7 +817,8 @@ namespace Wexflow.Core
         /// Resumes a workflow.
         /// </summary>
         /// <param name="workflowId">Workflow Id.</param>
-        public bool ApproveWorkflow(int workflowId)
+        /// <param name="instanceId">Job instance Id.</param>
+        public bool ApproveWorkflow(int workflowId, Guid instanceId)
         {
             try
             {
@@ -751,8 +832,20 @@ namespace Wexflow.Core
 
                 if (wf.IsApproval)
                 {
-                    wf.Approve();
-                    return true;
+                    if (wf.IsEnabled)
+                    {
+                        var innerWf = wf.Jobs.Where(kvp => kvp.Key.Equals(instanceId)).Select(kvp => kvp.Value).FirstOrDefault();
+
+                        if (innerWf == null)
+                        {
+                            Logger.ErrorFormat("Instance {0} not found.", instanceId);
+                        }
+                        else
+                        {
+                            innerWf.Approve();
+                            return true;
+                        }
+                    }
                 }
 
                 return false;
@@ -768,7 +861,8 @@ namespace Wexflow.Core
         /// Resumes a workflow.
         /// </summary>
         /// <param name="workflowId">Workflow Id.</param>
-        public bool DisapproveWorkflow(int workflowId)
+        /// <param name="instanceId">Job instance Id.</param>
+        public bool DisapproveWorkflow(int workflowId, Guid instanceId)
         {
             try
             {
@@ -782,8 +876,20 @@ namespace Wexflow.Core
 
                 if (wf.IsApproval)
                 {
-                    wf.Disapprove();
-                    return true;
+                    if (wf.IsEnabled)
+                    {
+                        var innerWf = wf.Jobs.Where(kvp => kvp.Key.Equals(instanceId)).Select(kvp => kvp.Value).FirstOrDefault();
+
+                        if (innerWf == null)
+                        {
+                            Logger.ErrorFormat("Instance {0} not found.", instanceId);
+                        }
+                        else
+                        {
+                            innerWf.Disapprove();
+                            return true;
+                        }
+                    }
                 }
 
                 return false;
@@ -841,12 +947,14 @@ namespace Wexflow.Core
         /// <param name="email">User's email.</param>
         public void UpdateUser(string userId, string username, string password, UserProfile userProfile, string email)
         {
+            var user = Database.GetUserByUserId(userId);
             Database.UpdateUser(userId, new User
             {
                 Username = username,
                 Password = password,
                 UserProfile = userProfile,
-                Email = email
+                Email = email,
+                CreatedOn = user.CreatedOn
             });
         }
 
@@ -1081,6 +1189,26 @@ namespace Wexflow.Core
         public DateTime GetEntryStatusDateMax()
         {
             return Database.GetEntryStatusDateMax();
+        }
+
+        /// <summary>
+        /// Returns entry logs.
+        /// </summary>
+        /// <param name="entryId">Entry id.</param>
+        /// <returns>Entry logs.</returns>
+        public string GetEntryLogs(string entryId)
+        {
+            return Database.GetEntryLogs(entryId);
+        }
+
+        /// <summary>
+        /// Returns entry logs.
+        /// </summary>
+        /// <param name="entryId">Entry id.</param>
+        /// <returns>Entry logs.</returns>
+        public string GetHistoryEntryLogs(string entryId)
+        {
+            return Database.GetHistoryEntryLogs(entryId);
         }
     }
 }

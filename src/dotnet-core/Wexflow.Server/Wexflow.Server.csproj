@@ -2,21 +2,107 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
 	<DebugType>Full</DebugType>
     <Platforms>AnyCPU;x64;x86</Platforms>
-    <StartupObject>Wexflow.Server.Program</StartupObject>
+    <StartupObject>Wexflow.Server.WexflowServer</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="swagger-ui\authenticate.js" />
+    <None Remove="swagger-ui\common.js" />
+    <None Remove="swagger-ui\doc.html" />
+    <None Remove="swagger-ui\favicon-16x16.png" />
+    <None Remove="swagger-ui\favicon-32x32.png" />
+    <None Remove="swagger-ui\index.html" />
+    <None Remove="swagger-ui\login.css" />
+    <None Remove="swagger-ui\login.js" />
+    <None Remove="swagger-ui\md5.js" />
+    <None Remove="swagger-ui\oauth2-redirect.html" />
+    <None Remove="swagger-ui\settings.js" />
+    <None Remove="swagger-ui\swagger-ui-bundle.js" />
+    <None Remove="swagger-ui\swagger-ui-bundle.js.map" />
+    <None Remove="swagger-ui\swagger-ui-standalone-preset.js" />
+    <None Remove="swagger-ui\swagger-ui-standalone-preset.js.map" />
+    <None Remove="swagger-ui\swagger-ui.css" />
+    <None Remove="swagger-ui\swagger-ui.css.map" />
+    <None Remove="swagger-ui\swagger-ui.js" />
+    <None Remove="swagger-ui\swagger-ui.js.map" />
+    <None Remove="swagger-ui\swagger.yaml" />
     <None Remove="WexflowService.cs~RF63476ca.TMP" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Owin" Version="3.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.0.0" />
+    <EmbeddedResource Include="swagger-ui\authenticate.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="swagger-ui\common.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="swagger-ui\index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="swagger-ui\login.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="swagger-ui\login.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="swagger-ui\md5.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="swagger-ui\settings.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="swagger-ui\favicon-16x16.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="swagger-ui\favicon-32x32.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="swagger-ui\doc.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="swagger-ui\oauth2-redirect.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="swagger-ui\swagger-ui-bundle.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="swagger-ui\swagger-ui-bundle.js.map">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="swagger-ui\swagger-ui-standalone-preset.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="swagger-ui\swagger-ui-standalone-preset.js.map">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="swagger-ui\swagger-ui.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="swagger-ui\swagger-ui.css.map">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="swagger-ui\swagger-ui.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="swagger-ui\swagger-ui.js.map">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="swagger-ui\swagger.yaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Owin" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.0" />
     <PackageReference Include="Nancy" Version="2.0.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="ServiceStack.Kestrel" Version="5.7.0" />
   </ItemGroup>
 
@@ -84,6 +170,7 @@
     <ProjectReference Include="..\Wexflow.Tasks.TextsDecryptor\Wexflow.Tasks.TextsDecryptor.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.TextsEncryptor\Wexflow.Tasks.TextsEncryptor.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.Touch\Wexflow.Tasks.Touch.csproj" />
+    <ProjectReference Include="..\Wexflow.Tasks.Twilio\Wexflow.Tasks.Twilio.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.Twitter\Wexflow.Tasks.Twitter.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.Unzip\Wexflow.Tasks.Unzip.csproj" />
     <ProjectReference Include="..\Wexflow.Tasks.VimeoListUploads\Wexflow.Tasks.VimeoListUploads.csproj" />

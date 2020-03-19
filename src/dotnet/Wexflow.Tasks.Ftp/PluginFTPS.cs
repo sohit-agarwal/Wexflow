@@ -36,6 +36,7 @@ namespace Wexflow.Tasks.Ftp
                     EncryptionMode = _encryptionMode
                 };
 
+            client.ValidateCertificate += OnValidateCertificate;
             client.Connect();
             client.SetWorkingDirectory(Path);
 
@@ -80,7 +81,8 @@ namespace Wexflow.Tasks.Ftp
                     Credentials = new NetworkCredential(User, Password),
                     EncryptionMode = _encryptionMode
                 };
-
+            
+            client.ValidateCertificate += OnValidateCertificate;
             client.Connect();
             client.SetWorkingDirectory(Path);
 
@@ -100,6 +102,7 @@ namespace Wexflow.Tasks.Ftp
                     EncryptionMode = _encryptionMode
                 };
 
+            client.ValidateCertificate += OnValidateCertificate;
             client.Connect();
             client.SetWorkingDirectory(Path);
 

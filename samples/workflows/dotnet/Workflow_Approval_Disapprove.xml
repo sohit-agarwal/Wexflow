@@ -18,8 +18,8 @@
   <ExecutionGraph>
 	<Task id="1"><Parent id="-1" /></Task>
 	<Task id="2"><Parent id="1" /></Task>
-	<OnDisapproved>
+	<OnRejected>
 		<Task id="3"><Parent id="-1" /></Task>
-	</OnDisapproved>
+	</OnRejected>
   </ExecutionGraph>
 </Workflow>

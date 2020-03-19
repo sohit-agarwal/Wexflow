@@ -21,9 +21,9 @@ namespace Wexflow.DotnetCore.Tests
         public void ApprovalTest()
         {
             var workflowId = 131;
-            Helper.StartWorkflow(workflowId);
+            var instanceId = Helper.StartWorkflow(workflowId);
             Thread.Sleep(500);
-            Helper.ApproveWorkflow(workflowId);
+            Helper.ApproveWorkflow(workflowId, instanceId);
             Stopwatch stopwatch = Stopwatch.StartNew();
             var workflow = Helper.GetWorkflow(workflowId);
             var isRunning = workflow.IsRunning;

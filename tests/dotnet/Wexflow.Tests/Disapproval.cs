@@ -21,9 +21,9 @@ namespace Wexflow.Tests
         public void DisapprovalTest()
         {
             var workflowId = 126;
-            Helper.StartWorkflow(workflowId);
+            var instanceId = Helper.StartWorkflow(workflowId);
             Thread.Sleep(500);
-            Helper.DisapproveWorkflow(workflowId);
+            Helper.DisapproveWorkflow(workflowId, instanceId);
             Stopwatch stopwatch = Stopwatch.StartNew();
             var workflow = Helper.GetWorkflow(workflowId);
             var isRunning = workflow.IsRunning;

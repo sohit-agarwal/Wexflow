@@ -56,7 +56,6 @@ namespace Wexflow.Core.CosmosDB
 
             var statusCount = new StatusCount
             {
-                //Id = Guid.NewGuid().ToString(),
                 PendingCount = 0,
                 RunningCount = 0,
                 DoneCount = 0,
@@ -66,7 +65,6 @@ namespace Wexflow.Core.CosmosDB
                 StoppedCount = 0
             };
 
-            //_helper.
             _helper.CreateDocument(_databaseName, Core.Db.StatusCount.DocumentName, statusCount);
 
             // Entries
@@ -741,6 +739,19 @@ namespace Wexflow.Core.CosmosDB
             }
         }
 
+        public override Core.Db.User GetUserByUserId(string userId)
+        {
+            using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
+            {
+                return
+                        client.CreateDocumentQuery<User>(
+                            UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.User.DocumentName))
+                        .Where(u => u.Id == userId)
+                        .AsEnumerable().ToArray()
+                        .FirstOrDefault();
+            }
+        }
+
         public override IEnumerable<Core.Db.User> GetUsers()
         {
             using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
@@ -954,7 +965,8 @@ namespace Wexflow.Core.CosmosDB
                         LaunchType = entry.LaunchType,
                         Status = entry.Status,
                         StatusDate = entry.StatusDate,
-                        WorkflowId = entry.WorkflowId
+                        WorkflowId = entry.WorkflowId,
+                        Logs = entry.Logs
                     });
             }
         }
@@ -973,7 +985,8 @@ namespace Wexflow.Core.CosmosDB
                         LaunchType = entry.LaunchType,
                         Status = entry.Status,
                         StatusDate = entry.StatusDate,
-                        WorkflowId = entry.WorkflowId
+                        WorkflowId = entry.WorkflowId,
+                        Logs = entry.Logs
                     });
             }
         }
@@ -986,7 +999,6 @@ namespace Wexflow.Core.CosmosDB
                     Core.Db.User.DocumentName,
                     new User
                     {
-                        //Id = Guid.NewGuid().ToString(),
                         Username = user.Username,
                         Password = user.Password,
                         Email = user.Email,
@@ -1042,7 +1054,8 @@ namespace Wexflow.Core.CosmosDB
                     LaunchType = entry.LaunchType,
                     Status = entry.Status,
                     StatusDate = entry.StatusDate,
-                    WorkflowId = entry.WorkflowId
+                    WorkflowId = entry.WorkflowId,
+                    Logs = entry.Logs
                 },
                 id);
         }
@@ -1147,5 +1160,32 @@ namespace Wexflow.Core.CosmosDB
                         },
                         dbId);
         }
+
+        public override string GetEntryLogs(string entryId)
+        {
+            using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
+            {
+                var entry = client.CreateDocumentQuery<Entry>(
+                         UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.Entry.DocumentName))
+                    .Where(e => e.Id == entryId)
+                    .AsEnumerable().ToArray()
+                    .First();
+                return entry.Logs;
+            }
+        }
+
+        public override string GetHistoryEntryLogs(string entryId)
+        {
+            using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
+            {
+                var entry = client.CreateDocumentQuery<HistoryEntry>(
+                         UriFactory.CreateDocumentCollectionUri(_databaseName, Core.Db.HistoryEntry.DocumentName))
+                    .Where(e => e.Id == entryId)
+                    .AsEnumerable().ToArray()
+                    .First();
+                return entry.Logs;
+            }
+        }
+
     }
 }

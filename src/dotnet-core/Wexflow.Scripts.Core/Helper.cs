@@ -39,8 +39,15 @@ namespace Wexflow.Scripts.Core
 
                     if (!found)
                     {
-                        db.InsertWorkflow(new Workflow { Xml = xdoc1.ToString() });
-                        Console.WriteLine("Workflow " + workflowIdFromFile + " inserted.");
+                        try
+                        {
+                            db.InsertWorkflow(new Workflow { Xml = xdoc1.ToString() });
+                            Console.WriteLine("Workflow " + workflowIdFromFile + " inserted.");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine("An error occured: {0}", e);
+                        }
                     }
                 }
                 Console.WriteLine("Workflows created.");

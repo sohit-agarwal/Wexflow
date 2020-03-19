@@ -69,7 +69,8 @@ class WorkflowsTask {
                         timer.purge();
                     }
 
-                    if (activity.getWorkflows().get((int) id).getEnabled()) {
+                    Workflow workflow = activity.getWorkflows().get((int) id);
+                    if (workflow.getEnabled()) {
                         timer = new Timer();
                         final Handler handler = new Handler();
                         timer.schedule(new TimerTask() {
@@ -84,6 +85,10 @@ class WorkflowsTask {
                     } else {
                         UpdateButtonsTask updateButtonsTask = new UpdateButtonsTask(activity);
                         updateButtonsTask.executeAsync(true);
+                    }
+
+                    if(workflow.getRunning()){
+                        WexflowServiceClient.JOBS.put(workflow.getId(), workflow.getInstanceId());
                     }
 
                 }

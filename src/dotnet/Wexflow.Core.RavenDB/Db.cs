@@ -903,6 +903,28 @@ namespace Wexflow.Core.RavenDB
             }
         }
 
+        public override Core.Db.User GetUserByUserId(string userId)
+        {
+            using (var session = _store.OpenSession())
+            {
+                try
+                {
+                    var col = session.Query<User>();
+                    var user = col.FirstOrDefault(u => u.Id == userId);
+                    return user;
+                }
+                catch (Exception e)
+                {
+                    using (EventLog eventLog = new EventLog("Application"))
+                    {
+                        eventLog.Source = "Wexflow";
+                        eventLog.WriteEntry(e.ToString(), EventLogEntryType.Error, 101, 1);
+                    }
+                    return null;
+                }
+            }
+        }
+
         public override IEnumerable<Core.Db.User> GetUsers()
         {
             using (var session = _store.OpenSession())
@@ -1124,7 +1146,8 @@ namespace Wexflow.Core.RavenDB
                     Name = entry.Name,
                     Status = entry.Status,
                     StatusDate = entry.StatusDate,
-                    WorkflowId = entry.WorkflowId
+                    WorkflowId = entry.WorkflowId,
+                    Logs = entry.Logs
                 };
                 session.Store(ie);
                 session.SaveChanges();
@@ -1143,7 +1166,8 @@ namespace Wexflow.Core.RavenDB
                     Name = entry.Name,
                     Status = entry.Status,
                     StatusDate = entry.StatusDate,
-                    WorkflowId = entry.WorkflowId
+                    WorkflowId = entry.WorkflowId,
+                    Logs = entry.Logs
                 };
                 session.Store(he);
                 session.SaveChanges();
@@ -1210,6 +1234,7 @@ namespace Wexflow.Core.RavenDB
                 ue.Status = entry.Status;
                 ue.StatusDate = entry.StatusDate;
                 ue.WorkflowId = entry.WorkflowId;
+                ue.Logs = entry.Logs;
 
                 session.SaveChanges();
                 Wait();
@@ -1272,6 +1297,26 @@ namespace Wexflow.Core.RavenDB
 
                 session.SaveChanges();
                 Wait();
+            }
+        }
+
+        public override string GetEntryLogs(string entryId)
+        {
+            using (var session = _store.OpenSession())
+            {
+                var col = session.Query<Entry>();
+                var entry = col.First(e => e.Id == entryId);
+                return entry.Logs;
+            }
+        }
+
+        public override string GetHistoryEntryLogs(string entryId)
+        {
+            using (var session = _store.OpenSession())
+            {
+                var col = session.Query<HistoryEntry>();
+                var entry = col.First(e => e.Id == entryId);
+                return entry.Logs;
             }
         }
     }

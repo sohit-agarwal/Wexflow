@@ -1,6 +1,6 @@
 ::@echo off
 
-set version=4.9
+set version=5.3
 set dst=wexflow-%version%-windows-dotnet-core
 set dstDir=.\%dst%
 set backend=Backend
@@ -63,6 +63,8 @@ copy "..\src\backend\Wexflow.Backend\js\manager.min.js" %dstDir%\%backend%\js
 copy "..\src\backend\Wexflow.Backend\js\ace.js" %dstDir%\%backend%\js
 copy "..\src\backend\Wexflow.Backend\js\worker-xml.js" %dstDir%\%backend%\js
 copy "..\src\backend\Wexflow.Backend\js\mode-xml.js" %dstDir%\%backend%\js
+copy "..\src\backend\Wexflow.Backend\js\worker-json.js" %dstDir%\%backend%\js
+copy "..\src\backend\Wexflow.Backend\js\mode-json.js" %dstDir%\%backend%\js
 copy "..\src\backend\Wexflow.Backend\js\ext-searchbox.js" %dstDir%\%backend%\js
 copy "..\src\backend\Wexflow.Backend\js\ext-prompt.js" %dstDir%\%backend%\js
 copy "..\src\backend\Wexflow.Backend\js\ext-keybinding_menu.js" %dstDir%\%backend%\js
@@ -95,6 +97,26 @@ copy dotnet-core\windows\install-RavenDB.bat %dstDir%
 dotnet publish ..\src\dotnet-core\Wexflow.Scripts.CosmosDB\Wexflow.Scripts.CosmosDB.csproj --force --output %~dp0\%dstDir%\Wexflow.Scripts.CosmosDB
 copy dotnet-core\windows\CosmosDB\appsettings.json %dstDir%\Wexflow.Scripts.CosmosDB
 copy dotnet-core\windows\install-CosmosDB.bat %dstDir%
+
+:: PostgreSQL script
+dotnet publish ..\src\dotnet-core\Wexflow.Scripts.PostgreSQL\Wexflow.Scripts.PostgreSQL.csproj --force --output %~dp0\%dstDir%\Wexflow.Scripts.PostgreSQL
+copy dotnet-core\windows\PostgreSQL\appsettings.json %dstDir%\Wexflow.Scripts.PostgreSQL
+copy dotnet-core\windows\install-PostgreSQL.bat %dstDir%
+
+:: SQLServer script
+dotnet publish ..\src\dotnet-core\Wexflow.Scripts.SQLServer\Wexflow.Scripts.SQLServer.csproj --force --output %~dp0\%dstDir%\Wexflow.Scripts.SQLServer
+copy dotnet-core\windows\SQLServer\appsettings.json %dstDir%\Wexflow.Scripts.SQLServer
+copy dotnet-core\windows\install-SQLServer.bat %dstDir%
+
+:: MySQL script
+dotnet publish ..\src\dotnet-core\Wexflow.Scripts.MySQL\Wexflow.Scripts.MySQL.csproj --force --output %~dp0\%dstDir%\Wexflow.Scripts.MySQL
+copy dotnet-core\windows\MySQL\appsettings.json %dstDir%\Wexflow.Scripts.MySQL
+copy dotnet-core\windows\install-MySQL.bat %dstDir%
+
+:: SQLite script
+dotnet publish ..\src\dotnet-core\Wexflow.Scripts.SQLite\Wexflow.Scripts.SQLite.csproj --force --output %~dp0\%dstDir%\Wexflow.Scripts.SQLite
+copy dotnet-core\windows\SQLite\appsettings.json %dstDir%\Wexflow.Scripts.SQLite
+copy dotnet-core\windows\install-SQLite.bat %dstDir%
 
 :: Wexflow.Clients.CommandLine
 dotnet publish ..\src\dotnet-core\Wexflow.Clients.CommandLine\Wexflow.Clients.CommandLine.csproj --force --output %~dp0\%dstDir%\Wexflow.Clients.CommandLine

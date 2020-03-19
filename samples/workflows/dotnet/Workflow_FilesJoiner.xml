@@ -1,4 +1,4 @@
-<Workflow id="140" name="Workflow_FilesJoiner" description="" xmlns="urn:wexflow-schema">
+<Workflow id="140" name="Workflow_FilesJoiner" description="Workflow_FilesJoiner" xmlns="urn:wexflow-schema">
   <Settings>
     <Setting name="launchType" value="trigger" />
     <Setting name="enabled" value="true" />

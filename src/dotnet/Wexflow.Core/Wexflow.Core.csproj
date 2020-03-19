@@ -168,9 +168,25 @@
       <Project>{18fddb89-d389-4f8f-b878-d874fef8b99e}</Project>
       <Name>Wexflow.Core.MongoDB</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Core.MySQL\Wexflow.Core.MySQL.csproj">
+      <Project>{e7d38365-9ce1-45be-bdcd-c63a94921e27}</Project>
+      <Name>Wexflow.Core.MySQL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Core.PostgreSQL\Wexflow.Core.PostgreSQL.csproj">
+      <Project>{f6070c45-b535-489d-99fb-86f6c9175257}</Project>
+      <Name>Wexflow.Core.PostgreSQL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Core.RavenDB\Wexflow.Core.RavenDB.csproj">
       <Project>{15a456e4-6992-4586-97aa-4f0279434de5}</Project>
       <Name>Wexflow.Core.RavenDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Core.SQLite\Wexflow.Core.SQLite.csproj">
+      <Project>{19673281-bd4a-4587-9d7c-3472e605f426}</Project>
+      <Name>Wexflow.Core.SQLite</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wexflow.Core.SQLServer\Wexflow.Core.SQLServer.csproj">
+      <Project>{23a7c9d1-d796-4152-af5a-24ec6bfe90fa}</Project>
+      <Name>Wexflow.Core.SQLServer</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

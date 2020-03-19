@@ -14,8 +14,8 @@ jobs:
          - pwd
          - ls -la .
          - sudo chmod +x gradlew
-         - sudo apt-get update -qq
-         - sudo apt-get install ant
+         #- sudo apt-get update -qq
+         #- sudo apt-get install ant
         install:
          # Let's use the new command 'sdkmanager' to install Android SDK components
          - yes | sdkmanager --verbose "build-tools;26.0.3"

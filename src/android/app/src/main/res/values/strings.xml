@@ -9,7 +9,7 @@
     <string name="btnStop">Stop</string>
     <string name="btnRefresh">Refresh</string>
     <string name="btnApprove">Approve</string>
-    <string name="btnDisapprove">Disapprove</string>
+    <string name="btnDisapprove">Reject</string>
     <string name="workflow_disabled">This workflow is disabled.</string>
     <string name="workflow_running">This workflow is running&#8230;</string>
     <string name="workflow_waiting_for_approval">This workflow is waiting for approval&#8230;</string>

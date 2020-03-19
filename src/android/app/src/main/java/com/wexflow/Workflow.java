@@ -9,13 +9,15 @@ class Workflow {
     private final Boolean isApproval;
     private Boolean isWaitingForApproval;
     private int id;
+    private String instanceId;
     private String name;
     //private String description;
     private Boolean isRunning;
     private Boolean isPaused;
 
-    private Workflow(int id, String name, LaunchType launchType, Boolean isEnabled, Boolean isApproval, Boolean isWaitingForApproval, Boolean isRunning, Boolean isPaused) {
+    private Workflow(int id, String instanceId, String name, LaunchType launchType, Boolean isEnabled, Boolean isApproval, Boolean isWaitingForApproval, Boolean isRunning, Boolean isPaused) {
         this.id = id;
+        this.instanceId = instanceId;
         this.name = name;
         this.launchType = launchType;
         this.isEnabled = isEnabled;
@@ -28,6 +30,7 @@ class Workflow {
 
     static Workflow fromJSONObject(JSONObject jsonObject) throws JSONException {
         return new Workflow(jsonObject.getInt("Id")
+                , jsonObject.getString("InstanceId")
                 , jsonObject.getString("Name")
                 , LaunchType.fromInteger(jsonObject.getInt("LaunchType"))
                 , jsonObject.getBoolean("IsEnabled")
@@ -40,6 +43,10 @@ class Workflow {
 
     int getId() {
         return id;
+    }
+
+    String getInstanceId() {
+        return instanceId;
     }
 
     String getName() {

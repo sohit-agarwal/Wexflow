@@ -64,6 +64,7 @@ namespace Wexflow.Core.Db
         public abstract void UpdateUser(string id, User user);
         public abstract void UpdateUsernameAndEmailAndUserProfile(string userId, string username, string email, UserProfile up);
         public abstract User GetUser(string username);
+        public abstract User GetUserByUserId(string id);
         public abstract void DeleteUser(string username, string password);
         public abstract string GetPassword(string username);
         public abstract IEnumerable<User> GetUsers();
@@ -95,6 +96,8 @@ namespace Wexflow.Core.Db
         public abstract void IncrementStoppedCount();
         public abstract void IncrementPendingCount();
         public abstract void DecrementPendingCount();
+        public abstract string GetEntryLogs(string entryId);
+        public abstract string GetHistoryEntryLogs(string entryId);
 
         public static string GetMd5(string input)
         {

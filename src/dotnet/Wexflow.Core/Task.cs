@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -41,10 +42,14 @@ namespace Wexflow.Core
         /// </summary>
         public Workflow Workflow { get; private set; }
         /// <summary>
+        /// Log messages.
+        /// </summary>
+        public List<string> Logs { get; private set; }
+        /// <summary>
         /// Task files.
         /// </summary>
-        public List<FileInf> Files 
-        { 
+        public List<FileInf> Files
+        {
             get
             {
                 return Workflow.FilesPerTask[Id];
@@ -63,8 +68,12 @@ namespace Wexflow.Core
         /// <summary>
         /// Hashtable used as shared memory for tasks.
         /// </summary>
-        public Hashtable Hashtable {
-            get { return Workflow.Hashtable; }
+        public Hashtable Hashtable
+        {
+            get
+            {
+                return Workflow.Hashtable;
+            }
         }
 
         private readonly XElement _xElement;
@@ -74,8 +83,9 @@ namespace Wexflow.Core
         /// </summary>
         /// <param name="xe">XElement.</param>
         /// <param name="wf">Workflow.</param>
-		protected Task(XElement xe, Workflow wf) 
+		protected Task(XElement xe, Workflow wf)
         {
+            Logs = new List<string>();
             _xElement = xe;
             var xId = xe.Attribute("id");
             if (xId == null) throw new Exception("Task id attribute not found.");
@@ -101,7 +111,7 @@ namespace Wexflow.Core
             {
                 // setting name
                 var xSettingName = xSetting.Attribute("name");
-                if(xSettingName == null) throw new Exception("Setting name not found");
+                if (xSettingName == null) throw new Exception("Setting name not found");
                 string settingName = xSettingName.Value;
 
                 // setting value
@@ -175,6 +185,24 @@ namespace Wexflow.Core
         /// <param name="name">Setting name.</param>
         /// <param name="defaultValue">Default value.</param>
         /// <returns>Setting value.</returns>
+        public T GetSetting<T>(string name, T defaultValue = default(T))
+        {
+            var returnValue = GetSetting(name);
+
+            if (string.IsNullOrEmpty(returnValue))
+            {
+                return defaultValue;
+            }
+
+            return (T)Convert.ChangeType(returnValue, typeof(T), CultureInfo.InvariantCulture);
+        }
+
+        /// <summary>
+        /// Returns a setting value from its name and returns a default value if the setting value is not found.
+        /// </summary>
+        /// <param name="name">Setting name.</param>
+        /// <param name="defaultValue">Default value.</param>
+        /// <returns>Setting value.</returns>
         public int GetSettingInt(string name, int defaultValue)
         {
             var value = GetSetting(name, defaultValue.ToString());
@@ -236,7 +264,7 @@ namespace Wexflow.Core
         /// Returns a list of the files loaded by this task through selectFiles setting.
         /// </summary>
         /// <returns>A list of the files loaded by this task through selectFiles setting.</returns>
-        public FileInf[] SelectFiles() 
+        public FileInf[] SelectFiles()
         {
             var files = new List<FileInf>();
             foreach (var xSelectFile in GetXSettings("selectFiles"))
@@ -247,15 +275,15 @@ namespace Wexflow.Core
                     var taskId = int.Parse(xTaskId.Value);
 
                     var qf = QueryFiles(Workflow.FilesPerTask[taskId], xSelectFile).ToArray();
-                        
+
                     files.AddRange(qf);
                 }
                 else
                 {
                     var qf = (from lf in Workflow.FilesPerTask.Values
-                                    from f in QueryFiles(lf, xSelectFile)
-                                    select f).Distinct().ToArray();
-                    
+                              from f in QueryFiles(lf, xSelectFile)
+                              select f).Distinct().ToArray();
+
                     files.AddRange(qf);
                 }
             }
@@ -276,24 +304,24 @@ namespace Wexflow.Core
             {
                 return files;
             }
-            
-			foreach (var file in files)
-			{
-				// Check file tags
-				bool ok = true;
-				foreach (var xa in xSelectFile.Attributes())
-				{
-					if (xa.Name != "name" && xa.Name != "value")
-					{
-						ok &= file.Tags.Any(tag => tag.Key == xa.Name && tag.Value == xa.Value);
-					}
-				}
 
-				if (ok)
-				{
-					fl.Add(file);
-				}
-			}
+            foreach (var file in files)
+            {
+                // Check file tags
+                bool ok = true;
+                foreach (var xa in xSelectFile.Attributes())
+                {
+                    if (xa.Name != "name" && xa.Name != "value")
+                    {
+                        ok &= file.Tags.Any(tag => tag.Key == xa.Name && tag.Value == xa.Value);
+                    }
+                }
+
+                if (ok)
+                {
+                    fl.Add(file);
+                }
+            }
 
             return fl;
         }
@@ -338,7 +366,9 @@ namespace Wexflow.Core
         /// <param name="msg">Log message.</param>
         public void Info(string msg)
         {
-            Logger.Info(BuildLogMsg(msg));
+            var message = BuildLogMsg(msg);
+            Logger.Info(message);
+            Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  INFO - " + message);
         }
 
         /// <summary>
@@ -348,7 +378,9 @@ namespace Wexflow.Core
         /// <param name="args">Arguments.</param>
         public void InfoFormat(string msg, params object[] args)
         {
-            Logger.InfoFormat(BuildLogMsg(msg), args);
+            var message = string.Format(BuildLogMsg(msg), args);
+            Logger.Info(message);
+            Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  INFO - " + message);
         }
 
         /// <summary>
@@ -357,7 +389,9 @@ namespace Wexflow.Core
         /// <param name="msg">Log message.</param>
         public void Debug(string msg)
         {
-            Logger.Debug(BuildLogMsg(msg));
+            var message = BuildLogMsg(msg);
+            Logger.Debug(msg);
+            Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  DEBUG - " + message);
         }
 
         /// <summary>
@@ -367,7 +401,9 @@ namespace Wexflow.Core
         /// <param name="args">Arguments.</param>
         public void DebugFormat(string msg, params object[] args)
         {
-            Logger.DebugFormat(BuildLogMsg(msg), args);
+            var message = string.Format(BuildLogMsg(msg), args);
+            Logger.DebugFormat(message);
+            Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  DEBUG - " + message);
         }
 
         /// <summary>
@@ -376,7 +412,9 @@ namespace Wexflow.Core
         /// <param name="msg">Log message.</param>
         public void Error(string msg)
         {
-            Logger.Error(BuildLogMsg(msg));
+            var message = BuildLogMsg(msg);
+            Logger.Error(message);
+            Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  ERROR - " + message);
         }
 
         /// <summary>
@@ -386,7 +424,9 @@ namespace Wexflow.Core
         /// <param name="args">Arguments.</param>
         public void ErrorFormat(string msg, params object[] args)
         {
-            Logger.ErrorFormat(BuildLogMsg(msg), args);
+            var message = string.Format(BuildLogMsg(msg), args);
+            Logger.Error(message);
+            Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  ERROR - " + message);
         }
 
         /// <summary>
@@ -396,7 +436,9 @@ namespace Wexflow.Core
         /// <param name="e">Exception.</param>
         public void Error(string msg, Exception e)
         {
-            Logger.Error(BuildLogMsg(msg), e);
+            var message = BuildLogMsg(msg);
+            Logger.Error(message, e);
+            Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  ERROR - " + message + "\r\n" + e);
         }
 
         /// <summary>
@@ -407,7 +449,9 @@ namespace Wexflow.Core
         /// <param name="args">Arguments.</param>
         public void ErrorFormat(string msg, Exception e, params object[] args)
         {
-            Logger.Error(string.Format(BuildLogMsg(msg), args), e);
+            var message = string.Format(BuildLogMsg(msg), args);
+            Logger.Error(message, e);
+            Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  ERROR - " + message + "\r\n" + e);
         }
     }
 }

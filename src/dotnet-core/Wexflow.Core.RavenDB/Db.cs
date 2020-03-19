@@ -7,6 +7,7 @@ using Raven.Client.ServerWide;
 using Raven.Client.ServerWide.Operations;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using Wexflow.Core.Db;
@@ -251,11 +252,11 @@ namespace Wexflow.Core.RavenDB
             using (var session = _store.OpenSession())
             {
                 var col = session.Query<Workflow>();
- 
-                foreach(var id in ids)
+
+                foreach (var id in ids)
                 {
                     var wf = col.FirstOrDefault(w => w.Id == id);
-                    if(wf != null)
+                    if (wf != null)
                     {
                         session.Delete(wf);
                     }
@@ -890,7 +891,24 @@ namespace Wexflow.Core.RavenDB
                     var user = col.FirstOrDefault(u => u.Username == username);
                     return user;
                 }
-                catch (Exception)
+                catch
+                {
+                    return null;
+                }
+            }
+        }
+
+        public override Core.Db.User GetUserByUserId(string userId)
+        {
+            using (var session = _store.OpenSession())
+            {
+                try
+                {
+                    var col = session.Query<User>();
+                    var user = col.FirstOrDefault(u => u.Id == userId);
+                    return user;
+                }
+                catch
                 {
                     return null;
                 }
@@ -1118,7 +1136,8 @@ namespace Wexflow.Core.RavenDB
                     Name = entry.Name,
                     Status = entry.Status,
                     StatusDate = entry.StatusDate,
-                    WorkflowId = entry.WorkflowId
+                    WorkflowId = entry.WorkflowId,
+                    Logs = entry.Logs
                 };
                 session.Store(ie);
                 session.SaveChanges();
@@ -1137,7 +1156,8 @@ namespace Wexflow.Core.RavenDB
                     Name = entry.Name,
                     Status = entry.Status,
                     StatusDate = entry.StatusDate,
-                    WorkflowId = entry.WorkflowId
+                    WorkflowId = entry.WorkflowId,
+                    Logs = entry.Logs
                 };
                 session.Store(he);
                 session.SaveChanges();
@@ -1204,6 +1224,7 @@ namespace Wexflow.Core.RavenDB
                 ue.Status = entry.Status;
                 ue.StatusDate = entry.StatusDate;
                 ue.WorkflowId = entry.WorkflowId;
+                ue.Logs = entry.Logs;
 
                 session.SaveChanges();
                 Wait();
@@ -1266,6 +1287,26 @@ namespace Wexflow.Core.RavenDB
 
                 session.SaveChanges();
                 Wait();
+            }
+        }
+
+        public override string GetEntryLogs(string entryId)
+        {
+            using (var session = _store.OpenSession())
+            {
+                var col = session.Query<Entry>();
+                var entry = col.First(e => e.Id == entryId);
+                return entry.Logs;
+            }
+        }
+
+        public override string GetHistoryEntryLogs(string entryId)
+        {
+            using (var session = _store.OpenSession())
+            {
+                var col = session.Query<HistoryEntry>();
+                var entry = col.First(e => e.Id == entryId);
+                return entry.Logs;
             }
         }
     }

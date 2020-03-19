@@ -1,5 +1,5 @@
 #define MyAppName "Wexflow"
-#define MyAppVersion "4.9"
+#define MyAppVersion "5.3"
 #define MyAppPublisher "Akram El Assas"
 #define MyAppPublisherURL "https://wexflow.github.io/"
 #define MyAppExeName "Wexflow.Clients.Manager.exe"
@@ -52,11 +52,11 @@ Source: "..\libs\log4net.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Renci.SshNet.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Mono.Security.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\libs\Npgsql.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\libs\Npgsql.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Oracle.ManagedDataAccess.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\libs\MySql.Data.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\libs\x86\System.Data.SQLite.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\libs\x86\SQLite.Interop.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\libs\MySql.Data.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\libs\x86\System.Data.SQLite.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\libs\x86\SQLite.Interop.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Teradata.Client.Provider.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\saxon9he.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\saxon9he-api.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -133,6 +133,19 @@ Source: "..\src\dotnet\Wexflow.Core.MongoDB\bin\x86\Release\*.dll"; DestDir: "{a
 ; CosmosDB
 Source: "..\src\dotnet\Wexflow.Core.CosmosDB\bin\x86\Release\*.dll"; DestDir: "{app}"; Flags: ignoreversion
 
+; PostgreSQL
+Source: "..\src\dotnet\Wexflow.Core.PostgreSQL\bin\x86\Release\*.dll"; DestDir: "{app}"; Flags: ignoreversion
+
+; SQLServer
+Source: "..\src\dotnet\Wexflow.Core.SQLServer\bin\x86\Release\Wexflow.Core.SQLServer.dll"; DestDir: "{app}"; Flags: ignoreversion
+
+; MySQL
+Source: "..\src\dotnet\Wexflow.Core.MySQL\bin\x86\Release\*.dll"; DestDir: "{app}"; Flags: ignoreversion
+
+; SQLite
+Source: "..\src\dotnet\Wexflow.Core.SQLite\bin\x86\Release\*.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Core.SQLite\bin\x86\Release\x86\SQLite.Interop.dll"; DestDir: "{app}"; Flags: ignoreversion
+
 ; RavenDB
 Source: "..\src\dotnet\Wexflow.Core.RavenDB\bin\x86\Release\*.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Net.Http.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -142,13 +155,40 @@ Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Runtime.CompilerService
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Threading.Tasks.Extensions.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Numerics.Vectors.dll"; DestDir: "{app}"; Flags: ignoreversion
 
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Memory.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Microsoft.Bcl.AsyncInterfaces.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Net.Sockets.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Text.Encodings.Web.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Text.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.ValueTuple.dll"; DestDir: "{app}"; Flags: ignoreversion
+
+; Nancy
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\Nancy.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\Nancy.Owin.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\Owin.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\Microsoft.Owin.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\Microsoft.Owin.Host.HttpListener.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\Microsoft.Owin.Hosting.dll"; DestDir: "{app}"; Flags: ignoreversion
+
+; Swagger UI
+Source: "..\src\dotnet\Wexflow.Server\swagger-ui\*"; DestDir: "{app}\swagger-ui"; Flags: ignoreversion recursesubdirs
+
+; Twilio
+;Source: "..\src\dotnet\Wexflow.Tasks.Twilio\bin\x86\Release\"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Tasks.Twilio\bin\x86\Release\Microsoft.IdentityModel.JsonWebTokens.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Tasks.Twilio\bin\x86\Release\Microsoft.IdentityModel.Logging.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Tasks.Twilio\bin\x86\Release\Microsoft.IdentityModel.Tokens.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Tasks.Twilio\bin\x86\Release\System.IdentityModel.Tokens.Jwt.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Tasks.Twilio\bin\x86\Release\Twilio.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\src\dotnet\Wexflow.Tasks.Twilio\bin\x86\Release\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
+
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Core.Db.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Core.LiteDB.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Core.MongoDB.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Core.Service.Client.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Core.Service.Contracts.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Core.Service.Cross.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Core.Service.Cross.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Debug\Wexflow.Core.xml"; DestDir: "{app}"; Flags: ignoreversion
 
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Tasks.CsvToXml.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -252,6 +292,9 @@ Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Tasks.Approval.dll"; D
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Tasks.VimeoListUploads.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Tasks.Vimeo.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Tasks.Slack.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Tasks.FilesLoaderEx.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Tasks.FilesJoiner.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Tasks.Twilio.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 ; Wexflow Manager
 Source: "..\src\dotnet\Wexflow.Clients.Manager\bin\Release\Wexflow.Clients.Manager.exe"; DestDir: "{app}\Manager"; Flags: ignoreversion
@@ -299,6 +342,8 @@ Source: "..\src\backend\Wexflow.Backend\js\manager.min.js"; DestDir: "{app}\Back
 Source: "..\src\backend\Wexflow.Backend\js\ace.js"; DestDir: "{app}\Backend\js"; Flags: ignoreversion
 Source: "..\src\backend\Wexflow.Backend\js\worker-xml.js"; DestDir: "{app}\Backend\js"; Flags: ignoreversion
 Source: "..\src\backend\Wexflow.Backend\js\mode-xml.js"; DestDir: "{app}\Backend\js"; Flags: ignoreversion
+Source: "..\src\backend\Wexflow.Backend\js\worker-json.js"; DestDir: "{app}\Backend\js"; Flags: ignoreversion
+Source: "..\src\backend\Wexflow.Backend\js\mode-json.js"; DestDir: "{app}\Backend\js"; Flags: ignoreversion
 Source: "..\src\backend\Wexflow.Backend\js\ext-searchbox.js"; DestDir: "{app}\Backend\js"; Flags: ignoreversion
 Source: "..\src\backend\Wexflow.Backend\js\ext-prompt.js"; DestDir: "{app}\Backend\js"; Flags: ignoreversion
 Source: "..\src\backend\Wexflow.Backend\js\ext-keybinding_menu.js"; DestDir: "{app}\Backend\js"; Flags: ignoreversion
@@ -415,6 +460,9 @@ Source: "..\src\dotnet\Wexflow.Tasks.Approval\Approval.xml"; DestDir: "{app}\Doc
 Source: "..\src\dotnet\Wexflow.Tasks.VimeoListUploads\VimeoListUploads.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 Source: "..\src\dotnet\Wexflow.Tasks.Vimeo\Vimeo.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 Source: "..\src\dotnet\Wexflow.Tasks.Slack\Slack.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.FilesLoaderEx\FilesLoaderEx.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.FilesJoiner\FilesJoiner.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Tasks.Twilio\Twilio.xml"; DestDir: "{app}\Documentation"; Flags: ignoreversion recursesubdirs
 
 Source: "..\LICENSE.txt"; DestDir: "{app}\"; Flags: ignoreversion recursesubdirs
 
@@ -432,11 +480,35 @@ Source: "..\src\dotnet\Wexflow.Scripts.MongoDB\bin\x86\Release\Wexflow.Scripts.M
 Source: ".\dotnet\Wexflow.Scripts.MongoDB\Wexflow.Scripts.MongoDB.exe.config"; DestDir: "{app}\Wexflow.Scripts.MongoDB"; Flags: ignoreversion recursesubdirs
 Source: "..\src\dotnet\Wexflow.Scripts.MongoDB\bin\x86\Release\*.dll"; DestDir: "{app}\Wexflow.Scripts.MongoDB"; Flags: ignoreversion recursesubdirs
 Source: "..\samples\workflows\dotnet\*.xml"; DestDir: "{app}\Wexflow.Scripts.MongoDB\Workflows"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Net.Http.dll"; DestDir: "{app}\Wexflow.Scripts.MongoDB"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Buffers.dll"; DestDir: "{app}\Wexflow.Scripts.MongoDB"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Runtime.InteropServices.RuntimeInformation.dll"; DestDir: "{app}\Wexflow.Scripts.MongoDB"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Runtime.CompilerServices.Unsafe.dll"; DestDir: "{app}\Wexflow.Scripts.MongoDB"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Threading.Tasks.Extensions.dll"; DestDir: "{app}\Wexflow.Scripts.MongoDB"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Numerics.Vectors.dll"; DestDir: "{app}\Wexflow.Scripts.MongoDB"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Memory.dll"; DestDir: "{app}\Wexflow.Scripts.MongoDB"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Microsoft.Bcl.AsyncInterfaces.dll"; DestDir: "{app}\Wexflow.Scripts.MongoDB"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Net.Sockets.dll"; DestDir: "{app}\Wexflow.Scripts.MongoDB"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Text.Encodings.Web.dll"; DestDir: "{app}\Wexflow.Scripts.MongoDB"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Text.Json.dll"; DestDir: "{app}\Wexflow.Scripts.MongoDB"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.ValueTuple.dll"; DestDir: "{app}\Wexflow.Scripts.MongoDB"; Flags: ignoreversion
 
 ; Wexflow.Scripts.RavenDB
 Source: "..\src\dotnet\Wexflow.Scripts.RavenDB\bin\x86\Release\Wexflow.Scripts.RavenDB.exe"; DestDir: "{app}\Wexflow.Scripts.RavenDB"; Flags: ignoreversion recursesubdirs
 Source: ".\dotnet\Wexflow.Scripts.RavenDB\Wexflow.Scripts.RavenDB.exe.config"; DestDir: "{app}\Wexflow.Scripts.RavenDB"; Flags: ignoreversion recursesubdirs
 Source: "..\src\dotnet\Wexflow.Scripts.RavenDB\bin\x86\Release\*.dll"; DestDir: "{app}\Wexflow.Scripts.RavenDB"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Net.Http.dll"; DestDir: "{app}\Wexflow.Scripts.RavenDB"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Buffers.dll"; DestDir: "{app}\Wexflow.Scripts.RavenDB"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Runtime.InteropServices.RuntimeInformation.dll"; DestDir: "{app}\Wexflow.Scripts.RavenDB"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Runtime.CompilerServices.Unsafe.dll"; DestDir: "{app}\Wexflow.Scripts.RavenDB"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Threading.Tasks.Extensions.dll"; DestDir: "{app}\Wexflow.Scripts.RavenDB"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Numerics.Vectors.dll"; DestDir: "{app}\Wexflow.Scripts.RavenDB"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Memory.dll"; DestDir: "{app}\Wexflow.Scripts.RavenDB"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Microsoft.Bcl.AsyncInterfaces.dll"; DestDir: "{app}\Wexflow.Scripts.RavenDB"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Net.Sockets.dll"; DestDir: "{app}\Wexflow.Scripts.RavenDB"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Text.Encodings.Web.dll"; DestDir: "{app}\Wexflow.Scripts.RavenDB"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Text.Json.dll"; DestDir: "{app}\Wexflow.Scripts.RavenDB"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.ValueTuple.dll"; DestDir: "{app}\Wexflow.Scripts.RavenDB"; Flags: ignoreversion
 
 ; Wexflow.Scripts.CosmosDB
 Source: "..\src\dotnet\Wexflow.Scripts.CosmosDB\bin\x86\Release\Wexflow.Scripts.CosmosDB.exe"; DestDir: "{app}\Wexflow.Scripts.CosmosDB"; Flags: ignoreversion recursesubdirs
@@ -444,11 +516,45 @@ Source: ".\dotnet\Wexflow.Scripts.CosmosDB\Wexflow.Scripts.CosmosDB.exe.config";
 Source: "..\src\dotnet\Wexflow.Core.CosmosDB\bin\x86\Release\*.dll"; DestDir: "{app}\Wexflow.Scripts.CosmosDB"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Scripts.CosmosDB\bin\x86\Release\*.dll"; DestDir: "{app}\Wexflow.Scripts.CosmosDB"; Flags: ignoreversion recursesubdirs
 
+; Wexflow.Scripts.PostgreSQL
+Source: "..\src\dotnet\Wexflow.Scripts.PostgreSQL\bin\x86\Release\Wexflow.Scripts.PostgreSQL.exe"; DestDir: "{app}\Wexflow.Scripts.PostgreSQL"; Flags: ignoreversion recursesubdirs
+Source: ".\dotnet\Wexflow.Scripts.PostgreSQL\Wexflow.Scripts.PostgreSQL.exe.config"; DestDir: "{app}\Wexflow.Scripts.PostgreSQL"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Scripts.PostgreSQL\bin\x86\Release\*.dll"; DestDir: "{app}\Wexflow.Scripts.PostgreSQL"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Net.Http.dll"; DestDir: "{app}\Wexflow.Scripts.PostgreSQL"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Buffers.dll"; DestDir: "{app}\Wexflow.Scripts.PostgreSQL"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Runtime.InteropServices.RuntimeInformation.dll"; DestDir: "{app}\Wexflow.Scripts.PostgreSQL"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Runtime.CompilerServices.Unsafe.dll"; DestDir: "{app}\Wexflow.Scripts.PostgreSQL"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Threading.Tasks.Extensions.dll"; DestDir: "{app}\Wexflow.Scripts.PostgreSQL"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\Release\System.Numerics.Vectors.dll"; DestDir: "{app}\Wexflow.Scripts.PostgreSQL"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Memory.dll"; DestDir: "{app}\Wexflow.Scripts.PostgreSQL"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Microsoft.Bcl.AsyncInterfaces.dll"; DestDir: "{app}\Wexflow.Scripts.PostgreSQL"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Net.Sockets.dll"; DestDir: "{app}\Wexflow.Scripts.PostgreSQL"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Text.Encodings.Web.dll"; DestDir: "{app}\Wexflow.Scripts.PostgreSQL"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.Text.Json.dll"; DestDir: "{app}\Wexflow.Scripts.PostgreSQL"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\System.ValueTuple.dll"; DestDir: "{app}\Wexflow.Scripts.PostgreSQL"; Flags: ignoreversion
+
+; Wexflow.Scripts.SQLServer
+Source: "..\src\dotnet\Wexflow.Scripts.SQLServer\bin\x86\Release\Wexflow.Scripts.SQLServer.exe"; DestDir: "{app}\Wexflow.Scripts.SQLServer"; Flags: ignoreversion recursesubdirs
+Source: ".\dotnet\Wexflow.Scripts.SQLServer\Wexflow.Scripts.SQLServer.exe.config"; DestDir: "{app}\Wexflow.Scripts.SQLServer"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Scripts.SQLServer\bin\x86\Release\*.dll"; DestDir: "{app}\Wexflow.Scripts.SQLServer"; Flags: ignoreversion recursesubdirs
+
+; Wexflow.Scripts.MySQL
+Source: "..\src\dotnet\Wexflow.Scripts.MySQL\bin\x86\Release\Wexflow.Scripts.MySQL.exe"; DestDir: "{app}\Wexflow.Scripts.MySQL"; Flags: ignoreversion recursesubdirs
+Source: ".\dotnet\Wexflow.Scripts.MySQL\Wexflow.Scripts.MySQL.exe.config"; DestDir: "{app}\Wexflow.Scripts.MySQL"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Scripts.MySQL\bin\x86\Release\*.dll"; DestDir: "{app}\Wexflow.Scripts.MySQL"; Flags: ignoreversion recursesubdirs
+
+; Wexflow.Scripts.SQLite
+Source: "..\src\dotnet\Wexflow.Scripts.SQLite\bin\x86\Release\Wexflow.Scripts.SQLite.exe"; DestDir: "{app}\Wexflow.Scripts.SQLite"; Flags: ignoreversion recursesubdirs
+Source: ".\dotnet\Wexflow.Scripts.SQLite\Wexflow.Scripts.SQLite.exe.config"; DestDir: "{app}\Wexflow.Scripts.SQLite"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Scripts.SQLite\bin\x86\Release\*.dll"; DestDir: "{app}\Wexflow.Scripts.SQLite"; Flags: ignoreversion recursesubdirs
+Source: "..\src\dotnet\Wexflow.Scripts.SQLite\bin\x86\Release\x86\SQLite.Interop.dll"; DestDir: "{app}\Wexflow.Scripts.SQLite"; Flags: ignoreversion recursesubdirs
+
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
 Name: "{commonprograms}\{#MyAppName}\Manager"; Filename: "{app}\Manager\{#MyAppExeName}";
 Name: "{commonprograms}\{#MyAppName}\Backend"; Filename: "{app}\Backend\index.html";
+Name: "{commonprograms}\{#MyAppName}\Swagger"; Filename: "http://localhost:8000";
 ;Name: "{commonprograms}\{#MyAppName}\Start Wexflow Windows Service"; Filename: {sys}\sc.exe; Parameters: "start Wexflow" ; IconFilename: "{app}\Wexflow.ico";
 ;Name: "{commonprograms}\{#MyAppName}\Stop Wexflow Windows Service"; Filename: {sys}\sc.exe; Parameters: "stop Wexflow" ; IconFilename: "{app}\Wexflow.ico";
 Name: "{commonprograms}\{#MyAppName}\Configuration"; Filename: "C:\Wexflow\";
@@ -457,6 +563,10 @@ Name: "{commonprograms}\{#MyAppName}\Logs"; Filename: "{app}\Wexflow.log";
 Name: "{commonprograms}\{#MyAppName}\Install CosmosDB samples"; Filename: "{app}\Wexflow.Scripts.CosmosDB\Wexflow.Scripts.CosmosDB.exe";
 Name: "{commonprograms}\{#MyAppName}\Install MongoDB samples"; Filename: "{app}\Wexflow.Scripts.MongoDB\Wexflow.Scripts.MongoDB.exe";
 Name: "{commonprograms}\{#MyAppName}\Install RavenDB samples"; Filename: "{app}\Wexflow.Scripts.RavenDB\Wexflow.Scripts.RavenDB.exe";
+Name: "{commonprograms}\{#MyAppName}\Install PostgreSQL samples"; Filename: "{app}\Wexflow.Scripts.PostgreSQL\Wexflow.Scripts.PostgreSQL.exe";
+Name: "{commonprograms}\{#MyAppName}\Install SQL Server samples"; Filename: "{app}\Wexflow.Scripts.SQLServer\Wexflow.Scripts.SQLServer.exe";
+Name: "{commonprograms}\{#MyAppName}\Install MySQL samples"; Filename: "{app}\Wexflow.Scripts.MySQL\Wexflow.Scripts.MySQL.exe";
+Name: "{commonprograms}\{#MyAppName}\Install SQLite samples"; Filename: "{app}\Wexflow.Scripts.SQLite\Wexflow.Scripts.SQLite.exe";
 Name: "{commonprograms}\{#MyAppName}\Uninstall"; Filename: "{uninstallexe}";
 
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\Manager\{#MyAppExeName}"; Tasks: desktopicon

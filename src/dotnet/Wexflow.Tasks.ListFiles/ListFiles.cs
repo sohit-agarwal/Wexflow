@@ -17,7 +17,6 @@ namespace Wexflow.Tasks.ListFiles
         public override TaskStatus Run()
         {
             Info("Listing files...");
-            //System.Threading.Thread.Sleep(10 * 1000);
 
             bool success = true;
 

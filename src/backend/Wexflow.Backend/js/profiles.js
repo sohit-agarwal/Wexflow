@@ -22,6 +22,7 @@
     var userWorkflows = [];    // [{"UserId": 1, "WorkflowId": 6}, ...]
     var username = "";
     var password = "";
+    var auth = "";
 
     if (suser === null || suser === "") {
         Common.redirectToLoginPage();
@@ -30,32 +31,35 @@
 
         username = user.Username;
         password = user.Password;
+        auth = "Basic " + btoa(username + ":" + password);
 
-        Common.get(uri + "/user?qu=" + encodeURIComponent(username) + "&qp=" + encodeURIComponent(password) + "&username=" + encodeURIComponent(user.Username), function (u) {
-            if (user.Password !== u.Password) {
-                Common.redirectToLoginPage();
-            } else if (u.UserProfile === 0) {
-                divProfiles.style.display = "block";
-                lnkManager.style.display = "inline";
-                lnkDesigner.style.display = "inline";
-                lnkApproval.style.display = "inline";
-                lnkUsers.style.display = "inline";
-                lnkProfiles.style.display = "inline";
-
-                btnLogout.innerHTML = "Logout (" + u.Username + ")";
-
-                btnLogout.onclick = function () {
-                    deleteUser();
+        Common.get(uri + "/user?username=" + encodeURIComponent(user.Username),
+            function (u) {
+                if (user.Password !== u.Password) {
                     Common.redirectToLoginPage();
-                };
+                } else if (u.UserProfile === 0) {
+                    divProfiles.style.display = "block";
+                    lnkManager.style.display = "inline";
+                    lnkDesigner.style.display = "inline";
+                    lnkApproval.style.display = "inline";
+                    lnkUsers.style.display = "inline";
+                    lnkProfiles.style.display = "inline";
 
-                loadUsers();
+                    btnLogout.innerHTML = "Logout (" + u.Username + ")";
 
-            } else {
-                Common.redirectToLoginPage();
-            }
+                    btnLogout.onclick = function () {
+                        deleteUser();
+                        Common.redirectToLoginPage();
+                    };
 
-        });
+                    loadUsers();
+
+                } else {
+                    Common.redirectToLoginPage();
+                }
+
+            },
+            function () { }, auth);
     }
 
     btnSearch.onclick = function () {
@@ -69,7 +73,7 @@
     }
 
     function loadUsers(usernameToSelect, scroll) {
-        Common.get(uri + "/searchAdmins?qu=" + encodeURIComponent(username) + "&qp=" + encodeURIComponent(password) + "&keyword=" + encodeURIComponent(txtSearch.value) + "&uo=" + uo,
+        Common.get(uri + "/searchAdmins?keyword=" + encodeURIComponent(txtSearch.value) + "&uo=" + uo,
             function (data) {
 
                 var items = [];
@@ -159,149 +163,152 @@
                     };
                 }
 
-            });
+            },
+            function () { }, auth);
     }
 
     function loadRightPanel() {
-        Common.get(uri + "/search?s=&u=" + username + "&p=" + password, function (data) {
-            btnSave.style.display = "block";
+        Common.get(uri + "/search?s=",
+            function (data) {
+                btnSave.style.display = "block";
 
-            data.sort(compareById);
-            var items = [];
-            var i;
-            for (i = 0; i < data.length; i++) {
-                var val = data[i];
-                workflows[val.Id] = val;
-                var lt = launchType(val.LaunchType);
-                items.push("<tr>"
-                    + "<td class='wf-check'><input type='checkbox'></td>"
-                    + "<td class='wf-id' title='" + val.Id + "'>" + val.Id + "</td>"
-                    + "<td class='wf-n' title='" + val.Name + "'>" + val.Name + "</td>"
-                    + "<td class='wf-lt'>" + lt + "</td>"
-                    + "<td class='wf-e'><input type='checkbox' readonly disabled " + (val.IsEnabled ? "checked" : "") + "></input></td>"
-                    + "<td class='wf-a'><input type='checkbox' readonly disabled " + (val.IsApproval ? "checked" : "") + "></input></td>"
-                    + "<td class='wf-d' title='" + val.Description + "'>" + val.Description + "</td>"
-                    + "</tr>");
+                data.sort(compareById);
+                var items = [];
+                var i;
+                for (i = 0; i < data.length; i++) {
+                    var val = data[i];
+                    workflows[val.Id] = val;
+                    var lt = launchType(val.LaunchType);
+                    items.push("<tr>"
+                        + "<td class='wf-check'><input type='checkbox'></td>"
+                        + "<td class='wf-id' title='" + val.Id + "'>" + val.Id + "</td>"
+                        + "<td class='wf-n' title='" + val.Name + "'>" + val.Name + "</td>"
+                        + "<td class='wf-lt'>" + lt + "</td>"
+                        + "<td class='wf-e'><input type='checkbox' readonly disabled " + (val.IsEnabled ? "checked" : "") + "></input></td>"
+                        + "<td class='wf-a'><input type='checkbox' readonly disabled " + (val.IsApproval ? "checked" : "") + "></input></td>"
+                        + "<td class='wf-d' title='" + val.Description + "'>" + val.Description + "</td>"
+                        + "</tr>");
 
-            }
+                }
 
-            var table = "<table id='wf-workflows-table' class='table'>"
-                + "<thead class='thead-dark'>"
-                + "<tr>"
-                + "<th><input id='check-all' type='checkbox'></th>"
-                + "<th class='wf-id'>Id</th>"
-                + "<th class='wf-n'>Name</th>"
-                + "<th class='wf-lt'>LaunchType</th>"
-                + "<th class='wf-e'>Enabled</th>"
-                + "<th class='wf-a'>Approval</th>"
-                + "<th class='wf-d'>Description</th>"
-                + "</tr>"
-                + "</thead>"
-                + "<tbody>"
-                + items.join("")
-                + "</tbody>"
-                + "</table>";
+                var table = "<table id='wf-workflows-table' class='table'>"
+                    + "<thead class='thead-dark'>"
+                    + "<tr>"
+                    + "<th><input id='check-all' type='checkbox'></th>"
+                    + "<th class='wf-id'>Id</th>"
+                    + "<th class='wf-n'>Name</th>"
+                    + "<th class='wf-lt'>LaunchType</th>"
+                    + "<th class='wf-e'>Enabled</th>"
+                    + "<th class='wf-a'>Approval</th>"
+                    + "<th class='wf-d'>Description</th>"
+                    + "</tr>"
+                    + "</thead>"
+                    + "<tbody>"
+                    + items.join("")
+                    + "</tbody>"
+                    + "</table>";
 
-            divWorkflows.innerHTML = table;
+                divWorkflows.innerHTML = table;
 
-            var workflowsTable = document.getElementById("wf-workflows-table");
-            var descriptions = document.getElementsByClassName("wf-d");
-            for (i = 0; i < descriptions.length; i++) {
-                descriptions[i].style.width = workflowsTable.offsetWidth - (45 + 200 + 100 + 75 + 16 * 5 + 17) + "px";
-            }
+                var workflowsTable = document.getElementById("wf-workflows-table");
+                var descriptions = document.getElementsByClassName("wf-d");
+                for (i = 0; i < descriptions.length; i++) {
+                    descriptions[i].style.width = workflowsTable.offsetWidth - (45 + 200 + 100 + 75 + 16 * 5 + 17) + "px";
+                }
 
-            var rows = (workflowsTable.getElementsByTagName("tbody")[0]).getElementsByTagName("tr");
-            for (i = 0; i < rows.length; i++) {
-                var row = rows[i];
-                var checkBox = row.getElementsByClassName("wf-check")[0].firstChild;
+                var rows = (workflowsTable.getElementsByTagName("tbody")[0]).getElementsByTagName("tr");
+                for (i = 0; i < rows.length; i++) {
+                    var row = rows[i];
+                    var checkBox = row.getElementsByClassName("wf-check")[0].firstChild;
 
-                checkBox.onchange = function () {
-                    var currentRow = this.parentElement.parentElement;
-                    var workflowId = parseInt(currentRow.getElementsByClassName("wf-id")[0].innerHTML);
-                    var workflowDbId = workflows[workflowId].DbId;
+                    checkBox.onchange = function () {
+                        var currentRow = this.parentElement.parentElement;
+                        var workflowId = parseInt(currentRow.getElementsByClassName("wf-id")[0].innerHTML);
+                        var workflowDbId = workflows[workflowId].DbId;
 
-                    if (this.checked === true) {
-                        userWorkflows.push({ "UserId": selectedUserId, "WorkflowId": workflowDbId });
-                    } else {
-                        //var index = -1;
-                        for (var j = userWorkflows.length - 1; j > -1; j--) {
-                            if (userWorkflows[j].WorkflowId === workflowDbId) {
-                                //index = j;
-                                //break;
-                                userWorkflows.splice(j, 1);
+                        if (this.checked === true) {
+                            userWorkflows.push({ "UserId": selectedUserId, "WorkflowId": workflowDbId });
+                        } else {
+                            //var index = -1;
+                            for (var j = userWorkflows.length - 1; j > -1; j--) {
+                                if (userWorkflows[j].WorkflowId === workflowDbId) {
+                                    //index = j;
+                                    //break;
+                                    userWorkflows.splice(j, 1);
+                                }
+                            }
+
+                            //if (index > -1) {
+                            //    userWorkflows.splice(index, 1);
+                            //}
+                        }
+                        //console.log(userWorkflows);
+                    };
+                }
+
+                // Check the boxes from the relations in db
+                Common.get(uri + "/userWorkflows?u=" + selectedUserId,
+                    function (res) {
+
+                        var workflowsTable = document.getElementById("wf-workflows-table");
+                        var rows = (workflowsTable.getElementsByTagName("tbody")[0]).getElementsByTagName("tr");
+                        for (var i = 0; i < rows.length; i++) {
+                            var row = rows[i];
+                            var checkBox = row.getElementsByClassName("wf-check")[0].firstChild;
+                            var workflowId = parseInt(row.getElementsByClassName("wf-id")[0].innerHTML);
+                            var workflowDbId = workflows[workflowId].DbId;
+
+                            for (var j = 0; j < res.length; j++) {
+                                if (workflowDbId === res[j].DbId) {
+                                    checkBox.checked = true;
+                                    //console.log(workflowDbId);
+                                    userWorkflows.push({ "UserId": selectedUserId, "WorkflowId": workflowDbId });
+                                    break;
+                                }
                             }
                         }
+                    }, function () {
+                        Common.toastError("An error occured while retrieving user workflows.");
+                    }, auth);
 
-                        //if (index > -1) {
-                        //    userWorkflows.splice(index, 1);
-                        //}
+                document.getElementById("check-all").onchange = function () {
+                    var workflowsTable = document.getElementById("wf-workflows-table");
+                    var rows = (workflowsTable.getElementsByTagName("tbody")[0]).getElementsByTagName("tr");
+                    for (var i = 0; i < rows.length; i++) {
+                        var row = rows[i];
+                        var checkBox = row.getElementsByClassName("wf-check")[0].firstChild;
+                        var workflowId = parseInt(row.getElementsByClassName("wf-id")[0].innerHTML);
+                        var workflowDbId = workflows[workflowId].DbId;
+
+                        if (checkBox.checked === true) {
+                            checkBox.checked = false;
+
+                            //var index = -1;
+                            for (var j = userWorkflows.length - 1; j > -1; j--) {
+                                if (userWorkflows[j].WorkflowId === workflowDbId) {
+                                    //index = j;
+                                    //break;
+                                    userWorkflows.splice(j, 1);
+                                }
+                            }
+
+                            //if (index > -1) {
+                            //    userWorkflows.splice(index, 1);
+                            //}
+                        } else {
+                            checkBox.checked = true;
+                            userWorkflows.push({ "UserId": selectedUserId, "WorkflowId": workflowDbId });
+                        }
+
                     }
+
                     //console.log(userWorkflows);
                 };
-            }
 
-            // Check the boxes from the relations in db
-            Common.get(uri + "/userWorkflows?qu=" + encodeURIComponent(username) + "&qp=" + encodeURIComponent(password) + "&u=" + selectedUserId, function (res) {
-                
-                var workflowsTable = document.getElementById("wf-workflows-table");
-                var rows = (workflowsTable.getElementsByTagName("tbody")[0]).getElementsByTagName("tr");
-                for (var i = 0; i < rows.length; i++) {
-                    var row = rows[i];
-                    var checkBox = row.getElementsByClassName("wf-check")[0].firstChild;
-                    var workflowId = parseInt(row.getElementsByClassName("wf-id")[0].innerHTML);
-                    var workflowDbId = workflows[workflowId].DbId;
-
-                    for (var j = 0; j < res.length; j++) {
-                        if (workflowDbId === res[j].DbId) {
-                            checkBox.checked = true;
-                            //console.log(workflowDbId);
-                            userWorkflows.push({ "UserId": selectedUserId, "WorkflowId": workflowDbId });
-                            break;
-                        }
-                    }
-                }
+                // End of get workflows
             }, function () {
-                Common.toastError("An error occured while retrieving user workflows.");
-            });
-
-            document.getElementById("check-all").onchange = function () {
-                var workflowsTable = document.getElementById("wf-workflows-table");
-                var rows = (workflowsTable.getElementsByTagName("tbody")[0]).getElementsByTagName("tr");
-                for (var i = 0; i < rows.length; i++) {
-                    var row = rows[i];
-                    var checkBox = row.getElementsByClassName("wf-check")[0].firstChild;
-                    var workflowId = parseInt(row.getElementsByClassName("wf-id")[0].innerHTML);
-                    var workflowDbId = workflows[workflowId].DbId;
-
-                    if (checkBox.checked === true) {
-                        checkBox.checked = false;
-
-                        //var index = -1;
-                        for (var j = userWorkflows.length - 1; j > -1; j--) {
-                            if (userWorkflows[j].WorkflowId === workflowDbId) {
-                                //index = j;
-                                //break;
-                                userWorkflows.splice(j, 1);
-                            }
-                        }
-
-                        //if (index > -1) {
-                        //    userWorkflows.splice(index, 1);
-                        //}
-                    } else {
-                        checkBox.checked = true;
-                        userWorkflows.push({ "UserId": selectedUserId, "WorkflowId": workflowDbId });
-                    }
-
-                }
-
-                //console.log(userWorkflows);
-            };
-
-            // End of get workflows
-        }, function () {
-            Common.toastError("An error occured while retrieving workflows. Check that Wexflow server is running correctly.");
-        });
+                Common.toastError("An error occured while retrieving workflows. Check that Wexflow server is running correctly.");
+            }, auth);
 
     }
 
@@ -338,7 +345,7 @@
             }
         }, function () {
             Common.toastError("An error occured while saving workflow relations.");
-        }, { "QUsername": username, "QPassword": password, "UserId": selectedUserId, "UserWorkflows": userWorkflows });
+        }, { "UserId": selectedUserId, "UserWorkflows": userWorkflows }, auth);
     };
 
 }

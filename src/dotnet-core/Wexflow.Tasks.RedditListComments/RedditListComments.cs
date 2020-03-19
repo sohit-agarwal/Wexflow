@@ -27,10 +27,10 @@ namespace Wexflow.Tasks.RedditListComments
 
             Status status = Status.Success;
 
-            RedditAPI reddit;
+            RedditClient reddit;
             try
             {
-                reddit = new RedditAPI(AppId, RefreshToken);
+                reddit = new RedditClient(AppId, RefreshToken);
                 InfoFormat("Username: {0}", reddit.Account.Me.Name);
                 InfoFormat("Cake Day: {0}", reddit.Account.Me.Created.ToString("D"));
                 Info("Authentication succeeded.");

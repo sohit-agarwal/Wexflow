@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
 	<DebugType>Full</DebugType>
     <Platforms>AnyCPU;x64;x86</Platforms>
     <PackageId>Wexflow</PackageId>
@@ -43,7 +43,11 @@
     <ProjectReference Include="..\Wexflow.Core.Db\Wexflow.Core.Db.csproj" />
     <ProjectReference Include="..\Wexflow.Core.LiteDB\Wexflow.Core.LiteDB.csproj" />
     <ProjectReference Include="..\Wexflow.Core.MongoDB\Wexflow.Core.MongoDB.csproj" />
+    <ProjectReference Include="..\Wexflow.Core.MySQL\Wexflow.Core.MySQL.csproj" />
+    <ProjectReference Include="..\Wexflow.Core.PostgreSQL\Wexflow.Core.PostgreSQL.csproj" />
     <ProjectReference Include="..\Wexflow.Core.RavenDB\Wexflow.Core.RavenDB.csproj" />
+    <ProjectReference Include="..\Wexflow.Core.SQLite\Wexflow.Core.SQLite.csproj" />
+    <ProjectReference Include="..\Wexflow.Core.SQLServer\Wexflow.Core.SQLServer.csproj" />
   </ItemGroup>
 
   <ItemGroup>

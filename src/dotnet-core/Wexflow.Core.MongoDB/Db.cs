@@ -254,6 +254,13 @@ namespace Wexflow.Core.MongoDB
             return user;
         }
 
+        public override Core.Db.User GetUserByUserId(string userId)
+        {
+            var col = _db.GetCollection<User>(Core.Db.User.DocumentName);
+            var user = col.Find(u => u.Id == userId).FirstOrDefault();
+            return user;
+        }
+
         public override void DeleteUser(string username, string password)
         {
             var col = _db.GetCollection<User>(Core.Db.User.DocumentName);
@@ -567,7 +574,8 @@ namespace Wexflow.Core.MongoDB
                 Name = entry.Name,
                 Status = entry.Status,
                 StatusDate = entry.StatusDate,
-                WorkflowId = entry.WorkflowId
+                WorkflowId = entry.WorkflowId,
+                Logs = entry.Logs
             };
             col.InsertOne(ie);
             col.Indexes.CreateOne(new CreateIndexModel<Entry>(Builders<Entry>.IndexKeys.Ascending(e => e.WorkflowId)));
@@ -587,7 +595,8 @@ namespace Wexflow.Core.MongoDB
                 .Set(e => e.LaunchType, entry.LaunchType)
                 .Set(e => e.Status, entry.Status)
                 .Set(e => e.StatusDate, entry.StatusDate)
-                .Set(e => e.WorkflowId, entry.WorkflowId);
+                .Set(e => e.WorkflowId, entry.WorkflowId)
+                .Set(e => e.Logs, entry.Logs);
 
             col.UpdateOne(e => e.Id == id, update);
         }
@@ -662,7 +671,8 @@ namespace Wexflow.Core.MongoDB
                 Name = entry.Name,
                 Status = entry.Status,
                 StatusDate = entry.StatusDate,
-                WorkflowId = entry.WorkflowId
+                WorkflowId = entry.WorkflowId,
+                Logs = entry.Logs
             };
             col.InsertOne(he);
             col.Indexes.CreateOne(new CreateIndexModel<HistoryEntry>(Builders<HistoryEntry>.IndexKeys.Ascending(e => e.WorkflowId)));
@@ -732,6 +742,20 @@ namespace Wexflow.Core.MongoDB
 
                 col.UpdateOne(sc => sc.Id == statusCount.Id, update);
             }
+        }
+
+        public override string GetEntryLogs(string entryId)
+        {
+            var col = _db.GetCollection<Entry>(Core.Db.Entry.DocumentName);
+            var entry = col.Find(e => e.Id == entryId).First();
+            return entry.Logs;
+        }
+
+        public override string GetHistoryEntryLogs(string entryId)
+        {
+            var col = _db.GetCollection<HistoryEntry>(Core.Db.HistoryEntry.DocumentName);
+            var entry = col.Find(e => e.Id == entryId).First();
+            return entry.Logs;
         }
 
     }

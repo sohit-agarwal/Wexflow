@@ -19,7 +19,7 @@ namespace Wexflow.Tasks.FilesCopier
             DestFolder = GetSetting("destFolder");
             Overwrite = bool.Parse(GetSetting("overwrite", "false"));
             PreserveFolderStructFrom = GetSetting("preserveFolderStructFrom");
-            AllowCreateDirectory = bool.Parse(GetSetting("allowCreateDirectory", "true"));
+            AllowCreateDirectory = GetSettingBool("allowCreateDirectory", true);
         }
 
         public override TaskStatus Run()

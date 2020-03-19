@@ -36,6 +36,12 @@ setup/*.tar.gz
 setup/*.zip
 setup/*.zip.tmp
 setup/Wexflow.app/
+!setup/dotnet/Wexflow.Scripts.CosmosDB/*.exe.config
+!setup/dotnet/Wexflow.Scripts.MongoDB/*.exe.config
+!setup/dotnet/Wexflow.Scripts.PostgreSQL/*.exe.config
+!setup/dotnet/Wexflow.Scripts.RavenDB/*.exe.config
+!setup/dotnet/Wexflow.Scripts.SQLServer/*.exe.config
+!setup/dotnet/Wexflow.Scripts.MySQL/*.exe.config
 *.nupkg
 Wexflow-coverage-dotnet.xml
 Wexflow-coverage-dotnet-core.xml

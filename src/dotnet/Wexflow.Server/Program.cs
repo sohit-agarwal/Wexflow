@@ -11,7 +11,7 @@ namespace Wexflow.Server
             // Initialize the service to start
             var servicesToRun = new ServiceBase[]
             {
-                new WexflowWindowsService()
+                new WexflowServer()
             };
 
             // In interactive and debug mode ?
