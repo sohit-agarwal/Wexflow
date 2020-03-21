@@ -37,10 +37,13 @@ jobs:
      
       - stage: "iOS"
         name: "iOS build"      
-        language: swift
-        osx_image: xcode9.4
-        script:
-          - xcodebuild clean build -project "src/ios/Wexflow.xcodeproj" -scheme "Wexflow" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+        language: objective-c
+        xcode_project: src/ios/Wexflow.xcodeproj
+        xcode_scheme: Wexflow
+        #xcode_destination: platform=iOS Simulator,OS=10.1,name=iPad Pro (9.7-inch)
+        #osx_image: xcode9.4
+        #script:
+        #  - xcodebuild clean build -project "src/ios/Wexflow.xcodeproj" -scheme "Wexflow" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
           
 notifications:
   email: akram.elassas@gmail.com
