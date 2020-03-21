@@ -38,7 +38,7 @@ jobs:
       - stage: "iOS"
         name: "iOS build"      
         language: swift
-        osx_image: xcode8.3
+        osx_image: xcode9.4
         script:
           - xcodebuild clean build -project "src/ios/Wexflow.xcodeproj" -scheme "Wexflow" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
           
