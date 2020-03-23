@@ -1,0 +1,23 @@
+version: "3"
+services:
+  wexflow-backend:
+    image: danjellz/http-server
+    ports:
+          - 8011:8011
+    volumes:
+      - ./wexflow-5.2-linux-dotnet-core/Backend:/public
+    command:
+      http-server --cors -p 8011
+
+  wexflow:
+    image: mcr.microsoft.com/dotnet/core/sdk:3.1-alpine
+    ports:
+      - 8000:8000
+    volumes:
+      - ./wexflow-5.2-linux-dotnet-core/:/opt/wexflow/
+    working_dir: /opt/wexflow/Wexflow.Server
+    # The 2 lines below are used if you want to MongoDB instead of LiteDB
+    # depends_on:
+    #  - mongo
+    command:
+      sh -c "cd /opt/wexflow/Wexflow.Server && dotnet Wexflow.Server.dll"
