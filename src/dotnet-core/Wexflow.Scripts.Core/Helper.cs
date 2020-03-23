@@ -54,9 +54,9 @@ namespace Wexflow.Scripts.Core
                 Console.WriteLine("Workflows created.");
                 Console.WriteLine();
 
-                var secs = 5;
-                Console.WriteLine("Waiting {0} seconds.", secs);
-                Thread.Sleep(secs * 1000);
+                //var secs = 5;
+                //Console.WriteLine("Waiting {0} seconds.", secs);
+                //Thread.Sleep(secs * 1000);
 
                 Console.WriteLine("Creating wexflow user...");
                 var user = db.GetUser("wexflow");

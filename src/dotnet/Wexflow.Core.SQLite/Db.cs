@@ -1749,5 +1749,9 @@ namespace Wexflow.Core.SQLite
 
             return null;
         }
+
+        public override void Dispose()
+        {
+        }
     }
 }

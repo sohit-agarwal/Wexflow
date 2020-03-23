@@ -98,6 +98,7 @@ namespace Wexflow.Core.Db
         public abstract void DecrementPendingCount();
         public abstract string GetEntryLogs(string entryId);
         public abstract string GetHistoryEntryLogs(string entryId);
+        public abstract void Dispose();
 
         public static string GetMd5(string input)
         {

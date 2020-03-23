@@ -21,6 +21,7 @@ namespace Wexflow.Scripts.LiteDB
                 Db db = new Db(config["connectionString"]);
 
                 Helper.InsertWorkflowsAndUser(db, workflowsFolder);
+                db.Dispose();
 
                 BuildDatabase("Windows", "windows");
                 BuildDatabase("Linux", "linux");
@@ -56,6 +57,7 @@ namespace Wexflow.Scripts.LiteDB
 
             var db = new Db(connString);
             Helper.InsertWorkflowsAndUser(db, workflowsFolder);
+            db.Dispose();
         }
     }
 }

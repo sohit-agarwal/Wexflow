@@ -1267,5 +1267,9 @@ namespace Wexflow.Core.LiteDB
             return entry.Logs;
         }
 
+        public override void Dispose()
+        {
+            _db.Dispose();
+        }
     }
 }

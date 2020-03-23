@@ -7,7 +7,6 @@ using Raven.Client.ServerWide;
 using Raven.Client.ServerWide.Operations;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using Wexflow.Core.Db;
@@ -1308,6 +1307,10 @@ namespace Wexflow.Core.RavenDB
                 var entry = col.First(e => e.Id == entryId);
                 return entry.Logs;
             }
+        }
+
+        public override void Dispose()
+        {
         }
     }
 }

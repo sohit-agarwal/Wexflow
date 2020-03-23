@@ -1623,5 +1623,9 @@ namespace Wexflow.Core.SQLServer
 
             return null;
         }
+
+        public override void Dispose()
+        {
+        }
     }
 }

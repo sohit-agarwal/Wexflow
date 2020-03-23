@@ -758,5 +758,8 @@ namespace Wexflow.Core.MongoDB
             return entry.Logs;
         }
 
+        public override void Dispose()
+        {
+        }
     }
 }

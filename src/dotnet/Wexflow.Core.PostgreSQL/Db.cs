@@ -1605,5 +1605,9 @@ namespace Wexflow.Core.PostgreSQL
 
             return null;
         }
+
+        public override void Dispose()
+        {
+        }
     }
 }

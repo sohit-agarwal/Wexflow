@@ -680,6 +680,8 @@ namespace Wexflow.Core
                 Database.ClearStatusCount();
                 Database.ClearEntries();
             }
+
+            Database.Dispose();
         }
 
         /// <summary>

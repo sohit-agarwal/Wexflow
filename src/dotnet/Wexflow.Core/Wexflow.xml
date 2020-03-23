@@ -9,7 +9,7 @@
   <!-- LiteDB or MongoDB or RavenDB or CosmosDB or PostgreSQL or SQLServer or MySQL or SQLite-->
   <Setting name="dbType" value="LiteDB" />
   <!--LiteDB-->
-  <Setting name="connectionString" value="Filename=C:\Wexflow\Database\Wexflow.db; Mode=Exclusive" />
+  <Setting name="connectionString" value="Filename=C:\Wexflow\Database\Wexflow.db; Connection=direct" />
   <!--MongoDB. SslProtocols: None|Ssl2|Ssl3|Tls|Default|Tls11|Tls12-->
   <!--<Setting name="connectionString" value="DatabaseName=wexflow;MongoUrl=mongodb://localhost:27017;EnabledSslProtocols=false;SslProtocols=None" />-->
   <!--RavenDB-->

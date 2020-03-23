@@ -75,6 +75,7 @@ namespace Wexflow.Scripts.Core
                             UserId = user.GetId(),
                             WorkflowId = workflow.GetDbId()
                         });
+                        Console.WriteLine("UserWorkflowRelation ({0}, {1}) created.", user.GetId(), workflow.GetDbId());
                     }
                     Console.WriteLine("wexflow user created with success.");
                 }

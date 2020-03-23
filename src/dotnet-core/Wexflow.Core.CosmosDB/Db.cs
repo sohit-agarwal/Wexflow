@@ -1187,5 +1187,8 @@ namespace Wexflow.Core.CosmosDB
             }
         }
 
+        public override void Dispose()
+        {
+        }
     }
 }

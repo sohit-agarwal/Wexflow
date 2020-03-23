@@ -1319,5 +1319,9 @@ namespace Wexflow.Core.RavenDB
                 return entry.Logs;
             }
         }
+
+        public override void Dispose()
+        {
+        }
     }
 }

@@ -46,6 +46,7 @@ namespace Wexflow.Server
 
             Console.Write("Press any key to stop Wexflow server...");
             Console.ReadKey();
+            WexflowEngine.Stop(true, true);
         }
 
     }

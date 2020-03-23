@@ -1607,5 +1607,9 @@ namespace Wexflow.Core.MySQL
 
             return null;
         }
+
+        public override void Dispose()
+        {
+        }
     }
 }
