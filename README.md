@@ -11,7 +11,7 @@ You can find the documentation [here](https://github.com/aelassas/Wexflow/wiki).
 
 ![Docker](https://aelassas.github.io/wexflow/images/small_h-trans.png)
 
- Wexflow runs also on Docker. [Here](https://github.com/aelassas/Wexflow/blob/master/Dockerfile) is a Dockerfile for creating and building Docker images.
+Wexflow runs also on Docker. [Here](https://github.com/aelassas/Wexflow/wiki/Docker) is the documentation for creating and building Docker images.
 
 # What's New?
 
