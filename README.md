@@ -11,33 +11,13 @@ You can download the latest stable release from [here](https://github.com/aelass
 
 You can find a detailed documentation [here](https://github.com/aelassas/Wexflow/wiki).
 
-![Docker](https://aelassas.github.io/wexflow/images/small_h-trans.png)
-
-Wexflow runs also on Docker. [Here](https://github.com/aelassas/Wexflow/wiki/Docker) is the documentation for creating and building Docker images.
-
+<!--
 # What's New?
 
 Take a look at the [version 5.2](https://github.com/aelassas/Wexflow/releases/tag/v5.2). This version includes an upgrade to .NET Core 3.1 LTS, support for [PostgreSQL](https://github.com/aelassas/Wexflow/wiki/PostgreSQL), [SQL Server](https://github.com/aelassas/Wexflow/wiki/SQL-Server), [MySQL](https://github.com/aelassas/Wexflow/wiki/MySQL) and [SQLite](https://github.com/aelassas/Wexflow/wiki/SQLite), JSON editor, display of server logs in the backend, parallel jobs of the same workflow definition, [date interpolation](https://github.com/aelassas/Wexflow/issues/166), bug fixes, performance enhancements and under the hood updates.
+-->
 
-# Continuous Integration
-
-|  Server | Platform |Project| Status |
-----------|--------|----------|-------|
-|[Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) (.NET and .NET Core)| Windows | Wexflow.sln |[![Build Status](https://aelassas.visualstudio.com/Wexflow/_apis/build/status/aelassas.Wexflow?branchName=master)](https://aelassas.visualstudio.com/Wexflow/_build/latest?definitionId=1&branchName=master)|
-|[AppVeyor](https://www.appveyor.com/) (.NET and .NET Core)| Windows | Wexflow.sln |[![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow)|
-|[GitHub Actions](https://github.com/aelassas/Wexflow/actions) (.NET Core)| Linux | Wexflow.Server.csproj |[![Actions Status](https://github.com/aelassas/Wexflow/workflows/.NET%20Core/badge.svg)](https://github.com/aelassas/Wexflow/actions)|
-|[Travis](https://travis-ci.org/) (Android)| Linux | src/android |[![Build Status](https://travis-ci.org/aelassas/Wexflow.svg?branch=master)](https://travis-ci.org/aelassas/Wexflow) | 
-|[Bitrise](https://www.bitrise.io/) (Android)|Linux| src/android | [![Build Status](https://app.bitrise.io/app/0fb832132f6afa6d/status.svg?token=j49g0Gx7rNWkl4s41xM_kA)](https://app.bitrise.io/app/0fb832132f6afa6d)|
-|[CircleCI](https://circleci.com/) (Android)|Linux| src/android | [![CircleCI](https://circleci.com/gh/aelassas/Wexflow.svg?style=shield)](https://circleci.com/gh/aelassas/Wexflow)|
-|[Travis](https://travis-ci.org/) (iOS)| macOS | src/ios |[![Build Status](https://travis-ci.org/aelassas/Wexflow.svg?branch=master)](https://travis-ci.org/aelassas/Wexflow) |
-|[Bitrise](https://www.bitrise.io/) (iOS)|macOS| src/ios | [![Build Status](https://app.bitrise.io/app/f8006552bdd4ee80/status.svg?token=Yd_71TrG-cqFvEC1oV5teQ)](https://app.bitrise.io/app/f8006552bdd4ee80)|
-|[CircleCI](https://circleci.com/) (iOS)|macOS| src/ios | [![CircleCI](https://circleci.com/gh/aelassas/Wexflow.svg?style=shield)](https://circleci.com/gh/aelassas/Wexflow)|
-|[FOSSA](https://fossa.com/) (All projects)| Linux | All projects | [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Faelassas%2FWexflow.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Faelassas%2FWexflow?ref=badge_shield)|
-
-<!--|[Codecov](https://codecov.io/) (.NET and .NET Core)|Windows| Wexflow.sln |![codecov](https://codecov.io/gh/aelassas/Wexflow/branch/master/graph/badge.svg)|-->
-<!--|[Coveralls](https://coveralls.io/) (.NET and .NET Core)|Linux| Wexflow.sln |[![Coverage Status](https://badgen.net/coveralls/c/github/aelassas/Wexflow)](https://coveralls.io/github/aelassas/Wexflow?branch=master)|-->
-
-# Wexflow
+# <img src="https://aelassas.github.io/wexflow/images/logo.png" width="32">  Wexflow
 
 Wexflow is a high-performance, extensible, modular and cross-platform workflow engine. The goal of Wexflow is to automate recurring tasks. With the help of Wexflow, building automation and workflow processes become easy. Wexflow also helps in making the long-running processes straightforward. The communication between systems or applications becomes easy through this powerful workflow engine.
 
@@ -73,7 +53,12 @@ Moreover, the "Designer" page allows to edit workflows through its XML/JSON edit
 - [Credits](https://github.com/aelassas/Wexflow#credits)
 -->
 
-# Why Wexflow?
+![Docker](https://aelassas.github.io/wexflow/images/small_h-trans.png)
+
+Wexflow runs also on Docker. [Here](https://github.com/aelassas/Wexflow/wiki/Docker) is the documentation for creating and building Docker images.
+
+Why Wexflow?
+------------
 
 - [x] [Free and open source](https://github.com/aelassas/Wexflow/wiki/Free-and-open-source).
 - [x] [Easy to install and effortless configuration](https://github.com/aelassas/Wexflow/wiki/Installation).
@@ -179,13 +164,33 @@ Discover more about the features in [details](https://github.com/aelassas/Wexflo
 [![AK](https://aelassas.github.io/wexflow/images/ak-system-software.jpg)](https://ak-system-software.de/?lang=en)
 -->
 
-# Get Started
+Get Started
+------------
 
 - [Download the latest stable release](https://github.com/aelassas/Wexflow/releases/latest)
 - [Installation guide](https://github.com/aelassas/Wexflow/wiki/Installation)
 - [Quick start](https://github.com/aelassas/Wexflow/wiki/Usage)
 - [Workflow samples](https://github.com/aelassas/Wexflow/wiki/Samples)
 - [Tasks documentation](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation)
+
+Continuous Integration
+------------
+
+|  Server | Platform |Project| Status |
+----------|--------|----------|-------|
+|[Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) (.NET and .NET Core)| Windows | Wexflow.sln |[![Build Status](https://aelassas.visualstudio.com/Wexflow/_apis/build/status/aelassas.Wexflow?branchName=master)](https://aelassas.visualstudio.com/Wexflow/_build/latest?definitionId=1&branchName=master)|
+|[AppVeyor](https://www.appveyor.com/) (.NET and .NET Core)| Windows | Wexflow.sln |[![Build Status](https://ci.appveyor.com/api/projects/status/github/aelassas/Wexflow?svg=true)](https://ci.appveyor.com/project/aelassas/wexflow)|
+|[GitHub Actions](https://github.com/aelassas/Wexflow/actions) (.NET Core)| Linux | Wexflow.Server.csproj |[![Actions Status](https://github.com/aelassas/Wexflow/workflows/.NET%20Core/badge.svg)](https://github.com/aelassas/Wexflow/actions)|
+|[Travis](https://travis-ci.org/) (Android)| Linux | src/android |[![Build Status](https://travis-ci.org/aelassas/Wexflow.svg?branch=master)](https://travis-ci.org/aelassas/Wexflow) | 
+|[Bitrise](https://www.bitrise.io/) (Android)|Linux| src/android | [![Build Status](https://app.bitrise.io/app/0fb832132f6afa6d/status.svg?token=j49g0Gx7rNWkl4s41xM_kA)](https://app.bitrise.io/app/0fb832132f6afa6d)|
+|[CircleCI](https://circleci.com/) (Android)|Linux| src/android | [![CircleCI](https://circleci.com/gh/aelassas/Wexflow.svg?style=shield)](https://circleci.com/gh/aelassas/Wexflow)|
+|[Travis](https://travis-ci.org/) (iOS)| macOS | src/ios |[![Build Status](https://travis-ci.org/aelassas/Wexflow.svg?branch=master)](https://travis-ci.org/aelassas/Wexflow) |
+|[Bitrise](https://www.bitrise.io/) (iOS)|macOS| src/ios | [![Build Status](https://app.bitrise.io/app/f8006552bdd4ee80/status.svg?token=Yd_71TrG-cqFvEC1oV5teQ)](https://app.bitrise.io/app/f8006552bdd4ee80)|
+|[CircleCI](https://circleci.com/) (iOS)|macOS| src/ios | [![CircleCI](https://circleci.com/gh/aelassas/Wexflow.svg?style=shield)](https://circleci.com/gh/aelassas/Wexflow)|
+|[FOSSA](https://fossa.com/) (All projects)| Linux | All projects | [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Faelassas%2FWexflow.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Faelassas%2FWexflow?ref=badge_shield)|
+
+<!--|[Codecov](https://codecov.io/) (.NET and .NET Core)|Windows| Wexflow.sln |![codecov](https://codecov.io/gh/aelassas/Wexflow/branch/master/graph/badge.svg)|-->
+<!--|[Coveralls](https://coveralls.io/) (.NET and .NET Core)|Linux| Wexflow.sln |[![Coverage Status](https://badgen.net/coveralls/c/github/aelassas/Wexflow)](https://coveralls.io/github/aelassas/Wexflow?branch=master)|-->
 
 <!--
 # Building From Source
@@ -217,12 +222,14 @@ To run unit tests, follow these [guidelines](https://github.com/aelassas/Wexflow
  
 If you'd like to add a feature request please add some details how it is supposed to work.
 -->
-
-# Changelog
+<!--
+Changelog
+------------
 
 The changelog is available in the [release history](https://github.com/aelassas/Wexflow/wiki/History).
 
-# License
+License
+------------
 
 [MIT](https://github.com/aelassas/Wexflow/wiki/License).
 
@@ -231,11 +238,11 @@ Wexflow is licensed under the [MIT License](https://github.com/aelassas/Wexflow/
 
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Faelassas%2FWexflow.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Faelassas%2FWexflow?ref=badge_large)
 -->
-
+<!--
 # Credits
 
 Thanks to [JetBrains](https://www.jetbrains.com) for the free open source licenses.
-
+-->
 <!--
 Improved and optimized using:
 
