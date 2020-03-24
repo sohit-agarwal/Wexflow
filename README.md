@@ -63,6 +63,7 @@ Moreover, the "Designer" page allows to edit workflows through its XML/JSON edit
 
 ![Designer](https://aelassas.github.io/wexflow/images/wbo-designer-4.4-2.png)
 
+<!--
 # Table Of Contents
 - [Why Wexflow?](https://github.com/aelassas/Wexflow#why-wexflow)
 - [Real Life Examples](https://github.com/aelassas/Wexflow#real-life-examples)
@@ -74,6 +75,7 @@ Moreover, the "Designer" page allows to edit workflows through its XML/JSON edit
 - [Changelog](https://github.com/aelassas/Wexflow#changelog)
 - [License](https://github.com/aelassas/Wexflow#license)
 - [Credits](https://github.com/aelassas/Wexflow#credits)
+-->
 
 # Why Wexflow?
 
@@ -112,6 +114,7 @@ Discover more about the features in [details](https://github.com/aelassas/Wexflo
 - [x] [Monitoring](https://github.com/aelassas/Wexflow/wiki/Monitoring).-
 -->
 
+<!--
 # Real Life Examples
 
 - Orchestration engine.
@@ -144,7 +147,9 @@ Discover more about the features in [details](https://github.com/aelassas/Wexflo
 - [x] Become more efficient and effective in completing your tasks.
 - [x] Become more productive in what you do.
 - [x] Become consistent in what you do.
+-->
 
+<!--
 # Who's Using Wexflow?
 
 [![Workiom](https://aelassas.github.io/wexflow/images/workiom_250x250.jpg)](https://workiom.com/)
@@ -176,15 +181,17 @@ Discover more about the features in [details](https://github.com/aelassas/Wexflo
 <br>
 <br>
 [![AK](https://aelassas.github.io/wexflow/images/ak-system-software.jpg)](https://ak-system-software.de/?lang=en)
+-->
 
 # Get Started
 
-- [Download the latest release](https://github.com/aelassas/Wexflow/releases/latest)
+- [Download the latest stable release](https://github.com/aelassas/Wexflow/releases/latest)
 - [Installation guide](https://github.com/aelassas/Wexflow/wiki/Installation)
 - [Quick start](https://github.com/aelassas/Wexflow/wiki/Usage)
 - [Workflow samples](https://github.com/aelassas/Wexflow/wiki/Samples)
 - [Tasks documentation](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation)
 
+<!--
 # Building From Source
 
 To build from source, [follow these instructions](https://github.com/aelassas/Wexflow/wiki/Debug).
@@ -201,6 +208,7 @@ To build from source, [follow these instructions](https://github.com/aelassas/We
 After your pull request has been reviewed, it can be merged into the repository.
 
 To run unit tests, follow these [guidelines](https://github.com/aelassas/Wexflow/wiki/How-to-run-unit-tests%3F).
+-->
 
 <!--
 # Bugs and features
@@ -220,14 +228,20 @@ The changelog is available in the [release history](https://github.com/aelassas/
 
 # License
 
+[MIT](https://github.com/aelassas/Wexflow/wiki/License).
+
+<!--
 Wexflow is licensed under the [MIT License](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt). Wexflow contains other libraries with their individual licenses. More details about these licenses can be found in the [wiki](https://github.com/aelassas/Wexflow/wiki/License).
 
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Faelassas%2FWexflow.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Faelassas%2FWexflow?ref=badge_large)
+-->
 
 # Credits
 
 Thanks to [JetBrains](https://www.jetbrains.com) for the free open source licenses.
 
+<!--
 Improved and optimized using:
 
 <a href="https://www.jetbrains.com/resharper/"><img src="https://aelassas.github.io/wexflow/images/logo_resharper.gif" alt="Resharper" width="100" /></a>
+-->
