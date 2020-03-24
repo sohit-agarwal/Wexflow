@@ -1,4 +1,6 @@
+<!--
 [![Downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://wexflow.github.io/stats) [![Release](https://img.shields.io/github/release/aelassas/Wexflow)](https://github.com/aelassas/Wexflow/releases/latest) [![Nuget](https://img.shields.io/nuget/v/Wexflow)](https://www.nuget.org/packages/Wexflow) [![License](https://img.shields.io/github/license/aelassas/Wexflow)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)  [![Follow](https://img.shields.io/twitter/url/https/twitter.com/fold_left.svg?style=social&label=Follow)](https://twitter.com/aelassas_dev)
+-->
 <!--
 [![Wiki](https://img.shields.io/badge/github-wiki-181717.svg?maxAge=60)](https://github.com/aelassas/Wexflow/wiki)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby)
@@ -7,7 +9,9 @@
 
 You can download the latest stable release from [here](https://github.com/aelassas/Wexflow/releases/latest).
 
-You can find the documentation [here](https://github.com/aelassas/Wexflow/wiki).
+You can find a detailed documentation [here](https://github.com/aelassas/Wexflow/wiki).
+
+Wexflow has been downloaded more than 21k times. Check out the releases stats [here](https://wexflow.github.io/stats).
 
 ![Docker](https://aelassas.github.io/wexflow/images/small_h-trans.png)
 
