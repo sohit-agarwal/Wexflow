@@ -24,13 +24,15 @@ Take a look at the [version 5.2](https://github.com/aelassas/Wexflow/releases/ta
 
 Wexflow is a free, open-source, high-performance, extensible, modular and cross-platform workflow engine. The goal of Wexflow is to automate recurring tasks. With the help of Wexflow, building automation and workflow processes become easy. Wexflow also helps in making the long-running processes straightforward. The communication between systems or applications becomes easy through this powerful workflow engine.
 
+Wexflow comes with a cross-platform workflow server and a backend. The workflow server exposes a [RESTful API](https://github.com/aelassas/Wexflow/wiki/RESTful-API) that allows Wexflow to be embeddable anywhere.
+
 Wexflow makes use of [.NET Core](https://www.microsoft.com/net/download), a cross-platform version of .NET for building websites, services, and console apps. Thus, Wexflow provides a cross-platform workflow server and a cross-platform backend for managing, designing and tracking workflows with ease and flexibility. Wexflow server and its backend run on Windows, Linux and macOS.
 
 Wexflow also makes use of [Quartz.NET](https://www.quartz-scheduler.net/) open source job scheduling system that is used in large scale enterprise systems. Thus, Wexflow offers flexibility in planning workflow jobs such as [cron workflows](https://github.com/aelassas/Wexflow/wiki/Cron-scheduling).
 
 Since workflows are typically long running processes, they will need to be persisted to storage between tasks. There are several persistence providers available. Wexflow provides [LiteDB](http://www.litedb.org/), [MongoDB](https://github.com/aelassas/Wexflow/wiki/MongoDB), [RavenDB](https://github.com/aelassas/Wexflow/wiki/RavenDB), [CosmosDB](https://github.com/aelassas/Wexflow/wiki/CosmosDB), [PostgreSQL](https://github.com/aelassas/Wexflow/wiki/PostgreSQL), [SQL Server](https://github.com/aelassas/Wexflow/wiki/SQL-Server), [MySQL](https://github.com/aelassas/Wexflow/wiki/MySQL) and [SQLite](https://github.com/aelassas/Wexflow/wiki/SQLite) persistence providers which enhance and improve the performance of this workflow engine. The user can choose the persistence provider of his choice at the installation.
 
-Wexflow comes with a backend too, so you can search and filter among all your workflows, have real-time statistics on your workflows, manage your workflows with ease, design your workflows with ease, and track your workflows with ease:
+Wexflow comes with a backend, so you can search and filter among all your workflows, have real-time statistics on your workflows, manage your workflows with ease, design your workflows with ease, and track your workflows with ease:
 
 ![Dashboard](https://aelassas.github.io/wexflow/images/wbo-dashboard-4.4-2.png)
 
