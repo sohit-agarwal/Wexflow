@@ -82,11 +82,11 @@
                                     from = new Date(dateMin);
                                     to = new Date(dateMax);
 
-                                    if (from.getDay() === to.getDay() &&
-                                        from.getMonth() === to.getMonth() &&
-                                        from.getYear() === to.getYear()) {
-                                        to.setDate(to.getDate() + 1);
-                                    }
+                                    //if (from.getDay() === to.getDay() &&
+                                    //    from.getMonth() === to.getMonth() &&
+                                    //    from.getYear() === to.getYear()) {
+                                    to.setDate(to.getDate() + 1);
+                                    //}
                                     Common.get(uri + "/entriesCountByDate?s=" + encodeURIComponent(txtSearch.value) + "&from=" + from.getTime() + "&to=" + to.getTime(),
                                         function (count) {
 
