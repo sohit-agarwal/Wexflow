@@ -9,7 +9,7 @@
 
 You can download the latest stable release from [here](https://github.com/aelassas/Wexflow/releases/latest).
 
-You can find a detailed documentation [here](https://github.com/aelassas/Wexflow/wiki).
+You can find the documentation [here](https://github.com/aelassas/Wexflow/wiki).
 
 <!--
 # What's New?
@@ -17,9 +17,12 @@ You can find a detailed documentation [here](https://github.com/aelassas/Wexflow
 Take a look at the [version 5.2](https://github.com/aelassas/Wexflow/releases/tag/v5.2). This version includes an upgrade to .NET Core 3.1 LTS, support for [PostgreSQL](https://github.com/aelassas/Wexflow/wiki/PostgreSQL), [SQL Server](https://github.com/aelassas/Wexflow/wiki/SQL-Server), [MySQL](https://github.com/aelassas/Wexflow/wiki/MySQL) and [SQLite](https://github.com/aelassas/Wexflow/wiki/SQLite), JSON editor, display of server logs in the backend, parallel jobs of the same workflow definition, [date interpolation](https://github.com/aelassas/Wexflow/issues/166), bug fixes, performance enhancements and under the hood updates.
 -->
 
+<!--
 # <img src="https://aelassas.github.io/wexflow/images/logo.png" width="32">  Wexflow
+-->
+# Wexflow
 
-Wexflow is a high-performance, extensible, modular and cross-platform workflow engine. The goal of Wexflow is to automate recurring tasks. With the help of Wexflow, building automation and workflow processes become easy. Wexflow also helps in making the long-running processes straightforward. The communication between systems or applications becomes easy through this powerful workflow engine.
+Wexflow is a free, open-source, high-performance, extensible, modular and cross-platform workflow engine. The goal of Wexflow is to automate recurring tasks. With the help of Wexflow, building automation and workflow processes become easy. Wexflow also helps in making the long-running processes straightforward. The communication between systems or applications becomes easy through this powerful workflow engine.
 
 Wexflow makes use of [.NET Core](https://www.microsoft.com/net/download), a cross-platform version of .NET for building websites, services, and console apps. Thus, Wexflow provides a cross-platform workflow server and a cross-platform backend for managing, designing and tracking workflows with ease and flexibility. Wexflow server and its backend run on Windows, Linux and macOS.
 
