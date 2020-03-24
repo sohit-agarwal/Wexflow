@@ -11,7 +11,9 @@ You can download the latest stable release from [here](https://github.com/aelass
 
 You can find a detailed documentation [here](https://github.com/aelassas/Wexflow/wiki).
 
+<!--
 Wexflow has been downloaded more than 21k times. Check out the releases stats [here](https://wexflow.github.io/stats).
+-->
 
 ![Docker](https://aelassas.github.io/wexflow/images/small_h-trans.png)
 
