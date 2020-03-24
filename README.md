@@ -17,7 +17,7 @@ Wexflow runs also on Docker. [Here](https://github.com/aelassas/Wexflow/wiki/Doc
 
 Take a look at the [version 5.2](https://github.com/aelassas/Wexflow/releases/tag/v5.2). This version includes an upgrade to .NET Core 3.1 LTS, support for [PostgreSQL](https://github.com/aelassas/Wexflow/wiki/PostgreSQL), [SQL Server](https://github.com/aelassas/Wexflow/wiki/SQL-Server), [MySQL](https://github.com/aelassas/Wexflow/wiki/MySQL) and [SQLite](https://github.com/aelassas/Wexflow/wiki/SQLite), JSON editor, display of server logs in the backend, parallel jobs of the same workflow definition, [date interpolation](https://github.com/aelassas/Wexflow/issues/166), bug fixes, performance enhancements and under the hood updates.
 
-This version has been depthly tested on Windows, Linux, macOS and the cloud, and runs 100% on Windows, Linux, macOS and the cloud.
+This version has been depthly tested on Windows, Linux, macOS and Docker, and runs 100% on Windows, Linux, macOS and Docker.
 
 # Continuous Integration
 
