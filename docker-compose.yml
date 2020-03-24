@@ -16,8 +16,5 @@ services:
     volumes:
       - ./wexflow-5.2-linux-dotnet-core/:/opt/wexflow/
     working_dir: /opt/wexflow/Wexflow.Server
-    # The 2 lines below are used if you want to use MongoDB instead of LiteDB
-    # depends_on:
-    #  - mongo
     command:
       sh -c "cd /opt/wexflow/Wexflow.Server && dotnet Wexflow.Server.dll"
