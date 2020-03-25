@@ -1,9 +1,6 @@
-[![Downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://wexflow.github.io/stats) [![Release](https://img.shields.io/github/release/aelassas/Wexflow)](https://github.com/aelassas/Wexflow/releases/latest) [![Nuget](https://img.shields.io/nuget/v/Wexflow)](https://www.nuget.org/packages/Wexflow) [![License](https://img.shields.io/github/license/aelassas/Wexflow)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt)
+[![Downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://wexflow.github.io/stats) [![Release](https://img.shields.io/github/release/aelassas/Wexflow)](https://github.com/aelassas/Wexflow/releases/latest) [![Nuget](https://img.shields.io/nuget/v/Wexflow)](https://www.nuget.org/packages/Wexflow) [![License](https://img.shields.io/github/license/aelassas/Wexflow)](https://github.com/aelassas/Wexflow/blob/master/LICENSE.txt) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Wexflow%20-%20Open-source%20and%20cross-platform%20workflow%20engine&url=https://wexflow.github.io&via=aelassas_dev) [![Follow](https://img.shields.io/twitter/url/https/twitter.com/fold_left.svg?style=social&label=Follow)](https://twitter.com/aelassas_dev)
 
 <!--
-[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Wexflow%20-%20Open-source%20and%20cross-platform%20workflow%20engine&url=https://wexflow.github.io&via=aelassas_dev)
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby) 
-[![Follow](https://img.shields.io/twitter/url/https/twitter.com/fold_left.svg?style=social&label=Follow)](https://twitter.com/aelassas_dev)
 [![Wiki](https://img.shields.io/badge/github-wiki-181717.svg?maxAge=60)](https://github.com/aelassas/Wexflow/wiki)
 -->
 
@@ -65,25 +62,25 @@ Wexflow runs also on Docker. [Here](https://github.com/aelassas/Wexflow/wiki/Doc
 Why Wexflow?
 ------------
 
-- [x] [Free and open source](https://github.com/aelassas/Wexflow/wiki/Free-and-open-source).
-- [x] [Easy to install and effortless configuration](https://github.com/aelassas/Wexflow/wiki/Installation).
-- [x] [Straightforward and easy to use](https://github.com/aelassas/Wexflow/wiki/Usage).
-- [x] [A cross-platform workflow server](https://github.com/aelassas/Wexflow/wiki/Workflow-server).
-- [x] [A cross-platform backend](https://github.com/aelassas/Wexflow/wiki/Usage#backend).
-- [x] [An Android app for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#android-manager).
-- [x] [An iOS app for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#ios-manager).
-- [x] [Sequential workflows](https://github.com/aelassas/Wexflow/wiki/Samples#sequential-workflows).
-- [x] [Flowchart workflows](https://github.com/aelassas/Wexflow/wiki/Samples#flowchart-workflows).
-- [x] [Approval workflows](https://github.com/aelassas/Wexflow/wiki/Samples#approval-workflows).
-- [x] [100+ built-in tasks](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation).
-- [x] [User-driven](https://github.com/aelassas/Wexflow/wiki/User-driven).
-- [x] [Cron scheduling](https://github.com/aelassas/Wexflow/wiki/Cron-scheduling).
-- [x] [LiteDB, MongoDB, RavenDB and CosmosDB support](https://github.com/aelassas/Wexflow/wiki/Databases).
-- [x] [PostgreSQL, SQL Server, MySQL and SQLite support](https://github.com/aelassas/Wexflow/wiki/Databases).
-- [x] [Extensive logging and incident reporting](https://github.com/aelassas/Wexflow/wiki/Logging).
-- [x] [Real-time stats](https://github.com/aelassas/Wexflow/wiki/Usage#dashboard).
-- [x] [RESTful API](https://github.com/aelassas/Wexflow/wiki/RESTful-API).
-- [x] [Extensible](https://github.com/aelassas/Wexflow/wiki/Extensible).
+- [Free and open source](https://github.com/aelassas/Wexflow/wiki/Free-and-open-source)
+- [Easy to install and effortless configuration](https://github.com/aelassas/Wexflow/wiki/Installation)
+- [Straightforward and easy to use](https://github.com/aelassas/Wexflow/wiki/Usage)
+- [A cross-platform workflow server](https://github.com/aelassas/Wexflow/wiki/Workflow-server)
+- [A cross-platform backend](https://github.com/aelassas/Wexflow/wiki/Usage#backend)
+- [An Android app for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#android-manager)
+- [An iOS app for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#ios-manager)
+- [Sequential workflows](https://github.com/aelassas/Wexflow/wiki/Samples#sequential-workflows)
+- [Flowchart workflows](https://github.com/aelassas/Wexflow/wiki/Samples#flowchart-workflows)
+- [Approval workflows](https://github.com/aelassas/Wexflow/wiki/Samples#approval-workflows)
+- [100+ built-in tasks](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation)
+- [User-driven](https://github.com/aelassas/Wexflow/wiki/User-driven)
+- [Cron scheduling](https://github.com/aelassas/Wexflow/wiki/Cron-scheduling)
+- [LiteDB, MongoDB, RavenDB and CosmosDB support](https://github.com/aelassas/Wexflow/wiki/Databases)
+- [PostgreSQL, SQL Server, MySQL and SQLite support](https://github.com/aelassas/Wexflow/wiki/Databases)
+- [Extensive logging and incident reporting](https://github.com/aelassas/Wexflow/wiki/Logging)
+- [Real-time stats](https://github.com/aelassas/Wexflow/wiki/Usage#dashboard)
+- [RESTful API](https://github.com/aelassas/Wexflow/wiki/RESTful-API)
+- [Extensible](https://github.com/aelassas/Wexflow/wiki/Extensible)	
 
 Discover more about the features in [details](https://github.com/aelassas/Wexflow/wiki).
 
