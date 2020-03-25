@@ -59,8 +59,8 @@ Moreover, the "Designer" page allows to edit workflows through its XML/JSON edit
 
 Wexflow runs also on Docker. [Here](https://github.com/aelassas/Wexflow/wiki/Docker) is the documentation for creating and building Docker images.
 
-Why Wexflow?
-------------
+## Why Wexflow?
+
 
 - [Free and open source](https://github.com/aelassas/Wexflow/wiki/Free-and-open-source)
 - [Easy to install and effortless configuration](https://github.com/aelassas/Wexflow/wiki/Installation)
@@ -166,8 +166,8 @@ Discover more about the features in [details](https://github.com/aelassas/Wexflo
 [![AK](https://aelassas.github.io/wexflow/images/ak-system-software.jpg)](https://ak-system-software.de/?lang=en)
 -->
 
-Get Started
-------------
+## Get Started
+
 
 - [Download the latest stable release](https://github.com/aelassas/Wexflow/releases/latest)
 - [Installation guide](https://github.com/aelassas/Wexflow/wiki/Installation)
@@ -175,8 +175,7 @@ Get Started
 - [Workflow samples](https://github.com/aelassas/Wexflow/wiki/Samples)
 - [Tasks documentation](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation)
 
-Continuous Integration
-------------
+## Continuous Integration
 
 |  Server | Platform |Project| Status |
 ----------|--------|----------|-------|
