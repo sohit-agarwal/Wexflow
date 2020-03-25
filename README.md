@@ -25,7 +25,7 @@ Wexflow comes with a cross-platform workflow server and a backend. The workflow 
 
 Wexflow makes use of [.NET Core](https://www.microsoft.com/net/download), a cross-platform version of .NET for building websites, services, and console apps. Thus, Wexflow provides a cross-platform workflow server and a cross-platform backend for managing, designing and tracking workflows with ease and flexibility. Wexflow server and its backend run on Windows, Linux and macOS.
 
-Wexflow also makes use of [Quartz.NET](https://www.quartz-scheduler.net/) open source job scheduling system that is used in large scale enterprise systems. Thus, Wexflow offers flexibility in planning workflow jobs such as [cron workflows](https://github.com/aelassas/Wexflow/wiki/Cron-scheduling).
+Wexflow also makes use of [Quartz.NET](https://www.quartz-scheduler.net/) open-source job scheduling system that is used in large scale enterprise systems. Thus, Wexflow offers flexibility in planning workflow jobs such as [cron workflows](https://github.com/aelassas/Wexflow/wiki/Cron-scheduling).
 
 Since workflows are typically long running processes, they will need to be persisted to storage between tasks. There are several persistence providers available. Wexflow provides [LiteDB](http://www.litedb.org/), [MongoDB](https://github.com/aelassas/Wexflow/wiki/MongoDB), [RavenDB](https://github.com/aelassas/Wexflow/wiki/RavenDB), [CosmosDB](https://github.com/aelassas/Wexflow/wiki/CosmosDB), [PostgreSQL](https://github.com/aelassas/Wexflow/wiki/PostgreSQL), [SQL Server](https://github.com/aelassas/Wexflow/wiki/SQL-Server), [MySQL](https://github.com/aelassas/Wexflow/wiki/MySQL) and [SQLite](https://github.com/aelassas/Wexflow/wiki/SQLite) persistence providers which enhance and improve the performance of this workflow engine. The user can choose the persistence provider of his choice at the installation.
 
@@ -242,7 +242,7 @@ Wexflow is licensed under the [MIT License](https://github.com/aelassas/Wexflow/
 <!--
 # Credits
 
-Thanks to [JetBrains](https://www.jetbrains.com) for the free open source licenses.
+Thanks to [JetBrains](https://www.jetbrains.com) for the free open-source licenses.
 -->
 <!--
 Improved and optimized using:
