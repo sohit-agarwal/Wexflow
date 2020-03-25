@@ -23,7 +23,7 @@ OutputBaseFilename=wexflow-{#MyAppVersion}-windows-x86
 SetupIconFile="..\src\dotnet\Wexflow.Clients.Manager\Wexflow.ico"
 Compression=lzma
 SolidCompression=yes
-LicenseFile="..\LICENSE.txt"
+LicenseFile="..\LICENSE"
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
