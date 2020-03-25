@@ -23,7 +23,7 @@ Take a look at the [version 5.2](https://github.com/aelassas/Wexflow/releases/ta
 -->
 # Wexflow
 
-Wexflow is a free, open-source, high-performance, extensible, modular and cross-platform workflow engine. The goal of Wexflow is to automate recurring tasks. With the help of Wexflow, building automation and workflow processes become easy. Wexflow also helps in making the long-running processes straightforward. The communication between systems or applications becomes easy through this powerful workflow engine.
+Wexflow is a free, open-source, high-performance, extensible, modular and cross-platform workflow engine and automation platform. The goal of Wexflow is to automate recurring tasks. With the help of Wexflow, building automation and workflow processes become easy. Wexflow also helps in making the long-running processes straightforward. The communication between systems or applications becomes easy through this powerful workflow engine.
 
 Wexflow comes with a cross-platform workflow server and a backend. The workflow server exposes a [RESTful API](https://github.com/aelassas/Wexflow/wiki/RESTful-API) that allows Wexflow to be embeddable anywhere.
 
