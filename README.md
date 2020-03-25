@@ -62,11 +62,11 @@ Wexflow runs also on Docker. [Here](https://github.com/aelassas/Wexflow/wiki/Doc
 ## Why Wexflow?
 
 
-- [Free and open source](https://github.com/aelassas/Wexflow/wiki/Free-and-open-source)
+- [Free and open-source](https://github.com/aelassas/Wexflow/wiki/Free-and-open-source)
 - [Easy to install and effortless configuration](https://github.com/aelassas/Wexflow/wiki/Installation)
 - [Straightforward and easy to use](https://github.com/aelassas/Wexflow/wiki/Usage)
 - [A cross-platform workflow server](https://github.com/aelassas/Wexflow/wiki/Workflow-server)
-- [A cross-platform backend](https://github.com/aelassas/Wexflow/wiki/Usage#backend)
+- [A powerful backend](https://github.com/aelassas/Wexflow/wiki/Usage#backend)
 - [An Android app for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#android-manager)
 - [An iOS app for managing workflows](https://github.com/aelassas/Wexflow/wiki/Usage#ios-manager)
 - [Sequential workflows](https://github.com/aelassas/Wexflow/wiki/Samples#sequential-workflows)
