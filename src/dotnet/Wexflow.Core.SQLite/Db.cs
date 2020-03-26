@@ -1706,18 +1706,20 @@ namespace Wexflow.Core.SQLite
             {
                 conn.Open();
 
-                var command = new SQLiteCommand("SELECT " + Entry.ColumnName_Logs
+                using (var command = new SQLiteCommand("SELECT " + Entry.ColumnName_Logs
                     + " FROM " + Core.Db.Entry.DocumentName
                     + " WHERE "
                     + Entry.ColumnName_Id + " = " + int.Parse(entryId) + ";"
-                    , conn);
-
-                var reader = command.ExecuteReader();
-
-                if (reader.Read())
+                    , conn))
                 {
-                    var logs = (string)reader[Entry.ColumnName_Logs];
-                    return logs;
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            var logs = (string)reader[Entry.ColumnName_Logs];
+                            return logs;
+                        }
+                    }
                 }
 
             }
@@ -1731,18 +1733,21 @@ namespace Wexflow.Core.SQLite
             {
                 conn.Open();
 
-                var command = new SQLiteCommand("SELECT " + HistoryEntry.ColumnName_Logs
+                using (var command = new SQLiteCommand("SELECT " + HistoryEntry.ColumnName_Logs
                     + " FROM " + Core.Db.HistoryEntry.DocumentName
                     + " WHERE "
                     + HistoryEntry.ColumnName_Id + " = " + int.Parse(entryId) + ";"
-                    , conn);
-
-                var reader = command.ExecuteReader();
-
-                if (reader.Read())
+                    , conn))
                 {
-                    var logs = (string)reader[HistoryEntry.ColumnName_Logs];
-                    return logs;
+                    using (var reader = command.ExecuteReader())
+                    {
+
+                        if (reader.Read())
+                        {
+                            var logs = (string)reader[HistoryEntry.ColumnName_Logs];
+                            return logs;
+                        }
+                    }
                 }
 
             }
