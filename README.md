@@ -30,7 +30,7 @@ Moreover, the "Designer" page allows to edit workflows through its JSON editor o
 
 ![Docker](https://aelassas.github.io/wexflow/images/small_h-trans.png)
 
-Wexflow runs on Docker. [Here](https://github.com/aelassas/Wexflow/wiki/Docker) is the documentation for creating and building  Docker images.
+You can deploy Wexflow using Docker containers on Windows, macOS, and Linux distributions. [Here](https://github.com/aelassas/Wexflow/wiki/Docker) is the documentation for creating and building Docker images.
 
 ## Why Wexflow?
 
