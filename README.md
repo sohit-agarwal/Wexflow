@@ -10,7 +10,7 @@ Wexflow is a free, open-source, high-performance, extensible, modular and cross-
 
 Wexflow comes with a cross-platform workflow server and a powerful backend. The workflow server exposes a [RESTful API](https://github.com/aelassas/Wexflow/wiki/RESTful-API) that allows Wexflow to be embeddable anywhere.
 
-Wexflow makes use of [.NET Core](https://www.microsoft.com/net/download), a cross-platform version of .NET for building websites, services, and console apps. Thus, Wexflow provides a cross-platform workflow server and a powerful backend for managing, designing and tracking workflows with ease and flexibility. Wexflow runs on Windows, Linux, macOS and Docker.
+Wexflow makes use of [.NET Core](https://www.microsoft.com/net/download), a cross-platform version of .NET for building websites, services, and console apps. Thus, Wexflow provides a cross-platform workflow server and a powerful backend for managing, designing and tracking workflows with ease and flexibility. Wexflow runs on Windows, Linux and macOS.
 
 Wexflow also makes use of [Quartz.NET](https://www.quartz-scheduler.net/) open-source job scheduling system that is used in large scale enterprise systems. Thus, Wexflow offers flexibility in planning jobs such as [cron jobs](https://github.com/aelassas/Wexflow/wiki/Cron-scheduling).
 
@@ -30,7 +30,7 @@ Moreover, the "Designer" page allows to edit workflows through its JSON editor o
 
 ![Docker](https://aelassas.github.io/wexflow/images/small_h-trans.png)
 
-You can deploy Wexflow using Docker containers on Windows, macOS, and Linux distributions. [Here](https://github.com/aelassas/Wexflow/wiki/Docker) is the documentation for creating and building Docker images.
+You can deploy Wexflow using Docker containers on Windows, Linux and macOS distributions. [Here](https://github.com/aelassas/Wexflow/wiki/Docker) is the documentation for creating and building Docker images.
 
 ## Why Wexflow?
 
