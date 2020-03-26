@@ -1,14 +1,6 @@
 [![Downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://wexflow.github.io/stats) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Wexflow%20-%20Open-source%20and%20cross-platform%20workflow%20engine&url=https://wexflow.github.io&via=aelassas_dev) [![Follow](https://img.shields.io/twitter/url/https/twitter.com/fold_left.svg?style=social&label=Follow)](https://twitter.com/aelassas_dev)
 
-<!--
-[![Release](https://img.shields.io/github/release/aelassas/Wexflow)](https://github.com/aelassas/Wexflow/releases/latest)
-[![Nuget](https://img.shields.io/nuget/v/Wexflow)](https://www.nuget.org/packages/Wexflow)
-[![License](https://img.shields.io/github/license/aelassas/Wexflow)](https://github.com/aelassas/Wexflow/blob/master/LICENSE)
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Wexflow/Lobby)
-[![Wiki](https://img.shields.io/badge/github-wiki-181717.svg?maxAge=60)](https://github.com/aelassas/Wexflow/wiki)
--->
-
-You can download the latest stable release from [here](https://github.com/aelassas/Wexflow/releases/latest).
+You can download the latest release [here](https://github.com/aelassas/Wexflow/releases/latest).
 
 You can find the documentation [here](https://github.com/aelassas/Wexflow/wiki).
 
@@ -38,7 +30,7 @@ Moreover, the "Designer" page allows to edit workflows through its JSON editor o
 
 ![Docker](https://aelassas.github.io/wexflow/images/small_h-trans.png)
 
-Wexflow runs on Docker. [Here](https://github.com/aelassas/Wexflow/wiki/Docker) is a detailed documentation for creating and building Wexflow's Docker images.
+Wexflow runs on Docker. [Here](https://github.com/aelassas/Wexflow/wiki/Docker) is the documentation for creating and building  Docker images.
 
 ## Why Wexflow?
 
@@ -76,8 +68,3 @@ Discover more about the features in [details](https://github.com/aelassas/Wexflo
 |[Bitrise](https://www.bitrise.io/) (iOS)|macOS| src/ios | [![Build Status](https://app.bitrise.io/app/f8006552bdd4ee80/status.svg?token=Yd_71TrG-cqFvEC1oV5teQ)](https://app.bitrise.io/app/f8006552bdd4ee80)|
 |[CircleCI](https://circleci.com/) (iOS)|macOS| src/ios | [![CircleCI](https://circleci.com/gh/aelassas/Wexflow.svg?style=shield)](https://circleci.com/gh/aelassas/Wexflow)|
 |[FOSSA](https://fossa.com/) (All projects)| Linux | All projects | [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Faelassas%2FWexflow.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Faelassas%2FWexflow?ref=badge_shield)|
-
-<!--|[Travis](https://travis-ci.org/) (Android)| Linux | src/android |[![Build Status](https://travis-ci.org/aelassas/Wexflow.svg?branch=master)](https://travis-ci.org/aelassas/Wexflow)|-->
-<!--|[Travis](https://travis-ci.org/) (iOS)| macOS | src/ios |[![Build Status](https://travis-ci.org/aelassas/Wexflow.svg?branch=master)](https://travis-ci.org/aelassas/Wexflow)|-->
-<!--|[Codecov](https://codecov.io/) (.NET and .NET Core)|Windows| Wexflow.sln |![codecov](https://codecov.io/gh/aelassas/Wexflow/branch/master/graph/badge.svg)|-->
-<!--|[Coveralls](https://coveralls.io/) (.NET and .NET Core)|Linux| Wexflow.sln |[![Coverage Status](https://badgen.net/coveralls/c/github/aelassas/Wexflow)](https://coveralls.io/github/aelassas/Wexflow?branch=master)|-->
