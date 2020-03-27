@@ -12,6 +12,8 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -68,8 +70,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="SharpScss, Version=1.4.0.0, Culture=neutral, PublicKeyToken=b9d29176e3cc094c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\libs\SharpScss.dll</HintPath>
+      <HintPath>..\..\..\packages\SharpScss.1.4.0\lib\net40\SharpScss.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -96,6 +97,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\..\packages\SharpScss.1.4.0\build\net40\SharpScss.targets" Condition="Exists('..\..\..\packages\SharpScss.1.4.0\build\net40\SharpScss.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Ce projet fait référence à des packages NuGet qui sont manquants sur cet ordinateur. Utilisez l'option de restauration des packages NuGet pour les télécharger. Pour plus d'informations, consultez http://go.microsoft.com/fwlink/?LinkID=322105. Le fichier manquant est : {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\packages\SharpScss.1.4.0\build\net40\SharpScss.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\SharpScss.1.4.0\build\net40\SharpScss.targets'))" />
+  </Target>
 </Project>

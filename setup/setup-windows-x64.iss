@@ -107,7 +107,8 @@ Source: "..\src\dotnet\Wexflow.Tasks.WebToHtml\bin\x64\Release\WebDriver.dll"; D
 Source: "..\libs\chromedriver.exe"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\libs\NUglify.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Tasks.HtmlToText\bin\x64\Release\NUglify.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\libs\SharpScss.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\libs\SharpScss.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Tasks.ScssToCss\bin\x64\Release\SharpScss.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\x64\libsass.dll"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\libs\YamlDotNet.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Tasks.CsvToYaml\bin\x64\Release\YamlDotNet.dll"; DestDir: "{app}"; Flags: ignoreversion
