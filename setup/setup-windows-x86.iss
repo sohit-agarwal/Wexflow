@@ -77,7 +77,8 @@ Source: "..\libs\Microsoft.Synchronization.Files.dll"; DestDir: "{app}"; Flags: 
 Source: "..\libs\MediaInfo.dll"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\libs\OpenPop.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Tasks.MailsReceiver\bin\x86\Release\OpenPop.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\libs\itextsharp.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\libs\itextsharp.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Tasks.HtmlToPdf\bin\x86\Release\itextsharp.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\DiffPlex.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\MonoTorrent.dll"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\libs\Quartz.dll"; DestDir: "{app}"; Flags: ignoreversion
