@@ -56,6 +56,30 @@ You can deploy Wexflow using Docker containers on Windows, Linux and macOS distr
 
 Discover more about the features in [details](https://github.com/aelassas/Wexflow/wiki).
 
+## Examples
+
+- Orchestration engine
+- Form submission approval process
+- Batch recording live video feeds
+- Batch transcoding audio and video files
+- Batch uploading videos and their metadata to YouTube SFTP dropbox
+- Automatically upload videos to YouTube
+- Automatically upload videos to Vimeo
+- Automatically upload images and videos to Instagram
+- Automatically send tweets
+- Automatically send posts and links to Reddit
+- Automatically send messages to Slack channels
+- Automatically send SMS messages
+- Batch encrypting and decrypting large files
+- Batch converting, resizing and cropping images
+- Creating and sending reports and invoices by email
+- Connecting systems and applications via watch folders
+- Batch downloading files over FTP/FTPS/SFTP/HTTP/HTTPS/Torrent
+- Batch uploading files over FTP/FTPS/SFTP
+- Database administration and maintenance
+- Synchronizing the content of local or remote directories
+- [Optimizing PDF files](https://blogs.datalogics.com/2018/11/26/wexflow-automating-datalogics-pdf-tools/)
+
 ## Continuous Integration
 
 |  Server | Platform | Status |
