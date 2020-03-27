@@ -99,7 +99,8 @@ Source: "..\libs\7z.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\SevenZipSharp.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\WebDriver.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\chromedriver.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\libs\NUglify.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\libs\NUglify.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Tasks.HtmlToText\bin\x64\Release\NUglify.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\SharpScss.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\x64\libsass.dll"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\libs\YamlDotNet.dll"; DestDir: "{app}"; Flags: ignoreversion
