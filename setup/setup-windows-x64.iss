@@ -77,7 +77,8 @@ Source: "..\libs\IKVM.Runtime.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Microsoft.Synchronization.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Microsoft.Synchronization.Files.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\x64\MediaInfo.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\libs\OpenPop.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\libs\OpenPop.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Tasks.MailsReceiver\bin\x64\Release\OpenPop.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\itextsharp.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\DiffPlex.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\MonoTorrent.dll"; DestDir: "{app}"; Flags: ignoreversion
