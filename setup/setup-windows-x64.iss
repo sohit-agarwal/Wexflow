@@ -50,11 +50,14 @@ Name: "samples"; Description: "Workflow samples"; Types: full
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Wexflow.Server.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Wexflow.Server.exe.config"; DestDir: "{app}"; Flags: ignoreversion
 
-Source: "..\libs\FluentFTP.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\libs\FluentFTP.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Tasks.Ftp\bin\x64\Release\FluentFTP.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Hammock.ClientProfile.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\ICSharpCode.SharpZipLib.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\libs\log4net.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\libs\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\libs\log4net.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\log4net.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\libs\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Renci.SshNet.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Mono.Security.dll"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\libs\Npgsql.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -78,7 +81,8 @@ Source: "..\libs\OpenPop.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\itextsharp.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\DiffPlex.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\MonoTorrent.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\libs\Quartz.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\libs\Quartz.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Quartz.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Common.Logging.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Common.Logging.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\SharpCompress.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -97,7 +101,8 @@ Source: "..\libs\chromedriver.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\NUglify.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\SharpScss.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\x64\libsass.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\libs\YamlDotNet.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\libs\YamlDotNet.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Tasks.CsvToYaml\bin\x64\Release\YamlDotNet.dll"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\libs\LiteDB.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Vimeo.dll"; DestDir: "{app}"; Flags: ignoreversion
 

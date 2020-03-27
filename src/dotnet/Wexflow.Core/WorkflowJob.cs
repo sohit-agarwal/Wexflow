@@ -7,14 +7,21 @@ namespace Wexflow.Core
     /// </summary>
     public class WorkflowJob : IJob
     {
+
         /// <summary>
         /// Executes workflow the job
         /// </summary>
         /// <param name="context">Job context.</param>
-        public void Execute(IJobExecutionContext context)
+        System.Threading.Tasks.Task IJob.Execute(IJobExecutionContext context)
         {
             Workflow workflow = (Workflow)context.JobDetail.JobDataMap.Get("workflow");
-            workflow.Start();
+
+            System.Threading.Tasks.Task task = new System.Threading.Tasks.Task(() =>
+            {
+                workflow.Start();
+            });
+            task.Start();
+            return task;
         }
     }
 }
