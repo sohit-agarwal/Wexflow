@@ -82,6 +82,10 @@ Discover more about the features in [details](https://github.com/aelassas/Wexflo
 - Synchronizing the content of local or remote directories
 - [Optimizing PDF files](https://blogs.datalogics.com/2018/11/26/wexflow-automating-datalogics-pdf-tools/)
 
+## JetBrains
+
+This project is supported by [JetBrains](https://www.jetbrains.com/?from=Wexflow).
+
 ## Continuous Integration
 
 |  Server | Platform | Status |
