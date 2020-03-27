@@ -84,7 +84,8 @@ Source: "..\libs\MonoTorrent.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Quartz.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Common.Logging.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Common.Logging.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\libs\SharpCompress.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\libs\SharpCompress.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Tasks.Unrar\bin\x86\Release\SharpCompress.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Microsoft.SqlServer.ConnectionInfo.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Microsoft.SqlServer.Management.Sdk.Sfc.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Microsoft.SqlServer.Smo.dll"; DestDir: "{app}"; Flags: ignoreversion
