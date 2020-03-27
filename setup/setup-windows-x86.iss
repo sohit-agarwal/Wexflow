@@ -95,7 +95,8 @@ Source: "..\libs\DiscUtils.Iso9660.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\DiscUtils.Streams.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\x86\7z.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\SevenZipSharp.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\libs\WebDriver.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\libs\WebDriver.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Tasks.WebToHtml\bin\x86\Release\WebDriver.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\chromedriver.exe"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\libs\NUglify.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Tasks.HtmlToText\bin\x86\Release\NUglify.dll"; DestDir: "{app}"; Flags: ignoreversion
