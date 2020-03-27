@@ -9,7 +9,7 @@ using System.Threading;
 
 namespace Wexflow.Tasks.Xslt
 {
-    public class Xslt:Task
+    public class Xslt : Task
     {
         public string XsltPath { get; private set; }
         public string Version { get; private set; }
@@ -49,26 +49,28 @@ namespace Wexflow.Tasks.Xslt
                             Files.Add(new FileInf(destPath, Id));
                             break;
                         case "2.0":
-                            // Create a Processor instance.
+                            var xsl = new FileInfo(XsltPath);
+                            var input = new FileInfo(file.Path);
+                            var output = new FileInfo(destPath);
+
+                            // Compile stylesheet
                             var processor = new Processor();
+                            var compiler = processor.NewXsltCompiler();
+                            var executable = compiler.Compile(new Uri(xsl.FullName));
 
-                            // Load the source document.
-                            var input = processor.NewDocumentBuilder().Build(new Uri(file.Path));
+                            // Do transformation to a destination
+                            var destination = new DomDestination();
+                            using (var inputStream = input.OpenRead())
+                            {
+                                var transformer = executable.Load();
+                                transformer.SetInputStream(inputStream, new Uri(input.DirectoryName));
+                                transformer.Run(destination);
+                            }
 
-                            // Create a transformer for the stylesheet.
-                            var transformer = processor.NewXsltCompiler().Compile(new Uri(XsltPath)).Load();
+                            // Save result to a file (or whatever else you wanna do)
+                            destination.XmlDocument.Save(output.FullName);
 
-                            // Set the root node of the source document to be the initial context node.
-                            transformer.InitialContextNode = input;
-
-                            // Create a serializer.
-                            var serializer = new Serializer();
-                            serializer.SetOutputFile(destPath);
-
-                            // Transform the source XML to System.out.
-                            transformer.Run(serializer);
                             InfoFormat("File transformed: {0} -> {1}", file.Path, destPath);
-
                             Files.Add(new FileInf(destPath, Id));
                             break;
                         default:
@@ -93,12 +95,12 @@ namespace Wexflow.Tasks.Xslt
                                 var xRenameTo = xFile.Attribute("renameTo");
                                 string renameTo = xRenameTo != null ? xRenameTo.Value : string.Empty;
                                 var tags = (from xTag in xFile.Attributes()
-                                                  where xTag.Name != "taskId" && xTag.Name != "name" && xTag.Name != "renameTo" && xTag.Name != "path" && xTag.Name != "renameToOrName"
-                                                  select new Tag(xTag.Name.ToString(), xTag.Value)).ToList();
+                                            where xTag.Name != "taskId" && xTag.Name != "name" && xTag.Name != "renameTo" && xTag.Name != "path" && xTag.Name != "renameToOrName"
+                                            select new Tag(xTag.Name.ToString(), xTag.Value)).ToList();
 
                                 var fileToEdit = (from f in Workflow.FilesPerTask[taskId]
-                                                      where f.FileName.Equals(fileName)
-                                                      select f).FirstOrDefault();
+                                                  where f.FileName.Equals(fileName)
+                                                  select f).FirstOrDefault();
 
                                 if (fileToEdit != null)
                                 {
@@ -127,7 +129,7 @@ namespace Wexflow.Tasks.Xslt
                         xWexflowProcessings.Remove();
                         xdoc.Save(destPath);
                     }
-                    
+
                     if (!atLeastOneSucceed) atLeastOneSucceed = true;
                 }
                 catch (ThreadAbortException)
