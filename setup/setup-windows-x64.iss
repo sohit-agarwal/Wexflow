@@ -61,11 +61,14 @@ Source: "..\src\dotnet\Wexflow.Server\bin\x64\Release\Newtonsoft.Json.dll"; Dest
 Source: "..\libs\Renci.SshNet.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Mono.Security.dll"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\libs\Npgsql.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\libs\Oracle.ManagedDataAccess.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\libs\Oracle.ManagedDataAccess.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Tasks.Sql\bin\x64\Release\Oracle.ManagedDataAccess.dll"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\libs\MySql.Data.dll"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\libs\System.Data.SQLite.dll"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\libs\SQLite.Interop.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\libs\Teradata.Client.Provider.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\libs\Teradata.Client.Provider.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Tasks.Sql\bin\x64\Release\Teradata.Client.Provider.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Tasks.Sql\bin\x64\Release\Teradata.Net.Security.Tdgss.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\saxon9he.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\saxon9he-api.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\IKVM.OpenJDK.Charsets.dll"; DestDir: "{app}"; Flags: ignoreversion
