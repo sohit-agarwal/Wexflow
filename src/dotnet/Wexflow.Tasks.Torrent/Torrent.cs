@@ -1,5 +1,4 @@
 ﻿using MonoTorrent.Client;
-using MonoTorrent.Common;
 using System;
 using System.Threading;
 using System.Xml.Linq;
@@ -63,11 +62,12 @@ namespace Wexflow.Tasks.Torrent
             {
                 ClientEngine engine = new ClientEngine(new EngineSettings());
 
-                MonoTorrent.Common.Torrent torrent = MonoTorrent.Common.Torrent.Load(@"C:\WexflowTesting\Torrent\sample.torrent");
+                MonoTorrent.Torrent torrent = MonoTorrent.Torrent.Load(@"C:\WexflowTesting\Torrent\sample.torrent");
                 TorrentManager torrentManager = new TorrentManager(torrent, @"C:\WexflowTesting\Torrent\", new TorrentSettings());
                 engine.Register(torrentManager);
-                torrentManager.Start();
-                
+                System.Threading.Tasks.Task task = engine.StartAllAsync();
+                task.Wait();
+
                 // Keep running while the torrent isn't stopped or paused.
                 while (torrentManager.State != TorrentState.Stopped && torrentManager.State != TorrentState.Paused)
                 {
@@ -76,7 +76,7 @@ namespace Wexflow.Tasks.Torrent
                     if (torrentManager.Progress == 100.0)
                     {
                         // If we want to stop a torrent, or the engine for whatever reason, we call engine.StopAll()
-                        torrentManager.Stop();
+                        //torrentManager.Stop();
                         engine.StopAll();
                         break;
                     }
