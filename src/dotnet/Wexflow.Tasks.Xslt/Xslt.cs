@@ -45,7 +45,7 @@ namespace Wexflow.Tasks.Xslt
                             var xslt = new XslCompiledTransform();
                             xslt.Load(XsltPath);
                             xslt.Transform(file.Path, destPath);
-                            InfoFormat("File transformed: {0} -> {1}", file.Path, destPath);
+                            InfoFormat("File transformed (XSLT 1.0): {0} -> {1}", file.Path, destPath);
                             Files.Add(new FileInf(destPath, Id));
                             break;
                         case "2.0":
@@ -70,7 +70,7 @@ namespace Wexflow.Tasks.Xslt
                             // Save result to a file (or whatever else you wanna do)
                             destination.XmlDocument.Save(output.FullName);
 
-                            InfoFormat("File transformed: {0} -> {1}", file.Path, destPath);
+                            InfoFormat("File transformed (XSLT 2.0): {0} -> {1}", file.Path, destPath);
                             Files.Add(new FileInf(destPath, Id));
                             break;
                         case "3.0":
@@ -78,20 +78,20 @@ namespace Wexflow.Tasks.Xslt
                             var input3 = new FileInfo(file.Path);
                             var output3 = new FileInfo(destPath);
 
-                            Processor processor3 = new Processor(false);
-                            XsltCompiler compiler3 = processor3.NewXsltCompiler();
-                            XsltExecutable stylesheet = compiler3.Compile(new Uri(xsl3.FullName));
-                            Serializer serializer = processor3.NewSerializer();
+                            var processor3 = new Processor(false);
+                            var compiler3 = processor3.NewXsltCompiler();
+                            var stylesheet = compiler3.Compile(new Uri(xsl3.FullName));
+                            var serializer = processor3.NewSerializer();
                             serializer.SetOutputFile(output3.FullName);
 
                             using (var inputStream = input3.OpenRead())
                             {
-                                Xslt30Transformer transformer3 = stylesheet.Load30();
+                                var transformer3 = stylesheet.Load30();
                                 transformer3.Transform(inputStream, serializer);
                                 serializer.Close();
                             }
 
-                            InfoFormat("File transformed: {0} -> {1}", file.Path, destPath);
+                            InfoFormat("File transformed (XSLT 3.0): {0} -> {1}", file.Path, destPath);
                             Files.Add(new FileInf(destPath, Id));
                             break;
                         default:
