@@ -113,9 +113,13 @@ Source: "..\libs\Microsoft.SqlServer.Management.Sdk.Sfc.dll"; DestDir: "{app}"; 
 Source: "..\libs\Microsoft.SqlServer.Smo.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Microsoft.SqlServer.SmoExtended.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Microsoft.SqlServer.SqlEnum.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\libs\DiscUtils.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\libs\DiscUtils.Iso9660.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\libs\DiscUtils.Streams.dll"; DestDir: "{app}"; Flags: ignoreversion
+
+;Source: "..\libs\DiscUtils.Core.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\libs\DiscUtils.Iso9660.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\libs\DiscUtils.Streams.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Tasks.IsoCreator\bin\x64\Release\DiscUtils.Common.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\dotnet\Wexflow.Tasks.IsoCreator\bin\x64\Release\DiscUtils.dll"; DestDir: "{app}"; Flags: ignoreversion
+
 Source: "..\libs\7z.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\SevenZipSharp.dll"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\libs\WebDriver.dll"; DestDir: "{app}"; Flags: ignoreversion
