@@ -28,15 +28,15 @@ Wexflow comes with a powerful backend, so you can search and filter among all yo
 
 Just to give you an idea of what Wexflow does, this is a screenshot from the designer. Using the designer, we get a nice visual overview of the dependency graph of the workflow. Each node represents a task which has to be run:
 
-<p align="center"><img src="https://aelassas.github.io/wexflow/images/wd-designer-1.png" alt="Dashboard" /></p>
+<p align="center"><img src="https://aelassas.github.io/wexflow/images/wd-designer-1.png" alt="Designer" /></p>
 
 The designer allows you to edit your workflows through its WYSIWYG form based editor or its JSON editor or its XML editor:
 
-<p align="center"><img src="https://aelassas.github.io/wexflow/images/wd-designer-2.png" alt="Dashboard" /></p>
+<p align="center"><img src="https://aelassas.github.io/wexflow/images/wd-designer-2.png" alt="Designer" /></p>
 
 The history allows you track your workflow jobs in the system and have detailed information on each job:
 
-<p align="center"><img src="https://aelassas.github.io/wexflow/images/wd-history.png" alt="Dashboard" /></p>
+<p align="center"><img src="https://aelassas.github.io/wexflow/images/wd-history.png" alt="History" /></p>
 
 ![Docker](https://aelassas.github.io/wexflow/images/small_h-trans.png)
 
