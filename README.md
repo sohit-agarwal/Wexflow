@@ -4,6 +4,10 @@
 
 You can download the latest release from [here](https://github.com/aelassas/Wexflow/releases/latest).
 
+## Installation
+
+You can find installation instructions [here](https://github.com/aelassas/Wexflow/wiki/Installation).
+
 ## Documentation
 
 You can find the documentation [here](https://github.com/aelassas/Wexflow/wiki).
