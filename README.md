@@ -26,19 +26,19 @@ Since workflows are typically long running processes, they will need to be persi
 
 Wexflow comes with a powerful backend, so you can search and filter among all your workflows, have real-time stats on your workflows, manage your workflows with ease, design your workflows with ease, and track your workflows with ease:
 
-<p align="center"><img src="https://aelassas.github.io/wexflow/images/wd-dashboard.png" alt="Dashboard" /></p>
+![Dashboard](https://aelassas.github.io/wexflow/images/wbo-dashboard-4.4-2.png)
 
 Just to give you an idea of what Wexflow does, this is a screenshot from the designer. Using the designer, we get a nice visual overview of the dependency graph of the workflow. Each node represents a task which has to be run:
 
-<p align="center"><img src="https://aelassas.github.io/wexflow/images/wd-designer-1.png" alt="Designer" /></p>
+![Designer](https://aelassas.github.io/wexflow/images/wbo-designer-4.4-1.png)
 
 The designer allows you to edit your workflows through its WYSIWYG form based editor or its JSON editor or its XML editor:
 
-<p align="center"><img src="https://aelassas.github.io/wexflow/images/wd-designer-2.png" alt="Designer" /></p>
+![Designer](https://aelassas.github.io/wexflow/images/wbo-designer-5.3.png)
 
 The history allows you to track your workflow jobs in the system and have detailed information about each job:
 
-<p align="center"><img src="https://aelassas.github.io/wexflow/images/wd-history.png" alt="History" /></p>
+![History](https://aelassas.github.io/wexflow/images/wbo-history-5.3.png)
 
 ![Docker](https://aelassas.github.io/wexflow/images/small_h-trans.png)
 
