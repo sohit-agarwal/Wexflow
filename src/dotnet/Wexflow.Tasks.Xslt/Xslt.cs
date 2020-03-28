@@ -73,8 +73,29 @@ namespace Wexflow.Tasks.Xslt
                             InfoFormat("File transformed: {0} -> {1}", file.Path, destPath);
                             Files.Add(new FileInf(destPath, Id));
                             break;
+                        case "3.0":
+                            var xsl3 = new FileInfo(XsltPath);
+                            var input3 = new FileInfo(file.Path);
+                            var output3 = new FileInfo(destPath);
+
+                            Processor processor3 = new Processor(false);
+                            XsltCompiler compiler3 = processor3.NewXsltCompiler();
+                            XsltExecutable stylesheet = compiler3.Compile(new Uri(xsl3.FullName));
+                            Serializer serializer = processor3.NewSerializer();
+                            serializer.SetOutputFile(output3.FullName);
+
+                            using (var inputStream = input3.OpenRead())
+                            {
+                                Xslt30Transformer transformer3 = stylesheet.Load30();
+                                transformer3.Transform(inputStream, serializer);
+                                serializer.Close();
+                            }
+
+                            InfoFormat("File transformed: {0} -> {1}", file.Path, destPath);
+                            Files.Add(new FileInf(destPath, Id));
+                            break;
                         default:
-                            Error("Error in version option. Available options: 1.0 or 2.0");
+                            Error("Error in version option. Available options: 1.0, 2.0 or 3.0");
                             return new TaskStatus(Status.Error, false);
                     }
 
