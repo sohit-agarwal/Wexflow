@@ -47,7 +47,7 @@ Source: "..\src\dotnet\Wexflow.Server\bin\Release\Wexflow.Server.exe.config"; De
 
 ;Source: "..\libs\FluentFTP.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Tasks.Ftp\bin\x86\Release\FluentFTP.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\libs\Hammock.ClientProfile.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\libs\Hammock.ClientProfile.dll"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\libs\ICSharpCode.SharpZipLib.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Tasks.Tar\bin\x86\Release\ICSharpCode.SharpZipLib.dll"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\libs\log4net.dll"; DestDir: "{app}"; Flags: ignoreversion
