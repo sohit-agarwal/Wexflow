@@ -2,11 +2,15 @@
 
 [![Build History](https://buildstats.info/azurepipelines/chart/aelassas/Wexflow/1)](https://aelassas.visualstudio.com/Wexflow/_build?definitionId=1&_a=summary)
 
+## Download
+
 You can download the latest release from [here](https://github.com/aelassas/Wexflow/releases/latest).
+
+## Documentation
 
 You can find the documentation [here](https://github.com/aelassas/Wexflow/wiki).
 
-# Wexflow
+## Wexflow
 
 Wexflow is a free, open-source, high-performance, extensible, modular and cross-platform workflow engine and automation platform. The goal of Wexflow is to automate recurring tasks. With the help of Wexflow, building automation and workflow processes become easy. Wexflow also helps in making the long-running processes straightforward. The communication between systems or applications becomes easy through this powerful workflow engine and automation platform.
 
