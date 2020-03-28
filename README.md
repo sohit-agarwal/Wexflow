@@ -36,7 +36,7 @@ The designer allows you to edit your workflows through its WYSIWYG form based ed
 
 <p align="center"><img src="https://aelassas.github.io/wexflow/images/wd-designer-2.png" alt="Designer" /></p>
 
-The history allows you track your workflow jobs in the system and have detailed information on each job:
+The history allows you to track your workflow jobs in the system and have detailed information about each job:
 
 <p align="center"><img src="https://aelassas.github.io/wexflow/images/wd-history.png" alt="History" /></p>
 
