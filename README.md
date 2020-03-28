@@ -2,7 +2,7 @@
 
 [![Build History](https://buildstats.info/azurepipelines/chart/aelassas/Wexflow/1)](https://aelassas.visualstudio.com/Wexflow/_build?definitionId=1&_a=summary)
 
-You can download the latest release [here](https://github.com/aelassas/Wexflow/releases/latest).
+You can download the latest release from [here](https://github.com/aelassas/Wexflow/releases/latest).
 
 You can find the documentation [here](https://github.com/aelassas/Wexflow/wiki).
 
