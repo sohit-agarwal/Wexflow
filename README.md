@@ -56,7 +56,7 @@ You can deploy Wexflow using Docker containers on Windows, Linux and macOS distr
 - [RESTful API](https://github.com/aelassas/Wexflow/wiki/RESTful-API)
 - [Extensible](https://github.com/aelassas/Wexflow/wiki/Extensible)	
 
-Discover more [features](https://github.com/aelassas/Wexflow/wiki).
+Discover more [features](https://github.com/aelassas/Wexflow/wiki#why-wexflow).
 
 ## Examples
 
