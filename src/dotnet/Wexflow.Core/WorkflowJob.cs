@@ -21,6 +21,7 @@ namespace Wexflow.Core
                 workflow.Start();
             });
             task.Start();
+
             return task;
         }
     }
