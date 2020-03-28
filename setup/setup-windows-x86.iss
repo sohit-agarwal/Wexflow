@@ -54,7 +54,7 @@ Source: "..\src\dotnet\Wexflow.Server\bin\Release\log4net.dll"; DestDir: "{app}"
 ;Source: "..\libs\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Server\bin\Release\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\libs\Renci.SshNet.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\libs\Mono.Security.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "..\libs\Mono.Security.dll"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\libs\Npgsql.dll"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "..\libs\Oracle.ManagedDataAccess.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\src\dotnet\Wexflow.Tasks.Sql\bin\x86\Release\Oracle.ManagedDataAccess.dll"; DestDir: "{app}"; Flags: ignoreversion
