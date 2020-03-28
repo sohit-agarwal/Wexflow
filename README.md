@@ -1,3 +1,5 @@
+![Logo](https://aelassas.github.io/wexflow/images/wd-logo.jpg)
+
 [![Downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://wexflow.github.io/stats) [![NuGet](https://buildstats.info/nuget/Wexflow)](https://www.nuget.org/packages/Wexflow) [![Build Status](https://aelassas.visualstudio.com/Wexflow/_apis/build/status/aelassas.Wexflow?branchName=master)](https://aelassas.visualstudio.com/Wexflow/_build/latest?definitionId=1&branchName=master)
 
 [![Build History](https://buildstats.info/azurepipelines/chart/aelassas/Wexflow/1)](https://aelassas.visualstudio.com/Wexflow/_build?definitionId=1&_a=summary)
