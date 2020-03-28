@@ -86,8 +86,7 @@
       <HintPath>..\..\..\packages\FluentFTP.32.3.0\lib\net45\FluentFTP.dll</HintPath>
     </Reference>
     <Reference Include="Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\libs\Renci.SshNet.dll</HintPath>
+      <HintPath>..\..\..\packages\SSH.NET.2016.1.0\lib\net40\Renci.SshNet.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
