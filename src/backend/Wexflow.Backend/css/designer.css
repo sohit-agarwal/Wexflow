@@ -8,6 +8,7 @@ body {
 .jq-toast-single {
     width: 300px;
 }
+
 .toggle{
     display:none;
 }
@@ -31,6 +32,10 @@ body {
     -webkit-font-smoothing: antialiased;
     line-height: 5px;
     white-space: nowrap;
+}
+
+#header a:hover {
+    text-decoration: underline;
 }
 
 #header .header-right{
