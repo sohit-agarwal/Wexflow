@@ -18,17 +18,21 @@ Wexflow also makes use of [Quartz.NET](https://www.quartz-scheduler.net/) open-s
 
 Since workflows are typically long running processes, they will need to be persisted to storage between tasks. There are several persistence providers available. Wexflow provides [LiteDB](http://www.litedb.org/), [MongoDB](https://github.com/aelassas/Wexflow/wiki/MongoDB), [RavenDB](https://github.com/aelassas/Wexflow/wiki/RavenDB), [CosmosDB](https://github.com/aelassas/Wexflow/wiki/CosmosDB), [PostgreSQL](https://github.com/aelassas/Wexflow/wiki/PostgreSQL), [SQL Server](https://github.com/aelassas/Wexflow/wiki/SQL-Server), [MySQL](https://github.com/aelassas/Wexflow/wiki/MySQL) and [SQLite](https://github.com/aelassas/Wexflow/wiki/SQLite) persistence providers which enhance and improve the performance of this automation platform. The user can choose the persistence provider of his choice at the installation.
 
-Wexflow comes with a backend, so you can search and filter among all your workflows, have real-time statistics on your workflows, manage your workflows with ease, design your workflows with ease, and track your workflows with ease:
+Wexflow comes with a powerful backend, so you can search and filter among all your workflows, have real-time stats on your workflows, manage your workflows with ease, design your workflows with ease, and track your workflows with ease:
 
 ![Dashboard](https://aelassas.github.io/wexflow/images/wbo-dashboard-4.4-2.png)
 
-Just to give you an idea of what Wexflow does, this is a screenshot from the "Designer" page. Using the "Designer" page, we get a nice visual overview of the dependency graph of the workflow. Each node represents a task which has to be run:
+Just to give you an idea of what Wexflow does, this is a screenshot from the designer. Using the designer, we get a nice visual overview of the dependency graph of the workflow. Each node represents a task which has to be run:
 
 ![Designer](https://aelassas.github.io/wexflow/images/wbo-designer-4.4-1.png)
 
-Moreover, the "Designer" page allows to edit workflows through its JSON editor or its XML editor or its WYSIWYG form based editor:
+The designer allows you to edit your workflows through its WYSIWYG form based editor or its JSON editor or its XML editor:
 
 ![Designer](https://aelassas.github.io/wexflow/images/wbo-designer-5.3.png)
+
+The history allows you track your workflow jobs in the system and have detailed information on each job:
+
+![History](https://aelassas.github.io/wexflow/images/wbo-history-5.3.png)
 
 ![Docker](https://aelassas.github.io/wexflow/images/small_h-trans.png)
 
