@@ -3,7 +3,7 @@ Thumbs.db
 *.userprefs
 *.obj
 *.exe
-#!libs/chromedriver.exe
+!libs/chromedriver.exe
 *.exe.config
 *.pdb
 *.user
