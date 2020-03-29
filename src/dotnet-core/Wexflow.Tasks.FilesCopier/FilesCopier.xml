@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    FilesCopier is a sequential task that copies a collection of files to a destination folder. 
+    FilesCopier is a sequential task that copies a collection of files to a destination folder.
     
     The files copied will be loaded by this task so that other tasks can select them through the selectFiles option.
   -->
