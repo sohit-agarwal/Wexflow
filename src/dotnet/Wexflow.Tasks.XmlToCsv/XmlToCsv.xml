@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    XmlToCsv is a sequential task that transforms an XML file to a CSV file. 
+    XmlToCsv is a sequential task that converts an XML file to a CSV file.
     The format of the XML file is as follows:
     <Lines>
 	    <Line>
