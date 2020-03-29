@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    DatabaseBackup is a sequential task that backups a database (SQL Server).
+    DatabaseBackup is a sequential task that backups an SQL Server database.
     
     The backup generated is loaded by this task so that other tasks can select it through the selectFiles option.
     
