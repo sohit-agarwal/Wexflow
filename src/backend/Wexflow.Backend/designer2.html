@@ -1,20 +1,125 @@
-﻿<!DOCTYPE html>
-<html>
+﻿<html>
 <head>
-    <!-- New designer with drag and drop features using jsPlumb -->
-    <meta charset="utf-8" />
     <title>Designer2</title>
-    <link rel="icon" href="images/logo.png" type="image/png">
+    <link href="css/flowy.css" rel="stylesheet" />
     <link href="css/designer2.css" rel="stylesheet" />
-    <script type="text/javascript" src="js/designer2.js"></script>
+
+    <script src="js/flowy.js"></script>
+    <script src="js/designer2.js"></script>
 </head>
 <body>
-    <div id="wf-header" class="wf-header">
-        <input id="wf-browse-workflows" class="wf-header-action-left" type="button" value="Browse Workflows" />
-        <input id="wf-new-workflow" class="wf-header-action-right" type="button" value="New Workflow" />
-        <input id="wf-import" class="wf-header-action-right" type="button" value="Import" />
-        <input id="wf-export" class="wf-header-action-right" type="button" value="Export" />
-        <input id="wf-add-task" class="wf-header-action-right" type="button" value="Add Task" />
+    <div id="navigation">
+        <div id="leftside">
+            <div id="details">
+                <div id="browseworkflows">Browse Workflows</div>
+            </div>
+        </div>
+        <div id="centerswitch">
+            <div id="leftswitch">Diagram</div>
+            <div id="middleswitch">JSON</div>
+            <div id="rightswitch">XML</div>
+        </div>
+        <div id="buttonsright">
+            <div id="export">Export</div>
+            <div id="import">Import</div>
+            <div id="publish">New Workflow</div>
+        </div>
+    </div>
+    <div id="leftcard">
+        <div id="closecard">
+            <img id="closecardimg" src="assets/closeleft.png">
+        </div>
+        <div id="search">
+            <img src="assets/search.svg">
+            <input type="text" placeholder="Search tasks">
+        </div>
+        <div id="blocklist">
+            <div class="blockelem create-flowy noselect">
+                <input type="hidden" name="blockelemtype" class="blockelemtype" value="1">
+                <div class="grabme">
+                    <img src="assets/grabme.svg">
+                </div>
+                <div class="blockin">
+                    <div class="blockico">
+                        <span></span>
+                        <img src="assets/eye.svg">
+                    </div>
+                    <div class="blocktext">
+                        <p class="blocktitle">New visitor</p>
+                        <p class="blockdesc">Triggers when somebody visits a specified page</p>
+                    </div>
+                </div>
+            </div>
+            <div class="blockelem create-flowy noselect">
+                <input type="hidden" name="blockelemtype" class="blockelemtype" value="2">
+                <div class="grabme">
+                    <img src="assets/grabme.svg">
+                </div>
+                <div class="blockin">
+                    <div class="blockico">
+                        <span></span>
+                        <img src="assets/action.svg">
+                    </div>
+                    <div class="blocktext">
+                        <p class="blocktitle">Action is performed</p>
+                        <p class="blockdesc">Triggers when somebody performs a specified action</p>
+                    </div>
+                </div>
+            </div>
+            <div class="blockelem create-flowy noselect">
+                <input type="hidden" name="blockelemtype" class="blockelemtype" value="3">
+                <div class="grabme">
+                    <img src="assets/grabme.svg">
+                </div>
+                <div class="blockin">
+                    <div class="blockico">
+                        <span></span>
+                        <img src="assets/time.svg">
+                    </div>
+                    <div class="blocktext">
+                        <p class="blocktitle">Time has passed</p>
+                        <p class="blockdesc">Triggers after a specified amount of time</p>
+                    </div>
+                </div>
+            </div>
+            <div class="blockelem create-flowy noselect">
+                <input type="hidden" name="blockelemtype" class="blockelemtype" value="4">
+                <div class="grabme">
+                    <img src="assets/grabme.svg">
+                </div>
+                <div class="blockin">
+                    <div class="blockico">
+                        <span></span>
+                        <img src="assets/error.svg">
+                    </div>
+                    <div class="blocktext">
+                        <p class="blocktitle">Error prompt</p>
+                        <p class="blockdesc">Triggers when a specified error happens</p>
+                    </div>
+                </div>
+            </div>
+            <div class="blockelem create-flowy noselect"><input type="hidden" name="blockelemtype" class="blockelemtype" value="5"><div class="grabme"><img src="assets/grabme.svg"></div><div class="blockin">                  <div class="blockico"><span></span><img src="assets/database.svg"></div><div class="blocktext">                        <p class="blocktitle">New database entry</p><p class="blockdesc">Adds a new entry to a specified database</p>        </div></div></div><div class="blockelem create-flowy noselect"><input type="hidden" name="blockelemtype" class="blockelemtype" value="6"><div class="grabme"><img src="assets/grabme.svg"></div><div class="blockin">                  <div class="blockico"><span></span><img src="assets/database.svg"></div><div class="blocktext">                        <p class="blocktitle">Update database</p><p class="blockdesc">Edits and deletes database entries and properties</p>        </div></div></div><div class="blockelem create-flowy noselect"><input type="hidden" name="blockelemtype" class="blockelemtype" value="7"><div class="grabme"><img src="assets/grabme.svg"></div><div class="blockin">                  <div class="blockico"><span></span><img src="assets/action.svg"></div><div class="blocktext">                        <p class="blocktitle">Perform an action</p><p class="blockdesc">Performs or edits a specified action</p>        </div></div></div><div class="blockelem create-flowy noselect"><input type="hidden" name="blockelemtype" class="blockelemtype" value="8"><div class="grabme"><img src="assets/grabme.svg"></div><div class="blockin">                  <div class="blockico"><span></span><img src="assets/twitter.svg"></div><div class="blocktext"><p class="blocktitle">Make a tweet</p><p class="blockdesc">Makes a tweet with a specified query</p>        </div></div></div>
+        </div>
+    </div>
+    <div id="propwrap">
+        <div id="properties">
+            <div id="close">
+                <img src="assets/close.svg">
+            </div>
+            <p id="header2">Settings</p>
+            <div id="proplist">
+                <p class="inputlabel">Select database</p>
+                <div class="dropme">Database 1 <img src="assets/dropdown.svg"></div>
+                <p class="inputlabel">Check properties</p>
+                <div class="dropme">All<img src="assets/dropdown.svg"></div>
+                <div class="checkus"><img src="assets/checkon.svg"><p>Log on successful performance</p></div>
+                <div class="checkus"><img src="assets/checkoff.svg"><p>Give priority to this task</p></div>
+            </div>
+            <div id="divisionthing"></div>
+            <div id="removeblock">Delete Tasks</div>
+        </div>
+    </div>
+    <div id="canvas">
     </div>
 </body>
 </html>
