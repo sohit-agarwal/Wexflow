@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    CsvToSql is a sequential task that transforms CSV files to SQL scripts (Insert - SQL Server only).
+    CsvToSql is a sequential task that converts CSV files to SQL scripts (Insert - SQL Server only).
     
     The first line of the CSV must contain column names.
     
