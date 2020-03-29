@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    Slack is a sequential task that sends slack messges.
+    Slack is a sequential task that sends slack messages.
     
     It takes as input XML files containing Slack messages. Below is the format of these XML files:
     
