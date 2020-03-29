@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    CsvToXml is a sequential task that transforms a CSV file to an XML file. 
+    CsvToXml is a sequential task that converts a CSV file to an XML file. 
     The format of the generated XML file is as follows:
     <Lines>
       <Line>
