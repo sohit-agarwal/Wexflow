@@ -57,15 +57,6 @@ namespace Wexflow.Core
     public class WexflowEngine
     {
         /// <summary>
-        /// Maximum retries of loading a workflow.
-        /// </summary>
-        public static int MaxRetries;
-        /// <summary>
-        /// Retry timeout.
-        /// </summary>
-        public static int RetryTimeout;
-
-        /// <summary>
         /// Settings file path.
         /// </summary>
         public string SettingsFile { get; private set; }
@@ -212,8 +203,6 @@ namespace Wexflow.Core
             DbType = (DbType)Enum.Parse(typeof(DbType), GetWexflowSetting(xdoc, "dbType"), true);
             ConnectionString = GetWexflowSetting(xdoc, "connectionString");
             GlobalVariablesFile = GetWexflowSetting(xdoc, "globalVariablesFile");
-            MaxRetries = int.Parse(GetWexflowSetting(xdoc, "maxRetries"));
-            RetryTimeout = int.Parse(GetWexflowSetting(xdoc, "retryTimeout"));
         }
 
         private void LoadGlobalVariables()
