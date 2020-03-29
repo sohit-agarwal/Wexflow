@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    Ftp is a sequential task that allows to list, upload, download or delete files over FTP, FTPS(explicit/implicit) or SFTP.
+    Ftp is a sequential task that allows to list, upload, download or delete files over FTP, FTPS or SFTP.
   -->
   <Task id="$int" name="Ftp" description="$string" enabled="true|false">
     <!--  The files loaded by the task having as id $taskId will be sent. -->
