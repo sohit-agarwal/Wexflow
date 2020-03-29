@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    Workflow is a sequential task that allows to start, suspend, resume, stop, approve or disapprove a list of workflows.
+    Workflow is a sequential task that allows to start, suspend, resume, stop, approve or reject workflows.
   -->
   <Task id="$int" name="Workflow" description="$string" enabled="true|false">
     <!-- Wexflow Web Service Uri -->
