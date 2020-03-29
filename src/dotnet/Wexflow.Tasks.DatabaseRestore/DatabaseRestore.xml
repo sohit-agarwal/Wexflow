@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    DatabaseRestore is a sequential task that restores a database (SQL Server).
+    DatabaseRestore is a sequential task that restores an SQL Server database.
     
       If Windows authentication is used to connect to SQL Server, you need to update the configuration of Wexflow Windows Service so that the service is run as the user who authenticates to SQL Server.
   -->
