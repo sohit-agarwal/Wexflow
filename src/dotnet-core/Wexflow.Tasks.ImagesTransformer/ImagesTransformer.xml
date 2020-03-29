@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    ImagesTransformer is a sequential task that transforms a collection of image files to a specified format. 
+    ImagesTransformer is a sequential task that transforms a collection of image files to a specified format.
     
     The image files generated will be loaded by this task so that other
     tasks can select them through the selectFiles option.
