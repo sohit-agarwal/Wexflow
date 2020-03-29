@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    UglifyJs is a sequential task that uglifys JavaScript files.
+    UglifyJs is a sequential task that uglifies JavaScript files.
     
     The uglified scripts generated are loaded by this task so that other tasks can select them through the selectFiles option.
   -->
