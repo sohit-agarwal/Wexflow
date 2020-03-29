@@ -1,4 +1,4 @@
-![Logo](https://aelassas.github.io/wexflow/images/wd-logo.jpg)
+![Logo](https://aelassas.github.io/wexflow/images/wd-logo-4.jpg)
 
 ## Download
 
