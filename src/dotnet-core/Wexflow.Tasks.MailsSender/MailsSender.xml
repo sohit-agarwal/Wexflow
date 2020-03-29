@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    MailsSender is a sequential task that sends a collection of emails from XML files.
-    The XML format is as follows:
+    MailsSender is a sequential task that sends emails.
+    The XML input format is as follows:
     <Mails>
 	    <Mail>
 		    <From>user@host.com</From>
