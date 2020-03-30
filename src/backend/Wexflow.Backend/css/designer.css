@@ -229,16 +229,17 @@ margin-top: 15px;
 }
 
 #leftcard {
-width: 363px;
-background-color: #FFF;
-border: 1px solid #E8E8EF;
-box-sizing: border-box;
-padding-top: 60px;
-padding-left: 20px;
-height: 100%;
-position: absolute;
-top: 45px;
-z-index: 2;
+	width: 363px;
+	background-color: #FFF;
+	border: 1px solid #E8E8EF;
+	box-sizing: border-box;
+	padding-top: 60px;
+	padding-left: 20px;
+	height: 100%;
+	position: absolute;
+	top: 45px;
+	left: -361px;
+	z-index: 2;
 }
 
 #search input {

@@ -200,7 +200,7 @@
         addEventListener("mouseup", doneTouch, false);
         addEventListenerMulti("touchstart", beginTouch, false, ".block");
 
-        let leftcardHidden = false;
+        let leftcardHidden = true;
         let closecardimg = document.getElementById("closecardimg");
 
         document.getElementById("closecard").onclick = function () {
