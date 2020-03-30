@@ -79,6 +79,7 @@
         let rightcard = false;
         let tempblock;
         let tempblock2;
+        let tasks = {};
 
         flowy(canvas, drag, release, snapping);
 
@@ -248,15 +249,62 @@
                     document.getElementById("header2").innerHTML = "Task Settings&nbsp;<a title='Task Documentation' href='https://github.com/aelassas/Wexflow/wiki/" + taskname + "' target='_blank'><img src='assets/doc.png'></a>";
                     proplist.innerHTML = '<p class="inputlabel">Id</p><input id="taskid" class="inputtext" type="text" /><p class="inputlabel">Description</p><input id="taskdescription" class="inputtext" type="text" /><p class="inputlabel">Enabled</p><input id="taskenabled" class="inputtext" type="checkbox" checked />';
 
+                    if (!tasks[taskname]) {
+                        tasks[taskname] = {
+                            "Id": 0,
+                            "Name": taskname,
+                            "Description": "",
+                            "IsEnabled": true,
+                            "Settings": []
+                        };
+                    }
+
+
+
                     Common.get(uri + "/settings/" + taskname,
                         function (settings) {
                             let tasksettings = "";
                             for (let i = 0; i < settings.length; i++) {
                                 let settingName = settings[i];
-                                tasksettings += '<p class="inputlabel">' + settingName + '</p><input class="inputtext" type="text" />';
+                                tasksettings += '<p class="wf-setting-name">' + settingName + '</p><input class="wf-setting-index" type="hidden" value="' + i + '"><input class="wf-setting-value inputtext" value="' + (tasks[taskname].Settings[i] ? tasks[taskname].Settings[i].Value : "") + '" type="text" />';
+
+                                if (!tasks[taskname].Settings[i]) {
+                                    tasks[taskname].Settings.push({
+                                        "Name": settingName,
+                                        "Value": "",
+                                        "Attributes": []
+                                    });
+                                }
                             }
 
                             proplist.innerHTML = proplist.innerHTML + tasksettings;
+
+                            document.getElementById("taskid").value = tasks[taskname].Id;
+                            document.getElementById("taskdescription").value = tasks[taskname].Description;
+                            document.getElementById("taskenabled").checked = tasks[taskname].IsEnabled;
+
+                            document.getElementById("taskid").onkeyup = function () {
+                                tasks[taskname].Id = this.value;
+                            };
+
+                            document.getElementById("taskdescription").onkeyup = function () {
+                                tasks[taskname].Description = this.value;
+                            };
+
+                            document.getElementById("taskenabled").onchange = function () {
+                                tasks[taskname].IsEnabled = this.checked;
+                            };
+
+                            let settingValues = document.getElementsByClassName("wf-setting-value");
+                            for (let i = 0; i < settingValues.length; i++) {
+                                let settingValue = settingValues[i];
+
+                                settingValue.onkeyup = function () {
+                                    let index = this.previousElementSibling.value;
+                                    tasks[taskname].Settings[index].Value = this.value;
+                                };
+                            }
+
                         },
                         function () {
                             Common.toastError("An error occured while retrieving settings.");
@@ -350,7 +398,16 @@
                     },
                     "Tasks": []
                 }
-                console.log(workflow);
+
+                let flowyoutput = flowy.output();
+                //console.log(flowyoutput);
+                let wftasks = [];
+                for (let i = 0; i < flowyoutput.blocks.length; i++) {
+                    wftasks.push(tasks[flowyoutput.blocks[i].data[0].value]);
+                }
+                workflow.Tasks = wftasks;
+
+                //console.log(workflow);
 
                 Common.post(uri + "/save", function (res) {
                     if (res === true) {
