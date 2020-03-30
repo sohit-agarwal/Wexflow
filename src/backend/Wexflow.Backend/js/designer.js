@@ -189,18 +189,43 @@
         let closecardimg = document.getElementById("closecardimg");
 
         document.getElementById("closecard").onclick = function () {
+            let blockelems = canvas.getElementsByClassName("blockelem");
+            let arrowblocks = canvas.getElementsByClassName("arrowblock");
+            let leftcardwidth = 361;
+
             if (leftcardHidden === false) {
-                document.getElementById("leftcard").style.left = "-363px";
+                document.getElementById("leftcard").style.left = -leftcardwidth + "px";
                 leftcardHidden = true;
                 canvas.style.left = "0";
                 canvas.style.width = "100%";
                 closecardimg.src = "assets/openleft.png";
+
+                for (let i = 0; i < blockelems.length; i++) {
+                    let blockelm = blockelems[i];
+                    blockelm.style.left = (blockelm.offsetLeft + leftcardwidth) + "px";
+                }
+
+                for (let i = 0; i < arrowblocks.length; i++) {
+                    let arrowblock = arrowblocks[i];
+                    arrowblock.style.left = (arrowblock.offsetLeft + leftcardwidth) + "px";
+                }
+
             } else {
                 document.getElementById("leftcard").style.left = "0";
                 leftcardHidden = false;
-                canvas.style.left = "361px";
-                canvas.style.width = "calc(100% - 361px)";
+                canvas.style.left = leftcardwidth + "px";
+                canvas.style.width = "calc(100% - " + leftcardwidth + "px)";
                 closecardimg.src = "assets/closeleft.png";
+
+                for (let i = 0; i < blockelems.length; i++) {
+                    let blockelm = blockelems[i];
+                    blockelm.style.left = (blockelm.offsetLeft - leftcardwidth) + "px";
+                }
+
+                for (let i = 0; i < arrowblocks.length; i++) {
+                    let arrowblock = arrowblocks[i];
+                    arrowblock.style.left = (arrowblock.offsetLeft - leftcardwidth) + "px";
+                }
             }
         };
     }
