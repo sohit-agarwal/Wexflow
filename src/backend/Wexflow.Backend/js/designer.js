@@ -8,6 +8,12 @@
     let lnkApproval = document.getElementById("lnk-approval");
     let lnkUsers = document.getElementById("lnk-users");
     let lnkProfiles = document.getElementById("lnk-profiles");
+    let navigation = document.getElementById("navigation");
+    let leftcard = document.getElementById("leftcard");
+    let propwrap = document.getElementById("propwrap");
+    let wfclose = document.getElementById("wfclose");
+    let wfpropwrap = document.getElementById("wfpropwrap");
+    let canvas = document.getElementById("canvas");
     let suser = getUser();
     let username = "";
     let password = "";
@@ -39,13 +45,11 @@
                             lnkProfiles.style.display = "inline";
                         }
 
-                        let navigation = document.getElementById("navigation");
-                        let leftcard = document.getElementById("leftcard");
-                        let propwrap = document.getElementById("propwrap");
-
                         navigation.style.display = "block";
                         leftcard.style.display = "block";
                         propwrap.style.display = "block";
+                        wfclose.style.display = "block";
+                        wfpropwrap.style.display = "block";
                         canvas.style.display = "block";
 
                         let btnLogout = document.getElementById("btn-logout");
@@ -68,14 +72,14 @@
 
     function load() {
         let searchtasks = document.getElementById("searchtasks");
-        let canvas = document.getElementById("canvas");
         let leftcardHidden = true;
         let leftcardwidth = 361;
         let closecardimg = document.getElementById("closecardimg");
         let wfpropHidden = true;
         let wfpropwidth = 331;
         let closewfcardimg = document.getElementById("wfcloseimg");
-        let wfclose = document.getElementById("wfclose")
+        let wfclose = document.getElementById("wfclose");
+        let code = document.getElementById("code-container");
         let rightcard = false;
         let tempblock;
         let tempblock2;
@@ -165,9 +169,20 @@
             } else if (drag.querySelector(".blockelemtype").value == "11") {
                 drag.innerHTML += "<div class='blockyleft'><img src='assets/errorred.svg'><p class='blockyname'>Prompt an error</p></div><div class='blockyright'><img src='assets/more.svg'></div><div class='blockydiv'></div><div class='blockyinfo'>Trigger <span>Error 1</span></div>";
             }*/
-            let taskName = drag.querySelector(".blockelemtype").value;
-            let taskDesc = drag.querySelector(".blockelemdesc").value;
-            drag.innerHTML += "<div class='blockyleft'><img src='assets/actionorange.svg'><p class='blockyname'>" + taskName + "</p></div><div class='blockyright'><img src='assets/more.svg'></div><div class='blockydiv'></div><div class='blockyinfo'>" + taskDesc + "</div>";
+            let taskname = drag.querySelector(".blockelemtype").value;
+            let taskdesc = drag.querySelector(".blockelemdesc").value;
+            drag.innerHTML += "<div class='blockyleft'><img src='assets/actionorange.svg'><p class='blockyname'>" + taskname + "</p></div><div class='blockyright'><img src='assets/more.svg'></div><div class='blockydiv'></div><div class='blockyinfo'>" + taskdesc + "</div>";
+
+            if (!tasks[taskname]) {
+                tasks[taskname] = {
+                    "Id": 0,
+                    "Name": taskname,
+                    "Description": "",
+                    "IsEnabled": true,
+                    "Settings": []
+                };
+            }
+
             return true;
         }
         function drag(block) {
@@ -226,8 +241,12 @@
         }
 
         let doneTouch = function (event) {
-            if (event.type === "mouseup" && aclick) {
 
+            if (event.type === "mouseup") {
+                updateTasks();
+            }
+
+            if (event.type === "mouseup" && aclick) {
                 //if (!rightcard && event.target.closest(".block")) {
                 if (event.target.closest(".block")) {
                     tempblock = event.target.closest(".block");
@@ -259,7 +278,7 @@
                         };
                     }
 
-
+                    updateTasks();
 
                     Common.get(uri + "/settings/" + taskname,
                         function (settings) {
@@ -285,14 +304,20 @@
 
                             document.getElementById("taskid").onkeyup = function () {
                                 tasks[taskname].Id = this.value;
+
+                                updateTasks();
                             };
 
                             document.getElementById("taskdescription").onkeyup = function () {
                                 tasks[taskname].Description = this.value;
+
+                                updateTasks();
                             };
 
                             document.getElementById("taskenabled").onchange = function () {
                                 tasks[taskname].IsEnabled = this.checked;
+
+                                updateTasks();
                             };
 
                             let settingValues = document.getElementsByClassName("wf-setting-value");
@@ -302,6 +327,8 @@
                                 settingValue.onkeyup = function () {
                                     let index = this.previousElementSibling.value;
                                     tasks[taskname].Settings[index].Value = this.value;
+
+                                    updateTasks();
                                 };
                             }
 
@@ -377,47 +404,90 @@
             }
         };
 
+        let workflow = {
+            "WorkflowInfo": {
+                "Id": document.getElementById("wfid").value,
+                "Name": document.getElementById("wfname").value,
+                "Description": document.getElementById("wfdesc").value,
+                "LaunchType": launchTypeReverse(document.getElementById("wflaunchtype").value),
+                "Period": document.getElementById("wfperiod").value,
+                "CronExpression": document.getElementById("wfcronexp").value,
+                "IsEnabled": document.getElementById("wfenabled").checked,
+                "IsApproval": document.getElementById("wfapproval").checked,
+                "EnableParallelJobs": document.getElementById("wfenablepj").checked,
+                "LocalVariables": []
+            },
+            "Tasks": []
+        }
+
         // CTRL+S
+        let diag = false;
+        let json = false;
+        let xml = false;
+
+        document.getElementById("wfid").onkeyup = function () {
+            workflow.WorkflowInfo.Id = this.value;
+        };
+        document.getElementById("wfname").onkeyup = function () {
+            workflow.WorkflowInfo.Name = this.value;
+        };
+        document.getElementById("wfdesc").onkeyup = function () {
+            workflow.WorkflowInfo.Description = this.value;
+        };
+        document.getElementById("wflaunchtype").onchange = function () {
+            workflow.WorkflowInfo.LaunchType = launchTypeReverse(this.value);
+        };
+        document.getElementById("wfperiod").onkeyup = function () {
+            workflow.WorkflowInfo.Period = this.value;
+        };
+        document.getElementById("wfcronexp").onkeyup = function () {
+            workflow.WorkflowInfo.CronExpression = this.value;
+        };
+        document.getElementById("wfenabled").onchange = function () {
+            workflow.WorkflowInfo.IsEnabled = this.checked;
+        };
+        document.getElementById("wfapproval").onchange = function () {
+            workflow.WorkflowInfo.IsApproval = this.checked;
+        };
+        document.getElementById("wfenablepj").onchange = function () {
+            workflow.WorkflowInfo.EnableParallelJobs = this.checked;
+        };
+
+        function updateTasks() {
+            let flowyoutput = flowy.output();
+            //console.log(flowyoutput);
+            let wftasks = [];
+            if (flowyoutput && flowyoutput.blocks) {
+                for (let i = 0; i < flowyoutput.blocks.length; i++) {
+                    wftasks.push(tasks[flowyoutput.blocks[i].data[0].value]);
+                }
+            }
+            workflow.Tasks = wftasks;
+        }
+
         window.onkeydown = function (event) {
             if ((event.ctrlKey || event.metaKey || event.keyCode === 17 || event.keyCode === 224 || event.keyCode === 91 || event.keyCode === 93) && event.keyCode === 83) {
                 event.preventDefault();
 
-                let wfid = document.getElementById("wfid").value;
-                let workflow = {
-                    "WorkflowInfo": {
-                        "Id": wfid,
-                        "Name": document.getElementById("wfname").value,
-                        "Description": document.getElementById("wfdesc").value,
-                        "LaunchType": launchTypeReverse(document.getElementById("wflaunchtype").value),
-                        "Period": document.getElementById("wfperiod").value,
-                        "CronExpression": document.getElementById("wfcronexp").value,
-                        "IsEnabled": document.getElementById("wfenabled").checked,
-                        "IsApproval": document.getElementById("wfapproval").checked,
-                        "EnableParallelJobs": document.getElementById("wfenablepj").checked,
-                        "LocalVariables": []
-                    },
-                    "Tasks": []
+                if (diag === true) {
+                    let wfid = document.getElementById("wfid").value;
+
+                    updateTasks();
+
+                    Common.post(uri + "/save", function (res) {
+                        if (res === true) {
+                            Common.toastSuccess("workflow " + wfid + " saved and loaded with success from diagram view.");
+                        } else {
+                            Common.toastError("An error occured while saving the workflow " + wfid + " from diagram view.");
+                        }
+                    }, function () {
+                        Common.toastError("An error occured while saving the workflow " + wfid + " from diagram view.");
+                    }, workflow, auth);
+                } else if (json === true) {
+                    // TODO
+                } else if (xml === true) {
+                    // TODO
                 }
-
-                let flowyoutput = flowy.output();
-                //console.log(flowyoutput);
-                let wftasks = [];
-                for (let i = 0; i < flowyoutput.blocks.length; i++) {
-                    wftasks.push(tasks[flowyoutput.blocks[i].data[0].value]);
-                }
-                workflow.Tasks = wftasks;
-
-                //console.log(workflow);
-
-                Common.post(uri + "/save", function (res) {
-                    if (res === true) {
-                        Common.toastSuccess("workflow " + wfid + " saved and loaded with success.");
-                    } else {
-                        Common.toastError("An error occured while saving the workflow " + wfid + ".");
-                    }
-                }, function () {
-                    Common.toastError("An error occured while saving the workflow " + wfid + ".");
-                }, workflow, auth);
 
                 return false;
             }
@@ -438,6 +508,119 @@
             }
         }
 
+        // diagram click
+        document.getElementById("leftswitch").onclick = function () {
+            diag = true;
+            json = false;
+            xml = false;
+
+            leftcard.style.display = "block";
+            propwrap.style.display = "block";
+            wfclose.style.display = "block";
+            wfpropwrap.style.display = "block";
+            canvas.style.display = "block";
+            code.style.display = "none";
+
+            this.style.backgroundColor = "#F0F0F0";
+            document.getElementById("middleswitch").style.backgroundColor = "transparent";
+            document.getElementById("rightswitch").style.backgroundColor = "transparent"
+
+        };
+
+        // json click
+        document.getElementById("middleswitch").onclick = function () {
+            diag = false;
+            json = true;
+            xml = false;
+
+            leftcard.style.display = "none";
+            propwrap.style.display = "none";
+            wfclose.style.display = "none";
+            wfpropwrap.style.display = "none";
+            canvas.style.display = "none";
+            code.style.display = "block";
+
+            this.style.backgroundColor = "#F0F0F0";
+            document.getElementById("leftswitch").style.backgroundColor = "transparent";
+            document.getElementById("rightswitch").style.backgroundColor = "transparent";
+
+            var editor = ace.edit("code");
+            editor.setOptions({
+                maxLines: Infinity,
+                autoScrollEditorIntoView: true
+            });
+
+            editor.setReadOnly(false);
+            editor.setFontSize("100%");
+            editor.setPrintMarginColumn(false);
+            editor.getSession().setMode("ace/mode/json");
+
+            editor.commands.addCommand({
+                name: "showKeyboardShortcuts",
+                bindKey: { win: "Ctrl-Alt-h", mac: "Command-Alt-h" },
+                exec: function (editor) {
+                    ace.config.loadModule("ace/ext/keybinding_menu", function (module) {
+                        module.init(editor);
+                        editor.showKeyboardShortcuts()
+                    })
+                }
+            });
+
+            editor.setValue(JSON.stringify(workflow, null, '\t'), -1);
+            editor.clearSelection();
+            editor.resize(true);
+            editor.focus();
+        };
+
+        // xml click
+        document.getElementById("rightswitch").onclick = function () {
+            diag = false;
+            json = false;
+            xml = true;
+
+            leftcard.style.display = "none";
+            propwrap.style.display = "none";
+            wfclose.style.display = "none";
+            wfpropwrap.style.display = "none";
+            canvas.style.display = "none";
+            code.style.display = "block";
+
+            this.style.backgroundColor = "#F0F0F0";
+            document.getElementById("leftswitch").style.backgroundColor = "transparent";
+            document.getElementById("middleswitch").style.backgroundColor = "transparent";
+
+            var editor = ace.edit("code");
+            editor.setOptions({
+                maxLines: Infinity,
+                autoScrollEditorIntoView: true
+            });
+
+            editor.setReadOnly(false);
+            editor.setFontSize("100%");
+            editor.setPrintMarginColumn(false);
+            editor.getSession().setMode("ace/mode/xml");
+
+            editor.commands.addCommand({
+                name: "showKeyboardShortcuts",
+                bindKey: { win: "Ctrl-Alt-h", mac: "Command-Alt-h" },
+                exec: function (editor) {
+                    ace.config.loadModule("ace/ext/keybinding_menu", function (module) {
+                        module.init(editor);
+                        editor.showKeyboardShortcuts()
+                    })
+                }
+            });
+
+            editor.setValue(getXml(), -1);
+            editor.clearSelection();
+            editor.resize(true);
+            editor.focus();
+        };
+
+        function getXml() {
+            // TODO
+            return "<Workflow />";
+        }
     }
 
 };

@@ -109,7 +109,7 @@ top: 15px;
 
 #leftswitch {
 border: 1px solid #E8E8EF;
-background-color: #FBFBFB;
+background-color: #F0F0F0;
 width: 111px;
 height: 39px;
 line-height: 39px;
@@ -154,7 +154,7 @@ cursor: pointer;
 
 #leftswitch:hover, #middleswitch:hover, #rightswitch:hover {
 	border: 1px solid #E8E8EF;
-	background-color: #FBFBFB;
+	background-color: #F0F0F0;
 }
 
 #export, #import {
@@ -813,4 +813,17 @@ box-shadow: 0px 4px 30px rgba(22, 33, 74, 0.08);
 #names {
 	display: none;
 }
+}
+
+#code-container {
+	display: none;
+	position: absolute;
+	top: 116px;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	overflow: auto;
+}
+
+#code {
 }
