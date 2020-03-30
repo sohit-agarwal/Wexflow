@@ -84,6 +84,7 @@
         let tempblock;
         let tempblock2;
         let tasks = {};
+        let editor = null;
 
         flowy(canvas, drag, release, snapping);
 
@@ -468,10 +469,9 @@
         window.onkeydown = function (event) {
             if ((event.ctrlKey || event.metaKey || event.keyCode === 17 || event.keyCode === 224 || event.keyCode === 91 || event.keyCode === 93) && event.keyCode === 83) {
                 event.preventDefault();
+                let wfid = document.getElementById("wfid").value;
 
                 if (diag === true) {
-                    let wfid = document.getElementById("wfid").value;
-
                     updateTasks();
 
                     Common.post(uri + "/save", function (res) {
@@ -484,7 +484,16 @@
                         Common.toastError("An error occured while saving the workflow " + wfid + " from diagram view.");
                     }, workflow, auth);
                 } else if (json === true) {
-                    // TODO
+                    let json = JSON.parse(editor.getValue());
+                    Common.post(uri + "/save", function (res) {
+                        if (res === true) {
+                            Common.toastSuccess("workflow " + wfid + " saved and loaded with success from JSON view.");
+                        } else {
+                            Common.toastError("An error occured while saving the workflow " + wfid + " from JSON view.");
+                        }
+                    }, function () {
+                        Common.toastError("An error occured while saving the workflow " + wfid + " from JSON view.");
+                    }, json, auth);
                 } else if (xml === true) {
                     // TODO
                 }
@@ -544,7 +553,7 @@
             document.getElementById("leftswitch").style.backgroundColor = "transparent";
             document.getElementById("rightswitch").style.backgroundColor = "transparent";
 
-            var editor = ace.edit("code");
+            editor = ace.edit("code");
             editor.setOptions({
                 maxLines: Infinity,
                 autoScrollEditorIntoView: true
@@ -589,7 +598,7 @@
             document.getElementById("leftswitch").style.backgroundColor = "transparent";
             document.getElementById("middleswitch").style.backgroundColor = "transparent";
 
-            var editor = ace.edit("code");
+            editor = ace.edit("code");
             editor.setOptions({
                 maxLines: Infinity,
                 autoScrollEditorIntoView: true
