@@ -94,9 +94,15 @@ Discover more [features](https://github.com/aelassas/Wexflow/wiki#why-wexflow).
 
 Check out the available [built-in tasks](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation) for more examples.
 
-## JetBrains
+## Supported By
 
-This project is supported by [JetBrains](https://www.jetbrains.com/?from=Wexflow).
+![JetBrains](https://aelassas.github.io/wexflow/images/Jetbrains_logo.png)
+
+[JetBrains](https://www.jetbrains.com/?from=Wexflow) is a software development company whose tools are targeted towards software developers and project managers.
+
+![YourKit](https://aelassas.github.io/wexflow/images/yk_logo.png)
+
+[YourKit](https://www.yourkit.com) supports open source projects with innovative and intelligent tools for monitoring and profiling Java and .NET applications. YourKit is the creator of [YourKit Java Profiler](https://www.yourkit.com/java/profiler/), [YourKit .NET Profiler](https://www.yourkit.com/.net/profiler/), and [YourKit YouMonitor](https://www.yourkit.com/youmonitor/).
 
 ## Continuous Integration
 
