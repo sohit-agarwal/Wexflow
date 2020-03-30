@@ -242,9 +242,10 @@
                     wfclose.style.right = "-60px";
 
                     // task settings
-                    let proplist = document.getElementById("proplist");
                     let taskname = tempblock.getElementsByClassName("blockelemtype")[0].value;
+                    let proplist = document.getElementById("proplist");
 
+                    document.getElementById("header2").innerHTML = "Task Settings&nbsp;<a title='Task Documentation' href='https://github.com/aelassas/Wexflow/wiki/" + taskname + "' target='_blank'><img src='assets/doc.png'></a>";
                     proplist.innerHTML = '<p class="inputlabel">Id</p><input id="taskid" class="inputtext" type="text" /><p class="inputlabel">Description</p><input id="taskdescription" class="inputtext" type="text" /><p class="inputlabel">Enabled</p><input id="taskenabled" class="inputtext" type="checkbox" checked />';
 
                     Common.get(uri + "/settings/" + taskname,

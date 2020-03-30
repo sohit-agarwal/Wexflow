@@ -81,6 +81,7 @@
     <Content Include="assets\eyeblue.svg" />
     <Content Include="assets\grabme.svg" />
     <Content Include="assets\heart.svg" />
+    <Content Include="assets\doc.png" />
     <Content Include="assets\log.svg" />
     <Content Include="assets\logred.svg" />
     <Content Include="assets\meta.png" />
