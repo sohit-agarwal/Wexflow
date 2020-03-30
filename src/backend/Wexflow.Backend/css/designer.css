@@ -200,7 +200,7 @@ margin-top: 15px;
 	opacity: .7;
 }
 
-#publish {
+#newworkflow {
 font-family: Roboto;
 font-weight: 500;
 font-size: 14px;
@@ -218,7 +218,7 @@ margin-right: 20px;
 transition: all .2s cubic-bezier(.05,.03,.35,1);
 }
 
-#publish:hover {
+#newworkflow:hover {
 	cursor: pointer;
 	opacity: .7;
 }

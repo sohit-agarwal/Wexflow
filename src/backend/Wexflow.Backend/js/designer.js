@@ -42,7 +42,6 @@
                         let navigation = document.getElementById("navigation");
                         let leftcard = document.getElementById("leftcard");
                         let propwrap = document.getElementById("propwrap");
-                        let canvas = document.getElementById("canvas");
 
                         navigation.style.display = "block";
                         leftcard.style.display = "block";
@@ -69,9 +68,12 @@
 
     function load() {
         let searchtasks = document.getElementById("searchtasks");
+        let canvas = document.getElementById("canvas");
         let rightcard = false;
         let tempblock;
         let tempblock2;
+
+        flowy(canvas, drag, release, snapping);
 
         function loadTasks() {
             Common.get(uri + "/searchTaskNames?s=" + searchtasks.value,
@@ -97,7 +99,10 @@
             }
         };
 
-        flowy(document.getElementById("canvas"), drag, release, snapping);
+        document.getElementById("newworkflow").onclick = function () {
+            flowy.deleteBlocks();
+        };
+
         function addEventListenerMulti(type, listener, capture, selector) {
             let nodes = document.querySelectorAll(selector);
             for (let i = 0; i < nodes.length; i++) {
@@ -196,7 +201,6 @@
         addEventListenerMulti("touchstart", beginTouch, false, ".block");
 
         let leftcardHidden = false;
-        let canvas = document.getElementById("canvas");
         let closecardimg = document.getElementById("closecardimg");
 
         document.getElementById("closecard").onclick = function () {
