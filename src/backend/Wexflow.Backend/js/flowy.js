@@ -107,12 +107,12 @@ var flowy = function (canvas, grab, release, snapping, spacing_x, spacing_y) {
                 dragy = mouse_y - (event.target.closest(".create-flowy").offsetTop + (event.target.closest(".create-flowy").parentNode && event.target.closest(".create-flowy").parentNode.parentNode ? event.target.closest(".create-flowy").parentNode.parentNode.offsetTop : 0) - (event.target.closest(".create-flowy").parentNode ? event.target.closest(".create-flowy").parentNode.scrollTop : 0));
                 drag.style.left = mouse_x - dragx + "px";
                 drag.style.top = mouse_y - dragy + "px";
-                console.log(event.target.closest(".create-flowy"));
-                console.log("mouse_y: " + mouse_y);
-                console.log("dragx: " + dragx);
-                console.log("dragy: " + dragy);
-                console.log("offsetTop: " + event.target.closest(".create-flowy").offsetTop);
-                console.log("scrollTop: " + event.target.closest(".create-flowy").parentNode.scrollTop);
+                //console.log(event.target.closest(".create-flowy"));
+                //console.log("mouse_y: " + mouse_y);
+                //console.log("dragx: " + dragx);
+                //console.log("dragy: " + dragy);
+                //console.log("offsetTop: " + event.target.closest(".create-flowy").offsetTop);
+                //console.log("scrollTop: " + event.target.closest(".create-flowy").parentNode.scrollTop);
             }
         }
         document.addEventListener("mousedown", touchblock, false);

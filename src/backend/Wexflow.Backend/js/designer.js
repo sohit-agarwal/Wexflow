@@ -69,6 +69,13 @@
     function load() {
         let searchtasks = document.getElementById("searchtasks");
         let canvas = document.getElementById("canvas");
+        let leftcardHidden = true;
+        let leftcardwidth = 361;
+        let closecardimg = document.getElementById("closecardimg");
+        let wfpropHidden = true;
+        let wfpropwidth = 331;
+        let closewfcardimg = document.getElementById("wfcloseimg");
+        let wfclose = document.getElementById("wfclose")
         let rightcard = false;
         let tempblock;
         let tempblock2;
@@ -101,6 +108,17 @@
 
         document.getElementById("newworkflow").onclick = function () {
             flowy.deleteBlocks();
+
+            document.getElementById("leftcard").style.left = "0";
+            leftcardHidden = false;
+            canvas.style.left = leftcardwidth + "px";
+            canvas.style.width = "calc(100% - " + leftcardwidth + "px)";
+            closecardimg.src = "assets/closeleft.png";
+
+            document.getElementById("wfpropwrap").style.right = "0";
+            wfclose.style.right = "330px";
+            wfpropHidden = false;
+            closewfcardimg.src = "assets/openleft.png";
         };
 
         function addEventListenerMulti(type, listener, capture, selector) {
@@ -200,15 +218,14 @@
         addEventListener("mouseup", doneTouch, false);
         addEventListenerMulti("touchstart", beginTouch, false, ".block");
 
-        let leftcardHidden = true;
-        let closecardimg = document.getElementById("closecardimg");
+
 
         document.getElementById("closecard").onclick = function () {
             let blockelems = canvas.getElementsByClassName("blockelem");
             let arrowblocks = canvas.getElementsByClassName("arrowblock");
-            let leftcardwidth = 361;
 
             if (leftcardHidden === false) {
+
                 document.getElementById("leftcard").style.left = -leftcardwidth + "px";
                 leftcardHidden = true;
                 canvas.style.left = "0";
@@ -226,6 +243,7 @@
                 }
 
             } else {
+
                 document.getElementById("leftcard").style.left = "0";
                 leftcardHidden = false;
                 canvas.style.left = leftcardwidth + "px";
@@ -241,6 +259,23 @@
                     let arrowblock = arrowblocks[i];
                     arrowblock.style.left = (arrowblock.offsetLeft - leftcardwidth) + "px";
                 }
+
+            }
+        };
+
+
+        wfclose.onclick = function () {
+            if (wfpropHidden === false) {
+                document.getElementById("wfpropwrap").style.right = -wfpropwidth + "px";
+                wfclose.style.right = "0";
+                wfpropHidden = true;
+                closewfcardimg.src = "assets/closeleft.png";
+            } else {
+                document.getElementById("wfpropwrap").style.right = "0";
+                wfclose.style.right = "330px";
+                wfpropHidden = false;
+                closewfcardimg.src = "assets/openleft.png";
+
             }
         };
 

@@ -89,6 +89,34 @@
             <div id="removeblock">Delete Tasks</div>
         </div>
     </div>
+    <div id="wfclose">
+        <img id="wfcloseimg" src="assets/closeleft.png">
+    </div>
+    <div id="wfpropwrap">
+        <div id="wfproperties">
+            <p id="wfheader2">Workflow Settings</p>
+            <div id="wfproplist">
+                <p class="inputlabel">Id</p>
+                <input id="wfid" class="inputtext" type="text" />
+                <p class="inputlabel">Name</p>
+                <input id="wfname" class="inputtext" type="text" />
+                <p class="inputlabel">Description</p>
+                <input id="wfdescription" class="inputtext" type="text" />
+                <p class="inputlabel">LaunchType</p>
+                <select id='wflaunchtype' class="inputtext"><option value=''></option><option value='startup'>Startup</option><option value='trigger'>Trigger</option><option value='periodic'>Periodic</option>><option value='cron'>Cron</option></select>
+                <p class="inputlabel">Period</p>
+                <input id="wfperiod" class="inputtext" type="text" />
+                <p class="inputlabel">Cron Expression</p>
+                <input id="wfcronexp" class="inputtext" type="text" />
+                <p class="inputlabel">Enabled</p>
+                <input id='wfenabled' class="inputtext" type='checkbox' checked />
+                <p class="inputlabel">Approval</p>
+                <input id='wfapproval' class="inputtext" type='checkbox' />
+                <p class="inputlabel">EnableParallelJobs</p>
+                <input id='wfenableparalleljobs' class="inputtext" type='checkbox' checked />
+            </div>
+        </div>
+    </div>
     <div id="canvas">
     </div>
 </body>
