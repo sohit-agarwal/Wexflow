@@ -222,6 +222,10 @@
                     document.getElementById("propwrap").classList.add("itson");
                     tempblock.classList.add("selectedblock");
 
+                    document.getElementById("wfpropwrap").style.right = -wfpropwidth + "px";
+                    wfpropHidden = true;
+                    closewfcardimg.src = "assets/closeleft.png";
+
                     wfclose.style.right = "-60px";
 
                 }
