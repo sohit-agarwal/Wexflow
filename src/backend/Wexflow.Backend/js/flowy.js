@@ -174,7 +174,9 @@ var flowy = function (canvas, grab, release, snapping, spacing_x, spacing_y) {
                     });
                 } else if (active && blocks.length == 0) {
                     canvas_div.appendChild(document.querySelector(".indicator"));
-                    drag.parentNode.removeChild(drag);
+                    if (drag.parentNode) {
+                        drag.parentNode.removeChild(drag);
+                    }
                 } else if (active || rearrange) {
                     var xpos = (drag.getBoundingClientRect().left + window.scrollX) + (parseInt(window.getComputedStyle(drag).width) / 2) + canvas_div.scrollLeft;
                     var ypos = (drag.getBoundingClientRect().top + window.scrollY) + canvas_div.scrollTop
