@@ -412,7 +412,7 @@ padding-left: 20px;
 }
 
 #proplist {
-height: calc(100% - 305px);
+height: calc(100% - 235px);
 overflow: auto;
 margin-top: -30px;
 padding-top: 30px;
@@ -698,9 +698,11 @@ text-align: center;
 width: 287px;
 height: 38px;
 line-height: 38px;
-color: #253134;
+color: #fff;
 border: 1px solid #E8E8EF;
 transition: all .3s cubic-bezier(.05,.03,.35,1);
+margin-top: 10px;
+background-color: #d9534f;
 }
 
 #removeblock:hover {

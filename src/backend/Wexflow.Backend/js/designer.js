@@ -223,10 +223,12 @@
         let checkTouch = function (event) {
             aclick = false;
         }
-        
+
         let doneTouch = function (event) {
             if (event.type === "mouseup" && aclick) {
-                if (!rightcard && event.target.closest(".block")) {
+
+                //if (!rightcard && event.target.closest(".block")) {
+                if (event.target.closest(".block")) {
                     tempblock = event.target.closest(".block");
                     rightcard = true;
                     document.getElementById("properties").classList.add("expanded");
@@ -238,6 +240,26 @@
                     closewfcardimg.src = "assets/closeleft.png";
 
                     wfclose.style.right = "-60px";
+
+                    // task settings
+                    let proplist = document.getElementById("proplist");
+                    let taskname = tempblock.getElementsByClassName("blockelemtype")[0].value;
+
+                    proplist.innerHTML = '<p class="inputlabel">Id</p><input id="taskid" class="inputtext" type="text" /><p class="inputlabel">Description</p><input id="taskdescription" class="inputtext" type="text" /><p class="inputlabel">Enabled</p><input id="taskenabled" class="inputtext" type="checkbox" checked />';
+
+                    Common.get(uri + "/settings/" + taskname,
+                        function (settings) {
+                            let tasksettings = "";
+                            for (let i = 0; i < settings.length; i++) {
+                                let settingName = settings[i];
+                                tasksettings += '<p class="inputlabel">' + settingName + '</p><input class="inputtext" type="text" />';
+                            }
+
+                            proplist.innerHTML = proplist.innerHTML + tasksettings;
+                        },
+                        function () {
+                            Common.toastError("An error occured while retrieving settings.");
+                        }, auth);
 
                 }
             }
