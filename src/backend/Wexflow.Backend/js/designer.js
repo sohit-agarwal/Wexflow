@@ -190,7 +190,7 @@
             }
         }
         addEventListenerMulti("click", disabledClick, false, ".side");*/
-        document.getElementById("close").addEventListener("click", function () {
+        function closeTaskSettings() {
             if (rightcard) {
                 rightcard = false;
                 document.getElementById("properties").classList.remove("expanded");
@@ -200,10 +200,21 @@
                 }, 300);
                 tempblock.classList.remove("selectedblock");
             }
+        }
+
+        document.getElementById("close").addEventListener("click", function () {
+            closeTaskSettings();
         });
 
         document.getElementById("removeblock").addEventListener("click", function () {
             flowy.deleteBlocks();
+
+            document.getElementById("wfpropwrap").style.right = -wfpropwidth + "px";
+            wfclose.style.right = "0";
+            wfpropHidden = true;
+            closewfcardimg.src = "assets/closeleft.png";
+
+            closeTaskSettings();
         });
         let aclick = false;
         let beginTouch = function (event) {
