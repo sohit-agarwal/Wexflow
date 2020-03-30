@@ -68,23 +68,34 @@
     }
 
     function load() {
+        let searchtasks = document.getElementById("searchtasks");
         let rightcard = false;
         let tempblock;
         let tempblock2;
 
-        Common.get(uri + "/taskNames",
-            function (taskNames) {
-                let blockelements = "";
-                for (let i = 0; i < taskNames.length; i++) {
-                    let taskName = taskNames[i];
-                    blockelements += '<div class="blockelem create-flowy noselect"><input type="hidden" name="blockelemtype" class="blockelemtype" value="' + taskName.Name + '"><input type="hidden" name="blockelemdesc" class="blockelemdesc" value="' + taskName.Description + '"><div class="grabme"><img src="assets/grabme.svg"></div><div class="blockin"><div class="blockico"><span></span><img src="assets/action.svg"></div><div class="blocktext"><p class="blocktitle">' + taskName.Name + '</p><p class="blockdesc">' + taskName.Description + '</p></div></div></div>';
-                }
-                let blocklist = document.getElementById("blocklist");
-                blocklist.innerHTML = blockelements;
-            },
-            function () {
-                Common.toastError("An error occured while retrieving task names.");
-            }, auth);
+        function loadTasks() {
+            Common.get(uri + "/searchTaskNames?s=" + searchtasks.value,
+                function (taskNames) {
+                    let blockelements = "";
+                    for (let i = 0; i < taskNames.length; i++) {
+                        let taskName = taskNames[i];
+                        blockelements += '<div class="blockelem create-flowy noselect"><input type="hidden" name="blockelemtype" class="blockelemtype" value="' + taskName.Name + '"><input type="hidden" name="blockelemdesc" class="blockelemdesc" value="' + taskName.Description + '"><div class="grabme"><img src="assets/grabme.svg"></div><div class="blockin"><div class="blockico"><span></span><img src="assets/action.svg"></div><div class="blocktext"><p class="blocktitle">' + taskName.Name + '</p><p class="blockdesc">' + taskName.Description + '</p></div></div></div>';
+                    }
+                    let blocklist = document.getElementById("blocklist");
+                    blocklist.innerHTML = blockelements;
+                },
+                function () {
+                    Common.toastError("An error occured while retrieving task names.");
+                }, auth);
+        }
+        loadTasks();
+
+        searchtasks.onkeyup = function (event) {
+            event.preventDefault();
+            if (event.keyCode === 13) { // Enter
+                loadTasks();
+            }
+        };
 
         flowy(document.getElementById("canvas"), drag, release, snapping);
         function addEventListenerMulti(type, listener, capture, selector) {
@@ -228,6 +239,7 @@
                 }
             }
         };
+
     }
 
 };

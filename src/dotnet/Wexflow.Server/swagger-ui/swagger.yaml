@@ -443,6 +443,25 @@ paths:
      consumes:
       - "application/json"
   
+  /searchTaskNames:
+    get:
+     tags:
+     - "Designer"
+     summary: "Searches for task names"
+     description: ""
+     produces:
+       - "application/json"
+     parameters:
+        - in: query
+          name: s
+          type: "string"
+          description: Keyword
+     responses:
+        200:
+          description: "successful operation"
+     consumes:
+      - "application/json"
+
   /settings/{taskName}:
     get:
      tags:

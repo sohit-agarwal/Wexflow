@@ -74,6 +74,7 @@ namespace Wexflow.Server
             GetWorkflowXml();
             GetWorkflowJson();
             GetTaskNames();
+            SearchTaskNames();
             GetSettings();
             GetTaskXml();
             IsWorkflowIdValid();
@@ -842,6 +843,55 @@ namespace Wexflow.Server
                     {
                         JArray array = JArray.Parse(File.ReadAllText(WexflowServer.WexflowEngine.TasksNamesFile));
                         taskNames = array.ToObject<TaskName[]>().OrderBy(x => x.Name).ToArray();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        taskNames = new[] { new TaskName { Name = "TasksNames.json is not valid." } };
+                    }
+
+                    var taskNamesStr = JsonConvert.SerializeObject(taskNames);
+                    var taskNamesBytes = Encoding.UTF8.GetBytes(taskNamesStr);
+
+                    return new Response()
+                    {
+                        ContentType = "application/json",
+                        Contents = s => s.Write(taskNamesBytes, 0, taskNamesBytes.Length)
+                    };
+                }
+
+                return new Response()
+                {
+                    ContentType = "application/json"
+                };
+
+            });
+        }
+
+        /// <summary>
+        /// Returns task names.
+        /// </summary>
+        private void SearchTaskNames()
+        {
+            Get(Root + "searchTaskNames", args =>
+            {
+                string keywordToUpper = Request.Query["s"].ToString().ToUpper();
+
+                var auth = GetAuth(Request);
+                var username = auth.Username;
+                var password = auth.Password;
+
+                var user = WexflowServer.WexflowEngine.GetUser(username);
+                if (user.Password.Equals(password))
+                {
+                    TaskName[] taskNames;
+                    try
+                    {
+                        JArray array = JArray.Parse(File.ReadAllText(WexflowServer.WexflowEngine.TasksNamesFile));
+                        taskNames = array
+                        .ToObject<TaskName[]>()
+                        .Where(x => x.Name.ToUpper().Contains(keywordToUpper))
+                        .OrderBy(x => x.Name).ToArray();
                     }
                     catch (Exception e)
                     {
