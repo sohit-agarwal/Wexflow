@@ -496,8 +496,8 @@ z-index: 10;
 #canvas {
 position: absolute;
 width: calc(100% - 361px);
-height: calc(100% - 71px);
-top: 71px;
+height: calc(100% - 115px);
+top: 115px;
 left: 361px;
 z-index: 0;
 overflow: auto;
