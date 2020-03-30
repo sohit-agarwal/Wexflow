@@ -4,6 +4,7 @@
     var uri = Common.trimEnd(Settings.Uri, "/");
     var lnkManager = document.getElementById("lnk-manager");
     var lnkDesigner = document.getElementById("lnk-designer");
+    var lnkEditor = document.getElementById("lnk-editor");
     var lnkApproval = document.getElementById("lnk-approval");
     var lnkUsers = document.getElementById("lnk-users");
     var lnkProfiles = document.getElementById("lnk-profiles");
@@ -41,6 +42,7 @@
                     divProfiles.style.display = "block";
                     lnkManager.style.display = "inline";
                     lnkDesigner.style.display = "inline";
+                    lnkEditor.style.display = "inline";
                     lnkApproval.style.display = "inline";
                     lnkUsers.style.display = "inline";
                     lnkProfiles.style.display = "inline";

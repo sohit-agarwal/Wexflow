@@ -193,6 +193,7 @@
     <Compile Include="Contracts\SettingInfo.cs" />
     <Compile Include="Contracts\StatusCount.cs" />
     <Compile Include="Contracts\TaskInfo.cs" />
+    <Compile Include="Contracts\TaskName.cs" />
     <Compile Include="Contracts\User.cs" />
     <Compile Include="Contracts\Variable.cs" />
     <Compile Include="Contracts\WorkflowInfo.cs" />

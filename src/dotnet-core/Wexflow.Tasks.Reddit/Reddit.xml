@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Tasks>
   <!--
-    Reddit is a sequential task that sends posts and links to Reddit from XML files. 
+    Reddit is a sequential task that sends posts and links to Reddit. 
     
     The format of the XML file is as follows:
     

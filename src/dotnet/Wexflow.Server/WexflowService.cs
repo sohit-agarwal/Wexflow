@@ -837,16 +837,16 @@ namespace Wexflow.Server
                 var user = WexflowServer.WexflowEngine.GetUser(username);
                 if (user.Password.Equals(password))
                 {
-                    string[] taskNames;
+                    TaskName[] taskNames;
                     try
                     {
                         JArray array = JArray.Parse(File.ReadAllText(WexflowServer.WexflowEngine.TasksNamesFile));
-                        taskNames = array.ToObject<string[]>().OrderBy(x => x).ToArray();
+                        taskNames = array.ToObject<TaskName[]>().OrderBy(x => x.Name).ToArray();
                     }
                     catch (Exception e)
                     {
                         Console.WriteLine(e);
-                        taskNames = new[] { "TasksNames.json is not valid." };
+                        taskNames = new[] { new TaskName { Name = "TasksNames.json is not valid." } };
                     }
 
                     var taskNamesStr = JsonConvert.SerializeObject(taskNames);

@@ -1,33 +1,17 @@
-﻿<!DOCTYPE html>
-<html>
+﻿<html>
 <head>
-    <meta charset="utf-8" />
     <title>Designer</title>
-    <link rel="icon" href="images/logo.png" type="image/png">
-
-    <!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-toggle.min.css" />
-    <link rel="stylesheet" type="text/css" href="css/vs2015.css" />
-    <link rel="stylesheet" type="text/css" href="css/jquery.toast.min.css" />
-    <link rel="stylesheet" type="text/css" href="css/designer.css" />-->
-
-    <link rel="stylesheet" type="text/css" href="css/designer.min.css" />
+    <link href="css/flowy.css" rel="stylesheet" />
+    <link href="css/designer.css" rel="stylesheet" />
 
     <script type="text/javascript" src="js/settings.js"></script>
 
-    <!--<script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/jquery.toast.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap-toggle.min.js"></script>
-    <script type="text/javascript" src="js/common.js"></script>
-    <script type="text/javascript" src="js/authenticate.js"></script>
-    <script type="text/javascript" src="js/cytoscape-dagre.min.js"></script>
-    <script type="text/javascript" src="js/highlight.pack.js"></script>
-    <script type="text/javascript" src="js/ace.js"></script>
-    <script type="text/javascript" src="js/designer.js"></script>-->
-
-    <script type="text/javascript" src="js/ace.js"></script>
-    <script type="text/javascript" src="js/designer.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.toast.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/authenticate.js"></script>
+    <script src="js/flowy.js"></script>
+    <script src="js/designer.js"></script>
 </head>
 <body>
     <div id="header">
@@ -35,6 +19,7 @@
         <a id="lnk-manager" href="manager.html">Manager</a>
         <a id="lnk-approval" href="approval.html">Approval</a>
         <a id="lnk-designer" href="designer.html" style="text-decoration: underline">Designer</a>
+        <a id="lnk-editor" href="editor.html">Editor</a>
         <a href="history.html">History</a>
         <a id="lnk-users" href="users.html">Users</a>
         <a id="lnk-profiles" href="profiles.html">Profiles</a>
@@ -42,11 +27,69 @@
         <a href="https://wexflow.github.io" class="header-right">About</a>
         <a href="https://github.com/aelassas/Wexflow/wiki" class="header-right">Help</a>
     </div>
-	<div id="wf-designer"></div>
-	<script type="text/javascript">
-		window.onload = function () {
-			new WexflowDesigner();
-		};
-	</script>
+    <div id="navigation">
+        <div id="leftside">
+            <div id="details">
+                <div id="browse">Browse</div>
+            </div>
+        </div>
+        <div id="centerswitch">
+            <div id="leftswitch">Diagram</div>
+            <div id="middleswitch">JSON</div>
+            <div id="rightswitch">XML</div>
+        </div>
+        <div id="buttonsright">
+            <div id="export">Export</div>
+            <div id="import">Import</div>
+            <div id="publish">New Workflow</div>
+        </div>
+    </div>
+    <div id="leftcard">
+        <div id="closecard">
+            <img id="closecardimg" src="assets/closeleft.png">
+        </div>
+        <div id="search">
+            <img src="assets/search.svg">
+            <input type="text" placeholder="Search tasks">
+        </div>
+        <div id="blocklist">
+            <!--<div class="blockelem create-flowy noselect">
+                <input type="hidden" name="blockelemtype" class="blockelemtype" value="2">
+                <div class="grabme">
+                    <img src="assets/grabme.svg">
+                </div>
+                <div class="blockin">
+                    <div class="blockico">
+                        <span></span>
+                        <img src="assets/action.svg">
+                    </div>
+                    <div class="blocktext">
+                        <p class="blocktitle">Action is performed</p>
+                        <p class="blockdesc">Triggers when somebody performs a specified action</p>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+    <div id="propwrap">
+        <div id="properties">
+            <div id="close">
+                <img src="assets/close.svg">
+            </div>
+            <p id="header2">Settings</p>
+            <div id="proplist">
+                <p class="inputlabel">Select database</p>
+                <div class="dropme">Database 1 <img src="assets/dropdown.svg"></div>
+                <p class="inputlabel">Check properties</p>
+                <div class="dropme">All<img src="assets/dropdown.svg"></div>
+                <div class="checkus"><img src="assets/checkon.svg"><p>Log on successful performance</p></div>
+                <div class="checkus"><img src="assets/checkoff.svg"><p>Give priority to this task</p></div>
+            </div>
+            <div id="divisionthing"></div>
+            <div id="removeblock">Delete Tasks</div>
+        </div>
+    </div>
+    <div id="canvas">
+    </div>
 </body>
 </html>

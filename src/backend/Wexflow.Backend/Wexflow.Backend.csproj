@@ -96,8 +96,8 @@
     <Content Include="css\bootstrap-toggle.min.css" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\dashboard.min.css" />
-    <Content Include="css\designer.min.css" />
-    <Content Include="css\designer2.css" />
+    <Content Include="css\editor.min.css" />
+    <Content Include="css\designer.css" />
     <Content Include="css\flowy.css" />
     <Content Include="css\forgot-password.css" />
     <Content Include="css\forgot-password.min.css" />
@@ -113,7 +113,7 @@
     <Content Include="css\profiles.min.css" />
     <Content Include="css\users.css" />
     <Content Include="css\users.min.css" />
-    <Content Include="designer2.html" />
+    <Content Include="designer.html" />
     <Content Include="forgot-password.html" />
     <Content Include="images\delete.png" />
     <Content Include="images\logo.png" />
@@ -123,8 +123,8 @@
     <Content Include="js\bootstrap-toggle.min.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\dashboard.min.js" />
-    <Content Include="js\designer.min.js" />
-    <Content Include="js\designer2.js" />
+    <Content Include="js\editor.min.js" />
+    <Content Include="js\designer.js" />
     <Content Include="js\ext-keybinding_menu.js" />
     <Content Include="js\ext-prompt.js" />
     <Content Include="js\ext-searchbox.js" />
@@ -178,13 +178,13 @@
     <Content Include="js\uglify-login.bat" />
     <Content Include="js\uglify-dashboard.bat" />
     <Content Include="js\uglify-manager.bat" />
-    <Content Include="js\uglify-designer.bat" />
+    <Content Include="js\uglify-editor.bat" />
     <Content Include="js\uglify-history.bat" />
     <Content Include="js\uglify-all.bat" />
     <Content Include="css\uglify-login.bat" />
     <Content Include="css\uglify-dashboard.bat" />
     <Content Include="css\uglify-manager.bat" />
-    <Content Include="css\uglify-designer.bat" />
+    <Content Include="css\uglify-editor.bat" />
     <Content Include="css\uglify-history.bat" />
     <Content Include="css\uglify-all.bat" />
     <Content Include="js\uglify-forgot-password.bat" />
@@ -205,7 +205,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\dashboard.css" />
-    <Content Include="css\designer.css" />
+    <Content Include="css\editor.css" />
     <Content Include="css\images\ui-icons_444444_256x240.png" />
     <Content Include="css\images\ui-icons_555555_256x240.png" />
     <Content Include="css\images\ui-icons_777620_256x240.png" />
@@ -217,7 +217,7 @@
     <Content Include="css\manager.css" />
     <Content Include="css\vs2015.css" />
     <Content Include="dashboard.html" />
-    <Content Include="designer.html" />
+    <Content Include="editor.html" />
     <Content Include="history.html" />
     <Content Include="images\disapproved-small.png" />
     <Content Include="images\disapproved.png" />
@@ -238,7 +238,7 @@
     <Content Include="js\common.js" />
     <Content Include="js\cytoscape-dagre.min.js" />
     <Content Include="js\dashboard.js" />
-    <Content Include="js\designer.js" />
+    <Content Include="js\editor.js" />
     <Content Include="js\highlight.pack.js" />
     <Content Include="js\history.js" />
     <Content Include="js\jquery.min.js" />
