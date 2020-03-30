@@ -119,6 +119,15 @@
             wfclose.style.right = "330px";
             wfpropHidden = false;
             closewfcardimg.src = "assets/openleft.png";
+
+            if (rightcard) {
+                rightcard = false;
+                document.getElementById("properties").classList.remove("expanded");
+                setTimeout(function () {
+                    document.getElementById("propwrap").classList.remove("itson");
+                }, 300);
+                tempblock.classList.remove("selectedblock");
+            }
         };
 
         function addEventListenerMulti(type, listener, capture, selector) {
@@ -187,6 +196,7 @@
                 document.getElementById("properties").classList.remove("expanded");
                 setTimeout(function () {
                     document.getElementById("propwrap").classList.remove("itson");
+                    wfclose.style.right = "0";
                 }, 300);
                 tempblock.classList.remove("selectedblock");
             }
@@ -202,6 +212,7 @@
         let checkTouch = function (event) {
             aclick = false;
         }
+        
         let doneTouch = function (event) {
             if (event.type === "mouseup" && aclick) {
                 if (!rightcard && event.target.closest(".block")) {
@@ -210,6 +221,9 @@
                     document.getElementById("properties").classList.add("expanded");
                     document.getElementById("propwrap").classList.add("itson");
                     tempblock.classList.add("selectedblock");
+
+                    wfclose.style.right = "-60px";
+
                 }
             }
         }
@@ -217,8 +231,6 @@
         addEventListener("mousemove", checkTouch, false);
         addEventListener("mouseup", doneTouch, false);
         addEventListenerMulti("touchstart", beginTouch, false, ".block");
-
-
 
         document.getElementById("closecard").onclick = function () {
             let blockelems = canvas.getElementsByClassName("blockelem");
