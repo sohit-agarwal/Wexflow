@@ -623,6 +623,10 @@ transition: all .25s cubic-bezier(.05,.03,.35,1);
 	font-weight: bold;
 	color: #393C44;
 }
+#savehelp {
+	font-size: 13px;
+	color: #515151;
+}
 
 #wfproplist {
 	height: calc(100% - 180px);
