@@ -94,7 +94,7 @@ Discover more [features](https://github.com/aelassas/Wexflow/wiki#why-wexflow).
 
 Check out the available [built-in tasks](https://github.com/aelassas/Wexflow/wiki/Tasks-documentation) for more examples.
 
-## Supported By
+## Supporters
 
 ![JetBrains](https://aelassas.github.io/wexflow/images/Jetbrains_logo.png)
 
