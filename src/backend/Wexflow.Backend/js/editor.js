@@ -342,14 +342,13 @@
                     workflowInfos[workflowId] = {
                         "Id": workflowId,
                         "Name": document.getElementById("wf-name").value,
+                        "Description": document.getElementById("wf-desc").value,
                         "LaunchType": launchTypeReverse(document.getElementById("wf-launchType").value),
                         "Period": document.getElementById("wf-period").value,
                         "CronExpression": document.getElementById("wf-cron").value,
                         "IsEnabled": document.getElementById("wf-enabled").checked,
                         "IsApproval": document.getElementById("wf-approval").checked,
                         "EnableParallelJobs": document.getElementById("wf-enable-pj").checked,
-                        "Description": document.getElementById("wf-desc").value,
-                        "Path": "",
                         "LocalVariables": []
                     };
 

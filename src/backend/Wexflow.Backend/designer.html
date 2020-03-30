@@ -2,6 +2,7 @@
 <head>
     <title>Designer</title>
     <link href="css/flowy.css" rel="stylesheet" />
+    <link type="text/css" href="css/jquery.toast.min.css" rel="stylesheet" />
     <link href="css/designer.css" rel="stylesheet" />
 
     <script type="text/javascript" src="js/settings.js"></script>
@@ -94,7 +95,7 @@
                 <p class="inputlabel">Name</p>
                 <input id="wfname" class="inputtext" type="text" />
                 <p class="inputlabel">Description</p>
-                <input id="wfdescription" class="inputtext" type="text" />
+                <input id="wfdesc" class="inputtext" type="text" />
                 <p class="inputlabel">LaunchType</p>
                 <select id='wflaunchtype' class="inputtext"><option value=''></option><option value='startup'>Startup</option><option value='trigger'>Trigger</option><option value='periodic'>Periodic</option>><option value='cron'>Cron</option></select>
                 <p class="inputlabel">Period</p>
@@ -106,7 +107,7 @@
                 <p class="inputlabel">Approval</p>
                 <input id='wfapproval' class="inputtext" type='checkbox' />
                 <p class="inputlabel">EnableParallelJobs</p>
-                <input id='wfenableparalleljobs' class="inputtext" type='checkbox' checked />
+                <input id='wfenablepj' class="inputtext" type='checkbox' checked />
             </div>
         </div>
     </div>

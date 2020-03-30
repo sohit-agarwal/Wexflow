@@ -329,6 +329,58 @@
             }
         };
 
+        // CTRL+S
+        window.onkeydown = function (event) {
+            if ((event.ctrlKey || event.metaKey || event.keyCode === 17 || event.keyCode === 224 || event.keyCode === 91 || event.keyCode === 93) && event.keyCode === 83) {
+                event.preventDefault();
+
+                let wfid = document.getElementById("wfid").value;
+                let workflow = {
+                    "WorkflowInfo": {
+                        "Id": wfid,
+                        "Name": document.getElementById("wfname").value,
+                        "Description": document.getElementById("wfdesc").value,
+                        "LaunchType": launchTypeReverse(document.getElementById("wflaunchtype").value),
+                        "Period": document.getElementById("wfperiod").value,
+                        "CronExpression": document.getElementById("wfcronexp").value,
+                        "IsEnabled": document.getElementById("wfenabled").checked,
+                        "IsApproval": document.getElementById("wfapproval").checked,
+                        "EnableParallelJobs": document.getElementById("wfenablepj").checked,
+                        "LocalVariables": []
+                    },
+                    "Tasks": []
+                }
+                console.log(workflow);
+
+                Common.post(uri + "/save", function (res) {
+                    if (res === true) {
+                        Common.toastSuccess("workflow " + wfid + " saved and loaded with success.");
+                    } else {
+                        Common.toastError("An error occured while saving the workflow " + wfid + ".");
+                    }
+                }, function () {
+                    Common.toastError("An error occured while saving the workflow " + wfid + ".");
+                }, workflow, auth);
+
+                return false;
+            }
+        };
+
+        function launchTypeReverse(lt) {
+            switch (lt) {
+                case "startup":
+                    return 0;
+                case "trigger":
+                    return 1;
+                case "periodic":
+                    return 2;
+                case "cron":
+                    return 3;
+                default:
+                    return -1;
+            }
+        }
+
     }
 
 };
