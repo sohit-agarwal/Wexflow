@@ -1254,8 +1254,10 @@
                     removeworkflow.style.display = "block";
 
                     // close jBox
-                    modal.close();
-                    modal.destroy();
+                    if (modal) {
+                        modal.close();
+                        modal.destroy();
+                    }
 
 
                 },
