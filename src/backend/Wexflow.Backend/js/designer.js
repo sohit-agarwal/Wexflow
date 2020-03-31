@@ -266,6 +266,25 @@
                             document.getElementById("leftcard").style.left = -leftcardwidth + "px";
                             closecardimg.src = "assets/openleft.png";
                             leftcardHidden = true;
+
+                            workflow = {
+                                "WorkflowInfo": {
+                                    "Id": document.getElementById("wfid").value,
+                                    "Name": document.getElementById("wfname").value,
+                                    "Description": document.getElementById("wfdesc").value,
+                                    "LaunchType": launchTypeReverse(document.getElementById("wflaunchtype").value),
+                                    "Period": document.getElementById("wfperiod").value,
+                                    "CronExpression": document.getElementById("wfcronexp").value,
+                                    "IsEnabled": document.getElementById("wfenabled").checked,
+                                    "IsApproval": document.getElementById("wfapproval").checked,
+                                    "EnableParallelJobs": document.getElementById("wfenablepj").checked,
+                                    "LocalVariables": []
+                                },
+                                "Tasks": []
+                            }
+
+                            tasks = {};
+
                         } else {
                             Common.toastError("An error occured while deleting the workflow" + workflowId + ".");
                         }
