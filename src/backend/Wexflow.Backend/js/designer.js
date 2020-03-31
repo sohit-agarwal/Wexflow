@@ -745,7 +745,6 @@
         };
 
         // json click
-
         function openJsonView(jsonVal) {
             diag = false;
             json = true;
@@ -921,13 +920,13 @@
                 } else {
                     Common.toastInfo("Enter a valid workflow id.");
                 }
-            } else {
+            }
+            else {
                 openJsonView(jsonVal);
             }
         };
 
         // xml click
-
         function openXmlView(xmlVal) {
 
             diag = false;
@@ -1102,7 +1101,8 @@
                 } else {
                     Common.toastInfo("Enter a valid workflow id.");
                 }
-            } else {
+            }
+            else {
                 openXmlView(getXml());
             }
         };
@@ -1131,6 +1131,7 @@
 
         // Browse workflows
         let modal = null;
+        let exportModal = null;
         document.getElementById("browse").onclick = function () {
 
             Common.get(uri + "/search?s=",
@@ -1172,6 +1173,10 @@
                     let search = '<div id="searchworkflows"><img src="assets/search.svg"><input id="searchworkflowsinput" type="text" placeholder="Search workflows"></div>';
                     browser.innerHTML = workflowsToTable(workflows);
                     let footer = '<div id="openworkflow">Open</div>';
+
+                    if (exportModal) {
+                        exportModal.destroy();
+                    }
 
                     if (modal) {
                         modal.destroy();
@@ -1365,6 +1370,321 @@
             // TODO json or xml popup
             // TODO validation
             //download('text content', 'workflow-id.txt', 'text/plain');
+            if (exportModal) {
+                exportModal.destroy();
+            }
+
+            if (modal) {
+                modal.destroy();
+            }
+
+            let footer = '<div id="exportworkflow">Export</div>';
+
+            exportModal = new jBox('Modal', {
+                width: 800,
+                height: 120,
+                title: "Export",
+                content: document.getElementById("exportmodal").innerHTML,
+                footer: footer,
+                delayOpen: 0
+            });
+
+            exportModal.open();
+
+            document.getElementById("exportworkflow").onclick = function () {
+                let exportType = document.getElementsByClassName("jBox-content")[0].childNodes[3].value;
+
+                // export whith validation
+                if (exportType === "json") {
+                    let downloadJson = function () {
+                        download(JSON.stringify(workflow, null, '\t'), 'workflow-' + document.getElementById("wfid").value + '.json', 'application/json');
+                        exportModal.close();
+                    };
+
+                    let wfIdStr = document.getElementById("wfid").value;
+                    if (isInt(wfIdStr)) {
+                        let workflowId = parseInt(wfIdStr);
+
+                        if (checkId === true) {
+                            Common.get(uri + "/isWorkflowIdValid/" + workflowId,
+                                function (res) {
+                                    if (res === true) {
+                                        if (document.getElementById("wfname").value === "") {
+                                            Common.toastInfo("Enter a name for this workflow.");
+                                            exportModal.close();
+                                        } else {
+                                            let lt = document.getElementById("wflaunchtype").value;
+                                            if (lt === "") {
+                                                Common.toastInfo("Select a launchType for this workflow.");
+                                                exportModal.close();
+                                            } else {
+                                                if (lt === "periodic" && document.getElementById("wfperiod").value === "") {
+                                                    Common.toastInfo("Enter a period for this workflow.");
+                                                    exportModal.close();
+                                                } else {
+                                                    if (lt === "cron" && document.getElementById("wfcronexp").value === "") {
+                                                        Common.toastInfo("Enter a cron expression for this workflow.");
+                                                        exportModal.close();
+                                                    } else {
+
+                                                        // Period validation
+                                                        if (lt === "periodic" && document.getElementById("wfperiod").value !== "") {
+                                                            let period = document.getElementById("wfperiod").value;
+                                                            Common.get(uri + "/isPeriodValid/" + period,
+                                                                function (res) {
+                                                                    if (res === true) {
+                                                                        downloadJson();
+                                                                    } else {
+                                                                        Common.toastInfo("The period format is not valid. The valid format is: dd.hh:mm:ss");
+                                                                        exportModal.close();
+                                                                    }
+                                                                },
+                                                                function () { }, auth
+                                                            );
+                                                        } // Cron expression validation
+                                                        else if (lt === "cron" && document.getElementById("wfcronexp").value !== "") {
+                                                            let expression = document.getElementById("wfcronexp").value;
+                                                            let expressionEncoded = encodeURIComponent(expression);
+
+                                                            Common.get(uri + "/isCronExpressionValid?e=" + expressionEncoded,
+                                                                function (res) {
+                                                                    if (res === true) {
+                                                                        downloadJson();
+                                                                    } else {
+                                                                        exportModal.close();
+                                                                        if (confirm("The cron expression format is not valid.\nRead the documentation?")) {
+                                                                            openInNewTab("https://github.com/aelassas/Wexflow/wiki/Cron-scheduling");
+                                                                        }
+                                                                    }
+                                                                },
+                                                                function () { }, auth
+                                                            );
+                                                        } else {
+                                                            downloadJson();
+                                                        }
+
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    } else {
+                                        Common.toastInfo("The workflow id is already in use. Enter another one.");
+                                    }
+                                },
+                                function () { }, auth);
+                        } else {
+
+                            if (document.getElementById("wfname").value === "") {
+                                Common.toastInfo("Enter a name for this workflow.");
+                            } else {
+                                let lt = document.getElementById("wflaunchtype").value;
+                                if (lt === "") {
+                                    Common.toastInfo("Select a launchType for this workflow.");
+                                    exportModal.close();
+                                } else {
+                                    if (lt === "periodic" && document.getElementById("wfperiod").value === "") {
+                                        Common.toastInfo("Enter a period for this workflow.");
+                                        exportModal.close();
+                                    } else {
+                                        if (lt === "cron" && document.getElementById("wfcronexp").value === "") {
+                                            Common.toastInfo("Enter a cron expression for this workflow.");
+                                            exportModal.close();
+                                        } else {
+
+                                            // Period validation
+                                            if (lt === "periodic" && document.getElementById("wfperiod").value !== "") {
+                                                let period = document.getElementById("wfperiod").value;
+                                                Common.get(uri + "/isPeriodValid/" + period,
+                                                    function (res) {
+                                                        if (res === true) {
+                                                            downloadJson();
+                                                        } else {
+                                                            Common.toastInfo("The period format is not valid. The valid format is: dd.hh:mm:ss");
+                                                            exportModal.close();
+                                                        }
+                                                    },
+                                                    function () { }, auth
+                                                );
+                                            } // Cron expression validation
+                                            else if (lt === "cron" && document.getElementById("wfcronexp").value !== "") {
+                                                let expression = document.getElementById("wfcronexp").value;
+                                                let expressionEncoded = encodeURIComponent(expression);
+
+                                                Common.get(uri + "/isCronExpressionValid?e=" + expressionEncoded,
+                                                    function (res) {
+                                                        if (res === true) {
+                                                            downloadJson();
+                                                        } else {
+                                                            exportModal.close();
+                                                            if (confirm("The cron expression format is not valid.\nRead the documentation?")) {
+                                                                openInNewTab("https://github.com/aelassas/Wexflow/wiki/Cron-scheduling");
+                                                            }
+                                                        }
+                                                    },
+                                                    function () { }, auth
+                                                );
+                                            } else {
+                                                downloadJson();
+                                            }
+
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+
+                    } else {
+                        Common.toastInfo("Enter a valid workflow id.");
+                        exportModal.close();
+                    }
+
+                } else if (exportType === "xml") {
+                    let downloadXml = function () {
+                        download(getXml(), 'workflow-' + document.getElementById("wfid").value + '.xml', 'text/xml')
+                        exportModal.close();
+                    };
+
+                    let wfIdStr = document.getElementById("wfid").value;
+                    if (isInt(wfIdStr)) {
+                        let workflowId = parseInt(wfIdStr);
+
+                        if (checkId === true) {
+                            Common.get(uri + "/isWorkflowIdValid/" + workflowId,
+                                function (res) {
+                                    if (res === true) {
+                                        if (document.getElementById("wfname").value === "") {
+                                            Common.toastInfo("Enter a name for this workflow.");
+                                            exportModal.close();
+                                        } else {
+                                            let lt = document.getElementById("wflaunchtype").value;
+                                            if (lt === "") {
+                                                Common.toastInfo("Select a launchType for this workflow.");
+                                                exportModal.close();
+                                            } else {
+                                                if (lt === "periodic" && document.getElementById("wfperiod").value === "") {
+                                                    Common.toastInfo("Enter a period for this workflow.");
+                                                    exportModal.close();
+                                                } else {
+                                                    if (lt === "cron" && document.getElementById("wfcronexp").value === "") {
+                                                        Common.toastInfo("Enter a cron expression for this workflow.");
+                                                        exportModal.close();
+                                                    } else {
+
+                                                        // Period validation
+                                                        if (lt === "periodic" && document.getElementById("wfperiod").value !== "") {
+                                                            let period = document.getElementById("wfperiod").value;
+                                                            Common.get(uri + "/isPeriodValid/" + period,
+                                                                function (res) {
+                                                                    if (res === true) {
+                                                                        downloadXml();
+                                                                    } else {
+                                                                        Common.toastInfo("The period format is not valid. The valid format is: dd.hh:mm:ss");
+                                                                        exportModal.close();
+                                                                    }
+                                                                },
+                                                                function () { }, auth
+                                                            );
+                                                        } // Cron expression validation
+                                                        else if (lt === "cron" && document.getElementById("wfcronexp").value !== "") {
+                                                            let expression = document.getElementById("wfcronexp").value;
+                                                            let expressionEncoded = encodeURIComponent(expression);
+
+                                                            Common.get(uri + "/isCronExpressionValid?e=" + expressionEncoded,
+                                                                function (res) {
+                                                                    if (res === true) {
+                                                                        downloadXml();
+                                                                    } else {
+                                                                        exportModal.close();
+                                                                        if (confirm("The cron expression format is not valid.\nRead the documentation?")) {
+                                                                            openInNewTab("https://github.com/aelassas/Wexflow/wiki/Cron-scheduling");
+                                                                        }
+                                                                    }
+                                                                },
+                                                                function () { }, auth
+                                                            );
+                                                        } else {
+                                                            downloadXml();
+                                                        }
+
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    } else {
+                                        Common.toastInfo("The workflow id is already in use. Enter another one.");
+                                    }
+                                },
+                                function () { }, auth);
+                        } else {
+
+                            if (document.getElementById("wfname").value === "") {
+                                Common.toastInfo("Enter a name for this workflow.");
+                                exportModal.close();
+                            } else {
+                                let lt = document.getElementById("wflaunchtype").value;
+                                if (lt === "") {
+                                    Common.toastInfo("Select a launchType for this workflow.");
+                                    exportModal.close();
+                                } else {
+                                    if (lt === "periodic" && document.getElementById("wfperiod").value === "") {
+                                        Common.toastInfo("Enter a period for this workflow.");
+                                        exportModal.close();
+                                    } else {
+                                        if (lt === "cron" && document.getElementById("wfcronexp").value === "") {
+                                            Common.toastInfo("Enter a cron expression for this workflow.");
+                                            exportModal.close();
+                                        } else {
+
+                                            // Period validation
+                                            if (lt === "periodic" && document.getElementById("wfperiod").value !== "") {
+                                                let period = document.getElementById("wfperiod").value;
+                                                Common.get(uri + "/isPeriodValid/" + period,
+                                                    function (res) {
+                                                        if (res === true) {
+                                                            downloadXml();
+                                                        } else {
+                                                            Common.toastInfo("The period format is not valid. The valid format is: dd.hh:mm:ss");
+                                                            exportModal.close();
+                                                        }
+                                                    },
+                                                    function () { }, auth
+                                                );
+                                            } // Cron expression validation
+                                            else if (lt === "cron" && document.getElementById("wfcronexp").value !== "") {
+                                                let expression = document.getElementById("wfcronexp").value;
+                                                let expressionEncoded = encodeURIComponent(expression);
+
+                                                Common.get(uri + "/isCronExpressionValid?e=" + expressionEncoded,
+                                                    function (res) {
+                                                        if (res === true) {
+                                                            downloadXml();
+                                                        } else {
+                                                            exportModal.close();
+                                                            if (confirm("The cron expression format is not valid.\nRead the documentation?")) {
+                                                                openInNewTab("https://github.com/aelassas/Wexflow/wiki/Cron-scheduling");
+                                                            }
+                                                        }
+                                                    },
+                                                    function () { }, auth
+                                                );
+                                            } else {
+                                                downloadXml();
+                                            }
+
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+
+                    } else {
+                        Common.toastInfo("Enter a valid workflow id.");
+                        exportModal.close();
+                    }
+                }
+            };
         };
 
         function download(text, name, type) {
