@@ -1518,7 +1518,7 @@ namespace Wexflow.Server
                                     xsetting.SetAttributeValue(attributeName, attributeValue);
                                 }
 
-                                if (settingName == "selectFiles" || settingName == "selectAttachments" || (settingName != "selectFiles" || settingName != "selectAttachments" && !string.IsNullOrEmpty(settingValue)))
+                                if (settingName == "selectFiles" || settingName == "selectAttachments" || (settingName != "selectFiles" && settingName != "selectAttachments" && !string.IsNullOrEmpty(settingValue)))
                                 {
                                     xtask.Add(xsetting);
                                 }
@@ -1781,7 +1781,10 @@ namespace Wexflow.Server
                                         xsetting.SetAttributeValue(attributeName, attributeValue);
                                     }
 
-                                    xtask.Add(xsetting);
+                                    if (settingName == "selectFiles" || settingName == "selectAttachments" || (settingName != "selectFiles" && settingName != "selectAttachments" && !string.IsNullOrEmpty(settingValue)))
+                                    {
+                                        xtask.Add(xsetting);
+                                    }
                                 }
 
                                 xtasks.Add(xtask);
