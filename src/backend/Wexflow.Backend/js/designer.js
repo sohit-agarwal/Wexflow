@@ -494,7 +494,19 @@
                         Common.toastError("An error occured while saving the workflow " + wfid + " from JSON view.");
                     }, json, auth);
                 } else if (xml === true) {
-                    // TODO
+                    let json = {
+                        workflowId: workflow.WorkflowInfo.Id,
+                        xml: editor.getValue()
+                    };
+                    Common.post(uri + "/saveXml", function (res) {
+                        if (res === true) {
+                            Common.toastSuccess("workflow " + wfid + " saved and loaded with success from XML view.");
+                        } else {
+                            Common.toastError("An error occured while saving the workflow " + wfid + " from XML view.");
+                        }
+                    }, function () {
+                        Common.toastError("An error occured while saving the workflow " + wfid + " from XML view.");
+                    }, json, auth);
                 }
 
                 return false;
