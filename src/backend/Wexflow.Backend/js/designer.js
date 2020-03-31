@@ -172,6 +172,7 @@
                 nodes[i].addEventListener(type, listener, capture);
             }
         }
+
         function snapping(drag, first) {
             let grab = drag.querySelector(".grabme");
             grab.parentNode.removeChild(grab);
@@ -194,10 +195,12 @@
 
             return true;
         }
+
         function drag(block) {
             block.classList.add("blockdisabled");
             tempblock2 = block;
         }
+
         function release() {
             if (tempblock2) {
                 tempblock2.classList.remove("blockdisabled");
@@ -230,6 +233,7 @@
 
             closeTaskSettings();
         });
+
         let aclick = false;
         let beginTouch = function (event) {
             aclick = true;
@@ -239,14 +243,17 @@
         }
 
         let doneTouch = function (event) {
-
             if (event.type === "mouseup") {
                 updateTasks();
             }
 
-            if (event.type === "mouseup" && aclick) {
+            if (event.type === "mouseup" && aclick && event.target.closest(".noselect")) {
                 //if (!rightcard && event.target.closest(".block")) {
                 if (event.target.closest(".block")) {
+                    let selectedBlocks = document.getElementsByClassName("selectedblock");
+                    for (let i = 0; i < selectedBlocks.length; i++) {
+                        selectedBlocks[i].classList.remove("selectedblock");
+                    }
                     tempblock = event.target.closest(".block");
                     rightcard = true;
                     document.getElementById("properties").classList.add("expanded");
