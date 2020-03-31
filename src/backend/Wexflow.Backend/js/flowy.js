@@ -344,7 +344,7 @@ var flowy = function (canvas, grab, release, snapping, spacing_x, spacing_y) {
         }
 
         function hasParentClass(element, classname) {
-            if (element.className) {
+            if (element.className && element.className.split) {
                 if (element.className.split(' ').indexOf(classname) >= 0) return true;
             }
             return element.parentNode && hasParentClass(element.parentNode, classname);

@@ -488,9 +488,9 @@
                         }, workflow, auth);
                     };
 
-                    var wfIdStr = document.getElementById("wfid").value;
+                    let wfIdStr = document.getElementById("wfid").value;
                     if (isInt(wfIdStr)) {
-                        var workflowId = parseInt(wfIdStr);
+                        let workflowId = parseInt(wfIdStr);
 
                         if (checkId === true) {
                             Common.get(uri + "/isWorkflowIdValid/" + workflowId,
@@ -499,7 +499,7 @@
                                         if (document.getElementById("wfname").value === "") {
                                             Common.toastInfo("Enter a name for this workflow.");
                                         } else {
-                                            var lt = document.getElementById("wflaunchtype").value;
+                                            let lt = document.getElementById("wflaunchtype").value;
                                             if (lt === "") {
                                                 Common.toastInfo("Select a launchType for this workflow.");
                                             } else {
@@ -512,7 +512,7 @@
 
                                                         // Period validation
                                                         if (lt === "periodic" && document.getElementById("wfperiod").value !== "") {
-                                                            var period = document.getElementById("wfperiod").value;
+                                                            let period = document.getElementById("wfperiod").value;
                                                             Common.get(uri + "/isPeriodValid/" + period,
                                                                 function (res) {
                                                                     if (res === true) {
@@ -525,8 +525,8 @@
                                                             );
                                                         } // Cron expression validation
                                                         else if (lt === "cron" && document.getElementById("wfcronexp").value !== "") {
-                                                            var expression = document.getElementById("wfcronexp").value;
-                                                            var expressionEncoded = encodeURIComponent(expression);
+                                                            let expression = document.getElementById("wfcronexp").value;
+                                                            let expressionEncoded = encodeURIComponent(expression);
 
                                                             Common.get(uri + "/isCronExpressionValid?e=" + expressionEncoded,
                                                                 function (res) {
@@ -559,7 +559,7 @@
                             if (document.getElementById("wfname").value === "") {
                                 Common.toastInfo("Enter a name for this workflow.");
                             } else {
-                                var lt = document.getElementById("wflaunchtype").value;
+                                let lt = document.getElementById("wflaunchtype").value;
                                 if (lt === "") {
                                     Common.toastInfo("Select a launchType for this workflow.");
                                 } else {
@@ -572,7 +572,7 @@
 
                                             // Period validation
                                             if (lt === "periodic" && document.getElementById("wfperiod").value !== "") {
-                                                var period = document.getElementById("wfperiod").value;
+                                                let period = document.getElementById("wfperiod").value;
                                                 Common.get(uri + "/isPeriodValid/" + period,
                                                     function (res) {
                                                         if (res === true) {
@@ -585,8 +585,8 @@
                                                 );
                                             } // Cron expression validation
                                             else if (lt === "cron" && document.getElementById("wfcronexp").value !== "") {
-                                                var expression = document.getElementById("wfcronexp").value;
-                                                var expressionEncoded = encodeURIComponent(expression);
+                                                let expression = document.getElementById("wfcronexp").value;
+                                                let expressionEncoded = encodeURIComponent(expression);
 
                                                 Common.get(uri + "/isCronExpressionValid?e=" + expressionEncoded,
                                                     function (res) {
@@ -749,9 +749,9 @@
             };
 
             if (diag === true) {
-                var wfIdStr = document.getElementById("wfid").value;
+                let wfIdStr = document.getElementById("wfid").value;
                 if (isInt(wfIdStr)) {
-                    var workflowId = parseInt(wfIdStr);
+                    let workflowId = parseInt(wfIdStr);
 
                     if (checkId === true) {
                         Common.get(uri + "/isWorkflowIdValid/" + workflowId,
@@ -760,7 +760,7 @@
                                     if (document.getElementById("wfname").value === "") {
                                         Common.toastInfo("Enter a name for this workflow.");
                                     } else {
-                                        var lt = document.getElementById("wflaunchtype").value;
+                                        let lt = document.getElementById("wflaunchtype").value;
                                         if (lt === "") {
                                             Common.toastInfo("Select a launchType for this workflow.");
                                         } else {
@@ -773,7 +773,7 @@
 
                                                     // Period validation
                                                     if (lt === "periodic" && document.getElementById("wfperiod").value !== "") {
-                                                        var period = document.getElementById("wfperiod").value;
+                                                        let period = document.getElementById("wfperiod").value;
                                                         Common.get(uri + "/isPeriodValid/" + period,
                                                             function (res) {
                                                                 if (res === true) {
@@ -786,8 +786,8 @@
                                                         );
                                                     } // Cron expression validation
                                                     else if (lt === "cron" && document.getElementById("wfcronexp").value !== "") {
-                                                        var expression = document.getElementById("wfcronexp").value;
-                                                        var expressionEncoded = encodeURIComponent(expression);
+                                                        let expression = document.getElementById("wfcronexp").value;
+                                                        let expressionEncoded = encodeURIComponent(expression);
 
                                                         Common.get(uri + "/isCronExpressionValid?e=" + expressionEncoded,
                                                             function (res) {
@@ -820,7 +820,7 @@
                         if (document.getElementById("wfname").value === "") {
                             Common.toastInfo("Enter a name for this workflow.");
                         } else {
-                            var lt = document.getElementById("wflaunchtype").value;
+                            let lt = document.getElementById("wflaunchtype").value;
                             if (lt === "") {
                                 Common.toastInfo("Select a launchType for this workflow.");
                             } else {
@@ -833,7 +833,7 @@
 
                                         // Period validation
                                         if (lt === "periodic" && document.getElementById("wfperiod").value !== "") {
-                                            var period = document.getElementById("wfperiod").value;
+                                            let period = document.getElementById("wfperiod").value;
                                             Common.get(uri + "/isPeriodValid/" + period,
                                                 function (res) {
                                                     if (res === true) {
@@ -846,8 +846,8 @@
                                             );
                                         } // Cron expression validation
                                         else if (lt === "cron" && document.getElementById("wfcronexp").value !== "") {
-                                            var expression = document.getElementById("wfcronexp").value;
-                                            var expressionEncoded = encodeURIComponent(expression);
+                                            let expression = document.getElementById("wfcronexp").value;
+                                            let expressionEncoded = encodeURIComponent(expression);
 
                                             Common.get(uri + "/isCronExpressionValid?e=" + expressionEncoded,
                                                 function (res) {
@@ -877,7 +877,7 @@
                 }
             } else {
                 openJsonView();
-            }                  
+            }
         };
 
         // xml click
@@ -931,9 +931,9 @@
             };
 
             if (diag === true) {
-                var wfIdStr = document.getElementById("wfid").value;
+                let wfIdStr = document.getElementById("wfid").value;
                 if (isInt(wfIdStr)) {
-                    var workflowId = parseInt(wfIdStr);
+                    let workflowId = parseInt(wfIdStr);
 
                     if (checkId === true) {
                         Common.get(uri + "/isWorkflowIdValid/" + workflowId,
@@ -942,7 +942,7 @@
                                     if (document.getElementById("wfname").value === "") {
                                         Common.toastInfo("Enter a name for this workflow.");
                                     } else {
-                                        var lt = document.getElementById("wflaunchtype").value;
+                                        let lt = document.getElementById("wflaunchtype").value;
                                         if (lt === "") {
                                             Common.toastInfo("Select a launchType for this workflow.");
                                         } else {
@@ -955,7 +955,7 @@
 
                                                     // Period validation
                                                     if (lt === "periodic" && document.getElementById("wfperiod").value !== "") {
-                                                        var period = document.getElementById("wfperiod").value;
+                                                        let period = document.getElementById("wfperiod").value;
                                                         Common.get(uri + "/isPeriodValid/" + period,
                                                             function (res) {
                                                                 if (res === true) {
@@ -968,8 +968,8 @@
                                                         );
                                                     } // Cron expression validation
                                                     else if (lt === "cron" && document.getElementById("wfcronexp").value !== "") {
-                                                        var expression = document.getElementById("wfcronexp").value;
-                                                        var expressionEncoded = encodeURIComponent(expression);
+                                                        let expression = document.getElementById("wfcronexp").value;
+                                                        let expressionEncoded = encodeURIComponent(expression);
 
                                                         Common.get(uri + "/isCronExpressionValid?e=" + expressionEncoded,
                                                             function (res) {
@@ -1002,7 +1002,7 @@
                         if (document.getElementById("wfname").value === "") {
                             Common.toastInfo("Enter a name for this workflow.");
                         } else {
-                            var lt = document.getElementById("wflaunchtype").value;
+                            let lt = document.getElementById("wflaunchtype").value;
                             if (lt === "") {
                                 Common.toastInfo("Select a launchType for this workflow.");
                             } else {
@@ -1015,7 +1015,7 @@
 
                                         // Period validation
                                         if (lt === "periodic" && document.getElementById("wfperiod").value !== "") {
-                                            var period = document.getElementById("wfperiod").value;
+                                            let period = document.getElementById("wfperiod").value;
                                             Common.get(uri + "/isPeriodValid/" + period,
                                                 function (res) {
                                                     if (res === true) {
@@ -1028,8 +1028,8 @@
                                             );
                                         } // Cron expression validation
                                         else if (lt === "cron" && document.getElementById("wfcronexp").value !== "") {
-                                            var expression = document.getElementById("wfcronexp").value;
-                                            var expressionEncoded = encodeURIComponent(expression);
+                                            let expression = document.getElementById("wfcronexp").value;
+                                            let expressionEncoded = encodeURIComponent(expression);
 
                                             Common.get(uri + "/isCronExpressionValid?e=" + expressionEncoded,
                                                 function (res) {
@@ -1080,6 +1080,133 @@
             xml += '</Workflow>';
             return xml;
         }
+
+
+        // Browse workflows
+        document.getElementById("browse").onclick = function () {
+
+            Common.get(uri + "/search?s=",
+                function (workflows) {
+                    let browser = document.getElementById("browser");
+
+                    workflows.sort(compareById);
+
+                    let workflowsToTable = function (wfs) {
+                        let items = [];
+                        for (let i = 0; i < wfs.length; i++) {
+                            let val = wfs[i];
+
+                            items.push("<tr>" +
+                                //"<td><input class='wf-delete' type='checkbox'></td>" +
+                                "<td class='wf-id' title='" + val.Id + "'>" + val.Id + "</td>" +
+                                "<td class='wf-n' title='" + val.Name + "'>" + val.Name + "</td>" +
+                                "<td class='wf-n' title='" + val.Description + "'>" + val.Description + "</td>" +
+                                "</tr>");
+
+                        }
+
+                        let table = "<table id='wf-workflows-table' class='table'>" +
+                            "<thead class='thead-dark'>" +
+                            "<tr>" +
+                            //"<th><input id='wf-delete-all' type='checkbox'></th>" +
+                            "<th class='wf-id'>Id</th>" +
+                            "<th class='wf-n'>Name</th>" +
+                            "<th class='wf-d'>Description</th>" +
+                            "</tr>" +
+                            "</thead>" +
+                            "<tbody>" +
+                            items.join("") +
+                            "</tbody>" +
+                            "</table>";
+
+                        return table;
+                    };
+                    let search = '<div id="searchworkflows"><img src="assets/search.svg"><input id="searchworkflowsinput" type="text" placeholder="Search workflows"></div>';
+                    browser.innerHTML = workflowsToTable(workflows);
+                    let footer = '<div id="openworkflow">Open</div>';
+
+                    new jBox('Modal', {
+                        width: 800,
+                        height: 420,
+                        title: search,
+                        content: browser.innerHTML,
+                        footer: footer,
+                        delayOpen: 0
+                    }).open();
+
+                    let searchworkflows = document.getElementById("searchworkflowsinput");
+                    searchworkflows.onkeyup = function (event) {
+                        event.preventDefault();
+                        if (event.keyCode === 13) { // Enter
+                            let jbox = document.getElementsByClassName("jBox-content")[0];
+
+                            Common.get(uri + "/search?s=" + searchworkflows.value,
+                                function (wfs) {
+                                    wfs.sort(compareById);
+
+                                    jbox.innerHTML = workflowsToTable(wfs);
+
+                                    // selection changed event
+                                    let workflowsTable = jbox.childNodes[0];
+                                    let rows = (workflowsTable.getElementsByTagName("tbody")[0]).getElementsByTagName("tr");
+                                    for (let i = 0; i < rows.length; i++) {
+                                        let row = rows[i];
+
+                                        row.onclick = function () {
+                                            var selected = document.getElementsByClassName("selected");
+                                            if (selected.length > 0) {
+                                                selected[0].className = selected[0].className.replace("selected", "");
+                                            }
+                                            row.className += "selected";
+                                        };
+                                    }
+
+                                }, function () {
+                                    Common.toastError("An error occured while retrieving workflows. Check that wexflow server is running correctly.");
+                                }, auth);
+                        }
+                    };
+
+                    // selection changed event
+                    let workflowsTable = document.getElementsByClassName("jBox-content")[0].childNodes[0];
+                    let rows = (workflowsTable.getElementsByTagName("tbody")[0]).getElementsByTagName("tr");
+                    for (let i = 0; i < rows.length; i++) {
+                        let row = rows[i];
+
+                        row.onclick = function () {
+                            var selected = document.getElementsByClassName("selected");
+                            if (selected.length > 0) {
+                                selected[0].className = selected[0].className.replace("selected", "");
+                            }
+                            row.className += "selected";
+                        };
+                    }
+
+                    // open click
+                    document.getElementById("openworkflow").onclick = function () {
+                        var selected = document.getElementsByClassName("selected");
+                        if (selected.length === 0) {
+                            Common.toastInfo("Choose a workflow to open.");
+                        } else {
+                            // TODO
+                        }
+                    };
+
+                },
+                function () {
+                    Common.toastError("An error occured while retrieving workflows. Check that wexflow server is running correctly.");
+                }, auth);
+        };
+
+        function compareById(wf1, wf2) {
+            if (wf1.Id < wf2.Id) {
+                return -1;
+            } else if (wf1.Id > wf2.Id) {
+                return 1;
+            }
+            return 0;
+        }
+
     }
 
 };

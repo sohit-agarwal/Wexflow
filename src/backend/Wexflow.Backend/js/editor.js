@@ -3058,7 +3058,7 @@
 
     function loadWorkflowsResponse(data, callback) {
         data.sort(compareById);
-
+        
         var items = [];
         for (var i = 0; i < data.length; i++) {
             var val = data[i];
