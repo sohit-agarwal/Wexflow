@@ -136,6 +136,34 @@
                 }, 300);
                 tempblock.classList.remove("selectedblock");
             }
+
+            document.getElementById("wfid").value = "";
+            document.getElementById("wfname").value = "";
+            document.getElementById("wfdesc").value = "";
+            document.getElementById("wflaunchtype").value = "";
+            document.getElementById("wfperiod").onkeyup = "";
+            document.getElementById("wfcronexp").value = "";
+            document.getElementById("wfenabled").checked = true;
+            document.getElementById("wfapproval").checked = false;
+            document.getElementById("wfenablepj").checked = true;
+
+            workflow = {
+                "WorkflowInfo": {
+                    "Id": document.getElementById("wfid").value,
+                    "Name": document.getElementById("wfname").value,
+                    "Description": document.getElementById("wfdesc").value,
+                    "LaunchType": launchTypeReverse(document.getElementById("wflaunchtype").value),
+                    "Period": document.getElementById("wfperiod").value,
+                    "CronExpression": document.getElementById("wfcronexp").value,
+                    "IsEnabled": document.getElementById("wfenabled").checked,
+                    "IsApproval": document.getElementById("wfapproval").checked,
+                    "EnableParallelJobs": document.getElementById("wfenablepj").checked,
+                    "LocalVariables": []
+                },
+                "Tasks": []
+            }
+            tasks = {};
+
         };
 
         function addEventListenerMulti(type, listener, capture, selector) {
