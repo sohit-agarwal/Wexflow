@@ -193,7 +193,9 @@
             tempblock2 = block;
         }
         function release() {
-            tempblock2.classList.remove("blockdisabled");
+            if (tempblock2) {
+                tempblock2.classList.remove("blockdisabled");
+            }
         }
         /*let disabledClick = function(){
             document.querySelector(".navactive").classList.add("navdisabled");
@@ -1064,7 +1066,7 @@
 
         function getXml() {
             let xml = '<Workflow xmlns="urn:wexflow-schema" id="' + workflow.WorkflowInfo.Id + '" name="' + workflow.WorkflowInfo.Name + '" description="' + workflow.WorkflowInfo.Description + '">\r\n';
-            xml += '\t<Settings>\r\n\t\t<Setting name="launchType" value="' + launchType(workflow.WorkflowInfo.LaunchType) + '" />' + (workflow.WorkflowInfo.Period !== '' ? ('\r\n\t\t<Setting name="period" value="' + workflow.WorkflowInfo.Period + '" />') : '') + (workflow.WorkflowInfo.CronExpression !== '' ? ('\r\n\t\t<Setting name="cronExpression" value="' + workflow.WorkflowInfo.CronExpression + '" />') : '') + '\r\n\t\t<Setting name="enabled" value="' + workflow.WorkflowInfo.IsEnabled + '" />\r\n\t\t<Setting name="approval" value="' + workflow.WorkflowInfo.IsApproval + '" />\r\n\t\t<Setting name="enableParallelJobs" value="' + workflow.WorkflowInfo.EnableParallelJobs + '" />\r\n\t</Settings>\r\n';
+            xml += '\t<Settings>\r\n\t\t<Setting name="launchType" value="' + launchType(workflow.WorkflowInfo.LaunchType) + '" />' + (workflow.WorkflowInfo.Period !== '' && workflow.WorkflowInfo.Period !== '00:00:00' ? ('\r\n\t\t<Setting name="period" value="' + workflow.WorkflowInfo.Period + '" />') : '') + (workflow.WorkflowInfo.CronExpression !== '' && workflow.WorkflowInfo.CronExpression !== null ? ('\r\n\t\t<Setting name="cronExpression" value="' + workflow.WorkflowInfo.CronExpression + '" />') : '') + '\r\n\t\t<Setting name="enabled" value="' + workflow.WorkflowInfo.IsEnabled + '" />\r\n\t\t<Setting name="approval" value="' + workflow.WorkflowInfo.IsApproval + '" />\r\n\t\t<Setting name="enableParallelJobs" value="' + workflow.WorkflowInfo.EnableParallelJobs + '" />\r\n\t</Settings>\r\n';
             xml += '\t<LocalVariables />\r\n';
             xml += '\t<Tasks>\r\n';
             for (let i = 0; i < workflow.Tasks.length; i++) {
@@ -1072,7 +1074,9 @@
                 xml += '\t\t<Task id="' + task.Id + '" name="' + task.Name + '" description="' + task.Description + '" enabled="' + task.IsEnabled + '">\r\n';
                 for (let j = 0; j < task.Settings.length; j++) {
                     let setting = task.Settings[j];
-                    xml += '\t\t\t<Setting name="' + setting.Name + '" value="' + setting.Value + '" />\r\n';
+                    if (setting.Value !== "") {
+                        xml += '\t\t\t<Setting name="' + setting.Name + '" value="' + setting.Value + '" />\r\n';
+                    }
                 }
                 xml += '\t\t</Task>\r\n';
             }
@@ -1083,6 +1087,7 @@
 
 
         // Browse workflows
+        let modal = null;
         document.getElementById("browse").onclick = function () {
 
             Common.get(uri + "/search?s=",
@@ -1125,14 +1130,20 @@
                     browser.innerHTML = workflowsToTable(workflows);
                     let footer = '<div id="openworkflow">Open</div>';
 
-                    new jBox('Modal', {
+                    if (modal) {
+                        modal.destroy();
+                    }
+
+                    modal = new jBox('Modal', {
                         width: 800,
                         height: 420,
                         title: search,
                         content: browser.innerHTML,
                         footer: footer,
                         delayOpen: 0
-                    }).open();
+                    });
+
+                    modal.open();
 
                     let searchworkflows = document.getElementById("searchworkflowsinput");
                     searchworkflows.onkeyup = function (event) {
@@ -1188,7 +1199,80 @@
                         if (selected.length === 0) {
                             Common.toastInfo("Choose a workflow to open.");
                         } else {
-                            // TODO
+                            let id = selected[0].getElementsByClassName("wf-id")[0].innerHTML;
+                            Common.get(uri + "/json/" + id,
+                                function (val) {
+                                    workflow = val;
+
+                                    // fill workflow settings
+                                    document.getElementById("wfid").value = workflow.WorkflowInfo.Id;
+                                    document.getElementById("wfname").value = workflow.WorkflowInfo.Name;
+                                    document.getElementById("wfdesc").value = workflow.WorkflowInfo.Description;
+                                    document.getElementById("wflaunchtype").value = launchType(workflow.WorkflowInfo.LaunchType);
+                                    document.getElementById("wfperiod").onkeyup = workflow.WorkflowInfo.Period;
+                                    document.getElementById("wfcronexp").value = workflow.WorkflowInfo.CronExpression;
+                                    document.getElementById("wfenabled").checked = workflow.WorkflowInfo.IsEnabled;
+                                    document.getElementById("wfapproval").checked = workflow.WorkflowInfo.IsApproval;
+                                    document.getElementById("wfenablepj").checked = workflow.WorkflowInfo.EnableParallelJobs;
+
+                                    tasks = {};
+                                    for (let i = 0; i < workflow.Tasks.length; i++) {
+                                        let task = workflow.Tasks[i];
+                                        tasks[task.Name] = task;
+                                    }
+
+                                    // TODO load flowy
+                                    let flowyinput = {};
+                                    canvas.style.width = "100%";
+                                    canvas.style.left = "0";
+
+                                    // build canvashtml
+                                    let canvashtml = "";
+                                    let blockspace = 180;
+                                    let arrowspace = 180;
+                                    for (let i = 0; i < workflow.Tasks.length; i++) {
+                                        let task = workflow.Tasks[i];
+                                        canvashtml += "<div class='blockelem noselect block' style='left: 500px; top: " + (25 + blockspace * i) + "px;'><input type='hidden' name='blockelemtype' class='blockelemtype' value='" + task.Name + "'><input type='hidden' name='blockelemdesc' class='blockelemdesc' value='" + task.Description + "'><input type='hidden' name='blockid' class='blockid' value='" + i + "'><div class='blockyleft'><img src='assets/actionorange.svg'><p class='blockyname'>" + task.Name + "</p></div><div class='blockyright'><img src='assets/more.svg'></div><div class='blockydiv'></div><div class='blockyinfo'>" + task.Description + "</div><div class='indicator invisible' style='left: 154px; top: 100px;'></div></div>";
+                                        if (i < workflow.Tasks.length - 1) {
+                                            canvashtml += "<div class='arrowblock' style='left: 639px; top: " + (125 + arrowspace * i) + "px;'><input type='hidden' class='arrowid' value='" + (i + 1) + "'><svg preserveAspectRatio='none' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M20 0L20 40L20 40L20 80' stroke='#C5CCD0' stroke-width='2px'></path><path d='M15 75H25L20 80L15 75Z' fill='#C5CCD0'></path></svg></div>";
+                                        }
+                                    }
+
+                                    // build blockarr
+                                    let blockarr = [];
+                                    for (let i = 0; i < workflow.Tasks.length; i++) {
+                                        blockarr.push(
+                                            {
+                                                "parent": i - 1,
+                                                "childwidth": (i < workflow.Tasks.length - 1 ? 318 : 0),
+                                                "id": i,
+                                                "x": 644,
+                                                "y": 190 + blockspace * i,
+                                                "width": 318,
+                                                "height": 100
+                                            });
+                                    }
+
+                                    flowyinput = {
+                                        "html": canvashtml,
+                                        "blockarr": blockarr
+                                    };
+
+                                    flowy.import(flowyinput);
+
+                                    // disable checkId
+                                    checkId = false;
+
+                                    // TODO show delete button
+
+                                    // close jBox
+                                    modal.close();
+                                    modal.destroy();
+
+
+                                },
+                                function () { }, auth);
+
                         }
                     };
 
