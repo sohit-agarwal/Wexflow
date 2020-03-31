@@ -17,7 +17,8 @@
     transition: all .3s cubic-bezier(.05,.03,.35,1);
     transform: scale(1);
     position: absolute;
-    z-index: 2
+    z-index: 2;
+    visibility: hidden;
 }
 
 .invisible {
@@ -25,7 +26,7 @@
     transform: scale(0)
 }
 
-.indicator:after {
+/*.indicator:after {
     content: "";
     display: block;
     width: 12px;
@@ -33,8 +34,8 @@
     background-color: #217ce8;
     transform: scale(1.7);
     opacity: .2;
-    border-radius: 60px
-}
+    border-radius: 60px;
+}*/
 
 .arrowblock {
     position: absolute;
