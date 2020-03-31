@@ -124,7 +124,7 @@
             closecardimg.src = "assets/closeleft.png";
 
             document.getElementById("wfpropwrap").style.right = "0";
-            wfclose.style.right = "330px";
+            wfclose.style.right = "311px";
             wfpropHidden = false;
             closewfcardimg.src = "assets/openleft.png";
 
@@ -400,7 +400,7 @@
                 closewfcardimg.src = "assets/closeleft.png";
             } else {
                 document.getElementById("wfpropwrap").style.right = "0";
-                wfclose.style.right = "330px";
+                wfclose.style.right = "311px";
                 wfpropHidden = false;
                 closewfcardimg.src = "assets/openleft.png";
 
