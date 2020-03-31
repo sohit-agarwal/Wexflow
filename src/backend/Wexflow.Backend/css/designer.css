@@ -649,7 +649,7 @@ transition: all .25s cubic-bezier(.05,.03,.35,1);
 }
 
 #wfproplist {
-	height: calc(100% - 280px);
+	height: calc(100% - 240px);
 	overflow: auto;
 	margin-top: -30px;
 	padding-top: 30px;
@@ -714,19 +714,19 @@ bottom: 80px;
 }
 
 #removeblock {
-border-radius: 5px;
-position: absolute;
-font-family: Roboto;
-font-size: 14px;
-text-align: center;
-width: 287px;
-height: 38px;
-line-height: 38px;
-color: #fff;
-border: 1px solid #E8E8EF;
-transition: all .3s cubic-bezier(.05,.03,.35,1);
-margin-top: 10px;
-background-color: #d9534f;
+	border-radius: 5px;
+	position: absolute;
+	font-family: Roboto;
+	font-size: 14px;
+	text-align: center;
+	width: 287px;
+	height: 38px;
+	line-height: 38px;
+	color: #fff;
+	border: 1px solid #E8E8EF;
+	transition: all .3s cubic-bezier(.05,.03,.35,1);
+	margin-top: 10px;
+	background-color: #d9534f;
 }
 
 #removeblock:hover {

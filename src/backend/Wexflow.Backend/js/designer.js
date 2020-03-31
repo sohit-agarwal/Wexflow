@@ -248,6 +248,9 @@
                         if (res === true) {
                             Common.toastSuccess("Workflow " + workflowId + " deleted with success.");
 
+                            flowy.deleteBlocks();
+                            closeTaskSettings();
+
                             document.getElementById("wfid").value = "";
                             document.getElementById("wfname").value = "";
                             document.getElementById("wfdesc").value = "";
