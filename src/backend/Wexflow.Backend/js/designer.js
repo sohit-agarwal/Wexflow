@@ -226,10 +226,10 @@
         document.getElementById("removeblock").addEventListener("click", function () {
             flowy.deleteBlocks();
 
-            document.getElementById("wfpropwrap").style.right = -wfpropwidth + "px";
-            wfclose.style.right = "0";
-            wfpropHidden = true;
-            closewfcardimg.src = "assets/closeleft.png";
+            //document.getElementById("wfpropwrap").style.right = -wfpropwidth + "px";
+            //wfclose.style.right = "0";
+            //wfpropHidden = true;
+            //closewfcardimg.src = "assets/closeleft.png";
 
             closeTaskSettings();
         });

@@ -412,7 +412,7 @@ padding-left: 20px;
 }
 
 #proplist {
-height: calc(100% - 235px);
+height: calc(100% - 180px);
 overflow: auto;
 margin-top: -30px;
 padding-top: 30px;
@@ -629,7 +629,7 @@ transition: all .25s cubic-bezier(.05,.03,.35,1);
 }
 
 #wfproplist {
-	height: calc(100% - 180px);
+	height: calc(100% - 280px);
 	overflow: auto;
 	margin-top: -30px;
 	padding-top: 30px;
