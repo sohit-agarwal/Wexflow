@@ -149,29 +149,7 @@
             grab.parentNode.removeChild(grab);
             let blockin = drag.querySelector(".blockin");
             blockin.parentNode.removeChild(blockin);
-            /*if (drag.querySelector(".blockelemtype").value == "1") {
-                drag.innerHTML += "<div class='blockyleft'><img src='assets/eyeblue.svg'><p class='blockyname'>New visitor</p></div><div class='blockyright'><img src='assets/more.svg'></div><div class='blockydiv'></div><div class='blockyinfo'>When a <span>new visitor</span> goes to <span>Site 1</span></div>";
-            } else if (drag.querySelector(".blockelemtype").value == "2") {
-                drag.innerHTML += "<div class='blockyleft'><img src='assets/actionblue.svg'><p class='blockyname'>Action is performed</p></div><div class='blockyright'><img src='assets/more.svg'></div><div class='blockydiv'></div><div class='blockyinfo'>When <span>Action 1</span> is performed</div>";
-            } else if (drag.querySelector(".blockelemtype").value == "3") {
-                drag.innerHTML += "<div class='blockyleft'><img src='assets/timeblue.svg'><p class='blockyname'>Time has passed</p></div><div class='blockyright'><img src='assets/more.svg'></div><div class='blockydiv'></div><div class='blockyinfo'>When <span>10 seconds</span> have passed</div>";
-            } else if (drag.querySelector(".blockelemtype").value == "4") {
-                drag.innerHTML += "<div class='blockyleft'><img src='assets/errorblue.svg'><p class='blockyname'>Error prompt</p></div><div class='blockyright'><img src='assets/more.svg'></div><div class='blockydiv'></div><div class='blockyinfo'>When <span>Error 1</span> is triggered</div>";
-            } else if (drag.querySelector(".blockelemtype").value == "5") {
-                drag.innerHTML += "<div class='blockyleft'><img src='assets/databaseorange.svg'><p class='blockyname'>New database entry</p></div><div class='blockyright'><img src='assets/more.svg'></div><div class='blockydiv'></div><div class='blockyinfo'>Add <span>Data object</span> to <span>Database 1</span></div>";
-            } else if (drag.querySelector(".blockelemtype").value == "6") {
-                drag.innerHTML += "<div class='blockyleft'><img src='assets/databaseorange.svg'><p class='blockyname'>Update database</p></div><div class='blockyright'><img src='assets/more.svg'></div><div class='blockydiv'></div><div class='blockyinfo'>Update <span>Database 1</span></div>";
-            } else if (drag.querySelector(".blockelemtype").value == "7") {
-                drag.innerHTML += "<div class='blockyleft'><img src='assets/actionorange.svg'><p class='blockyname'>Perform an action</p></div><div class='blockyright'><img src='assets/more.svg'></div><div class='blockydiv'></div><div class='blockyinfo'>Perform <span>Action 1</span></div>";
-            } else if (drag.querySelector(".blockelemtype").value == "8") {
-                drag.innerHTML += "<div class='blockyleft'><img src='assets/twitterorange.svg'><p class='blockyname'>Make a tweet</p></div><div class='blockyright'><img src='assets/more.svg'></div><div class='blockydiv'></div><div class='blockyinfo'>Tweet <span>Query 1</span> with the account <span>@alyssaxuu</span></div>";
-            } else if (drag.querySelector(".blockelemtype").value == "9") {
-                drag.innerHTML += "<div class='blockyleft'><img src='assets/logred.svg'><p class='blockyname'>Add new log entry</p></div><div class='blockyright'><img src='assets/more.svg'></div><div class='blockydiv'></div><div class='blockyinfo'>Add new <span>success</span> log entry</div>";
-            } else if (drag.querySelector(".blockelemtype").value == "10") {
-                drag.innerHTML += "<div class='blockyleft'><img src='assets/logred.svg'><p class='blockyname'>Update logs</p></div><div class='blockyright'><img src='assets/more.svg'></div><div class='blockydiv'></div><div class='blockyinfo'>Edit <span>Log Entry 1</span></div>";
-            } else if (drag.querySelector(".blockelemtype").value == "11") {
-                drag.innerHTML += "<div class='blockyleft'><img src='assets/errorred.svg'><p class='blockyname'>Prompt an error</p></div><div class='blockyright'><img src='assets/more.svg'></div><div class='blockydiv'></div><div class='blockyinfo'>Trigger <span>Error 1</span></div>";
-            }*/
+
             let taskname = drag.querySelector(".blockelemtype").value;
             let taskdesc = drag.querySelector(".blockelemdesc").value;
             drag.innerHTML += "<div class='blockyleft'><img src='assets/actionorange.svg'><p class='blockyname'>" + taskname + "</p></div><div class='blockyright'><img src='assets/more.svg'></div><div class='blockydiv'></div><div class='blockyinfo'>" + taskdesc + "</div>";
@@ -197,20 +175,7 @@
                 tempblock2.classList.remove("blockdisabled");
             }
         }
-        /*let disabledClick = function(){
-            document.querySelector(".navactive").classList.add("navdisabled");
-            document.querySelector(".navactive").classList.remove("navactive");
-            this.classList.add("navactive");
-            this.classList.remove("navdisabled");
-            if (this.getAttribute("id") == "triggers") {
-                document.getElementById("blocklist").innerHTML = '<div class="blockelem create-flowy noselect"><input type="hidden" name="blockelemtype" class="blockelemtype" value="1"><div class="grabme"><img src="assets/grabme.svg"></div><div class="blockin">                  <div class="blockico"><span></span><img src="assets/eye.svg"></div><div class="blocktext">                        <p class="blocktitle">New visitor</p><p class="blockdesc">Triggers when somebody visits a specified page</p>        </div></div></div><div class="blockelem create-flowy noselect"><input type="hidden" name="blockelemtype" class="blockelemtype" value="2"><div class="grabme"><img src="assets/grabme.svg"></div><div class="blockin">                    <div class="blockico"><span></span><img src="assets/action.svg"></div><div class="blocktext">                        <p class="blocktitle">Action is performed</p><p class="blockdesc">Triggers when somebody performs a specified action</p></div></div></div><div class="blockelem create-flowy noselect"><input type="hidden" name="blockelemtype" class="blockelemtype" value="3"><div class="grabme"><img src="assets/grabme.svg"></div><div class="blockin">                    <div class="blockico"><span></span><img src="assets/time.svg"></div><div class="blocktext">                        <p class="blocktitle">Time has passed</p><p class="blockdesc">Triggers after a specified amount of time</p>          </div></div></div><div class="blockelem create-flowy noselect"><input type="hidden" name="blockelemtype" class="blockelemtype" value="4"><div class="grabme"><img src="assets/grabme.svg"></div><div class="blockin">                    <div class="blockico"><span></span><img src="assets/error.svg"></div><div class="blocktext">                        <p class="blocktitle">Error prompt</p><p class="blockdesc">Triggers when a specified error happens</p>              </div></div></div>';
-            } else if (this.getAttribute("id") == "actions") {
-                document.getElementById("blocklist").innerHTML = '<div class="blockelem create-flowy noselect"><input type="hidden" name="blockelemtype" class="blockelemtype" value="5"><div class="grabme"><img src="assets/grabme.svg"></div><div class="blockin">                  <div class="blockico"><span></span><img src="assets/database.svg"></div><div class="blocktext">                        <p class="blocktitle">New database entry</p><p class="blockdesc">Adds a new entry to a specified database</p>        </div></div></div><div class="blockelem create-flowy noselect"><input type="hidden" name="blockelemtype" class="blockelemtype" value="6"><div class="grabme"><img src="assets/grabme.svg"></div><div class="blockin">                  <div class="blockico"><span></span><img src="assets/database.svg"></div><div class="blocktext">                        <p class="blocktitle">Update database</p><p class="blockdesc">Edits and deletes database entries and properties</p>        </div></div></div><div class="blockelem create-flowy noselect"><input type="hidden" name="blockelemtype" class="blockelemtype" value="7"><div class="grabme"><img src="assets/grabme.svg"></div><div class="blockin">                  <div class="blockico"><span></span><img src="assets/action.svg"></div><div class="blocktext">                        <p class="blocktitle">Perform an action</p><p class="blockdesc">Performs or edits a specified action</p>        </div></div></div><div class="blockelem create-flowy noselect"><input type="hidden" name="blockelemtype" class="blockelemtype" value="8"><div class="grabme"><img src="assets/grabme.svg"></div><div class="blockin">                  <div class="blockico"><span></span><img src="assets/twitter.svg"></div><div class="blocktext">                        <p class="blocktitle">Make a tweet</p><p class="blockdesc">Makes a tweet with a specified query</p>        </div></div></div>';
-            } else if (this.getAttribute("id") == "loggers") {
-                document.getElementById("blocklist").innerHTML = '<div class="blockelem create-flowy noselect"><input type="hidden" name="blockelemtype" class="blockelemtype" value="9"><div class="grabme"><img src="assets/grabme.svg"></div><div class="blockin">                  <div class="blockico"><span></span><img src="assets/log.svg"></div><div class="blocktext">                        <p class="blocktitle">Add new log entry</p><p class="blockdesc">Adds a new log entry to this project</p>        </div></div></div><div class="blockelem create-flowy noselect"><input type="hidden" name="blockelemtype" class="blockelemtype" value="10"><div class="grabme"><img src="assets/grabme.svg"></div><div class="blockin">                  <div class="blockico"><span></span><img src="assets/log.svg"></div><div class="blocktext">                        <p class="blocktitle">Update logs</p><p class="blockdesc">Edits and deletes log entries in this project</p>        </div></div></div><div class="blockelem create-flowy noselect"><input type="hidden" name="blockelemtype" class="blockelemtype" value="11"><div class="grabme"><img src="assets/grabme.svg"></div><div class="blockin">                  <div class="blockico"><span></span><img src="assets/error.svg"></div><div class="blocktext">                        <p class="blocktitle">Prompt an error</p><p class="blockdesc">Triggers a specified error</p>        </div></div></div>';
-            }
-        }
-        addEventListenerMulti("click", disabledClick, false, ".side");*/
+
         function closeTaskSettings() {
             if (rightcard) {
                 rightcard = false;
@@ -357,10 +322,10 @@
             if (leftcardHidden === false) {
 
                 document.getElementById("leftcard").style.left = -leftcardwidth + "px";
+                closecardimg.src = "assets/openleft.png";
                 leftcardHidden = true;
                 canvas.style.left = "0";
                 canvas.style.width = "100%";
-                closecardimg.src = "assets/openleft.png";
 
                 for (let i = 0; i < blockelems.length; i++) {
                     let blockelm = blockelems[i];
@@ -375,10 +340,10 @@
             } else {
 
                 document.getElementById("leftcard").style.left = "0";
+                closecardimg.src = "assets/closeleft.png";
                 leftcardHidden = false;
                 canvas.style.left = leftcardwidth + "px";
                 canvas.style.width = "calc(100% - " + leftcardwidth + "px)";
-                closecardimg.src = "assets/closeleft.png";
 
                 for (let i = 0; i < blockelems.length; i++) {
                     let blockelm = blockelems[i];
@@ -702,53 +667,54 @@
         };
 
         // json click
+
+        function openJsonView(jsonVal) {
+            diag = false;
+            json = true;
+            xml = false;
+
+            leftcard.style.display = "none";
+            propwrap.style.display = "none";
+            wfclose.style.display = "none";
+            wfpropwrap.style.display = "none";
+            canvas.style.display = "none";
+            code.style.display = "block";
+
+            document.getElementById("middleswitch").style.backgroundColor = "#F0F0F0";
+            document.getElementById("leftswitch").style.backgroundColor = "transparent";
+            document.getElementById("rightswitch").style.backgroundColor = "transparent";
+
+            editor = ace.edit("code");
+            editor.setOptions({
+                maxLines: Infinity,
+                autoScrollEditorIntoView: true
+            });
+
+            editor.setReadOnly(false);
+            editor.setFontSize("100%");
+            editor.setPrintMarginColumn(false);
+            editor.getSession().setMode("ace/mode/json");
+
+            editor.commands.addCommand({
+                name: "showKeyboardShortcuts",
+                bindKey: { win: "Ctrl-Alt-h", mac: "Command-Alt-h" },
+                exec: function (editor) {
+                    ace.config.loadModule("ace/ext/keybinding_menu", function (module) {
+                        module.init(editor);
+                        editor.showKeyboardShortcuts()
+                    })
+                }
+            });
+
+            editor.setValue(jsonVal, -1);
+            editor.clearSelection();
+            editor.resize(true);
+            editor.focus();
+        }
+
         document.getElementById("middleswitch").onclick = function () {
 
-            // TODO diagram validation when switching from diagram view
-
-            let openJsonView = function () {
-                diag = false;
-                json = true;
-                xml = false;
-
-                leftcard.style.display = "none";
-                propwrap.style.display = "none";
-                wfclose.style.display = "none";
-                wfpropwrap.style.display = "none";
-                canvas.style.display = "none";
-                code.style.display = "block";
-
-                document.getElementById("middleswitch").style.backgroundColor = "#F0F0F0";
-                document.getElementById("leftswitch").style.backgroundColor = "transparent";
-                document.getElementById("rightswitch").style.backgroundColor = "transparent";
-
-                editor = ace.edit("code");
-                editor.setOptions({
-                    maxLines: Infinity,
-                    autoScrollEditorIntoView: true
-                });
-
-                editor.setReadOnly(false);
-                editor.setFontSize("100%");
-                editor.setPrintMarginColumn(false);
-                editor.getSession().setMode("ace/mode/json");
-
-                editor.commands.addCommand({
-                    name: "showKeyboardShortcuts",
-                    bindKey: { win: "Ctrl-Alt-h", mac: "Command-Alt-h" },
-                    exec: function (editor) {
-                        ace.config.loadModule("ace/ext/keybinding_menu", function (module) {
-                            module.init(editor);
-                            editor.showKeyboardShortcuts()
-                        })
-                    }
-                });
-
-                editor.setValue(JSON.stringify(workflow, null, '\t'), -1);
-                editor.clearSelection();
-                editor.resize(true);
-                editor.focus();
-            };
+            let jsonVal = JSON.stringify(workflow, null, '\t');
 
             if (diag === true) {
                 let wfIdStr = document.getElementById("wfid").value;
@@ -779,7 +745,7 @@
                                                         Common.get(uri + "/isPeriodValid/" + period,
                                                             function (res) {
                                                                 if (res === true) {
-                                                                    openJsonView();
+                                                                    openJsonView(jsonVal);
                                                                 } else {
                                                                     Common.toastInfo("The period format is not valid. The valid format is: dd.hh:mm:ss");
                                                                 }
@@ -794,7 +760,7 @@
                                                         Common.get(uri + "/isCronExpressionValid?e=" + expressionEncoded,
                                                             function (res) {
                                                                 if (res === true) {
-                                                                    openJsonView();
+                                                                    openJsonView(jsonVal);
                                                                 } else {
                                                                     if (confirm("The cron expression format is not valid.\nRead the documentation?")) {
                                                                         openInNewTab("https://github.com/aelassas/Wexflow/wiki/Cron-scheduling");
@@ -804,7 +770,7 @@
                                                             function () { }, auth
                                                         );
                                                     } else {
-                                                        openJsonView();
+                                                        openJsonView(jsonVal);
                                                     }
 
                                                 }
@@ -839,7 +805,7 @@
                                             Common.get(uri + "/isPeriodValid/" + period,
                                                 function (res) {
                                                     if (res === true) {
-                                                        openJsonView();
+                                                        openJsonView(jsonVal);
                                                     } else {
                                                         Common.toastInfo("The period format is not valid. The valid format is: dd.hh:mm:ss");
                                                     }
@@ -854,7 +820,7 @@
                                             Common.get(uri + "/isCronExpressionValid?e=" + expressionEncoded,
                                                 function (res) {
                                                     if (res === true) {
-                                                        openJsonView();
+                                                        openJsonView(jsonVal);
                                                     } else {
                                                         if (confirm("The cron expression format is not valid.\nRead the documentation?")) {
                                                             openInNewTab("https://github.com/aelassas/Wexflow/wiki/Cron-scheduling");
@@ -864,7 +830,7 @@
                                                 function () { }, auth
                                             );
                                         } else {
-                                            openJsonView();
+                                            openJsonView(jsonVal);
                                         }
 
                                     }
@@ -878,59 +844,58 @@
                     Common.toastInfo("Enter a valid workflow id.");
                 }
             } else {
-                openJsonView();
+                openJsonView(jsonVal);
             }
         };
 
         // xml click
+
+        function openXmlView(xmlVal) {
+
+            diag = false;
+            json = false;
+            xml = true;
+
+            leftcard.style.display = "none";
+            propwrap.style.display = "none";
+            wfclose.style.display = "none";
+            wfpropwrap.style.display = "none";
+            canvas.style.display = "none";
+            code.style.display = "block";
+
+            document.getElementById("rightswitch").style.backgroundColor = "#F0F0F0";
+            document.getElementById("leftswitch").style.backgroundColor = "transparent";
+            document.getElementById("middleswitch").style.backgroundColor = "transparent";
+
+            editor = ace.edit("code");
+            editor.setOptions({
+                maxLines: Infinity,
+                autoScrollEditorIntoView: true
+            });
+
+            editor.setReadOnly(false);
+            editor.setFontSize("100%");
+            editor.setPrintMarginColumn(false);
+            editor.getSession().setMode("ace/mode/xml");
+
+            editor.commands.addCommand({
+                name: "showKeyboardShortcuts",
+                bindKey: { win: "Ctrl-Alt-h", mac: "Command-Alt-h" },
+                exec: function (editor) {
+                    ace.config.loadModule("ace/ext/keybinding_menu", function (module) {
+                        module.init(editor);
+                        editor.showKeyboardShortcuts()
+                    })
+                }
+            });
+
+            editor.setValue(xmlVal, -1);
+            editor.clearSelection();
+            editor.resize(true);
+            editor.focus();
+        };
+
         document.getElementById("rightswitch").onclick = function () {
-
-            // TODO diagram validation when switching from diagram view
-
-            let openXmlView = function () {
-
-                diag = false;
-                json = false;
-                xml = true;
-
-                leftcard.style.display = "none";
-                propwrap.style.display = "none";
-                wfclose.style.display = "none";
-                wfpropwrap.style.display = "none";
-                canvas.style.display = "none";
-                code.style.display = "block";
-
-                document.getElementById("rightswitch").style.backgroundColor = "#F0F0F0";
-                document.getElementById("leftswitch").style.backgroundColor = "transparent";
-                document.getElementById("middleswitch").style.backgroundColor = "transparent";
-
-                editor = ace.edit("code");
-                editor.setOptions({
-                    maxLines: Infinity,
-                    autoScrollEditorIntoView: true
-                });
-
-                editor.setReadOnly(false);
-                editor.setFontSize("100%");
-                editor.setPrintMarginColumn(false);
-                editor.getSession().setMode("ace/mode/xml");
-
-                editor.commands.addCommand({
-                    name: "showKeyboardShortcuts",
-                    bindKey: { win: "Ctrl-Alt-h", mac: "Command-Alt-h" },
-                    exec: function (editor) {
-                        ace.config.loadModule("ace/ext/keybinding_menu", function (module) {
-                            module.init(editor);
-                            editor.showKeyboardShortcuts()
-                        })
-                    }
-                });
-
-                editor.setValue(getXml(), -1);
-                editor.clearSelection();
-                editor.resize(true);
-                editor.focus();
-            };
 
             if (diag === true) {
                 let wfIdStr = document.getElementById("wfid").value;
@@ -961,7 +926,7 @@
                                                         Common.get(uri + "/isPeriodValid/" + period,
                                                             function (res) {
                                                                 if (res === true) {
-                                                                    openXmlView();
+                                                                    openXmlView(getXml());
                                                                 } else {
                                                                     Common.toastInfo("The period format is not valid. The valid format is: dd.hh:mm:ss");
                                                                 }
@@ -976,7 +941,7 @@
                                                         Common.get(uri + "/isCronExpressionValid?e=" + expressionEncoded,
                                                             function (res) {
                                                                 if (res === true) {
-                                                                    openXmlView();
+                                                                    openXmlView(getXml());
                                                                 } else {
                                                                     if (confirm("The cron expression format is not valid.\nRead the documentation?")) {
                                                                         openInNewTab("https://github.com/aelassas/Wexflow/wiki/Cron-scheduling");
@@ -986,7 +951,7 @@
                                                             function () { }, auth
                                                         );
                                                     } else {
-                                                        openXmlView();
+                                                        openXmlView(getXml());
                                                     }
 
                                                 }
@@ -1021,7 +986,7 @@
                                             Common.get(uri + "/isPeriodValid/" + period,
                                                 function (res) {
                                                     if (res === true) {
-                                                        openXmlView();
+                                                        openXmlView(getXml());
                                                     } else {
                                                         Common.toastInfo("The period format is not valid. The valid format is: dd.hh:mm:ss");
                                                     }
@@ -1036,7 +1001,7 @@
                                             Common.get(uri + "/isCronExpressionValid?e=" + expressionEncoded,
                                                 function (res) {
                                                     if (res === true) {
-                                                        openXmlView();
+                                                        openXmlView(getXml());
                                                     } else {
                                                         if (confirm("The cron expression format is not valid.\nRead the documentation?")) {
                                                             openInNewTab("https://github.com/aelassas/Wexflow/wiki/Cron-scheduling");
@@ -1046,7 +1011,7 @@
                                                 function () { }, auth
                                             );
                                         } else {
-                                            openXmlView();
+                                            openXmlView(getXml());
                                         }
 
                                     }
@@ -1060,7 +1025,7 @@
                     Common.toastInfo("Enter a valid workflow id.");
                 }
             } else {
-                openXmlView();
+                openXmlView(getXml());
             }
         };
 
@@ -1195,11 +1160,26 @@
 
                     // open click
                     document.getElementById("openworkflow").onclick = function () {
+
                         var selected = document.getElementsByClassName("selected");
                         if (selected.length === 0) {
                             Common.toastInfo("Choose a workflow to open.");
                         } else {
                             let id = selected[0].getElementsByClassName("wf-id")[0].innerHTML;
+
+                            if (json === true) {
+                                Common.get(uri + "/json/" + id,
+                                    function (val) {
+                                        openJsonView(JSON.stringify(val, null, '\t'));
+                                    }, function () { }, auth);
+                            } else if (xml === true) {
+                                Common.get(uri + "/xml/" + id,
+                                    function (val) {
+                                        openXmlView(val);
+                                    }, function () { }, auth);
+                            }
+
+                            // load diagram
                             Common.get(uri + "/json/" + id,
                                 function (val) {
                                     workflow = val;
@@ -1221,10 +1201,21 @@
                                         tasks[task.Name] = task;
                                     }
 
-                                    // TODO load flowy
+                                    // load flowy
                                     let flowyinput = {};
                                     canvas.style.width = "100%";
                                     canvas.style.left = "0";
+
+                                    document.getElementById("leftcard").style.left = -leftcardwidth + "px";
+                                    closecardimg.src = "assets/openleft.png";
+                                    leftcardHidden = true;
+
+                                    document.getElementById("wfpropwrap").style.right = -wfpropwidth + "px";
+                                    wfclose.style.right = "0";
+                                    wfpropHidden = true;
+                                    closewfcardimg.src = "assets/closeleft.png";
+
+                                    closeTaskSettings();
 
                                     // build canvashtml
                                     let canvashtml = "";
