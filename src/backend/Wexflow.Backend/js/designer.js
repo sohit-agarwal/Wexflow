@@ -267,6 +267,8 @@
                             closecardimg.src = "assets/openleft.png";
                             leftcardHidden = true;
 
+                            removeworkflow.style.display = "none";
+
                             workflow = {
                                 "WorkflowInfo": {
                                     "Id": document.getElementById("wfid").value,
