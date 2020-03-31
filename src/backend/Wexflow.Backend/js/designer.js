@@ -86,6 +86,7 @@
         let tasks = {};
         let editor = null;
         let checkId = true;
+        let removeworkflow = document.getElementById("removeworkflow");
 
         flowy(canvas, drag, release, snapping);
 
@@ -116,6 +117,7 @@
         document.getElementById("newworkflow").onclick = function () {
             checkId = true;
             flowy.deleteBlocks();
+            removeworkflow.style.display = "none";
 
             document.getElementById("leftcard").style.left = "0";
             leftcardHidden = false;
@@ -216,14 +218,47 @@
         });
 
         document.getElementById("removeblock").addEventListener("click", function () {
-            flowy.deleteBlocks();
+            var confirmRes = confirm("Are you sure you want to delete all the tasks?");
+            if (confirmRes === true) {
+                flowy.deleteBlocks();
+                closeTaskSettings();
+            }
+        });
 
-            //document.getElementById("wfpropwrap").style.right = -wfpropwidth + "px";
-            //wfclose.style.right = "0";
-            //wfpropHidden = true;
-            //closewfcardimg.src = "assets/closeleft.png";
+        removeworkflow.addEventListener("click", function () {
+            let workflowId = document.getElementById("wfid").value;
+            var confirmRes = confirm("Are you sure you want to delete the workflow " + workflowId + "?");
+            if (confirmRes === true) {
+                Common.post(uri + "/delete?w=" + workflowId,
+                    function (res) {
+                        if (res === true) {
+                            Common.toastSuccess("Workflow " + workflowId + " deleted with success.");
 
-            closeTaskSettings();
+                            document.getElementById("wfid").value = "";
+                            document.getElementById("wfname").value = "";
+                            document.getElementById("wfdesc").value = "";
+                            document.getElementById("wflaunchtype").value = "";
+                            document.getElementById("wfperiod").onkeyup = "";
+                            document.getElementById("wfcronexp").value = "";
+                            document.getElementById("wfenabled").checked = true;
+                            document.getElementById("wfapproval").checked = false;
+                            document.getElementById("wfenablepj").checked = true;
+
+                            document.getElementById("wfpropwrap").style.right = -wfpropwidth + "px";
+                            wfpropHidden = true;
+                            closewfcardimg.src = "assets/closeleft.png";
+                            wfclose.style.right = "0";
+
+                            document.getElementById("leftcard").style.left = -leftcardwidth + "px";
+                            closecardimg.src = "assets/openleft.png";
+                            leftcardHidden = true;
+                        } else {
+                            Common.toastError("An error occured while deleting the workflow" + workflowId + ".");
+                        }
+                    }, function () {
+                        Common.toastError("An error occured while deleting the workflow" + workflowId + ".");
+                    }, "", auth);
+            }
         });
 
         let aclick = false;
@@ -254,7 +289,6 @@
                     document.getElementById("wfpropwrap").style.right = -wfpropwidth + "px";
                     wfpropHidden = true;
                     closewfcardimg.src = "assets/closeleft.png";
-
                     wfclose.style.right = "-60px";
 
                     // task settings
@@ -474,6 +508,7 @@
                         Common.post(uri + "/save", function (res) {
                             if (res === true) {
                                 checkId = false;
+                                removeworkflow.style.display = "block";
                                 Common.toastSuccess("workflow " + wfid + " saved and loaded with success from diagram view.");
                             } else {
                                 Common.toastError("An error occured while saving the workflow " + wfid + " from diagram view.");
@@ -614,6 +649,7 @@
                     let json = JSON.parse(editor.getValue());
                     Common.post(uri + "/save", function (res) {
                         if (res === true) {
+                            removeworkflow.style.display = "block";
                             Common.toastSuccess("workflow " + wfid + " saved and loaded with success from JSON view.");
                         } else {
                             Common.toastError("An error occured while saving the workflow " + wfid + " from JSON view.");
@@ -628,6 +664,7 @@
                     };
                     Common.post(uri + "/saveXml", function (res) {
                         if (res === true) {
+                            removeworkflow.style.display = "block";
                             Common.toastSuccess("workflow " + wfid + " saved and loaded with success from XML view.");
                         } else {
                             Common.toastError("An error occured while saving the workflow " + wfid + " from XML view.");
@@ -1282,7 +1319,8 @@
                                     // disable checkId
                                     checkId = false;
 
-                                    // TODO show delete button
+                                    // show delete button
+                                    removeworkflow.style.display = "block";
 
                                     // close jBox
                                     modal.close();
