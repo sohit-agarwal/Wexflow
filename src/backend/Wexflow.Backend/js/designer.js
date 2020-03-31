@@ -405,6 +405,7 @@
             }
         };
 
+        // CTRL+S
         let workflow = {
             "WorkflowInfo": {
                 "Id": document.getElementById("wfid").value,
@@ -420,8 +421,6 @@
             },
             "Tasks": []
         }
-
-        // CTRL+S
         let diag = false;
         let json = false;
         let xml = false;
@@ -514,6 +513,21 @@
                     return 3;
                 default:
                     return -1;
+            }
+        }
+
+        function launchType(lt) {
+            switch (lt) {
+                case 0:
+                    return "startup";
+                case 1:
+                    return "trigger";
+                case 2:
+                    return "periodic";
+                case 3:
+                    return "cron";
+                default:
+                    return "";
             }
         }
 
@@ -627,8 +641,22 @@
         };
 
         function getXml() {
-            // TODO
-            return "<Workflow />";
+            let xml = '<Workflow xmlns="urn:wexflow-schema" id="' + workflow.WorkflowInfo.Id + '" name="' + workflow.WorkflowInfo.Name + '" description="' + workflow.WorkflowInfo.Description + '">\r\n';
+            xml += '\t<Settings>\r\n\t\t<Setting name="launchType" value="' + launchType(workflow.WorkflowInfo.LaunchType) + '" />' + (workflow.WorkflowInfo.Period !== '' ? ('\r\n\t\t<Setting name="period" value="' + workflow.WorkflowInfo.Period + '" />') : '') + (workflow.WorkflowInfo.CronExpression !== '' ? ('\r\n\t\t<Setting name="cronExpression" value="' + workflow.WorkflowInfo.CronExpression + '" />') : '') + '\r\n\t\t<Setting name="enabled" value="' + workflow.WorkflowInfo.IsEnabled + '" />\r\n\t\t<Setting name="approval" value="' + workflow.WorkflowInfo.IsApproval + '" />\r\n\t\t<Setting name="enableParallelJobs" value="' + workflow.WorkflowInfo.EnableParallelJobs + '" />\r\n\t</Settings>\r\n';
+            xml += '\t<LocalVariables />\r\n';
+            xml += '\t<Tasks>\r\n';
+            for (let i = 0; i < workflow.Tasks.length; i++) {
+                let task = workflow.Tasks[i];
+                xml += '\t\t<Task id="' + task.Id + '" name="' + task.Name + '" description="' + task.Description + '" enabled="' + task.IsEnabled + '">\r\n';
+                for (let j = 0; j < task.Settings.length; j++) {
+                    let setting = task.Settings[j];
+                    xml += '\t\t\t<Setting name="' + setting.Name + '" value="' + setting.Value + '" />\r\n';
+                }
+                xml += '\t\t</Task>\r\n';
+            }
+            xml += '\t</Tasks>\r\n';
+            xml += '</Workflow>';
+            return xml;
         }
     }
 
