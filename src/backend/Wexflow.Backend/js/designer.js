@@ -185,16 +185,6 @@
             let taskdesc = drag.querySelector(".blockelemdesc").value;
             drag.innerHTML += "<div class='blockyleft'><img src='assets/actionorange.svg'><p class='blockyname'>" + taskname + "</p></div><div class='blockyright'><img src='assets/more.svg'></div><div class='blockydiv'></div><div class='blockyinfo'>" + taskdesc + "</div>";
 
-            if (!tasks[taskname]) {
-                tasks[taskname] = {
-                    "Id": 0,
-                    "Name": taskname,
-                    "Description": "",
-                    "IsEnabled": true,
-                    "Settings": []
-                };
-            }
-
             return true;
         }
 
@@ -274,8 +264,11 @@
                     document.getElementById("header2").innerHTML = "Task Settings&nbsp;<a title='Task Documentation' href='https://github.com/aelassas/Wexflow/wiki/" + taskname + "' target='_blank'><img src='assets/doc.png'></a>";
                     proplist.innerHTML = '<p class="inputlabel">Id</p><input id="taskid" class="inputtext" type="text" /><p class="inputlabel">Description</p><input id="taskdescription" class="inputtext" type="text" /><p class="inputlabel">Enabled</p><input id="taskenabled" class="inputtext" type="checkbox" checked />';
 
-                    if (!tasks[taskname]) {
-                        tasks[taskname] = {
+                    // TODO update logic
+                    let index = parseInt(event.target.closest(".block").childNodes[2].value);
+
+                    if (!tasks[index]) {
+                        tasks[index] = {
                             "Id": 0,
                             "Name": taskname,
                             "Description": "",
@@ -291,10 +284,10 @@
                             let tasksettings = "";
                             for (let i = 0; i < settings.length; i++) {
                                 let settingName = settings[i];
-                                tasksettings += '<p class="wf-setting-name">' + settingName + '</p><input class="wf-setting-index" type="hidden" value="' + i + '"><input class="wf-setting-value inputtext" value="' + (tasks[taskname].Settings[i] ? tasks[taskname].Settings[i].Value : "") + '" type="text" />';
+                                tasksettings += '<p class="wf-setting-name">' + settingName + '</p><input class="wf-setting-index" type="hidden" value="' + i + '"><input class="wf-setting-value inputtext" value="' + (tasks[index].Settings[i] ? tasks[index].Settings[i].Value : "") + '" type="text" />';
 
-                                if (!tasks[taskname].Settings[i]) {
-                                    tasks[taskname].Settings.push({
+                                if (!tasks[index].Settings[i]) {
+                                    tasks[index].Settings.push({
                                         "Name": settingName,
                                         "Value": "",
                                         "Attributes": []
@@ -304,24 +297,24 @@
 
                             proplist.innerHTML = proplist.innerHTML + tasksettings;
 
-                            document.getElementById("taskid").value = tasks[taskname].Id;
-                            document.getElementById("taskdescription").value = tasks[taskname].Description;
-                            document.getElementById("taskenabled").checked = tasks[taskname].IsEnabled;
+                            document.getElementById("taskid").value = tasks[index].Id;
+                            document.getElementById("taskdescription").value = tasks[index].Description;
+                            document.getElementById("taskenabled").checked = tasks[index].IsEnabled;
 
                             document.getElementById("taskid").onkeyup = function () {
-                                tasks[taskname].Id = this.value;
+                                tasks[index].Id = this.value;
 
                                 updateTasks();
                             };
 
                             document.getElementById("taskdescription").onkeyup = function () {
-                                tasks[taskname].Description = this.value;
+                                tasks[index].Description = this.value;
 
                                 updateTasks();
                             };
 
                             document.getElementById("taskenabled").onchange = function () {
-                                tasks[taskname].IsEnabled = this.checked;
+                                tasks[index].IsEnabled = this.checked;
 
                                 updateTasks();
                             };
@@ -331,8 +324,8 @@
                                 let settingValue = settingValues[i];
 
                                 settingValue.onkeyup = function () {
-                                    let index = this.previousElementSibling.value;
-                                    tasks[taskname].Settings[index].Value = this.value;
+                                    let sindex = this.previousElementSibling.value;
+                                    tasks[index].Settings[sindex].Value = this.value;
 
                                     updateTasks();
                                 };
@@ -460,11 +453,10 @@
 
         function updateTasks() {
             let flowyoutput = flowy.output();
-            //console.log(flowyoutput);
             let wftasks = [];
             if (flowyoutput && flowyoutput.blocks) {
                 for (let i = 0; i < flowyoutput.blocks.length; i++) {
-                    wftasks.push(tasks[flowyoutput.blocks[i].data[0].value]);
+                    wftasks.push(tasks[parseInt(flowyoutput.blocks[i].data[2].value)]);
                 }
             }
             workflow.Tasks = wftasks;
@@ -1234,7 +1226,7 @@
                                     tasks = {};
                                     for (let i = 0; i < workflow.Tasks.length; i++) {
                                         let task = workflow.Tasks[i];
-                                        tasks[task.Name] = task;
+                                        tasks[i] = task;
                                     }
 
                                     // load flowy
