@@ -32,7 +32,7 @@
         xmlhttp.send();
     },
 
-    post: function (url, callback, errorCallback, json, auth) {
+    post: function (url, callback, errorCallback, content, auth, isFile) {
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200 && callback) {
@@ -49,8 +49,14 @@
         };
         xmlhttp.open("POST", url, true);
         //xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-        if (auth) xmlhttp.setRequestHeader("Authorization", auth);
-        xmlhttp.send(JSON.stringify(json));
+        if (auth) {
+            xmlhttp.setRequestHeader("Authorization", auth);
+        }
+        if (isFile === true) {
+            xmlhttp.send(content);
+        } else {
+            xmlhttp.send(JSON.stringify(content));
+        }
     },
 
     launchType: function (lt) {
