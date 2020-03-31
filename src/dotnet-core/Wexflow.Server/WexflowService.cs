@@ -11,6 +11,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Threading;
+using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using Wexflow.Core;
@@ -86,6 +87,7 @@ namespace Wexflow.Server
             DeleteWorkflow();
             DeleteWorkflows();
             GetExecutionGraph();
+            UploadWorkflow();
 
             //
             // History
@@ -1386,6 +1388,380 @@ namespace Wexflow.Server
             };
         }
 
+        private bool SaveJsonWorkflow(Wexflow.Core.Db.User user, string json)
+        {
+            var o = JObject.Parse(json);
+            var wi = o.SelectToken("WorkflowInfo");
+            int currentWorkflowId = (int)wi.SelectToken("Id");
+            var isNew = !WexflowServer.WexflowEngine.Workflows.Any(w => w.Id == currentWorkflowId);
+
+            if (isNew)
+            {
+                XNamespace xn = "urn:wexflow-schema";
+                var xdoc = new XDocument();
+
+                int workflowId = (int)wi.SelectToken("Id");
+                string workflowName = (string)wi.SelectToken("Name");
+                LaunchType workflowLaunchType = (LaunchType)((int)wi.SelectToken("LaunchType"));
+                string p = (string)wi.SelectToken("Period");
+                TimeSpan workflowPeriod = TimeSpan.Parse(string.IsNullOrEmpty(p) ? "00.00:00:00" : p);
+                string cronExpression = (string)wi.SelectToken("CronExpression");
+
+                if (workflowLaunchType == LaunchType.Cron && !WexflowEngine.IsCronExpressionValid(cronExpression))
+                {
+                    throw new Exception("The cron expression '" + cronExpression + "' is not valid.");
+                }
+
+                bool isWorkflowEnabled = (bool)wi.SelectToken("IsEnabled");
+                bool isWorkflowApproval = (bool)wi.SelectToken("IsApproval");
+                bool enableParallelJobs = (bool)wi.SelectToken("EnableParallelJobs");
+                string workflowDesc = (string)wi.SelectToken("Description");
+
+                // Local variables
+                var xLocalVariables = new XElement(xn + "LocalVariables");
+                var variables = wi.SelectToken("LocalVariables");
+                foreach (var variable in variables)
+                {
+                    string key = (string)variable.SelectToken("Key");
+                    string value = (string)variable.SelectToken("Value");
+
+                    var xVariable = new XElement(xn + "Variable"
+                            , new XAttribute("name", key)
+                            , new XAttribute("value", value)
+                    );
+
+                    xLocalVariables.Add(xVariable);
+                }
+
+                // tasks
+                var xtasks = new XElement(xn + "Tasks");
+                var tasks = o.SelectToken("Tasks");
+                foreach (var task in tasks)
+                {
+                    int taskId = (int)task.SelectToken("Id");
+                    string taskName = (string)task.SelectToken("Name");
+                    string taskDesc = (string)task.SelectToken("Description");
+                    bool isTaskEnabled = (bool)task.SelectToken("IsEnabled");
+
+                    var xtask = new XElement(xn + "Task"
+                        , new XAttribute("id", taskId)
+                        , new XAttribute("name", taskName)
+                        , new XAttribute("description", taskDesc)
+                        , new XAttribute("enabled", isTaskEnabled.ToString().ToLower())
+                    );
+
+                    var settings = task.SelectToken("Settings");
+                    foreach (var setting in settings)
+                    {
+                        string settingName = (string)setting.SelectToken("Name");
+                        string settingValue = (string)setting.SelectToken("Value");
+
+                        var xsetting = new XElement(xn + "Setting"
+                            , new XAttribute("name", settingName)
+                        );
+
+                        if (!string.IsNullOrEmpty(settingValue))
+                        {
+                            xsetting.SetAttributeValue("value", settingValue);
+                        }
+
+                        if (settingName == "selectFiles" || settingName == "selectAttachments")
+                        {
+                            if (!string.IsNullOrEmpty(settingValue))
+                            {
+                                xsetting.SetAttributeValue("value", settingValue);
+                            }
+                        }
+                        else
+                        {
+                            xsetting.SetAttributeValue("value", settingValue);
+                        }
+
+                        var attributes = setting.SelectToken("Attributes");
+                        foreach (var attribute in attributes)
+                        {
+                            string attributeName = (string)attribute.SelectToken("Name");
+                            string attributeValue = (string)attribute.SelectToken("Value");
+                            xsetting.SetAttributeValue(attributeName, attributeValue);
+                        }
+
+                        if (settingName == "selectFiles" || settingName == "selectAttachments" || (settingName != "selectFiles" && settingName != "selectAttachments" && !string.IsNullOrEmpty(settingValue)))
+                        {
+                            xtask.Add(xsetting);
+                        }
+                    }
+
+                    xtasks.Add(xtask);
+                }
+
+                // root
+                var xwf = new XElement(xn + "Workflow"
+                    , new XAttribute("id", workflowId)
+                    , new XAttribute("name", workflowName)
+                    , new XAttribute("description", workflowDesc)
+                    , new XElement(xn + "Settings"
+                        , new XElement(xn + "Setting"
+                            , new XAttribute("name", "launchType")
+                            , new XAttribute("value", workflowLaunchType.ToString().ToLower()))
+                        , new XElement(xn + "Setting"
+                            , new XAttribute("name", "enabled")
+                            , new XAttribute("value", isWorkflowEnabled.ToString().ToLower()))
+                        , new XElement(xn + "Setting"
+                        , new XAttribute("name", "approval")
+                        , new XAttribute("value", isWorkflowApproval.ToString().ToLower()))
+                        , new XElement(xn + "Setting"
+                        , new XAttribute("name", "enableParallelJobs")
+                        , new XAttribute("value", enableParallelJobs.ToString().ToLower()))
+                    //, new XElement(xn + "Setting"
+                    //    , new XAttribute("name", "period")
+                    //    , new XAttribute("value", workflowPeriod.ToString(@"dd\.hh\:mm\:ss")))
+                    //, new XElement(xn + "Setting"
+                    //    , new XAttribute("name", "cronExpression")
+                    //    , new XAttribute("value", cronExpression))
+                    )
+                    , xLocalVariables
+                    , xtasks
+                );
+
+                if (workflowLaunchType == LaunchType.Periodic)
+                {
+                    xwf.Element(xn + "Settings").Add(
+                         new XElement(xn + "Setting"
+                            , new XAttribute("name", "period")
+                            , new XAttribute("value", workflowPeriod.ToString(@"dd\.hh\:mm\:ss")))
+                        );
+                }
+
+                if (workflowLaunchType == LaunchType.Cron)
+                {
+                    xwf.Element(xn + "Settings").Add(
+                         new XElement(xn + "Setting"
+                            , new XAttribute("name", "cronExpression")
+                            , new XAttribute("value", cronExpression))
+                        );
+                }
+
+                xdoc.Add(xwf);
+
+                var id = WexflowServer.WexflowEngine.SaveWorkflow(user.GetId(), user.UserProfile, xdoc.ToString());
+
+                if (id == "-1")
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                XNamespace xn = "urn:wexflow-schema";
+
+                var wf = WexflowServer.WexflowEngine.GetWorkflow(currentWorkflowId);
+                if (wf != null)
+                {
+                    var xdoc = wf.XDoc;
+
+                    int workflowId = (int)wi.SelectToken("Id");
+                    string workflowName = (string)wi.SelectToken("Name");
+                    LaunchType workflowLaunchType = (LaunchType)((int)wi.SelectToken("LaunchType"));
+                    string p = (string)wi.SelectToken("Period");
+                    TimeSpan workflowPeriod = TimeSpan.Parse(string.IsNullOrEmpty(p) ? "00.00:00:00" : p);
+                    string cronExpression = (string)wi.SelectToken("CronExpression");
+
+                    if (workflowLaunchType == LaunchType.Cron &&
+                        !WexflowEngine.IsCronExpressionValid(cronExpression))
+                    {
+                        throw new Exception("The cron expression '" + cronExpression + "' is not valid.");
+                    }
+
+                    bool isWorkflowEnabled = (bool)wi.SelectToken("IsEnabled");
+                    bool isWorkflowApproval = (bool)(wi.SelectToken("IsApproval") ?? false);
+                    bool enableParallelJobs = (bool)(wi.SelectToken("EnableParallelJobs") ?? true);
+                    string workflowDesc = (string)wi.SelectToken("Description");
+
+                    //if(xdoc.Root == null) throw new Exception("Root is null");
+                    xdoc.Root.Attribute("id").Value = workflowId.ToString();
+                    xdoc.Root.Attribute("name").Value = workflowName;
+                    xdoc.Root.Attribute("description").Value = workflowDesc;
+
+                    var xwfEnabled = xdoc.Root.XPathSelectElement("wf:Settings/wf:Setting[@name='enabled']",
+                        wf.XmlNamespaceManager);
+                    xwfEnabled.Attribute("value").Value = isWorkflowEnabled.ToString().ToLower();
+                    var xwfLaunchType = xdoc.Root.XPathSelectElement("wf:Settings/wf:Setting[@name='launchType']",
+                        wf.XmlNamespaceManager);
+                    xwfLaunchType.Attribute("value").Value = workflowLaunchType.ToString().ToLower();
+
+                    var xwfApproval = xdoc.Root.XPathSelectElement("wf:Settings/wf:Setting[@name='approval']",
+                    wf.XmlNamespaceManager);
+                    if (xwfApproval == null)
+                    {
+                        xdoc.Root.XPathSelectElement("wf:Settings", wf.XmlNamespaceManager)
+                            .Add(new XElement(xn + "Setting"
+                                    , new XAttribute("name", "approval")
+                                    , new XAttribute("value", isWorkflowApproval.ToString().ToLower())));
+                    }
+                    else
+                    {
+                        xwfApproval.Attribute("value").Value = isWorkflowApproval.ToString().ToLower();
+                    }
+
+                    var xwfEnableParallelJobs = xdoc.Root.XPathSelectElement("wf:Settings/wf:Setting[@name='enableParallelJobs']",
+                    wf.XmlNamespaceManager);
+                    if (xwfEnableParallelJobs == null)
+                    {
+                        xdoc.Root.XPathSelectElement("wf:Settings", wf.XmlNamespaceManager)
+                            .Add(new XElement(xn + "Setting"
+                                    , new XAttribute("name", "enableParallelJobs")
+                                    , new XAttribute("value", enableParallelJobs.ToString().ToLower())));
+                    }
+                    else
+                    {
+                        xwfEnableParallelJobs.Attribute("value").Value = enableParallelJobs.ToString().ToLower();
+                    }
+
+                    var xwfPeriod = xdoc.Root.XPathSelectElement("wf:Settings/wf:Setting[@name='period']",
+                        wf.XmlNamespaceManager);
+                    if (workflowLaunchType == LaunchType.Periodic)
+                    {
+                        if (xwfPeriod != null)
+                        {
+                            xwfPeriod.Attribute("value").Value = workflowPeriod.ToString(@"dd\.hh\:mm\:ss");
+                        }
+                        else
+                        {
+                            xdoc.Root.XPathSelectElement("wf:Settings", wf.XmlNamespaceManager)
+                                .Add(new XElement(wf.XNamespaceWf + "Setting", new XAttribute("name", "period"),
+                                    new XAttribute("value", workflowPeriod.ToString())));
+                        }
+                    }
+                    //else
+                    //{
+                    //    if (xwfPeriod != null)
+                    //    {
+                    //        xwfPeriod.Remove();
+                    //    }
+                    //}
+
+                    var xwfCronExpression = xdoc.Root.XPathSelectElement(
+                        "wf:Settings/wf:Setting[@name='cronExpression']",
+                        wf.XmlNamespaceManager);
+
+                    if (workflowLaunchType == LaunchType.Cron)
+                    {
+                        if (xwfCronExpression != null)
+                        {
+                            xwfCronExpression.Attribute("value").Value = cronExpression ?? string.Empty;
+                        }
+                        else if (!string.IsNullOrEmpty(cronExpression))
+                        {
+                            xdoc.Root.XPathSelectElement("wf:Settings", wf.XmlNamespaceManager)
+                                .Add(new XElement(wf.XNamespaceWf + "Setting", new XAttribute("name", "cronExpression"),
+                                    new XAttribute("value", cronExpression)));
+                        }
+                    }
+                    //else
+                    //{
+                    //    if(xwfCronExpression != null)
+                    //    {
+                    //        xwfCronExpression.Remove();
+                    //    }
+                    //}
+
+                    // Local variables
+                    var xLocalVariables = xdoc.Root.Element(wf.XNamespaceWf + "LocalVariables");
+                    if (xLocalVariables != null)
+                    {
+                        var allVariables = xLocalVariables.Elements(wf.XNamespaceWf + "Variable");
+                        allVariables.Remove();
+                    }
+                    else
+                    {
+                        xLocalVariables = new XElement(wf.XNamespaceWf + "LocalVariables");
+                        xdoc.Root.Element(wf.XNamespaceWf + "Tasks").AddBeforeSelf(xLocalVariables);
+                    }
+
+                    var variables = wi.SelectToken("LocalVariables");
+                    foreach (var variable in variables)
+                    {
+                        string key = (string)variable.SelectToken("Key");
+                        string value = (string)variable.SelectToken("Value");
+
+                        var xVariable = new XElement(wf.XNamespaceWf + "Variable"
+                                , new XAttribute("name", key)
+                                , new XAttribute("value", value)
+                        );
+
+                        xLocalVariables.Add(xVariable);
+                    }
+
+                    var xtasks = xdoc.Root.Element(wf.XNamespaceWf + "Tasks");
+                    var alltasks = xtasks.Elements(wf.XNamespaceWf + "Task");
+                    alltasks.Remove();
+
+                    var tasks = o.SelectToken("Tasks");
+                    foreach (var task in tasks)
+                    {
+                        int taskId = (int)task.SelectToken("Id");
+                        string taskName = (string)task.SelectToken("Name");
+                        string taskDesc = (string)task.SelectToken("Description");
+                        bool isTaskEnabled = (bool)task.SelectToken("IsEnabled");
+
+                        var xtask = new XElement(wf.XNamespaceWf + "Task"
+                            , new XAttribute("id", taskId)
+                            , new XAttribute("name", taskName)
+                            , new XAttribute("description", taskDesc)
+                            , new XAttribute("enabled", isTaskEnabled.ToString().ToLower())
+                        );
+
+                        var settings = task.SelectToken("Settings");
+                        foreach (var setting in settings)
+                        {
+                            string settingName = (string)setting.SelectToken("Name");
+                            string settingValue = (string)setting.SelectToken("Value");
+
+                            var xsetting = new XElement(wf.XNamespaceWf + "Setting"
+                                , new XAttribute("name", settingName)
+                            );
+
+                            if (settingName == "selectFiles" || settingName == "selectAttachments")
+                            {
+                                if (!string.IsNullOrEmpty(settingValue))
+                                {
+                                    xsetting.SetAttributeValue("value", settingValue);
+                                }
+                            }
+                            else
+                            {
+                                xsetting.SetAttributeValue("value", settingValue);
+                            }
+
+                            var attributes = setting.SelectToken("Attributes");
+                            foreach (var attribute in attributes)
+                            {
+                                string attributeName = (string)attribute.SelectToken("Name");
+                                string attributeValue = (string)attribute.SelectToken("Value");
+                                xsetting.SetAttributeValue(attributeName, attributeValue);
+                            }
+
+                            if (settingName == "selectFiles" || settingName == "selectAttachments" || (settingName != "selectFiles" && settingName != "selectAttachments" && !string.IsNullOrEmpty(settingValue)))
+                            {
+                                xtask.Add(xsetting);
+                            }
+                        }
+
+                        xtasks.Add(xtask);
+                    }
+
+                    //xdoc.Save(wf.WorkflowFilePath);
+                    var qid = WexflowServer.WexflowEngine.SaveWorkflow(user.GetId(), user.UserProfile, xdoc.ToString());
+                    if (qid == "-1")
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
         /// <summary>
         /// Saves a workflow from json.
         /// </summary>
@@ -1428,379 +1804,9 @@ namespace Wexflow.Server
                         }
                     }
 
-                    if (isNew)
-                    {
-                        XNamespace xn = "urn:wexflow-schema";
-                        var xdoc = new XDocument();
+                    var res = SaveJsonWorkflow(user, json);
 
-                        int workflowId = (int)wi.SelectToken("Id");
-                        string workflowName = (string)wi.SelectToken("Name");
-                        LaunchType workflowLaunchType = (LaunchType)((int)wi.SelectToken("LaunchType"));
-                        string p = (string)wi.SelectToken("Period");
-                        TimeSpan workflowPeriod = TimeSpan.Parse(string.IsNullOrEmpty(p) ? "00.00:00:00" : p);
-                        string cronExpression = (string)wi.SelectToken("CronExpression");
-
-                        if (workflowLaunchType == LaunchType.Cron && !WexflowEngine.IsCronExpressionValid(cronExpression))
-                        {
-                            throw new Exception("The cron expression '" + cronExpression + "' is not valid.");
-                        }
-
-                        bool isWorkflowEnabled = (bool)wi.SelectToken("IsEnabled");
-                        bool isWorkflowApproval = (bool)wi.SelectToken("IsApproval");
-                        bool enableParallelJobs = (bool)wi.SelectToken("EnableParallelJobs");
-                        string workflowDesc = (string)wi.SelectToken("Description");
-
-                        // Local variables
-                        var xLocalVariables = new XElement(xn + "LocalVariables");
-                        var variables = wi.SelectToken("LocalVariables");
-                        foreach (var variable in variables)
-                        {
-                            string key = (string)variable.SelectToken("Key");
-                            string value = (string)variable.SelectToken("Value");
-
-                            var xVariable = new XElement(xn + "Variable"
-                                    , new XAttribute("name", key)
-                                    , new XAttribute("value", value)
-                            );
-
-                            xLocalVariables.Add(xVariable);
-                        }
-
-                        // tasks
-                        var xtasks = new XElement(xn + "Tasks");
-                        var tasks = o.SelectToken("Tasks");
-                        foreach (var task in tasks)
-                        {
-                            int taskId = (int)task.SelectToken("Id");
-                            string taskName = (string)task.SelectToken("Name");
-                            string taskDesc = (string)task.SelectToken("Description");
-                            bool isTaskEnabled = (bool)task.SelectToken("IsEnabled");
-
-                            var xtask = new XElement(xn + "Task"
-                                , new XAttribute("id", taskId)
-                                , new XAttribute("name", taskName)
-                                , new XAttribute("description", taskDesc)
-                                , new XAttribute("enabled", isTaskEnabled.ToString().ToLower())
-                            );
-
-                            var settings = task.SelectToken("Settings");
-                            foreach (var setting in settings)
-                            {
-                                string settingName = (string)setting.SelectToken("Name");
-                                string settingValue = (string)setting.SelectToken("Value");
-
-                                var xsetting = new XElement(xn + "Setting"
-                                    , new XAttribute("name", settingName)
-                                );
-
-                                if (!string.IsNullOrEmpty(settingValue))
-                                {
-                                    xsetting.SetAttributeValue("value", settingValue);
-                                }
-
-                                if (settingName == "selectFiles" || settingName == "selectAttachments")
-                                {
-                                    if (!string.IsNullOrEmpty(settingValue))
-                                    {
-                                        xsetting.SetAttributeValue("value", settingValue);
-                                    }
-                                }
-                                else
-                                {
-                                    xsetting.SetAttributeValue("value", settingValue);
-                                }
-
-                                var attributes = setting.SelectToken("Attributes");
-                                foreach (var attribute in attributes)
-                                {
-                                    string attributeName = (string)attribute.SelectToken("Name");
-                                    string attributeValue = (string)attribute.SelectToken("Value");
-                                    xsetting.SetAttributeValue(attributeName, attributeValue);
-                                }
-
-                                xtask.Add(xsetting);
-                            }
-
-                            xtasks.Add(xtask);
-                        }
-
-                        // root
-                        var xwf = new XElement(xn + "Workflow"
-                            , new XAttribute("id", workflowId)
-                            , new XAttribute("name", workflowName)
-                            , new XAttribute("description", workflowDesc)
-                            , new XElement(xn + "Settings"
-                                , new XElement(xn + "Setting"
-                                    , new XAttribute("name", "launchType")
-                                    , new XAttribute("value", workflowLaunchType.ToString().ToLower()))
-                                , new XElement(xn + "Setting"
-                                    , new XAttribute("name", "enabled")
-                                    , new XAttribute("value", isWorkflowEnabled.ToString().ToLower()))
-                                , new XElement(xn + "Setting"
-                                , new XAttribute("name", "approval")
-                                , new XAttribute("value", isWorkflowApproval.ToString().ToLower()))
-                                , new XElement(xn + "Setting"
-                                , new XAttribute("name", "enableParallelJobs")
-                                , new XAttribute("value", enableParallelJobs.ToString().ToLower()))
-                            //, new XElement(xn + "Setting"
-                            //    , new XAttribute("name", "period")
-                            //    , new XAttribute("value", workflowPeriod.ToString(@"dd\.hh\:mm\:ss")))
-                            //, new XElement(xn + "Setting"
-                            //    , new XAttribute("name", "cronExpression")
-                            //    , new XAttribute("value", cronExpression))
-                            )
-                            , xLocalVariables
-                            , xtasks
-                        );
-
-                        if (workflowLaunchType == LaunchType.Periodic)
-                        {
-                            xwf.Element(xn + "Settings").Add(
-                                 new XElement(xn + "Setting"
-                                    , new XAttribute("name", "period")
-                                    , new XAttribute("value", workflowPeriod.ToString(@"dd\.hh\:mm\:ss")))
-                                );
-                        }
-
-                        if (workflowLaunchType == LaunchType.Cron)
-                        {
-                            xwf.Element(xn + "Settings").Add(
-                                 new XElement(xn + "Setting"
-                                    , new XAttribute("name", "cronExpression")
-                                    , new XAttribute("value", cronExpression))
-                                );
-                        }
-
-                        xdoc.Add(xwf);
-
-                        var id = WexflowServer.WexflowEngine.SaveWorkflow(user.GetId(), user.UserProfile, xdoc.ToString());
-
-                        if (id == "-1")
-                        {
-                            var qFalseStr = JsonConvert.SerializeObject(false);
-                            var qFalseBytes = Encoding.UTF8.GetBytes(qFalseStr);
-
-                            return new Response()
-                            {
-                                ContentType = "application/json",
-                                Contents = s => s.Write(qFalseBytes, 0, qFalseBytes.Length)
-                            };
-                        }
-                    }
-                    else
-                    {
-                        XNamespace xn = "urn:wexflow-schema";
-
-                        var wf = WexflowServer.WexflowEngine.GetWorkflow(currentWorkflowId);
-                        if (wf != null)
-                        {
-                            var xdoc = wf.XDoc;
-
-                            int workflowId = (int)wi.SelectToken("Id");
-                            string workflowName = (string)wi.SelectToken("Name");
-                            LaunchType workflowLaunchType = (LaunchType)((int)wi.SelectToken("LaunchType"));
-                            string p = (string)wi.SelectToken("Period");
-                            TimeSpan workflowPeriod = TimeSpan.Parse(string.IsNullOrEmpty(p) ? "00.00:00:00" : p);
-                            string cronExpression = (string)wi.SelectToken("CronExpression");
-
-                            if (workflowLaunchType == LaunchType.Cron &&
-                                !WexflowEngine.IsCronExpressionValid(cronExpression))
-                            {
-                                throw new Exception("The cron expression '" + cronExpression + "' is not valid.");
-                            }
-
-                            bool isWorkflowEnabled = (bool)wi.SelectToken("IsEnabled");
-                            bool isWorkflowApproval = (bool)(wi.SelectToken("IsApproval") ?? false);
-                            bool enableParallelJobs = (bool)(wi.SelectToken("EnableParallelJobs") ?? true);
-                            string workflowDesc = (string)wi.SelectToken("Description");
-
-                            //if(xdoc.Root == null) throw new Exception("Root is null");
-                            xdoc.Root.Attribute("id").Value = workflowId.ToString();
-                            xdoc.Root.Attribute("name").Value = workflowName;
-                            xdoc.Root.Attribute("description").Value = workflowDesc;
-
-                            var xwfEnabled = xdoc.Root.XPathSelectElement("wf:Settings/wf:Setting[@name='enabled']",
-                                wf.XmlNamespaceManager);
-                            xwfEnabled.Attribute("value").Value = isWorkflowEnabled.ToString().ToLower();
-                            var xwfLaunchType = xdoc.Root.XPathSelectElement("wf:Settings/wf:Setting[@name='launchType']",
-                                wf.XmlNamespaceManager);
-                            xwfLaunchType.Attribute("value").Value = workflowLaunchType.ToString().ToLower();
-
-                            var xwfApproval = xdoc.Root.XPathSelectElement("wf:Settings/wf:Setting[@name='approval']",
-                            wf.XmlNamespaceManager);
-                            if (xwfApproval == null)
-                            {
-                                xdoc.Root.XPathSelectElement("wf:Settings", wf.XmlNamespaceManager)
-                                    .Add(new XElement(xn + "Setting"
-                                            , new XAttribute("name", "approval")
-                                            , new XAttribute("value", isWorkflowApproval.ToString().ToLower())));
-                            }
-                            else
-                            {
-                                xwfApproval.Attribute("value").Value = isWorkflowApproval.ToString().ToLower();
-                            }
-
-                            var xwfEnableParallelJobs = xdoc.Root.XPathSelectElement("wf:Settings/wf:Setting[@name='enableParallelJobs']",
-                            wf.XmlNamespaceManager);
-                            if (xwfEnableParallelJobs == null)
-                            {
-                                xdoc.Root.XPathSelectElement("wf:Settings", wf.XmlNamespaceManager)
-                                    .Add(new XElement(xn + "Setting"
-                                            , new XAttribute("name", "enableParallelJobs")
-                                            , new XAttribute("value", enableParallelJobs.ToString().ToLower())));
-                            }
-                            else
-                            {
-                                xwfEnableParallelJobs.Attribute("value").Value = enableParallelJobs.ToString().ToLower();
-                            }
-
-                            var xwfPeriod = xdoc.Root.XPathSelectElement("wf:Settings/wf:Setting[@name='period']",
-                                wf.XmlNamespaceManager);
-                            if (workflowLaunchType == LaunchType.Periodic)
-                            {
-                                if (xwfPeriod != null)
-                                {
-                                    xwfPeriod.Attribute("value").Value = workflowPeriod.ToString(@"dd\.hh\:mm\:ss");
-                                }
-                                else
-                                {
-                                    xdoc.Root.XPathSelectElement("wf:Settings", wf.XmlNamespaceManager)
-                                        .Add(new XElement(wf.XNamespaceWf + "Setting", new XAttribute("name", "period"),
-                                            new XAttribute("value", workflowPeriod.ToString())));
-                                }
-                            }
-                            //else
-                            //{
-                            //    if (xwfPeriod != null)
-                            //    {
-                            //        xwfPeriod.Remove();
-                            //    }
-                            //}
-
-                            var xwfCronExpression = xdoc.Root.XPathSelectElement(
-                                "wf:Settings/wf:Setting[@name='cronExpression']",
-                                wf.XmlNamespaceManager);
-
-                            if (workflowLaunchType == LaunchType.Cron)
-                            {
-                                if (xwfCronExpression != null)
-                                {
-                                    xwfCronExpression.Attribute("value").Value = cronExpression ?? string.Empty;
-                                }
-                                else if (!string.IsNullOrEmpty(cronExpression))
-                                {
-                                    xdoc.Root.XPathSelectElement("wf:Settings", wf.XmlNamespaceManager)
-                                        .Add(new XElement(wf.XNamespaceWf + "Setting", new XAttribute("name", "cronExpression"),
-                                            new XAttribute("value", cronExpression)));
-                                }
-                            }
-                            //else
-                            //{
-                            //    if(xwfCronExpression != null)
-                            //    {
-                            //        xwfCronExpression.Remove();
-                            //    }
-                            //}
-
-                            // Local variables
-                            var xLocalVariables = xdoc.Root.Element(wf.XNamespaceWf + "LocalVariables");
-                            if (xLocalVariables != null)
-                            {
-                                var allVariables = xLocalVariables.Elements(wf.XNamespaceWf + "Variable");
-                                allVariables.Remove();
-                            }
-                            else
-                            {
-                                xLocalVariables = new XElement(wf.XNamespaceWf + "LocalVariables");
-                                xdoc.Root.Element(wf.XNamespaceWf + "Tasks").AddBeforeSelf(xLocalVariables);
-                            }
-
-                            var variables = wi.SelectToken("LocalVariables");
-                            foreach (var variable in variables)
-                            {
-                                string key = (string)variable.SelectToken("Key");
-                                string value = (string)variable.SelectToken("Value");
-
-                                var xVariable = new XElement(wf.XNamespaceWf + "Variable"
-                                        , new XAttribute("name", key)
-                                        , new XAttribute("value", value)
-                                );
-
-                                xLocalVariables.Add(xVariable);
-                            }
-
-                            var xtasks = xdoc.Root.Element(wf.XNamespaceWf + "Tasks");
-                            var alltasks = xtasks.Elements(wf.XNamespaceWf + "Task");
-                            alltasks.Remove();
-
-                            var tasks = o.SelectToken("Tasks");
-                            foreach (var task in tasks)
-                            {
-                                int taskId = (int)task.SelectToken("Id");
-                                string taskName = (string)task.SelectToken("Name");
-                                string taskDesc = (string)task.SelectToken("Description");
-                                bool isTaskEnabled = (bool)task.SelectToken("IsEnabled");
-
-                                var xtask = new XElement(wf.XNamespaceWf + "Task"
-                                    , new XAttribute("id", taskId)
-                                    , new XAttribute("name", taskName)
-                                    , new XAttribute("description", taskDesc)
-                                    , new XAttribute("enabled", isTaskEnabled.ToString().ToLower())
-                                );
-
-                                var settings = task.SelectToken("Settings");
-                                foreach (var setting in settings)
-                                {
-                                    string settingName = (string)setting.SelectToken("Name");
-                                    string settingValue = (string)setting.SelectToken("Value");
-
-                                    var xsetting = new XElement(wf.XNamespaceWf + "Setting"
-                                        , new XAttribute("name", settingName)
-                                    );
-
-                                    if (settingName == "selectFiles" || settingName == "selectAttachments")
-                                    {
-                                        if (!string.IsNullOrEmpty(settingValue))
-                                        {
-                                            xsetting.SetAttributeValue("value", settingValue);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        xsetting.SetAttributeValue("value", settingValue);
-                                    }
-
-                                    var attributes = setting.SelectToken("Attributes");
-                                    foreach (var attribute in attributes)
-                                    {
-                                        string attributeName = (string)attribute.SelectToken("Name");
-                                        string attributeValue = (string)attribute.SelectToken("Value");
-                                        xsetting.SetAttributeValue(attributeName, attributeValue);
-                                    }
-
-                                    xtask.Add(xsetting);
-                                }
-
-                                xtasks.Add(xtask);
-                            }
-
-                            //xdoc.Save(wf.WorkflowFilePath);
-                            var qid = WexflowServer.WexflowEngine.SaveWorkflow(user.GetId(), user.UserProfile, xdoc.ToString());
-                            if (qid == "-1")
-                            {
-                                var falseStr = JsonConvert.SerializeObject(false);
-                                var falseBytes = Encoding.UTF8.GetBytes(falseStr);
-
-                                return new Response()
-                                {
-                                    ContentType = "application/json",
-                                    Contents = s => s.Write(falseBytes, 0, falseBytes.Length)
-                                };
-                            }
-                        }
-                    }
-
-                    var resStr = JsonConvert.SerializeObject(true);
+                    var resStr = JsonConvert.SerializeObject(res);
                     var resBytes = Encoding.UTF8.GetBytes(resStr);
 
                     return new Response()
@@ -1817,6 +1823,106 @@ namespace Wexflow.Server
                     var resBytes = Encoding.UTF8.GetBytes(resStr);
 
                     return new Response()
+                    {
+                        ContentType = "application/json",
+                        Contents = s => s.Write(resBytes, 0, resBytes.Length)
+                    };
+                }
+            });
+        }
+
+        /// <summary>
+        /// Uploads a workflow from a file.
+        /// </summary>
+        private void UploadWorkflow()
+        {
+            Post(Root + "upload", args =>
+            {
+                try
+                {
+                    var res = true;
+                    var auth = GetAuth(Request);
+                    var username = auth.Username;
+                    var password = auth.Password;
+
+                    var file = Request.Files.Single();
+                    var fileName = file.Name;
+                    var strWriter = new StringWriter();
+                    var ms = new MemoryStream();
+                    file.Value.CopyTo(ms);
+                    var fileValue = Encoding.UTF8.GetString(ms.ToArray());
+
+                    var workflowId = -1;
+                    var extension = Path.GetExtension(fileName).ToLower();
+                    var isXml = extension == ".xml";
+                    if (isXml) // xml
+                    {
+                        XNamespace xn = "urn:wexflow-schema";
+                        var xdoc = XDocument.Parse(fileValue);
+                        workflowId = int.Parse(xdoc.Element(xn + "Workflow").Attribute("id").Value);
+                    }
+                    else // json
+                    {
+                        var o = JObject.Parse(fileValue);
+                        var wi = o.SelectToken("WorkflowInfo");
+                        workflowId = (int)wi.SelectToken("Id");
+                    }
+
+                    var isAuthorized = false;
+                    var user = WexflowServer.WexflowEngine.GetUser(username);
+                    if (user.Password.Equals(password))
+                    {
+                        if (user.UserProfile == Core.Db.UserProfile.SuperAdministrator)
+                        {
+                            isAuthorized = true;
+                        }
+                        else if (user.UserProfile == Core.Db.UserProfile.Administrator)
+                        {
+                            var check = WexflowServer.WexflowEngine.CheckUserWorkflow(user.GetId(), workflowId.ToString());
+                            if (check)
+                            {
+                                isAuthorized = true;
+                            }
+                        }
+                    }
+
+                    // if extension is xml the XML else JSON
+                    if (isAuthorized)
+                    {
+                        if (isXml)
+                        {
+                            var id = WexflowServer.WexflowEngine.SaveWorkflow(user.GetId(), user.UserProfile, fileValue);
+                            res = id != "-1";
+                        }
+                        else
+                        {
+                            res = SaveJsonWorkflow(user, fileValue);
+
+                        }
+                    }
+
+                    if (!res)
+                    {
+                        workflowId = -1;
+                    }
+
+                    var resStr = JsonConvert.SerializeObject(workflowId);
+                    var resBytes = Encoding.UTF8.GetBytes(resStr);
+
+                    return new Response
+                    {
+                        ContentType = "application/json",
+                        Contents = s => s.Write(resBytes, 0, resBytes.Length)
+                    };
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+
+                    var resStr = JsonConvert.SerializeObject(false);
+                    var resBytes = Encoding.UTF8.GetBytes(resStr);
+
+                    return new Response
                     {
                         ContentType = "application/json",
                         Contents = s => s.Write(resBytes, 0, resBytes.Length)
