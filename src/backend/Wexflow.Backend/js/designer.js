@@ -236,6 +236,24 @@
             if (confirmRes === true) {
                 flowy.deleteBlocks();
                 closeTaskSettings();
+
+                workflow = {
+                    "WorkflowInfo": {
+                        "Id": document.getElementById("wfid").value,
+                        "Name": document.getElementById("wfname").value,
+                        "Description": document.getElementById("wfdesc").value,
+                        "LaunchType": launchTypeReverse(document.getElementById("wflaunchtype").value),
+                        "Period": document.getElementById("wfperiod").value,
+                        "CronExpression": document.getElementById("wfcronexp").value,
+                        "IsEnabled": document.getElementById("wfenabled").checked,
+                        "IsApproval": document.getElementById("wfapproval").checked,
+                        "EnableParallelJobs": document.getElementById("wfenablepj").checked,
+                        "LocalVariables": []
+                    },
+                    "Tasks": []
+                }
+
+                tasks = {};
             }
         });
 
