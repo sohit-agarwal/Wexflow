@@ -128,13 +128,15 @@
             wfpropHidden = false;
             closewfcardimg.src = "assets/openleft.png";
 
-            if (rightcard) {
+            if (rightcard === true) {
                 rightcard = false;
                 document.getElementById("properties").classList.remove("expanded");
                 setTimeout(function () {
                     document.getElementById("propwrap").classList.remove("itson");
                 }, 300);
-                tempblock.classList.remove("selectedblock");
+                if (tempblock) {
+                    tempblock.classList.remove("selectedblock");
+                }
             }
 
             document.getElementById("wfid").value = "";
@@ -247,8 +249,7 @@
                 updateTasks();
             }
 
-            if (event.type === "mouseup" && aclick && event.target.closest(".noselect")) {
-                //if (!rightcard && event.target.closest(".block")) {
+            if (event.type === "mouseup" && aclick && event.target.closest("#canvas")) {
                 if (event.target.closest(".block")) {
                     let selectedBlocks = document.getElementsByClassName("selectedblock");
                     for (let i = 0; i < selectedBlocks.length; i++) {
