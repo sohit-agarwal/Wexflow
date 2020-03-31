@@ -1518,7 +1518,10 @@ namespace Wexflow.Server
                                     xsetting.SetAttributeValue(attributeName, attributeValue);
                                 }
 
-                                xtask.Add(xsetting);
+                                if (settingName == "selectFiles" || settingName == "selectAttachments" || (settingName != "selectFiles" || settingName != "selectAttachments" && !string.IsNullOrEmpty(settingValue)))
+                                {
+                                    xtask.Add(xsetting);
+                                }
                             }
 
                             xtasks.Add(xtask);
