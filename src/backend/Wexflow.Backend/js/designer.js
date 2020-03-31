@@ -187,6 +187,20 @@
             let taskdesc = drag.querySelector(".blockelemdesc").value;
             drag.innerHTML += "<div class='blockyleft'><img src='assets/actionorange.svg'><p class='blockyname'>" + taskname + "</p></div><div class='blockyright'><img src='assets/more.svg'></div><div class='blockydiv'></div><div class='blockyinfo'>" + taskdesc + "</div>";
 
+            let index = parseInt(drag.querySelector(".blockid").value);
+            if (!tasks[index]) {
+                tasks[index] = {
+                    "Id": 0,
+                    "Name": taskname,
+                    "Description": "",
+                    "IsEnabled": true,
+                    "Settings": []
+                };
+                updateTasks();
+            }
+
+
+
             return true;
         }
 
@@ -298,7 +312,6 @@
                     document.getElementById("header2").innerHTML = "Task Settings&nbsp;<a title='Task Documentation' href='https://github.com/aelassas/Wexflow/wiki/" + taskname + "' target='_blank'><img src='assets/doc.png'></a>";
                     proplist.innerHTML = '<p class="inputlabel">Id</p><input id="taskid" class="inputtext" type="text" /><p class="inputlabel">Description</p><input id="taskdescription" class="inputtext" type="text" /><p class="inputlabel">Enabled</p><input id="taskenabled" class="inputtext" type="checkbox" checked />';
 
-                    // TODO update logic
                     let index = parseInt(event.target.closest(".block").childNodes[2].value);
 
                     if (!tasks[index]) {
@@ -486,14 +499,14 @@
         };
 
         function updateTasks() {
-            let flowyoutput = flowy.output();
-            let wftasks = [];
-            if (flowyoutput && flowyoutput.blocks) {
-                for (let i = 0; i < flowyoutput.blocks.length; i++) {
-                    wftasks.push(tasks[parseInt(flowyoutput.blocks[i].data[2].value)]);
-                }
+            let length = 0;
+            while (tasks[length]) {
+                length++;
             }
-            workflow.Tasks = wftasks;
+            workflow.Tasks = [];
+            for (let i = 0; i < length; i++) {
+                workflow.Tasks.push(tasks[i]);
+            }
         }
 
         window.onkeydown = function (event) {
@@ -1346,6 +1359,24 @@
                 return 1;
             }
             return 0;
+        }
+
+        document.getElementById("export").onclick = function () {
+            // TODO json or xml popup
+            // TODO validation
+            //download('text content', 'workflow-id.txt', 'text/plain');
+        };
+
+        function download(text, name, type) {
+            var a = document.createElement("a");
+            var file = new Blob([text], { type: type });
+            var url = URL.createObjectURL(file);
+            a.href = url;
+            a.download = name;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
         }
 
     }
