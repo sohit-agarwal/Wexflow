@@ -368,56 +368,57 @@
                     if (isNaN(index) === false) {
                         Common.get(uri + "/settings/" + taskname,
                             function (settings) {
-                                let tasksettings = "";
-                                for (let i = 0; i < settings.length; i++) {
-                                    let settingName = settings[i];
-                                    tasksettings += '<p class="wf-setting-name">' + settingName + '</p><input class="wf-setting-index" type="hidden" value="' + i + '"><input class="wf-setting-value inputtext" value="' + (tasks[index].Settings[i] ? tasks[index].Settings[i].Value : "") + '" type="text" />';
+                                if (tasks[index]) {
+                                    let tasksettings = "";
+                                    for (let i = 0; i < settings.length; i++) {
+                                        let settingName = settings[i];
+                                        tasksettings += '<p class="wf-setting-name">' + settingName + '</p><input class="wf-setting-index" type="hidden" value="' + i + '"><input class="wf-setting-value inputtext" value="' + (tasks[index].Settings[i] ? tasks[index].Settings[i].Value : "") + '" type="text" />';
 
-                                    if (!tasks[index].Settings[i]) {
-                                        tasks[index].Settings.push({
-                                            "Name": settingName,
-                                            "Value": "",
-                                            "Attributes": []
-                                        });
+                                        if (!tasks[index].Settings[i]) {
+                                            tasks[index].Settings.push({
+                                                "Name": settingName,
+                                                "Value": "",
+                                                "Attributes": []
+                                            });
+                                        }
                                     }
-                                }
 
-                                proplist.innerHTML = proplist.innerHTML + tasksettings;
+                                    proplist.innerHTML = proplist.innerHTML + tasksettings;
 
-                                document.getElementById("taskid").value = tasks[index].Id;
-                                document.getElementById("taskdescription").value = tasks[index].Description;
-                                document.getElementById("taskenabled").checked = tasks[index].IsEnabled;
+                                    document.getElementById("taskid").value = tasks[index].Id;
+                                    document.getElementById("taskdescription").value = tasks[index].Description;
+                                    document.getElementById("taskenabled").checked = tasks[index].IsEnabled;
 
-                                document.getElementById("taskid").onkeyup = function () {
-                                    tasks[index].Id = this.value;
-
-                                    updateTasks();
-                                };
-
-                                document.getElementById("taskdescription").onkeyup = function () {
-                                    tasks[index].Description = this.value;
-
-                                    updateTasks();
-                                };
-
-                                document.getElementById("taskenabled").onchange = function () {
-                                    tasks[index].IsEnabled = this.checked;
-
-                                    updateTasks();
-                                };
-
-                                let settingValues = document.getElementsByClassName("wf-setting-value");
-                                for (let i = 0; i < settingValues.length; i++) {
-                                    let settingValue = settingValues[i];
-
-                                    settingValue.onkeyup = function () {
-                                        let sindex = this.previousElementSibling.value;
-                                        tasks[index].Settings[sindex].Value = this.value;
+                                    document.getElementById("taskid").onkeyup = function () {
+                                        tasks[index].Id = this.value;
 
                                         updateTasks();
                                     };
-                                }
 
+                                    document.getElementById("taskdescription").onkeyup = function () {
+                                        tasks[index].Description = this.value;
+
+                                        updateTasks();
+                                    };
+
+                                    document.getElementById("taskenabled").onchange = function () {
+                                        tasks[index].IsEnabled = this.checked;
+
+                                        updateTasks();
+                                    };
+
+                                    let settingValues = document.getElementsByClassName("wf-setting-value");
+                                    for (let i = 0; i < settingValues.length; i++) {
+                                        let settingValue = settingValues[i];
+
+                                        settingValue.onkeyup = function () {
+                                            let sindex = this.previousElementSibling.value;
+                                            tasks[index].Settings[sindex].Value = this.value;
+
+                                            updateTasks();
+                                        };
+                                    }
+                                }
                             },
                             function () {
                                 Common.toastError("An error occured while retrieving settings.");
