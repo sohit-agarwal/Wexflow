@@ -35,10 +35,10 @@ var flowy = function (canvas, grab, release, snapping, spacing_x, spacing_y) {
         var drag, dragx, dragy, original;
         var mouse_x, mouse_y;
         var dragblock = false;
-        var el = document.createElement("DIV");
-        el.classList.add('indicator');
-        el.classList.add('invisible');
-        canvas_div.appendChild(el);
+        //var el = document.createElement("DIV");
+        //el.classList.add('indicator');
+        //el.classList.add('invisible');
+        //canvas_div.appendChild(el);
         flowy.import = function (output) {
             canvas_div.innerHTML = output.html;
             blocks = output.blockarr;
@@ -172,7 +172,7 @@ var flowy = function (canvas, grab, release, snapping, spacing_x, spacing_y) {
                         height: parseInt(window.getComputedStyle(drag).height)
                     });
                 } else if (active && blocks.length == 0) {
-                    canvas_div.appendChild(document.querySelector(".indicator"));
+                    //canvas_div.appendChild(document.querySelector(".indicator"));
                     if (drag.parentNode) {
                         drag.parentNode.removeChild(drag);
                     }
@@ -202,7 +202,7 @@ var flowy = function (canvas, grab, release, snapping, spacing_x, spacing_y) {
                                 blockstemp = [];
                             }
                             active = false;
-                            canvas_div.appendChild(document.querySelector(".indicator"));
+                            //canvas_div.appendChild(document.querySelector(".indicator"));
                             if (drag.parentNode) {
                                 drag.parentNode.removeChild(drag);
                             }
