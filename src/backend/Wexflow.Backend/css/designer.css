@@ -787,8 +787,8 @@ vertical-align: middle;
 display: inline-block;
 float: right;
 vertical-align: middle;
-margin-right: 20px;
-margin-top: 10px;
+margin-right: 0px;
+margin-top: 5px;
 width: 28px;
 height: 28px;
 border-radius: 5px;
@@ -798,18 +798,27 @@ transition: all .3s cubic-bezier(.05,.03,.35,1);
 z-index: 10;
 }
 
-.blockyright:hover {
+/*.blockyright:hover {
 background-color: #F1F4FC;
 cursor: pointer;
 }
 
 .blockyright img {
 margin-top: 12px;
+}*/
+
+.blockyright .removediagblock{
+	margin-top: -15px;
+}
+
+.blockyright .removediagblock:hover {
+	background-color: #F1F4FC;
+	cursor: pointer;
 }
 
 .blockyleft {
-display: inline-block;
-margin-left: 20px;
+	display: inline-block;
+	margin-left: 20px;
 }
 
 .blockydiv {

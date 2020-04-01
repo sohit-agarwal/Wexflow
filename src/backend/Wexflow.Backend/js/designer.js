@@ -185,7 +185,7 @@
 
             let taskname = drag.querySelector(".blockelemtype").value;
             let taskdesc = drag.querySelector(".blockelemdesc").value;
-            drag.innerHTML += "<div class='blockyleft'><img src='assets/actionorange.svg'><p class='blockyname'>" + taskname + "</p></div><div class='blockyright'><img src='assets/more.svg'></div><div class='blockydiv'></div><div class='blockyinfo'>" + taskdesc + "</div>";
+            drag.innerHTML += "<div class='blockyleft'><img src='assets/actionorange.svg'><p class='blockyname'>" + taskname + "</p></div><div class='blockyright'><img src='assets/close.svg' class='removediagblock'></div><div class='blockydiv'></div><div class='blockyinfo'>" + taskdesc + "</div>";
 
             let index = parseInt(drag.querySelector(".blockid").value);
             if (!tasks[index]) {
@@ -198,8 +198,6 @@
                 };
                 updateTasks();
             }
-
-
 
             return true;
         }
@@ -355,8 +353,7 @@
                     proplist.innerHTML = '<p class="inputlabel">Id</p><input id="taskid" class="inputtext" type="text" /><p class="inputlabel">Description</p><input id="taskdescription" class="inputtext" type="text" /><p class="inputlabel">Enabled</p><input id="taskenabled" class="inputtext" type="checkbox" checked />';
 
                     let index = parseInt(event.target.closest(".block").childNodes[2].value);
-
-                    if (!tasks[index]) {
+                    if (!tasks[index] && isNaN(index) === false) {
                         tasks[index] = {
                             "Id": 0,
                             "Name": taskname,
@@ -368,63 +365,64 @@
 
                     updateTasks();
 
-                    Common.get(uri + "/settings/" + taskname,
-                        function (settings) {
-                            let tasksettings = "";
-                            for (let i = 0; i < settings.length; i++) {
-                                let settingName = settings[i];
-                                tasksettings += '<p class="wf-setting-name">' + settingName + '</p><input class="wf-setting-index" type="hidden" value="' + i + '"><input class="wf-setting-value inputtext" value="' + (tasks[index].Settings[i] ? tasks[index].Settings[i].Value : "") + '" type="text" />';
+                    if (isNaN(index) === false) {
+                        Common.get(uri + "/settings/" + taskname,
+                            function (settings) {
+                                let tasksettings = "";
+                                for (let i = 0; i < settings.length; i++) {
+                                    let settingName = settings[i];
+                                    tasksettings += '<p class="wf-setting-name">' + settingName + '</p><input class="wf-setting-index" type="hidden" value="' + i + '"><input class="wf-setting-value inputtext" value="' + (tasks[index].Settings[i] ? tasks[index].Settings[i].Value : "") + '" type="text" />';
 
-                                if (!tasks[index].Settings[i]) {
-                                    tasks[index].Settings.push({
-                                        "Name": settingName,
-                                        "Value": "",
-                                        "Attributes": []
-                                    });
+                                    if (!tasks[index].Settings[i]) {
+                                        tasks[index].Settings.push({
+                                            "Name": settingName,
+                                            "Value": "",
+                                            "Attributes": []
+                                        });
+                                    }
                                 }
-                            }
 
-                            proplist.innerHTML = proplist.innerHTML + tasksettings;
+                                proplist.innerHTML = proplist.innerHTML + tasksettings;
 
-                            document.getElementById("taskid").value = tasks[index].Id;
-                            document.getElementById("taskdescription").value = tasks[index].Description;
-                            document.getElementById("taskenabled").checked = tasks[index].IsEnabled;
+                                document.getElementById("taskid").value = tasks[index].Id;
+                                document.getElementById("taskdescription").value = tasks[index].Description;
+                                document.getElementById("taskenabled").checked = tasks[index].IsEnabled;
 
-                            document.getElementById("taskid").onkeyup = function () {
-                                tasks[index].Id = this.value;
-
-                                updateTasks();
-                            };
-
-                            document.getElementById("taskdescription").onkeyup = function () {
-                                tasks[index].Description = this.value;
-
-                                updateTasks();
-                            };
-
-                            document.getElementById("taskenabled").onchange = function () {
-                                tasks[index].IsEnabled = this.checked;
-
-                                updateTasks();
-                            };
-
-                            let settingValues = document.getElementsByClassName("wf-setting-value");
-                            for (let i = 0; i < settingValues.length; i++) {
-                                let settingValue = settingValues[i];
-
-                                settingValue.onkeyup = function () {
-                                    let sindex = this.previousElementSibling.value;
-                                    tasks[index].Settings[sindex].Value = this.value;
+                                document.getElementById("taskid").onkeyup = function () {
+                                    tasks[index].Id = this.value;
 
                                     updateTasks();
                                 };
-                            }
 
-                        },
-                        function () {
-                            Common.toastError("An error occured while retrieving settings.");
-                        }, auth);
+                                document.getElementById("taskdescription").onkeyup = function () {
+                                    tasks[index].Description = this.value;
 
+                                    updateTasks();
+                                };
+
+                                document.getElementById("taskenabled").onchange = function () {
+                                    tasks[index].IsEnabled = this.checked;
+
+                                    updateTasks();
+                                };
+
+                                let settingValues = document.getElementsByClassName("wf-setting-value");
+                                for (let i = 0; i < settingValues.length; i++) {
+                                    let settingValue = settingValues[i];
+
+                                    settingValue.onkeyup = function () {
+                                        let sindex = this.previousElementSibling.value;
+                                        tasks[index].Settings[sindex].Value = this.value;
+
+                                        updateTasks();
+                                    };
+                                }
+
+                            },
+                            function () {
+                                Common.toastError("An error occured while retrieving settings.");
+                            }, auth);
+                    }
                 }
             }
         }
@@ -586,6 +584,87 @@
                 for (let i = 0; i < blocks.length; i++) {
                     workflow.Tasks.push(tasks[parseInt(blocks[i].data[2].value)]);
                 }
+
+                // bind remove block
+                let removeButtons = document.getElementsByClassName("removediagblock");
+                for (let i = 0; i < removeButtons.length; i++) {
+                    let removeButton = removeButtons[i];
+                    removeButton.onclick = function () {
+                        let blockid = parseInt(this.closest(".block").querySelector(".blockid").value);
+                        let taskName = blocks[blockid].data[0].value;
+
+                        let res = confirm("Are you sure you want to delete the task " + taskName + "?");
+
+                        if (res === true) {
+
+                            // update tasks
+                            for (let i = blockid; i < blocks.length; i++) {
+                                if (i + 1 < blocks.length) {
+                                    tasks[i] = tasks[i + 1];
+                                } else {
+                                    tasks[i] = null;
+                                }
+                            }
+
+                            // build blocks
+                            blocks.splice(blockid, 1);
+
+                            // update workflow
+                            workflow.Tasks = [];
+                            for (let i = 0; i < blocks.length; i++) {
+                                workflow.Tasks.push(tasks[parseInt(blocks[i].data[2].value)]);
+                            }
+
+                            // build html
+                            let html = "";
+                            let blockspace = 180;
+                            let arrowspace = 180;
+                            for (let j = 0; j < blocks.length; j++) {
+                                let block = blocks[j];
+                                let left = parseInt(block.attr[1].style.split(";")[0].replace("left:", "").replace(" ", "").replace("px", ""));
+                                html += "<div class='blockelem noselect block' style='left: " + left + "px; top: " + (25 + blockspace * j) + "px;'><input type='hidden' name='blockelemtype' class='blockelemtype' value='" + block.data[0].value + "'><input type='hidden' name='blockelemdesc' class='blockelemdesc' value='" + block.data[1].value + "'><input type='hidden' name='blockid' class='blockid' value='" + j + "'><div class='blockyleft'><img src='assets/actionorange.svg'><p class='blockyname'>" + block.data[0].value + "</p></div><div class='blockyright'><img class='removediagblock' src='assets/close.svg'></div><div class='blockydiv'></div><div class='blockyinfo'>" + block.data[1].value + "</div><div class='indicator invisible' style='left: 154px; top: 100px;'></div></div>";
+                                if (j < blocks.length - 1) {
+                                    html += "<div class='arrowblock' style='left: " + (left + 139) + "px; top: " + (125 + arrowspace * j) + "px;'><input type='hidden' class='arrowid' value='" + (j + 1) + "'><svg preserveAspectRatio='none' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M20 0L20 40L20 40L20 80' stroke='#C5CCD0' stroke-width='2px'></path><path d='M15 75H25L20 80L15 75Z' fill='#C5CCD0'></path></svg></div>";
+                                }
+                            }
+
+                            // build blockarr
+                            let blockarr = [];
+                            for (let j = 0; j < blocks.length; j++) {
+                                blockarr.push(
+                                    {
+                                        "parent": j - 1,
+                                        "childwidth": (j < blocks.length - 1 ? 318 : 0),
+                                        "id": j,
+                                        "x": 644,
+                                        "y": 190 + blockspace * j,
+                                        "width": 318,
+                                        "height": 100
+                                    });
+                            }
+
+                            let flowyinput = {
+                                "html": html,
+                                "blockarr": blockarr
+                            };
+
+                            // flowy import 
+                            flowy.import(flowyinput);
+
+                            // close propwrap
+                            rightcard = false;
+                            document.getElementById("properties").classList.remove("expanded");
+                            setTimeout(function () {
+                                document.getElementById("propwrap").classList.remove("itson");
+                                wfclose.style.right = "0";
+                            }, 0);
+
+                        }
+
+
+                    };
+                }
+
             }
         }
 
@@ -1257,7 +1336,7 @@
                     let arrowspace = 180;
                     for (let i = 0; i < workflow.Tasks.length; i++) {
                         let task = workflow.Tasks[i];
-                        canvashtml += "<div class='blockelem noselect block' style='left: 500px; top: " + (25 + blockspace * i) + "px;'><input type='hidden' name='blockelemtype' class='blockelemtype' value='" + task.Name + "'><input type='hidden' name='blockelemdesc' class='blockelemdesc' value='" + task.Description + "'><input type='hidden' name='blockid' class='blockid' value='" + i + "'><div class='blockyleft'><img src='assets/actionorange.svg'><p class='blockyname'>" + task.Name + "</p></div><div class='blockyright'><img src='assets/more.svg'></div><div class='blockydiv'></div><div class='blockyinfo'>" + task.Description + "</div><div class='indicator invisible' style='left: 154px; top: 100px;'></div></div>";
+                        canvashtml += "<div class='blockelem noselect block' style='left: 500px; top: " + (25 + blockspace * i) + "px;'><input type='hidden' name='blockelemtype' class='blockelemtype' value='" + task.Name + "'><input type='hidden' name='blockelemdesc' class='blockelemdesc' value='" + task.Description + "'><input type='hidden' name='blockid' class='blockid' value='" + i + "'><div class='blockyleft'><img src='assets/actionorange.svg'><p class='blockyname'>" + task.Name + "</p></div><div class='blockyright'><img class='removediagblock' src='assets/close.svg'></div><div class='blockydiv'></div><div class='blockyinfo'>" + task.Description + "</div><div class='indicator invisible' style='left: 154px; top: 100px;'></div></div>";
                         if (i < workflow.Tasks.length - 1) {
                             canvashtml += "<div class='arrowblock' style='left: 639px; top: " + (125 + arrowspace * i) + "px;'><input type='hidden' class='arrowid' value='" + (i + 1) + "'><svg preserveAspectRatio='none' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M20 0L20 40L20 40L20 80' stroke='#C5CCD0' stroke-width='2px'></path><path d='M15 75H25L20 80L15 75Z' fill='#C5CCD0'></path></svg></div>";
                         }
