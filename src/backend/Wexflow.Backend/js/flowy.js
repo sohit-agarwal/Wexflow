@@ -198,7 +198,9 @@ var flowy = function (canvas, grab, release, snapping, spacing_x, spacing_y) {
                             }
                             active = false;
                             canvas_div.appendChild(document.querySelector(".indicator"));
-                            drag.parentNode.removeChild(drag);
+                            if (drag.parentNode) {
+                                drag.parentNode.removeChild(drag);
+                            }
 
                             // Remove droped blocks indexes from visited indexes
                             let innerBlocks = drag.querySelectorAll(".block");
@@ -230,8 +232,6 @@ var flowy = function (canvas, grab, release, snapping, spacing_x, spacing_y) {
         }
 
         function snap(drag, i, blocko) {
-            //console.log("i: " + i);
-            //console.log("blocko: " + blocko);
             if (!rearrange) {
                 canvas_div.appendChild(drag);
             }

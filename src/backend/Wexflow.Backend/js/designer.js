@@ -545,6 +545,43 @@
             let output = flowy.output();
             if (output) {
                 let blocks = output.blocks;
+
+                // update tasks
+                let length = 0;
+
+                while (tasks[length]) {
+                    length++;
+                }
+
+                // if task index is not in the diagram then remove the corresponding task from tasks
+                for (let i = 0; i < length; i++) {
+                    let taskFound = false;
+                    for (let j = 0; j < blocks.length; j++) {
+                        let index = parseInt(blocks[j].data[2].value);
+                        if (index === i) {
+                            taskFound = true;
+                            break;
+                        }
+                    }
+                    if (taskFound === false) {
+                        tasks[i] = null;
+                    }
+                }
+
+                // add missing tasks
+                for (let i = 0; i < blocks.length; i++) {
+                    if (!tasks[i]) {
+                        tasks[i] = {
+                            "Id": 0,
+                            "Name": blocks[i].data[0].value,
+                            "Description": "",
+                            "IsEnabled": true,
+                            "Settings": []
+                        };
+                    }
+                }
+
+                // update workflow
                 workflow.Tasks = [];
                 for (let i = 0; i < blocks.length; i++) {
                     workflow.Tasks.push(tasks[parseInt(blocks[i].data[2].value)]);
