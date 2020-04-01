@@ -42,6 +42,11 @@ var flowy = function (canvas, grab, release, snapping, spacing_x, spacing_y) {
         flowy.import = function (output) {
             canvas_div.innerHTML = output.html;
             blocks = output.blockarr;
+
+            visitedIndexes = [];
+            for (let i = 0; i < blocks.length; i++) {
+                visitedIndexes.push(i);
+            }
         }
         flowy.output = function () {
             var html_ser = JSON.stringify(canvas_div.innerHTML);
@@ -202,7 +207,7 @@ var flowy = function (canvas, grab, release, snapping, spacing_x, spacing_y) {
                                 drag.parentNode.removeChild(drag);
                             }
 
-                            // Remove droped blocks indexes from visited indexes
+                            // Remove dropped blocks indexes from visited indexes
                             let innerBlocks = drag.querySelectorAll(".block");
                             let lastBlock = innerBlocks[innerBlocks.length - 1];
                             let length = 0;
