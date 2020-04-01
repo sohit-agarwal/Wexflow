@@ -540,14 +540,15 @@
             workflow.WorkflowInfo.EnableParallelJobs = this.checked;
         };
 
+        // main function for updating tasks
         function updateTasks() {
-            let length = 0;
-            while (tasks[length]) {
-                length++;
-            }
-            workflow.Tasks = [];
-            for (let i = 0; i < length; i++) {
-                workflow.Tasks.push(tasks[i]);
+            let output = flowy.output();
+            if (output) {
+                let blocks = output.blocks;
+                workflow.Tasks = [];
+                for (let i = 0; i < blocks.length; i++) {
+                    workflow.Tasks.push(tasks[parseInt(blocks[i].data[2].value)]);
+                }
             }
         }
 
