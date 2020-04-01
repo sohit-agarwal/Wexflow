@@ -44,7 +44,7 @@ var flowy = function (canvas, grab, release, snapping, spacing_x, spacing_y) {
             blocks = output.blockarr;
 
             visitedIndexes = [];
-            for (let i = 0; i < blocks.length; i++) {
+            for (let i = 0; i < blocks.length - 1; i++) {
                 visitedIndexes.push(i);
             }
         }
