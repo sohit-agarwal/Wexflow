@@ -627,6 +627,25 @@ paths:
      consumes:
       - "application/json"    
   
+  /upload:
+    post:
+     tags:
+     - "Designer"
+     summary: "Uploads a workflow from JSON or XML"
+     description: ""
+     consumes:
+         - multipart/form-data
+     produces:
+       - "application/json"
+     parameters:
+        - in: formData
+          name: file
+          type: file
+          description: The file to upload  
+     responses:
+        200:
+          description: "successful operation" 
+
   /delete:
     post:
      tags:

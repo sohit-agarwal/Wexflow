@@ -1886,7 +1886,7 @@ namespace Wexflow.Server
                         }
                     }
 
-                    // if extension is xml the XML else JSON
+                    // if extension is xml then XML else JSON
                     if (isAuthorized)
                     {
                         if (isXml)
