@@ -154,7 +154,7 @@ cursor: pointer;
 
 #leftswitch:hover, #middleswitch:hover, #rightswitch:hover {
 	border: 1px solid #E8E8EF;
-	background-color: #F0F0F0;
+	opacity: .7;
 }
 
 #export, #import {
