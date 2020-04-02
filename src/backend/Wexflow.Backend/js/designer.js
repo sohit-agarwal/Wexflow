@@ -955,6 +955,7 @@
                     };
                     Common.post(uri + "/saveXml", function (res) {
                         if (res === true) {
+                            loadDiagram(workflow.WorkflowInfo.Id);
                             removeworkflow.style.display = "block";
                             Common.toastSuccess("workflow " + wfid + " saved and loaded with success from XML view.");
                         } else {
