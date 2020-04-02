@@ -202,7 +202,7 @@
             return true;
         }
 
-        function drop(drag, blockId) {
+        function drop(drag, blockId, xpos) {
 
             // rebuild blocks
             let blocks = flowy.output().blocks;
@@ -234,10 +234,11 @@
                             "class": "blockelem noselect block"
                         },
                         {
-                            "style": "left: 152px; top: 17px;" // TODO calaculate top?
+                            "style": "left: " + (xpos - 375 + 34) + "px; top: 17px;" // calaculate left
                         }
                     ]
                 });
+
             // update tasks
             let length = 0;
 
