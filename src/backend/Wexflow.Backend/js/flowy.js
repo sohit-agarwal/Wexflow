@@ -1,4 +1,4 @@
-var flowy = function (canvas, grab, release, snapping, spacing_x, spacing_y) {
+var flowy = function (canvas, grab, release, snapping, drop, spacing_x, spacing_y) {
     if (!grab) {
         grab = function () { };
     }
@@ -194,6 +194,9 @@ var flowy = function (canvas, grab, release, snapping, spacing_x, spacing_y) {
                             } else {
                                 drag.parentNode.removeChild(drag);
                                 // TODO add block and rearrange
+                                if (drop) {
+                                    drop(drag, i);
+                                }
                             }
                             break;
                         } else if (i == blocks.length - 1) {
@@ -219,7 +222,6 @@ var flowy = function (canvas, grab, release, snapping, spacing_x, spacing_y) {
 
                             //if (drag.parentNode && innerBlocks.length == 0) {
                             if (drag.parentNode) {
-                                console.log(drag);
                                 drag.parentNode.removeChild(drag);
                             }
 

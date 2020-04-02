@@ -88,7 +88,7 @@
         let checkId = true;
         let removeworkflow = document.getElementById("removeworkflow");
 
-        flowy(canvas, drag, release, snapping);
+        flowy(canvas, drag, release, snapping, drop);
 
         function loadTasks() {
             Common.get(uri + "/searchTaskNames?s=" + searchtasks.value,
@@ -200,6 +200,110 @@
             }
 
             return true;
+        }
+
+        function drop(drag, blockId) {
+
+            // rebuild blocks
+            let blocks = flowy.output().blocks;
+            for (let i = blockId + 1; i < blocks.length; i++) {
+                blocks[i].id++;
+                blocks[i].parent++;
+                blocks[i].data[2].value = i + 1;
+            }
+            blocks.splice(blockId + 1, 0,
+                {
+                    "id": blockId + 1,
+                    "parent": blockId,
+                    "data": [
+                        {
+                            "name": "blockelemtype",
+                            "value": drag.querySelector(".blockelemtype").value
+                        },
+                        {
+                            "name": "blockelemdesc",
+                            "value": drag.querySelector(".blockelemdesc").value
+                        },
+                        {
+                            "name": "blockid",
+                            "value": blockId + 1
+                        }
+                    ],
+                    "attr": [
+                        {
+                            "class": "blockelem noselect block"
+                        },
+                        {
+                            "style": "left: 152px; top: 17px;" // TODO calaculate top?
+                        }
+                    ]
+                });
+            // update tasks
+            let length = 0;
+
+            while (tasks[length]) {
+                length++;
+            }
+
+            let taskstemp = {};
+            for (let i = length - 1; i > blockId; i--) {
+                taskstemp[i + 1] = tasks[i];
+                tasks[i + 1] = tasks[i];
+            }
+            for (let i = 0; i <= blockId; i++) {
+                taskstemp[i] = tasks[i];
+            }
+            taskstemp[blockId + 1] = {
+                "Id": 0,
+                "Name": drag.querySelector(".blockelemtype").value,
+                "Description": "",
+                "IsEnabled": true,
+                "Settings": []
+            };
+            tasks = taskstemp;
+
+            // update workflow
+            workflow.Tasks = [];
+            for (let i = 0; i < blocks.length; i++) {
+                workflow.Tasks.push(tasks[parseInt(blocks[i].data[2].value)]);
+            }
+
+            // build html
+            let html = "";
+            let blockspace = 180;
+            let arrowspace = 180;
+            for (let j = 0; j < blocks.length; j++) {
+                let block = blocks[j];
+                let left = parseInt(block.attr[1].style.split(";")[0].replace("left:", "").replace(" ", "").replace("px", ""));
+                html += "<div class='blockelem noselect block' style='left: " + left + "px; top: " + (25 + blockspace * j) + "px;'><input type='hidden' name='blockelemtype' class='blockelemtype' value='" + block.data[0].value + "'><input type='hidden' name='blockelemdesc' class='blockelemdesc' value='" + block.data[1].value + "'><input type='hidden' name='blockid' class='blockid' value='" + j + "'><div class='blockyleft'><img src='assets/actionorange.svg'><p class='blockyname'>" + block.data[0].value + "</p></div><div class='blockyright'><img class='removediagblock' src='assets/close.svg'></div><div class='blockydiv'></div><div class='blockyinfo'>" + block.data[1].value + "</div><div class='indicator invisible' style='left: 154px; top: 100px;'></div></div>";
+                if (j < blocks.length - 1) {
+                    html += "<div class='arrowblock' style='left: " + (left + 139) + "px; top: " + (125 + arrowspace * j) + "px;'><input type='hidden' class='arrowid' value='" + (j + 1) + "'><svg preserveAspectRatio='none' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M20 0L20 40L20 40L20 80' stroke='#C5CCD0' stroke-width='2px'></path><path d='M15 75H25L20 80L15 75Z' fill='#C5CCD0'></path></svg></div>";
+                }
+            }
+
+            // build blockarr
+            let blockarr = [];
+            for (let j = 0; j < blocks.length; j++) {
+                blockarr.push(
+                    {
+                        "parent": j - 1,
+                        "childwidth": (j < blocks.length - 1 ? 318 : 0),
+                        "id": j,
+                        "x": 644,
+                        "y": 190 + blockspace * j,
+                        "width": 318,
+                        "height": 100
+                    });
+            }
+
+            let flowyinput = {
+                "html": html,
+                "blockarr": blockarr
+            };
+
+            // flowy import 
+            flowy.import(flowyinput);
+
         }
 
         function drag(block) {
