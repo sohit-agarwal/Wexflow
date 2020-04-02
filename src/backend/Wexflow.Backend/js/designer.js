@@ -87,6 +87,7 @@
         let editor = null;
         let checkId = true;
         let removeworkflow = document.getElementById("removeworkflow");
+        let transition = "all .25s cubic-bezier(.05,.03,.35,1)";
 
         flowy(canvas, drag, release, snapping, drop);
 
@@ -544,6 +545,7 @@
             if (leftcardHidden === false) {
 
                 document.getElementById("leftcard").style.left = -leftcardwidth + "px";
+                document.getElementById("leftcard").style.transition = transition;
                 closecardimg.src = "assets/openleft.png";
                 leftcardHidden = true;
                 canvas.style.left = "0";
@@ -584,7 +586,9 @@
         wfclose.onclick = function () {
             if (wfpropHidden === false) {
                 document.getElementById("wfpropwrap").style.right = -wfpropwidth + "px";
+                document.getElementById("wfpropwrap").style.transition = transition;
                 wfclose.style.right = "0";
+                wfclose.style.transition = transition;
                 wfpropHidden = true;
                 closewfcardimg.src = "assets/closeleft.png";
             } else {
