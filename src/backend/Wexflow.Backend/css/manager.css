@@ -34,7 +34,7 @@
         float: right;
     }
 
-    #header #lnk-manager, #lnk-designer, #lnk-approval, #lnk-users, #lnk-profiles {
+    #header #lnk-manager, #lnk-designer, #lnk-editor, #lnk-approval, #lnk-users, #lnk-profiles {
         display: none;
     }
 
