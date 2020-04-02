@@ -939,6 +939,7 @@
                     let json = JSON.parse(editor.getValue());
                     Common.post(uri + "/save", function (res) {
                         if (res === true) {
+                            loadDiagram(workflow.WorkflowInfo.Id);
                             removeworkflow.style.display = "block";
                             Common.toastSuccess("workflow " + wfid + " saved and loaded with success from JSON view.");
                         } else {
