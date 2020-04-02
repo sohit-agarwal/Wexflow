@@ -660,6 +660,14 @@
                                 wfclose.style.right = "0";
                             }, 0);
 
+                        } else {
+                            // close propwrap
+                            rightcard = false;
+                            document.getElementById("properties").classList.remove("expanded");
+                            setTimeout(function () {
+                                document.getElementById("propwrap").classList.remove("itson");
+                                wfclose.style.right = "0";
+                            }, 0);
                         }
 
 
