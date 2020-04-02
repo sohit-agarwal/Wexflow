@@ -454,10 +454,10 @@
                     let taskname = tempblock.getElementsByClassName("blockelemtype")[0].value;
                     let proplist = document.getElementById("proplist");
 
-                    document.getElementById("header2").innerHTML = "Task Settings&nbsp;<a title='Task Documentation' href='https://github.com/aelassas/Wexflow/wiki/" + taskname + "' target='_blank'><img src='assets/doc.png'></a>";
-                    proplist.innerHTML = '<p class="inputlabel">Id</p><input id="taskid" class="inputtext" type="text" /><p class="inputlabel">Description</p><input id="taskdescription" class="inputtext" type="text" /><p class="inputlabel">Enabled</p><input id="taskenabled" class="inputtext" type="checkbox" checked />';
+                    document.getElementById("header2").innerHTML = "Task Settings&nbsp;<a class='badge badge-warning' title='Open task Documentation' href='https://github.com/aelassas/Wexflow/wiki/" + taskname + "' target='_blank'>doc</a>";
+                    proplist.innerHTML = '<p class="inputlabel">Id</p><input id="taskid" class="form-control inputtext" type="text" /><p class="inputlabel">Description</p><input id="taskdescription" class="form-control inputtext" type="text" /><p class="inputlabel">Enabled</p><input id="taskenabled" class="form-check-input inputtext" type="checkbox" checked />';
 
-                    let index = parseInt(event.target.closest(".block").childNodes[2].value);
+                    let index = parseInt(event.target.closest(".block").querySelector(".blockid").value);
                     if (!tasks[index] && isNaN(index) === false) {
                         tasks[index] = {
                             "Id": 0,
@@ -477,7 +477,7 @@
                                     let tasksettings = "";
                                     for (let i = 0; i < settings.length; i++) {
                                         let settingName = settings[i];
-                                        tasksettings += '<p class="wf-setting-name">' + settingName + '</p><input class="wf-setting-index" type="hidden" value="' + i + '"><input class="wf-setting-value inputtext" value="' + (tasks[index].Settings[i] ? tasks[index].Settings[i].Value : "") + '" type="text" />';
+                                        tasksettings += '<p class="wf-setting-name">' + settingName + '</p><input class="wf-setting-index" type="hidden" value="' + i + '"><input class="form-control wf-setting-value inputtext" value="' + (tasks[index].Settings[i] ? tasks[index].Settings[i].Value : "") + '" type="text" />';
 
                                         if (!tasks[index].Settings[i]) {
                                             tasks[index].Settings.push({
