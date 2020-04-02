@@ -97,6 +97,7 @@
     <Content Include="css\bootstrap-toggle.min.css" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\dashboard.min.css" />
+    <Content Include="css\designer.min.css" />
     <Content Include="css\editor.min.css" />
     <Content Include="css\designer.css" />
     <Content Include="css\flowy.css" />
@@ -124,6 +125,7 @@
     <Content Include="js\bootstrap-toggle.min.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\dashboard.min.js" />
+    <Content Include="js\designer.min.js" />
     <Content Include="js\editor.min.js" />
     <Content Include="js\designer.js" />
     <Content Include="js\ext-keybinding_menu.js" />
@@ -197,6 +199,8 @@
     <Content Include="css\uglify-profiles.bat" />
     <Content Include="js\uglify-profiles.bat" />
     <Content Include="js\jBox.all.min.js" />
+    <Content Include="js\uglify-designer.bat" />
+    <Content Include="css\uglify-designer.bat" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
