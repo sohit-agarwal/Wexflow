@@ -466,8 +466,20 @@
                     let taskname = tempblock.getElementsByClassName("blockelemtype")[0].value;
                     let proplist = document.getElementById("proplist");
 
-                    document.getElementById("header2").innerHTML = "Task Settings&nbsp;<a class='badge' title='Open task documentation' href='https://github.com/aelassas/Wexflow/wiki/" + taskname + "' target='_blank'>doc</a>";
+                    document.getElementById("header2").innerHTML = "Task Settings&nbsp;<span id='taskdoc' class='badge' title='Open task documentation'>doc</span>";
                     proplist.innerHTML = '<p class="inputlabel">Id</p><input id="taskid" class="form-control inputtext" type="text" /><p class="inputlabel">Description</p><input id="taskdescription" class="form-control inputtext" type="text" /><p class="inputlabel">Enabled</p><input id="taskenabled" class="form-check-input inputtext" type="checkbox" checked />';
+
+                    document.getElementById("taskdoc").onclick = function () {
+                        let url = "https://github.com/aelassas/Wexflow/wiki/" + taskname;
+                        openInNewTab(url);
+                    };
+
+                    function openInNewTab(url) {
+                        let win = window.open(url, "_blank");
+                        if (typeof win !== "undefined" && win !== null) {
+                            win.focus();
+                        }
+                    }
 
                     let index = parseInt(event.target.closest(".block").querySelector(".blockid").value);
                     if (!tasks[index] && isNaN(index) === false) {

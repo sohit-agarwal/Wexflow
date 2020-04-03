@@ -573,6 +573,16 @@ font-weight: bold;
 color: #393C44;	
 }
 
+#taskdoc {
+	position: absolute;
+	top: 7px;
+	cursor: pointer;
+}
+
+#taskdoc:hover{
+	opacity: .7;
+}
+
 #close {
 position: absolute;
 right: 20px;
