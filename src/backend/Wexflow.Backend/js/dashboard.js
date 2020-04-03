@@ -174,7 +174,8 @@
 
                                             slctEntriesCount.onchange = function () {
                                                 page = 1;
-                                                updatePagerControls(count);
+                                                //updatePagerControls(count);
+                                                updatePager();
                                                 loadEntries();
                                             };
 
