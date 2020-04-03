@@ -181,7 +181,7 @@ var flowy = function (canvas, grab, release, snapping, drop, spacing_x, spacing_
                     var ypos = (drag.getBoundingClientRect().top + window.scrollY) + canvas_div.scrollTop
                     var blocko = blocks.map(a => a.id);
                     for (var i = 0; i < blocks.length; i++) {
-                        if (xpos >= blocks.filter(a => a.id == blocko[i])[0].x - (blocks.filter(a => a.id == blocko[i])[0].width / 2) - paddingx && xpos <= blocks.filter(a => a.id == blocko[i])[0].x + (blocks.filter(a => a.id == blocko[i])[0].width / 2) + paddingx && ypos >= blocks.filter(a => a.id == blocko[i])[0].y - (blocks.filter(a => a.id == blocko[i])[0].height / 2) && ypos <= blocks.filter(a => a.id == blocko[i])[0].y + blocks.filter(a => a.id == blocko[i])[0].height) {
+                        if (blocks.filter(a => a.id == blocko[i])[0] && xpos >= blocks.filter(a => a.id == blocko[i])[0].x - (blocks.filter(a => a.id == blocko[i])[0].width / 2) - paddingx && xpos <= blocks.filter(a => a.id == blocko[i])[0].x + (blocks.filter(a => a.id == blocko[i])[0].width / 2) + paddingx && ypos >= blocks.filter(a => a.id == blocko[i])[0].y - (blocks.filter(a => a.id == blocko[i])[0].height / 2) && ypos <= blocks.filter(a => a.id == blocko[i])[0].y + blocks.filter(a => a.id == blocko[i])[0].height) {
                             active = false;
                             if (!(visitedIndexes.includes(i) && blocko.length > 0)) { // disable horizental drag and drop
                                 if (!rearrange && blockSnap(drag, false, blocks.filter(id => id.id == blocko[i])[0])) {
@@ -193,7 +193,7 @@ var flowy = function (canvas, grab, release, snapping, drop, spacing_x, spacing_
                                 }
                             } else {
                                 drag.parentNode.removeChild(drag);
-                                // Add block
+                                // Add block between two blocks
                                 if (drop) {
                                     drop(drag, i);
                                 }
@@ -220,9 +220,14 @@ var flowy = function (canvas, grab, release, snapping, drop, spacing_x, spacing_
                                 remove(visitedIndexes, j);
                             }
 
-                            //if (drag.parentNode && innerBlocks.length == 0) {
-                            if (drag.parentNode) {
+                            if (drag.parentNode && innerBlocks.length == 0) {
+                                //blockSnap(drag, i, i - 1);
+                                //snap(drag, i, blocko);
+                                //rearrangeMe();
+                                //visitedIndexes.push(i);
+                                //if (drag.parentNode) {
                                 drag.parentNode.removeChild(drag);
+                                //}
                             }
 
                         }
@@ -466,24 +471,24 @@ var flowy = function (canvas, grab, release, snapping, drop, spacing_x, spacing_
                     blockstemp.filter(a => a.id == parseInt(drag.querySelector(".blockid").value)).x = (drag.getBoundingClientRect().left + window.scrollX) + (parseInt(window.getComputedStyle(drag).width) / 2) + canvas_div.scrollLeft;
                     blockstemp.filter(a => a.id == parseInt(drag.querySelector(".blockid").value)).y = (drag.getBoundingClientRect().left + window.scrollX) + (parseInt(window.getComputedStyle(drag).height) / 2) + canvas_div.scrollTop;
                 }
-                if (active || rearrange) {
-                    var xpos = (drag.getBoundingClientRect().left + window.scrollX) + (parseInt(window.getComputedStyle(drag).width) / 2) + canvas_div.scrollLeft;
-                    var ypos = (drag.getBoundingClientRect().top + window.scrollY) + canvas_div.scrollTop;
-                    var blocko = blocks.map(a => a.id);
-                    for (var i = 0; i < blocks.length; i++) {
-                        if (xpos >= blocks.filter(a => a.id == blocko[i])[0].x - (blocks.filter(a => a.id == blocko[i])[0].width / 2) - paddingx && xpos <= blocks.filter(a => a.id == blocko[i])[0].x + (blocks.filter(a => a.id == blocko[i])[0].width / 2) + paddingx && ypos >= blocks.filter(a => a.id == blocko[i])[0].y - (blocks.filter(a => a.id == blocko[i])[0].height / 2) && ypos <= blocks.filter(a => a.id == blocko[i])[0].y + blocks.filter(a => a.id == blocko[i])[0].height) {
-                            document.querySelector(".blockid[value='" + blocko[i] + "']").parentNode.appendChild(document.querySelector(".indicator"));
-                            document.querySelector(".indicator").style.left = (parseInt(window.getComputedStyle(document.querySelector(".blockid[value='" + blocko[i] + "']").parentNode).width) / 2) - 5 + "px";
-                            document.querySelector(".indicator").style.top = window.getComputedStyle(document.querySelector(".blockid[value='" + blocko[i] + "']").parentNode).height;
-                            document.querySelector(".indicator").classList.remove("invisible");
-                            break;
-                        } else if (i == blocks.length - 1) {
-                            if (!document.querySelector(".indicator").classList.contains("invisible")) {
-                                document.querySelector(".indicator").classList.add("invisible");
-                            }
-                        }
-                    }
-                }
+                //if (active || rearrange) {
+                //    var xpos = (drag.getBoundingClientRect().left + window.scrollX) + (parseInt(window.getComputedStyle(drag).width) / 2) + canvas_div.scrollLeft;
+                //    var ypos = (drag.getBoundingClientRect().top + window.scrollY) + canvas_div.scrollTop;
+                //    var blocko = blocks.map(a => a.id);
+                //    for (var i = 0; i < blocks.length; i++) {
+                //        if (xpos >= blocks.filter(a => a.id == blocko[i])[0].x - (blocks.filter(a => a.id == blocko[i])[0].width / 2) - paddingx && xpos <= blocks.filter(a => a.id == blocko[i])[0].x + (blocks.filter(a => a.id == blocko[i])[0].width / 2) + paddingx && ypos >= blocks.filter(a => a.id == blocko[i])[0].y - (blocks.filter(a => a.id == blocko[i])[0].height / 2) && ypos <= blocks.filter(a => a.id == blocko[i])[0].y + blocks.filter(a => a.id == blocko[i])[0].height) {
+                //            document.querySelector(".blockid[value='" + blocko[i] + "']").parentNode.appendChild(document.querySelector(".indicator"));
+                //            document.querySelector(".indicator").style.left = (parseInt(window.getComputedStyle(document.querySelector(".blockid[value='" + blocko[i] + "']").parentNode).width) / 2) - 5 + "px";
+                //            document.querySelector(".indicator").style.top = window.getComputedStyle(document.querySelector(".blockid[value='" + blocko[i] + "']").parentNode).height;
+                //            document.querySelector(".indicator").classList.remove("invisible");
+                //            break;
+                //        } else if (i == blocks.length - 1) {
+                //            if (document.querySelector(".indicator") && !document.querySelector(".indicator").classList.contains("invisible")) {
+                //                document.querySelector(".indicator").classList.add("invisible");
+                //            }
+                //        }
+                //    }
+                //}
             }
         }
 
@@ -579,11 +584,11 @@ var flowy = function (canvas, grab, release, snapping, drop, spacing_x, spacing_
                     r_block.style.top = r_array.y + paddingy + "px";
                     r_array.y = r_array.y + paddingy;
                     if (children.childwidth > children.width) {
-                        r_block.style.left = r_array[0].x - (totalwidth / 2) + totalremove + (children.childwidth / 2) - (children.width / 2) - (canvas_div.getBoundingClientRect().left + window.scrollX) + "px";
+                        //r_block.style.left = r_array[0].x - (totalwidth / 2) + totalremove + (children.childwidth / 2) - (children.width / 2) - (canvas_div.getBoundingClientRect().left + window.scrollX) + "px";
                         children.x = r_array[0].x - (totalwidth / 2) + totalremove + (children.childwidth / 2);
                         totalremove += children.childwidth + paddingx;
                     } else {
-                        r_block.style.left = r_array[0].x - (totalwidth / 2) + totalremove - (canvas_div.getBoundingClientRect().left + window.scrollX) + "px";
+                        //r_block.style.left = r_array[0].x - (totalwidth / 2) + totalremove - (canvas_div.getBoundingClientRect().left + window.scrollX) + "px";
                         children.x = r_array[0].x - (totalwidth / 2) + totalremove + (children.width / 2);
                         totalremove += children.width + paddingx;
                     }
@@ -592,10 +597,10 @@ var flowy = function (canvas, grab, release, snapping, drop, spacing_x, spacing_
                     var arrowy = arrowhelp.y - (arrowhelp.height / 2) - (blocks.filter(a => a.id == children.parent)[0].y + (blocks.filter(a => a.id == children.parent)[0].height / 2));
                     document.querySelector('.arrowid[value="' + children.id + '"]').parentNode.style.top = blocks.filter(id => id.id == children.parent)[0].y + (blocks.filter(id => id.id == children.parent)[0].height / 2) - (canvas_div.getBoundingClientRect().top + window.scrollY) + "px";
                     if (arrowx < 0) {
-                        document.querySelector('.arrowid[value="' + children.id + '"]').parentNode.style.left = (arrowhelp.x - 5) - (canvas_div.getBoundingClientRect().left + window.scrollX) + "px";
+                        //document.querySelector('.arrowid[value="' + children.id + '"]').parentNode.style.left = (arrowhelp.x - 5) - (canvas_div.getBoundingClientRect().left + window.scrollX) + "px";
                         document.querySelector('.arrowid[value="' + children.id + '"]').parentNode.innerHTML = '<input type="hidden" class="arrowid" value="' + children.id + '"><svg preserveaspectratio="none" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M' + (blocks.filter(id => id.id == children.parent)[0].x - arrowhelp.x + 5) + ' 0L' + (blocks.filter(id => id.id == children.parent)[0].x - arrowhelp.x + 5) + ' ' + (paddingy / 2) + 'L5 ' + (paddingy / 2) + 'L5 ' + arrowy + '" stroke="#C5CCD0" stroke-width="2px"/><path d="M0 ' + (arrowy - 5) + 'H10L5 ' + arrowy + 'L0 ' + (arrowy - 5) + 'Z" fill="#C5CCD0"/></svg>';
                     } else {
-                        document.querySelector('.arrowid[value="' + children.id + '"]').parentNode.style.left = blocks.filter(id => id.id == children.parent)[0].x - 20 - (canvas_div.getBoundingClientRect().left + window.scrollX) + "px";
+                        //document.querySelector('.arrowid[value="' + children.id + '"]').parentNode.style.left = blocks.filter(id => id.id == children.parent)[0].x - 20 - (canvas_div.getBoundingClientRect().left + window.scrollX) + "px";
                         document.querySelector('.arrowid[value="' + children.id + '"]').parentNode.innerHTML = '<input type="hidden" class="arrowid" value="' + children.id + '"><svg preserveaspectratio="none" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 0L20 ' + (paddingy / 2) + 'L' + (arrowx) + ' ' + (paddingy / 2) + 'L' + arrowx + ' ' + arrowy + '" stroke="#C5CCD0" stroke-width="2px"/><path d="M' + (arrowx - 5) + ' ' + (arrowy - 5) + 'H' + (arrowx + 5) + 'L' + arrowx + ' ' + arrowy + 'L' + (arrowx - 5) + ' ' + (arrowy - 5) + 'Z" fill="#C5CCD0"/></svg>';
                     }
                 }

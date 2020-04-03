@@ -206,7 +206,8 @@
         function drop(drag, blockId) {
 
             // rebuild blocks
-            let blocks = flowy.output().blocks;
+            let output = flowy.output();
+            let blocks = output.blocks;
             for (let i = blockId + 1; i < blocks.length; i++) {
                 blocks[i].id++;
                 blocks[i].parent++;
@@ -302,7 +303,7 @@
                         "parent": j - 1,
                         "childwidth": (j < blocks.length - 1 ? 318 : 0),
                         "id": j,
-                        "x": 644,
+                        "x": output.blockarr[0].x,
                         "y": 190 + blockspace * j,
                         "width": 318,
                         "height": 100
@@ -769,7 +770,7 @@
                                         "parent": j - 1,
                                         "childwidth": (j < blocks.length - 1 ? 318 : 0),
                                         "id": j,
-                                        "x": 644,
+                                        "x": output.blockarr[0].x, // 644
                                         "y": 190 + blockspace * j,
                                         "width": 318,
                                         "height": 100
