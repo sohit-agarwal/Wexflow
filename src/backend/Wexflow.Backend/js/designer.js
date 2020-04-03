@@ -203,7 +203,7 @@
             return true;
         }
 
-        function drop(drag, blockId, xpos) {
+        function drop(drag, blockId) {
 
             // rebuild blocks
             let blocks = flowy.output().blocks;
@@ -212,8 +212,17 @@
                 blocks[i].parent++;
                 blocks[i].data[2].value = i + 1;
             }
-            let leftPos = xpos - 375 + 34; // calaculate left
-            //console.log(leftPos);
+            // calaculate left
+            let leftPos = 0;
+            let cblocks = canvas.querySelectorAll(".blockelem");
+            for (let i = 0; i < cblocks.length; i++) {
+                let cblockId = parseInt(cblocks[i].querySelector(".blockid").value);
+                if (cblockId === blockId) {
+                    leftPos = parseInt(cblocks[i].style.left);
+                    break;
+                }
+            }
+
             blocks.splice(blockId + 1, 0,
                 {
                     "id": blockId + 1,
@@ -237,7 +246,7 @@
                             "class": "blockelem noselect block"
                         },
                         {
-                            "style": "left: " + leftPos + "px; top: 17px;" 
+                            "style": "left: " + leftPos + "px; top: 17px;"
                         }
                     ]
                 });

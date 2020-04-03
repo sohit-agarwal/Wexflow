@@ -193,9 +193,9 @@ var flowy = function (canvas, grab, release, snapping, drop, spacing_x, spacing_
                                 }
                             } else {
                                 drag.parentNode.removeChild(drag);
-                                // Add block and rearrange
+                                // Add block
                                 if (drop) {
-                                    drop(drag, i, blocks.filter(a => a.id == blocko[i])[0].x - (blocks.filter(a => a.id == blocko[i])[0].width / 2) - paddingx);
+                                    drop(drag, i);
                                 }
                             }
                             break;
