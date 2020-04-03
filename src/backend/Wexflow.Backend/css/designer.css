@@ -41,20 +41,23 @@
 	float: right;
 }
 
-	#header #lnk-manager, #lnk-designer, #lnk-editor, #lnk-approval, #lnk-users, #lnk-profiles {
-		display: none;
-	}
+#header #lnk-manager, #lnk-designer, #lnk-editor, #lnk-approval, #lnk-users, #lnk-profiles {
+	display: none;
+}
+
+#navigation, #leftcard, #propwrap, #wfclose, #wfpropwrap, #canvas{
+	display: none;
+}
 
 #navigation {
-height: 71px;
-background-color: #FFF;
-border: 1px solid #E8E8EF;
-width: 100%;
-display: table;
-box-sizing: border-box;
-position: fixed;
-top: 45px;
-z-index: 9
+	height: 71px;
+	background-color: #FFF;
+	border: 1px solid #E8E8EF;
+	width: 100%;
+	box-sizing: border-box;
+	position: fixed;
+	top: 45px;
+	z-index: 9
 }
 
 #back {
