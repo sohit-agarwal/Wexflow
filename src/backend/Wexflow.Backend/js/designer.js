@@ -770,7 +770,7 @@
                                         "parent": j - 1,
                                         "childwidth": (j < blocks.length - 1 ? 318 : 0),
                                         "id": j,
-                                        "x": output.blockarr[0].x, // 644
+                                        "x": output.blockarr[0].x,
                                         "y": 190 + blockspace * j,
                                         "width": 318,
                                         "height": 100
