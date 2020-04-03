@@ -58,7 +58,7 @@ namespace Wexflow.Clients.Manager
 
                     if (user == null)
                     {
-                        MessageBox.Show("The user " + txtUserName.Text + " does not exist.");
+                        MessageBox.Show("Wrong credentials.");
                     }
                     else
                     {
