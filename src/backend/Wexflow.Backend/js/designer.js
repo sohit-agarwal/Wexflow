@@ -212,6 +212,8 @@
                 blocks[i].parent++;
                 blocks[i].data[2].value = i + 1;
             }
+            let leftPos = xpos - 375 + 34; // calaculate left
+            //console.log(leftPos);
             blocks.splice(blockId + 1, 0,
                 {
                     "id": blockId + 1,
@@ -235,7 +237,7 @@
                             "class": "blockelem noselect block"
                         },
                         {
-                            "style": "left: " + (xpos - 375 + 34) + "px; top: 17px;" // calaculate left
+                            "style": "left: " + leftPos + "px; top: 17px;" 
                         }
                     ]
                 });

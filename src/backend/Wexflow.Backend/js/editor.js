@@ -112,9 +112,9 @@
         "</div>" +
         "<div id='wf-tasks'>" +
         "</div>" +
-        "<button type='button' id='wf-add-task' class='btn btn-dark btn-xs'>New task</button>" +
-        "<h3 id='wf-execution-graph-title'><a class='colpsible-panel' data-toggle='collapse' data-parent='#accordion' style='font-weight: bold' href='#wf-execution-graph'>Execution graph</a></h3>" +
-        "<div id='wf-execution-graph' class='panel-collapse collapse'></div>";
+        "<button type='button' id='wf-add-task' class='btn btn-dark btn-xs'>New task</button>";
+        //+ "<h3 id='wf-execution-graph-title'><a class='colpsible-panel' data-toggle='collapse' data-parent='#accordion' style='font-weight: bold' href='#wf-execution-graph'>Execution graph</a></h3>" +
+        //"<div id='wf-execution-graph' class='panel-collapse collapse'></div>";
 
     var html = "<div id='wf-container'>"
         + "<div id='wf-search'>"
@@ -1549,7 +1549,7 @@
             workflowTasks[workflowId][index].Id = wfTaskId.value;
             this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getElementsByClassName(
                 "wf-task-title-label")[0].innerHTML = "Task " + wfTaskId.value;
-            loadExecutionGraph();
+            //loadExecutionGraph();
         };
 
         var wfTaskName = wfTask.getElementsByClassName("wf-task-name")[0];
@@ -1586,7 +1586,7 @@
         var wfTaskDesc = wfTask.getElementsByClassName("wf-task-desc")[0];
         wfTaskDesc.onkeyup = function () {
             workflowTasks[workflowId][index].Description = wfTaskDesc.value;
-            loadExecutionGraph();
+            //loadExecutionGraph();
         };
 
         var wfTaskEnabled = wfTask.getElementsByClassName("wf-task-enabled")[0];
@@ -1603,7 +1603,7 @@
         var wfRemoveTask = wfTask.getElementsByClassName("wf-remove-task")[0];
         wfRemoveTask.onclick = function () {
             removeTask(workflowId, this);
-            loadExecutionGraph();
+            //loadExecutionGraph();
         };
 
         // xml
@@ -1891,102 +1891,102 @@
             function () { }, auth);
     }
 
-    function loadExecutionGraph(workflow) {
+    //function loadExecutionGraph(workflow) {
 
-        var layout = {
-            name: 'dagre'
-        };
+    //    var layout = {
+    //        name: 'dagre'
+    //    };
 
-        var style = [
-            {
-                selector: 'node',
-                style: {
-                    'content': 'data(name)',
-                    'text-opacity': 0.7,
-                    'text-valign': 'center',
-                    'text-halign': 'right',
-                    'background-color': '#373737' // 11479e
-                }
-            },
-            {
-                selector: 'edge',
-                style: {
-                    'curve-style': 'bezier',
-                    'width': 3,
-                    'target-arrow-shape': 'triangle',
-                    'line-color': '#ffb347', // 9dbaea
-                    'target-arrow-color': '#ffb347' // 9dbaea
-                }
-            }
-        ];
-        var wfExecutionGraph = document.getElementById('wf-execution-graph');
+    //    var style = [
+    //        {
+    //            selector: 'node',
+    //            style: {
+    //                'content': 'data(name)',
+    //                'text-opacity': 0.7,
+    //                'text-valign': 'center',
+    //                'text-halign': 'right',
+    //                'background-color': '#373737' // 11479e
+    //            }
+    //        },
+    //        {
+    //            selector: 'edge',
+    //            style: {
+    //                'curve-style': 'bezier',
+    //                'width': 3,
+    //                'target-arrow-shape': 'triangle',
+    //                'line-color': '#ffb347', // 9dbaea
+    //                'target-arrow-color': '#ffb347' // 9dbaea
+    //            }
+    //        }
+    //    ];
+    //    var wfExecutionGraph = document.getElementById('wf-execution-graph');
 
-        if (typeof workflow === "undefined" || workflow === null || workflow.IsExecutionGraphEmpty === true) {
+    //    if (typeof workflow === "undefined" || workflow === null || workflow.IsExecutionGraphEmpty === true) {
 
-            var nodes = [];
-            var edges = [];
+    //        var nodes = [];
+    //        var edges = [];
 
-            var wfTasks = document.getElementsByClassName("wf-task");
-            for (var index4 = 0; index4 < wfTasks.length; index4++) {
-                var wfTask = wfTasks[index4];
-                var wfDesc = wfTask.getElementsByClassName("wf-task-desc")[0].value;
-                var taskLabel = wfTask.getElementsByClassName("wf-task-title-label")[0].innerHTML + ': ' + wfDesc;
-                nodes.push({ data: { id: 'n' + index4, name: taskLabel } });
-            }
+    //        var wfTasks = document.getElementsByClassName("wf-task");
+    //        for (var index4 = 0; index4 < wfTasks.length; index4++) {
+    //            var wfTask = wfTasks[index4];
+    //            var wfDesc = wfTask.getElementsByClassName("wf-task-desc")[0].value;
+    //            var taskLabel = wfTask.getElementsByClassName("wf-task-title-label")[0].innerHTML + ': ' + wfDesc;
+    //            nodes.push({ data: { id: 'n' + index4, name: taskLabel } });
+    //        }
 
-            for (var index5 = 0; index5 < nodes.length; index5++) {
-                var node = nodes[index5];
-                var source = node.data.id;
-                if (index5 + 1 < nodes.length) {
-                    var target = nodes[index5 + 1].data.id;
-                    edges.push({ data: { source: source, target: target } });
-                }
-            }
+    //        for (var index5 = 0; index5 < nodes.length; index5++) {
+    //            var node = nodes[index5];
+    //            var source = node.data.id;
+    //            if (index5 + 1 < nodes.length) {
+    //                var target = nodes[index5 + 1].data.id;
+    //                edges.push({ data: { source: source, target: target } });
+    //            }
+    //        }
 
-            cytoscape({
-                container: wfExecutionGraph,
-                boxSelectionEnabled: false,
-                autounselectify: true,
-                layout: layout,
-                style: style,
-                elements: {
-                    nodes: nodes,
-                    edges: edges
-                }
-            });
-        } else if (workflow.IsExecutionGraphEmpty === false) {
+    //        cytoscape({
+    //            container: wfExecutionGraph,
+    //            boxSelectionEnabled: false,
+    //            autounselectify: true,
+    //            layout: layout,
+    //            style: style,
+    //            elements: {
+    //                nodes: nodes,
+    //                edges: edges
+    //            }
+    //        });
+    //    } else if (workflow.IsExecutionGraphEmpty === false) {
 
-            Common.get(uri + "/graph/" + workflow.Id,
-                function (wfNodes) {
-                    var nodes = [];
-                    var edges = [];
+    //        Common.get(uri + "/graph/" + workflow.Id,
+    //            function (wfNodes) {
+    //                var nodes = [];
+    //                var edges = [];
 
-                    for (var i = 0; i < wfNodes.length; i++) {
-                        var wfNode = wfNodes[i];
-                        nodes.push({ data: { id: wfNode.Id, name: wfNode.Name } });
-                        if (wfNode.ParentId !== "n-1") {
-                            edges.push({ data: { source: wfNode.ParentId, target: wfNode.Id } });
-                        }
-                    }
+    //                for (var i = 0; i < wfNodes.length; i++) {
+    //                    var wfNode = wfNodes[i];
+    //                    nodes.push({ data: { id: wfNode.Id, name: wfNode.Name } });
+    //                    if (wfNode.ParentId !== "n-1") {
+    //                        edges.push({ data: { source: wfNode.ParentId, target: wfNode.Id } });
+    //                    }
+    //                }
 
-                    cytoscape({
-                        container: wfExecutionGraph,
-                        boxSelectionEnabled: false,
-                        autounselectify: true,
-                        layout: layout,
-                        style: style,
-                        elements: {
-                            nodes: nodes,
-                            edges: edges
-                        }
-                    });
-                },
-                function () {
-                    Common.toastError("An error occured while retrieving the execution graph of this workflow.");
-                }, auth);
-        }
-        // end of execution graph
-    }
+    //                cytoscape({
+    //                    container: wfExecutionGraph,
+    //                    boxSelectionEnabled: false,
+    //                    autounselectify: true,
+    //                    layout: layout,
+    //                    style: style,
+    //                    elements: {
+    //                        nodes: nodes,
+    //                        edges: edges
+    //                    }
+    //                });
+    //            },
+    //            function () {
+    //                Common.toastError("An error occured while retrieving the execution graph of this workflow.");
+    //            }, auth);
+    //    }
+    //    // end of execution graph
+    //}
 
     function loadXml() {
         getXml(currentWorkflowId,
@@ -2861,7 +2861,7 @@
                     var wfRemoveTask = wfRemoveTasks[p];
                     wfRemoveTask.onclick = function () {
                         removeTask(workflowId, this);
-                        loadExecutionGraph();
+                            
                     };
                 }
 
@@ -2878,7 +2878,7 @@
                         this.parentElement.parentElement.parentElement.parentElement.parentElement
                             .getElementsByClassName("wf-task-title-label")[0].innerHTML =
                             "Task " + wfTaskId.value;
-                        loadExecutionGraph(workflow);
+                        //loadExecutionGraph(workflow);
                     };
                 };
 
@@ -2921,7 +2921,7 @@
                     var wfTaskDesc = document.getElementsByClassName("wf-task-desc")[m];
                     wfTaskDesc.onkeyup = function () {
                         workflowTasks[workflowId][m].Description = wfTaskDesc.value;
-                        loadExecutionGraph();
+                        //loadExecutionGraph();
                     };
                 };
 
@@ -3008,7 +3008,7 @@
                 }
 
                 // Execution graph
-                loadExecutionGraph(workflow);
+                //loadExecutionGraph(workflow);
 
             },
 
@@ -3058,7 +3058,7 @@
 
     function loadWorkflowsResponse(data, callback) {
         data.sort(compareById);
-        
+
         var items = [];
         for (var i = 0; i < data.length; i++) {
             var val = data[i];
@@ -3105,7 +3105,12 @@
                     currentRow = nameTd.parentElement;
                 }
 
+                let workflowId = parseInt(idTd);
+                setEditJson(workflowId, false);
+                setEditXml(workflowId, false);
+
                 loadXmlCalled = false;
+                loadJsonCalled = false;
                 newWorkflow = false;
                 editorCanceled = false;
                 selectedId = parseInt(currentRow.getElementsByClassName("wf-id")[0].innerHTML);
