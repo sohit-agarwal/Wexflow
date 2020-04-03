@@ -271,3 +271,7 @@ body {
 }
 
 /*end of table style*/
+
+.wf-var-key{
+    width: 150px !important;
+}

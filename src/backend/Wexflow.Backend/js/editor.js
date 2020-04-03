@@ -89,12 +89,12 @@
         "<pre id='wf-xml-container' style='display: none;'></pre>" +
         "<table class='wf-designer-table'>" +
         "<tbody>" +
-        "<tr><td class='wf-title'>Id</td><td class='wf-value'><input id='wf-id' type='text'  /></td></tr>" +
-        "<tr><td class='wf-title'>Name</td><td class='wf-value'><input id='wf-name' type='text' /></td></tr>" +
-        "<tr><td class='wf-title'>Description</td><td class='wf-value'><input id='wf-desc' type='text' /></td></tr>" +
-        "<tr><td class='wf-title'>LaunchType</td><td class='wf-value'><select id='wf-launchType'><option value=''></option><option value='startup'>Startup</option><option value='trigger'>Trigger</option><option value='periodic'>Periodic</option>><option value='cron'>Cron</option></select></td></tr>" +
-        "<tr><td class='wf-title'>Period</td><td class='wf-value'><input id='wf-period' type='text' /></td></tr>" +
-        "<tr><td class='wf-title'>Cron expression</td><td class='wf-value'><input id='wf-cron' type='text' /></td></tr>" +
+        "<tr><td class='wf-title'>Id</td><td class='wf-value'><input class='form-control' id='wf-id' type='text' /></td></tr>" +
+        "<tr><td class='wf-title'>Name</td><td class='wf-value'><input class='form-control' id='wf-name' type='text' /></td></tr>" +
+        "<tr><td class='wf-title'>Description</td><td class='wf-value'><input class='form-control' id='wf-desc' type='text' /></td></tr>" +
+        "<tr><td class='wf-title'>LaunchType</td><td class='wf-value'><select class='form-control' id='wf-launchType'><option value=''></option><option value='startup'>Startup</option><option value='trigger'>Trigger</option><option value='periodic'>Periodic</option>><option value='cron'>Cron</option></select></td></tr>" +
+        "<tr><td class='wf-title'>Period</td><td class='wf-value'><input class='form-control' id='wf-period' type='text' /></td></tr>" +
+        "<tr><td class='wf-title'>Cron expression</td><td class='wf-value'><input class='form-control' id='wf-cron' type='text' /></td></tr>" +
         "<tr><td class='wf-title'>Enabled</td><td class='wf-value'><input id='wf-enabled' type='checkbox' checked/></td></tr>" +
         "<tr><td class='wf-title'>Approval</td><td class='wf-value'><input id='wf-approval' type='checkbox' /></td></tr>" +
         "<tr><td class='wf-title'>EnableParallelJobs</td><td class='wf-value'><input id='wf-enable-pj' type='checkbox' checked/></td></tr>" +
@@ -119,11 +119,11 @@
     var html = "<div id='wf-container'>"
         + "<div id='wf-search'>"
         + "<div id='wf-search-text-container'>"
-        + "<input id='wf-search-text' type='text' name='fname'>"
+        + "<input class='form-control' id='wf-search-text' type='text' name='fname'>"
         + "</div>"
         + "<div style='float: right'>"
-        + "<button id='wf-search-action' type='button' class='btn btn-primary btn-xs' style='float: left'>Search</button>"
-        + "<input id='wf-delete-workflows' type='image' src='images/delete.png' title='Delete selection' style='float: left; margin-top: -2px;'>"
+        + "<button id='wf-search-action' type='button' class='btn btn-primary btn-xs' style='float: left; margin-top: 5px'>Search</button>"
+        + "<input id='wf-delete-workflows' type='image' src='images/delete.png' title='Delete selection' style='float: left; margin-top: 2px;'>"
         + "</div>"
         + "</div>"
         + "<div id='wf-workflows'></div>"
@@ -213,8 +213,8 @@
         var cell2 = row.insertCell(1);
         var cell3 = row.insertCell(2);
 
-        cell1.innerHTML = "<input class='wf-var-key' type='text'>";
-        cell2.innerHTML = "<input class='wf-var-value' type='text'>";
+        cell1.innerHTML = "<input class='form-control wf-var-key' type='text'>";
+        cell2.innerHTML = "<input class='form-control wf-var-value' type='text'>";
         cell2.className = "wf-value";
         cell3.innerHTML = "<button type='button' class='wf-remove-var btn btn-danger btn-xs'>Delete</button>";
 
@@ -1503,8 +1503,8 @@
             "<table id='collapseOne' class='wf-designer-table'>" +
             "<tbody>" +
             "<tr><td class='wf-taskxml' colspan='2'><pre><code class='wf-taskxml-container'></code></pre></td></tr>" +
-            "<tr><td class='wf-title'>Id</td><td class='wf-value'><input class='wf-task-id' type='text' /></td></tr>" +
-            "<tr><td class='wf-title'>Name</td><td class='wf-value'><select class='wf-task-name'>";
+            "<tr><td class='wf-title'>Id</td><td class='wf-value'><input class='form-control wf-task-id' type='text' /></td></tr>" +
+            "<tr><td class='wf-title'>Name</td><td class='wf-value'><select class='form-control wf-task-name'>";
 
         newTaskHtml += "<option value=''></option>";
         for (var i1 = 0; i1 < taskNames.length; i1++) {
@@ -1513,7 +1513,7 @@
         }
 
         newTaskHtml += "</select></td></tr>" +
-            "<tr><td class='wf-title'>Description</td><td class='wf-value'><input class='wf-task-desc' type='text' /></td></tr>" +
+            "<tr><td class='wf-title'>Description</td><td class='wf-value'><input class='form-control wf-task-desc' type='text' /></td></tr>" +
             "<tr><td class='wf-title'>Enabled</td><td class='wf-value'><input class='wf-task-enabled' type='checkbox' checked /></td></tr>" +
             "</tbody>" +
             "</table>" +
@@ -1656,7 +1656,7 @@
                     cell1.innerHTML = cell1Html;
 
                     cell2.className = "wf-setting-value-td";
-                    cell2.innerHTML = "<input class='wf-setting-value' type='text' /><table class='wf-attributes'></table>";
+                    cell2.innerHTML = "<input class='form-control wf-setting-value' type='text' /><table class='wf-attributes'></table>";
 
                     cell3.className = "wf-add-attribute-td";
                     cell3.innerHTML = "<button type='button' class='wf-add-attribute btn btn-dark btn-xs'>New attribute</button>";
@@ -1727,8 +1727,8 @@
         var cell2 = row.insertCell(1);
         var cell3 = row.insertCell(2);
 
-        cell1.innerHTML = "<input class='wf-attribute-name' type='text' />";
-        cell2.innerHTML = "<input class='wf-attribute-value' type='text' />";
+        cell1.innerHTML = "<input class='form-control wf-attribute-name' type='text' />";
+        cell2.innerHTML = "<input class='form-control wf-attribute-value' type='text' />";
         cell3.innerHTML = "<button type='button' class='wf-remove-attribute btn btn-danger btn-xs'>Delete</button>";
 
         var taskIndex =
@@ -2546,8 +2546,8 @@
                         var varKey = variable.Key;
                         var varValue = variable.Value;
                         varsHtml += "<tr>";
-                        varsHtml += "<td><input class='wf-var-key' type='text' value='" + varKey + "'></td>";
-                        varsHtml += "<td class='wf-value'><input class='wf-var-value' type='text' value='" + varValue + "'></td>";
+                        varsHtml += "<td><input class='form-control wf-var-key' type='text' value='" + varKey + "'></td>";
+                        varsHtml += "<td class='wf-value'><input class='form-control wf-var-value' type='text' value='" + varValue + "'></td>";
                         varsHtml += "<td><button type='button' class='wf-remove-var btn btn-danger btn-xs'>Delete</button></td>";
                         varsHtml += "</tr>";
                     }
@@ -2703,8 +2703,8 @@
                         "<table class='wf-designer-table'>" +
                         "<tbody>" +
                         "<tr><td class='wf-taskxml' colspan='2'><pre><code class='wf-taskxml-container'></code></pre></td></tr>" +
-                        "<tr><td class='wf-title'>Id</td><td class='wf-value'><input class='wf-task-id' type='text' value='" + task.Id + "'" + (workflow.IsExecutionGraphEmpty === false ? "readonly" : "") + "/></td></tr>" +
-                        "<tr><td class='wf-title'>Name</td><td class='wf-value'><select class='wf-task-name'>";
+                        "<tr><td class='wf-title'>Id</td><td class='wf-value'><input class='form-control wf-task-id' type='text' value='" + task.Id + "'" + (workflow.IsExecutionGraphEmpty === false ? "readonly" : "") + "/></td></tr>" +
+                        "<tr><td class='wf-title'>Name</td><td class='wf-value'><select class='form-control wf-task-name'>";
 
                     for (var i1 = 0; i1 < taskNames.length; i1++) {
                         var taskName = taskNames[i1];
@@ -2713,7 +2713,7 @@
 
                     tasksHtml += "</select>" +
                         "</td></tr>" +
-                        "<tr><td class='wf-title'>Description</td><td class='wf-value'><input class='wf-task-desc' type='text' value='" + task.Description + "' /></td></tr>" +
+                        "<tr><td class='wf-title'>Description</td><td class='wf-value'><input class='form-control wf-task-desc' type='text' value='" + task.Description + "' /></td></tr>" +
                         "<tr><td class='wf-title'>Enabled</td><td class='wf-value'><input class='wf-task-enabled' type='checkbox'   " + (task.IsEnabled ? "checked" : "") + " /></td></tr>" +
                         "</tbody>" +
                         "</table>" +
@@ -2730,7 +2730,7 @@
                             "<input class='wf-setting-name' type='text' value='" + setting.Name + "' readonly />" +
                             "</td><td class='wf-setting-value-td'>";
 
-                        tasksHtml += "<input class='wf-setting-value' type='text' value='" + setting.Value + "'  />";
+                        tasksHtml += "<input class='form-control wf-setting-value' type='text' value='" + setting.Value + "'  />";
 
                         // settings attributes (for selectFiles and selectAttachments settings only)
                         tasksHtml += "<table class='wf-attributes'>";
@@ -2739,8 +2739,8 @@
                             var attr = setting.Attributes[k];
                             tasksHtml +=
                                 "<tr>" +
-                                "<td><input class='wf-attribute-name' type='text' value='" + attr.Name + "'  /></td>" +
-                                "<td><input class='wf-attribute-value' type='text' value='" + attr.Value + "'  /></td>" +
+                                "<td><input class='form-control wf-attribute-name' type='text' value='" + attr.Name + "'  /></td>" +
+                                "<td><input class='form-control wf-attribute-value' type='text' value='" + attr.Value + "'  /></td>" +
                                 "<td><button type='button' class='wf-remove-attribute btn btn-danger btn-xs'>Delete</button></td>" +
                                 "</tr>";
                         }
