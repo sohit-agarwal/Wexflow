@@ -18,5 +18,7 @@
     <Setting name="messageCount" value="$int" />
     <!-- True if the read emails should be deleted from server, false otherwise (defaults to false).-->
     <Setting name="deleteMessages" value="true|false" />
+    <!-- Optional and defaults to pop3.-->
+    <Setting name="protocol" value="pop3|imap" />
   </Task>
 </Tasks>

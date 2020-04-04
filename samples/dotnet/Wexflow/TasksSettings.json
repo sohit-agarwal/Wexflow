@@ -50,7 +50,7 @@
 	"JsonToYaml": ["selectFiles"],
 	"ListEntities": [ ],
 	"ListFiles": [ ],
-	"MailsReceiver": [ "host", "port", "enableSsl", "user", "password", "messageCount", "deleteMessages" ],
+	"MailsReceiver": [ "host", "port", "enableSsl", "user", "password", "messageCount", "deleteMessages", "protocol" ],
 	"MailsSender": [ "selectFiles", "selectAttachments", "host", "port", "enableSsl", "user", "password" ],
 	"Md5": [ "selectFiles" ],
 	"MediaInfo": [ "selectFiles" ],
