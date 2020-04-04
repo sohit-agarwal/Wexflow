@@ -1308,7 +1308,7 @@
 
         document.getElementById("rightswitch").onclick = function () {
 
-            Common.get(uri + "/graphXml/" + workflow.WorkflowInfo.Id, function (val) {
+            Common.get(uri + "/graphXml/" + (workflow.WorkflowInfo.Id ? workflow.WorkflowInfo.Id : 0), function (val) {
 
                 function getXml() {
                     let graph = val;
