@@ -1657,6 +1657,13 @@ namespace Wexflow.Server
                                     new XAttribute("value", cronExpression)));
                         }
                     }
+                    else
+                    {
+                        if (xwfCronExpression != null)
+                        {
+                            xwfCronExpression.Attribute("value").Value = cronExpression ?? string.Empty;
+                        }
+                    }
                     //else
                     //{
                     //    if(xwfCronExpression != null)

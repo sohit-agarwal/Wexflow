@@ -120,11 +120,15 @@
             flowy.deleteBlocks();
             removeworkflow.style.display = "none";
 
-            document.getElementById("leftcard").style.left = "0";
-            leftcardHidden = false;
-            canvas.style.left = leftcardwidth + "px";
-            canvas.style.width = "calc(100% - " + leftcardwidth + "px)";
-            closecardimg.src = "assets/closeleft.png";
+            //document.getElementById("leftcard").style.left = "0";
+            //leftcardHidden = false;
+            //canvas.style.left = leftcardwidth + "px";
+            //canvas.style.width = "calc(100% - " + leftcardwidth + "px)";
+            //closecardimg.src = "assets/closeleft.png";
+
+            document.getElementById("leftcard").style.left = -leftcardwidth + "px";
+            closecardimg.src = "assets/openleft.png";
+            leftcardHidden = true;
 
             document.getElementById("wfpropwrap").style.right = "0";
             wfclose.style.right = "311px";
