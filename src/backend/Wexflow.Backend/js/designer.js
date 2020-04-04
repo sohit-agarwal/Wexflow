@@ -506,7 +506,20 @@
                                     let tasksettings = "";
                                     for (let i = 0; i < settings.length; i++) {
                                         let settingName = settings[i];
-                                        tasksettings += '<p class="wf-setting-name">' + settingName + '</p><input class="wf-setting-index" type="hidden" value="' + i + '"><input class="form-control wf-setting-value inputtext" value="' + (tasks[index].Settings[i] ? tasks[index].Settings[i].Value : "") + '" type="text" />';
+
+                                        // get setting value
+                                        let sindex = i;
+                                        let settingValue = "";
+                                        for (let j = 0; j < tasks[index].Settings.length; j++) {
+                                            if (settingName === tasks[index].Settings[j].Name) {
+                                                settingValue = tasks[index].Settings[j].Value;
+                                                sindex = j;
+                                                break;
+                                            }
+                                        }
+
+                                        tasksettings += '<p class="wf-setting-name">' + settingName + '</p><input class="wf-setting-index" type="hidden" value="' + sindex + '"><input class="form-control wf-setting-value inputtext" value="' + settingValue + '" type="text" />';
+
 
                                         if (!tasks[index].Settings[i]) {
                                             tasks[index].Settings.push({
@@ -548,7 +561,6 @@
                                         settingValue.onkeyup = function () {
                                             let sindex = this.previousElementSibling.value;
                                             tasks[index].Settings[sindex].Value = this.value;
-
                                             updateTasks();
                                         };
                                     }
@@ -1573,7 +1585,7 @@
                         return table;
                     };
                     let search = '<div id="searchworkflows"><img src="assets/search.svg"><input id="searchworkflowsinput" type="text" placeholder="Search workflows"></div>';
-                    browser.innerHTML = workflowsToTable(workflows);
+                    let browserHtml = workflowsToTable(workflows);
                     let footer = '<div id="openworkflow">Open</div>';
 
                     if (exportModal) {
@@ -1588,11 +1600,10 @@
                         width: 800,
                         height: 420,
                         title: search,
-                        content: browser.innerHTML,
+                        content: browserHtml,
                         footer: footer,
                         delayOpen: 0
                     });
-
                     modal.open();
 
                     let searchworkflows = document.getElementById("searchworkflowsinput");
