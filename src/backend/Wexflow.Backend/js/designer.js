@@ -501,31 +501,40 @@
 
                     if (isNaN(index) === false) {
                         Common.get(uri + "/settings/" + taskname,
-                            function (settings) {
-                                if (tasks[index]) {
-                                    let tasksettings = "";
-                                    for (let i = 0; i < settings.length; i++) {
-                                        let settingName = settings[i];
+                            function (defaultSettings) {
 
-                                        // get setting value
-                                        let sindex = i;
-                                        let settingValue = "";
-                                        for (let j = 0; j < tasks[index].Settings.length; j++) {
-                                            if (settingName === tasks[index].Settings[j].Name) {
-                                                settingValue = tasks[index].Settings[j].Value;
-                                                sindex = j;
+                                if (tasks[index]) {
+                                    let settings = tasks[index].Settings;
+                                    let tasksettings = "";
+
+                                    // Add non empty settings
+                                    for (let i = 0; i < settings.length; i++) {
+                                        let settingName = settings[i].Name;
+                                        let settingValue = settings[i].Value;
+
+                                        tasksettings += '<p class="wf-setting-name">' + settingName + '</p><input class="wf-setting-index" type="hidden" value="' + i + '"><input class="form-control wf-setting-value inputtext" value="' + settingValue + '" type="text" />';
+                                    }
+
+                                    // Add empty settings
+                                    for (let i = 0; i < defaultSettings.length; i++) {
+                                        let sindex = settings.length;
+                                        let found = false;
+                                        for (let j = 0; j < settings.length; j++) {
+                                            if (defaultSettings[i] === settings[j].Name) {
+                                                found = true;
                                                 break;
                                             }
                                         }
-
-                                        tasksettings += '<p class="wf-setting-name">' + settingName + '</p><input class="wf-setting-index" type="hidden" value="' + sindex + '"><input class="form-control wf-setting-value inputtext" value="' + settingValue + '" type="text" />';
-
-                                        if (!tasks[index].Settings[i]) {
-                                            tasks[index].Settings.push({
-                                                "Name": settingName,
-                                                "Value": "",
-                                                "Attributes": []
-                                            });
+                                        if (found === false) {
+                                            tasksettings += '<p class="wf-setting-name">' + defaultSettings[i] + '</p><input class="wf-setting-index" type="hidden" value="' + sindex + '"><input class="form-control wf-setting-value inputtext" value="" type="text" />';
+                                            if (!tasks[index].Settings[sindex]) {
+                                                tasks[index].Settings.push({
+                                                    "Name": defaultSettings[i],
+                                                    "Value": "",
+                                                    "Attributes": []
+                                                });
+                                            }
+                                            sindex++;
                                         }
                                     }
 
