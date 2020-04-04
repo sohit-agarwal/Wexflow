@@ -520,7 +520,6 @@
 
                                         tasksettings += '<p class="wf-setting-name">' + settingName + '</p><input class="wf-setting-index" type="hidden" value="' + sindex + '"><input class="form-control wf-setting-value inputtext" value="' + settingValue + '" type="text" />';
 
-
                                         if (!tasks[index].Settings[i]) {
                                             tasks[index].Settings.push({
                                                 "Name": settingName,
@@ -1547,10 +1546,9 @@
         }
 
         document.getElementById("browse").onclick = function () {
-
+            document.getElementById("overlay").style.display = "block";
             Common.get(uri + "/search?s=",
                 function (workflows) {
-                    let browser = document.getElementById("browser");
 
                     workflows.sort(compareById);
 
@@ -1586,6 +1584,7 @@
                     };
                     let search = '<div id="searchworkflows"><img src="assets/search.svg"><input id="searchworkflowsinput" type="text" placeholder="Search workflows"></div>';
                     let browserHtml = workflowsToTable(workflows);
+
                     let footer = '<div id="openworkflow">Open</div>';
 
                     if (exportModal) {
@@ -1602,7 +1601,10 @@
                         title: search,
                         content: browserHtml,
                         footer: footer,
-                        delayOpen: 0
+                        delayOpen: 0,
+                        onOpen: function () {
+                            document.getElementById("overlay").style.display = "none";
+                        }
                     });
                     modal.open();
 
@@ -1683,6 +1685,7 @@
 
                 },
                 function () {
+                    document.getElementById("overlay").style.display = "none";
                     Common.toastError("An error occured while retrieving workflows. Check that wexflow server is running correctly.");
                 }, auth);
         };
