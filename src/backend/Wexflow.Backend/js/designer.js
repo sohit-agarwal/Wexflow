@@ -545,6 +545,11 @@
                                         tasks[index].Description = this.value;
 
                                         updateTasks();
+
+                                        // update blockelem description
+                                        if (tempblock) {
+                                            tempblock.getElementsByClassName("blockyinfo")[0].innerHTML = this.value;
+                                        }
                                     };
 
                                     document.getElementById("taskenabled").onchange = function () {
@@ -1095,7 +1100,7 @@
             editor.setPrintMarginColumn(false);
             editor.setTheme("ace/theme/github");
             editor.getSession().setMode("ace/mode/json");
-            
+
 
             editor.commands.addCommand({
                 name: "showKeyboardShortcuts",
@@ -1281,7 +1286,7 @@
             editor.setPrintMarginColumn(false);
             editor.getSession().setMode("ace/mode/xml");
             editor.setTheme("ace/theme/github");
-            
+
 
             editor.commands.addCommand({
                 name: "showKeyboardShortcuts",
