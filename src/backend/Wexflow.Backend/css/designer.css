@@ -2,10 +2,10 @@
     margin: 0px;
     padding: 0px;
     overflow: hidden;
-    background-image: url(../assets/tile.png);
-    background-repeat: repeat;
+    background-image: url("../assets/tile.png");
     background-size: 30px 30px;
-    background-color: #FBFBFB;
+    background-repeat: repeat;
+    background-color: rgba(0, 0, 0, .015);
     font-family: Helvetica, Arial, sans-serif;
     font-size: 12px;
 }
