@@ -10,8 +10,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
-using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using Wexflow.Core;
@@ -87,6 +87,7 @@ namespace Wexflow.Server
             DeleteWorkflow();
             DeleteWorkflows();
             GetExecutionGraph();
+            GetExecutionGraphAsXml();
             UploadWorkflow();
 
             //
@@ -2065,6 +2066,59 @@ namespace Wexflow.Server
                 return new Response
                 {
                     ContentType = "application/json"
+                };
+            });
+        }
+
+        /// <summary>
+        /// Returns the execution graph of the workflow.
+        /// </summary>
+        private void GetExecutionGraphAsXml()
+        {
+            Get(Root + "graphXml/{id}", args =>
+            {
+                var auth = GetAuth(Request);
+                var username = auth.Username;
+                var password = auth.Password;
+
+                var graph = "<ExecutionGraph />";
+
+                var user = WexflowServer.WexflowEngine.GetUser(username);
+                if (user.Password.Equals(password))
+                {
+                    Core.Workflow wf = WexflowServer.WexflowEngine.GetWorkflow(args.id);
+                    if (wf != null)
+                    {
+                        var xgraph = wf.XDoc.Descendants(wf.XNamespaceWf + "ExecutionGraph").FirstOrDefault();
+                        if (xgraph != null)
+                        {
+                            var res = Regex.Replace(xgraph.ToString().Replace(" xmlns=\"urn:wexflow-schema\"", string.Empty), "( )(?:[^\\w>/])", "\t");
+                            StringBuilder builder = new StringBuilder();
+                            var lines = res.Split('\n');
+                            for (var i = 0; i < lines.Length; i++)
+                            {
+                                var line = lines[i];
+                                if (i < lines.Length - 1)
+                                {
+                                    builder.Append("\t").Append(line).Append("\n");
+                                }
+                                else
+                                {
+                                    builder.Append("\t").Append(line);
+                                }
+                            }
+                            graph = builder.ToString();
+                        }
+                    }
+                }
+
+                var graphStr = JsonConvert.SerializeObject(graph);
+                var graphBytes = Encoding.UTF8.GetBytes(graphStr);
+
+                return new Response
+                {
+                    ContentType = "application/json",
+                    Contents = s => s.Write(graphBytes, 0, graphBytes.Length)
                 };
             });
         }

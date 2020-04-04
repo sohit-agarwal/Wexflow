@@ -706,6 +706,26 @@ paths:
      consumes:
       - "application/json"
   
+  /graphXml/{id}:
+    get:
+     tags:
+     - "Designer"
+     summary: "Returns the execution graph of the workflow as XML"
+     description: ""
+     produces:
+       - "application/json"
+     parameters:
+        - name: "id"
+          in: "path"
+          description: "Workflow id"
+          required: true
+          type: "string"
+     responses:
+        200:
+          description: "successful operation"
+     consumes:
+      - "application/json"
+
   /historyEntriesCountByDate:
     get:
      tags:
