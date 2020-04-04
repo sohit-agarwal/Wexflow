@@ -801,6 +801,11 @@
                                 document.getElementById("propwrap").classList.remove("itson");
                                 wfclose.style.right = "0";
                             }, 0);
+
+                            let selectedBlock = document.getElementsByClassName("selectedblock")[0];
+                            if (selectedBlock) {
+                                selectedBlock.classList.remove("selectedblock");
+                            }
                         }
 
 
