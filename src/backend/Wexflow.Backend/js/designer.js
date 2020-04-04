@@ -1093,6 +1093,7 @@
             editor.setReadOnly(false);
             editor.setFontSize("100%");
             editor.setPrintMarginColumn(false);
+            editor.setTheme("ace/theme/github");
             editor.getSession().setMode("ace/mode/json");
 
             editor.commands.addCommand({
@@ -1277,6 +1278,7 @@
             editor.setFontSize("100%");
             editor.setPrintMarginColumn(false);
             editor.getSession().setMode("ace/mode/xml");
+            editor.setTheme("ace/theme/github");
 
             editor.commands.addCommand({
                 name: "showKeyboardShortcuts",
@@ -1447,6 +1449,7 @@
                 xml += '\t\t</Task>\r\n';
             }
             xml += '\t</Tasks>\r\n';
+            // TODO executionGraph
             xml += '</Workflow>';
             return xml;
         }
