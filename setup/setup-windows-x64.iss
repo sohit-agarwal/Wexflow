@@ -28,7 +28,7 @@ SolidCompression=yes
 ; 64-bit Program Files directory and the 64-bit view of the registry.
 ; On all other architectures it will install in "32-bit mode".
 ArchitecturesInstallIn64BitMode=x64
-LicenseFile="..\LICENSE"
+LicenseFile="..\LICENSE.txt"
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
