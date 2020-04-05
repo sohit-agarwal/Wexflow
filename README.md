@@ -17,7 +17,7 @@ You can find the documentation [here](https://github.com/aelassas/Wexflow/wiki).
 
 ## What's New?
 
-Check out the new [version 5.3](https://github.com/aelassas/Wexflow/releases/tag/v5.3). This version includes a brand new designer with drag and drop features and snapping, JSON and XML import, JSON and XML export, suppport for XSLT 3.0, support for IMAP, bug fixes, performance enhancements and under the hood updates.
+Check out the new [version 5.3](https://github.com/aelassas/Wexflow/releases/tag/v5.3). This version includes a brand new [designer](https://github.com/aelassas/Wexflow/wiki/Usage#designer) with drag and drop features and snapping, JSON and XML import, JSON and XML export, suppport for XSLT 3.0, support for IMAP, bug fixes, performance enhancements and under the hood updates.
 
 ## Wexflow
 
