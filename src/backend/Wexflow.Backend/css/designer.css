@@ -439,7 +439,7 @@ color: #393C44;
 }
 
 #proplist {
-    height: calc(100% - 180px);
+    height: calc(100% - 145px);
     overflow: auto;
     padding-top: 10px;
 }
@@ -667,7 +667,7 @@ color: #393C44;
 }
 
 #wfproplist {
-    height: calc(100% - 240px);
+    height: calc(100% - 255px);
     overflow: auto;
     padding-top: 10px;
 }
