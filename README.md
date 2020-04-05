@@ -1,5 +1,8 @@
 ![Logo](https://aelassas.github.io/wexflow/images/wd-logo-4.jpg)
 
+[![Downloads](https://img.shields.io/github/downloads/aelassas/Wexflow/total.svg)](https://wexflow.github.io/stats)
+[![Nuget](https://img.shields.io/nuget/v/Wexflow)](https://www.nuget.org/packages/Wexflow)
+
 ## Download
 
 You can download the latest release from [here](https://github.com/aelassas/Wexflow/releases/latest).
@@ -11,6 +14,10 @@ You can find installation instructions [here](https://github.com/aelassas/Wexflo
 ## Documentation
 
 You can find the documentation [here](https://github.com/aelassas/Wexflow/wiki).
+
+## What's New?
+
+Check out the new [version 5.3](https://github.com/aelassas/Wexflow/releases/tag/v5.3). This version includes a brand new designer with drag and drop features and snapping, JSON and XML import, JSON and XML export, suppport for XSLT 3.0, support for IMAP, bug fixes, performance enhancements and under the hood updates .
 
 ## Wexflow
 
@@ -30,9 +37,9 @@ Wexflow comes with a powerful backend, so you can search and filter among all yo
 
 Just to give you an idea of what Wexflow does, this is a screenshot from the designer. Using the designer, we get a nice visual overview of the dependency graph of the workflow. Each node represents a task which has to be run:
 
-![Designer](https://aelassas.github.io/wexflow/images/wbo-designer-4.4-1.png)
+![Designer](https://aelassas.github.io/wexflow/images/wbo-designer-5.3-2.png)
 
-The designer allows you to edit your workflows through its WYSIWYG form based editor or its JSON editor or its XML editor:
+The editor allows you to edit your workflows through its WYSIWYG form based editor or its JSON editor or its XML editor:
 
 ![Designer](https://aelassas.github.io/wexflow/images/wbo-designer-5.3.png)
 
