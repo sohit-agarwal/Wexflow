@@ -1,5 +1,5 @@
 #define MyAppName "Wexflow"
-#define MyAppVersion "5.3"
+#define MyAppVersion "5.4"
 #define MyAppPublisher "Akram El Assas"
 #define MyAppPublisherURL "https://wexflow.github.io/"
 #define MyAppExeName "Wexflow.Clients.Manager.exe"
