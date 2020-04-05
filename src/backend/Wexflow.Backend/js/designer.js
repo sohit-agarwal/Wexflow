@@ -1318,27 +1318,37 @@
         document.getElementById("rightswitch").onclick = function () {
 
             Common.get(uri + "/graphXml/" + (workflow.WorkflowInfo.Id ? workflow.WorkflowInfo.Id : 0), function (val) {
-
                 function getXml() {
                     let graph = val;
 
                     let xmlVal = '<Workflow xmlns="urn:wexflow-schema" id="' + workflow.WorkflowInfo.Id + '" name="' + workflow.WorkflowInfo.Name + '" description="' + workflow.WorkflowInfo.Description + '">\r\n';
                     xmlVal += '\t<Settings>\r\n\t\t<Setting name="launchType" value="' + launchType(workflow.WorkflowInfo.LaunchType) + '" />' + (workflow.WorkflowInfo.Period !== '' && workflow.WorkflowInfo.Period !== '00:00:00' ? ('\r\n\t\t<Setting name="period" value="' + workflow.WorkflowInfo.Period + '" />') : '') + (workflow.WorkflowInfo.CronExpression !== '' && workflow.WorkflowInfo.CronExpression !== null ? ('\r\n\t\t<Setting name="cronExpression" value="' + workflow.WorkflowInfo.CronExpression + '" />') : '') + '\r\n\t\t<Setting name="enabled" value="' + workflow.WorkflowInfo.IsEnabled + '" />\r\n\t\t<Setting name="approval" value="' + workflow.WorkflowInfo.IsApproval + '" />\r\n\t\t<Setting name="enableParallelJobs" value="' + workflow.WorkflowInfo.EnableParallelJobs + '" />\r\n\t</Settings>\r\n';
-                    xmlVal += '\t<LocalVariables />\r\n';
-                    xmlVal += '\t<Tasks>\r\n';
-                    for (let i = 0; i < workflow.Tasks.length; i++) {
-                        let task = workflow.Tasks[i];
-                        xmlVal += '\t\t<Task id="' + task.Id + '" name="' + task.Name + '" description="' + task.Description + '" enabled="' + task.IsEnabled + '">\r\n';
-                        for (let j = 0; j < task.Settings.length; j++) {
-                            let setting = task.Settings[j];
-                            if (setting.Value !== "") {
-                                xmlVal += '\t\t\t<Setting name="' + setting.Name + '" value="' + setting.Value + '" />\r\n';
-                            }
+                    if (workflow.WorkflowInfo.LocalVariables.length > 0) {
+                        xmlVal += '\t<LocalVariables>\r\n';
+                        for (let i = 0; i < workflow.WorkflowInfo.LocalVariables.length; i++) {
+                            xmlVal += '\t\t<Variable name="' + workflow.WorkflowInfo.LocalVariables[i].Key + '" value="' + workflow.WorkflowInfo.LocalVariables[i].Value + '" />\r\n'
                         }
-                        xmlVal += '\t\t</Task>\r\n';
+                        xmlVal += '\t</LocalVariables>\r\n';
+                    } else {
+                        xmlVal += '\t<LocalVariables />\r\n';
                     }
-                    xmlVal += '\t</Tasks>\r\n';
-
+                    if (workflow.Tasks.length > 0) {
+                        xmlVal += '\t<Tasks>\r\n';
+                        for (let i = 0; i < workflow.Tasks.length; i++) {
+                            let task = workflow.Tasks[i];
+                            xmlVal += '\t\t<Task id="' + task.Id + '" name="' + task.Name + '" description="' + task.Description + '" enabled="' + task.IsEnabled + '">\r\n';
+                            for (let j = 0; j < task.Settings.length; j++) {
+                                let setting = task.Settings[j];
+                                if (setting.Value !== "") {
+                                    xmlVal += '\t\t\t<Setting name="' + setting.Name + '" value="' + setting.Value + '" />\r\n';
+                                }
+                            }
+                            xmlVal += '\t\t</Task>\r\n';
+                        }
+                        xmlVal += '\t</Tasks>\r\n';
+                    } else {
+                        xmlVal += '\t<Tasks />\r\n';
+                    }
                     if (graph !== "<ExecutionGraph />") {
                         xmlVal += graph + "\r\n";
                     }
@@ -1910,20 +1920,32 @@
 
                                 let xmlVal = '<Workflow xmlns="urn:wexflow-schema" id="' + workflow.WorkflowInfo.Id + '" name="' + workflow.WorkflowInfo.Name + '" description="' + workflow.WorkflowInfo.Description + '">\r\n';
                                 xmlVal += '\t<Settings>\r\n\t\t<Setting name="launchType" value="' + launchType(workflow.WorkflowInfo.LaunchType) + '" />' + (workflow.WorkflowInfo.Period !== '' && workflow.WorkflowInfo.Period !== '00:00:00' ? ('\r\n\t\t<Setting name="period" value="' + workflow.WorkflowInfo.Period + '" />') : '') + (workflow.WorkflowInfo.CronExpression !== '' && workflow.WorkflowInfo.CronExpression !== null ? ('\r\n\t\t<Setting name="cronExpression" value="' + workflow.WorkflowInfo.CronExpression + '" />') : '') + '\r\n\t\t<Setting name="enabled" value="' + workflow.WorkflowInfo.IsEnabled + '" />\r\n\t\t<Setting name="approval" value="' + workflow.WorkflowInfo.IsApproval + '" />\r\n\t\t<Setting name="enableParallelJobs" value="' + workflow.WorkflowInfo.EnableParallelJobs + '" />\r\n\t</Settings>\r\n';
-                                xmlVal += '\t<LocalVariables />\r\n';
-                                xmlVal += '\t<Tasks>\r\n';
-                                for (let i = 0; i < workflow.Tasks.length; i++) {
-                                    let task = workflow.Tasks[i];
-                                    xmlVal += '\t\t<Task id="' + task.Id + '" name="' + task.Name + '" description="' + task.Description + '" enabled="' + task.IsEnabled + '">\r\n';
-                                    for (let j = 0; j < task.Settings.length; j++) {
-                                        let setting = task.Settings[j];
-                                        if (setting.Value !== "") {
-                                            xmlVal += '\t\t\t<Setting name="' + setting.Name + '" value="' + setting.Value + '" />\r\n';
-                                        }
+                                if (workflow.WorkflowInfo.LocalVariables.length > 0) {
+                                    xmlVal += '\t<LocalVariables>\r\n';
+                                    for (let i = 0; i < workflow.WorkflowInfo.LocalVariables.length; i++) {
+                                        xmlVal += '\t\t<Variable name="' + workflow.WorkflowInfo.LocalVariables[i].Key + '" value="' + workflow.WorkflowInfo.LocalVariables[i].Value + '" />\r\n'
                                     }
-                                    xmlVal += '\t\t</Task>\r\n';
+                                    xmlVal += '\t</LocalVariables>\r\n';
+                                } else {
+                                    xmlVal += '\t<LocalVariables />\r\n';
                                 }
-                                xmlVal += '\t</Tasks>\r\n';
+                                if (workflow.Tasks.length > 0) {
+                                    xmlVal += '\t<Tasks>\r\n';
+                                    for (let i = 0; i < workflow.Tasks.length; i++) {
+                                        let task = workflow.Tasks[i];
+                                        xmlVal += '\t\t<Task id="' + task.Id + '" name="' + task.Name + '" description="' + task.Description + '" enabled="' + task.IsEnabled + '">\r\n';
+                                        for (let j = 0; j < task.Settings.length; j++) {
+                                            let setting = task.Settings[j];
+                                            if (setting.Value !== "") {
+                                                xmlVal += '\t\t\t<Setting name="' + setting.Name + '" value="' + setting.Value + '" />\r\n';
+                                            }
+                                        }
+                                        xmlVal += '\t\t</Task>\r\n';
+                                    }
+                                    xmlVal += '\t</Tasks>\r\n';
+                                } else {
+                                    xmlVal += '\t<Tasks />\r\n';
+                                }
 
                                 if (graph !== "<ExecutionGraph />") {
                                     xmlVal += graph + "\r\n";
