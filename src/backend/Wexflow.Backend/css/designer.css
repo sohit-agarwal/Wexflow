@@ -441,8 +441,7 @@ color: #393C44;
 #proplist {
     height: calc(100% - 180px);
     overflow: auto;
-    margin-top: -30px;
-    padding-top: 30px;
+    padding-top: 10px;
 }
 
 .blockin {
@@ -586,9 +585,9 @@ color: #393C44;
     cursor: pointer;
 }
 
-    #taskdoc:hover {
-        opacity: .7;
-    }
+#taskdoc:hover {
+    opacity: .7;
+}
 
 #close {
     position: absolute;
@@ -597,10 +596,10 @@ color: #393C44;
     transition: all .25s cubic-bezier(.05,.03,.35,1);
 }
 
-    #close:hover {
-        cursor: pointer;
-        opacity: .7;
-    }
+#close:hover {
+    cursor: pointer;
+    opacity: .7;
+}
 
 #wfpropwrap {
     position: absolute;
@@ -670,8 +669,7 @@ color: #393C44;
 #wfproplist {
     height: calc(100% - 240px);
     overflow: auto;
-    margin-top: -30px;
-    padding-top: 30px;
+    padding-top: 10px;
 }
 
 .inputlabel {
