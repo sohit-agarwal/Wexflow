@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Loader;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml;
@@ -504,18 +505,24 @@ namespace Wexflow.Core
                         Type type = null;
                         var name = xAttribute.Value;
                         var assemblyName = "Wexflow.Tasks." + name;
+                        var typeFullName = "Wexflow.Tasks." + name + "." + name;
                         var typeName = "Wexflow.Tasks." + name + "." + name + ", " + assemblyName;
 
                         // Try to load from root
                         type = Type.GetType(typeName);
+                        if (type == null)
+                        {
+                            var binPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                            var taskAssembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(Path.Combine(binPath, assemblyName + ".dll"));
+                            type = taskAssembly.GetType(typeFullName);
+                        }
 
                         if (type == null) // Try to load from Tasks folder
                         {
                             var taskAssemblyFile = Path.Combine(TasksFolder, assemblyName + ".dll");
                             if (File.Exists(taskAssemblyFile))
                             {
-                                var taskAssembly = Assembly.LoadFile(taskAssemblyFile);
-                                var typeFullName = "Wexflow.Tasks." + name + "." + name;
+                                var taskAssembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(taskAssemblyFile);
                                 type = taskAssembly.GetType(typeFullName);
                             }
                         }

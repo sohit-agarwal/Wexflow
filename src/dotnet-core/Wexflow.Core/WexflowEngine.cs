@@ -240,14 +240,6 @@ namespace Wexflow.Core
 
         private void LoadWorkflows()
         {
-            // C:\Wexflow-dotnet-core\Workflows\prod\windows
-            // C:\Wexflow-dotnet-core\Workflows\prod\linux
-            // C:\Wexflow-dotnet-core\Workflows\prod\macos
-            //foreach (string file in Directory.GetFiles(@"C:\Wexflow-dotnet-core\Workflows\prod\windows"))
-            //{
-            //    Database.InsertWorkflow(new Db.Workflow { Xml = File.ReadAllText(file) });
-            //}
-
             var workflows = Database.GetWorkflows();
 
             foreach (var workflow in workflows)
