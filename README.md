@@ -35,7 +35,7 @@ Wexflow comes with a powerful backend, so you can search and filter among all yo
 
 ![Dashboard](https://aelassas.github.io/wexflow/images/wbo-dashboard-4.4-2.png)
 
-Just to give you an idea of what Wexflow does, this is a screenshot from the designer. Using the designer, we get a nice visual overview of the dependency graph of the workflow. Each node represents a task which has to be run:
+Just to give you an idea of what Wexflow does, this is a screenshot from the [designer](https://github.com/aelassas/Wexflow/wiki/Usage#designer). Using the designer, we get a nice visual overview of the dependency graph of the workflow. Each node represents a task which has to be run:
 
 ![Designer](https://aelassas.github.io/wexflow/images/wbo-designer-5.3-2.png)
 
