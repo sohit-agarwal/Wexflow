@@ -133,7 +133,6 @@ namespace Wexflow.Core
             }
 
             Settings = settings.ToArray();
-            ServerLogs = new List<string>();
         }
 
         /// <summary>
@@ -368,7 +367,7 @@ namespace Wexflow.Core
         public void Info(string msg)
         {
             var message = BuildLogMsg(msg);
-            ServerLogs.Add(BuildLogMsg(msg));
+            Logger.Info(message);
             Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  INFO - " + message);
         }
 
@@ -380,7 +379,7 @@ namespace Wexflow.Core
         public void InfoFormat(string msg, params object[] args)
         {
             var message = string.Format(BuildLogMsg(msg), args);
-            ServerLogs.Add(BuildLogMsg(msg));
+            Logger.Info(message);
             Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  INFO - " + message);
         }
 
@@ -391,7 +390,7 @@ namespace Wexflow.Core
         public void Debug(string msg)
         {
             var message = BuildLogMsg(msg);
-            ServerLogs.Add(BuildLogMsg(msg));
+            Logger.Debug(msg);
             Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  DEBUG - " + message);
         }
 
@@ -414,7 +413,7 @@ namespace Wexflow.Core
         public void Error(string msg)
         {
             var message = BuildLogMsg(msg);
-            ServerLogs.Add(BuildLogMsg(msg));
+            Logger.Error(message);
             Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  ERROR - " + message);
         }
 
@@ -454,7 +453,5 @@ namespace Wexflow.Core
             Logger.Error(message, e);
             Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  ERROR - " + message + "\r\n" + e);
         }
-        public List<string> ServerLogs { get; set; }
-
     }
 }

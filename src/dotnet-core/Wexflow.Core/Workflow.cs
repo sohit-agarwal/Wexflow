@@ -1071,8 +1071,7 @@ namespace Wexflow.Core
                         }
 
                         _historyEntry.StatusDate = DateTime.Now;
-                        _historyEntry.ServerLogs = Logger.ServerLogs;
-                        Logger.ServerLogs.Clear();
+                        _historyEntry.Logs = string.Join("\r\n", Logs);
                         Database.InsertHistoryEntry(_historyEntry);
 
                         Database.DecrementRunningCount();
@@ -1563,8 +1562,7 @@ namespace Wexflow.Core
                     Database.UpdateEntry(entry.GetDbId(), entry);
                     _historyEntry.Status = Db.Status.Stopped;
                     _historyEntry.StatusDate = DateTime.Now;
-                    _historyEntry.ServerLogs = Logger.ServerLogs;
-                    Logger.ServerLogs.Clear();
+                    _historyEntry.Logs = logs;
                     Database.InsertHistoryEntry(_historyEntry);
                     IsDisapproved = false;
                     Logs.Clear();

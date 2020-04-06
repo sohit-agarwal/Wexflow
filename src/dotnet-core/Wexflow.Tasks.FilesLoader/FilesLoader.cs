@@ -4,7 +4,6 @@ using System.Xml.Linq;
 using System.Threading;
 using System.IO;
 using System.Text.RegularExpressions;
-using System.Collections.Generic;
 
 namespace Wexflow.Tasks.FilesLoader
 {
@@ -14,7 +13,7 @@ namespace Wexflow.Tasks.FilesLoader
         public string[] FlFiles { get; private set; }
         public string RegexPattern { get; private set; }
         public bool Recursive { get; private set; }
-        public List<string> ServerLogs { get; set; }
+
         public FilesLoader(XElement xe, Workflow wf) : base(xe, wf)
         {
             Folders = GetSettings("folder");
@@ -26,6 +25,7 @@ namespace Wexflow.Tasks.FilesLoader
         public override TaskStatus Run()
         {
             Info("Loading files...");
+
             bool success = true;
 
             try
@@ -43,7 +43,6 @@ namespace Wexflow.Tasks.FilesLoader
                                 var fi = new FileInf(file, Id);
                                 Files.Add(fi);
                                 InfoFormat("File loaded: {0}", file);
-
                             }
                         }
                     }
