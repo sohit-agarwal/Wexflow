@@ -39,6 +39,7 @@ namespace Wexflow.Tasks.FileContentMatch
                     if (res)
                     {
                         InfoFormat("A content matching the pattern {0} was found in the file {1}.", Pattern, file);
+                        Files.Add(new FileInf(file, Id));
                     }
                     else
                     {
@@ -69,6 +70,7 @@ namespace Wexflow.Tasks.FileContentMatch
                         if (res)
                         {
                             InfoFormat("A content matching the pattern {0} was found in the file {1}.", Pattern, file);
+                            Files.Add(new FileInf(file, Id));
                         }
                         else
                         {
