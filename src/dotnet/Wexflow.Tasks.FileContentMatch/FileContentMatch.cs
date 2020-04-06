@@ -26,9 +26,11 @@ namespace Wexflow.Tasks.FileContentMatch
         {
             Info("Checking file...");
 
-            bool success = true;
+            var success = true;
+            var filesCount = 0;
             try
             {
+
                 // Checking files
                 foreach (var file in FilesToCheck)
                 {
@@ -44,6 +46,7 @@ namespace Wexflow.Tasks.FileContentMatch
                     }
 
                     success &= res;
+                    filesCount++;
                 }
 
                 // Checking folders
@@ -73,7 +76,13 @@ namespace Wexflow.Tasks.FileContentMatch
                         }
 
                         success &= res;
+                        filesCount++;
                     }
+                }
+
+                if (filesCount == 0)
+                {
+                    success = false;
                 }
 
             }
