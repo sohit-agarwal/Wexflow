@@ -1,4 +1,6 @@
-﻿namespace Wexflow.Server.Contracts
+﻿using System.Collections.Generic;
+
+namespace Wexflow.Server.Contracts
 {
     public class HistoryEntry
     {
@@ -17,5 +19,6 @@
 
         //public double StatusDate { get; set; }
         public string StatusDate { get; set; }
+        public List<string> ServerLogs { get; set; }
     }
 }

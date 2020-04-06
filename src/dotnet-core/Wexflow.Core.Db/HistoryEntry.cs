@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Wexflow.Core.Db
 {
@@ -12,11 +13,11 @@ namespace Wexflow.Core.Db
         public string Description { get; set; }
         public Status Status { get; set; }
         public DateTime StatusDate { get; set; }
-        public string Logs { get; set; }
-
+        public List<string> ServerLogs { get; set; }
         public virtual string GetDbId()
         {
             return "-1";
         }
+
     }
 }
