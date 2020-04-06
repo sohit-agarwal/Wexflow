@@ -3,7 +3,7 @@
 	"CsvToSql": [ "selectFiles", "tableName", "separator" ],
 	"CsvToXml": [ "selectFiles" ],
 	"EnvironmentVariable": [ "name" ],
-	"FileContentMatch": [ "file", "pattern" ],
+	"FileContentMatch": [ "file", "folder", "recursive" , "pattern" ],
 	"FileExists": [ "file" ],
 	"FileMatch": [ "dir", "pattern", "recurssive" ],
 	"FilesConcat": [ "selectFiles" ],

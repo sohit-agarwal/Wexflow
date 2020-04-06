@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml.Linq;
@@ -8,12 +9,16 @@ namespace Wexflow.Tasks.FileContentMatch
 {
     public class FileContentMatch : Task
     {
-        public string File { get;  }
+        public string[] FilesToCheck { get; }
+        public string[] FoldersToCheck { get; }
+        public bool Recursive { get; }
         public string Pattern { get; }
 
         public FileContentMatch(XElement xe, Workflow wf) : base(xe, wf)
         {
-            File = GetSetting("file");
+            FilesToCheck = GetSettings("file");
+            FoldersToCheck = GetSettings("folder");
+            Recursive = bool.Parse(GetSetting("recursive", "false"));
             Pattern = GetSetting("pattern");
         }
 
@@ -21,19 +26,56 @@ namespace Wexflow.Tasks.FileContentMatch
         {
             Info("Checking file...");
 
-            bool success;
+            bool success = true;
             try
             {
-                success = Regex.Match(System.IO.File.ReadAllText(File), Pattern, RegexOptions.Multiline).Success;
+                // Checking files
+                foreach (var file in FilesToCheck)
+                {
+                    var res = Regex.Match(File.ReadAllText(file), Pattern, RegexOptions.Multiline).Success;
 
-                if (success)
-                {
-                    InfoFormat("A content matching the pattern {0} was found in the file {1}.", Pattern, File);
+                    if (res)
+                    {
+                        InfoFormat("A content matching the pattern {0} was found in the file {1}.", Pattern, file);
+                    }
+                    else
+                    {
+                        InfoFormat("No content matching the pattern {0} was found in the file {1}.", Pattern, file);
+                    }
+
+                    success &= res;
                 }
-                else
+
+                // Checking folders
+                foreach (var folder in FoldersToCheck)
                 {
-                    InfoFormat("No content matching the pattern {0} was found in the file {1}.", Pattern, File);
+                    var files = new string[] { };
+                    if (Recursive)
+                    {
+                        files = Directory.GetFiles(folder, "*.*", SearchOption.AllDirectories); ;
+                    }
+                    else
+                    {
+                        files = Directory.GetFiles(folder);
+                    }
+
+                    foreach (var file in files)
+                    {
+                        var res = Regex.Match(File.ReadAllText(file), Pattern, RegexOptions.Multiline).Success;
+
+                        if (res)
+                        {
+                            InfoFormat("A content matching the pattern {0} was found in the file {1}.", Pattern, file);
+                        }
+                        else
+                        {
+                            InfoFormat("No content matching the pattern {0} was found in the file {1}.", Pattern, file);
+                        }
+
+                        success &= res;
+                    }
                 }
+
             }
             catch (ThreadAbortException)
             {
@@ -41,7 +83,7 @@ namespace Wexflow.Tasks.FileContentMatch
             }
             catch (Exception e)
             {
-                ErrorFormat("An error occured while checking the file {0}. Error: {1}", File, e.Message);
+                ErrorFormat("An error occured while checking thes files. Error: {0}", e.Message);
                 return new TaskStatus(Status.Error, false);
             }
 
