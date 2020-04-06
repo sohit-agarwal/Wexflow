@@ -513,17 +513,21 @@ namespace Wexflow.Core
                         if (type == null)
                         {
                             var binPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                            var taskAssembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(Path.Combine(binPath, assemblyName + ".dll"));
-                            type = taskAssembly.GetType(typeFullName);
+                            var assemblyPath = Path.Combine(binPath, assemblyName + ".dll");
+                            if (File.Exists(assemblyPath))
+                            {
+                                var assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(assemblyPath);
+                                type = assembly.GetType(typeFullName);
+                            }
                         }
 
                         if (type == null) // Try to load from Tasks folder
                         {
-                            var taskAssemblyFile = Path.Combine(TasksFolder, assemblyName + ".dll");
-                            if (File.Exists(taskAssemblyFile))
+                            var assemblyPath = Path.Combine(TasksFolder, assemblyName + ".dll");
+                            if (File.Exists(assemblyPath))
                             {
-                                var taskAssembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(taskAssemblyFile);
-                                type = taskAssembly.GetType(typeFullName);
+                                var assembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(assemblyPath);
+                                type = assembly.GetType(typeFullName);
                             }
                         }
 
