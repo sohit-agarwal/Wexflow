@@ -1402,7 +1402,7 @@ namespace Wexflow.Core
                     }
                     else if (status.Condition == false)
                     {
-                        if (@if.ElseNodes.Length > 0)
+                        if (@if.ElseNodes != null && @if.ElseNodes.Length > 0)
                         {
                             // Build Tasks
                             var elseTasks = NodesToTasks(@if.ElseNodes);
