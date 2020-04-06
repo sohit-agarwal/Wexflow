@@ -45,8 +45,6 @@ namespace Wexflow.Tasks.FileContentMatch
                     {
                         InfoFormat("No content matching the pattern {0} was found in the file {1}.", Pattern, file);
                     }
-
-                    success &= res;
                     filesCount++;
                 }
 
@@ -76,13 +74,11 @@ namespace Wexflow.Tasks.FileContentMatch
                         {
                             InfoFormat("No content matching the pattern {0} was found in the file {1}.", Pattern, file);
                         }
-
-                        success &= res;
                         filesCount++;
                     }
                 }
 
-                if (filesCount == 0)
+                if (Files.Count == 0)
                 {
                     success = false;
                 }
