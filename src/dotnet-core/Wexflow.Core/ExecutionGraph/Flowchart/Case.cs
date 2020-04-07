@@ -11,11 +11,11 @@ namespace Wexflow.Core.ExecutionGraph.Flowchart
         /// <summary>
         /// Case value.
         /// </summary>
-        public string Value { get; private set; }
+        public string Value { get; set; }
         /// <summary>
         /// Case nodes.
         /// </summary>
-        public Node[] Nodes { get; private set; }
+        public Node[] Nodes { get; set; }
 
         /// <summary>
         /// Creates a new case.
@@ -25,7 +25,10 @@ namespace Wexflow.Core.ExecutionGraph.Flowchart
         public Case(string val, IEnumerable<Node> nodes)
         {
             Value = val;
-            if (nodes != null) Nodes = nodes.ToArray();
+            if (nodes != null)
+            {
+                Nodes = nodes.ToArray();
+            }
         }
     }
 }

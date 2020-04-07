@@ -11,11 +11,11 @@ namespace Wexflow.Core.ExecutionGraph.Flowchart
         /// <summary>
         /// While Id.
         /// </summary>
-        public int WhileId { get; private set; }
+        public int WhileId { get; set; }
         /// <summary>
         /// Nodes.
         /// </summary>
-        public Node[] Nodes { get; private set; }
+        public Node[] Nodes { get; set; }
 
         /// <summary>
         /// Creates a new While flowchart node.
@@ -27,7 +27,10 @@ namespace Wexflow.Core.ExecutionGraph.Flowchart
         public While(int id, int parentId, int whileId, IEnumerable<Node> nodes):base(id, parentId)
         {
             WhileId = whileId;
-            if (nodes != null) Nodes = nodes.ToArray();
+            if (nodes != null)
+            {
+                Nodes = nodes.ToArray();
+            }
         }
     }
 }

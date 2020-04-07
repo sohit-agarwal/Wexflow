@@ -11,15 +11,15 @@ namespace Wexflow.Core.ExecutionGraph.Flowchart
         /// <summary>
         /// Switch id.
         /// </summary>
-        public int SwitchId { get; private set; }
+        public int SwitchId { get; set; }
         /// <summary>
         /// Cases.
         /// </summary>
-        public Case[] Cases { get; private set; }
+        public Case[] Cases { get; set; }
         /// <summary>
         /// Default case.
         /// </summary>
-        public Node[] Default { get; private set; }
+        public Node[] Default { get; set; }
 
         /// <summary>
         /// Creates a new Switch flowchart node.
@@ -32,8 +32,14 @@ namespace Wexflow.Core.ExecutionGraph.Flowchart
         public Switch(int id, int parentId, int switchId, IEnumerable<Case> cases, IEnumerable<Node> @default) : base(id, parentId)
         {
             SwitchId = switchId;
-            if (cases != null) Cases = cases.ToArray();
-            if (@default != null) Default = @default.ToArray();
+            if (cases != null)
+            {
+                Cases = cases.ToArray();
+            }
+            if (@default != null)
+            {
+                Default = @default.ToArray();
+            }
         }
     }
 }
