@@ -24,15 +24,11 @@ namespace Wexflow.Tasks.Xslt
             Version = GetSetting("version");
             RemoveWexflowProcessingNodes = bool.Parse(GetSetting("removeWexflowProcessingNodes", "true"));
             Extension = GetSetting("extension", "xml");
-            OutputFormat = "{0}_{1:yyyy-MM-dd-HH-mm-ss-fff}.{2}";
-            foreach (Variable variable in wf.LocalVariables)
-            {
-                if (variable.Key== "OutputFormat")
-                {
-                    OutputFormat = variable.Value;
-                    break;
-                }
-            }
+            OutputFormat = wf.LocalVariables
+                            .Where(lv => lv.Key == "OutputFormat")
+                            .Select(lv => lv.Value)
+                            .DefaultIfEmpty("{0}_{1:yyyy-MM-dd-HH-mm-ss-fff}.{2}")
+                            .FirstOrDefault();
         }
 
         public override TaskStatus Run()
