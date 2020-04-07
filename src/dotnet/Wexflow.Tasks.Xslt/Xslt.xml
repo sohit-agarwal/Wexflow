@@ -89,8 +89,8 @@
     <!-- You can add as many selecteFiles as you want.-->
     <!-- The XSLT file path. Example: C:\Wexflow\Xslt\Products.xslt-->
     <Setting name="xsltPath" value="$string" />
-    <!-- The version of the XSLT processor to use. Possible options: 1.0|2.0|3.0-->
-    <Setting name="version" value="1.0|2.0|3.0" />
+    <!-- The output format. Defaults to {0}_{1:yyyy-MM-dd-HH-mm-ss-fff}.{2} Where 0: Input file name, 1: DateTime.Now, 2: Extension option.-->
+    <Setting name="outputFormat" value="$string" />
     <!-- Optional and defaults to true. If it is set to false, <WexflowProcessing> nodes will not be removed
          from the output XML document.-->
     <Setting name="removeWexflowProcessingNodes" value="true|false" />

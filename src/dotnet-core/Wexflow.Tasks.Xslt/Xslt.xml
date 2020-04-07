@@ -91,6 +91,8 @@
     <Setting name="xsltPath" value="$string" />
     <!-- Optional and defaults to true. If it is set to false, <WexflowProcessing> nodes will not be removed
          from the output XML document.-->
+    <!-- The output format. Defaults to {0}_{1:yyyy-MM-dd-HH-mm-ss-fff}.{2} Where 0: input file name, 1: DateTime.Now, 2: Extension option.-->
+    <Setting name="outputFormat" value="$string" />
     <Setting name="removeWexflowProcessingNodes" value="true|false" />
     <!-- Optional and defaults to xml. the output extension. Ex: html-->
     <Setting name="extension" value="$string" />

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Linq;
-using Wexflow.Core;
-using System.Xml.Linq;
+﻿using Saxon.Api;
+using System;
 using System.IO;
-using System.Xml.Xsl;
-using Saxon.Api;
+using System.Linq;
 using System.Threading;
-using System.Xml;
+using System.Xml.Linq;
+using System.Xml.Xsl;
+using Wexflow.Core;
 
 namespace Wexflow.Tasks.Xslt
 {
@@ -24,7 +23,7 @@ namespace Wexflow.Tasks.Xslt
             XsltPath = GetSetting("xsltPath");
             RemoveWexflowProcessingNodes = bool.Parse(GetSetting("removeWexflowProcessingNodes", "true"));
             Extension = GetSetting("extension", "xml");
-            OutputFormat = GetSetting("OutputFormat", "{0}_{1:yyyy-MM-dd-HH-mm-ss-fff}.{2}");
+            OutputFormat = GetSetting("outputFormat", "{0}_{1:yyyy-MM-dd-HH-mm-ss-fff}.{2}");
         }
 
         public override TaskStatus Run()
@@ -41,12 +40,7 @@ namespace Wexflow.Tasks.Xslt
 
                 try
                 {
-                    XmlDocument doc = new XmlDocument();
-                    doc.Load(file.Path);
-                    XmlDeclaration declaration = doc.ChildNodes
-                                    .OfType<XmlDeclaration>()
-                                    .FirstOrDefault();
-                    Version = declaration.Version;
+                    Version = XDocument.Load(XsltPath).Root.Attribute("version").Value;
 
                     switch (Version)
                     {
