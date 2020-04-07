@@ -143,13 +143,13 @@ namespace Wexflow.Core.LiteDB
             }
         }
 
-        public override void IncrementDisapprovedCount()
+        public override void IncrementRejectedCount()
         {
             var col = _db.GetCollection<StatusCount>(Core.Db.StatusCount.DocumentName);
             var statusCount = col.FindAll().FirstOrDefault();
             if (statusCount != null)
             {
-                statusCount.DisapprovedCount++;
+                statusCount.RejectedCount++;
                 col.Update(statusCount);
             }
         }
@@ -243,7 +243,7 @@ namespace Wexflow.Core.LiteDB
                 statusCount.FailedCount = 0;
                 statusCount.WarningCount = 0;
                 statusCount.DisabledCount = 0;
-                statusCount.DisapprovedCount = 0;
+                statusCount.RejectedCount = 0;
                 col.Update(statusCount);
             }
         }

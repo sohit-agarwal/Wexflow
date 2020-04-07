@@ -627,7 +627,7 @@ namespace Wexflow.Server
                 {
                     if (user.UserProfile == Core.Db.UserProfile.SuperAdministrator)
                     {
-                        res = WexflowServer.WexflowEngine.DisapproveWorkflow(workflowId, instanceId);
+                        res = WexflowServer.WexflowEngine.RejectWorkflow(workflowId, instanceId);
                     }
                     else if (user.UserProfile == Core.Db.UserProfile.Administrator)
                     {
@@ -635,7 +635,7 @@ namespace Wexflow.Server
                         var check = WexflowServer.WexflowEngine.CheckUserWorkflow(user.GetId(), workflowDbId);
                         if (check)
                         {
-                            res = WexflowServer.WexflowEngine.DisapproveWorkflow(workflowId, instanceId);
+                            res = WexflowServer.WexflowEngine.RejectWorkflow(workflowId, instanceId);
                         }
                     }
                 }
@@ -2146,7 +2146,7 @@ namespace Wexflow.Server
                         FailedCount = statusCount.FailedCount,
                         WarningCount = statusCount.WarningCount,
                         DisabledCount = statusCount.DisabledCount,
-                        DisapprovedCount = statusCount.DisapprovedCount,
+                        RejectedCount = statusCount.RejectedCount,
                         StoppedCount = statusCount.StoppedCount
                     };
 

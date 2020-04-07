@@ -91,7 +91,7 @@ namespace Wexflow.Core.Service.Client
             webClient.UploadString(uri, string.Empty);
         }
 
-        public void DisapproveWorkflow(int id, Guid instanceId, string username, string password)
+        public void RejectWorkflow(int id, Guid instanceId, string username, string password)
         {
             string uri = Uri + "/reject?w=" + id + "&i=" + instanceId;
             var webClient = new WebClient();

@@ -18,8 +18,8 @@
         /// </summary>
         Error,
         /// <summary>
-        /// Disapproved.
+        /// OnRejected.
         /// </summary>
-        Disapproved
+        Rejected
     }
 }

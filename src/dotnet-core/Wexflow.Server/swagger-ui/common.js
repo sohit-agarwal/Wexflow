@@ -86,7 +86,7 @@
             case 6:
                 return "<img src='images/stopped-small.png' /> Stopped";
             case 7:
-                return "<img src='images/disapproved-small.png' /> Disapproved";
+                return "<img src='images/disapproved-small.png' /> Rejected";
             default:
                 return "";
         }

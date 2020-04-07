@@ -1030,7 +1030,7 @@ namespace Wexflow.Core.RavenDB
             }
         }
 
-        public override void IncrementDisapprovedCount()
+        public override void IncrementRejectedCount()
         {
             using (var session = _store.OpenSession())
             {
@@ -1038,7 +1038,7 @@ namespace Wexflow.Core.RavenDB
                 var statusCount = col.FirstOrDefault();
                 if (statusCount != null)
                 {
-                    statusCount.DisapprovedCount++;
+                    statusCount.RejectedCount++;
                     session.SaveChanges();
                     Wait();
                 }

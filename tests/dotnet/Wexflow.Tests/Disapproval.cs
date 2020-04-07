@@ -23,7 +23,7 @@ namespace Wexflow.Tests
             var workflowId = 126;
             var instanceId = Helper.StartWorkflow(workflowId);
             Thread.Sleep(500);
-            Helper.DisapproveWorkflow(workflowId, instanceId);
+            Helper.RejectWorkflow(workflowId, instanceId);
             Stopwatch stopwatch = Stopwatch.StartNew();
             var workflow = Helper.GetWorkflow(workflowId);
             var isRunning = workflow.IsRunning;

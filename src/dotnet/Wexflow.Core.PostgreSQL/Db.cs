@@ -84,7 +84,7 @@ namespace Wexflow.Core.PostgreSQL
                     + StatusCount.ColumnName_WarningCount + ", "
                     + StatusCount.ColumnName_DisabledCount + ", "
                     + StatusCount.ColumnName_StoppedCount + ", "
-                    + StatusCount.ColumnName_DisapprovedCount + ") VALUES("
+                    + StatusCount.ColumnName_RejectedCount + ") VALUES("
                     + statusCount.PendingCount + ", "
                     + statusCount.RunningCount + ", "
                     + statusCount.DoneCount + ", "
@@ -92,7 +92,7 @@ namespace Wexflow.Core.PostgreSQL
                     + statusCount.WarningCount + ", "
                     + statusCount.DisabledCount + ", "
                     + statusCount.StoppedCount + ", "
-                    + statusCount.DisapprovedCount + ");"
+                    + statusCount.RejectedCount + ");"
                     , conn);
 
                 command.ExecuteNonQuery();
@@ -932,7 +932,7 @@ namespace Wexflow.Core.PostgreSQL
                     + StatusCount.ColumnName_WarningCount + ", "
                     + StatusCount.ColumnName_DisabledCount + ", "
                     + StatusCount.ColumnName_StoppedCount + ", "
-                    + StatusCount.ColumnName_DisapprovedCount
+                    + StatusCount.ColumnName_RejectedCount
                     + " FROM " + Core.Db.StatusCount.DocumentName
                     + ";", conn);
 
@@ -950,7 +950,7 @@ namespace Wexflow.Core.PostgreSQL
                         WarningCount = (int)reader[StatusCount.ColumnName_WarningCount],
                         DisabledCount = (int)reader[StatusCount.ColumnName_DisabledCount],
                         StoppedCount = (int)reader[StatusCount.ColumnName_StoppedCount],
-                        DisapprovedCount = (int)reader[StatusCount.ColumnName_DisapprovedCount]
+                        RejectedCount = (int)reader[StatusCount.ColumnName_RejectedCount]
                     };
 
                     return statusCount;
@@ -1223,19 +1223,19 @@ namespace Wexflow.Core.PostgreSQL
             }
         }
 
-        public override void IncrementDisapprovedCount()
+        public override void IncrementRejectedCount()
         {
             using (var conn = new NpgsqlConnection(_connectionString))
             {
                 conn.Open();
 
-                var command = new NpgsqlCommand("SELECT " + StatusCount.ColumnName_DisapprovedCount + " FROM " + Core.Db.StatusCount.DocumentName + ";", conn);
+                var command = new NpgsqlCommand("SELECT " + StatusCount.ColumnName_RejectedCount + " FROM " + Core.Db.StatusCount.DocumentName + ";", conn);
 
                 var count = (int)command.ExecuteScalar();
 
                 count++;
 
-                command = new NpgsqlCommand("UPDATE " + Core.Db.StatusCount.DocumentName + " SET " + StatusCount.ColumnName_DisapprovedCount + " = " + count + ";", conn);
+                command = new NpgsqlCommand("UPDATE " + Core.Db.StatusCount.DocumentName + " SET " + StatusCount.ColumnName_RejectedCount + " = " + count + ";", conn);
 
                 command.ExecuteNonQuery();
             }

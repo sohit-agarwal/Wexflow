@@ -84,9 +84,9 @@ namespace Wexflow.DotnetCore.Tests
             WexflowEngine.ApproveWorkflow(workflowId, instanceId);
         }
 
-        public static void DisapproveWorkflow(int workflowId, System.Guid instanceId)
+        public static void RejectWorkflow(int workflowId, System.Guid instanceId)
         {
-            WexflowEngine.DisapproveWorkflow(workflowId, instanceId);
+            WexflowEngine.RejectWorkflow(workflowId, instanceId);
         }
 
         public static Core.Workflow GetWorkflow(int workflowId)

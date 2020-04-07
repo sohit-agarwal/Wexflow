@@ -861,7 +861,7 @@ namespace Wexflow.Core
         /// </summary>
         /// <param name="workflowId">Workflow Id.</param>
         /// <param name="instanceId">Job instance Id.</param>
-        public bool DisapproveWorkflow(int workflowId, Guid instanceId)
+        public bool RejectWorkflow(int workflowId, Guid instanceId)
         {
             try
             {
@@ -885,7 +885,7 @@ namespace Wexflow.Core
                         }
                         else
                         {
-                            innerWf.Disapprove();
+                            innerWf.Reject();
                             return true;
                         }
                     }

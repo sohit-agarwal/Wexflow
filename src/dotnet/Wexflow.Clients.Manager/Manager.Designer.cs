@@ -39,7 +39,7 @@
             this.buttonStop = new System.Windows.Forms.Button();
             this.textBoxInfo = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonDisapprove = new System.Windows.Forms.Button();
+            this.buttonReject = new System.Windows.Forms.Button();
             this.buttonApprove = new System.Windows.Forms.Button();
             this.buttonRestart = new System.Windows.Forms.Button();
             this.buttonRefresh = new System.Windows.Forms.Button();
@@ -163,7 +163,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
-            this.panel1.Controls.Add(this.buttonDisapprove);
+            this.panel1.Controls.Add(this.buttonReject);
             this.panel1.Controls.Add(this.buttonApprove);
             this.panel1.Controls.Add(this.buttonRestart);
             this.panel1.Controls.Add(this.buttonRefresh);
@@ -180,14 +180,14 @@
             // 
             // buttonDisapprove
             // 
-            this.buttonDisapprove.Enabled = false;
-            this.buttonDisapprove.Location = new System.Drawing.Point(419, 9);
-            this.buttonDisapprove.Name = "buttonDisapprove";
-            this.buttonDisapprove.Size = new System.Drawing.Size(75, 23);
-            this.buttonDisapprove.TabIndex = 10;
-            this.buttonDisapprove.Text = "Reject";
-            this.buttonDisapprove.UseVisualStyleBackColor = true;
-            this.buttonDisapprove.Click += new System.EventHandler(this.ButtonDisapprove_Click);
+            this.buttonReject.Enabled = false;
+            this.buttonReject.Location = new System.Drawing.Point(419, 9);
+            this.buttonReject.Name = "buttonDisapprove";
+            this.buttonReject.Size = new System.Drawing.Size(75, 23);
+            this.buttonReject.TabIndex = 10;
+            this.buttonReject.Text = "Reject";
+            this.buttonReject.UseVisualStyleBackColor = true;
+            this.buttonReject.Click += new System.EventHandler(this.ButtonReject_Click);
             // 
             // buttonApprove
             // 
@@ -361,7 +361,7 @@
         private System.Windows.Forms.TextBox textBoxSearch;
         private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.Button buttonApprove;
-        private System.Windows.Forms.Button buttonDisapprove;
+        private System.Windows.Forms.Button buttonReject;
     }
 }
 
