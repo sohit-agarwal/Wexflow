@@ -11,7 +11,7 @@ namespace Wexflow.Core.ExecutionGraph
         /// <summary>
         /// Nodes.
         /// </summary>
-        public Node[] Nodes { get; private set; }
+        public Node[] Nodes { get; set; }
 
         /// <summary>
         /// Creates a new graph event.
@@ -19,7 +19,10 @@ namespace Wexflow.Core.ExecutionGraph
         /// <param name="nodes">Nodes.</param>
         public GraphEvent(IEnumerable<Node> nodes)
         {
-            if (nodes != null) Nodes = nodes.ToArray();
+            if (nodes != null)
+            {
+                Nodes = nodes.ToArray();
+            }
         }
     }
 }

@@ -11,23 +11,23 @@ namespace Wexflow.Core.ExecutionGraph
         /// <summary>
         /// Nodes.
         /// </summary>
-        public Node[] Nodes { get; private set; }
+        public Node[] Nodes { get; set; }
         /// <summary>
         /// OnSuccess event.
         /// </summary>
-        public GraphEvent OnSuccess { get; private set; }
+        public GraphEvent OnSuccess { get; set; }
         /// <summary>
         /// OnWarning event.
         /// </summary>
-        public GraphEvent OnWarning { get; private set; }
+        public GraphEvent OnWarning { get; set; }
         /// <summary>
         /// OnError event.
         /// </summary>
-        public GraphEvent OnError { get; private set; }
+        public GraphEvent OnError { get; set; }
         /// <summary>
         /// OnRejected event.
         /// </summary>
-        public GraphEvent OnRejected { get; private set; }
+        public GraphEvent OnRejected { get; set; }
 
         /// <summary>
         /// Creates a new execution graph.
@@ -44,7 +44,10 @@ namespace Wexflow.Core.ExecutionGraph
             , GraphEvent onRejected
             )
         {
-            if(nodes != null) Nodes = nodes.ToArray();
+            if (nodes != null)
+            {
+                Nodes = nodes.ToArray();
+            }
             OnSuccess = onSuccess;
             OnWarning = onWarning;
             OnError = onError;

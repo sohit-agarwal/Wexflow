@@ -8,11 +8,11 @@
         /// <summary>
         /// Node Id.
         /// </summary>
-        public int Id { get; private set; }
+        public int Id { get; set; }
         /// <summary>
         /// Node parent Id.
         /// </summary>
-        public int ParentId { get; private set; }
+        public int ParentId { get; set; }
 
         /// <summary>
         /// Creates a new node.
