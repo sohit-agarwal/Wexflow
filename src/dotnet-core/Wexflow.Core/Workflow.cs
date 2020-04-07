@@ -1681,7 +1681,7 @@ namespace Wexflow.Core
         private void CreateTempFolder()
         {
             // WorkflowId/dd-MM-yyyy/HH-mm-ss-fff
-            var wfTempFolder = Path.Combine(WexflowTempFolder, Id.ToString(CultureInfo.CurrentCulture));
+            var wfTempFolder = Path.Combine(WexflowTempFolder, Id.ToString(CultureInfo.InvariantCulture));
             if (!Directory.Exists(wfTempFolder)) Directory.CreateDirectory(wfTempFolder);
 
             var wfDayTempFolder = Path.Combine(wfTempFolder, string.Format("{0:yyyy-MM-dd}", DateTime.Now));
