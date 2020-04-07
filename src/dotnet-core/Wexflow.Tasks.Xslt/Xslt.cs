@@ -5,21 +5,34 @@ using System.Xml.Linq;
 using System.IO;
 using System.Xml.Xsl;
 using System.Threading;
+using System.Xml;
+//using Saxon.Api;
 
 namespace Wexflow.Tasks.Xslt
 {
     public class Xslt:Task
     {
         public string XsltPath { get; private set; }
+        public string Version { get; private set; }
         public bool RemoveWexflowProcessingNodes { get; private set; }
         public string Extension { get; private set; }
-
+        public string OutputFormat { get; private set; }
         public Xslt(XElement xe, Workflow wf)
             : base(xe, wf)
         {
             XsltPath = GetSetting("xsltPath");
+            Version = GetSetting("version");
             RemoveWexflowProcessingNodes = bool.Parse(GetSetting("removeWexflowProcessingNodes", "true"));
             Extension = GetSetting("extension", "xml");
+            OutputFormat = "{0}_{1:yyyy-MM-dd-HH-mm-ss-fff}.{2}";
+            foreach (Variable variable in wf.LocalVariables)
+            {
+                if (variable.Key== "OutputFormat")
+                {
+                    OutputFormat = variable.Value;
+                    break;
+                }
+            }
         }
 
         public override TaskStatus Run()
@@ -32,16 +45,75 @@ namespace Wexflow.Tasks.Xslt
             foreach (FileInf file in SelectFiles())
             {
                 var destPath = Path.Combine(Workflow.WorkflowTempFolder,
-                    string.Format("{0}_{1:yyyy-MM-dd-HH-mm-ss-fff}.{2}", Path.GetFileNameWithoutExtension(file.FileName), DateTime.Now, Extension));
+                    string.Format(OutputFormat, Path.GetFileNameWithoutExtension(file.FileName), DateTime.Now, Extension));
 
                 try
                 {
-                    var xslt = new XslCompiledTransform();
-                    xslt.Load(XsltPath);
-                    xslt.Transform(file.Path, destPath);
-                    InfoFormat("File transformed: {0} -> {1}", file.Path, destPath);
-                    Files.Add(new FileInf(destPath, Id));
+                    XmlDocument doc = new XmlDocument();
+                    doc.Load(file.Path);
+                    XmlDeclaration declaration = doc.ChildNodes
+                                    .OfType<XmlDeclaration>()
+                                    .FirstOrDefault();
+                    Version = declaration.Version;
+                    switch (Version)
+                    {
+                        case "1.0":
+                            var xslt = new XslCompiledTransform();
+                            xslt.Load(XsltPath);
+                            xslt.Transform(file.Path, destPath);
+                            InfoFormat("File transformed: {0} -> {1}", file.Path, destPath);
+                            Files.Add(new FileInf(destPath, Id));
+                            break;
+                        //case "2.0":
+                        //    var xsl = new FileInfo(XsltPath);
+                        //    var input = new FileInfo(file.Path);
+                        //    var output = new FileInfo(destPath);
 
+                        //    // Compile stylesheet
+                        //    var processor = new Processor();
+                        //    var compiler = processor.NewXsltCompiler();
+                        //    var executable = compiler.Compile(new Uri(xsl.FullName));
+
+                        //    // Do transformation to a destination
+                        //    var destination = new DomDestination();
+                        //    using (var inputStream = input.OpenRead())
+                        //    {
+                        //        var transformer = executable.Load();
+                        //        transformer.SetInputStream(inputStream, new Uri(input.DirectoryName));
+                        //        transformer.Run(destination);
+                        //    }
+
+                        //    // Save result to a file (or whatever else you wanna do)
+                        //    destination.XmlDocument.Save(output.FullName);
+
+                        //    InfoFormat("File transformed (XSLT 2.0): {0} -> {1}", file.Path, destPath);
+                        //    Files.Add(new FileInf(destPath, Id));
+                        //    break;
+                        //case "3.0":
+                        //    var xsl3 = new FileInfo(XsltPath);
+                        //    var input3 = new FileInfo(file.Path);
+                        //    var output3 = new FileInfo(destPath);
+
+                        //    var processor3 = new Processor(false);
+                        //    var compiler3 = processor3.NewXsltCompiler();
+                        //    var stylesheet = compiler3.Compile(new Uri(xsl3.FullName));
+                        //    var serializer = processor3.NewSerializer();
+                        //    serializer.SetOutputFile(output3.FullName);
+
+                        //    using (var inputStream = input3.OpenRead())
+                        //    {
+                        //        var transformer3 = stylesheet.Load30();
+                        //        transformer3.Transform(inputStream, serializer);
+                        //        serializer.Close();
+                        //    }
+
+                        //    InfoFormat("File transformed (XSLT 3.0): {0} -> {1}", file.Path, destPath);
+                        //    Files.Add(new FileInf(destPath, Id));
+                        //    break;
+                        default:
+                            Error("Error in version option. Available options: 1.0, 2.0 or 3.0");
+                            return new TaskStatus(Status.Error, false);
+                    }
                     // Set renameTo and tags from /*//<WexflowProcessing>//<File> nodes
                     // Remove /*//<WexflowProcessing> nodes if necessary
 
