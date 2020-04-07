@@ -23,9 +23,7 @@ namespace Wexflow.Tasks.Xslt
             XsltPath = GetSetting("xsltPath");
             RemoveWexflowProcessingNodes = bool.Parse(GetSetting("removeWexflowProcessingNodes", "true"));
             Extension = GetSetting("extension", "xml");
-            OutputFormat = (GetSetting("OutputFormat") !="") 
-                            ? GetSetting("OutputFormat") 
-                            : "{0}_{1:yyyy-MM-dd-HH-mm-ss-fff}.{2}";
+            OutputFormat = GetSetting("OutputFormat", "{0}_{1:yyyy-MM-dd-HH-mm-ss-fff}.{2}");
         }
 
         public override TaskStatus Run()
