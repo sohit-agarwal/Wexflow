@@ -846,7 +846,7 @@ namespace Wexflow.Core.CosmosDB
             }
         }
 
-        public override void IncrementDisapprovedCount()
+        public override void IncrementRejectedCount()
         {
             using (var client = new DocumentClient(new Uri(_endpointUrl), _authorizationKey))
             {
@@ -855,7 +855,7 @@ namespace Wexflow.Core.CosmosDB
                 .AsEnumerable().ToArray()
                 .First();
 
-                statusCount.DisapprovedCount++;
+                statusCount.RejectedCount++;
 
                 _helper.ReplaceDocument(_databaseName, Core.Db.StatusCount.DocumentName, statusCount, statusCount.Id);
             }

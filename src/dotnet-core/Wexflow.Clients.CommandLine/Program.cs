@@ -127,7 +127,7 @@ namespace Wexflow.Clients.CommandLine
                                    Console.WriteLine("Workflow {0} is not waiting for approval to be rejected.", o.WorkflowId);
                                    return;
                                }
-                               client.DisapproveWorkflow(o.WorkflowId, Guid.Parse(o.JobId), username, password);
+                               client.RejectWorkflow(o.WorkflowId, Guid.Parse(o.JobId), username, password);
                                break;
 
                        }

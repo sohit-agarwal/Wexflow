@@ -11,7 +11,7 @@ namespace Wexflow.Core.Db
         Warning,
         Disabled,
         Stopped,
-        Disapproved
+        Rejected
     }
 
     public enum LaunchType

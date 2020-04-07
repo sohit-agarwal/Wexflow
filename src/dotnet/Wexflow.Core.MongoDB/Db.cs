@@ -601,16 +601,16 @@ namespace Wexflow.Core.MongoDB
             col.UpdateOne(e => e.Id == id, update);
         }
 
-        public override void IncrementDisapprovedCount()
+        public override void IncrementRejectedCount()
         {
             var col = _db.GetCollection<StatusCount>(Core.Db.StatusCount.DocumentName);
             var statusCount = col.Find(FilterDefinition<StatusCount>.Empty).FirstOrDefault();
             if (statusCount != null)
             {
-                statusCount.DisapprovedCount++;
+                statusCount.RejectedCount++;
 
                 var update = Builders<StatusCount>.Update
-                    .Set(sc => sc.DisapprovedCount, statusCount.DisapprovedCount);
+                    .Set(sc => sc.RejectedCount, statusCount.RejectedCount);
 
                 col.UpdateOne(sc => sc.Id == statusCount.Id, update);
             }

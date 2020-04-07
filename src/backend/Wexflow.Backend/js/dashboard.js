@@ -201,7 +201,7 @@
             statusDone.innerHTML = data.DoneCount;
             statusFailed.innerHTML = data.FailedCount;
             statusWarning.innerHTML = data.WarningCount;
-            statusDisapproved.innerHTML = data.DisapprovedCount;
+            statusDisapproved.innerHTML = data.RejectedCount;
             statusStopped.innerHTML = data.StoppedCount;
         }, function () {
             //alert("An error occured while retrieving workflows. Check Wexflow Web Service Uri and check that Wexflow Windows Service is running correctly.");

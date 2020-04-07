@@ -14,7 +14,7 @@ namespace Wexflow.Tasks.Workflow
         Resume,
         Stop,
         Approve,
-        Disapprove
+        Reject
     }
 
     public class Workflow : Task
@@ -120,17 +120,17 @@ namespace Wexflow.Tasks.Workflow
                             ErrorFormat("Can't approve the workflow {0} because it's not waiting for approval.", Workflow.Id);
                         }
                         break;
-                    case WorkflowAction.Disapprove:
+                    case WorkflowAction.Reject:
                         if (wfInfo.IsApproval && wfInfo.IsWaitingForApproval)
                         {
-                            client.DisapproveWorkflow(id, Jobs[id], Username, Password);
-                            InfoFormat("Workflow {0} disapproved.", id);
+                            client.RejectWorkflow(id, Jobs[id], Username, Password);
+                            InfoFormat("Workflow {0} rejected.", id);
                             if (!atLeastOneSucceed) atLeastOneSucceed = true;
                         }
                         else
                         {
                             success = false;
-                            ErrorFormat("Can't disapprove the workflow {0} because it's not waiting for approval.", Workflow.Id);
+                            ErrorFormat("Can't reject the workflow {0} because it's not waiting for approval.", Workflow.Id);
                         }
                         break;
                 }

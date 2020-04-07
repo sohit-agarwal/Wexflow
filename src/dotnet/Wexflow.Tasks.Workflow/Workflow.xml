@@ -10,7 +10,7 @@
     <Setting name="username" value="$string" />
     <!-- Wexflow password (encrypted in MD5). -->
     <Setting name="password" value="$string" />
-    <!-- Workflow action: start|suspend|resume|stop|approve|disapprove -->
+    <!-- Workflow action: start|suspend|resume|stop|approve|reject -->
     <Setting name="action" value="start" />
     <!-- Workflow ids-->
     <Setting name="id" value="$int" />

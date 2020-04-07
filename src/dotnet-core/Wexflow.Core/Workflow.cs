@@ -111,9 +111,9 @@ namespace Wexflow.Core
         /// </summary>
         public bool IsWaitingForApproval { get; set; }
         /// <summary>
-        /// Shows whether this workflow is disapproved or not.
+        /// Shows whether this workflow is rejected or not.
         /// </summary>
-        public bool IsDisapproved { get; private set; }
+        public bool IsRejected { get; private set; }
         /// <summary>
         /// Shows whether this workflow is running or not.
         /// </summary>
@@ -595,20 +595,20 @@ namespace Wexflow.Core
                         onError = new GraphEvent(onErrorNodes);
                     }
 
-                    // OnDisapproved
-                    GraphEvent onDisapproved = null;
-                    var xOnDispproved = xExectionGraph.XPathSelectElement("wf:OnRejected", XmlNamespaceManager);
-                    if (xOnDispproved != null)
+                    // OnRejected
+                    GraphEvent onRejected = null;
+                    var xOnRejected = xExectionGraph.XPathSelectElement("wf:OnRejected", XmlNamespaceManager);
+                    if (xOnRejected != null)
                     {
-                        var onDisapproveNodes = GetTaskNodes(xOnDispproved);
-                        CheckStartupNode(onDisapproveNodes, "Startup node with parentId=-1 not found in OnError execution graph.");
-                        CheckParallelTasks(onDisapproveNodes, "Parallel tasks execution detected in OnError execution graph.");
-                        CheckInfiniteLoop(onDisapproveNodes, "Infinite loop detected in OnError execution graph.");
-                        onDisapproved = new GraphEvent(onDisapproveNodes);
+                        var onRejectNodes = GetTaskNodes(xOnRejected);
+                        CheckStartupNode(onRejectNodes, "Startup node with parentId=-1 not found in OnError execution graph.");
+                        CheckParallelTasks(onRejectNodes, "Parallel tasks execution detected in OnError execution graph.");
+                        CheckInfiniteLoop(onRejectNodes, "Infinite loop detected in OnError execution graph.");
+                        onRejected = new GraphEvent(onRejectNodes);
                     }
 
 
-                    ExecutionGraph = new Graph(taskNodes, onSuccess, onWarning, onError, onDisapproved);
+                    ExecutionGraph = new Graph(taskNodes, onSuccess, onWarning, onError, onRejected);
                 }
             }
         }
@@ -944,7 +944,7 @@ namespace Wexflow.Core
                     {
                         _stopCalled = false;
                         IsRunning = true;
-                        IsDisapproved = false;
+                        IsRejected = false;
                         var msg = string.Format("{0} Workflow started.", LogTag);
                         Logger.Info(msg);
                         Logs.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) + "  INFO - " + msg);
@@ -960,15 +960,15 @@ namespace Wexflow.Core
                             bool error = true;
                             RunSequentialTasks(Tasks, ref success, ref warning, ref error);
 
-                            if (IsDisapproved)
+                            if (IsRejected)
                             {
                                 LogWorkflowFinished();
-                                Database.IncrementDisapprovedCount();
-                                entry.Status = Db.Status.Disapproved;
+                                Database.IncrementRejectedCount();
+                                entry.Status = Db.Status.Rejected;
                                 entry.StatusDate = DateTime.Now;
                                 entry.Logs = string.Join("\r\n", Logs);
                                 Database.UpdateEntry(entry.GetDbId(), entry);
-                                _historyEntry.Status = Db.Status.Disapproved;
+                                _historyEntry.Status = Db.Status.Rejected;
                             }
                             else
                             {
@@ -1053,19 +1053,19 @@ namespace Wexflow.Core
                                     Database.UpdateEntry(entry.GetDbId(), entry);
                                     _historyEntry.Status = Db.Status.Failed;
                                     break;
-                                case Status.Disapproved:
-                                    if (ExecutionGraph.OnDisapproved != null)
+                                case Status.Rejected:
+                                    if (ExecutionGraph.OnRejected != null)
                                     {
-                                        var disapprovedTasks = NodesToTasks(ExecutionGraph.OnDisapproved.Nodes);
-                                        RunTasks(ExecutionGraph.OnDisapproved.Nodes, disapprovedTasks, true);
+                                        var rejectedTasks = NodesToTasks(ExecutionGraph.OnRejected.Nodes);
+                                        RunTasks(ExecutionGraph.OnRejected.Nodes, rejectedTasks, true);
                                     }
                                     LogWorkflowFinished();
-                                    Database.IncrementDisapprovedCount();
-                                    entry.Status = Db.Status.Disapproved;
+                                    Database.IncrementRejectedCount();
+                                    entry.Status = Db.Status.Rejected;
                                     entry.StatusDate = DateTime.Now;
                                     entry.Logs = string.Join("\r\n", Logs);
                                     Database.UpdateEntry(entry.GetDbId(), entry);
-                                    _historyEntry.Status = Db.Status.Disapproved;
+                                    _historyEntry.Status = Db.Status.Rejected;
                                     break;
                             }
                         }
@@ -1098,7 +1098,7 @@ namespace Wexflow.Core
                         foreach (List<Entity> entities in EntitiesPerTask.Values) entities.Clear();
                         _thread = null;
                         IsRunning = false;
-                        IsDisapproved = false;
+                        IsRejected = false;
                         GC.Collect();
 
 
@@ -1218,9 +1218,9 @@ namespace Wexflow.Core
                 }
             }
 
-            if (IsDisapproved)
+            if (IsRejected)
             {
-                return Status.Disapproved;
+                return Status.Rejected;
             }
 
             if (success)
@@ -1242,7 +1242,7 @@ namespace Wexflow.Core
             foreach (var task in tasks)
             {
                 if (!task.IsEnabled) continue;
-                if (IsApproval && IsDisapproved) break;
+                if (IsApproval && IsRejected) break;
                 var status = task.Run();
                 Logs.AddRange(task.Logs);
                 success &= status.Status == Status.Success;
@@ -1285,7 +1285,7 @@ namespace Wexflow.Core
                     var task = GetTask(tasks, node.Id);
                     if (task != null)
                     {
-                        if (task.IsEnabled && ((!IsApproval || (IsApproval && !IsDisapproved)) || force))
+                        if (task.IsEnabled && ((!IsApproval || (IsApproval && !IsRejected)) || force))
                         {
                             var status = task.Run();
                             Logs.AddRange(task.Logs);
@@ -1319,7 +1319,7 @@ namespace Wexflow.Core
                                     var childTask = GetTask(tasks, childNode.Id);
                                     if (childTask != null)
                                     {
-                                        if (childTask.IsEnabled && ((!IsApproval || (IsApproval && !IsDisapproved)) || force))
+                                        if (childTask.IsEnabled && ((!IsApproval || (IsApproval && !IsRejected)) || force))
                                         {
                                             var childStatus = childTask.Run();
                                             Logs.AddRange(childTask.Logs);
@@ -1375,7 +1375,7 @@ namespace Wexflow.Core
 
             if (ifTask != null)
             {
-                if (ifTask.IsEnabled && (!IsApproval || (IsApproval && !IsDisapproved)))
+                if (ifTask.IsEnabled && (!IsApproval || (IsApproval && !IsRejected)))
                 {
                     var status = ifTask.Run();
                     Logs.AddRange(ifTask.Logs);
@@ -1435,7 +1435,7 @@ namespace Wexflow.Core
 
             if (whileTask != null)
             {
-                if (whileTask.IsEnabled && (!IsApproval || (IsApproval && !IsDisapproved)))
+                if (whileTask.IsEnabled && (!IsApproval || (IsApproval && !IsRejected)))
                 {
                     while (true)
                     {
@@ -1486,7 +1486,7 @@ namespace Wexflow.Core
 
             if (switchTask != null)
             {
-                if (switchTask.IsEnabled && (!IsApproval || (IsApproval && !IsDisapproved)))
+                if (switchTask.IsEnabled && (!IsApproval || (IsApproval && !IsRejected)))
                 {
                     var status = switchTask.Run();
                     Logs.AddRange(switchTask.Logs);
@@ -1564,7 +1564,7 @@ namespace Wexflow.Core
                     _historyEntry.StatusDate = DateTime.Now;
                     _historyEntry.Logs = logs;
                     Database.InsertHistoryEntry(_historyEntry);
-                    IsDisapproved = false;
+                    IsRejected = false;
                     Logs.Clear();
                     Jobs.Remove(InstanceId);
 
@@ -1663,18 +1663,18 @@ namespace Wexflow.Core
                 var dir = Path.Combine(ApprovalFolder, Id.ToString(), task.Id.ToString());
                 Directory.CreateDirectory(dir);
                 File.WriteAllText(Path.Combine(dir, "task.approved"), "Task " + task.Id + " of the workflow " + Id + " approved.");
-                IsDisapproved = false;
+                IsRejected = false;
             }
         }
 
         /// <summary>
-        /// Disapproves the current workflow.
+        /// Rejects the current workflow.
         /// </summary>
-        public void Disapprove()
+        public void Reject()
         {
             if (IsApproval)
             {
-                IsDisapproved = true;
+                IsRejected = true;
             }
         }
 

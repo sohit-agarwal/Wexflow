@@ -72,7 +72,7 @@ namespace Wexflow.Core.SQLite
                     + StatusCount.ColumnName_WarningCount + ", "
                     + StatusCount.ColumnName_DisabledCount + ", "
                     + StatusCount.ColumnName_StoppedCount + ", "
-                    + StatusCount.ColumnName_DisapprovedCount + ") VALUES("
+                    + StatusCount.ColumnName_RejectedCount + ") VALUES("
                     + statusCount.PendingCount + ", "
                     + statusCount.RunningCount + ", "
                     + statusCount.DoneCount + ", "
@@ -80,7 +80,7 @@ namespace Wexflow.Core.SQLite
                     + statusCount.WarningCount + ", "
                     + statusCount.DisabledCount + ", "
                     + statusCount.StoppedCount + ", "
-                    + statusCount.DisapprovedCount + ");"
+                    + statusCount.RejectedCount + ");"
                     , conn))
                 {
                     command.ExecuteNonQuery();
@@ -995,7 +995,7 @@ namespace Wexflow.Core.SQLite
                     + StatusCount.ColumnName_WarningCount + ", "
                     + StatusCount.ColumnName_DisabledCount + ", "
                     + StatusCount.ColumnName_StoppedCount + ", "
-                    + StatusCount.ColumnName_DisapprovedCount
+                    + StatusCount.ColumnName_RejectedCount
                     + " FROM " + Core.Db.StatusCount.DocumentName
                     + ";", conn))
                 {
@@ -1014,7 +1014,7 @@ namespace Wexflow.Core.SQLite
                                 WarningCount = (int)(long)reader[StatusCount.ColumnName_WarningCount],
                                 DisabledCount = (int)(long)reader[StatusCount.ColumnName_DisabledCount],
                                 StoppedCount = (int)(long)reader[StatusCount.ColumnName_StoppedCount],
-                                DisapprovedCount = (int)(long)reader[StatusCount.ColumnName_DisapprovedCount]
+                                RejectedCount = (int)(long)reader[StatusCount.ColumnName_RejectedCount]
                             };
 
                             return statusCount;
@@ -1320,20 +1320,20 @@ namespace Wexflow.Core.SQLite
             }
         }
 
-        public override void IncrementDisapprovedCount()
+        public override void IncrementRejectedCount()
         {
             using (var conn = new SQLiteConnection(_connectionString))
             {
                 conn.Open();
 
-                using (var command1 = new SQLiteCommand("SELECT " + StatusCount.ColumnName_DisapprovedCount + " FROM " + Core.Db.StatusCount.DocumentName + ";", conn))
+                using (var command1 = new SQLiteCommand("SELECT " + StatusCount.ColumnName_RejectedCount + " FROM " + Core.Db.StatusCount.DocumentName + ";", conn))
                 {
 
                     var count = (long)command1.ExecuteScalar();
 
                     count++;
 
-                    using (var command2 = new SQLiteCommand("UPDATE " + Core.Db.StatusCount.DocumentName + " SET " + StatusCount.ColumnName_DisapprovedCount + " = " + count + ";", conn))
+                    using (var command2 = new SQLiteCommand("UPDATE " + Core.Db.StatusCount.DocumentName + " SET " + StatusCount.ColumnName_RejectedCount + " = " + count + ";", conn))
                     {
 
                         command2.ExecuteNonQuery();

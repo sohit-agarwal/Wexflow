@@ -1,4 +1,5 @@
 ﻿using LiteDB;
+using LiteDB.Engine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace Wexflow.Core.LiteDB
         public Db(string connectionString) : base(connectionString)
         {
             _db = new LiteDatabase(ConnectionString);
+            _db.Rebuild(new RebuildOptions { Collation = new Collation("/None") }); // /IgnoreCase, en-US/None, en-US/IgnoreCase, en-US/IgnoreCase,IgnoreSymbols
         }
 
         public override void Init()
@@ -143,13 +145,13 @@ namespace Wexflow.Core.LiteDB
             }
         }
 
-        public override void IncrementDisapprovedCount()
+        public override void IncrementRejectedCount()
         {
             var col = _db.GetCollection<StatusCount>(Core.Db.StatusCount.DocumentName);
             var statusCount = col.FindAll().FirstOrDefault();
             if (statusCount != null)
             {
-                statusCount.DisapprovedCount++;
+                statusCount.RejectedCount++;
                 col.Update(statusCount);
             }
         }
@@ -243,7 +245,7 @@ namespace Wexflow.Core.LiteDB
                 statusCount.FailedCount = 0;
                 statusCount.WarningCount = 0;
                 statusCount.DisabledCount = 0;
-                statusCount.DisapprovedCount = 0;
+                statusCount.RejectedCount = 0;
                 col.Update(statusCount);
             }
         }

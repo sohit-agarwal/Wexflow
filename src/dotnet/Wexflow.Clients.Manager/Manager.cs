@@ -356,7 +356,7 @@ namespace Wexflow.Clients.Manager
                     if (!workflow.IsEnabled)
                     {
                         textBoxInfo.Text = @"This workflow is disabled.";
-                        buttonStart.Enabled = buttonPause.Enabled = buttonResume.Enabled = buttonStop.Enabled = buttonApprove.Enabled = buttonDisapprove.Enabled = false;
+                        buttonStart.Enabled = buttonPause.Enabled = buttonResume.Enabled = buttonStop.Enabled = buttonApprove.Enabled = buttonReject.Enabled = false;
                     }
                     else
                     {
@@ -367,7 +367,7 @@ namespace Wexflow.Clients.Manager
                         buttonPause.Enabled = workflow.IsRunning && !workflow.IsPaused;
                         buttonResume.Enabled = workflow.IsPaused;
                         buttonApprove.Enabled = workflow.IsApproval && workflow.IsWaitingForApproval;
-                        buttonDisapprove.Enabled = workflow.IsApproval && workflow.IsWaitingForApproval;
+                        buttonReject.Enabled = workflow.IsApproval && workflow.IsWaitingForApproval;
 
                         if (workflow.IsApproval && workflow.IsWaitingForApproval && !workflow.IsPaused)
                         {
@@ -398,7 +398,7 @@ namespace Wexflow.Clients.Manager
                     buttonPause.Enabled = false;
                     buttonResume.Enabled = false;
                     buttonApprove.Enabled = false;
-                    buttonDisapprove.Enabled = false;
+                    buttonReject.Enabled = false;
 
                     if (_timer != null)
                     {
@@ -561,14 +561,14 @@ namespace Wexflow.Clients.Manager
             }
         }
 
-        private void ButtonDisapprove_Click(object sender, EventArgs e)
+        private void ButtonReject_Click(object sender, EventArgs e)
         {
             var wfId = GetSlectedWorkflowId();
             if (wfId > -1)
             {
                 if (_jobs.ContainsKey(wfId))
                 {
-                    _wexflowServiceClient.DisapproveWorkflow(wfId, _jobs[wfId], Login.Username, Login.Password);
+                    _wexflowServiceClient.RejectWorkflow(wfId, _jobs[wfId], Login.Username, Login.Password);
                     UpdateButtons(wfId, true);
                 }
                 else
