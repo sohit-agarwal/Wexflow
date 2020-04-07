@@ -1,4 +1,5 @@
 ﻿using LiteDB;
+using LiteDB.Engine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace Wexflow.Core.LiteDB
         public Db(string connectionString) : base(connectionString)
         {
             _db = new LiteDatabase(ConnectionString);
+            _db.Rebuild(new RebuildOptions { Collation = new Collation("/None") }); // /IgnoreCase, en-US/None, en-US/IgnoreCase, en-US/IgnoreCase,IgnoreSymbols
         }
 
         public override void Init()
