@@ -127,8 +127,6 @@ namespace Wexflow.Server
             Get(Root + "search", args =>
             {
 
-                //string username = Request.Query["u"].ToString();
-                //string password = Request.Query["p"].ToString();
                 var auth = GetAuth(Request);
                 var username = auth.Username;
                 var password = auth.Password;
