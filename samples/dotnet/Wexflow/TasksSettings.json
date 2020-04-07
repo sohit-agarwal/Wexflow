@@ -100,7 +100,7 @@
 	"Wmi": [ "query" ],
 	"Workflow": [ "wexflowWebServiceUri", "action", "id" ],
 	"XmlToCsv": [ "selectFiles" ],
-	"Xslt": [ "selectFiles", "xsltPath", "version", "removeWexflowProcessingNodes" ],
+	"Xslt": [ "selectFiles", "xsltPath", "outputFormat", "removeWexflowProcessingNodes" ],
 	"YamlToJson": [ "selectFiles" ],
 	"Zip": [ "selectFiles", "zipFileName" ]
 }

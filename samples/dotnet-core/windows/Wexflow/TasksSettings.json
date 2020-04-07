@@ -66,7 +66,7 @@
 	"VimeoListUploads": [ "token" ],
 	"Wait": [ "duration" ],
 	"XmlToCsv": [ "selectFiles" ],
-	"Xslt": [ "selectFiles", "xsltPath", "version", "removeWexflowProcessingNodes" ],
+	"Xslt": [ "selectFiles", "xsltPath", "outputFormat", "removeWexflowProcessingNodes" ],
 	"YouTube" : ["selectFiles", "user", "applicationName", "clientSecrets"],
 	"YouTubeListUploads": ["user", "applicationName", "clientSecrets"],
 	"YouTubeSearch": ["user", "applicationName", "apiKey", "keyword", "maxResults"],
