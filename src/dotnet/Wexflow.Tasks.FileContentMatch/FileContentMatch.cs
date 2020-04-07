@@ -27,7 +27,6 @@ namespace Wexflow.Tasks.FileContentMatch
             Info("Checking file...");
 
             var success = true;
-            var filesCount = 0;
             try
             {
 
@@ -45,7 +44,6 @@ namespace Wexflow.Tasks.FileContentMatch
                     {
                         InfoFormat("No content matching the pattern {0} was found in the file {1}.", Pattern, file);
                     }
-                    filesCount++;
                 }
 
                 // Checking folders
@@ -74,7 +72,6 @@ namespace Wexflow.Tasks.FileContentMatch
                         {
                             InfoFormat("No content matching the pattern {0} was found in the file {1}.", Pattern, file);
                         }
-                        filesCount++;
                     }
                 }
 
