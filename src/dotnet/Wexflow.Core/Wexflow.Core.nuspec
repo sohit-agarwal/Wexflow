@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Wexflow</id>
-    <version>5.3.0</version>
+    <version>5.4.0</version>
     <title>Wexflow</title>
     <authors>Akram El Assas</authors>
     <owners>akram.elassas</owners>
@@ -29,7 +29,6 @@
     <file src=".\bin\Debug\Wexflow.Core.SQLite.dll" target="lib\net461\Wexflow.Core.SQLite.dll"/>
 
     <file src="..\..\..\src\dotnet-core\Wexflow.Core\bin\Debug\netcoreapp3.1\Wexflow.Core.dll" target="lib\netcoreapp3.1\Wexflow.Core.dll"/>
-    <!--<file src="..\..\..\src\dotnet-core\Wexflow.Core\bin\Debug\netcoreapp3.1\Wexflow.Core.xml" target="lib\netcoreapp3.1\Wexflow.Core.xml"/>-->
     <file src="..\..\..\src\dotnet-core\Wexflow.Core\bin\Debug\netcoreapp3.1\Wexflow.Core.Db.dll" target="lib\netcoreapp3.1\Wexflow.Core.Db.dll"/>
     <file src="..\..\..\src\dotnet-core\Wexflow.Core\bin\Debug\netcoreapp3.1\Wexflow.Core.LiteDB.dll" target="lib\netcoreapp3.1\Wexflow.Core.LiteDB.dll"/>
     <file src="..\..\..\src\dotnet-core\Wexflow.Core\bin\Debug\netcoreapp3.1\Wexflow.Core.MongoDB.dll" target="lib\netcoreapp3.1\Wexflow.Core.MongoDB.dll"/>
