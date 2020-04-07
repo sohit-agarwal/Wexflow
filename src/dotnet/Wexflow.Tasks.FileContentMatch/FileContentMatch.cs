@@ -29,7 +29,6 @@ namespace Wexflow.Tasks.FileContentMatch
             var success = true;
             try
             {
-
                 // Checking files
                 foreach (var file in FilesToCheck)
                 {
