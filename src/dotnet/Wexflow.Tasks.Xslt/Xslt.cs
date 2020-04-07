@@ -6,6 +6,7 @@ using System.IO;
 using System.Xml.Xsl;
 using Saxon.Api;
 using System.Threading;
+using System.Xml;
 
 namespace Wexflow.Tasks.Xslt
 {
@@ -15,14 +16,15 @@ namespace Wexflow.Tasks.Xslt
         public string Version { get; private set; }
         public bool RemoveWexflowProcessingNodes { get; private set; }
         public string Extension { get; private set; }
+        public string OutputFormat { get; private set; }
 
         public Xslt(XElement xe, Workflow wf)
             : base(xe, wf)
         {
             XsltPath = GetSetting("xsltPath");
-            Version = GetSetting("version");
             RemoveWexflowProcessingNodes = bool.Parse(GetSetting("removeWexflowProcessingNodes", "true"));
             Extension = GetSetting("extension", "xml");
+            OutputFormat = GetSetting("OutputFormat", "{0}_{1:yyyy-MM-dd-HH-mm-ss-fff}.{2}");
         }
 
         public override TaskStatus Run()
@@ -35,10 +37,17 @@ namespace Wexflow.Tasks.Xslt
             foreach (FileInf file in SelectFiles())
             {
                 var destPath = Path.Combine(Workflow.WorkflowTempFolder,
-                    string.Format("{0}_{1:yyyy-MM-dd-HH-mm-ss-fff}.{2}", Path.GetFileNameWithoutExtension(file.FileName), DateTime.Now, Extension));
+                    string.Format(OutputFormat, Path.GetFileNameWithoutExtension(file.FileName), DateTime.Now, Extension));
 
                 try
                 {
+                    XmlDocument doc = new XmlDocument();
+                    doc.Load(file.Path);
+                    XmlDeclaration declaration = doc.ChildNodes
+                                    .OfType<XmlDeclaration>()
+                                    .FirstOrDefault();
+                    Version = declaration.Version;
+
                     switch (Version)
                     {
                         case "1.0":
