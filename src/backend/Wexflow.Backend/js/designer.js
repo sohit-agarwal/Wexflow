@@ -173,6 +173,23 @@
             }
             tasks = {};
 
+            if (json || xml) {
+                document.getElementById("code-container").style.display = "none";
+                json = false;
+                xml = false;
+            }
+
+            leftcard.style.display = "block";
+            propwrap.style.display = "block";
+            wfclose.style.display = "block";
+            wfpropwrap.style.display = "block";
+            canvas.style.display = "block";
+            code.style.display = "none";
+
+            document.getElementById("leftswitch").style.backgroundColor = "#F0F0F0";
+            document.getElementById("middleswitch").style.backgroundColor = "transparent";
+            document.getElementById("rightswitch").style.backgroundColor = "transparent";
+            diag = true;
         };
 
         function addEventListenerMulti(type, listener, capture, selector) {
@@ -1077,7 +1094,7 @@
 
             this.style.backgroundColor = "#F0F0F0";
             document.getElementById("middleswitch").style.backgroundColor = "transparent";
-            document.getElementById("rightswitch").style.backgroundColor = "transparent"
+            document.getElementById("rightswitch").style.backgroundColor = "transparent";
 
         };
 
