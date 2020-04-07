@@ -612,7 +612,6 @@
                     let arrowblock = arrowblocks[i];
                     arrowblock.style.left = (arrowblock.offsetLeft + leftcardwidth) + "px";
                 }
-
             } else {
 
                 document.getElementById("leftcard").style.left = "0";
@@ -631,6 +630,8 @@
                     arrowblock.style.left = (arrowblock.offsetLeft - leftcardwidth) + "px";
                 }
 
+                document.getElementById("searchtasks").focus();
+                document.getElementById("searchtasks").select();
             }
         };
 
@@ -1647,6 +1648,8 @@
                     modal.open();
 
                     let searchworkflows = document.getElementById("searchworkflowsinput");
+                    searchworkflows.focus();
+                    searchworkflows.select();
                     searchworkflows.onkeyup = function (event) {
                         event.preventDefault();
                         if (event.keyCode === 13) { // Enter
